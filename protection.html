@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AvatarAgency — Your Likeness. Protected.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:#C9A84C; --gold-light:#E4C97A; --gold-dim:#7a6530;
+    --border:rgba(201,168,76,0.15); --border-hover:rgba(201,168,76,0.4);
+    --text-primary:#f5f0e8; --text-muted:#5a5448; --text-mid:#9a9080;
+    --font-logo:'Montserrat',sans-serif; --font-display:'Cormorant Garamond',serif; --font-body:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:#000;color:var(--text-primary);font-family:var(--font-body);overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+  .cm{position:fixed;width:18px;height:18px;z-index:5;opacity:0.25;pointer-events:none}
+  .cm.tl{top:18px;left:18px;border-top:1px solid var(--gold);border-left:1px solid var(--gold)}
+  .cm.tr{top:18px;right:18px;border-top:1px solid var(--gold);border-right:1px solid var(--gold)}
+  .cm.bl{bottom:18px;left:18px;border-bottom:1px solid var(--gold);border-left:1px solid var(--gold)}
+  .cm.br{bottom:18px;right:18px;border-bottom:1px solid var(--gold);border-right:1px solid var(--gold)}
+  .header{position:fixed;top:0;left:0;right:0;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;z-index:100;background:rgba(0,0,0,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.07)}
+  .logo{font-family:var(--font-logo);font-size:19px;font-weight:700;text-decoration:none}
+  .logo .c{color:#fff}.logo .l{color:var(--gold)}
+  .back-link{font-family:var(--font-body);font-size:11px;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color 0.2s}
+  .back-link:hover{color:var(--gold)}
+
+  /* HERO */
+  .hero{position:relative;z-index:1;padding:130px 24px 70px;text-align:center}
+  .eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--font-body);font-size:10px;font-weight:300;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+  .eyebrow::before,.eyebrow::after{content:'';display:block;width:24px;height:1px;background:var(--gold-dim)}
+  .hero h1{font-family:var(--font-logo);font-size:clamp(32px,6vw,58px);font-weight:800;line-height:1.08;letter-spacing:-0.02em;color:#fff;margin-bottom:18px}
+  .hero h1 span{color:var(--gold)}
+  .hero-sub{font-family:var(--font-display);font-size:clamp(16px,2.2vw,22px);font-weight:300;font-style:italic;color:rgba(245,240,232,0.5);max-width:640px;margin:0 auto;line-height:1.6}
+
+  /* SECTIONS */
+  section{position:relative;z-index:1;padding:70px 24px}
+  .inner{max-width:860px;margin:0 auto}
+  .sec-eye{display:flex;align-items:center;gap:12px;font-family:var(--font-body);font-size:10px;font-weight:300;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .sec-eye::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold-dim),transparent)}
+  .sec-h{font-family:var(--font-logo);font-size:clamp(22px,3vw,34px);font-weight:700;letter-spacing:-0.01em;color:#fff;margin-bottom:16px}
+  .sec-h span{color:var(--gold)}
+  .sec-body{font-family:var(--font-body);font-size:14px;font-weight:300;color:var(--text-mid);line-height:1.85;margin-bottom:32px}
+
+  /* PROMISE CARDS */
+  .promise-grid{display:flex;flex-direction:column;gap:2px;margin-top:40px}
+  .promise-card{display:grid;grid-template-columns:56px 1fr;border:1px solid var(--border);background:rgba(255,255,255,0.01);transition:border-color 0.3s,background 0.3s;position:relative;overflow:hidden}
+  .promise-card.alt{background:rgba(201,168,76,0.02)}
+  .promise-card:hover{border-color:var(--border-hover);background:rgba(201,168,76,0.04)}
+  .promise-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--gold);transition:height 0.4s ease}
+  .promise-card:hover::before{height:100%}
+  .pnum{display:flex;align-items:flex-start;justify-content:center;padding:28px 0 28px 16px;font-family:var(--font-logo);font-size:11px;font-weight:700;color:rgba(201,168,76,0.4);letter-spacing:0.08em;flex-shrink:0}
+  .pbody{padding:28px 28px 28px 14px}
+  .ptitle{font-family:var(--font-logo);font-size:15px;font-weight:700;color:#fff;margin-bottom:8px;letter-spacing:0.02em}
+  .pdesc{font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--text-mid);line-height:1.75}
+
+  /* OWNERSHIP BLOCKS */
+  .ownership-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:40px}
+  .own-block{padding:28px;border:1px solid var(--border);background:rgba(255,255,255,0.01);transition:border-color 0.3s}
+  .own-block:hover{border-color:var(--border-hover)}
+  .own-icon{font-size:22px;margin-bottom:14px}
+  .own-title{font-family:var(--font-logo);font-size:13px;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;color:#fff;margin-bottom:10px}
+  .own-desc{font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--text-mid);line-height:1.75}
+
+  /* COMMITMENT BOX */
+  .commitment-box{border:1px solid var(--gold);background:rgba(201,168,76,0.04);padding:40px;margin-top:60px;text-align:center}
+  .commitment-label{font-family:var(--font-body);font-size:10px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .commitment-text{font-family:var(--font-display);font-size:clamp(18px,2.5vw,26px);font-weight:300;font-style:italic;color:var(--text-primary);line-height:1.6;margin-bottom:20px}
+  .commitment-sub{font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--text-mid);line-height:1.75}
+
+  /* CTA */
+  .cta-sec{text-align:center;background:linear-gradient(180deg,#000 0%,#080600 100%);border-top:1px solid rgba(201,168,76,0.08);padding:70px 24px}
+  .btn-gold{display:inline-flex;align-items:center;gap:10px;padding:17px 38px;background:var(--gold);color:#000;font-family:var(--font-logo);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.25s,transform 0.25s}
+  .btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+  .btn-outline{display:inline-flex;align-items:center;gap:10px;padding:17px 38px;background:transparent;color:var(--gold);border:1px solid var(--gold);font-family:var(--font-logo);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:all 0.25s;margin-top:14px}
+  .btn-outline:hover{background:rgba(201,168,76,0.08);transform:translateY(-2px)}
+  .orn{display:flex;align-items:center;justify-content:center;gap:12px;margin:28px auto}
+  .orn::before,.orn::after{content:'';width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim))}
+  .orn::after{background:linear-gradient(90deg,var(--gold-dim),transparent)}
+  .diamond{width:6px;height:6px;background:var(--gold);transform:rotate(45deg)}
+  .or-div{display:flex;align-items:center;gap:14px;max-width:380px;width:100%;margin:20px auto}
+  .or-div::before{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.25))}
+  .or-div::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(201,168,76,0.25),transparent)}
+  .or-text{font-family:var(--font-body);font-size:11px;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted)}
+
+  /* REVEAL */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  @media(max-width:680px){
+    .ownership-grid{grid-template-columns:1fr}
+    .promise-card{grid-template-columns:1fr}
+    .pnum{padding:18px 18px 0}
+    .pbody{padding:14px 18px 18px}
+    .header{padding:14px 20px}
+    .commitment-box{padding:28px 20px}
+  }
+
+  /* ── NAV ── */
+  .nav-menu { display:flex; align-items:center; gap:4px; }
+  .nav-link { font-family:var(--font-body); font-size:11px; font-weight:300; letter-spacing:0.12em; text-transform:uppercase; color:var(--text-muted); text-decoration:none; padding:6px 11px; border:1px solid transparent; transition:all 0.2s ease; white-space:nowrap; }
+  .nav-link:hover { color:var(--gold); border-color:rgba(201,168,76,0.2); }
+  .nav-link.active { color:var(--gold); border-color:rgba(201,168,76,0.3); background:rgba(201,168,76,0.05); }
+  .nav-hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; background:none; border:none; }
+  .nav-hamburger span { display:block; width:22px; height:1.5px; background:var(--text-muted); transition:all 0.3s; }
+  .nav-mobile { display:none; position:fixed; top:56px; left:0; right:0; background:rgba(0,0,0,0.97); backdrop-filter:blur(16px); border-bottom:1px solid rgba(201,168,76,0.1); flex-direction:column; z-index:99; padding:12px 0; }
+  .nav-mobile.open { display:flex; }
+  .nav-mobile .nav-link { padding:12px 28px; border:none; border-bottom:1px solid rgba(255,255,255,0.04); font-size:12px; }
+  .nav-mobile .nav-link:last-child { border-bottom:none; }
+  @media(max-width:700px){ .nav-menu { display:none; } .nav-hamburger { display:flex; } }
+
+</style>
+</head>
+<body>
+
+<div class="cm tl"></div><div class="cm tr"></div>
+<div class="cm bl"></div><div class="cm br"></div>
+
+<header class="header">
+  <a href="index.html" class="logo"><span class="c">Avatar</span><span class="l">Agency</span></a>
+  <nav class="nav-menu">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="real-estate.html" class="nav-link">Real Estate</a>
+    <a href="business.html" class="nav-link">Business</a>
+    <a href="protection.html" class="nav-link active">Protection</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </nav>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav class="nav-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="real-estate.html" class="nav-link">Real Estate</a>
+    <a href="business.html" class="nav-link">Business</a>
+    <a href="protection.html" class="nav-link active">Protection</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="eyebrow">Your Likeness. Your Identity. Your Rules.</div>
+  <h1>We protect your likeness<br><span>because it belongs to you.</span></h1>
+  <p class="hero-sub">Because it does. Your digital clone, your voice, your face — are your biometric assets. Here is exactly how AvatarAgency protects them.</p>
+</div>
+
+<!-- INTRO -->
+<section style="padding-top:0;">
+<div class="inner">
+  <div class="sec-eye reveal">Why This Matters</div>
+  <h2 class="sec-h reveal">Your digital clone is one of the most <span>personal assets you own.</span></h2>
+  <p class="sec-body reveal">When you work with AvatarAgency, you are trusting us with something deeply personal — your face, your voice, and your likeness. We take that trust seriously. At a time when AI technology is advancing faster than most people can track, we believe every person has the right to know exactly how their digital identity is being used, stored, and protected. This page outlines the commitments AvatarAgency makes to every person we work with — not buried in a contract, but stated clearly and plainly for anyone to read.</p>
+</div>
+</section>
+
+<!-- THE 5 PROMISES -->
+<section style="background:#040404;border-top:1px solid rgba(201,168,76,0.07);border-bottom:1px solid rgba(201,168,76,0.07);padding:70px 24px;">
+<div class="inner">
+  <div class="sec-eye reveal">Our Commitments to You</div>
+  <h2 class="sec-h reveal">Five promises we make to <span>every person we work with.</span></h2>
+
+  <div class="promise-grid">
+
+    <div class="promise-card reveal">
+      <div class="pnum">01</div>
+      <div class="pbody">
+        <div class="ptitle">We will never use your likeness without your written approval.</div>
+        <div class="pdesc">AvatarAgency will not use, deploy, publish, license, sell, share, or distribute your Digital Clone or Digital Voice for any purpose without prior written authorization from you for each specific piece of content. Every video produced using your digital clone must be reviewed and approved by you before it is published or distributed anywhere. Written authorization — including email — is required for each piece of content.</div>
+      </div>
+    </div>
+
+    <div class="promise-card alt reveal">
+      <div class="pnum">02</div>
+      <div class="pbody">
+        <div class="ptitle">We will never use your face or voice in our own marketing.</div>
+        <div class="pdesc">AvatarAgency will not use your likeness or voice in our own demo reels, portfolio materials, case studies, advertising, or promotional content of any kind without your separate written consent. Your identity is yours — not a marketing asset for us. If we ever want to feature your work as an example of what we do, we will ask you directly and only proceed with your explicit permission.</div>
+      </div>
+    </div>
+
+    <div class="promise-card reveal">
+      <div class="pnum">03</div>
+      <div class="pbody">
+        <div class="ptitle">We will never train AI models using your likeness or voice.</div>
+        <div class="pdesc">Your voice recordings, video footage, and image data will never be used to train, fine-tune, or improve any AI model — including AvatarAgency's own tools or any third-party AI platform. Your biometric data exists solely for the purpose of building and operating your personal digital clone, and for no other purpose. This is a firm commitment, not a default setting that can be changed.</div>
+      </div>
+    </div>
+
+    <div class="promise-card alt reveal">
+      <div class="pnum">04</div>
+      <div class="pbody">
+        <div class="ptitle">We will never share, transfer, or sublicense your digital clone.</div>
+        <div class="pdesc">Your Digital Clone and Digital Voice will never be transferred, shared, sublicensed, or made available to any third party for any reason. The data, models, and files that make up your digital clone are treated as confidential personal property. AvatarAgency operates as the sole custodian of your clone assets while they are in our care — and only while they are in our care.</div>
+      </div>
+    </div>
+
+    <div class="promise-card reveal">
+      <div class="pnum">05</div>
+      <div class="pbody">
+        <div class="ptitle">Your original session files belong to you — completely and permanently.</div>
+        <div class="pdesc">All video footage, audio recordings, and still photography captured during your AI Cloning Session are your sole and exclusive property upon receipt of final payment. This includes all raw video files, audio recordings of your voice, still photography and image captures, and any derivative files generated from the session. AvatarAgency will transfer all original session files to you upon project completion and will not retain copies beyond 30 days after final delivery unless otherwise agreed in writing.</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- OWNERSHIP -->
+<section>
+<div class="inner">
+  <div class="sec-eye reveal">Ownership & Rights</div>
+  <h2 class="sec-h reveal">You own everything <span>we create for you.</span></h2>
+  <p class="sec-body reveal">Upon receipt of final payment, you receive full ownership and unlimited usage rights to everything AvatarAgency produces for you. Here is exactly what that means in practice.</p>
+
+  <div class="ownership-grid">
+
+    <div class="own-block reveal">
+      <div class="own-icon">🎬</div>
+      <div class="own-title">Your Video Content</div>
+      <div class="own-desc">Every video produced for you — social media shorts, brand videos, course modules, spokesperson videos, UGC ads — belongs to you outright upon final payment. You may use these materials for any lawful marketing, educational, or promotional purpose without restriction, forever.</div>
+    </div>
+
+    <div class="own-block reveal">
+      <div class="own-icon">🎙️</div>
+      <div class="own-title">Your Voice Model</div>
+      <div class="own-desc">The AI voice model built from your recordings is your personal biometric asset. It exists solely to produce content on your behalf, under your direction, with your approval. It will never be used for any other purpose without your explicit written consent.</div>
+    </div>
+
+    <div class="own-block reveal">
+      <div class="own-icon">🪞</div>
+      <div class="own-title">Your Digital Clone</div>
+      <div class="own-desc">Your AI-generated likeness — your digital clone — is your personal biometric property. AvatarAgency acts as custodian while producing your content and nothing more. Every use of your digital clone requires your specific approval in advance.</div>
+    </div>
+
+    <div class="own-block reveal">
+      <div class="own-icon">📁</div>
+      <div class="own-title">Your Session Files</div>
+      <div class="own-desc">All raw footage, audio recordings, and image files from your cloning session are transferred to you upon project completion. AvatarAgency does not retain copies of your session files beyond 30 days after final delivery. Your source materials are yours to keep and control.</div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- COMMITMENT BOX -->
+<section style="padding-top:0;">
+<div class="inner">
+  <div class="commitment-box reveal">
+    <div class="commitment-label">The AvatarAgency Standard</div>
+    <p class="commitment-text">"Your face. Your voice. Your identity. We build with it, we protect it, and we hand it back to you — completely and permanently yours."</p>
+    <p class="commitment-sub">These commitments are not marketing language. They are contractual obligations included in every AvatarAgency Service Agreement, enforceable under the laws of the State of California. Every client receives a fully executed copy of their agreement via DocuSign before any production begins.</p>
+  </div>
+</div>
+</section>
+
+<!-- CTA -->
+<div class="cta-sec">
+  <div class="inner" style="max-width:860px;">
+    <div class="sec-eye" style="justify-content:center"><span>Ready to Get Started?</span></div>
+    <h2 class="sec-h" style="text-align:center">Build your digital presence<br><span>with confidence.</span></h2>
+    <p style="font-family:var(--font-display);font-style:italic;font-size:clamp(15px,2vw,19px);font-weight:300;color:rgba(245,240,232,0.5);line-height:1.7;margin:16px 0 0;text-align:center">Complete the 60-second survey and instantly receive your free $250 Cloning Session coupon.</p>
+    <div class="orn"><div class="diamond"></div></div>
+    <div style="display:flex;flex-direction:column;align-items:center">
+      <a href="https://docs.google.com/forms/d/1j2yGuJDcohUXC0mYg0Aw_DGdtnAGc6tU-rbMZa72dH4" class="btn-gold" target="_blank">Take the 60-Second Survey →</a>
+      <p style="font-family:var(--font-body);font-size:11px;font-weight:300;color:var(--text-muted);margin-top:12px;letter-spacing:0.04em">Free cloning session · <span style="color:var(--gold)">$250 value</span> · Limited spots available</p>
+      <div class="or-div"><span class="or-text">or</span></div>
+      <a href="https://calendly.com/michaelrivera007/free-consultation-meeting" class="btn-outline" target="_blank">Book a Free Strategy Call with Michael →</a>
+      <p style="font-family:var(--font-body);font-size:11px;font-weight:300;color:var(--text-muted);margin-top:12px;letter-spacing:0.04em">30-minute consultation · No obligation · <span style="color:var(--gold)">Limited spots available</span></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+
+<script>
+  document.querySelector('.nav-hamburger').addEventListener('click', function() {
+    document.querySelector('.nav-mobile').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
