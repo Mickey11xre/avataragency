@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AvatarAgency — For Authors & Publishers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500;600;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold:#C9A84C; --gold-light:#E4C97A; --gold-dim:#7a6530;
+    --border:rgba(201,168,76,0.15); --border-hover:rgba(201,168,76,0.4);
+    --text-primary:#f5f0e8; --text-muted:#5a5448; --text-mid:#9a9080;
+    --font-logo:'Montserrat',sans-serif; --font-display:'Cormorant Garamond',serif; --font-body:'Inter',sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:#000;color:var(--text-primary);font-family:var(--font-body);overflow-x:hidden}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0}
+  .cm{position:fixed;width:18px;height:18px;z-index:5;opacity:0.25;pointer-events:none}
+  .cm.tl{top:18px;left:18px;border-top:1px solid var(--gold);border-left:1px solid var(--gold)}
+  .cm.tr{top:18px;right:18px;border-top:1px solid var(--gold);border-right:1px solid var(--gold)}
+  .cm.bl{bottom:18px;left:18px;border-bottom:1px solid var(--gold);border-left:1px solid var(--gold)}
+  .cm.br{bottom:18px;right:18px;border-bottom:1px solid var(--gold);border-right:1px solid var(--gold)}
+
+  .header{position:fixed;top:0;left:0;right:0;padding:16px 40px;display:flex;align-items:center;justify-content:space-between;z-index:100;background:rgba(0,0,0,0.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.07)}
+  .logo{font-family:var(--font-logo);font-size:19px;font-weight:700;text-decoration:none}
+  .logo .c{color:#fff}.logo .l{color:var(--gold)}
+  .nav-menu{display:flex;align-items:center;gap:4px}
+  .nav-link{font-family:var(--font-body);font-size:11px;font-weight:300;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;padding:6px 11px;border:1px solid transparent;transition:all 0.2s ease;white-space:nowrap}
+  .nav-link:hover{color:var(--gold);border-color:rgba(201,168,76,0.2)}
+  .nav-link.active{color:var(--gold);border-color:rgba(201,168,76,0.3);background:rgba(201,168,76,0.05)}
+  .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none}
+  .nav-hamburger span{display:block;width:22px;height:1.5px;background:var(--text-muted);transition:all 0.3s}
+  .nav-mobile{display:none;position:fixed;top:56px;left:0;right:0;background:rgba(0,0,0,0.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(201,168,76,0.1);flex-direction:column;z-index:99;padding:12px 0}
+  .nav-mobile.open{display:flex}
+  .nav-mobile .nav-link{padding:12px 28px;border:none;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px}
+  .nav-mobile .nav-link:last-child{border-bottom:none}
+  @media(max-width:700px){.nav-menu{display:none}.nav-hamburger{display:flex}}
+
+  .hero{position:relative;z-index:1;padding:140px 24px 60px;text-align:center;max-width:860px;margin:0 auto}
+  .eyebrow{display:inline-flex;align-items:center;gap:12px;font-family:var(--font-body);font-size:10px;font-weight:300;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:24px}
+  .eyebrow::before,.eyebrow::after{content:'';display:block;width:24px;height:1px;background:var(--gold-dim)}
+  .hero h1{font-family:var(--font-logo);font-size:clamp(30px,5.5vw,54px);font-weight:700;line-height:1.1;letter-spacing:-0.02em;color:#fff;margin-bottom:20px}
+  .hero h1 span{color:var(--gold)}
+  .hero-sub{font-family:var(--font-display);font-size:clamp(16px,2.2vw,22px);font-weight:300;font-style:italic;color:rgba(245,240,232,0.55);max-width:700px;margin:0 auto;line-height:1.75}
+
+  section{position:relative;z-index:1;padding:60px 24px}
+  .inner{max-width:860px;margin:0 auto}
+  .sec-eye{display:flex;align-items:center;gap:12px;font-family:var(--font-body);font-size:10px;font-weight:300;letter-spacing:0.28em;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .sec-eye::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold-dim),transparent)}
+  .sec-h{font-family:var(--font-logo);font-size:clamp(22px,3vw,36px);font-weight:700;letter-spacing:-0.01em;color:#fff;margin-bottom:18px;line-height:1.15}
+  .sec-h span{color:var(--gold)}
+  .sec-body{font-family:var(--font-body);font-size:14px;font-weight:300;color:var(--text-mid);line-height:1.9;margin-bottom:20px}
+
+  /* SERVICE CARDS */
+  .service-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:44px}
+  .service-card{border:1px solid var(--border);padding:36px 30px;position:relative;overflow:hidden;transition:border-color 0.3s,background 0.3s}
+  .service-card:hover{border-color:var(--border-hover);background:rgba(201,168,76,0.02)}
+  .service-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--gold);transition:height 0.4s ease}
+  .service-card:hover::before{height:100%}
+  .service-card.full{grid-column:1/-1}
+  .service-num{font-family:var(--font-logo);font-size:10px;font-weight:700;color:rgba(201,168,76,0.3);letter-spacing:0.12em;margin-bottom:16px}
+  .service-title{font-family:var(--font-logo);font-size:16px;font-weight:700;color:#fff;margin-bottom:12px}
+  .service-title span{color:var(--gold)}
+  .service-desc{font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--text-mid);line-height:1.8}
+
+  /* QUOTE */
+  .quote-block{border-left:2px solid var(--gold);padding:28px 36px;margin:50px 0;background:rgba(201,168,76,0.02)}
+  .quote-text{font-family:var(--font-display);font-size:clamp(19px,2.4vw,27px);font-weight:300;font-style:italic;color:var(--text-primary);line-height:1.65;margin-bottom:14px}
+  .quote-attr{font-family:var(--font-body);font-size:11px;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold-dim)}
+
+  /* DARK BAND */
+  .dark-section{background:#040404;border-top:1px solid rgba(201,168,76,0.07);border-bottom:1px solid rgba(201,168,76,0.07);padding:70px 24px;position:relative;z-index:1}
+
+  /* STATEMENT */
+  .statement{border:1px solid var(--gold);background:rgba(201,168,76,0.03);padding:48px 40px;text-align:center;margin-top:56px}
+  .statement-label{font-family:var(--font-body);font-size:10px;font-weight:500;letter-spacing:0.22em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .statement-text{font-family:var(--font-display);font-size:clamp(18px,2.5vw,26px);font-weight:300;font-style:italic;color:var(--text-primary);line-height:1.65;margin-bottom:16px}
+  .statement-sub{font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--text-mid);line-height:1.8}
+
+  /* WHO THIS IS FOR — 3 col */
+  .three-col{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:44px}
+  .col-card{border:1px solid var(--border);padding:32px 28px;position:relative;overflow:hidden;transition:border-color 0.3s,background 0.3s}
+  .col-card:hover{border-color:var(--border-hover);background:rgba(201,168,76,0.02)}
+  .col-card::before{content:'';position:absolute;top:0;left:0;width:3px;height:0;background:var(--gold);transition:height 0.4s ease}
+  .col-card:hover::before{height:100%}
+  .col-icon{font-size:22px;margin-bottom:14px}
+  .col-title{font-family:var(--font-logo);font-size:14px;font-weight:700;color:#fff;margin-bottom:10px;letter-spacing:0.02em}
+  .col-title span{color:var(--gold)}
+  .col-desc{font-family:var(--font-body);font-size:13px;font-weight:300;color:var(--text-mid);line-height:1.8}
+
+  /* CTA */
+  .cta-sec{text-align:center;border-top:1px solid rgba(201,168,76,0.08);padding:70px 24px;position:relative;z-index:1}
+  .btn-gold{display:inline-flex;align-items:center;gap:10px;padding:17px 38px;background:var(--gold);color:#000;font-family:var(--font-logo);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:background 0.25s,transform 0.25s}
+  .btn-gold:hover{background:var(--gold-light);transform:translateY(-2px)}
+  .btn-outline{display:inline-flex;align-items:center;gap:10px;padding:17px 38px;background:transparent;color:var(--gold);border:1px solid var(--gold);font-family:var(--font-logo);font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;text-decoration:none;transition:all 0.25s;margin-top:14px}
+  .btn-outline:hover{background:rgba(201,168,76,0.08);transform:translateY(-2px)}
+  .orn{display:flex;align-items:center;justify-content:center;gap:12px;margin:28px auto}
+  .orn::before,.orn::after{content:'';width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--gold-dim))}
+  .orn::after{background:linear-gradient(90deg,var(--gold-dim),transparent)}
+  .diamond{width:6px;height:6px;background:var(--gold);transform:rotate(45deg)}
+  .or-div{display:flex;align-items:center;gap:14px;max-width:380px;width:100%;margin:20px auto}
+  .or-div::before{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,rgba(201,168,76,0.25))}
+  .or-div::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(201,168,76,0.25),transparent)}
+  .or-text{font-family:var(--font-body);font-size:11px;font-weight:300;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-muted)}
+
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity 0.7s ease,transform 0.7s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+
+  @media(max-width:700px){
+    .service-grid{grid-template-columns:1fr}
+    .service-card.full{grid-column:1}
+    .three-col{grid-template-columns:1fr}
+    .header{padding:14px 20px}
+    .statement{padding:32px 20px}
+    .quote-block{padding:20px 24px}
+  }
+</style>
+</head>
+<body>
+
+<div class="cm tl"></div><div class="cm tr"></div>
+<div class="cm bl"></div><div class="cm br"></div>
+
+<header class="header">
+  <a href="index.html" class="logo"><span class="c">Avatar</span><span class="l">Agency</span></a>
+  <nav class="nav-menu">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="real-estate.html" class="nav-link">Real Estate</a>
+    <a href="business.html" class="nav-link">Business</a>
+    <a href="authors.html" class="nav-link active">Authors</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </nav>
+  <button class="nav-hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  <nav class="nav-mobile">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="real-estate.html" class="nav-link">Real Estate</a>
+    <a href="business.html" class="nav-link">Business</a>
+    <a href="authors.html" class="nav-link active">Authors</a>
+    <a href="about.html" class="nav-link">About</a>
+    <a href="contact.html" class="nav-link">Contact</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<div style="position:relative;z-index:1;">
+  <div class="hero">
+    <div class="eyebrow">Authors & Publishers</div>
+    <h1>Your Book Was Never Meant<br><span>To Be Hidden.</span></h1>
+    <p class="hero-sub">Whether your book is already published, about to launch, or still just an idea in your head — AvatarAgency gives your story the world-class presence it was always meant to have.</p>
+  </div>
+</div>
+
+<!-- VIDEO EMBED -->
+<div style="position:relative;z-index:1;padding:0 24px 40px;">
+  <div style="max-width:700px;margin:0 auto;">
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border:1px solid rgba(201,168,76,0.15);border-radius:2px;">
+      <iframe
+        src="https://www.youtube.com/embed/vYrBq8tyLOE?rel=0&modestbranding=1"
+        title="AvatarAgency — For Authors & Publishers"
+        frameborder="0"
+        allow="accelerometer;clipboard-write;encrypted-media;gyroscope;picture-in-picture;web-share"
+        allowfullscreen
+        style="position:absolute;top:0;left:0;width:100%;height:100%;">
+      </iframe>
+    </div>
+    <div style="text-align:center;margin-top:28px;">
+      <a href="https://calendly.com/michaelrivera007/free-consultation-meeting" class="btn-outline" target="_blank">Book a Free Author Strategy Session →</a>
+      <p style="font-family:var(--font-body);font-size:11px;font-weight:300;color:var(--text-muted);margin-top:12px;letter-spacing:0.04em">30-minute consultation · No obligation · <span style="color:var(--gold)">Limited spots available</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- THE PROBLEM -->
+<section>
+<div class="inner">
+  <div class="sec-eye reveal">The Reality Every Author Faces</div>
+  <h2 class="sec-h reveal">A great book alone<br><span>is no longer enough.</span></h2>
+  <p class="sec-body reveal">Most authors either disappear after publishing, or never get the visibility their story deserves in the first place. You pour years of your life into a manuscript — and then it sits quietly on a shelf, buried among millions of other titles competing for the same readers.</p>
+  <p class="sec-body reveal">The authors who break through aren't necessarily the best writers. They're the ones who show up everywhere — who look like a movement, not just a title. And for publishers, the challenge is even greater: how do you give your entire roster of authors a world-class digital presence when that level of production was once reserved only for your biggest names?</p>
+
+  <div class="quote-block reveal">
+    <p class="quote-text">"Your book was meant to be more than words on a page. It was meant to be seen. Heard. Felt. We take it from the page to the screen — and build the entire world around it."</p>
+    <p class="quote-attr">— Michael Rivera, Founder &amp; CEO, AvatarAgency.ai</p>
+  </div>
+</div>
+</section>
+
+<!-- WHO THIS IS FOR -->
+<div class="dark-section">
+<div class="inner">
+  <div class="sec-eye reveal">Who This Is For</div>
+  <h2 class="sec-h reveal">Wherever you are in your journey,<br><span>we meet you there.</span></h2>
+  <p class="sec-body reveal">AvatarAgency works with authors and publishers at every stage — from the first idea to the global launch and beyond. It doesn't matter where you are in the process. What matters is where you want to go.</p>
+
+  <div class="three-col">
+
+    <div class="col-card reveal">
+      <div class="col-icon">✍️</div>
+      <div class="col-title">Already <span>Published</span></div>
+      <div class="col-desc">Your book is out — but it deserves more visibility than it's getting. We build the full digital presence around your existing work, reaching new audiences and giving your story the second wind it was meant to have.</div>
+    </div>
+
+    <div class="col-card reveal">
+      <div class="col-icon">🚀</div>
+      <div class="col-title">About to <span>Launch</span></div>
+      <div class="col-desc">Your book is coming. Now is the time to build anticipation, grow your audience, and arrive as a major presence — not just another new release. We build your launch campaign from the ground up before the first copy ships.</div>
+    </div>
+
+    <div class="col-card reveal">
+      <div class="col-icon">💡</div>
+      <div class="col-title">Still an <span>Idea</span></div>
+      <div class="col-desc">The book is in your head. We help you build the brand around it now — so by the time it's written, you already have an audience waiting. The smartest authors start building before they finish writing.</div>
+    </div>
+
+  </div>
+
+  <div class="statement reveal" style="margin-top:44px;">
+    <div class="statement-label">Publishers</div>
+    <p class="statement-text">"Imagine offering your entire roster of authors a world-class digital presence that was once reserved only for your biggest names — at a fraction of what it used to cost."</p>
+    <p class="statement-sub">AvatarAgency works directly with publishing houses to build scalable author marketing systems — giving every title on your roster cinematic-quality video content, digital author presences, and launch campaigns that compete with the biggest brands in publishing.</p>
+  </div>
+
+</div>
+</div>
+
+<!-- WHAT WE BUILD -->
+<section>
+<div class="inner">
+  <div class="sec-eye reveal">What We Build For You</div>
+  <h2 class="sec-h reveal">Everything an author needs.<br><span>Nothing left out.</span></h2>
+  <p class="sec-body reveal">This level of production used to require illustrators, production crews, web developers, a PR agency, and a marketing team — a budget most authors could never afford and most publishers only reserved for their top tier. AvatarAgency delivers all of it at a fraction of that cost, with a phased approach that grows with you.</p>
+
+  <div class="service-grid">
+
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-title">Cinematic <span>Book Trailers</span></div>
+      <div class="service-desc">We create cinematic-quality video trailers for your book — the kind that stop people mid-scroll and make readers feel your story before they've read a single page. Shot with AI, produced at Hollywood quality, delivered in days.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">02</div>
+      <div class="service-title">Chapter <span>Short Films</span></div>
+      <div class="service-desc">We take your story off the page and bring it to life on screen — chapter by chapter, scene by scene. Full cinematic short films featuring your characters, your settings, and your world. Your book becomes a movie experience.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">03</div>
+      <div class="service-title">Author <span>Websites</span></div>
+      <div class="service-desc">We build stunning author websites that reflect who you are, what your story stands for, and guide every visitor toward becoming a reader. Not just a page — a full digital home for your brand and your work.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <div class="service-title">Custom Illustrations<br><span>& Book Covers</span></div>
+      <div class="service-desc">Original custom illustrations and book covers in any style — from cinematic and photorealistic to hand-drawn ink to flowing watercolor. Multiple options. Your vision, fully realized.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">05</div>
+      <div class="service-title">AI Podcast <span>In Your Voice</span></div>
+      <div class="service-desc">An AI-generated podcast hosted by your digital clone — putting you in front of new audiences every week, in your own voice, without requiring you to record a single episode manually.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">06</div>
+      <div class="service-title">Social Content <span>That Converts</span></div>
+      <div class="service-desc">Social media content that stops the scroll — whether it's you as the author, your characters, or both showing up simultaneously. Weekly content that builds your audience and keeps your story in front of the right readers.</div>
+    </div>
+
+    <div class="service-card reveal">
+      <div class="service-num">07</div>
+      <div class="service-title">Press Kits <span>& Launch Campaigns</span></div>
+      <div class="service-desc">Professional press kits, speaking reels, media pitches, and full launch campaigns — the infrastructure that gets your book in front of journalists, event organizers, bookstores, and the audiences that matter most.</div>
+    </div>
+
+    <div class="service-card full reveal">
+      <div class="service-num">08</div>
+      <div class="service-title">Digital Clone or <span>Character Avatar — What Makes Us Truly Different</span></div>
+      <div class="service-desc">This is where AvatarAgency stands apart from everything else. We can clone you — the author — giving you a digital presence that creates content, hosts your podcast, and represents your brand 24/7. Or we can create a completely original AI avatar of one of your characters from the book itself — your protagonist, your villain, your hero — brought to life on screen. Imagine your character showing up on social media, in video content, in your launch campaign, speaking directly to your readers. The possibilities are endless — and nothing like it exists anywhere else.</div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- THE VISION -->
+<div class="dark-section">
+<div class="inner">
+  <div class="sec-eye reveal">The Vision</div>
+  <h2 class="sec-h reveal">From the page<br><span>to the screen.</span></h2>
+  <p class="sec-body reveal">We don't just create content. We create an entire world around your book. A world where your story is seen by the people it was meant to reach. Where your characters come to life beyond the page. Where your name becomes synonymous with the world you built.</p>
+  <p class="sec-body reveal">Whether you're a first-time author just getting started, an established writer ready to relaunch, or a publisher looking to elevate your entire catalog — AvatarAgency delivers the tools, the talent, and the technology to make it happen.</p>
+
+  <div class="quote-block reveal">
+    <p class="quote-text">"We turn stories into experiences. Your book was always meant to be more than a listing on Amazon. It was meant to move people. We make sure it does."</p>
+    <p class="quote-attr">— AvatarAgency.ai &nbsp;·&nbsp; Author & Publisher Services</p>
+  </div>
+</div>
+</div>
+
+<!-- CTA -->
+<div class="cta-sec">
+  <div class="inner" style="max-width:760px;">
+    <div class="sec-eye" style="justify-content:center;"><span>Your Story Deserves to Be Seen</span></div>
+    <h2 class="sec-h" style="text-align:center;">Ready to take your book<br><span>from the page to the screen?</span></h2>
+    <p style="font-family:var(--font-display);font-style:italic;font-size:clamp(15px,2vw,20px);font-weight:300;color:rgba(245,240,232,0.5);line-height:1.7;margin:16px 0 0;text-align:center;">Start with the 60-second survey and receive your complimentary $250 AI Cloning Session.</p>
+    <div class="orn"><div class="diamond"></div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;">
+      <a href="https://docs.google.com/forms/d/1j2yGuJDcohUXC0mYg0Aw_DGdtnAGc6tU-rbMZa72dH4" class="btn-gold" target="_blank">Take the 60-Second Survey →</a>
+      <p style="font-family:var(--font-body);font-size:11px;font-weight:300;color:var(--text-muted);margin-top:12px;letter-spacing:0.04em">Free cloning session · <span style="color:var(--gold)">$250 value</span> · Limited spots available</p>
+      <div class="or-div"><span class="or-text">or</span></div>
+      <a href="https://calendly.com/michaelrivera007/free-consultation-meeting" class="btn-outline" target="_blank">Book a Free Author Strategy Session →</a>
+      <p style="font-family:var(--font-body);font-size:11px;font-weight:300;color:var(--text-muted);margin-top:12px;letter-spacing:0.04em">30-minute consultation · No obligation · <span style="color:var(--gold)">Limited spots available</span></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  document.querySelector('.nav-hamburger').addEventListener('click', function() {
+    document.querySelector('.nav-mobile').classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>
