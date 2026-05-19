@@ -297,20 +297,6 @@
           </div>
 
           <div class="form-group">
-            <label class="form-label">I'm Interested In *</label>
-            <select class="form-select form-input" id="service" required>
-              <option value="" disabled selected>Select a service</option>
-              <option value="clone">AI Cloning Session — $250</option>
-              <option value="retainer">Monthly Content Retainer</option>
-              <option value="ugc">UGC-Style AI Ad Production</option>
-              <option value="course">Course & Training Video Production</option>
-              <option value="launch">The Avatar Launch Package — $500</option>
-              <option value="general">General Inquiry</option>
-              <option value="unsure">Not Sure Yet — Tell Me More</option>
-            </select>
-          </div>
-
-          <div class="form-group">
             <label class="form-label">Message</label>
             <textarea class="form-textarea" id="message" placeholder="Tell us about your business, your goals, and any questions you have..."></textarea>
           </div>
@@ -354,12 +340,11 @@
 
   // Form submit
   function submitForm() {
-    const fname   = document.getElementById('fname').value.trim();
-    const email   = document.getElementById('email').value.trim();
-    const type    = document.getElementById('type').value;
-    const service = document.getElementById('service').value;
+    const fname = document.getElementById('fname').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const type  = document.getElementById('type').value;
 
-    if (!fname || !email || !type || !service) {
+    if (!fname || !email || !type) {
       alert('Please fill in all required fields marked with *');
       return;
     }
@@ -373,21 +358,32 @@
     const message = document.getElementById('message').value.trim();
     const source  = document.getElementById('source').value;
 
-    const subject = encodeURIComponent('AvatarAgency Contact Form — ' + fname + ' ' + lname);
-    const body = encodeURIComponent(
-      'Name: ' + fname + ' ' + lname + '\n' +
-      'Email: ' + email + '\n' +
-      'Phone: ' + (phone || 'Not provided') + '\n' +
-      'Type: ' + type + '\n' +
-      'Service Interest: ' + service + '\n' +
-      'Source: ' + (source || 'Not provided') + '\n\n' +
-      'Message:\n' + (message || 'No message provided')
-    );
+    const formData = {
+      'First Name':            fname,
+      'Last Name':             lname || '—',
+      'Email':                 email,
+      'Phone':                 phone || 'Not provided',
+      'I Am A':                type,
+      'Message':               message || 'No message provided',
+      'How Did You Hear':      source || 'Not provided'
+    };
 
-    window.location.href = 'mailto:michael@avataragency.ai?subject=' + subject + '&body=' + body;
-
-    document.getElementById('contact-form').style.display = 'none';
-    document.getElementById('form-success').classList.add('show');
+    fetch('https://formspree.io/f/REPLACE_WITH_FORM_ID', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body:    JSON.stringify(formData)
+    })
+    .then(function(response) {
+      if (response.ok) {
+        document.getElementById('contact-form').style.display = 'none';
+        document.getElementById('form-success').classList.add('show');
+      } else {
+        alert('There was a problem sending your message. Please email us directly at michael@avataragency.ai');
+      }
+    })
+    .catch(function() {
+      alert('There was a problem sending your message. Please email us directly at michael@avataragency.ai');
+    });
   }
 
   // Scroll reveal — FIXED (was cut off in original file)
@@ -403,4 +399,4 @@
 </script>
 
 </body>
-</html>
+</html>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
