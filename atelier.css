@@ -1194,10 +1194,84 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
   display: grid;
   grid-template-columns: 1fr 240px;
   gap: 0 20px;
-  align-items: end;
+  align-items: start;                  /* top-align portrait with headline */
   max-width: 860px;                    /* keeps columns snug — not stretched across full viewport */
 }
 
 /* Reduce headline size within the split so lines don't wrap inside each <br> */
 .hero-split .hero-title {
-  font-size: clamp(3
+  font-size: clamp(38px, 5.2vw, 60px);
+}
+
+.hero-content {
+  padding-top: clamp(16px, 2.5vw, 32px);
+}
+
+/* Portrait column — top-aligned, no padding-bottom needed */
+.hero-portrait {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  pointer-events: none;
+}
+
+.hero-portrait-img {
+  width: 100%;                         /* fills the 240px column */
+  height: auto;                        /* natural aspect ratio — shows full body */
+  display: block;
+  filter: drop-shadow(0 24px 48px rgba(0,0,0,0.07));
+}
+
+/* Carousel sits full-width below the split */
+.hero-carousel-outer {
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+/* ── HERO SPLIT — RESPONSIVE ─────────────────────────────────── */
+@media (max-width: 760px) {
+  .hero-split {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+    gap: 0;
+  }
+  .hero-split .hero-title {
+    font-size: clamp(36px, 7vw, 56px);
+  }
+  /* Photo stacks above headline on tablet/mobile */
+  .hero-portrait {
+    order: -1;
+    padding-bottom: 0;
+    max-height: 300px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+  }
+  .hero-portrait-img {
+    max-height: 300px;
+    width: auto;
+  }
+  .hero-content {
+    padding-bottom: 0;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-portrait { max-height: 240px; }
+  .hero-portrait-img { max-height: 240px; }
+}
+
+/* ── RESPONSIVE NAV ─────────────────────────────────────────── */
+@media (max-width: 980px) {
+  :root { --header-h: 72px; }
+  .nav { display: none; }
+  .nav-hamburger { display: flex; }
+  .site-header-inner { padding: 0 24px; }
+  .logo-lockup { font-size: 22px; }
+}
+
+@media (max-width: 700px) {
+  .section { padding: 64px 22px; }
+  .hero { padding: 40px 22px 60px; }
+}
