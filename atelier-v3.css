@@ -331,14 +331,17 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
 @media (max-width: 800px) { .section-head { grid-template-columns: 1fr; gap: 28px; } }
 
 /* ── SCROLL REVEAL ───────────────────────────────────────────── */
+/* Default: visible — JS applies js-hidden once it confirms IntersectionObserver works */
 .reveal {
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+.reveal.js-hidden {
   opacity: 0;
   transform: translateY(22px);
-  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
 }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 @media (prefers-reduced-motion: reduce) {
-  .reveal { transition: none; opacity: 1; transform: none; }
+  .reveal, .reveal.js-hidden { transition: none; opacity: 1; transform: none; }
   html { scroll-behavior: auto; }
 }
 
@@ -1268,9 +1271,4 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
   }
 }
 
-/* ── RESPONSIVE NAV ─────────────────────────────────────────── */
-@media (max-width: 980px) {
-  :root { --header-h: 72px; }
-  .nav { display: none; }
-  .nav-hamburger { display: flex; }
-  .site-
+/* ── RESPONSIVE NAV ──────────────────────────────────────────�

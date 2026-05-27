@@ -23,31 +23,39 @@
 
   // ── Scroll reveal ──────────────────────────────────────────
   function initReveal() {
-    const els = document.querySelectorAll('.reveal');
+    var els = document.querySelectorAll('.reveal');
     if (!els.length) return;
 
-    // Fallback: reveal any element that hasn't animated after 600ms
-    setTimeout(function () {
-      els.forEach(function (el) {
-        if (!el.classList.contains('is-visible')) {
-          el.classList.add('is-visible');
-        }
-      });
-    }, 600);
-
     if (!('IntersectionObserver' in window)) {
+      // No IO support — just show everything immediately
       els.forEach(function (el) { el.classList.add('is-visible'); });
       return;
     }
-    const io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (entry, i) {
+
+    // JS is working: apply hidden state now so reveal animation plays
+    els.forEach(function (el) { el.classList.add('js-hidden'); });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
         if (!entry.isIntersecting) return;
-        const delay = Number(entry.target.dataset.delay) || (i * 40);
-        setTimeout(function () { entry.target.classList.add('is-visible'); }, delay);
+        var delay = Number(entry.target.dataset.delay) || 0;
+        setTimeout(function () {
+          entry.target.classList.remove('js-hidden');
+          entry.target.classList.add('is-visible');
+        }, delay);
         io.unobserve(entry.target);
       });
-    }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
+    }, { threshold: 0 });
+
     els.forEach(function (el) { io.observe(el); });
+
+    // Safety net: unhide anything still hidden after 1s
+    setTimeout(function () {
+      document.querySelectorAll('.reveal.js-hidden').forEach(function (el) {
+        el.classList.remove('js-hidden');
+        el.classList.add('is-visible');
+      });
+    }, 1000);
   }
 
   // ── Avatar carousel (drag + touch + momentum) ──────────────
@@ -125,11 +133,4 @@
     });
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', function () {
-      initActiveNav(); initNav(); initReveal(); initCarousel();
-    });
-  } else {
-    initActiveNav(); initNav(); initReveal(); initCarousel();
-  }
-})();
+  if (document.readyState 
