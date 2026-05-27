@@ -24,7 +24,18 @@
   // ── Scroll reveal ──────────────────────────────────────────
   function initReveal() {
     const els = document.querySelectorAll('.reveal');
-    if (!('IntersectionObserver' in window) || !els.length) {
+    if (!els.length) return;
+
+    // Fallback: reveal any element that hasn't animated after 600ms
+    setTimeout(function () {
+      els.forEach(function (el) {
+        if (!el.classList.contains('is-visible')) {
+          el.classList.add('is-visible');
+        }
+      });
+    }, 600);
+
+    if (!('IntersectionObserver' in window)) {
       els.forEach(function (el) { el.classList.add('is-visible'); });
       return;
     }
@@ -35,7 +46,7 @@
         setTimeout(function () { entry.target.classList.add('is-visible'); }, delay);
         io.unobserve(entry.target);
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px 0px 0px' });
     els.forEach(function (el) { io.observe(el); });
   }
 
