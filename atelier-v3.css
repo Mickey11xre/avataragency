@@ -1231,25 +1231,26 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
 /* ── HERO SPLIT — RESPONSIVE ─────────────────────────────────── */
 @media (max-width: 760px) {
   .hero-split {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 130px;  /* keep 2 columns: text left, portrait right */
     max-width: 100%;
-    gap: 0;
+    gap: 0 12px;
+    align-items: start;
   }
   .hero-split .hero-title {
-    font-size: clamp(36px, 7vw, 56px);
+    font-size: clamp(28px, 6.5vw, 44px);
   }
-  /* Photo stacks above headline on tablet/mobile */
   .hero-portrait {
-    order: -1;
+    order: 0;                           /* natural order — stays on the right */
     padding-bottom: 0;
-    max-height: 300px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    justify-content: flex-start;
+    max-height: none;
+    overflow: visible;
+    margin-bottom: 0;
+    justify-content: flex-end;
   }
   .hero-portrait-img {
-    max-height: 300px;
-    width: auto;
+    width: 100%;
+    height: auto;
+    max-height: none;
   }
   .hero-content {
     padding-bottom: 0;
@@ -1258,8 +1259,13 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
 }
 
 @media (max-width: 480px) {
-  .hero-portrait { max-height: 240px; }
-  .hero-portrait-img { max-height: 240px; }
+  .hero-split {
+    grid-template-columns: 1fr 110px;
+    gap: 0 10px;
+  }
+  .hero-split .hero-title {
+    font-size: clamp(26px, 6vw, 38px);
+  }
 }
 
 /* ── RESPONSIVE NAV ─────────────────────────────────────────── */
@@ -1267,11 +1273,4 @@ button { font: inherit; cursor: pointer; border: none; background: transparent; 
   :root { --header-h: 72px; }
   .nav { display: none; }
   .nav-hamburger { display: flex; }
-  .site-header-inner { padding: 0 24px; }
-  .logo-lockup { font-size: 22px; }
-}
-
-@media (max-width: 700px) {
-  .section { padding: 64px 22px; }
-  .hero { padding: 40px 22px 60px; }
-}
+  .site-
