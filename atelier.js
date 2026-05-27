@@ -110,7 +110,10 @@
 
     // Touch
     wrap.addEventListener('touchstart', function (e) { pointerDown(e.touches[0].clientX); }, { passive: true });
-    wrap.addEventListener('touchmove',  function (e) { pointerMove(e.touches[0].clientX); }, { passive: true });
+    wrap.addEventListener('touchmove',  function (e) {
+      if (isDown) e.preventDefault();
+      pointerMove(e.touches[0].clientX);
+    }, { passive: false });
     wrap.addEventListener('touchend',   pointerUp);
 
     // Mouse
@@ -129,8 +132,4 @@
     const current = document.body.getAttribute('data-page');
     if (!current) return;
     document.querySelectorAll('[data-nav]').forEach(function (a) {
-      if (a.getAttribute('data-nav') === current) a.classList.add('is-active');
-    });
-  }
-
-  if (document.readyState 
+      if (a.getAttribute('data-nav') === current) a.classList.add('is-
