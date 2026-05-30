@@ -17,6 +17,15 @@
 <style>
   /* ── Case Study page extras ──────────────────────────── */
 
+  /* Tighter vertical rhythm for case study */
+  .section {
+    padding-top: clamp(48px, 6vw, 80px);
+    padding-bottom: clamp(48px, 6vw, 80px);
+  }
+  .hero {
+    padding-bottom: clamp(36px, 5vw, 64px);
+  }
+
   .cs-private-bar {
     background: rgba(201,168,76,0.09);
     border-bottom: 1px solid rgba(201,168,76,0.22);
@@ -309,7 +318,7 @@
       <div class="reveal">
         <div class="eyebrow is-gold" style="margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:99px;background:var(--gold);"></span>Showcase Film</div>
         <h2 class="display-2">The Main Event.</h2>
-        <p class="body reveal" data-delay="80" style="margin-top:20px;max-width:580px;">
+        <p class="body reveal" data-delay="80" style="margin-top:20px;max-width:100%;">
           The hero video — a cinematic property showcase video was designed to command attention,
           drive listing inquiries, and position the agent as the premium choice in their market.
           This video can then be utilized for a website, YouTube, and other social media feeds.
