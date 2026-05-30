@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="atelier-v4.css">
+<link rel="stylesheet" href="atelier-v5.css">
 
 <style>
   /* ── Case Study page extras ──────────────────────────── */
@@ -36,11 +36,16 @@
     overflow: hidden;
     background: #000;
     box-shadow: 0 24px 72px rgba(0,0,0,0.18);
+    position: relative;
+    aspect-ratio: 16 / 9;
   }
-  .cs-main-video video {
+  .cs-main-video iframe {
+    position: absolute;
+    inset: 0;
     width: 100%;
+    height: 100%;
+    border: none;
     display: block;
-    border-radius: 14px;
   }
 
   /* Vertical reels grid */
@@ -62,11 +67,20 @@
     overflow: hidden;
     background: #0a0a0a;
     box-shadow: 0 12px 40px rgba(0,0,0,0.14);
+    position: relative;
   }
   .cs-reel-video video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
+  }
+  .cs-reel-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
     display: block;
   }
   .cs-reel-label {
@@ -254,7 +268,7 @@
       <span class="gold">Client Case Study</span>
     </h1>
 
-    <p class="pull-small reveal" data-delay="160" style="margin:32px auto 0;max-width:660px;">
+    <p class="lede reveal" data-delay="160" style="margin:32px auto 0;max-width:660px;">
       Everything you see here began with one session and a phone camera. We captured the
       client's likeness and voice through our AI cloning process. He simply emailed us some
       photos and videos from his iPhone of areas he wanted to include in his video — nothing more. Our production team
@@ -303,11 +317,11 @@
       </div>
     </div>
 
-    <div class="reveal cs-main-video" data-delay="120">
-      <video controls preload="metadata" poster="">
-        <source src="CASE_STUDY/Paul_Small_Marvista_Compressed_5-29-26.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+    <div class="reveal video-frame" data-delay="120">
+      <iframe src="https://www.youtube.com/embed/YUXsAgnlTJM"
+        title="Mar Vista Property Showcase — AvatarAgency" frameborder="0"
+        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
     </div>
 
   </div>
@@ -371,27 +385,30 @@
 
       <div class="cs-reel-wrap">
         <div class="cs-reel-video">
-          <video controls preload="metadata">
-            <source src="CASE_STUDY/MAR_VISTA_VERTIAL_1_SUBMAGIC.mp4" type="video/mp4">
-          </video>
+          <iframe src="https://www.youtube.com/embed/bv03TlLrbi0"
+            title="Mar Vista Social Reel 1 — AvatarAgency" frameborder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
         </div>
         <div class="cs-reel-label">Reel No. 1</div>
       </div>
 
       <div class="cs-reel-wrap">
         <div class="cs-reel-video">
-          <video controls preload="metadata">
-            <source src="CASE_STUDY/MAR_VISTA_VERTIAL_2_SUBMAGIC.mp4" type="video/mp4">
-          </video>
+          <iframe src="https://www.youtube.com/embed/p1kgKK_waM0"
+            title="Mar Vista Social Reel 2 — AvatarAgency" frameborder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
         </div>
         <div class="cs-reel-label">Reel No. 2</div>
       </div>
 
       <div class="cs-reel-wrap">
         <div class="cs-reel-video">
-          <video controls preload="metadata">
-            <source src="CASE_STUDY/MAR_VISTA_VERTIAL_3_SUBMAGIC.mp4" type="video/mp4">
-          </video>
+          <iframe src="https://www.youtube.com/embed/wWViM5i__00"
+            title="Mar Vista Social Reel 3 — AvatarAgency" frameborder="0"
+            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen></iframe>
         </div>
         <div class="cs-reel-label">Reel No. 3</div>
       </div>
@@ -516,20 +533,4 @@
       </p>
     </div>
 
-    <div class="or-divider reveal" data-delay="280"><span class="or-text">or</span></div>
-
-    <div class="reveal" data-delay="320">
-      <a href="https://docs.google.com/forms/d/1j2yGuJDcohUXC0mYg0Aw_DGdtnAGc6tU-rbMZa72dH4" target="_blank" rel="noopener" class="btn btn-outline-light">
-        Claim Your Free $250 Cloning Session
-        <svg class="glyph-arrow arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
-      </a>
-      <p class="cta-meta" style="margin-top:16px;">
-        Complete the 60-second survey · <span class="gold">$250 value</span> · Free cloning session
-      </p>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<!-- ── FOOTER ──────────────────────────────────────
+    <div class="or-divider reveal" data-delay="280"><span class="or-text">or</sp
