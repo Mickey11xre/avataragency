@@ -42,7 +42,7 @@
   "foundingDate": "2024",
   "founder": {"@type": "Person","name": "Michael Rivera","jobTitle": "Founder","url": "https://www.linkedin.com/in/michaelrayrivera/"},
   "areaServed": {"@type": "Country","name": "United States"},
-  "address": {"@type": "PostalAddress","addressLocality": "Woodland Hills","addressRegion": "CA","addressCountry": "US"},
+  "address": {"@type": "PostalAddress","addressLocality": "Los Angeles","addressRegion": "CA","addressCountry": "US"},
   "contactPoint": {"@type": "ContactPoint","telephone": "+1-310-980-9378","contactType": "customer service","email": "michael@avataragency.ai"},
   "sameAs": ["https://www.instagram.com/avataragencyai/","https://www.facebook.com/profile.php?id=61590037792432","https://x.com/AvatarAgencyai","https://www.linkedin.com/in/michaelrayrivera/","https://www.youtube.com/@AvatarAgencyAI","https://www.tiktok.com/@avataragencyai"]
 }
@@ -71,6 +71,31 @@
   .faq-a strong { color: var(--ink); font-weight: 500; }
   @media (max-width: 640px) { .faq-q { font-size: 15px; } .faq-a { font-size: 14px; } }
 </style>
+
+<!-- Structured Data: FAQPage -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How does AI digital cloning work?",
+      "acceptedAnswer": {"@type": "Answer", "text": "AvatarAgency captures your likeness and voice in a single session, then uses that clone to produce professional video content across every platform — without you showing up again. We use the latest AI video and voice technologies to generate cinematic footage, sync your cloned voice, and deliver finished videos ready to post."}
+    },
+    {
+      "@type": "Question",
+      "name": "How much content can one cloning session produce?",
+      "acceptedAnswer": {"@type": "Answer", "text": "One session with AvatarAgency can produce all of your future professional video content — including a hero showcase film and all of your long form video needs and multiple short-form social reels. Content is formatted for Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube, and X. Assets are delivered within a week for each specific video project. Even faster for projects on urgent deadlines."}
+    },
+    {
+      "@type": "Question",
+      "name": "Who is AvatarAgency?",
+      "acceptedAnswer": {"@type": "Answer", "text": "AvatarAgency is a full-service AI marketing studio founded by Michael Rivera, based in Los Angeles, California. We specialize in digital cloning and cinematic AI video production for real estate agents, business owners, and authors. Consultations are available via a free 30-minute strategy call."}
+    }
+  ]
+}
+</script>
 </head>
 <body data-page="home">
 
