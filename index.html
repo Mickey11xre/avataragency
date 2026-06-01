@@ -61,6 +61,16 @@
   "url": "https://avataragency.ai"
 }
 </script>
+
+<style>
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+  .faq-item { padding: 28px 0; border-bottom: 1px solid rgba(10,10,10,0.07); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-family: var(--f-body); font-size: 17px; font-weight: 600; color: var(--ink); margin: 0 0 10px; line-height: 1.45; }
+  .faq-a { font-family: var(--f-body); font-size: 15px; color: var(--text-mid); line-height: 1.75; margin: 0; max-width: 720px; }
+  .faq-a strong { color: var(--ink); font-weight: 500; }
+  @media (max-width: 640px) { .faq-q { font-size: 15px; } .faq-a { font-size: 14px; } }
+</style>
 </head>
 <body data-page="home">
 
@@ -205,6 +215,33 @@
   </div>
 </section>
 </main>
+
+
+<!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
+<section class="section" data-screen-label="FAQ" style="background:var(--cream-2);">
+  <div class="inner-narrow">
+    <div class="section-head" style="grid-template-columns:1fr;margin-bottom:48px;">
+      <div class="reveal">
+        <div class="eyebrow is-gold" style="margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:99px;background:var(--gold);"></span>Common Questions</div>
+        <h2 class="display-2">Answers you need<br><span class="mute">before you decide.</span></h2>
+      </div>
+    </div>
+    <div class="faq-list reveal" data-delay="80">
+      <div class="faq-item">
+        <h3 class="faq-q">How does AI digital cloning work?</h3>
+        <p class="faq-a"><strong>AvatarAgency captures your likeness and voice in a single session, then uses that clone to produce professional video content across every platform — without you showing up again.</strong> We use Seedance 2.0, Kling AI, ElevenLabs, and HeyGen to generate cinematic footage, sync your cloned voice, and deliver finished videos ready to post.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">How much content can one cloning session produce?</h3>
+        <p class="faq-a"><strong>One session with AvatarAgency can produce weeks of professional video content — including a hero showcase film and multiple short-form social reels.</strong> Content is formatted for Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube, and X. Assets are delivered within a week.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">Who is AvatarAgency?</h3>
+        <p class="faq-a"><strong>AvatarAgency is a full-service AI marketing studio founded by Michael Rivera, based in Woodland Hills, California.</strong> We specialize in digital cloning and cinematic AI video production for real estate agents, business owners, and authors. Consultations are available via a free 30-minute strategy call.</p>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- ── POWERED BY ────────────────────────────────────────────── -->
 <section class="powered-by">
