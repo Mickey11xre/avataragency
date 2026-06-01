@@ -34,42 +34,238 @@
 <!-- Structured Data: Organization -->
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "AvatarAgency",
-  "url": "https://avataragency.ai",
-  "description": "A full-service AI marketing studio specializing in digital cloning and cinematic AI video production for real estate agents, businesses, and authors.",
-  "foundingDate": "2024",
-  "founder": {"@type": "Person","name": "Michael Rivera","jobTitle": "Founder","url": "https://www.linkedin.com/in/michaelrayrivera/"},
-  "areaServed": {"@type": "Country","name": "United States"},
-  "address": {"@type": "PostalAddress","addressLocality": "Los Angeles","addressRegion": "CA","addressCountry": "US"},
-  "contactPoint": {"@type": "ContactPoint","telephone": "+1-310-980-9378","contactType": "customer service","email": "michael@avataragency.ai"},
-  "sameAs": ["https://www.instagram.com/avataragencyai/","https://www.facebook.com/profile.php?id=61590037792432","https://x.com/AvatarAgencyai","https://www.linkedin.com/in/michaelrayrivera/","https://www.youtube.com/@AvatarAgencyAI","https://www.tiktok.com/@avataragencyai"]
-}
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "AvatarAgency",
+    "url": "https://avataragency.ai",
+    "logo": "https://avataragency.ai/assets/avatar-agency-logo.png",
+    "description": "A full-service AI marketing studio specializing in digital cloning, cinematic AI video production, and content automation for real estate agents, business owners, and authors.",
+    "foundingDate": "2024",
+    "founder": {
+      "@type": "Person",
+      "name": "Michael Rivera",
+      "jobTitle": "Founder",
+      "url": "https://www.linkedin.com/in/michaelrayrivera/"
+    },
+    "areaServed": {"@type": "Country", "name": "United States"},
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Los Angeles",
+      "addressRegion": "CA",
+      "addressCountry": "US"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+1-310-980-9378",
+      "contactType": "customer service",
+      "email": "michael@avataragency.ai"
+    },
+    "sameAs": [
+      "https://www.instagram.com/avataragencyai/",
+      "https://www.facebook.com/profile.php?id=61590037792432",
+      "https://x.com/AvatarAgencyai",
+      "https://www.linkedin.com/in/michaelrayrivera/",
+      "https://www.youtube.com/@AvatarAgencyAI",
+      "https://www.tiktok.com/@avataragencyai",
+      "https://www.threads.com/@avataragencyai"
+    ]
+  }
 </script>
 
 <!-- Structured Data: Service -->
 <script type="application/ld+json">
 {
-  "@context": "https://schema.org",
-  "@type": "Service",
-  "name": "AI Digital Cloning & Video Production",
-  "provider": {"@type": "Organization","name": "AvatarAgency","url": "https://avataragency.ai"},
-  "description": "One AI cloning session produces weeks of professional video content for Facebook, Instagram, TikTok, LinkedIn, YouTube, and X. No camera crew, no studio, no recurring production cost.",
-  "serviceType": "AI Video Production & Digital Cloning",
-  "areaServed": {"@type": "Country","name": "United States"},
-  "url": "https://avataragency.ai"
-}
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "AI Digital Cloning & Video Production",
+    "provider": {"@type": "Organization", "name": "AvatarAgency", "url": "https://avataragency.ai"},
+    "description": "One AI cloning session produces weeks of professional video content for Facebook, Instagram, TikTok, LinkedIn, YouTube, and X. No camera crew, no studio, no recurring production cost.",
+    "serviceType": "AI Video Production & Digital Cloning",
+    "areaServed": {"@type": "Country", "name": "United States"},
+    "url": "https://avataragency.ai",
+    "offers": {
+      "@type": "Offer",
+      "description": "Complimentary $250 cloning session unlocked via 60-second survey",
+      "url": "https://docs.google.com/forms/d/1j2yGuJDcohUXC0mYg0Aw_DGdtnAGc6tU-rbMZa72dH4"
+    }
+  }
 </script>
 
 <style>
   .faq-list { display: flex; flex-direction: column; gap: 0; }
-  .faq-item { padding: 28px 0; border-bottom: 1px solid rgba(10,10,10,0.07); }
+  .faq-item {
+    padding: 28px 0;
+    border-bottom: 1px solid rgba(10,10,10,0.07);
+  }
   .faq-item:last-child { border-bottom: none; }
-  .faq-q { font-family: var(--f-body); font-size: 17px; font-weight: 600; color: var(--ink); margin: 0 0 10px; line-height: 1.45; }
-  .faq-a { font-family: var(--f-body); font-size: 15px; color: var(--text-mid); line-height: 1.75; margin: 0; max-width: 720px; }
-  .faq-a strong { color: var(--ink); font-weight: 500; }
-  @media (max-width: 640px) { .faq-q { font-size: 15px; } .faq-a { font-size: 14px; } }
+  .faq-q {
+    font-family: var(--f-body);
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
+    margin: 0 0 10px;
+    line-height: 1.45;
+  }
+  .faq-a {
+    font-family: var(--f-body);
+    font-size: 15px;
+    color: var(--text-mid);
+    line-height: 1.75;
+    margin: 0;
+    max-width: 720px;
+  }
+  .faq-a strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  @media (max-width: 640px) {
+    .faq-q { font-size: 15px; }
+    .faq-a { font-size: 14px; }
+  }
+
+  /* ── Client Login Button ───────────────────────────── */
+  .client-login-btn {
+    font-family: var(--f-body);
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: transparent;
+    border: 1px solid rgba(201,168,76,0.45);
+    border-radius: 5px;
+    padding: 7px 15px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    white-space: nowrap;
+    margin-right: 8px;
+  }
+  .client-login-btn:hover {
+    border-color: var(--gold);
+    background: rgba(201,168,76,0.07);
+  }
+  @media (max-width: 768px) { .client-login-btn { display: none; } }
+
+  /* ── Client Login Modal ────────────────────────────── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,10,0.72);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+  }
+  .modal-overlay.is-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+  .modal-card {
+    background: #FBFAF6;
+    border-radius: 16px;
+    padding: 48px 44px 40px;
+    width: calc(100% - 40px);
+    max-width: 400px;
+    position: relative;
+    transform: translateY(14px);
+    transition: transform 0.22s ease;
+    box-shadow: 0 32px 80px rgba(0,0,0,0.28);
+  }
+  .modal-overlay.is-open .modal-card { transform: translateY(0); }
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    background: rgba(10,10,10,0.06);
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+    color: #4A4640;
+    line-height: 30px;
+    text-align: center;
+    padding: 0;
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: rgba(10,10,10,0.12); }
+  .modal-logo {
+    font-family: var(--f-body);
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.012em;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .modal-logo-gold { color: var(--gold); }
+  .modal-tagline {
+    font-family: var(--f-body);
+    font-size: 13.5px;
+    color: var(--text-mid);
+    margin: 0 0 28px;
+  }
+  .modal-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 14px;
+  }
+  .modal-field label {
+    font-family: var(--f-body);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-mid);
+  }
+  .modal-field input {
+    font-family: var(--f-body);
+    font-size: 15px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid rgba(10,10,10,0.12);
+    border-radius: 8px;
+    padding: 11px 14px;
+    outline: none;
+    transition: border-color 0.18s;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .modal-field input:focus { border-color: var(--gold); }
+  .modal-submit {
+    width: 100%;
+    margin-top: 10px;
+    font-family: var(--f-body);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--ink);
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+    transition: background 0.18s;
+  }
+  .modal-submit:hover { background: #222; }
+  .modal-forgot {
+    display: block;
+    text-align: center;
+    margin-top: 14px;
+    font-family: var(--f-body);
+    font-size: 12.5px;
+    color: var(--text-mute);
+    text-decoration: none;
+    transition: color 0.15s;
+  }
+  .modal-forgot:hover { color: var(--gold); }
 </style>
 
 <!-- Structured Data: FAQPage -->
@@ -81,17 +277,26 @@
     {
       "@type": "Question",
       "name": "How does AI digital cloning work?",
-      "acceptedAnswer": {"@type": "Answer", "text": "AvatarAgency captures your likeness and voice in a single session, then uses that clone to produce professional video content across every platform — without you showing up again. We use the latest AI video and voice technologies to generate cinematic footage, sync your cloned voice, and deliver finished videos ready to post."}
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AvatarAgency captures your likeness and voice in a single session, then uses that clone to produce professional video content across every platform — without you showing up again. We use the latest AI video and voice technologies to generate cinematic footage, sync your cloned voice, and deliver finished videos ready to post."
+      }
     },
     {
       "@type": "Question",
       "name": "How much content can one cloning session produce?",
-      "acceptedAnswer": {"@type": "Answer", "text": "One session with AvatarAgency can produce all of your future professional video content — including a hero showcase film and all of your long form video needs and multiple short-form social reels. Content is formatted for Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube, and X. Assets are delivered within a week for each specific video project. Even faster for projects on urgent deadlines."}
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "One session with AvatarAgency can produce all of your future professional video content — including a hero showcase film and all of your long form video needs and multiple short-form social reels. Content is formatted for Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube, and X. Assets are delivered within a week for each specific video project. Even faster for projects on urgent deadlines."
+      }
     },
     {
       "@type": "Question",
       "name": "Who is AvatarAgency?",
-      "acceptedAnswer": {"@type": "Answer", "text": "AvatarAgency is a full-service AI marketing studio founded by Michael Rivera, based in Los Angeles, California. We specialize in digital cloning and cinematic AI video production for real estate agents, business owners, and authors. Consultations are available via a free 30-minute strategy call."}
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AvatarAgency is a full-service AI marketing studio founded by Michael Rivera, based in Los Angeles, California. We specialize in digital cloning and cinematic AI video production for real estate agents, business owners, and authors. Consultations are available via a free 30-minute strategy call."
+      }
     }
   ]
 }
@@ -111,9 +316,11 @@
       <a href="about.html" class="nav-link" data-nav="about">About</a>
       <a href="contact.html" class="nav-link" data-nav="contact">Contact</a>
     </nav>
+    <button class="client-login-btn" onclick="document.getElementById('clientLoginModal').classList.add('is-open')" aria-label="Client Login">Client Login</button>
     <button class="nav-hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="nav-mobile">
+
     <a href="AvatarAgency Redesign.html" class="nav-link" data-nav="home">Home</a>
     <a href="real-estate.html" class="nav-link" data-nav="real-estate">Real Estate</a>
     <a href="business.html" class="nav-link" data-nav="business">Business</a>
@@ -122,6 +329,25 @@
     <a href="contact.html" class="nav-link" data-nav="contact">Contact</a>
   </nav>
 </header>
+
+<!-- ── CLIENT LOGIN MODAL ───────────────────────────────────── -->
+<div class="modal-overlay" id="clientLoginModal" onclick="if(event.target===this)this.classList.remove('is-open')">
+  <div class="modal-card">
+    <button class="modal-close" onclick="document.getElementById('clientLoginModal').classList.remove('is-open')" aria-label="Close">&#215;</button>
+    <div class="modal-logo"><span>Avatar</span><span class="modal-logo-gold">Agency</span></div>
+    <p class="modal-tagline">Client Portal &nbsp;·&nbsp; Sign in to view your project</p>
+    <div class="modal-field">
+      <label for="client-email">Email Address</label>
+      <input type="email" id="client-email" placeholder="you@example.com" autocomplete="email">
+    </div>
+    <div class="modal-field">
+      <label for="client-password">Password</label>
+      <input type="password" id="client-password" placeholder="••••••••" autocomplete="current-password">
+    </div>
+    <button class="modal-submit" onclick="return false;">Sign In</button>
+    <a href="#" class="modal-forgot" onclick="return false;">Forgot your access? &nbsp;Contact us →</a>
+  </div>
+</div>
 
 <!-- ── HERO ─────────────────────────────────────────────────── -->
 <main class="page-top">
@@ -242,28 +468,34 @@
 </main>
 
 
-<!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
+<!-- ── FAQ ──────────────────────────────────────────────────────────── -->
 <section class="section" data-screen-label="FAQ" style="background:var(--cream-2);">
   <div class="inner-narrow">
+
     <div class="section-head" style="grid-template-columns:1fr;margin-bottom:48px;">
       <div class="reveal">
         <div class="eyebrow is-gold" style="margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:99px;background:var(--gold);"></span>Common Questions</div>
         <h2 class="display-2">Answers you need<br><span class="mute">before you decide.</span></h2>
       </div>
     </div>
+
     <div class="faq-list reveal" data-delay="80">
+
       <div class="faq-item">
         <h3 class="faq-q">How does AI digital cloning work?</h3>
         <p class="faq-a"><strong>AvatarAgency captures your likeness and voice in a single session, then uses that clone to produce professional video content across every platform — without you showing up again.</strong> We use the latest AI video and voice technologies to generate cinematic footage, sync your cloned voice, and deliver finished videos ready to post.</p>
       </div>
+
       <div class="faq-item">
         <h3 class="faq-q">How much content can one cloning session produce?</h3>
         <p class="faq-a"><strong>One session with AvatarAgency can produce all of your future professional video content — including a hero showcase film and all of your long form video needs and multiple short-form social reels.</strong> Content is formatted for Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube, and X. Assets are delivered within a week for each specific video project. Even faster for projects on urgent deadlines.</p>
       </div>
+
       <div class="faq-item">
         <h3 class="faq-q">Who is AvatarAgency?</h3>
         <p class="faq-a"><strong>AvatarAgency is a full-service AI marketing studio founded by Michael Rivera, based in Los Angeles, California.</strong> We specialize in digital cloning and cinematic AI video production for real estate agents, business owners, and authors. Consultations are available via a free 30-minute strategy call.</p>
       </div>
+
     </div>
   </div>
 </section>
@@ -393,11 +625,4 @@
     <span class="footer-legal-links">
       <a href="#">Privacy</a>
       <a href="#">Terms</a>
-      <a href="#">Ethics &amp; AI Use</a>
-    </span>
-  </div>
-</footer>
-
-<script src="atelier-v2.js"></script>
-</body>
-</html>
+      <a 
