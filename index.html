@@ -144,7 +144,6 @@
     border-color: var(--gold);
     background: rgba(201,168,76,0.07);
   }
-  @media (max-width: 768px) { .client-login-btn { display: none; } }
 
   /* ── Client Login Modal ────────────────────────────── */
   .modal-overlay {
@@ -315,8 +314,8 @@
       <a href="authors.html" class="nav-link" data-nav="authors">Authors</a>
       <a href="about.html" class="nav-link" data-nav="about">About</a>
       <a href="contact.html" class="nav-link" data-nav="contact">Contact</a>
+      <button class="client-login-btn" onclick="document.getElementById('clientLoginModal').classList.add('is-open')" aria-label="Client Login">Client Login</button>
     </nav>
-    <button class="client-login-btn" onclick="document.getElementById('clientLoginModal').classList.add('is-open')" aria-label="Client Login">Client Login</button>
     <button class="nav-hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
   </div>
   <nav class="nav-mobile">
