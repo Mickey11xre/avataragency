@@ -12,6 +12,16 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="atelier-v5.css">
+
+<style>
+  .faq-list { display: flex; flex-direction: column; gap: 0; }
+  .faq-item { padding: 28px 0; border-bottom: 1px solid rgba(10,10,10,0.07); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-family: var(--f-body); font-size: 17px; font-weight: 600; color: var(--ink); margin: 0 0 10px; line-height: 1.45; }
+  .faq-a { font-family: var(--f-body); font-size: 15px; color: var(--text-mid); line-height: 1.75; margin: 0; max-width: 720px; }
+  .faq-a strong { color: var(--ink); font-weight: 500; }
+  @media (max-width: 640px) { .faq-q { font-size: 15px; } .faq-a { font-size: 14px; } }
+</style>
 </head>
 <body data-page="about">
 
@@ -180,6 +190,37 @@
       <div class="statement-label">The Window Is Closing</div>
       <p class="statement-text">"The founders who build their brand now — while the tools are new and the competition is still figuring it out — are the ones who will own their market. The ones who wait will spend years trying to catch up."</p>
       <p class="statement-sub">AvatarAgency.ai exists to give every serious business owner access to the brand-building power that was once reserved for companies with massive budgets and large creative teams. The technology is here. The only question is whether you use it before your competition does.</p>
+    </div>
+  </div>
+</section>
+
+
+<!-- ── FAQ ────────────────────────────────────────────────────────────────── -->
+<section class="section" data-screen-label="FAQ" style="background:var(--cream-2);">
+  <div class="inner-narrow">
+    <div class="section-head" style="grid-template-columns:1fr;margin-bottom:48px;">
+      <div class="reveal">
+        <div class="eyebrow is-gold" style="margin-bottom:18px;"><span style="width:8px;height:8px;border-radius:99px;background:var(--gold);"></span>About AvatarAgency</div>
+        <h2 class="display-2">The questions people ask<br><span class="mute">before they book a call.</span></h2>
+      </div>
+    </div>
+    <div class="faq-list reveal" data-delay="80">
+      <div class="faq-item">
+        <h3 class="faq-q">Who founded AvatarAgency and what's the story behind it?</h3>
+        <p class="faq-a"><strong>Michael Rivera founded AvatarAgency after 25+ years leading marketing at the intersection of consumer technology and real estate.</strong> He built and directed large creative teams — writers, photographers, artists, and full video production crews — and understood firsthand how much time, budget, and coordination traditional content production consumed. When AI reached the point where it could match that production quality at a fraction of the cost, he rebuilt the entire model around it. AvatarAgency is the result: an atelier-level creative studio powered by AI instead of overhead.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">What makes AvatarAgency different from a traditional video production company?</h3>
+        <p class="faq-a"><strong>Michael operates as a Fractional Chief Marketing Officer — bringing executive-level marketing strategy, not just content execution.</strong> Every campaign is built with the same discipline and creative direction he applied to large-brand budgets, now delivered through AI-powered production at a speed and cost that was never previously possible for individual professionals and small businesses. The result is cinematic, brand-consistent content without the agency markup.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">What markets does AvatarAgency serve?</h3>
+        <p class="faq-a"><strong>AvatarAgency works with real estate agents and brokers, business owners and influencers, and authors and publishers</strong> — professionals who have a story to tell and need a consistent, high-quality video presence across every platform to tell it.</p>
+      </div>
+      <div class="faq-item">
+        <h3 class="faq-q">How do I get started?</h3>
+        <p class="faq-a"><strong>Book a free 30-minute strategy call with Michael.</strong> He'll walk you through exactly what an AI video campaign looks like for your specific market, what the cloning session involves, and what you can expect to receive — with no obligation.</p>
+      </div>
     </div>
   </div>
 </section>
