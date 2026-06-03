@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AvatarAgency — Client Account · Paul Small</title>
+<style>
+  :root{
+    --bg:#0a0a0c;
+    --bg-2:#101014;
+    --card:#15151b;
+    --card-2:#1b1b22;
+    --line:#26262f;
+    --txt:#f4f4f6;
+    --muted:#9a9aa6;
+    --muted-2:#6d6d78;
+    --gold:#c9a24b;
+    --gold-2:#e3c478;
+    --green:#4ec98a;
+    --radius:16px;
+    --max:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(201,162,75,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(78,201,138,.05), transparent 55%),
+      var(--bg);
+    color:var(--txt);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+
+  /* ---- Top bar ---- */
+  .topbar{border-bottom:1px solid var(--line);background:rgba(10,10,12,.7);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-weight:700;letter-spacing:.5px;font-size:18px}
+  .brand b{color:var(--gold-2)}
+  .pill{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+
+  /* ---- Hero ---- */
+  .hero{padding:54px 0 34px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .hero h1{font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.5px}
+  .hero h1 .sub{display:block;font-size:18px;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:12px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px}
+  .meta-row .item{font-size:13px;color:var(--muted)}
+  .meta-row .item span{display:block;color:var(--txt);font-size:15px;font-weight:600;margin-top:2px}
+  .status-tag{display:inline-flex;align-items:center;gap:8px;color:var(--green);font-weight:600;font-size:14px}
+  .dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(78,201,138,.15)}
+
+  /* ---- Section ---- */
+  section{padding:48px 0}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:8px}
+  .sec-head h2{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .sec-head .note{font-size:13px;color:var(--muted-2)}
+
+  /* ---- Balance cards ---- */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .stat{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .stat .k{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+  .stat .v{font-size:34px;font-weight:800;letter-spacing:-1px;margin-top:8px}
+  .stat .v small{font-size:16px;font-weight:600;color:var(--muted)}
+  .stat .d{font-size:13px;color:var(--muted-2);margin-top:6px}
+  .stat.remaining{border-color:rgba(201,162,75,.45);background:linear-gradient(180deg,rgba(201,162,75,.10),var(--card-2))}
+  .stat.remaining .v{color:var(--gold-2)}
+
+  /* ---- Usage meter ---- */
+  .meter-card{margin-top:18px;background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .meter-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:12px}
+  .meter-top b{color:var(--txt)}
+  .meter{height:14px;border-radius:999px;background:#0c0c10;border:1px solid var(--line);overflow:hidden}
+  .meter .fill{height:100%;width:32.5%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
+  .meter-legend{display:flex;gap:22px;margin-top:14px;font-size:12px;color:var(--muted)}
+  .meter-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:middle}
+  .lg-used{background:var(--gold-2)}
+  .lg-rem{background:#2c2c36}
+
+  /* ---- Deliverables table ---- */
+  .table{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .trow{display:grid;grid-template-columns:1.8fr .8fr .7fr .7fr 1fr;gap:12px;padding:16px 20px;align-items:center;border-top:1px solid var(--line);font-size:14px}
+  .trow:first-child{border-top:none}
+  .thead{background:var(--bg-2);color:var(--muted);font-size:11px;letter-spacing:1.5px;text-transform:uppercase}
+  .trow .name{font-weight:600}
+  .trow .name small{display:block;color:var(--muted-2);font-weight:400;font-size:12px;margin-top:2px}
+  .badge{display:inline-block;font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .badge.h{border-color:rgba(201,162,75,.4);color:var(--gold-2)}
+  .badge.v{border-color:rgba(78,201,138,.35);color:var(--green)}
+  .watch{justify-self:start;font-size:13px;font-weight:600;color:var(--gold-2);border:1px solid rgba(201,162,75,.4);border-radius:999px;padding:7px 14px;transition:.15s}
+  .watch:hover{background:rgba(201,162,75,.12)}
+  .tfoot{display:grid;grid-template-columns:1.8fr .8fr .7fr .7fr 1fr;gap:12px;padding:16px 20px;border-top:1px solid var(--line);background:var(--bg-2);font-size:14px;font-weight:700}
+  .tfoot .tot{color:var(--gold-2)}
+
+  /* ---- Video gallery ---- */
+  .video-block{margin-bottom:40px}
+  .video-block h3{font-size:20px;font-weight:700;margin-bottom:4px}
+  .video-block .vmeta{font-size:13px;color:var(--muted);margin-bottom:16px}
+  .frame{position:relative;width:100%;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .frame.wide{aspect-ratio:16/9}
+  .frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .reels{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .reel .frame.tall{aspect-ratio:9/16}
+  .reel h4{font-size:15px;font-weight:600;margin-top:12px}
+  .reel .rmeta{font-size:12px;color:var(--muted)}
+
+  /* ---- CTA / footer ---- */
+  .cta{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:34px;text-align:center}
+  .cta h2{font-size:24px;font-weight:800;letter-spacing:-.3px;text-transform:none;color:var(--txt)}
+  .cta p{color:var(--muted);margin:10px auto 22px;max-width:520px}
+  .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{padding:13px 24px;border-radius:999px;font-weight:600;font-size:15px;transition:.15s}
+  .btn.primary{background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.ghost{border:1px solid var(--line);color:var(--txt)}
+  .btn.ghost:hover{border-color:var(--gold)}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;color:var(--muted-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer a{color:var(--muted)}
+  footer a:hover{color:var(--gold-2)}
+
+  @media(max-width:780px){
+    .hero h1{font-size:30px}
+    .grid-3{grid-template-columns:1fr}
+    .reels{grid-template-columns:1fr}
+    .trow,.tfoot{grid-template-columns:1.4fr .9fr;grid-auto-rows:auto}
+    .trow .col-format,.trow .col-min,.tfoot .col-format,.tfoot .col-min{display:none}
+    .watch{justify-self:start}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Avatar<b>Agency</b></div>
+    <div class="pill">Private Client Portal · Confidential</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Client Account Summary</div>
+    <h1>Paul Small
+      <span class="sub">The Art of Representation · Compass — Mar Vista Video Production</span>
+    </h1>
+    <div class="meta-row">
+      <div class="item">Service Agreement<span>April 24, 2026</span></div>
+      <div class="item">Amount Paid<span>$850.00</span></div>
+      <div class="item">Production Credit<span>$1,000.00 (10:00 min)</span></div>
+      <div class="item">Deliverables<span>4 of 4 Delivered</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== CREDIT BALANCE ===== -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Credit Balance</h2>
+      <div class="note">Billed at $100.00 / produced minute</div>
+    </div>
+
+    <div class="grid-3">
+      <div class="stat">
+        <div class="k">Total Credit</div>
+        <div class="v">10:00 <small>min</small></div>
+        <div class="d">$1,000.00 production value</div>
+      </div>
+      <div class="stat">
+        <div class="k">Credit Used</div>
+        <div class="v">3:15 <small>min</small></div>
+        <div class="d">$325.00 · 4 creatives delivered</div>
+      </div>
+      <div class="stat remaining">
+        <div class="k">Remaining Balance</div>
+        <div class="v">6:45 <small>min</small></div>
+        <div class="d">$675.00 of production credit available</div>
+      </div>
+    </div>
+
+    <div class="meter-card">
+      <div class="meter-top"><span>Usage</span><span><b>32.5%</b> of credit used</span></div>
+      <div class="meter"><div class="fill"></div></div>
+      <div class="meter-legend">
+        <span><i class="lg-used"></i>Used — 3:15 ($325)</span>
+        <span><i class="lg-rem"></i>Remaining — 6:45 ($675)</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== DELIVERABLES ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Creative Delivered</h2>
+      <div class="note">All assets caption-ready &amp; platform-optimized</div>
+    </div>
+
+    <div class="table">
+      <div class="trow thead">
+        <div>Creative</div>
+        <div class="col-format">Format</div>
+        <div class="col-min">Resolution</div>
+        <div>Length</div>
+        <div>File</div>
+      </div>
+
+      <div class="trow">
+        <div class="name">Cinematic Showcase Film<small>Hero property &amp; neighborhood film</small></div>
+        <div class="col-format"><span class="badge h">Long Form 16:9</span></div>
+        <div class="col-min">1920×1080</div>
+        <div>1:32</div>
+        <a class="watch" href="https://drive.google.com/uc?export=download&id=1eyLzLZCvcoYvrIe_D-b8eq68JjCuy6GL" target="_blank" rel="noopener">↓ Download</a>
+      </div>
+
+      <div class="trow">
+        <div class="name">Vertical Short No. 1<small>Social reel — IG / TikTok / Shorts</small></div>
+        <div class="col-format"><span class="badge v">Vertical 9:16</span></div>
+        <div class="col-min">1080×1920</div>
+        <div>0:20</div>
+        <a class="watch" href="https://drive.google.com/uc?export=download&id=1-rtFprpOKb5p6i9vf3S0GxSwK-KsDKDO" target="_blank" rel="noopener">↓ Download</a>
+      </div>
+
+      <div class="trow">
+        <div class="name">Vertical Short No. 2<small>Social reel — IG / TikTok / Shorts</small></div>
+        <div class="col-format"><span class="badge v">Vertical 9:16</span></div>
+        <div class="col-min">1080×1920</div>
+        <div>0:44</div>
+        <a class="watch" href="https://drive.google.com/uc?export=download&id=1USIKjAjlj1r-L0KIrIr5B0TCplhpIgkL" target="_blank" rel="noopener">↓ Download</a>
+      </div>
+
+      <div class="trow">
+        <div class="name">Vertical Short No. 3<small>Social reel — IG / TikTok / Shorts</small></div>
+        <div class="col-format"><span class="badge v">Vertical 9:16</span></div>
+        <div class="col-min">1080×1920</div>
+        <div>0:39</div>
+        <a class="watch" href="https://drive.google.com/uc?export=download&id=1tpqLezfRDez20ILIp2R4EiF96CziZL6n" target="_blank" rel="noopener">↓ Download</a>
+      </div>
+
+      <div class="tfoot">
+        <div>Total Delivered</div>
+        <div class="col-format">4 creatives</div>
+        <div class="col-min"></div>
+        <div class="tot">3:15</div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== REVIEW GALLERY ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Review Your Creative</h2>
+      <div class="note">Click play to preview each deliverable</div>
+    </div>
+
+    <div class="video-block">
+      <h3>Cinematic Showcase Film</h3>
+      <div class="vmeta">Long Form · 16:9 · 1920×1080 · 1:32</div>
+      <div class="frame wide">
+        <iframe src="https://drive.google.com/file/d/1eyLzLZCvcoYvrIe_D-b8eq68JjCuy6GL/preview" title="Cinematic Showcase Film" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <div class="reels">
+      <div class="reel">
+        <div class="frame tall">
+          <iframe src="https://drive.google.com/file/d/1-rtFprpOKb5p6i9vf3S0GxSwK-KsDKDO/preview" title="Vertical Short No. 1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <h4>Vertical Short No. 1</h4>
+        <div class="rmeta">9:16 · 0:20</div>
+      </div>
+      <div class="reel">
+        <div class="frame tall">
+          <iframe src="https://drive.google.com/file/d/1USIKjAjlj1r-L0KIrIr5B0TCplhpIgkL/preview" title="Vertical Short No. 2" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <h4>Vertical Short No. 2</h4>
+        <div class="rmeta">9:16 · 0:44</div>
+      </div>
+      <div class="reel">
+        <div class="frame tall">
+          <iframe src="https://drive.google.com/file/d/1tpqLezfRDez20ILIp2R4EiF96CziZL6n/preview" title="Vertical Short No. 3" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <h4>Vertical Short No. 3</h4>
+        <div class="rmeta">9:16 · 0:39</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta">
+      <h2>You have 6:45 of production credit remaining</h2>
+      <p>That's $675 of done-for-you video still available on your account — enough for several more reels or another showcase film. Let's put it to work.</p>
+      <div class="btns">
+        <a class="btn primary" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a Production Call</a>
+        <a class="btn ghost" href="mailto:michael@avataragency.ai">Email Michael</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 AvatarAgency.ai · Woodland Hills, California</div>
+    <div>Prepared for Paul Small · The Art of Representation · Compass</div>
+  </div>
+</footer>
+
+</body>
+</html>
