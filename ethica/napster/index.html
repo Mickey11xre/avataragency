@@ -180,15 +180,14 @@
       <h2 class="display-2">Ask Ethica anything<br><span class="mute">about protecting your money.</span></h2>
     </div>
     <style>
-      /* Napster avatar — circular embed (clip the SDK widget into a round frame) */
+      /* Napster avatar — rectangular frame, top-anchored so her head isn't cropped */
       #ethica-napster-avatar {
-        width: clamp(280px, 44vw, 420px);
-        aspect-ratio: 1 / 1;
-        border-radius: 50%;
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 10;
+        border-radius: 18px;
         overflow: hidden;
         background: var(--ink);
-        margin: 0 auto;
-        position: relative;
         box-shadow: 0 30px 70px -34px rgba(0,0,0,0.42);
       }
       #ethica-napster-avatar > *,
@@ -197,9 +196,10 @@
         width: 100% !important;
         height: 100% !important;
         object-fit: cover;
+        object-position: center top;
       }
     </style>
-    <div class="reveal" data-delay="80" style="text-align:center;">
+    <div class="reveal" data-delay="80">
       <div id="ethica-napster-avatar"></div>
     </div>
     <!-- Napster Companion Web SDK (standalone) + token from our Cloudflare Worker -->
