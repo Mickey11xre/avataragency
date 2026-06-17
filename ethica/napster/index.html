@@ -179,8 +179,28 @@
       <div class="eyebrow is-gold" style="justify-content:center;margin-bottom:18px;">Talk to her now</div>
       <h2 class="display-2">Ask Ethica anything<br><span class="mute">about protecting your money.</span></h2>
     </div>
-    <div class="reveal video-frame" data-delay="80">
-      <div id="ethica-napster-avatar" style="position:absolute;inset:0;width:100%;height:100%;"></div>
+    <style>
+      /* Napster avatar — circular embed (clip the SDK widget into a round frame) */
+      #ethica-napster-avatar {
+        width: clamp(280px, 44vw, 420px);
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        overflow: hidden;
+        background: var(--ink);
+        margin: 0 auto;
+        position: relative;
+        box-shadow: 0 30px 70px -34px rgba(0,0,0,0.42);
+      }
+      #ethica-napster-avatar > *,
+      #ethica-napster-avatar video,
+      #ethica-napster-avatar canvas {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover;
+      }
+    </style>
+    <div class="reveal" data-delay="80" style="text-align:center;">
+      <div id="ethica-napster-avatar"></div>
     </div>
     <!-- Napster Companion Web SDK (standalone) + token from our Cloudflare Worker -->
     <script src="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js"></script>
