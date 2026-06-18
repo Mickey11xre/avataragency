@@ -261,9 +261,13 @@ strong, .accent { color: var(--accent); font-weight: inherit; }
 .iso-slide .slide-content {
   display: grid;
   grid-template-columns: 1fr 1.1fr;
-  gap: clamp(24px, 4vw, 80px);
+  gap: clamp(24px, 3.5vw, 64px);
   align-items: center;
-  padding: clamp(2rem, 5vw, 5rem) var(--slide-padding);
+  align-content: center;
+  width: 100%;
+  max-width: min(92vw, 1220px);
+  margin-inline: auto;
+  padding: clamp(2rem, 5vw, 5rem) clamp(1rem, 3vw, 2.5rem);
 }
 @media (max-width: 960px) {
   .iso-slide .slide-content { grid-template-columns: 1fr; gap: 32px; }
