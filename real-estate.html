@@ -226,17 +226,20 @@
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
         <style>
+          /* #ava-wrap is the clip boundary — the SDK cannot escape it */
           #ava-wrap {
             position:relative;width:280px;height:280px;z-index:10;
-          }
-          #ava-placeholder {
-            position:absolute;inset:0;border-radius:50%;overflow:hidden;
-            cursor:pointer;border:3px solid var(--gold);
+            border-radius:50%;
+            overflow:hidden;
+            clip-path:circle(50% at 50% 50%);
+            border:3px solid var(--gold);
             box-shadow:0 20px 56px -20px rgba(0,0,0,0.22);
           }
+          #ava-placeholder {
+            position:absolute;inset:0;cursor:pointer;
+          }
           #ava-napster-avatar {
-            position:absolute;inset:0;border-radius:50%;overflow:hidden;
-            border:3px solid var(--gold);box-shadow:0 20px 56px -20px rgba(0,0,0,0.22);
+            position:absolute;inset:0;
             display:none;background:var(--ink);
           }
           #ava-napster-avatar > *,
