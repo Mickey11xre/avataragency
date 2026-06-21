@@ -229,8 +229,9 @@
           #ava-wrap {
             position:relative;width:100%;
             aspect-ratio:16/10;
+            contain:size;   /* prevents SDK from expanding the container */
             border-radius:18px;overflow:hidden;
-            border:2px solid var(--gold);
+            border:2px solid var(--gold) !important;
             box-shadow:0 20px 56px -20px rgba(0,0,0,0.22);
             background:#0a0a0a;
           }
