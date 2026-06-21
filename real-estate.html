@@ -226,28 +226,28 @@
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
         <style>
-          /* padding-bottom trick: height is pure padding so children cannot expand it */
-          #ava-sizer {
-            position:relative;width:100%;height:0;padding-bottom:62.5%;/* 10/16 */
-          }
+          /* #ava-wrap grows to the placeholder image's natural height.
+             JS locks that height before SDK mounts so both states match. */
           #ava-wrap {
-            position:absolute;inset:0;
+            position:relative;width:100%;
             border-radius:18px;overflow:hidden;
             border:2px solid var(--gold);
             box-shadow:0 20px 56px -20px rgba(0,0,0,0.22);
             background:#fff;
           }
+          /* Placeholder in normal flow — its image drives the container height */
           #ava-placeholder {
-            position:absolute;inset:0;cursor:pointer;
+            position:relative;width:100%;cursor:pointer;
           }
           #ava-placeholder img {
-            width:100%;height:100%;object-fit:cover;object-position:center 8%;
+            width:100%;height:auto;display:block;
           }
           #ava-placeholder-overlay {
             position:absolute;inset:0;display:flex;align-items:flex-end;
             justify-content:center;padding-bottom:32px;
             background:linear-gradient(to top,rgba(0,0,0,0.38) 0%,transparent 50%);
           }
+          /* SDK mount fills the locked height absolutely */
           #ava-napster-avatar {
             position:absolute;inset:0;display:none;
           }
@@ -266,26 +266,23 @@
           #ava-end-btn:hover { color:var(--ink);border-color:rgba(0,0,0,0.35); }
         </style>
 
-        <!-- #ava-sizer holds the 16:10 ratio — children cannot expand it -->
-        <div id="ava-sizer">
-          <div id="ava-wrap">
-            <div id="ava-placeholder">
-              <img src="https://avataragency.ai/assets/ava-companion.png" alt="Ava — AvatarAgency AI Spokesperson">
-              <div id="ava-placeholder-overlay">
-                <span style="display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#0a0a0a;
-                             font-family:var(--f-display);font-size:12.5px;font-weight:600;
-                             padding:7px 16px;border-radius:99px;letter-spacing:0.04em;">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                    <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M9 22h6"/>
-                  </svg>
-                  Talk to Ava
-                </span>
-              </div>
+        <div id="ava-wrap">
+          <!-- Placeholder: in normal flow, its natural image height sets the frame -->
+          <div id="ava-placeholder">
+            <img src="https://avataragency.ai/assets/ava-companion.png" alt="Ava — AvatarAgency AI Spokesperson">
+            <div id="ava-placeholder-overlay">
+              <span style="display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#0a0a0a;
+                           font-family:var(--f-display);font-size:12.5px;font-weight:600;
+                           padding:7px 16px;border-radius:99px;letter-spacing:0.04em;">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M9 22h6"/>
+                </svg>
+                Talk to Ava
+              </span>
             </div>
-
-            <!-- SDK mounts here after user clicks -->
-            <div id="ava-napster-avatar"></div>
           </div>
+          <!-- SDK mounts here; fills the height locked by JS on click -->
+          <div id="ava-napster-avatar"></div>
         </div>
 
         <p id="ava-hint" style="font-family:var(--f-display);font-size:13.5px;color:var(--text-mute);margin:0;text-align:center;">
@@ -320,6 +317,7 @@
         } catch (e) {}
         instance = null;
         avatarMount.style.display  = 'none';
+        document.getElementById('ava-wrap').style.height = ''; // release lock
         placeholder.style.display  = 'block';
         timerWrap.style.display    = 'none';
         endBtn.style.display       = 'none';
@@ -327,6 +325,9 @@
       }
 
       async function startAva() {
+        // Lock height now so SDK fills the same frame as the placeholder
+        var wrap = document.getElementById('ava-wrap');
+        wrap.style.height = wrap.offsetHeight + 'px';
         placeholder.style.display = 'none';
         hintEl.textContent = 'Connecting…';
         try {
