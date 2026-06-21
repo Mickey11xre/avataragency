@@ -226,51 +226,77 @@
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:14px;">
         <style>
-          /* #ava-wrap is the clip boundary — the SDK cannot escape it */
+          /* #ava-outer: visual ring — border + shadow must live here because
+             clip-path on the inner element would clip them away            */
+          #ava-outer {
+            display:inline-block;line-height:0;
+            border-radius:50%;
+            border:3px solid var(--gold);
+            box-shadow:0 20px 56px -20px rgba(0,0,0,0.22);
+          }
+          /* #ava-wrap: hard clip boundary — SDK cannot escape clip-path    */
           #ava-wrap {
             position:relative;width:280px;height:280px;z-index:10;
             border-radius:50%;
             overflow:hidden;
             clip-path:circle(50% at 50% 50%);
-            border:3px solid var(--gold);
-            box-shadow:0 20px 56px -20px rgba(0,0,0,0.22);
           }
           #ava-placeholder {
             position:absolute;inset:0;cursor:pointer;
           }
           #ava-napster-avatar {
             position:absolute;inset:0;
-            display:none;background:var(--ink);
+            display:none;background:#000;
           }
-          #ava-napster-avatar > *,
+          /* Fill the circle with Ava's video/canvas */
           #ava-napster-avatar video,
           #ava-napster-avatar canvas {
             width:100% !important;height:100% !important;
-            object-fit:cover;object-position:center top;
+            object-fit:cover !important;object-position:center top !important;
           }
+          /* Hide the SDK's built-in control bar and disclaimer — we supply
+             our own End Chat button below the circle                       */
+          #ava-napster-avatar [class*="footer" i],
+          #ava-napster-avatar [class*="control" i],
+          #ava-napster-avatar [class*="toolbar" i],
+          #ava-napster-avatar [class*="actions" i],
+          #ava-napster-avatar [class*="disclosure" i],
+          #ava-napster-avatar [class*="disclaimer" i],
+          #ava-napster-avatar [class*="info" i],
+          #ava-napster-avatar p { display:none !important; }
+          /* End-chat button */
+          #ava-end-btn {
+            display:none;font-family:var(--f-display);font-size:12px;
+            color:var(--text-mute);background:none;cursor:pointer;
+            border:1px solid rgba(0,0,0,0.18);padding:5px 14px;
+            border-radius:99px;margin-top:2px;
+          }
+          #ava-end-btn:hover { color:var(--ink);border-color:rgba(0,0,0,0.35); }
         </style>
 
-        <!-- Shared 280×280 container — placeholder and SDK mount stack in same space, no layout shift -->
-        <div id="ava-wrap">
-          <div id="ava-placeholder">
-            <img src="https://avataragency.ai/assets/ava-companion.png" alt="Ava — AvatarAgency AI Spokesperson"
-                 style="width:100%;height:100%;object-fit:cover;object-position:center 12%;">
-            <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;
-                        padding-bottom:30px;border-radius:50%;
-                        background:linear-gradient(to top,rgba(0,0,0,0.52) 0%,transparent 58%);">
-              <span style="display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#0a0a0a;
-                           font-family:var(--f-display);font-size:12.5px;font-weight:600;
-                           padding:7px 16px;border-radius:99px;letter-spacing:0.04em;">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M9 22h6"/>
-                </svg>
-                Talk to Ava
-              </span>
+        <!-- #ava-outer: ring decoration  |  #ava-wrap: circular clip -->
+        <div id="ava-outer">
+          <div id="ava-wrap">
+            <div id="ava-placeholder">
+              <img src="https://avataragency.ai/assets/ava-companion.png" alt="Ava — AvatarAgency AI Spokesperson"
+                   style="width:100%;height:100%;object-fit:cover;object-position:center 12%;">
+              <div style="position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:center;
+                          padding-bottom:30px;
+                          background:linear-gradient(to top,rgba(0,0,0,0.52) 0%,transparent 58%);">
+                <span style="display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#0a0a0a;
+                             font-family:var(--f-display);font-size:12.5px;font-weight:600;
+                             padding:7px 16px;border-radius:99px;letter-spacing:0.04em;">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M9 22h6"/>
+                  </svg>
+                  Talk to Ava
+                </span>
+              </div>
             </div>
-          </div>
 
-          <!-- SDK mounts here after user clicks -->
-          <div id="ava-napster-avatar"></div>
+            <!-- SDK mounts here after user clicks -->
+            <div id="ava-napster-avatar"></div>
+          </div>
         </div>
 
         <p id="ava-hint" style="font-family:var(--f-display);font-size:13.5px;color:var(--text-mute);margin:0;text-align:center;">
@@ -279,6 +305,7 @@
         <p id="ava-timer" style="font-family:var(--f-display);font-size:12px;color:var(--text-mute);margin:0;display:none;">
           Session ends in <span id="ava-timer-val">5:00</span>
         </p>
+        <button id="ava-end-btn">End chat</button>
       </div>
     </div>
 
@@ -290,6 +317,7 @@
       var hintEl       = document.getElementById('ava-hint');
       var timerWrap    = document.getElementById('ava-timer');
       var timerVal     = document.getElementById('ava-timer-val');
+      var endBtn       = document.getElementById('ava-end-btn');
       var instance     = null;
       var countdown    = null;
 
@@ -302,9 +330,10 @@
           }
         } catch (e) {}
         instance = null;
-        avatarMount.style.display = 'none';
-        placeholder.style.display = 'block';
-        timerWrap.style.display   = 'none';
+        avatarMount.style.display  = 'none';
+        placeholder.style.display  = 'block';
+        timerWrap.style.display    = 'none';
+        endBtn.style.display       = 'none';
         hintEl.textContent = 'Session ended · Tap to start again';
       }
 
@@ -324,7 +353,8 @@
             avatarStyle: { view: 'circle' }
           });
           instance.showAvatar();
-          hintEl.textContent = 'Click the avatar and allow your microphone to talk with Ava';
+          hintEl.textContent    = 'Click the avatar and allow your microphone to talk with Ava';
+          endBtn.style.display  = 'inline-block';
 
           // 5-minute countdown then auto-end
           var timeLeft = 300;
@@ -345,6 +375,7 @@
       }
 
       placeholder.addEventListener('click', function () { if (!instance) startAva(); });
+      endBtn.addEventListener('click', endSession);
     })();
     </script>
 
