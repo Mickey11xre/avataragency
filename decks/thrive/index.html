@@ -783,7 +783,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 <!-- ============================================================ -->
 <!-- NAPSTER COMPANION WEB SDK (deferred)                        -->
 <!-- ============================================================ -->
-<script src="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/dist/index.standalone.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js" defer></script>
 
 <script>
 /* ===== SLIDE ENGINE ===== */
@@ -913,7 +913,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
     // Enable Napster SDK stylesheet lazily so it never whitens the deck background
     var cssLink = document.getElementById('napster-sdk-css');
     if (cssLink) {
-      cssLink.href = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/dist/index.css';
+      cssLink.href = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.css';
       cssLink.removeAttribute('disabled');
     }
     // Guard against SDK transparent-body rule
@@ -927,20 +927,21 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 
       // Wait for SDK to load (deferred)
       var tries = 0;
-      while (!window.NapsterCompanionAPI && tries++ < 40) {
+      while (!(window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk) && tries++ < 40) {
         await new Promise(function (r) { setTimeout(r, 250); });
       }
-      if (!window.NapsterCompanionAPI) throw new Error('SDK not loaded');
+      var sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
+      if (!sdk) throw new Error('SDK not loaded');
 
-      await window.NapsterCompanionAPI.init({
-        token:         data.token,
-        mountContainer:'#ethica-avatar',
-        connectionId:  data.connection && data.connection.id,
+      var instance = await sdk.init(data.token, {
+        mountContainer: '#ethica-avatar',
+        avatarStyle: { view: 'rectangle' },
       });
+      instance.showAvatar();
       card.classList.add('live-on');
     } catch (err) {
-      console.warn('Ethica avatar error:', err);
-      btn.textContent = '⚠  Live avatar requires avataragency.ai domain';
+      console.error('Ethica avatar error:', err);
+      btn.textContent = '↻  Couldn’t connect — tap to retry';
       btn.style.cssText += ';font-size:11px;letter-spacing:.04em;';
       launched = false;
     }
