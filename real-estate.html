@@ -307,14 +307,11 @@
       var instance     = null;
       var countdown    = null;
 
-      function endSession() {
+      // Reset our page UI + timer. Idempotent; does NOT tear down the SDK.
+      // Also wired as the SDK's onDestroy callback so the built-in hang-up
+      // button resets our timer + placeholder (the SDK doesn't notify us otherwise).
+      function resetUI() {
         if (countdown) { clearInterval(countdown); countdown = null; }
-        try {
-          if (instance) {
-            if (typeof instance.destroy === 'function') instance.destroy();
-            else if (typeof instance.disconnect === 'function') instance.disconnect();
-          }
-        } catch (e) {}
         instance = null;
         avatarMount.style.display  = 'none';
         document.getElementById('ava-wrap').style.height = ''; // release lock
@@ -322,6 +319,17 @@
         timerWrap.style.display    = 'none';
         endBtn.style.display       = 'none';
         hintEl.textContent = 'Session ended · Tap to start again';
+      }
+
+      // Our custom end button / auto-end: tear down the SDK session, then reset UI.
+      function endSession() {
+        try {
+          if (instance) {
+            if (typeof instance.destroy === 'function') instance.destroy();
+            else if (typeof instance.disconnect === 'function') instance.disconnect();
+          }
+        } catch (e) {}
+        resetUI();
       }
 
       async function startAva() {
@@ -340,7 +348,8 @@
           avatarMount.style.display = 'block';
           instance = await sdk.init(data.token, {
             mountContainer: '#ava-napster-avatar',
-            avatarStyle: { view: 'circle' }
+            avatarStyle: { view: 'circle' },
+            onDestroy: resetUI   // SDK hang-up/disconnect → reset our timer + placeholder
           });
           instance.showAvatar();
           hintEl.textContent    = 'Click the avatar and allow your microphone to talk with Ava';
