@@ -467,6 +467,54 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
   padding:clamp(10px,1.2vw,14px) clamp(14px,1.8vw,20px);
   max-width:40ch; text-align:center;
 }
+
+/* ================================================================
+   RESPONSIVE · phones + short viewports
+   ================================================================ */
+/* Short viewports (landscape phones, small screens): scale type + padding down */
+@media (max-height: 720px) {
+  :root { --pad: clamp(1.2rem,4vh,3rem); --title-size: clamp(1.9rem,6vw,4.4rem); }
+}
+@media (max-height: 560px) {
+  :root { --title-size: clamp(1.5rem,5vw,3rem); --body-size: clamp(.82rem,1.2vw,1rem); }
+  .nav-dots { display:none; }
+}
+
+/* Portrait phones / narrow screens: restructure two-column + photo slides */
+@media (max-width: 760px) {
+  .nav-dots { display:none; }
+
+  /* Photo slides -> full-bleed background image + centered text overlay */
+  .salesman-img, .gap-img, .aip-img, .steph-img {
+    left:0; right:0; top:0; bottom:0; width:100%;
+    background-position:center top; background-size:cover; opacity:1;
+  }
+  .salesman-fade, .gap-fade, .aip-fade, .steph-fade {
+    background:linear-gradient(180deg, rgba(0,0,0,.4) 0%, rgba(0,0,0,.28) 34%, rgba(0,0,0,.6) 66%, rgba(0,0,0,.92) 100%);
+  }
+  /* Salesman + Gap: bottom-anchored, centered, full width */
+  .salesman-copy, .gap-copy {
+    position:absolute; inset:auto 0 0 0; width:100%;
+    justify-content:flex-end; align-items:center; text-align:center;
+    padding:0 clamp(1.4rem,6vw,2.2rem) 13vh;
+  }
+  .salesman-copy .scene-title, .gap-copy .statement { max-width:22ch; }
+  /* Ardis + Stephanie: name/copy bottom-centered over the photo */
+  .s-aip .slide-content, .s-steph .slide-content {
+    padding:var(--pad); padding-bottom:11vh;
+    align-items:center; text-align:center; justify-content:flex-end;
+  }
+  .s-aip .ai-pair { max-width:92%; }
+  .s-steph .scene-title { width:auto!important; max-width:92%; }
+
+  /* Two-column / row layouts -> stack + center */
+  .iso-slide .slide-content { flex-direction:column; }
+  .iso-stage { width:100%; max-width:420px; aspect-ratio:16/10; }
+  .stage-flow { flex-direction:column; gap:clamp(10px,3vw,18px); }
+  .stage-arrow { transform:rotate(90deg); }
+  .pl-grid { grid-template-columns:1fr; max-width:420px; }
+  .steph-grid { grid-template-columns:1fr; }
+}
 </style>
 </head>
 <body>
