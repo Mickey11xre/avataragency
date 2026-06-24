@@ -295,14 +295,16 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 .twin-url { position:absolute; left:0; right:0; bottom:0; padding:26px 16px 13px; z-index:10; background:linear-gradient(to top,rgba(0,0,0,.9),transparent); font-family:var(--font-mono); font-size:11px; letter-spacing:.03em; color:rgba(26,229,160,.55); }
 
 .twin-start {
-  position:absolute; inset:0; z-index:20;
-  display:flex; align-items:center; justify-content:center;
-  background:rgba(0,0,0,.45); backdrop-filter:blur(3px);
-  border:0; cursor:pointer; color:var(--accent);
-  font-family:var(--font-mono); font-size:clamp(13px,1.4vw,16px); font-weight:600;
-  letter-spacing:.12em; text-transform:uppercase; transition:background .25s;
+  position:absolute; left:50%; top:54%; transform:translate(-50%,-50%); z-index:20;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:12px 22px; border-radius:99px;
+  background:var(--accent); color:#04130d; border:0; cursor:pointer;
+  font-family:var(--font-mono); font-size:clamp(12px,1.3vw,15px); font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase;
+  box-shadow:0 12px 32px -10px rgba(0,0,0,.7), 0 0 0 6px rgba(26,229,160,.12);
+  transition:transform .2s var(--ease), background .2s;
 }
-.twin-start:hover { background:rgba(0,0,0,.3); }
+.twin-start:hover { transform:translate(-50%,-50%) scale(1.05); background:#3affb8; }
 .twin-card.live-on .twin-start { display:none; }
 
 /* ================================================================
@@ -341,16 +343,16 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 /* ================================================================
    P&L VISUAL (Slide 06)
    ================================================================ */
-.pl-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,1.8vw,22px); width:100%; max-width:600px; }
-.pl-card { border:1px solid var(--border); border-radius:12px; padding:clamp(14px,1.8vw,22px); background:var(--bg-elev); text-align:left; }
+.pl-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(16px,2.2vw,30px); width:100%; max-width:780px; }
+.pl-card { border:1px solid var(--border); border-radius:14px; padding:clamp(20px,2.6vw,34px); background:var(--bg-elev); text-align:left; }
 .pl-card.good { border-color:rgba(26,229,160,.3); }
 .pl-card.bad  { border-color:rgba(239,68,68,.3); }
-.pl-icon  { font-size:clamp(1.3rem,1.8vw,1.7rem); margin-bottom:8px; }
-.pl-name  { font-family:var(--font-mono); font-size:clamp(9px,.78vw,11px); font-weight:600; letter-spacing:.14em; text-transform:uppercase; margin-bottom:4px; }
+.pl-icon  { font-size:clamp(1.8rem,2.6vw,2.6rem); margin-bottom:12px; }
+.pl-name  { font-family:var(--font-mono); font-size:clamp(11px,1.05vw,15px); font-weight:600; letter-spacing:.14em; text-transform:uppercase; margin-bottom:6px; }
 .pl-card.good .pl-name { color:var(--accent); }
 .pl-card.bad  .pl-name { color:#f87171; }
-.pl-value { font-family:var(--font-display); font-style:italic; font-size:clamp(1.1rem,1.7vw,1.5rem); color:var(--text-paper); }
-.pl-note  { font-family:var(--font-body); font-weight:300; font-size:clamp(.7rem,.88vw,.84rem); color:var(--text-dim); margin-top:6px; line-height:1.45; }
+.pl-value { font-family:var(--font-display); font-style:italic; font-size:clamp(1.5rem,2.5vw,2.3rem); color:var(--text-paper); }
+.pl-note  { font-family:var(--font-body); font-weight:300; font-size:clamp(.85rem,1.15vw,1.1rem); color:var(--text-dim); margin-top:9px; line-height:1.5; }
 
 /* ================================================================
    IMAGE PLACEHOLDER (slides 03, 05)
@@ -514,7 +516,51 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
   .stage-arrow { transform:rotate(90deg); }
   .pl-grid { grid-template-columns:1fr; max-width:420px; }
   .steph-grid { grid-template-columns:1fr; }
+  .help-split { flex-direction:column; }
+  .help-svc li { font-size:clamp(.9rem,3.6vw,1.1rem); }
 }
+
+/* ================================================================
+   REVISION SLIDES (Stephanie's THRIVE edits)
+   ================================================================ */
+/* S07 · The Translator — Cornflower purple bg + dark-purple final box */
+.s-translator { background:#3B3E69; }
+.cf-logo { display:flex; flex-direction:column; align-items:center; gap:8px; text-decoration:none; }
+.cf-logo img { height:clamp(54px,7vw,94px); width:auto; display:block; border-radius:8px; }
+.cf-url { font-family:var(--font-mono); font-size:clamp(.6rem,.8vw,.78rem); letter-spacing:.1em; color:rgba(255,255,255,.55); }
+.s-translator .flow-item { border-color:rgba(255,255,255,.16); background:linear-gradient(135deg, rgba(255,255,255,.07), rgba(255,255,255,.02)); }
+.s-translator .flow-item.accent { border-color:rgba(190,170,255,.45); background:linear-gradient(135deg,#2a2350,#1d1838); box-shadow:0 0 55px -16px rgba(0,0,0,.6); }
+.s-translator .flow-item.accent .flow-num, .s-translator .flow-item.accent .flow-label { color:#cbb8ff; }
+
+/* S09 · The Number Isn't the Verdict — MonsterNumbers bg */
+.s-numbers { position:relative; overflow:hidden; background:#000; }
+.numbers-img { position:absolute; inset:0; background:url('MonsterNumbers_v1.png') center center/cover no-repeat; }
+.numbers-fade { position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 80% 65% at 50% 50%, rgba(0,0,0,.5) 0%, rgba(0,0,0,.72) 100%), linear-gradient(180deg, rgba(0,0,0,.4), rgba(0,0,0,.55)); }
+.s-numbers .slide-content { position:relative; z-index:2; }
+
+/* S14 · Stephanie — all-white slide */
+.s-steph-white { background:#ffffff; }
+
+/* S18 · How We Can Help — split (Cornflower purple | AvatarAgency black) */
+.s-help { position:relative; overflow:hidden; background:#000; display:flex; flex-direction:column; padding:0; }
+.s-help .slide-content { display:none; }
+.help-title { flex:0 0 auto; background:#fff; color:#15161c; font-family:var(--font-display); font-size:clamp(1.5rem,3.6vw,3rem); text-align:center; letter-spacing:.02em; text-transform:uppercase; padding:clamp(.55rem,1.4vw,1.05rem); }
+.help-split { flex:1; display:flex; min-height:0; }
+.help-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:clamp(1rem,2.4vw,1.9rem); padding:clamp(1.6rem,4vw,3.4rem) clamp(1.4rem,3.4vw,3rem); overflow-y:auto; }
+.help-cf { background:#3B3E69; }
+.help-aa { background:#000; }
+.help-logo { height:clamp(40px,5vw,72px); width:auto; max-width:82%; display:block; border-radius:6px; }
+.help-btn { display:inline-block; padding:clamp(11px,1.4vw,16px) clamp(20px,2.6vw,34px); border-radius:99px; font-family:var(--font-mono); font-weight:700; font-size:clamp(.72rem,1vw,.9rem); letter-spacing:.1em; text-transform:uppercase; text-decoration:none; transition:transform .2s var(--ease); }
+.help-btn:hover { transform:translateY(-2px); }
+.help-btn-light { background:#fff; color:#3B3E69; box-shadow:0 12px 30px -12px rgba(0,0,0,.5); }
+.help-btn-teal { background:var(--accent); color:#04130d; box-shadow:0 12px 30px -12px rgba(26,229,160,.5); }
+.help-svc { list-style:none; display:flex; flex-direction:column; gap:clamp(.5rem,1.1vw,.9rem); width:100%; max-width:440px; }
+.help-svc li { font-family:var(--font-body); font-weight:300; font-size:clamp(.95rem,1.4vw,1.25rem); color:rgba(255,255,255,.92); border-bottom:1px solid rgba(255,255,255,.15); padding-bottom:clamp(.5rem,1vw,.8rem); }
+.help-svc li strong { font-weight:600; color:#fff; }
+.help-tag { display:block; font-family:var(--font-mono); font-size:clamp(.55rem,.72vw,.68rem); letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-top:3px; }
+
+/* Music player — bottom-LEFT variant for the end slide */
+#hero-player.hp-left { left:clamp(1.4rem,4vw,3rem); right:auto; bottom:clamp(1.4rem,4vw,3rem); }
 </style>
 </head>
 <body>
@@ -558,9 +604,9 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 <!-- ============================================================ -->
 <section class="slide" data-title="Translate to THRIVE">
   <div class="slide-content" style="justify-content:center;">
-    <h1 class="display reveal" style="font-size:clamp(2.8rem,8.5vw,7.5rem);">Translate to <em>THRIVE</em></h1>
+    <h1 class="display reveal" style="font-size:clamp(2.8rem,8.5vw,7.5rem);">TRANSLATE TO <em>THRIVE</em></h1>
     <p class="scene-title reveal" style="font-style:italic; color:var(--text-dim); font-size:clamp(1rem,2.1vw,1.8rem);">How CPAs and AI Are Helping Leaders Make Better Decisions</p>
-    <p class="name-line reveal"><strong>Ardis Kelley, CPA</strong> &nbsp;·&nbsp; The Translator</p>
+    <p class="name-line reveal" style="font-size:clamp(1.1rem,2.3vw,1.9rem);"><strong>Ardis Kelley, CPA</strong> &nbsp;·&nbsp; The Translator</p>
   </div>
 </section>
 
@@ -594,7 +640,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
   <div class="gap-img"></div>
   <div class="gap-fade"></div>
   <div class="gap-copy">
-    <p class="label reveal">The Gap</p>
+    <p class="label reveal" style="font-size:clamp(1rem,2vw,1.7rem); margin-bottom:clamp(.6rem,1.2vw,1.1rem);">The Gap</p>
     <h2 class="statement reveal">We trained for years to produce exactly the report<br><em>they can't read.</em></h2>
   </div>
 </section>
@@ -604,7 +650,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 <!-- ============================================================ -->
 <section class="slide" data-title="Growing but Broke">
   <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
-    <h1 class="display reveal" style="font-size:clamp(2.2rem,6vw,5.5rem);">Growing but <em>broke</em>&nbsp;…</h1>
+    <h1 class="display reveal" style="font-size:clamp(2.2rem,6vw,5.5rem);">Growing but <em>Broke</em>&nbsp;…</h1>
     <div class="pl-grid reveal">
       <div class="pl-card good">
         <div class="pl-icon">📊</div>
@@ -626,8 +672,12 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 <!-- ============================================================ -->
 <!-- S07 · THE TRANSLATOR                                        -->
 <!-- ============================================================ -->
-<section class="slide" data-title="The Translator">
-  <div class="slide-content" style="justify-content:center; align-items:center;">
+<section class="slide s-translator" data-title="The Translator">
+  <div class="slide-content" style="justify-content:center; align-items:center; gap:clamp(1.6rem,3.4vw,3rem);">
+    <a class="cf-logo reveal" href="https://cornflower.studio" target="_blank" rel="noopener">
+      <img src="cornflower_studios_logo.jpg" alt="Cornflower Studio">
+      <span class="cf-url">cornflower.studio</span>
+    </a>
     <div class="flow reveal">
       <div class="flow-item">
         <span class="flow-num">01</span>
@@ -653,8 +703,8 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 <section class="slide" data-title="Finance is Decision-Making">
   <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
     <div class="ai-pair reveal">
-      <div class="ai-line dim">Finance isn't <span class="cross">reporting</span>.</div>
-      <div class="ai-line bright">Finance is <span class="hl">decision-making.</span></div>
+      <div class="ai-line dim">FINANCE ISN'T <span class="cross">REPORTING</span>.</div>
+      <div class="ai-line bright">FINANCE IS <span class="hl">DECISION-MAKING.</span></div>
     </div>
   </div>
 </section>
@@ -662,14 +712,15 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 <!-- ============================================================ -->
 <!-- S09 · THE NUMBER ISN'T THE VERDICT                          -->
 <!-- ============================================================ -->
-<section class="slide foggy" data-title="The Number Isn't the Verdict">
-  <div class="slide-content" style="justify-content:center;">
+<section class="slide s-numbers" data-title="The Number Isn't the Verdict">
+  <div class="numbers-img"></div>
+  <div class="numbers-fade"></div>
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
     <div class="ai-pair reveal">
-      <div class="ai-line bright" style="font-size:clamp(2rem,4.7vw,4.5rem);">The number isn't the verdict.</div>
-      <div class="ai-line" style="font-size:clamp(2rem,4.7vw,4.5rem); color:var(--accent);">It's&nbsp;<em style="font-style:italic;">feedback.</em></div>
+      <div class="ai-line bright" style="font-size:clamp(2rem,4.7vw,4.5rem); text-shadow:0 3px 30px rgba(0,0,0,.85);">THE NUMBER ISN'T THE VERDICT.</div>
+      <div class="ai-line" style="font-size:clamp(2rem,4.7vw,4.5rem); color:var(--accent); text-shadow:0 3px 30px rgba(0,0,0,.85);">IT'S&nbsp;<em style="font-style:italic;">FEEDBACK.</em></div>
     </div>
   </div>
-  <div class="mega-word">Verdict</div>
 </section>
 
 <!-- ============================================================ -->
@@ -687,7 +738,8 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 <!-- S11 · THE FUTURE CPA                                        -->
 <!-- ============================================================ -->
 <section class="slide" data-title="The Future CPA">
-  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center; gap:clamp(1.6rem,3.4vw,3rem);">
+    <p class="label reveal" style="font-size:clamp(1rem,2vw,1.7rem); letter-spacing:.18em;">THE FUTURE CPA</p>
     <div class="stage-flow reveal">
       <div class="stage-item">
         <div class="stage-label" style="color:var(--text-dim);">Reporter</div>
@@ -730,12 +782,10 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 <!-- ============================================================ -->
 <!-- S14 · STEPHANIE D. GETER                                    -->
 <!-- ============================================================ -->
-<section class="slide s-steph" data-title="Stephanie D. Geter">
-  <div class="steph-img"></div>
-  <div class="steph-fade"></div>
-  <div class="slide-content" style="justify-content:center;">
-    <img class="reveal" src="THRIVE_DOCTOR_LOGO2.jpg" alt="The Thrive Doctor" style="width:clamp(190px,23vw,320px); height:auto; border-radius:12px; box-shadow:0 18px 44px -18px rgba(0,0,0,.7); margin-bottom:clamp(1rem,2.2vw,1.8rem); display:block;">
-    <h2 class="scene-title reveal" style="margin:0; width:clamp(190px,23vw,320px); text-align:center;">Stephanie D. Geter,<br><em>PhD, CPA</em></h2>
+<section class="slide s-steph-white" data-title="Stephanie D. Geter">
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <img class="reveal" src="THRIVE_DOCTOR_LOGO2.jpg" alt="The Thrive Doctor" style="width:clamp(260px,34vw,500px); height:auto; margin-bottom:clamp(1.4rem,3vw,2.6rem); display:block;">
+    <h2 class="reveal" style="margin:0; font-family:var(--font-display); line-height:1.12; font-size:clamp(2rem,5vw,4.4rem);"><span style="color:#C5A052;">Stephanie D. Geter,</span><br><em style="font-style:italic; color:#0F7375;">PhD, CPA</em></h2>
   </div>
 </section>
 
@@ -769,7 +819,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
         <li><span class="k">Knowledge</span><span class="v">Accounting · Fraud · Finance</span></li>
         <li><span class="k">Memory</span><span class="v">Picks up where you left off</span></li>
         <li><span class="k">Platform</span><span class="v">Napster · Microsoft Azure</span></li>
-        <li class="hi"><span class="k">Built by</span><span class="v">AvatarAgency</span></li>
+        <li class="hi"><span class="k">Built by</span><span class="v"><a href="https://avataragency.ai" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; text-decoration:none; color:var(--accent);"><img src="AvatarAgency_Logo.jpg" alt="AvatarAgency" style="height:clamp(30px,3.4vw,46px); width:auto; border-radius:5px; display:block;"><span style="font-family:var(--font-mono); font-size:clamp(.62rem,.8vw,.76rem);">avataragency.ai</span></a></span></li>
       </ul>
     </div>
     <div class="iso-stage reveal">
@@ -785,47 +835,33 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 </section>
 
 <!-- ============================================================ -->
-<!-- S17 · THRIVE + AVATARAGENCY PARTNERSHIP                     -->
+<!-- S17 · HOW WE CAN HELP (split: Cornflower | AvatarAgency)    -->
 <!-- ============================================================ -->
-<section class="slide" data-title="In Partnership">
-  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
-    <p class="label reveal">Presented by</p>
-    <div class="logo-row reveal">
-      <div class="logo-wrap">
-        <img class="logo-img on-light" src="THRIVE_DOCTOR_LOGO.jpg" alt="The Thrive Doctor">
-        <span class="logo-cap">The Thrive Doctor</span>
-      </div>
-      <div class="logo-divider" style="margin-top:-10px;">in partnership with</div>
-      <div class="logo-wrap">
-        <img class="logo-img" src="AvatarAgency_Logo.jpg" alt="AvatarAgency">
-        <span class="logo-cap">AvatarAgency</span>
-      </div>
+<section class="slide s-help" data-title="How We Can Help">
+  <div class="help-title reveal">HOW WE CAN HELP</div>
+  <div class="help-split">
+    <!-- LEFT · Cornflower (purple) -->
+    <div class="help-col help-cf reveal">
+      <img class="help-logo" src="cornflower_studios_logo.jpg" alt="Cornflower Studio">
+      <a class="help-btn help-btn-light" href="https://cornflower.studio/#contact" target="_blank" rel="noopener">Start a Conversation</a>
+      <ul class="help-svc">
+        <li><strong>Strategic Financial Clarity</strong><span class="help-tag">Most Common Starting Point</span></li>
+        <li>Strategic Finance Advisory</li>
+        <li>Interim Executive Leadership</li>
+        <li>Board &amp; Governance Advisory</li>
+      </ul>
     </div>
-    <div class="placeholder-copy reveal" style="margin-top:clamp(1.4rem,2.8vw,2.4rem);">[ Partnership description copy — coming soon ]</div>
-  </div>
-</section>
-
-<!-- ============================================================ -->
-<!-- S18 · MARKETING / LOGOS                                     -->
-<!-- ============================================================ -->
-<section class="slide" data-title="Cornflower Studio">
-  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
-    <p class="label reveal">Produced by</p>
-    <div class="logo-row reveal">
-      <div class="logo-wrap">
-        <img class="logo-img on-light" src="cornflower_studios_logo.jpg" alt="Cornflower Studio">
-        <span class="logo-cap">Cornflower Studio</span>
-      </div>
-      <div class="logo-wrap">
-        <img class="logo-img on-light" src="THRIVE_DOCTOR_LOGO.jpg" alt="The Thrive Doctor">
-        <span class="logo-cap">THRIVE</span>
-      </div>
-      <div class="logo-wrap">
-        <img class="logo-img" src="AvatarAgency_Logo.jpg" alt="AvatarAgency">
-        <span class="logo-cap">AvatarAgency</span>
-      </div>
+    <!-- RIGHT · AvatarAgency (black) -->
+    <div class="help-col help-aa reveal">
+      <img class="help-logo" src="AvatarAgency_Logo.jpg" alt="AvatarAgency">
+      <a class="help-btn help-btn-teal" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a Strategy Call</a>
+      <ul class="help-svc">
+        <li>AI Imaging &amp; Video Production</li>
+        <li>Presentation &amp; Curriculum Development Services</li>
+        <li>Branding &amp; Website Design</li>
+        <li>Digital Interactive Custom Avatars</li>
+      </ul>
     </div>
-    <div class="placeholder-copy reveal" style="margin-top:clamp(1.4rem,2.8vw,2.4rem);">[ Services copy — coming soon ]</div>
   </div>
 </section>
 
@@ -931,10 +967,13 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
   audio.addEventListener('pause', function () { setPlaying(false); });
   audio.addEventListener('ended', function () { setPlaying(false); });
 
-  /* show on slide 1, pause + hide on any other slide */
+  /* show on slide 1 (bottom-right) and the end slide (bottom-left); pause + hide elsewhere */
+  var lastIdx = document.querySelectorAll('.slide').length - 1;
   document.addEventListener('slidechange', function (e) {
-    if (e.detail.index === 0) {
+    var i = e.detail.index;
+    if (i === 0 || i === lastIdx) {
       player.classList.add('hp-visible');
+      player.classList.toggle('hp-left', i === lastIdx);
     } else {
       player.classList.remove('hp-visible');
       if (!audio.paused) audio.pause();
