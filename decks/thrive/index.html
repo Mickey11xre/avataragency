@@ -48,7 +48,7 @@
 }
 
 *  { margin:0; padding:0; box-sizing:border-box; }
-html,body { height:100%; overflow-x:hidden; background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; -webkit-font-smoothing:antialiased; }
+html,body { height:100%; overflow-x:hidden; background:var(--bg)!important; color:var(--text); font-family:var(--font-body); font-weight:300; -webkit-font-smoothing:antialiased; }
 html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 
 /* ================================================================
@@ -59,6 +59,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
   overflow:hidden; position:relative;
   scroll-snap-align:start; scroll-snap-stop:always;
   display:flex; flex-direction:column;
+  background:var(--bg);
 }
 
 /* ambient spotlight */
