@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Translate to THRIVE — AICPA 2026</title>
+
+<!-- Fonts · same paper style as Napster deck -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+
+<!-- Napster SDK CSS loaded lazily on click so it never whitens the deck background -->
+<link id="napster-sdk-css" rel="stylesheet" href="" disabled>
+
+<style>
+/* ================================================================
+   TOKENS — THRIVE palette (teal-green accent on black)
+   ================================================================ */
+:root {
+  --bg:            #000;
+  --bg-elev:       #0a0a0a;
+  --surface:       #111;
+  --border:        #1e1e1e;
+  --border-hover:  #333;
+  --text:          #e0e0e0;
+  --text-paper:    #f1ece0;
+  --text-dim:      #888;
+  --muted:         #555;
+  --accent:        #1AE5A0;
+  --accent-hl:     rgba(26,229,160,.18);
+  --accent-glow:   rgba(26,229,160,.32);
+  --gold:          #c9a84c;
+  --red:           #ef4444;
+
+  --font-display: 'Instrument Serif', serif;
+  --font-body:    'Outfit', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --title-size:   clamp(2.4rem, 7vw, 6.5rem);
+  --h2-size:      clamp(1.2rem, 2.6vw, 2.2rem);
+  --body-size:    clamp(0.95rem, 1.4vw, 1.2rem);
+  --small-size:   clamp(0.7rem, 0.95vw, 0.85rem);
+  --pad:          clamp(2rem, 6vw, 6rem);
+  --gap:          clamp(1rem, 2.2vw, 2rem);
+  --ease:         cubic-bezier(.16,1,.3,1);
+  --dur:          .9s;
+}
+
+*  { margin:0; padding:0; box-sizing:border-box; }
+html,body { height:100%; overflow-x:hidden; background:var(--bg); color:var(--text); font-family:var(--font-body); font-weight:300; -webkit-font-smoothing:antialiased; }
+html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
+
+/* ================================================================
+   SLIDE BASE
+   ================================================================ */
+.slide {
+  width:100vw; height:100vh; height:100dvh;
+  overflow:hidden; position:relative;
+  scroll-snap-align:start; scroll-snap-stop:always;
+  display:flex; flex-direction:column;
+}
+
+/* ambient spotlight */
+.slide::before {
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background: radial-gradient(ellipse 70% 60% at var(--sx,28%) var(--sy,32%), rgba(26,229,160,.07) 0%, transparent 70%);
+}
+.slide:nth-child(even)::before { --sx:74%; --sy:68%; }
+
+.slide-content {
+  position:relative; z-index:1; flex:1;
+  display:flex; flex-direction:column;
+  padding:var(--pad); gap:var(--gap); justify-content:center;
+}
+
+/* ================================================================
+   TYPOGRAPHY
+   ================================================================ */
+.display {
+  font-family:var(--font-display); font-weight:400;
+  font-size:var(--title-size); line-height:1.05;
+  color:var(--text-paper); letter-spacing:-.01em;
+}
+.display em { font-style:italic; color:var(--accent); }
+
+.scene-title {
+  font-family:var(--font-display); font-weight:400;
+  font-size:var(--h2-size); line-height:1.18; color:var(--text-paper);
+}
+.scene-title em { font-style:italic; color:var(--accent); }
+
+.body-text {
+  font-family:var(--font-body); font-weight:300;
+  font-size:var(--body-size); line-height:1.65;
+  color:var(--text-dim); max-width:54ch;
+}
+.body-text em { color:var(--text-paper); font-style:italic; }
+.body-text b  { color:var(--text-paper); font-weight:500; }
+
+.label {
+  font-family:var(--font-mono); font-weight:500;
+  font-size:var(--small-size); letter-spacing:.18em;
+  text-transform:uppercase; color:var(--accent);
+}
+
+.hl { color:var(--accent); }
+
+/* ================================================================
+   REVEAL ANIMATION
+   ================================================================ */
+.reveal { opacity:0; transform:translateY(20px); transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.slide.visible .reveal              { opacity:1; transform:none; }
+.slide.visible .reveal:nth-child(2) { transition-delay:.2s; }
+.slide.visible .reveal:nth-child(3) { transition-delay:.35s; }
+.slide.visible .reveal:nth-child(4) { transition-delay:.5s; }
+.slide.visible .reveal:nth-child(5) { transition-delay:.65s; }
+.slide.visible h1.reveal, .slide.visible .display.reveal { transition-duration:1.2s; }
+
+/* ================================================================
+   PROGRESS BAR + COUNTER
+   ================================================================ */
+#progress { position:fixed; top:0; left:0; height:2px; z-index:999; background:var(--accent); transition:width .35s var(--ease); box-shadow:0 0 8px var(--accent-glow); pointer-events:none; }
+#counter  { position:fixed; bottom:clamp(1rem,2.5vw,2rem); right:clamp(1rem,2.5vw,2rem); font-family:var(--font-mono); font-size:10px; letter-spacing:.18em; color:var(--muted); z-index:999; user-select:none; }
+
+/* ===== Hero music player ===== */
+#hero-player {
+  position:fixed; bottom:clamp(3.8rem,5.5vw,5.2rem); right:clamp(5rem,9vw,11rem);
+  z-index:1000; display:flex; align-items:center; gap:10px;
+  background:rgba(8,8,8,.82); backdrop-filter:blur(14px) saturate(1.4);
+  border:1px solid var(--border); border-radius:100px;
+  padding:8px 16px 8px 10px;
+  opacity:0; pointer-events:none;
+  transition:opacity .45s var(--ease), transform .45s var(--ease);
+  transform:translateY(6px);
+}
+#hero-player.hp-visible { opacity:1; pointer-events:auto; transform:translateY(0); }
+
+#hp-btn {
+  width:34px; height:34px; border-radius:50%; flex-shrink:0;
+  border:none; background:var(--accent); color:#000; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .2s, box-shadow .2s;
+}
+#hp-btn:hover { transform:scale(1.12); box-shadow:0 0 14px var(--accent-glow); }
+#hp-btn:active { transform:scale(.95); }
+#hp-btn svg { width:14px; height:14px; }
+
+.hp-bars { display:flex; align-items:flex-end; gap:3px; height:18px; }
+.hp-bars span {
+  display:block; width:3px; background:var(--accent); border-radius:2px;
+  animation:hpBar 1s ease-in-out infinite alternate;
+}
+.hp-bars span:nth-child(1) { height:6px;  animation-delay:0s;    animation-duration:.9s; }
+.hp-bars span:nth-child(2) { height:14px; animation-delay:.15s;  animation-duration:1.1s; }
+.hp-bars span:nth-child(3) { height:10px; animation-delay:.3s;   animation-duration:.85s; }
+.hp-bars span:nth-child(4) { height:18px; animation-delay:.05s;  animation-duration:1.2s; }
+.hp-bars span:nth-child(5) { height:8px;  animation-delay:.22s;  animation-duration:.95s; }
+.hp-bars { opacity:0; transition:opacity .3s; }
+#hero-player.hp-playing .hp-bars { opacity:1; }
+
+@keyframes hpBar { from { transform:scaleY(.3); } to { transform:scaleY(1); } }
+
+.hp-label { font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; color:var(--text-dim); text-transform:uppercase; white-space:nowrap; }
+
+/* ===== Right-side dot pips ===== */
+.nav-dots {
+  position:fixed; right:clamp(12px,1.8vw,28px); top:50%; transform:translateY(-50%);
+  display:flex; flex-direction:column; gap:clamp(7px,.8vw,12px); z-index:1000;
+}
+.nav-dots button {
+  width:8px; height:8px; border-radius:50%; border:1px solid var(--text-dim);
+  background:transparent; cursor:pointer; padding:0; transition:all .3s var(--ease);
+}
+.nav-dots button:hover { border-color:var(--accent); transform:scale(1.3); }
+.nav-dots button.active { background:var(--accent); border-color:var(--accent); box-shadow:0 0 8px var(--accent-glow); }
+
+/* ===== Bottom-center arrows ===== */
+.nav-arrows {
+  position:fixed; bottom:clamp(14px,2vw,26px); left:50%; transform:translateX(-50%);
+  display:flex; gap:10px; z-index:1000;
+}
+.nav-arrow {
+  width:42px; height:42px; border:1px solid var(--border);
+  background:rgba(10,10,10,.75); backdrop-filter:blur(8px);
+  border-radius:100px; color:var(--text-dim); cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:all .3s var(--ease); padding:0;
+}
+.nav-arrow:hover { border-color:var(--accent); color:var(--accent); box-shadow:0 0 16px var(--accent-glow); transform:scale(1.08); }
+.nav-arrow:active { transform:scale(.95); }
+.nav-arrow svg { width:18px; height:18px; }
+.nav-arrow:disabled { opacity:.25; cursor:not-allowed; }
+.nav-arrow:disabled:hover { border-color:var(--border); color:var(--text-dim); box-shadow:none; transform:none; }
+
+/* ================================================================
+   S01 · HERO (full-bleed image)
+   ================================================================ */
+.s-hero { background:#000; }
+.s-hero .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:contain; object-position:center center; display:block; }
+
+/* ================================================================
+   S02 · TITLE
+   ================================================================ */
+.event-line  { font-family:var(--font-mono); font-size:var(--small-size); letter-spacing:.15em; text-transform:uppercase; color:var(--accent); opacity:.8; margin-bottom:clamp(.5rem,1vw,.9rem); }
+.name-line   { font-family:var(--font-mono); font-size:clamp(.74rem,.95vw,.88rem); letter-spacing:.1em; color:var(--text-dim); margin-top:clamp(1rem,2vw,1.8rem); }
+.name-line strong { color:var(--text-paper); }
+
+/* ================================================================
+   S03 · DUBUQUE SALESMAN — image left, fade to black, copy right
+   ================================================================ */
+.s-salesman { position:relative; overflow:hidden; background:#000; }
+
+.salesman-img {
+  position:absolute; left:0; top:0; bottom:0;
+  width:72%;
+  background:url('BarSalesman_v1.png') center/cover no-repeat;
+}
+
+.salesman-fade {
+  position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to right, transparent 28%, rgba(0,0,0,.55) 50%, #000 70%);
+}
+
+.salesman-copy {
+  position:absolute; right:0; top:0; bottom:0;
+  width:48%;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:clamp(2rem,5vw,5rem) clamp(2.5rem,6vw,7rem) clamp(2rem,5vw,5rem) 0;
+  z-index:2;
+}
+.salesman-copy .label { margin-bottom:clamp(.8rem,1.4vw,1.4rem); }
+.salesman-copy .scene-title { font-size:clamp(2rem,4.2vw,3.8rem); line-height:1.15; max-width:18ch; }
+
+/* ================================================================
+   S05 · THE GAP — image right, fade to black left, copy left
+   ================================================================ */
+.s-gap { position:relative; overflow:hidden; background:#000; }
+
+.gap-img {
+  position:absolute; right:0; top:0; bottom:0;
+  width:72%;
+  background:url('FinancialStatement_v3.png') center/cover no-repeat;
+}
+
+.gap-fade {
+  position:absolute; inset:0; pointer-events:none;
+  background:linear-gradient(to left, transparent 18%, rgba(0,0,0,.65) 40%, #000 58%);
+}
+
+.gap-copy {
+  position:absolute; left:0; top:0; bottom:0;
+  width:50%;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:clamp(2rem,5vw,5rem) 0 clamp(2rem,5vw,5rem) clamp(5rem,10vw,12rem);
+  z-index:2;
+}
+.gap-copy .statement { font-size:clamp(1.6rem,3.2vw,2.8rem); max-width:20ch; }
+
+/* ================================================================
+   ISO LAYOUT · text left | stage right
+   ================================================================ */
+.iso-slide .slide-content { flex-direction:row; align-items:center; gap:clamp(2rem,5vw,5rem); }
+.iso-text  { flex:1; display:flex; flex-direction:column; gap:clamp(.8rem,1.4vw,1.2rem); }
+.iso-stage { flex:0 0 auto; width:clamp(280px,36vw,520px); aspect-ratio:1/1; }
+@media(max-width:820px){ .iso-slide .slide-content{flex-direction:column;} .iso-stage{width:100%;aspect-ratio:16/9;} }
+
+/* ================================================================
+   TWIN CARD · live Ethica avatar
+   ================================================================ */
+.twin-card {
+  position:relative; width:100%; height:100%;
+  border:1px solid var(--border); border-radius:16px; overflow:hidden;
+  background:#000; box-shadow:0 30px 70px -34px rgba(0,0,0,.6), 0 0 0 1px rgba(26,229,160,.14);
+}
+.twin-card img.poster { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center top; display:block; transition:opacity .4s; }
+#ethica-avatar { position:absolute; inset:0; width:100%; height:100%; background:#000; opacity:0; pointer-events:none; transition:opacity .5s; }
+#ethica-avatar > *, #ethica-avatar video, #ethica-avatar canvas { width:100%!important; height:100%!important; object-fit:cover; object-position:center top; }
+.twin-card.live-on #ethica-avatar { opacity:1; pointer-events:auto; }
+.twin-card.live-on img.poster      { opacity:0; }
+
+.live-badge {
+  position:absolute; top:14px; left:14px; z-index:10;
+  display:inline-flex; align-items:center; gap:7px;
+  padding:5px 12px; border-radius:99px;
+  background:rgba(10,10,10,.65); backdrop-filter:blur(6px);
+  border:1px solid rgba(26,229,160,.4);
+  font-family:var(--font-mono); font-size:10px; font-weight:600;
+  letter-spacing:.22em; text-transform:uppercase; color:var(--accent);
+}
+.live-dot { width:7px; height:7px; border-radius:50%; background:var(--accent); box-shadow:0 0 10px var(--accent); animation:dotBlink 1.4s ease-in-out infinite; }
+@keyframes dotBlink { 0%,100%{opacity:1;} 50%{opacity:.3;} }
+
+.twin-url { position:absolute; left:0; right:0; bottom:0; padding:26px 16px 13px; z-index:10; background:linear-gradient(to top,rgba(0,0,0,.9),transparent); font-family:var(--font-mono); font-size:11px; letter-spacing:.03em; color:rgba(26,229,160,.55); }
+
+.twin-start {
+  position:absolute; inset:0; z-index:20;
+  display:flex; align-items:center; justify-content:center;
+  background:rgba(0,0,0,.45); backdrop-filter:blur(3px);
+  border:0; cursor:pointer; color:var(--accent);
+  font-family:var(--font-mono); font-size:clamp(13px,1.4vw,16px); font-weight:600;
+  letter-spacing:.12em; text-transform:uppercase; transition:background .25s;
+}
+.twin-start:hover { background:rgba(0,0,0,.3); }
+.twin-card.live-on .twin-start { display:none; }
+
+/* ================================================================
+   FINE LIST
+   ================================================================ */
+.fine-list { list-style:none; display:flex; flex-direction:column; gap:0; }
+.fine-list li { display:flex; justify-content:space-between; align-items:center; font-family:var(--font-mono); font-size:clamp(.7rem,.9vw,.84rem); color:var(--text-dim); padding:clamp(7px,.9vw,10px) 0; border-bottom:1px solid var(--border); }
+.fine-list li:last-child { border-bottom:none; }
+.fine-list .k { letter-spacing:.07em; font-weight:600; color:var(--muted); }
+.fine-list .v { color:var(--text-paper); font-weight:500; }
+.fine-list li.hi .v { color:var(--accent); }
+
+/* ================================================================
+   FLOW DIAGRAM
+   ================================================================ */
+.flow { display:flex; flex-direction:column; align-items:center; width:100%; max-width:clamp(320px,46vw,580px); }
+.flow-item {
+  display:flex; align-items:center; justify-content:center; gap:clamp(14px,1.8vw,26px); width:100%;
+  padding:clamp(14px,1.9vw,26px) clamp(20px,2.6vw,36px);
+  border:1px solid var(--border); border-radius:16px;
+  background:linear-gradient(135deg, rgba(255,255,255,.04), rgba(255,255,255,.012));
+  transition:transform .45s var(--ease), border-color .45s var(--ease), box-shadow .45s var(--ease);
+}
+.flow-item:hover { transform:translateY(-3px); border-color:rgba(255,255,255,.2); }
+.flow-num   { font-family:var(--font-mono); font-weight:700; font-size:clamp(1.05rem,1.9vw,1.7rem); color:var(--muted); flex:0 0 auto; opacity:.5; }
+.flow-label { font-family:var(--font-display); font-style:italic; font-size:clamp(1.3rem,2.6vw,2.1rem); color:var(--text-paper); line-height:1.08; }
+.flow-item.accent {
+  border-color:rgba(26,229,160,.45);
+  background:linear-gradient(135deg, rgba(26,229,160,.13), rgba(26,229,160,.03));
+  box-shadow:0 0 50px -16px rgba(26,229,160,.4);
+}
+.flow-item.accent .flow-num { color:var(--accent); opacity:.9; }
+.flow-item.accent .flow-label { color:var(--accent); }
+.flow-arrow { text-align:center; padding:clamp(5px,.7vw,10px) 0; font-size:clamp(1.1rem,1.6vw,1.5rem); color:var(--accent); opacity:.4; }
+
+/* ================================================================
+   P&L VISUAL (Slide 06)
+   ================================================================ */
+.pl-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(12px,1.8vw,22px); width:100%; max-width:600px; }
+.pl-card { border:1px solid var(--border); border-radius:12px; padding:clamp(14px,1.8vw,22px); background:var(--bg-elev); text-align:left; }
+.pl-card.good { border-color:rgba(26,229,160,.3); }
+.pl-card.bad  { border-color:rgba(239,68,68,.3); }
+.pl-icon  { font-size:clamp(1.3rem,1.8vw,1.7rem); margin-bottom:8px; }
+.pl-name  { font-family:var(--font-mono); font-size:clamp(9px,.78vw,11px); font-weight:600; letter-spacing:.14em; text-transform:uppercase; margin-bottom:4px; }
+.pl-card.good .pl-name { color:var(--accent); }
+.pl-card.bad  .pl-name { color:#f87171; }
+.pl-value { font-family:var(--font-display); font-style:italic; font-size:clamp(1.1rem,1.7vw,1.5rem); color:var(--text-paper); }
+.pl-note  { font-family:var(--font-body); font-weight:300; font-size:clamp(.7rem,.88vw,.84rem); color:var(--text-dim); margin-top:6px; line-height:1.45; }
+
+/* ================================================================
+   IMAGE PLACEHOLDER (slides 03, 05)
+   ================================================================ */
+.img-ph {
+  width:100%; height:100%; border-radius:12px;
+  border:1px dashed rgba(26,229,160,.28); background:rgba(26,229,160,.04);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:12px; padding:24px; text-align:center;
+}
+.img-ph .ph-icon  { font-size:1.8rem; opacity:.4; }
+.img-ph .ph-label { font-family:var(--font-mono); font-size:clamp(8px,.82vw,10.5px); letter-spacing:.05em; color:rgba(26,229,160,.5); line-height:1.55; }
+
+/* ================================================================
+   QUOTE (Slide 04)
+   ================================================================ */
+.quote-mark {
+  font-family:var(--font-display); font-size:clamp(7rem,16vw,16rem);
+  line-height:.7; color:var(--accent); opacity:.1;
+  position:absolute; top:var(--pad); left:calc(var(--pad) - .8rem);
+  pointer-events:none; user-select:none;
+}
+.big-quote {
+  font-family:var(--font-display); font-style:italic;
+  font-size:clamp(2rem,5.5vw,5rem); line-height:1.12;
+  color:var(--text-paper); max-width:22ch; position:relative; z-index:1;
+}
+.big-quote em { font-style:normal; color:var(--accent); }
+
+/* ================================================================
+   STATEMENT + AI-PAIR (Slides 08, 09, 12)
+   ================================================================ */
+.statement { font-family:var(--font-display); font-size:clamp(1.9rem,4.8vw,4.5rem); line-height:1.1; color:var(--text-paper); max-width:28ch; }
+.statement em { font-style:italic; color:var(--accent); }
+
+.ai-pair { display:flex; flex-direction:column; gap:clamp(6px,1vw,12px); max-width:880px; }
+.ai-line { font-family:var(--font-display); font-size:clamp(2rem,4.6vw,4rem); line-height:1.12; }
+.ai-line.dim    { color:var(--text-dim); }
+.ai-line.bright { color:var(--text-paper); }
+.ai-line .hl    { color:var(--accent); }
+.ai-line.dim .cross { text-decoration:line-through; text-decoration-color:rgba(255,255,255,.2); }
+
+/* ================================================================
+   MEGA WORD (background typographic element)
+   ================================================================ */
+.mega-word {
+  font-family:var(--font-display); font-style:italic; font-weight:400;
+  font-size:clamp(7rem,20vw,18rem); line-height:.9;
+  color:transparent; -webkit-text-stroke:1px rgba(26,229,160,.18);
+  position:absolute; bottom:var(--pad); right:var(--pad);
+  pointer-events:none; user-select:none; letter-spacing:-.02em;
+}
+
+/* ================================================================
+   FOGGY BACKGROUND (Slides 09, 10)
+   ================================================================ */
+.foggy { background: linear-gradient(180deg,rgba(0,0,0,.55) 0%,rgba(0,0,0,.2) 50%,rgba(0,0,0,.65) 100%), radial-gradient(ellipse 120% 80% at 50% 80%,rgba(26,229,160,.05) 0%,transparent 65%); }
+.s-judg { position:relative; overflow:hidden; background:#000; }
+.judg-img { position:absolute; inset:0; background:url('ForkPath_v1.png') center/cover no-repeat; }
+.judg-fade { position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 70% 55% at 50% 50%, rgba(0,0,0,.34) 0%, transparent 70%), linear-gradient(180deg, rgba(0,0,0,.12) 0%, transparent 35%, rgba(0,0,0,.28) 100%); }
+.s-judg .slide-content { position:relative; z-index:2; }
+.s-aip { position:relative; overflow:hidden; background:#000; }
+.aip-img { position:absolute; right:6%; top:0; bottom:0; width:44%; background:url('ARDIS_2.png') left bottom/contain no-repeat; }
+.aip-fade { position:absolute; inset:0; pointer-events:none; background:linear-gradient(to right, #000 30%, rgba(0,0,0,.5) 50%, transparent 74%); }
+.s-aip .slide-content { position:relative; z-index:2; align-items:flex-start; }
+.s-aip .ai-pair { max-width:54%; }
+@media(max-width:820px){ .aip-img{width:60%; opacity:.35;} .aip-fade{background:linear-gradient(to right,#000 38%,rgba(0,0,0,.6) 60%,rgba(0,0,0,.25) 100%);} .s-aip .ai-pair{max-width:90%;} }
+.s-steph { position:relative; overflow:hidden; background:#000; }
+.steph-img { position:absolute; right:6%; top:0; bottom:0; width:44%; background:url('THRIVE_DOCTOR.png') left bottom/contain no-repeat; }
+.steph-fade { position:absolute; inset:0; pointer-events:none; background:linear-gradient(to right, #000 30%, rgba(0,0,0,.5) 50%, transparent 74%); }
+.s-steph .slide-content { position:relative; z-index:2; align-items:flex-start; padding-left:clamp(6rem,17vw,22rem); }
+.s-steph .scene-title { max-width:54%; }
+@media(max-width:820px){ .steph-img{width:60%; opacity:.35;} .steph-fade{background:linear-gradient(to right,#000 38%,rgba(0,0,0,.6) 60%,rgba(0,0,0,.25) 100%);} .s-steph .scene-title{max-width:90%;} }
+
+/* ================================================================
+   STAGE FLOW (Slides 11)
+   ================================================================ */
+.stage-flow  { display:flex; align-items:center; justify-content:center; gap:clamp(16px,2.6vw,40px); flex-wrap:wrap; }
+.stage-item  { display:flex; flex-direction:column; gap:4px; }
+.stage-tag   { font-family:var(--font-mono); font-weight:600; font-size:clamp(9px,.78vw,10.5px); letter-spacing:.18em; text-transform:uppercase; color:var(--muted); }
+.stage-label { font-family:var(--font-display); font-style:italic; font-size:clamp(2.4rem,5vw,4.6rem); color:var(--text-paper); line-height:1; }
+.stage-label.hl { color:var(--accent); }
+.stage-arrow { font-size:clamp(1.8rem,3vw,2.8rem); color:var(--accent); opacity:.5; }
+
+/* ================================================================
+   FILM FRAME (Slide 15)
+   ================================================================ */
+.film-frame { position:relative; width:min(80vw, calc(62vh * 16 / 9)); aspect-ratio:16/9; border:1px solid var(--border); border-radius:16px; overflow:hidden; background:#000; box-shadow:0 40px 90px -40px rgba(0,0,0,.7), 0 0 0 1px rgba(26,229,160,.1); }
+.film-frame iframe { position:absolute; inset:0; width:100%; height:100%; border:0; display:block; }
+
+/* ================================================================
+   STEPHANIE SLIDE (14)
+   ================================================================ */
+.steph-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,5rem); align-items:center; width:100%; max-width:1060px; }
+@media(max-width:820px){ .steph-grid{grid-template-columns:1fr;} }
+.steph-photo { width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center top; border-radius:16px; border:1px solid var(--border); box-shadow:0 30px 60px -20px rgba(0,0,0,.7); }
+.steph-bio   { display:flex; flex-direction:column; gap:clamp(.8rem,1.3vw,1.1rem); }
+.steph-creds { font-family:var(--font-mono); font-size:clamp(.68rem,.88vw,.82rem); letter-spacing:.1em; color:var(--accent); text-transform:uppercase; }
+
+/* ================================================================
+   LOGO SLIDES (17, 18)
+   ================================================================ */
+.logo-row  { display:flex; align-items:center; justify-content:center; gap:clamp(20px,5vw,60px); flex-wrap:wrap; margin-top:clamp(1.4rem,2.8vw,2.4rem); }
+.logo-wrap { display:flex; flex-direction:column; align-items:center; gap:10px; }
+.logo-cap  { font-family:var(--font-mono); font-size:clamp(8px,.76vw,10px); letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+.logo-img  { height:clamp(46px,5.8vw,74px); width:auto; display:block; border-radius:8px; }
+.logo-img.on-light { background:rgba(255,255,255,.9); padding:8px 16px; border-radius:10px; }
+.logo-divider { font-family:var(--font-display); font-style:italic; font-size:clamp(1.1rem,1.8vw,1.6rem); color:var(--text-dim); }
+
+.placeholder-copy {
+  font-family:var(--font-mono); font-size:clamp(.68rem,.82vw,.8rem);
+  letter-spacing:.04em; color:var(--muted); font-style:italic;
+  border:1px dashed rgba(255,255,255,.1); border-radius:8px;
+  padding:clamp(10px,1.2vw,14px) clamp(14px,1.8vw,20px);
+  max-width:40ch; text-align:center;
+}
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+<div id="counter"><span id="cur">01</span>&thinsp;/&thinsp;<span id="tot">18</span></div>
+<!-- Hero music player — visible on slide 1 only -->
+<audio id="heroAudio" preload="none" loop>
+  <source src="https://napsteraimusic-dyewfxh4abb6ataq.z02.azurefd.net/users-content/organizations/9f0e4c2e-99b2-4ab2-a803-1b9b898bc789/tracks/95feba72-f923-46d7-ae54-359ee37be229.mp3" type="audio/mpeg">
+</audio>
+<div id="hero-player">
+  <button id="hp-btn" aria-label="Play/Pause music">
+    <!-- play icon (default) -->
+    <svg id="hp-icon-play" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+    <!-- pause icon (hidden while paused) -->
+    <svg id="hp-icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+  </button>
+  <div class="hp-bars"><span></span><span></span><span></span><span></span><span></span></div>
+  <span class="hp-label">People on Purpose</span>
+</div>
+
+<nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+<div class="nav-arrows">
+  <button class="nav-arrow" id="navPrev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="nav-arrow" id="navNext" aria-label="Next slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+
+<!-- ============================================================ -->
+<!-- S01 · HERO                                                   -->
+<!-- ============================================================ -->
+<section class="slide s-hero" data-title="THRIVE">
+  <img class="hero-img" src="THRIVE_HERO_V2.png" alt="THRIVE — Unleash Your Superpower Through Agentic AI">
+</section>
+
+<!-- ============================================================ -->
+<!-- S02 · TITLE                                                  -->
+<!-- ============================================================ -->
+<section class="slide" data-title="Translate to THRIVE">
+  <div class="slide-content" style="justify-content:center;">
+    <h1 class="display reveal" style="font-size:clamp(2.8rem,8.5vw,7.5rem);">Translate to <em>THRIVE</em></h1>
+    <p class="scene-title reveal" style="font-style:italic; color:var(--text-dim); font-size:clamp(1rem,2.1vw,1.8rem);">How CPAs and AI Are Helping Leaders Make Better Decisions</p>
+    <p class="name-line reveal"><strong>Ardis Kelley, CPA</strong> &nbsp;·&nbsp; The Translator</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S03 · THE DUBUQUE SALESMAN                                   -->
+<!-- ============================================================ -->
+<section class="slide s-salesman" data-title="The Dubuque Salesman">
+  <div class="salesman-img"></div>
+  <div class="salesman-fade"></div>
+  <div class="salesman-copy" style="justify-content:flex-end; padding-bottom:14vh;">
+    <p class="label reveal">The Dubuque Salesman</p>
+    <h2 class="scene-title reveal">The conversation that started everything.</h2>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S04 · SALESPEOPLE HATE ACCOUNTANTS                          -->
+<!-- ============================================================ -->
+<section class="slide" data-title="Salespeople hate accountants">
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <blockquote class="big-quote reveal" style="max-width:20ch;">
+      "Salespeople hate<br><span style="color:var(--accent);">accountants</span><em>&nbsp;…</em>"
+    </blockquote>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S05 · THE GAP                                               -->
+<!-- ============================================================ -->
+<section class="slide s-gap" data-title="The Gap">
+  <div class="gap-img"></div>
+  <div class="gap-fade"></div>
+  <div class="gap-copy">
+    <p class="label reveal">The Gap</p>
+    <h2 class="statement reveal">We trained for years to produce exactly the report<br><em>they can't read.</em></h2>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S06 · GROWING BUT BROKE                                     -->
+<!-- ============================================================ -->
+<section class="slide" data-title="Growing but Broke">
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <h1 class="display reveal" style="font-size:clamp(2.2rem,6vw,5.5rem);">Growing but <em>broke</em>&nbsp;…</h1>
+    <div class="pl-grid reveal">
+      <div class="pl-card good">
+        <div class="pl-icon">📊</div>
+        <div class="pl-name">P&amp;L Statement</div>
+        <div class="pl-value">$200K net income</div>
+        <div class="pl-note">Profitable on paper. Every metric looks great.</div>
+      </div>
+      <div class="pl-card bad">
+        <div class="pl-icon">🏦</div>
+        <div class="pl-name">Bank Account</div>
+        <div class="pl-value">Constantly short</div>
+        <div class="pl-note">Drawing on the line of credit to make payroll.</div>
+      </div>
+    </div>
+    <p class="body-text reveal" style="font-style:italic;">"Reporting the issue is not the same as explaining it."</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S07 · THE TRANSLATOR                                        -->
+<!-- ============================================================ -->
+<section class="slide" data-title="The Translator">
+  <div class="slide-content" style="justify-content:center; align-items:center;">
+    <div class="flow reveal">
+      <div class="flow-item">
+        <span class="flow-num">01</span>
+        <span class="flow-label">Financial Information</span>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-item">
+        <span class="flow-num">02</span>
+        <span class="flow-label">Insight</span>
+      </div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-item accent">
+        <span class="flow-num">03</span>
+        <span class="flow-label">Decision</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S08 · FINANCE IS DECISION-MAKING                            -->
+<!-- ============================================================ -->
+<section class="slide" data-title="Finance is Decision-Making">
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <div class="ai-pair reveal">
+      <div class="ai-line dim">Finance isn't <span class="cross">reporting</span>.</div>
+      <div class="ai-line bright">Finance is <span class="hl">decision-making.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S09 · THE NUMBER ISN'T THE VERDICT                          -->
+<!-- ============================================================ -->
+<section class="slide foggy" data-title="The Number Isn't the Verdict">
+  <div class="slide-content" style="justify-content:center;">
+    <div class="ai-pair reveal">
+      <div class="ai-line bright" style="font-size:clamp(2rem,4.7vw,4.5rem);">The number isn't the verdict.</div>
+      <div class="ai-line" style="font-size:clamp(2rem,4.7vw,4.5rem); color:var(--accent);">It's&nbsp;<em style="font-style:italic;">feedback.</em></div>
+    </div>
+  </div>
+  <div class="mega-word">Verdict</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S10 · JUDGMENT                                              -->
+<!-- ============================================================ -->
+<section class="slide s-judg" data-title="Judgment">
+  <div class="judg-img"></div>
+  <div class="judg-fade"></div>
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <h1 class="display reveal" style="font-size:clamp(3rem,8.5vw,7.5rem); font-style:italic; text-shadow:0 2px 40px rgba(0,0,0,.7), 0 1px 6px rgba(0,0,0,.6);">Judgment.</h1>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S11 · THE FUTURE CPA                                        -->
+<!-- ============================================================ -->
+<section class="slide" data-title="The Future CPA">
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <div class="stage-flow reveal">
+      <div class="stage-item">
+        <div class="stage-label" style="color:var(--text-dim);">Reporter</div>
+      </div>
+      <div class="stage-arrow">→</div>
+      <div class="stage-item">
+        <div class="stage-label">Translator</div>
+      </div>
+      <div class="stage-arrow">→</div>
+      <div class="stage-item">
+        <div class="stage-label hl">Advisor</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S12 · AI PARTNERSHIP                                        -->
+<!-- ============================================================ -->
+<section class="slide s-aip" data-title="AI Partnership">
+  <div class="aip-img"></div>
+  <div class="aip-fade"></div>
+  <div class="slide-content" style="justify-content:center;">
+    <div class="ai-pair reveal" style="gap:clamp(8px,1.2vw,16px);">
+      <div class="ai-line dim" style="font-size:clamp(1.6rem,3.4vw,3.1rem);">AI doesn't <em>replace</em> The Translator.</div>
+      <div class="ai-line bright" style="font-size:clamp(1.6rem,3.4vw,3.1rem);">AI <span class="hl">strengthens</span> The Translator.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S13 · THE QUESTION                                          -->
+<!-- ============================================================ -->
+<section class="slide" data-title="The Question">
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <h1 class="display reveal" style="font-size:clamp(1.7rem,4.2vw,3.8rem); font-style:italic; max-width:26ch; text-align:center; margin:0 auto;">How do we practice judgment before we're in the room where it counts?</h1>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S14 · STEPHANIE D. GETER                                    -->
+<!-- ============================================================ -->
+<section class="slide s-steph" data-title="Stephanie D. Geter">
+  <div class="steph-img"></div>
+  <div class="steph-fade"></div>
+  <div class="slide-content" style="justify-content:center;">
+    <img class="reveal" src="THRIVE_DOCTOR_LOGO2.jpg" alt="The Thrive Doctor" style="width:clamp(190px,23vw,320px); height:auto; border-radius:12px; box-shadow:0 18px 44px -18px rgba(0,0,0,.7); margin-bottom:clamp(1rem,2.2vw,1.8rem); display:block;">
+    <h2 class="scene-title reveal" style="margin:0; width:clamp(190px,23vw,320px); text-align:center;">Stephanie D. Geter,<br><em>PhD, CPA</em></h2>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S15 · ETHICA TRAILER                                        -->
+<!-- ============================================================ -->
+<section class="slide" data-title="Ethica — The Trailer">
+  <div class="slide-content" style="justify-content:center; align-items:center; gap:clamp(.8rem,1.4vw,1.2rem);">
+    <p class="label reveal">Ethica &nbsp;·&nbsp; Financial Fraud Fighter</p>
+    <div class="film-frame reveal">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/jbxN2VQm2No?rel=0&modestbranding=1"
+        title="Ethica — Financial Fraud Fighter Trailer"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S16 · ETHICA CONVERSATION (live avatar)                     -->
+<!-- ============================================================ -->
+<section class="slide iso-slide" data-title="Meet Ethica">
+  <div class="slide-content">
+    <div class="iso-text">
+      <p class="label reveal">Live &nbsp;·&nbsp; Napster Companion API</p>
+      <h2 class="scene-title reveal">Meet <em>Ethica</em>, the hero who fights fraud in accounting.</h2>
+      <p class="body-text reveal">A real-time conversational AI avatar — built to help CPAs and their clients navigate financial decisions with clarity, confidence, and courage.</p>
+      <ul class="fine-list reveal">
+        <li><span class="k">Knowledge</span><span class="v">Accounting · Fraud · Finance</span></li>
+        <li><span class="k">Memory</span><span class="v">Picks up where you left off</span></li>
+        <li><span class="k">Platform</span><span class="v">Napster · Microsoft Azure</span></li>
+        <li class="hi"><span class="k">Built by</span><span class="v">AvatarAgency</span></li>
+      </ul>
+    </div>
+    <div class="iso-stage reveal">
+      <div class="twin-card" id="twinCard">
+        <img class="poster" src="https://avataragency.ai/images/ethica_headshoulders_1920x1080.png" alt="Ethica — Financial Fraud Fighter">
+        <div id="ethica-avatar"></div>
+        <span class="live-badge"><span class="live-dot"></span>Live</span>
+        <button class="twin-start" id="twinStart" type="button">▶&nbsp;&nbsp;Talk with Ethica</button>
+        <span class="twin-url">avataragency.ai/ethica</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S17 · THRIVE + AVATARAGENCY PARTNERSHIP                     -->
+<!-- ============================================================ -->
+<section class="slide" data-title="In Partnership">
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <p class="label reveal">Presented by</p>
+    <div class="logo-row reveal">
+      <div class="logo-wrap">
+        <img class="logo-img on-light" src="THRIVE_DOCTOR_LOGO.jpg" alt="The Thrive Doctor">
+        <span class="logo-cap">The Thrive Doctor</span>
+      </div>
+      <div class="logo-divider" style="margin-top:-10px;">in partnership with</div>
+      <div class="logo-wrap">
+        <img class="logo-img" src="AvatarAgency_Logo.jpg" alt="AvatarAgency">
+        <span class="logo-cap">AvatarAgency</span>
+      </div>
+    </div>
+    <div class="placeholder-copy reveal" style="margin-top:clamp(1.4rem,2.8vw,2.4rem);">[ Partnership description copy — coming soon ]</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- S18 · MARKETING / LOGOS                                     -->
+<!-- ============================================================ -->
+<section class="slide" data-title="Cornflower Studio">
+  <div class="slide-content" style="justify-content:center; align-items:center; text-align:center;">
+    <p class="label reveal">Produced by</p>
+    <div class="logo-row reveal">
+      <div class="logo-wrap">
+        <img class="logo-img on-light" src="cornflower_studios_logo.jpg" alt="Cornflower Studio">
+        <span class="logo-cap">Cornflower Studio</span>
+      </div>
+      <div class="logo-wrap">
+        <img class="logo-img on-light" src="THRIVE_DOCTOR_LOGO.jpg" alt="The Thrive Doctor">
+        <span class="logo-cap">THRIVE</span>
+      </div>
+      <div class="logo-wrap">
+        <img class="logo-img" src="AvatarAgency_Logo.jpg" alt="AvatarAgency">
+        <span class="logo-cap">AvatarAgency</span>
+      </div>
+    </div>
+    <div class="placeholder-copy reveal" style="margin-top:clamp(1.4rem,2.8vw,2.4rem);">[ Services copy — coming soon ]</div>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- NAPSTER COMPANION WEB SDK (deferred)                        -->
+<!-- ============================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/dist/index.standalone.js" defer></script>
+
+<script>
+/* ===== SLIDE ENGINE ===== */
+(function () {
+  var slides   = Array.from(document.querySelectorAll('.slide'));
+  var progress = document.getElementById('progress');
+  var curEl    = document.getElementById('cur');
+  var totEl    = document.getElementById('tot');
+  var navDots  = document.getElementById('navDots');
+  var navPrev  = document.getElementById('navPrev');
+  var navNext  = document.getElementById('navNext');
+  var current  = 0;
+
+  totEl.textContent = String(slides.length).padStart(2, '0');
+
+  /* build dot pips */
+  slides.forEach(function (s, i) {
+    var btn = document.createElement('button');
+    btn.setAttribute('aria-label', 'Slide ' + (i + 1) + (s.dataset.title ? ': ' + s.dataset.title : ''));
+    btn.addEventListener('click', function () { goTo(i); });
+    navDots.appendChild(btn);
+  });
+
+  function goTo(idx) {
+    idx = Math.max(0, Math.min(idx, slides.length - 1));
+    slides[idx].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function setCurrent(i) {
+    current = i;
+    curEl.textContent = String(i + 1).padStart(2, '0');
+    progress.style.width = ((i + 1) / slides.length * 100) + '%';
+    slides.forEach(function (s, j) { s.classList.toggle('visible', j === i); });
+    Array.from(navDots.children).forEach(function (b, j) { b.classList.toggle('active', j === i); });
+    if (navPrev) navPrev.disabled = i <= 0;
+    if (navNext) navNext.disabled = i >= slides.length - 1;
+    document.dispatchEvent(new CustomEvent('slidechange', { detail: { index: i } }));
+  }
+
+  /* intersection observer drives active state */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.intersectionRatio >= 0.55) setCurrent(slides.indexOf(e.target));
+    });
+  }, { threshold: [0, 0.55, 0.9] });
+  slides.forEach(function (s) { io.observe(s); });
+
+  /* arrow buttons */
+  if (navPrev) navPrev.addEventListener('click', function () { goTo(current - 1); });
+  if (navNext) navNext.addEventListener('click', function () { goTo(current + 1); });
+
+  /* keyboard */
+  document.addEventListener('keydown', function (e) {
+    if (e.target.matches('input,textarea')) return;
+    var map = { ArrowDown:1, ArrowRight:1, PageDown:1, ' ':1, j:1, ArrowUp:-1, ArrowLeft:-1, PageUp:-1, k:-1 };
+    if (e.key === 'Home') { e.preventDefault(); goTo(0); }
+    else if (e.key === 'End') { e.preventDefault(); goTo(slides.length - 1); }
+    else if (e.key in map) { e.preventDefault(); goTo(current + map[e.key]); }
+  });
+
+  /* touch swipe */
+  var startY = 0;
+  document.addEventListener('touchstart', function (e) { startY = e.touches[0].clientY; }, { passive: true });
+  document.addEventListener('touchend', function (e) {
+    var dy = startY - e.changedTouches[0].clientY;
+    if (Math.abs(dy) > 40) goTo(current + (dy > 0 ? 1 : -1));
+  }, { passive: true });
+
+  setCurrent(0);
+}());
+
+/* ===== HERO MUSIC PLAYER ===== */
+(function () {
+  var audio   = document.getElementById('heroAudio');
+  var player  = document.getElementById('hero-player');
+  var btn     = document.getElementById('hp-btn');
+  var iconPlay  = document.getElementById('hp-icon-play');
+  var iconPause = document.getElementById('hp-icon-pause');
+  if (!audio || !player || !btn) return;
+
+  function setPlaying(playing) {
+    iconPlay.style.display  = playing ? 'none'  : '';
+    iconPause.style.display = playing ? ''      : 'none';
+    player.classList.toggle('hp-playing', playing);
+  }
+
+  btn.addEventListener('click', function () {
+    if (audio.paused) {
+      audio.play().catch(function () {});
+    } else {
+      audio.pause();
+    }
+  });
+
+  audio.addEventListener('play',  function () { setPlaying(true);  });
+  audio.addEventListener('pause', function () { setPlaying(false); });
+  audio.addEventListener('ended', function () { setPlaying(false); });
+
+  /* show on slide 1, pause + hide on any other slide */
+  document.addEventListener('slidechange', function (e) {
+    if (e.detail.index === 0) {
+      player.classList.add('hp-visible');
+    } else {
+      player.classList.remove('hp-visible');
+      if (!audio.paused) audio.pause();
+    }
+  });
+
+  /* initial state */
+  player.classList.add('hp-visible');
+}());
+
+/* ===== LIVE ETHICA AVATAR ===== */
+(function () {
+  var btn  = document.getElementById('twinStart');
+  var card = document.getElementById('twinCard');
+  if (!btn) return;
+
+  var TOKEN_ENDPOINT = 'https://napster-avatar-token.michaelrivera.workers.dev/api/avatar-token';
+  var launched = false;
+
+  btn.addEventListener('click', async function () {
+    if (launched) return;
+    launched = true;
+    btn.textContent = 'Connecting…';
+
+    // Enable Napster SDK stylesheet lazily so it never whitens the deck background
+    var cssLink = document.getElementById('napster-sdk-css');
+    if (cssLink) {
+      cssLink.href = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/dist/index.css';
+      cssLink.removeAttribute('disabled');
+    }
+    // Guard against SDK transparent-body rule
+    document.documentElement.style.setProperty('background', '#000', 'important');
+    document.body.style.setProperty('background', '#000', 'important');
+
+    try {
+      var res = await fetch(TOKEN_ENDPOINT);
+      if (!res.ok) throw new Error('Token error ' + res.status);
+      var data = await res.json();
+
+      // Wait for SDK to load (deferred)
+      var tries = 0;
+      while (!window.NapsterCompanionAPI && tries++ < 40) {
+        await new Promise(function (r) { setTimeout(r, 250); });
+      }
+      if (!window.NapsterCompanionAPI) throw new Error('SDK not loaded');
+
+      await window.NapsterCompanionAPI.init({
+        token:         data.token,
+        mountContainer:'#ethica-avatar',
+        connectionId:  data.connection && data.connection.id,
+      });
+      card.classList.add('live-on');
+    } catch (err) {
+      console.warn('Ethica avatar error:', err);
+      btn.textContent = '⚠  Live avatar requires avataragency.ai domain';
+      btn.style.cssText += ';font-size:11px;letter-spacing:.04em;';
+      launched = false;
+    }
+  });
+}());
+</script>
+
+</body>
+</html>
