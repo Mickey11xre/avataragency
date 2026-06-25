@@ -536,7 +536,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 .s-translator .flow-item.accent { border-color:rgba(190,170,255,.45); background:linear-gradient(135deg,#2a2350,#1d1838); box-shadow:0 0 55px -16px rgba(0,0,0,.6); }
 .s-translator .flow-item.accent .flow-num, .s-translator .flow-item.accent .flow-label { color:#cbb8ff; }
 .s-translator .flow-num { color:#fff; opacity:.85; }
-.s-translator .flow-arrow { color:#2a2055; opacity:.9; }
+.s-translator .flow-arrow { color:#2a2055; opacity:1; font-size:clamp(1.6rem,2.4vw,2.3rem); -webkit-text-stroke:1.6px #2a2055; }
 
 /* S09 · The Number Isn't the Verdict — MonsterNumbers bg */
 .s-numbers { position:relative; overflow:hidden; background:#000; }
@@ -564,11 +564,12 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 .help-col { flex:1; display:flex; flex-direction:column; align-items:center; gap:clamp(.8rem,1.8vw,1.4rem); padding:clamp(1.2rem,3vw,2.6rem) clamp(1.4rem,3.4vw,3rem); overflow:visible; }
 .help-cf { background:#3B3E6A; }
 .help-aa { background:#000; }
-.help-logo-slot { height:clamp(118px,16vw,168px); display:flex; align-items:center; justify-content:center; }
+.help-logo-slot { height:clamp(150px,20vw,288px); display:flex; align-items:center; justify-content:center; }
 .help-logo-stack { flex-direction:column; gap:clamp(8px,1.4vw,16px); }
 .help-logo { height:clamp(40px,5vw,72px); width:auto; max-width:82%; display:block; border-radius:6px; }
 .help-cf .help-logo { height:clamp(54px,6.8vw,98px); }
-.help-logo-thrive { height:clamp(40px,5vw,72px); }
+/* Right column: THRIVE + AvatarAgency the SAME width */
+.help-aa .help-logo { width:clamp(190px,25vw,350px); height:auto; max-width:92%; }
 .help-btn { display:inline-block; padding:clamp(11px,1.4vw,16px) clamp(20px,2.6vw,34px); border-radius:99px; font-family:var(--font-mono); font-weight:700; font-size:clamp(.72rem,1vw,.9rem); letter-spacing:.1em; text-transform:uppercase; text-decoration:none; transition:transform .2s var(--ease); }
 .help-btn:hover { transform:translateY(-2px); }
 .help-btn-light { background:#fff; color:#3B3E69; box-shadow:0 12px 30px -12px rgba(0,0,0,.5); }
