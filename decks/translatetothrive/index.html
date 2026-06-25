@@ -535,6 +535,8 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 .s-translator .flow-arrow { padding:clamp(2px,.4vw,5px) 0; }
 .s-translator .flow-item.accent { border-color:rgba(190,170,255,.45); background:linear-gradient(135deg,#2a2350,#1d1838); box-shadow:0 0 55px -16px rgba(0,0,0,.6); }
 .s-translator .flow-item.accent .flow-num, .s-translator .flow-item.accent .flow-label { color:#cbb8ff; }
+.s-translator .flow-num { color:#fff; opacity:.85; }
+.s-translator .flow-arrow { color:#2a2055; opacity:.9; }
 
 /* S09 · The Number Isn't the Verdict — MonsterNumbers bg */
 .s-numbers { position:relative; overflow:hidden; background:#000; }
@@ -570,7 +572,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 .help-btn-light { background:#fff; color:#3B3E69; box-shadow:0 12px 30px -12px rgba(0,0,0,.5); }
 .help-btn-teal { background:var(--gold); color:#1a1408; box-shadow:0 12px 30px -12px rgba(201,168,76,.5); }
 .help-svc { list-style:none; display:flex; flex-direction:column; gap:clamp(.4rem,.85vw,.7rem); width:100%; max-width:440px; }
-.help-svc li { font-family:var(--font-body); font-weight:300; font-size:clamp(.82rem,1.2vw,1.08rem); color:rgba(255,255,255,.92); border-bottom:1px solid rgba(255,255,255,.15); padding-bottom:clamp(.4rem,.85vw,.65rem); }
+.help-svc li { font-family:var(--font-body); font-weight:600; font-size:clamp(.82rem,1.2vw,1.08rem); color:rgba(255,255,255,.95); border-bottom:1px solid rgba(255,255,255,.15); padding-bottom:clamp(.4rem,.85vw,.65rem); }
 .help-svc li strong { font-weight:600; color:#fff; }
 .help-tag { display:block; font-family:var(--font-mono); font-size:clamp(.55rem,.72vw,.68rem); letter-spacing:.06em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-top:3px; }
 
@@ -835,7 +837,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
         <li><span class="k">Knowledge</span><span class="v">Accounting · Fraud · Finance</span></li>
         <li><span class="k">Memory</span><span class="v">Picks up where you left off</span></li>
         <li><span class="k">Platform</span><span class="v">Napster · Microsoft Azure</span></li>
-        <li class="hi"><span class="k">Built by</span><span class="v"><a href="https://avataragency.ai" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; text-decoration:none;"><img src="AvatarAgency_Logo.jpg" alt="AvatarAgency" style="height:clamp(30px,3.4vw,46px); width:auto; border-radius:5px; display:block;"></a></span></li>
+        <li class="hi"><span class="k">Built by</span><span class="v"><a href="https://avataragency.ai" target="_blank" rel="noopener" style="display:inline-flex; flex-direction:column; align-items:flex-end; gap:4px; text-decoration:none;"><img src="AvatarAgency_Logo.jpg" alt="AvatarAgency" style="height:clamp(30px,3.4vw,46px); width:auto; border-radius:5px; display:block;"><span style="font-family:var(--font-mono); font-size:clamp(.56rem,.72vw,.7rem); color:var(--text-dim); letter-spacing:.02em;">https://avataragency.ai</span></a></span></li>
       </ul>
     </div>
     <div class="iso-stage reveal">
@@ -861,7 +863,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
       <div class="help-logo-slot"><img class="help-logo" src="cornflower_studios_logo.jpg" alt="Cornflower Studio"></div>
       <a class="help-btn help-btn-light" href="https://cornflower.studio/#contact" target="_blank" rel="noopener">Start a Conversation</a>
       <ul class="help-svc">
-        <li><strong>Strategic Financial Clarity</strong><span class="help-tag">Most Common Starting Point</span></li>
+        <li><strong>Strategic Financial Clarity</strong><span class="help-tag">(Most Common Starting Point)</span></li>
         <li>Strategic Finance Advisory</li>
         <li>Interim Executive Leadership</li>
         <li>Board &amp; Governance Advisory</li>
