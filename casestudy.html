@@ -22,6 +22,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="atelier-v5.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.css">
 
 <style>
   /* ── Case Study page extras ──────────────────────────── */
@@ -319,6 +320,177 @@
 
   </div>
 </section>
+
+<!-- ── TALK TO PAUL — LIVE INTERACTIVE AVATAR ────────────────── -->
+<section class="section" data-screen-label="01b Talk to Paul">
+  <div class="inner-narrow" style="max-width:920px;">
+
+    <div class="section-head" style="grid-template-columns:1fr;margin-bottom:34px;text-align:center;">
+      <div class="reveal">
+        <div class="eyebrow is-gold" style="justify-content:center;margin-bottom:18px;">
+          <span style="width:8px;height:8px;border-radius:99px;background:var(--gold);display:inline-block;"></span>
+          The Next Level &nbsp;·&nbsp; Live AI Avatar
+        </div>
+        <h2 class="display-2">Now Have a Conversation<br><span class="gold">With Him.</span></h2>
+        <p class="body reveal" data-delay="80" style="margin:20px auto 0;max-width:680px;">
+          The videos above are only half the story. From that same footage, we built a living, talking
+          AI version of this agent — one that greets visitors and answers questions in his own voice,
+          around the clock, on his website. Click below and talk to him yourself.
+        </p>
+      </div>
+    </div>
+
+    <div class="reveal" data-delay="120" style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+      <style>
+        #paul-wrap {
+          position:relative;width:100%;max-width:760px;
+          border-radius:18px;overflow:hidden;
+          border:2px solid var(--gold);
+          box-shadow:0 20px 56px -20px rgba(0,0,0,0.24);
+          background:#000;
+        }
+        #paul-placeholder { position:relative;width:100%;cursor:pointer; }
+        #paul-placeholder img { width:100%;height:auto;display:block; }
+        #paul-placeholder-overlay {
+          position:absolute;inset:0;display:flex;align-items:flex-end;
+          justify-content:center;padding-bottom:30px;
+          background:linear-gradient(to top,rgba(0,0,0,0.42) 0%,transparent 52%);
+        }
+        #paul-napster-avatar { position:absolute;inset:0;display:none; }
+        #paul-napster-avatar > *,
+        #paul-napster-avatar video,
+        #paul-napster-avatar canvas {
+          width:100% !important;height:100% !important;
+          object-fit:cover !important;object-position:center top !important;
+        }
+        #paul-end-btn {
+          display:none;font-family:var(--f-display);font-size:12px;
+          color:var(--text-mute);background:none;cursor:pointer;
+          border:1px solid rgba(0,0,0,0.18);padding:5px 14px;
+          border-radius:99px;margin-top:2px;
+        }
+        #paul-end-btn:hover { color:var(--ink);border-color:rgba(0,0,0,0.35); }
+      </style>
+
+      <div id="paul-wrap">
+        <div id="paul-placeholder">
+          <img src="https://avataragency.ai/assets/paul-companion.jpg" alt="Paul — AI Avatar built by AvatarAgency">
+          <div id="paul-placeholder-overlay">
+            <span style="display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#0a0a0a;
+                         font-family:var(--f-display);font-size:12.5px;font-weight:600;
+                         padding:7px 16px;border-radius:99px;letter-spacing:0.04em;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M9 22h6"/>
+              </svg>
+              Talk to Paul
+            </span>
+          </div>
+        </div>
+        <div id="paul-napster-avatar"></div>
+      </div>
+
+      <p id="paul-hint" style="font-family:var(--f-display);font-size:13.5px;color:var(--text-mute);margin:0;text-align:center;">
+        Tap to start a live conversation &nbsp;·&nbsp; 5 minute session
+      </p>
+      <p id="paul-timer" style="font-family:var(--f-display);font-size:12px;color:var(--text-mute);margin:0;display:none;">
+        Session ends in <span id="paul-timer-val">5:00</span>
+      </p>
+      <button id="paul-end-btn">End chat</button>
+      <p style="font-family:var(--f-display);font-size:11px;color:var(--text-mute);opacity:0.75;margin:4px 0 0;text-align:center;letter-spacing:0.03em;">
+        AI-generated synthetic performer · Built &amp; voiced from the client's own footage
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js"></script>
+<script>
+(function () {
+  var placeholder  = document.getElementById('paul-placeholder');
+  var avatarMount  = document.getElementById('paul-napster-avatar');
+  var hintEl       = document.getElementById('paul-hint');
+  var timerWrap    = document.getElementById('paul-timer');
+  var timerVal     = document.getElementById('paul-timer-val');
+  var endBtn       = document.getElementById('paul-end-btn');
+  var wrap         = document.getElementById('paul-wrap');
+  var instance     = null;
+  var countdown    = null;
+
+  // Idempotent UI reset; does NOT tear down the SDK. Also wired as the SDK's
+  // onDestroy so the built-in hang-up button resets our timer + placeholder.
+  function resetUI() {
+    if (countdown) { clearInterval(countdown); countdown = null; }
+    instance = null;
+    avatarMount.style.display = 'none';
+    wrap.style.height = '';
+    placeholder.style.display = 'block';
+    timerWrap.style.display   = 'none';
+    endBtn.style.display      = 'none';
+    hintEl.textContent = 'Session ended · Tap to start again';
+  }
+
+  function endSession() {
+    try {
+      if (instance) {
+        if (typeof instance.destroy === 'function') instance.destroy();
+        else if (typeof instance.disconnect === 'function') instance.disconnect();
+      }
+    } catch (e) {}
+    resetUI();
+  }
+
+  async function startPaul() {
+    wrap.style.height = wrap.offsetHeight + 'px';
+    placeholder.style.display = 'none';
+    hintEl.textContent = 'Connecting…';
+    try {
+      var res = await fetch('/api/paul-token');
+      if (res.status === 503) {                       // twin not built / agent id not wired yet
+        var info = {}; try { info = await res.json(); } catch (e) {}
+        throw { soon: true, msg: info.error };
+      }
+      if (!res.ok) throw new Error('Token failed: ' + res.status);
+      var data = await res.json();
+      var sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
+      if (!sdk) throw new Error('Napster SDK not loaded');
+
+      avatarMount.style.display = 'block';
+      instance = await sdk.init(data.token, {
+        mountContainer: '#paul-napster-avatar',
+        avatarStyle: { view: 'rectangle' },
+        onDestroy: resetUI
+      });
+      instance.showAvatar();
+      hintEl.textContent   = 'Click the avatar and allow your microphone to talk with Paul';
+      endBtn.style.display = 'inline-block';
+
+      var timeLeft = 300;
+      timerWrap.style.display = 'block';
+      countdown = setInterval(function () {
+        timeLeft--;
+        var m = Math.floor(timeLeft / 60);
+        var s = timeLeft % 60;
+        timerVal.textContent = m + ':' + (s < 10 ? '0' : '') + s;
+        if (timeLeft <= 0) { clearInterval(countdown); countdown = null; endSession(); }
+      }, 1000);
+
+    } catch (err) {
+      wrap.style.height = '';
+      placeholder.style.display = 'block';
+      if (err && err.soon) {
+        hintEl.textContent = 'Paul’s live avatar is being finalized — live within 24 hours.';
+      } else {
+        console.error('Paul avatar error:', err);
+        hintEl.textContent = 'Tap to start a live conversation · 5 minute session';
+      }
+    }
+  }
+
+  placeholder.addEventListener('click', function () { if (!instance) startPaul(); });
+  endBtn.addEventListener('click', endSession);
+})();
+</script>
 
 <!-- ── MAIN SHOWCASE VIDEO ───────────────────────────────────── -->
 <section class="section white" data-screen-label="02 Showcase Video">
