@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
-<title>AvatarAgency — Real-Estate Interactive Avatar Lead Generation Subscription Program</title>
+<title>AvatarAgency — Real Estate Interactive Avatar Lead Generation Subscription Program</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -62,10 +62,22 @@
   .small{ font-size:11px; color:#666; }
   .foot{ margin-top:30px; border-top:1px solid var(--border); padding-top:10px; font-size:10px; color:#8a8a8a; }
 
+  /* image layouts */
+  .media-row{ display:flex; gap:30px; align-items:center; margin:18px 0; }
+  .media-row .copy{ flex:1; min-width:0; }
+  .media-row .shot{ width:300px; flex-shrink:0; }
+  .media-row .shot img{ width:100%; height:auto; display:block; border-radius:14px; }
+  .media-row .shot.framed img{ box-shadow:0 16px 40px -16px rgba(0,0,0,.30); border:1px solid #ece9e0; }
+  .fullshot{ margin:24px 0 0; }
+  .fullshot img{ width:100%; height:auto; display:block; border-radius:14px; box-shadow:0 18px 46px -18px rgba(0,0,0,.32); border:1px solid #ece9e0; }
+  .caption{ text-align:center; font-style:italic; font-size:12.5px; color:var(--mute); margin-top:10px; }
+
   @media (max-width:640px){
     .doc{ padding:26px 18px; margin:12px; border-radius:10px; }
     .hero h1{ font-size:30px; } h2{ font-size:22px; }
     html,body{ font-size:14px; }
+    .media-row{ flex-direction:column; gap:18px; }
+    .media-row .shot{ width:100%; max-width:340px; margin:0 auto; }
   }
 </style>
 </head>
@@ -82,7 +94,7 @@
   <!-- PAGE 1 / HERO -->
   <div class="hero">
     <div class="kicker">Internal Strategy Report</div>
-    <h1>Real-Estate Interactive Avatar<br>Lead Generation Subscription Program</h1>
+    <h1>Real Estate Interactive Avatar<br>Lead Generation Subscription Program</h1>
     <div class="sub">Features, Cost of Goods, Pricing &amp; Margin Analysis</div>
     <div class="meta"><b>Prepared June 26, 2026</b> &nbsp;·&nbsp; AvatarAgency.ai</div>
     <div class="conf">Confidential — Internal Use Only</div>
@@ -92,8 +104,13 @@
   <section class="blk">
     <div class="kicker">Executive Summary</div>
     <h2>The opportunity</h2><div class="h2rule"></div>
-    <p class="lead">A subscription that puts a <b>cloned, interactive AI digital twin or custom avatar spokesperson</b> on every real-estate agent's website — talking to visitors 24/7, capturing leads, and (in higher tiers) producing <b>cinematic AI video</b>. Built on the <b>Napster Companion API</b> (Microsoft Azure-native), whose usage economics let us price an entry tier at <b>under $1/day</b> while staying profitable.</p>
-    <p>Three tiers — <b>Spokesperson / Studio / Signature</b> ($29 / $149 / $399 per month, billed annually) — with a built-in, zero-extra-cost differentiator: <b>"Speed-to-Lead"</b> real-time lead alerts. The strategic goal is <b>volume</b>: land many agent twins while the Napster window is open, then expand margin through video-production automation.</p>
+    <div class="media-row">
+      <div class="copy">
+        <p class="lead">A subscription that puts a <b>cloned, interactive AI digital twin or custom avatar spokesperson</b> on every real-estate agent's website — talking to visitors 24/7, capturing leads, and (in higher tiers) producing <b>cinematic AI video</b>. Built on the <b>Napster Companion API</b> (Microsoft Azure-native), whose usage economics let us price an entry tier at <b>under $1/day</b> while staying profitable.</p>
+        <p>Three tiers — <b>Spokesperson / Studio / Signature</b> ($29 / $149 / $399 per month, billed annually) — with a built-in, zero-extra-cost differentiator: <b>"Speed-to-Lead"</b> real-time lead alerts. The strategic goal is <b>volume</b>: land many agent twins while the Napster window is open, then expand margin through video-production automation.</p>
+      </div>
+      <div class="shot"><img src="ava-callui.jpg" alt="AvatarAgency interactive avatar in a live call"></div>
+    </div>
     <div class="callout">Bottom line: low entry price, healthy margins on annual billing, and a lead-gen story that justifies the subscription and reduces churn.</div>
   </section>
 
@@ -109,11 +126,21 @@
     <h3>2 · Cinematic AI Video <span class="tag">Studio &amp; Signature</span></h3>
     <p>30-second cinematic videos produced from the agent's photos/clips via our Fal.ai pipeline — branded intro films, property tours, listing reels — delivered in <b>horizontal (YouTube) or vertical (Reels / TikTok / Shorts) format</b>, ready for web and social. <b>Studio</b> includes 1/month; <b>Signature</b> up to 4/month. Replaces $3,000–$7,000 traditional production per the AvatarAgency case study.</p>
 
-    <h3>3 · "Speed-to-Lead" Alerts + Conversation Inbox <span class="tag">all tiers</span></h3>
-    <p>The instant a visitor finishes a chat, the agent gets a <b>real-time SMS/email</b> — who they are, what they want, and their contact info — plus a searchable <b>inbox of every conversation</b>. In real estate, first-to-call-back wins; this turns the avatar from a novelty into a <b>lead-gen machine</b> and is the single biggest retention driver. Built on Napster Webhooks + Sessions API at <b>no added platform cost.</b></p>
+    <div class="media-row">
+      <div class="shot framed"><img src="ava-kitchen.jpg" alt="Agent receiving a real-time lead alert on her phone"></div>
+      <div class="copy">
+        <h3 style="margin-top:0">3 · "Speed-to-Lead" Alerts + Conversation Inbox <span class="tag">all tiers</span></h3>
+        <p>The instant a visitor finishes a chat, the agent gets a <b>real-time SMS/email</b> — who they are, what they want, and their contact info — plus a searchable <b>inbox of every conversation</b>. In real estate, first-to-call-back wins; this turns the avatar from a novelty into a <b>lead-gen machine</b> and is the single biggest retention driver. Built on Napster Webhooks + Sessions API at <b>no added platform cost.</b></p>
+      </div>
+    </div>
 
     <div class="panel"><h3>Why it wins</h3>
     <p style="margin-bottom:0">Record once, show up everywhere. One build session becomes an always-on website salesperson plus a content engine — at a price point no traditional crew or per-avatar competitor can match, because Napster's usage-metered, Azure-native model collapses the cost of running a live avatar.</p></div>
+
+    <div class="fullshot">
+      <img src="napster-station.jpg" alt="A couple viewing an open-house listing on a Napster Mini Station with an avatar">
+      <div class="caption">Optional Mini Stations available for real estate open houses and special events.</div>
+    </div>
   </section>
 
   <!-- PAGE 4 / COGS -->
@@ -128,6 +155,9 @@
       <tr><td><b>Lead alerts</b></td><td>~$0.008 / SMS</td><td>Webhooks + Sessions API are free; email ≈ free. Pennies per lead.</td></tr>
       <tr><td><b>One-time build / client</b></td><td>≤ $100 target</td><td>Cloning/build + self-serve embed. Self-serve onboarding is required at the $29 price.</td></tr>
     </table></div>
+
+    <div class="panel"><h3>Pilot program &amp; cloning session</h3>
+    <p style="margin-bottom:0">This is a <b>pilot program currently offered only in the city of Los Angeles.</b> Setup includes a <b>Digital Cloning Session at our Woodland Hills studio.</b> An optional <b>Onsite Cloning Session at your location</b> is available for an additional <b>$99 travel fee</b> on the <b>Spokesperson</b> and <b>Studio</b> plans — and is <b>free for Signature annual subscriptions.</b></p></div>
 
     <div class="panel"><h3>On the $0.05/min chat cost (validated)</h3>
     <p>gpt-realtime token rates: audio <b>$32/1M</b> in, <b>$64/1M</b> out (cached in $0.40/1M). At 600 user + 1,200 assistant tokens per minute of speech, the realistic conversational cost with prompt caching lands <b>~$0.05–0.10/min</b>. Our actual Azure bill is <b>$0.05/min all-in</b> — i.e. Napster already does the caching + committed-use optimization for us. <b>Same-quality "bring-your-own-LLM" would be a wash</b>, so we start on Hosted. (A cheaper model is the only real BYO saving — a future quality test.)</p></div>
