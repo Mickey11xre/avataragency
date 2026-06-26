@@ -102,6 +102,15 @@
     table.revtargets td:nth-child(4)::before{ content:"All Signature"; }
     table.revtargets td:nth-child(5)::before{ content:"Blended mix"; }
   }
+
+  @page{ size:Letter; margin:0.5in; }
+  @media print {
+    html,body{ background:#fff; }
+    .topbar{ padding:10px 24px; }
+    .doc{ box-shadow:none; border:0; margin:0; max-width:100%; padding:8px 14px; border-radius:0; }
+    .media-row, .fullshot, .panel, .callout, h2, h3, table tr{ page-break-inside:avoid; }
+    a{ color:inherit; }
+  }
 </style>
 </head>
 <body>
