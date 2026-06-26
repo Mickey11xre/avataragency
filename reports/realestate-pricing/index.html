@@ -78,6 +78,29 @@
     html,body{ font-size:14px; }
     .media-row{ flex-direction:column; gap:18px; }
     .media-row .shot{ width:100%; max-width:340px; margin:0 auto; }
+
+    /* responsive tables -> stacked label/value cards */
+    .tablewrap{ overflow:visible; }
+    table.resp{ min-width:0; border:0; font-size:13px; }
+    table.resp tr{ display:block; border:1px solid var(--border); border-radius:10px; margin:0 0 14px; background:#fff; overflow:hidden; }
+    table.resp tr:first-child{ display:none; }
+    table.resp td{ display:flex; gap:12px; align-items:baseline; text-align:left; white-space:normal; border:0; border-bottom:1px solid #f1ede3; padding:9px 14px; }
+    table.resp tr td:last-child{ border-bottom:0; }
+    table.resp td::before{ flex:0 0 42%; font-weight:600; color:var(--mute); }
+    table.resp td:first-child{ display:block; background:var(--panel); color:var(--ink); font-weight:700; }
+    table.resp tr.shade td:first-child{ background:var(--shade); }
+    table.tier td:nth-child(2)::before{ content:"Spokesperson"; }
+    table.tier td:nth-child(3)::before{ content:"Studio"; }
+    table.tier td:nth-child(4)::before{ content:"Signature"; }
+    table.cogs td:nth-child(2)::before{ content:"Rate"; }
+    table.cogs td:nth-child(3)::before{ content:"Notes"; }
+    table.margins td:nth-child(2)::before{ content:"Revenue / mo"; }
+    table.margins td:nth-child(3)::before{ content:"Est. COGS"; }
+    table.margins td:nth-child(4)::before{ content:"~Gross margin"; }
+    table.revtargets td:nth-child(2)::before{ content:"All Spokesperson"; }
+    table.revtargets td:nth-child(3)::before{ content:"All Studio"; }
+    table.revtargets td:nth-child(4)::before{ content:"All Signature"; }
+    table.revtargets td:nth-child(5)::before{ content:"Blended mix"; }
   }
 </style>
 </head>
@@ -148,7 +171,7 @@
     <div class="kicker">Section 2</div>
     <h2>Cost of Goods (COGS)</h2><div class="h2rule"></div>
     <p>Four cost drivers. Chat and video are the variable ones; lead alerts and the one-time build are minor.</p>
-    <div class="tablewrap"><table>
+    <div class="tablewrap"><table class="cogs resp">
       <tr><th>Cost driver</th><th>Rate</th><th>Notes</th></tr>
       <tr><td><b>Live chat (avatar)</b></td><td>$0.05 / minute</td><td>Napster <b>Hosted</b> realtime LLM (gpt-realtime-1.5) billed via our Azure. Validated against gpt-realtime list pricing.</td></tr>
       <tr><td><b>Cinematic video</b></td><td>~$50 / 30s video</td><td>Fal.ai generation + editing labor. Thin today; automation roadmap drives it down.</td></tr>
@@ -157,7 +180,7 @@
     </table></div>
 
     <div class="panel"><h3>Pilot program &amp; cloning session</h3>
-    <p style="margin-bottom:0">This is a <b>pilot program currently offered only in the city of Los Angeles.</b> Setup includes a <b>Digital Cloning Session at our Woodland Hills studio.</b> An optional <b>Onsite Cloning Session at your location</b> is available for an additional <b>$99 travel fee</b> on the <b>Spokesperson</b> and <b>Studio</b> plans — and is <b>free for Signature annual subscriptions.</b></p></div>
+    <p style="margin-bottom:0">This is a <b>pilot program currently offered only in the County of Los Angeles.</b> Setup includes a <b>Digital Cloning Session at our Woodland Hills studio.</b> An optional <b>Onsite Cloning Session at your location</b> is available for an additional <b>$99 travel fee</b> on the <b>Spokesperson</b> and <b>Studio</b> plans — and is <b>free for Signature annual subscriptions.</b></p></div>
 
     <div class="panel"><h3>On the $0.05/min chat cost (validated)</h3>
     <p>gpt-realtime token rates: audio <b>$32/1M</b> in, <b>$64/1M</b> out (cached in $0.40/1M). At 600 user + 1,200 assistant tokens per minute of speech, the realistic conversational cost with prompt caching lands <b>~$0.05–0.10/min</b>. Our actual Azure bill is <b>$0.05/min all-in</b> — i.e. Napster already does the caching + committed-use optimization for us. <b>Same-quality "bring-your-own-LLM" would be a wash</b>, so we start on Hosted. (A cheaper model is the only real BYO saving — a future quality test.)</p></div>
@@ -172,7 +195,7 @@
     <h2>Pricing &amp; Margin Analysis</h2><div class="h2rule"></div>
 
     <h3>Per-tier gross margin (at $0.05/min chat, $50/video)</h3>
-    <div class="tablewrap"><table>
+    <div class="tablewrap"><table class="margins resp">
       <tr><th>Tier</th><th class="num">Revenue / mo</th><th class="num">Est. COGS</th><th class="num">~Gross margin / mo</th></tr>
       <tr><td>Spokesperson — $29</td><td class="num">$29</td><td class="num">~$3</td><td class="num"><b>~$23</b></td></tr>
       <tr><td>Studio — $149 (1 video)</td><td class="num">$149</td><td class="num">~$65</td><td class="num"><b>~$76</b></td></tr>
@@ -198,7 +221,7 @@
     <div class="kicker">Section 4</div>
     <h2>Pricing</h2><div class="h2rule"></div>
 
-    <div class="tablewrap"><table class="tier">
+    <div class="tablewrap"><table class="tier resp">
       <tr><th></th><th>Spokesperson</th><th>Studio &nbsp;<span class="pop">★ MOST POPULAR</span></th><th>Signature</th></tr>
       <tr class="shade"><td>Annual (billed yearly)</td><td><b>$29/mo</b> &middot; $348/yr</td><td><b>$149/mo</b> &middot; $1,788/yr</td><td><b>$399/mo</b> &middot; $4,788/yr</td></tr>
       <tr class="shade"><td>Monthly</td><td>$44/mo + $99 setup</td><td>$199/mo</td><td>$499/mo</td></tr>
@@ -215,7 +238,7 @@
 
     <h3>Revenue &amp; profit targets — subscriptions needed</h3>
     <p class="small">How many active subscriptions reach each monthly revenue target, with the resulting monthly <b>gross profit</b> (after COGS; before fixed overhead, CAC &amp; payment fees).</p>
-    <div class="tablewrap"><table>
+    <div class="tablewrap"><table class="revtargets resp">
       <tr><th>Monthly revenue</th><th>All Spokesperson<br><span class="small">$29 · ~$23 profit</span></th><th>All Studio<br><span class="small">$149 · ~$76 profit</span></th><th>All Signature<br><span class="small">$399 · ~$153 profit</span></th><th>Blended mix*<br><span class="small">$102 · ~$52 profit</span></th></tr>
       <tr><td><b>$10,000 / mo</b></td><td>345 subs<br><span class="gold">~$7,935 profit</span></td><td>67 subs<br><span class="gold">~$5,090 profit</span></td><td>25 subs<br><span class="gold">~$3,825 profit</span></td><td>98 subs<br><span class="gold">~$5,090 profit</span></td></tr>
       <tr><td><b>$20,000 / mo</b></td><td>690 subs<br><span class="gold">~$15,870 profit</span></td><td>134 subs<br><span class="gold">~$10,185 profit</span></td><td>50 subs<br><span class="gold">~$7,650 profit</span></td><td>196 subs<br><span class="gold">~$10,180 profit</span></td></tr>
