@@ -138,8 +138,8 @@
     <h2>The Opportunity</h2><div class="h2rule"></div>
     <div class="media-row">
       <div class="copy">
-        <p class="lead">A subscription that puts a <b>cloned, interactive AI digital twin or custom avatar spokesperson</b> on every real-estate agent's website — talking to visitors 24/7 and capturing leads. Built on the <b>Napster Companion API</b> (Microsoft Azure-native), whose usage economics let us price an entry tier at <b>under $1/day</b> while staying profitable.</p>
-        <p>Three tiers — <b>Spokesperson / Studio / Signature</b> ($29 / $149 / $399 per month, billed annually) — differentiated by included chat minutes and service level, with a built-in, zero-extra-cost differentiator: <b>"Speed-to-Lead"</b> real-time lead alerts. The strategic goal is <b>volume</b>: land many agent twins while the Napster window is open.</p>
+        <p class="lead">A subscription that puts a <b>cloned, interactive AI digital twin or custom avatar spokesperson</b> on every real-estate agent's website — talking to visitors 24/7, capturing leads, and (in higher tiers) producing <b>cinematic AI video</b>. Built on the <b>Napster Companion API</b> (Microsoft Azure-native), whose usage economics let us price an entry tier at <b>under $1/day</b> while staying profitable.</p>
+        <p>Three tiers — <b>Spokesperson / Studio / Signature</b> ($29 / $149 / $399 per month, billed annually) — with a built-in, zero-extra-cost differentiator: <b>"Speed-to-Lead"</b> real-time lead alerts. The strategic goal is <b>volume</b>: land many agent twins while the Napster window is open, then expand margin through video-production automation.</p>
       </div>
       <div class="shot"><img src="ava-callui.jpg" alt="AvatarAgency interactive avatar in a live call"></div>
     </div>
@@ -150,15 +150,18 @@
   <section class="blk">
     <div class="kicker">Section 1</div>
     <h2>The Program &amp; Features</h2><div class="h2rule"></div>
-    <p>A monthly/annual <b>subscription program</b>. Every plan includes the interactive avatar and lead tools; higher tiers unlock more included chat minutes and an elevated service level.</p>
+    <p>A monthly/annual <b>subscription program</b>. Every plan includes the interactive avatar and lead tools; higher tiers add cinematic video.</p>
 
-    <h3>1 · Interactive Avatar / Digital Twin or Custom Avatar Spokesperson <span class="tag">all tiers</span></h3>
+    <h3>1 · Interactive Avatar / Digital Twin or Custom Avatar Spokes Person <span class="tag">all tiers</span></h3>
     <p>A photoreal <b>digital twin</b> of the agent — their own face and voice — <b>or a professional custom avatar spokesperson</b> (like our "Ava") for agents who prefer not to appear on camera. Embedded on the agent's website via the Napster Companion API, it greets every visitor, answers questions about listings and the buying/selling process, and captures lead details, <b>24/7</b>. The cloning/build session is included (annual plans). This is the core of every tier.</p>
+
+    <h3>2 · Cinematic AI Video <span class="tag">Studio &amp; Signature</span></h3>
+    <p>30-second cinematic videos produced from the agent's photos/clips via our Fal.ai pipeline — branded intro films, property tours, listing reels — delivered in <b>horizontal (YouTube) or vertical (Reels / TikTok / Shorts) format</b>, ready for web and social. <b>Studio</b> includes 1/month; <b>Signature</b> up to 4/month. Replaces $3,000–$7,000 traditional production per the AvatarAgency case study.</p>
 
     <div class="media-row">
       <div class="shot framed"><img src="ava-kitchen.jpg" alt="Agent receiving a real-time lead alert on her phone"></div>
       <div class="copy">
-        <h3 style="margin-top:0">2 · "Speed-to-Lead" Alerts + Conversation Inbox <span class="tag">all tiers</span></h3>
+        <h3 style="margin-top:0">3 · "Speed-to-Lead" Alerts + Conversation Inbox <span class="tag">all tiers</span></h3>
         <p>The instant a visitor finishes a chat, the agent gets a <b>real-time SMS/email</b> — who they are, what they want, and their contact info — plus a searchable <b>inbox of every conversation</b>. In real estate, first-to-call-back wins; this turns the avatar from a novelty into a <b>lead-gen machine</b> and is the single biggest retention driver. Built on Napster Webhooks + Sessions API at <b>no added platform cost.</b></p>
       </div>
     </div>
@@ -176,10 +179,11 @@
   <section class="blk">
     <div class="kicker">Section 2</div>
     <h2>Cost of Goods (COGS)</h2><div class="h2rule"></div>
-    <p>Three cost drivers. Chat is the only meaningful variable one; lead alerts and the one-time build are minor.</p>
+    <p>Four cost drivers. Chat and video are the variable ones; lead alerts and the one-time build are minor.</p>
     <div class="tablewrap"><table class="cogs resp">
       <tr><th>Cost driver</th><th>Rate</th><th>Notes</th></tr>
       <tr><td><b>Live chat (avatar)</b></td><td>$0.05 / minute</td><td>Napster <b>Hosted</b> realtime LLM (gpt-realtime-1.5) billed via our Azure. Validated against gpt-realtime list pricing.</td></tr>
+      <tr><td><b>Cinematic video</b></td><td>~$50 / 30s video</td><td>Fal.ai generation + editing labor. Thin today; automation roadmap drives it down.</td></tr>
       <tr><td><b>Lead alerts</b></td><td>~$0.008 / SMS</td><td>Webhooks + Sessions API are free; email ≈ free. Pennies per lead.</td></tr>
       <tr><td><b>One-time build / client</b></td><td>≤ $100 target</td><td>The cloning/build, then the agent adds the avatar to their site with a <b>copy-paste embed snippet</b> (no custom per-site development) — keeps onboarding labor low enough for the $29 tier.</td></tr>
     </table></div>
@@ -190,6 +194,8 @@
     <div class="panel"><h3>On the $0.05/min chat cost (validated)</h3>
     <p>gpt-realtime token rates: audio <b>$32/1M</b> in, <b>$64/1M</b> out (cached in $0.40/1M). At 600 user + 1,200 assistant tokens per minute of speech, the realistic conversational cost with prompt caching lands <b>~$0.05–0.10/min</b>. Our actual Azure bill is <b>$0.05/min all-in</b> — i.e. Napster already does the caching + committed-use optimization for us. <b>Same-quality "bring-your-own-LLM" would be a wash</b>, so we start on Hosted. (A cheaper model is the only real BYO saving — a future quality test.)</p></div>
 
+    <div class="panel"><h3>Video is the cost to attack</h3>
+    <p style="margin-bottom:0">At ~$50/finished 30s video, video is our only meaningful variable cost and it caps the video tiers' margin. <b>Initiative:</b> automate the 30s pipeline + source cheaper rendering (with Fal.ai). Every $1 shaved off per-video flows straight to Studio/Signature profit (≈ $1,200/yr per Signature client at 4 videos/mo for each $25 saved).</p></div>
   </section>
 
   <!-- PAGE 5 / PRICING & MARGINS -->
@@ -197,12 +203,12 @@
     <div class="kicker">Section 3</div>
     <h2>Pricing &amp; Margin Analysis</h2><div class="h2rule"></div>
 
-    <h3>Per-tier gross margin (at $0.05/min chat, avg usage per tier)</h3>
+    <h3>Per-tier gross margin (at $0.05/min chat, $50/video)</h3>
     <div class="tablewrap"><table class="margins resp">
       <tr><th>Tier</th><th class="num">Revenue / mo</th><th class="num">Est. COGS</th><th class="num">~Gross margin / mo</th></tr>
-      <tr><td>Spokesperson — $29 (100 min incl.)</td><td class="num">$29</td><td class="num">~$5</td><td class="num"><b>~$24</b></td></tr>
-      <tr><td>Studio — $149 (300 min incl.)</td><td class="num">$149</td><td class="num">~$15</td><td class="num"><b>~$134</b></td></tr>
-      <tr><td>Signature — $399 (600 min incl.)</td><td class="num">$399</td><td class="num">~$30</td><td class="num"><b>~$369</b></td></tr>
+      <tr><td>Spokesperson — $29</td><td class="num">$29</td><td class="num">~$3</td><td class="num"><b>~$23</b></td></tr>
+      <tr><td>Studio — $149 (1 video)</td><td class="num">$149</td><td class="num">~$65</td><td class="num"><b>~$76</b></td></tr>
+      <tr><td>Signature — $399 (4 videos)</td><td class="num">$399</td><td class="num">~$230</td><td class="num"><b>~$153</b></td></tr>
     </table></div>
 
     <h3>Billing, breakeven &amp; churn</h3>
@@ -211,6 +217,9 @@
       <li><b>Monthly</b> breaks even ~month 3; the $99 Spokesperson setup fee covers the build so an early cancel only costs acquisition.</li>
       <li><b>CAC must stay low</b> (organic/referral, ~$50) — at $29 there's no room for expensive paid acquisition. Agents add the avatar to their own site with a <b>paste-in embed snippet</b> (no custom per-site dev), keeping delivery cost ≤ $100.</li>
     </ul>
+
+    <div class="panel warn"><h3>⚠ Margin sensitivity — Signature</h3>
+    <p style="margin-bottom:0">Signature's margin rides entirely on per-video cost: <b>$50/video → ~$153/mo</b>; <b>$80/video → ~$33/mo</b>. Confirm real per-video COGS before scaling Signature; the video-automation initiative is the protection. If per-video stays ≥ $70, raise Signature to ~$449 or cap at 3 videos.</p></div>
 
     <h3>Overage &amp; minutes</h3>
     <p>Overage is <b>$0.20/min — a 4× markup</b> on the $0.05 cost, so heavy users remain profitable and the cap removes "what happens at minute 101?" anxiety. Included minutes (100 / 300 / 600) are framed as a benefit ("~40 conversations included"), not a meter.</p>
@@ -229,25 +238,27 @@
       <tr><td>Speed-to-Lead alerts + inbox</td><td>✓</td><td>✓</td><td>✓</td></tr>
       <tr><td>Included chat</td><td>100 min</td><td>300 min</td><td>600 min</td></tr>
       <tr><td>Chat overage</td><td>$0.20/min</td><td>$0.20/min</td><td>$0.20/min</td></tr>
-      <tr><td>Onboarding &amp; support</td><td>Standard</td><td>Priority</td><td>Dedicated success manager</td></tr>
+      <tr><td>30-second cinematic videos / month <span class="small">(horizontal/YouTube or vertical/social)</span></td><td>—</td><td>1</td><td>up to 4</td></tr>
+      <tr><td>Additional videos</td><td>—</td><td>$100 each</td><td>$80 each</td></tr>
+      <tr><td>Video rollover</td><td>—</td><td>No (resets monthly)</td><td>No (resets monthly)</td></tr>
       <tr><td>Effective day-rate</td><td><b>&lt; $1/day</b></td><td>~$5/day</td><td>~$13/day</td></tr>
     </table></div>
-    <p class="small">Annual ≈ 25–35% off monthly. Build session included on annual plans.</p>
+    <p class="small">Annual ≈ 25–35% off monthly. Build session included on annual plans. Monthly video allotments do not accumulate. Videos available in horizontal (YouTube) or vertical (Reels / TikTok / Shorts) format.</p>
 
     <h3>Revenue &amp; profit targets — subscriptions needed</h3>
     <p class="small">How many active subscriptions reach each monthly revenue target, with the resulting monthly <b>gross profit</b> (after COGS; before fixed overhead, CAC &amp; payment fees).</p>
     <div class="tablewrap"><table class="revtargets resp">
-      <tr><th>Monthly revenue</th><th>All Spokesperson<br><span class="small">$29 · ~$24 profit</span></th><th>All Studio<br><span class="small">$149 · ~$134 profit</span></th><th>All Signature<br><span class="small">$399 · ~$369 profit</span></th><th>Blended mix*<br><span class="small">$102 · ~$92 profit</span></th></tr>
-      <tr><td><b>$10,000 / mo</b></td><td>345 subs<br><span class="gold">~$8,280 profit</span></td><td>67 subs<br><span class="gold">~$8,980 profit</span></td><td>25 subs<br><span class="gold">~$9,225 profit</span></td><td>98 subs<br><span class="gold">~$9,015 profit</span></td></tr>
-      <tr><td><b>$20,000 / mo</b></td><td>690 subs<br><span class="gold">~$16,560 profit</span></td><td>134 subs<br><span class="gold">~$17,955 profit</span></td><td>50 subs<br><span class="gold">~$18,450 profit</span></td><td>196 subs<br><span class="gold">~$18,030 profit</span></td></tr>
-      <tr><td><b>$50,000 / mo</b></td><td>1,724 subs<br><span class="gold">~$41,375 profit</span></td><td>336 subs<br><span class="gold">~$45,025 profit</span></td><td>125 subs<br><span class="gold">~$46,125 profit</span></td><td>490 subs<br><span class="gold">~$45,080 profit</span></td></tr>
+      <tr><th>Monthly revenue</th><th>All Spokesperson<br><span class="small">$29 · ~$23 profit</span></th><th>All Studio<br><span class="small">$149 · ~$76 profit</span></th><th>All Signature<br><span class="small">$399 · ~$153 profit</span></th><th>Blended mix*<br><span class="small">$102 · ~$52 profit</span></th></tr>
+      <tr><td><b>$10,000 / mo</b></td><td>345 subs<br><span class="gold">~$7,935 profit</span></td><td>67 subs<br><span class="gold">~$5,090 profit</span></td><td>25 subs<br><span class="gold">~$3,825 profit</span></td><td>98 subs<br><span class="gold">~$5,090 profit</span></td></tr>
+      <tr><td><b>$20,000 / mo</b></td><td>690 subs<br><span class="gold">~$15,870 profit</span></td><td>134 subs<br><span class="gold">~$10,185 profit</span></td><td>50 subs<br><span class="gold">~$7,650 profit</span></td><td>196 subs<br><span class="gold">~$10,180 profit</span></td></tr>
+      <tr><td><b>$50,000 / mo</b></td><td>1,724 subs<br><span class="gold">~$39,650 profit</span></td><td>336 subs<br><span class="gold">~$25,535 profit</span></td><td>125 subs<br><span class="gold">~$19,125 profit</span></td><td>490 subs<br><span class="gold">~$25,440 profit</span></td></tr>
     </table></div>
-    <p class="small">*Blended mix assumes 60% Spokesperson / 30% Studio / 10% Signature → avg $102 revenue and ~$92 gross profit per subscription. With chat as the only variable COGS, all tiers carry <b>very high margin %</b> (Spokesperson ~83%, Studio ~90%, Signature ~93%) — chat COGS scale gently with usage, so higher tiers are more profitable per customer and justify aggressive annual incentives.</p>
+    <p class="small">*Blended mix assumes 60% Spokesperson / 30% Studio / 10% Signature → avg $102 revenue and ~$52 gross profit per subscription. Note the trade-off: lower tiers carry the <b>highest profit margin %</b> (Spokesperson ~79%, Studio ~51%, Signature ~38%) because video is the cost driver — so a Spokesperson-weighted base reaches a given revenue with the most profit, while video tiers raise revenue-per-customer and stickiness.</p>
 
     <div class="panel"><h3>Disclaimers &amp; Founding-Member pricing</h3>
-    <p>Current rates are positioned as <b>Founding-Member / introductory pricing</b> — creating urgency, rewarding early adopters with a locked rate, and reserving the right to adjust pricing for future cohorts as the platform matures.</p>
+    <p>Current rates are positioned as <b>Founding-Member / introductory pricing</b> — creating urgency, rewarding early adopters with a locked rate, and reserving the right to adjust pricing for future cohorts as costs are confirmed and video automation lands.</p>
     <p class="small" style="margin-top:6px"><i>Recommended small print (under the public pricing grid):</i><br>
-    "Founding-member introductory pricing — rates may change. Your price is locked for your current billing term; any change takes effect at renewal with at least 30 days' notice. Chat overage billed at $0.20/min. Build session included on annual plans; a one-time $99 setup applies to the monthly Spokesperson plan. AI-generated synthetic-performer disclosure appears site-wide."</p>
+    "Founding-member introductory pricing — rates may change. Your price is locked for your current billing term; any change takes effect at renewal with at least 30 days' notice. Chat overage billed at $0.20/min. Monthly video allotments don't roll over. Build session included on annual plans; a one-time $99 setup applies to the monthly Spokesperson plan. Videos are AI-generated and subject to our content &amp; fair-use guidelines."</p>
     <p class="small" style="margin-top:6px">Back the disclaimer with a real Terms of Service page; a brief legal review is recommended before launch. AI-generated synthetic-performer disclosure already appears site-wide.</p></div>
   </section>
 
@@ -259,10 +270,12 @@
     <h3>Build initiatives</h3>
     <ul>
       <li><b>Speed-to-Lead layer</b> — webhook receiver (Cloudflare Pages Function) + a <code>capture_lead</code> Tool + Sessions API → real-time SMS/email alerts + a multi-tenant per-agent conversation inbox/dashboard.</li>
+      <li><b>Video-production automation</b> — cheaper render sources + a templated 30s pipeline (with Fal.ai) to push per-video COGS below $50 and expand Studio/Signature margin.</li>
     </ul>
 
     <h3>Open items to confirm before launch</h3>
     <ul>
+      <li>Actual fully-loaded <b>cost per finished 30s video</b> (drives the Signature margin).</li>
       <li>Napster <b>webhook payload schema</b> (inspect a live event) and whether <code>capture_lead</code> tool results appear in the session/webhook.</li>
       <li><b>Transcript retention period</b> (undocumented) — don't promise "history forever" until confirmed.</li>
       <li>Whether to gate SMS alerts / analytics depth by tier, or include for all.</li>
