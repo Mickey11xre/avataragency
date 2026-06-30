@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Paul Small × Compass Plus</title>
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23c9a84c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M24 6l18 10v16L24 42 6 32V16Z'/%3E%3Cpath d='M24 6v16l18 10' opacity='0.5'/%3E%3Cpath d='M24 22L6 32' opacity='0.5'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" />
+
+<style>
+/* ================================================================
+   THEME TOKENS
+   ================================================================ */
+:root {
+  --bg:        #000;
+  --text:      #e0e0e0;
+  --text-paper: #f1ece0;
+  --accent:    #c9a84c;
+  --accent-hl: rgba(201, 168, 76, 0.28);
+  --font-display: 'Instrument Serif', serif;
+  --font-body:    'Outfit', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-weight: 300;
+  -webkit-font-smoothing: antialiased;
+}
+
+html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+
+/* ================================================================
+   SLIDE SYSTEM
+   ================================================================ */
+.slide {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ================================================================
+   FIXED UI CHROME
+   ================================================================ */
+.progress-bar {
+  position: fixed; top: 0; left: 0; z-index: 200;
+  height: 2px; background: var(--accent); width: 0;
+  transition: width 0.4s var(--ease);
+}
+
+.nav-dots {
+  position: fixed; right: 1.4rem; top: 50%; transform: translateY(-50%);
+  z-index: 200; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.nav-dots button {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: rgba(255,255,255,0.2); border: none; cursor: pointer;
+  transition: background 0.3s;
+}
+.nav-dots button.active { background: var(--accent); }
+
+.slide-number {
+  position: fixed; bottom: 1.4rem; right: 1.4rem; z-index: 200;
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.1em;
+  color: rgba(255,255,255,0.3);
+}
+
+.nav-arrows {
+  position: fixed; left: 1.4rem; top: 50%; transform: translateY(-50%);
+  z-index: 200; display: flex; flex-direction: column; gap: 0.5rem;
+}
+.nav-arrow {
+  background: rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.45); width: 34px; height: 34px; border-radius: 50%;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s;
+}
+.nav-arrow:hover { background: rgba(0,0,0,0.75); color: var(--accent); }
+.nav-arrow:disabled { opacity: 0.18; cursor: default; }
+.nav-arrow svg { width: 15px; height: 15px; }
+
+.watermark {
+  position: fixed; bottom: 1.4rem; left: 1.4rem; z-index: 200;
+  display: flex; align-items: center; gap: 0.45rem;
+  color: rgba(255,255,255,0.28); font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase;
+}
+.watermark .bar { width: 1px; height: 13px; background: currentColor; }
+
+.cursor-glow {
+  position: fixed; pointer-events: none; z-index: 1;
+  width: 300px; height: 300px; border-radius: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle at center, rgba(201,168,76,0.045) 0%, transparent 70%);
+}
+
+/* ================================================================
+   SLIDE 01 — COMPASSPLUS HERO
+   ================================================================ */
+
+/* Full-bleed background photo */
+.slide-bg {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  z-index: 0;
+}
+
+/* Subtle vignette: darkens bottom-right where Paul sits */
+.slide-overlay {
+  position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(to top,    rgba(0,0,0,0.55) 0%,   transparent 38%),
+    linear-gradient(to left,   rgba(0,0,0,0.38) 0%,   transparent 55%),
+    linear-gradient(to bottom, rgba(0,0,0,0.25) 0%,   transparent 28%);
+}
+
+/* ================================================================
+   PAUL'S CORNER AVATAR — bottom-right
+   ================================================================ */
+.paul-corner {
+  position: absolute;
+  bottom: clamp(2rem, 4.5vh, 4rem);
+  right:  clamp(2rem, 4.5vw, 5rem);
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.7rem;
+}
+
+.paul-avatar-wrap {
+  width: clamp(260px, 27vw, 340px);
+  aspect-ratio: 16 / 10;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #000;
+  box-shadow:
+    0 28px 72px rgba(0,0,0,0.75),
+    0 0 0 1px rgba(255,255,255,0.12),
+    inset 0 0 0 1px rgba(0,0,0,0.5);
+}
+
+.paul-poster {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  display: block;
+}
+
+/* "Talk to Paul" button overlaid on poster */
+.paul-start-btn {
+  position: absolute;
+  bottom: 0.85rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: #0a0a0a;
+  border: none;
+  border-radius: 999px;
+  padding: 0.42rem 1.1rem;
+  font-family: var(--font-body);
+  font-size: clamp(10.5px, 1.15vw, 12.5px);
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 5;
+  transition: opacity 0.2s, transform 0.15s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+}
+.paul-start-btn:hover { opacity: 0.9; transform: translateX(-50%) translateY(-1px); }
+.paul-start-btn svg { flex-shrink: 0; }
+
+/* SDK avatar mount — hidden until session starts */
+#paulMount {
+  position: absolute; inset: 0;
+  display: none;
+}
+#paulMount > *,
+#paulMount video,
+#paulMount canvas {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+}
+
+/* Name badge below the avatar */
+.paul-badge {
+  background: rgba(0,0,0,0.68);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 999px;
+  padding: 0.3rem 0.9rem;
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 0.85vw, 10.5px);
+  letter-spacing: 0.07em;
+  color: rgba(255,255,255,0.65);
+  white-space: nowrap;
+}
+.paul-badge strong { color: var(--accent); font-weight: 600; }
+
+/* Guard: Napster SDK injects transparent body style — keep bg black */
+html, body { background: var(--bg) !important; }
+</style>
+</head>
+
+<body>
+
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="progress-bar" id="progressBar"></div>
+<nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+<div class="slide-number"><span id="slideCurr">01</span> / <span id="slideTotal">01</span></div>
+
+<div class="nav-arrows">
+  <button class="nav-arrow" id="navPrev" aria-label="Previous slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="nav-arrow" id="navNext" aria-label="Next slide">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+</div>
+
+<div class="watermark" aria-label="AvatarAgency">
+  <svg width="14" height="14" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M24 6l18 10v16L24 42 6 32V16Z"/>
+    <path d="M24 6v16l18 10" opacity="0.5"/>
+    <path d="M24 22L6 32" opacity="0.5"/>
+  </svg>
+  <span class="bar"></span>
+  <span>AvatarAgency</span>
+</div>
+
+
+<!-- ================================================================
+     SLIDE 01 · COMPASSPLUS HERO + PAUL DIGITAL TWIN
+     ================================================================ -->
+<section class="slide" data-title="Compass Plus — Paul Small">
+
+  <!-- Full-bleed background: CompassPlus hero image -->
+  <img
+    class="slide-bg"
+    src="compassplus-hero.jpg"
+    alt="Compass Plus — Expert Real Estate Services for Seniors in Transition"
+  >
+
+  <!-- Gradient overlay: pulls up the bottom-right for Paul's avatar -->
+  <div class="slide-overlay" aria-hidden="true"></div>
+
+  <!-- Paul Small digital twin — bottom-right corner -->
+  <div class="paul-corner" id="paulCorner">
+
+    <div class="paul-avatar-wrap" id="paulWrap">
+
+      <!-- Poster: shown before session starts -->
+      <img
+        class="paul-poster"
+        id="paulPoster"
+        src="https://avataragency.ai/assets/paul-v1-source.jpg"
+        alt="Paul Small — AI Avatar"
+      >
+
+      <!-- Talk to Paul button -->
+      <button class="paul-start-btn" id="paulStart" type="button">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
+        </svg>
+        Talk to Paul
+      </button>
+
+      <!-- SDK mounts here when session starts -->
+      <div id="paulMount"></div>
+
+    </div>
+
+    <!-- Name badge -->
+    <div class="paul-badge">
+      <strong>Paul Small</strong> &nbsp;·&nbsp; CSA® &nbsp;·&nbsp; Compass Plus &nbsp;·&nbsp; Beverly Hills
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================================================================
+     Napster Companion SDK (standalone)
+     ================================================================ -->
+<script src="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js"></script>
+
+<script>
+/* ================================================================
+   SLIDE CONTROLLER (faithful port from the deck template)
+   ================================================================ */
+class SlidePresentation {
+  constructor() {
+    this.slides   = Array.from(document.querySelectorAll('.slide'));
+    this.navDots  = document.getElementById('navDots');
+    this.progressBar = document.getElementById('progressBar');
+    this.currSpan = document.getElementById('slideCurr');
+    this.totalSpan = document.getElementById('slideTotal');
+    this.navPrev  = document.getElementById('navPrev');
+    this.navNext  = document.getElementById('navNext');
+    this.current  = 0;
+    this.totalSpan.textContent = String(this.slides.length).padStart(2, '0');
+    this.buildNavDots();
+    this.attachObserver();
+    this.attachKeyboard();
+    this.attachTouch();
+    this.attachArrows();
+  }
+
+  attachArrows() {
+    if (this.navPrev) this.navPrev.addEventListener('click', () => this.goTo(this.current - 1));
+    if (this.navNext) this.navNext.addEventListener('click', () => this.goTo(this.current + 1));
+  }
+
+  updateArrowState() {
+    if (this.navPrev) this.navPrev.disabled = this.current <= 0;
+    if (this.navNext) this.navNext.disabled = this.current >= this.slides.length - 1;
+  }
+
+  buildNavDots() {
+    this.navDots.innerHTML = '';
+    this.slides.forEach((slide, i) => {
+      const btn = document.createElement('button');
+      btn.setAttribute('aria-label', `Slide ${i + 1}: ${slide.dataset.title || ''}`);
+      btn.addEventListener('click', () => this.goTo(i));
+      this.navDots.appendChild(btn);
+    });
+  }
+
+  attachObserver() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.intersectionRatio < 0.55) return;
+        entry.target.classList.add('visible');
+        const i = this.slides.indexOf(entry.target);
+        if (i !== -1) this.setCurrent(i);
+      });
+    }, { threshold: [0, 0.55, 0.9] });
+    this.slides.forEach((s) => io.observe(s));
+  }
+
+  setCurrent(i) {
+    this.current = i;
+    [...this.navDots.children].forEach((b, j) => b.classList.toggle('active', j === i));
+    this.currSpan.textContent = String(i + 1).padStart(2, '0');
+    this.progressBar.style.width = ((i + 1) / this.slides.length * 100) + '%';
+    this.updateArrowState();
+  }
+
+  goTo(i) {
+    if (i < 0 || i >= this.slides.length) return;
+    this.slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  attachKeyboard() {
+    document.addEventListener('keydown', (e) => {
+      if (e.target.matches('input, textarea')) return;
+      const keys = {
+        'ArrowDown': 1, 'ArrowRight': 1, 'PageDown': 1, ' ': 1, 'j': 1,
+        'ArrowUp': -1, 'ArrowLeft': -1, 'PageUp': -1, 'k': -1,
+        'Home': -Infinity, 'End': Infinity,
+      };
+      if (e.key in keys) {
+        e.preventDefault();
+        const delta = keys[e.key];
+        if (delta === -Infinity) this.goTo(0);
+        else if (delta === Infinity) this.goTo(this.slides.length - 1);
+        else this.goTo(this.current + delta);
+      }
+    });
+  }
+
+  attachTouch() {
+    let startY = 0;
+    document.addEventListener('touchstart', (e) => { startY = e.touches[0].clientY; }, { passive: true });
+    document.addEventListener('touchend', (e) => {
+      const diff = startY - e.changedTouches[0].clientY;
+      if (Math.abs(diff) < 50) return;
+      this.goTo(this.current + (diff > 0 ? 1 : -1));
+    }, { passive: true });
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  new SlidePresentation();
+  document.querySelector('.slide')?.classList.add('visible');
+  initCursorGlow();
+});
+
+/* ================================================================
+   Cursor glow
+   ================================================================ */
+function initCursorGlow() {
+  const glow = document.getElementById('cursorGlow');
+  if (!glow) return;
+  let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+  let gx = mx, gy = my;
+  document.addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+  (function tick() {
+    gx += (mx - gx) * 0.12;
+    gy += (my - gy) * 0.12;
+    glow.style.left  = gx + 'px';
+    glow.style.top   = gy + 'px';
+    requestAnimationFrame(tick);
+  })();
+}
+</script>
+
+<!-- Paul Small avatar — click-to-start -->
+<script>
+(function () {
+  var startBtn = document.getElementById('paulStart');
+  var poster   = document.getElementById('paulPoster');
+  var mount    = document.getElementById('paulMount');
+  if (!startBtn || !mount) return;
+
+  var started  = false;
+  var instance = null;
+
+  startBtn.addEventListener('click', async function () {
+    if (started) return;
+    started = true;
+    startBtn.textContent = 'Connecting…';
+
+    // Load SDK stylesheet on demand so it never touches the deck background
+    if (!document.getElementById('np-sdk-css')) {
+      var lk = document.createElement('link');
+      lk.id  = 'np-sdk-css';
+      lk.rel = 'stylesheet';
+      lk.href = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.css';
+      document.head.appendChild(lk);
+    }
+
+    try {
+      var res = await fetch('https://avataragency.ai/api/paul-token');
+
+      if (res.status === 503) {
+        startBtn.textContent = 'Avatar being finalized — check back soon';
+        started = false;
+        return;
+      }
+      if (!res.ok) throw new Error('Token request failed: ' + res.status);
+
+      var data = await res.json();
+      var sdk  = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
+      if (!sdk) throw new Error('Napster SDK not found');
+
+      instance = await sdk.init(data.token, {
+        mountContainer: '#paulMount',
+        avatarStyle: { view: 'rectangle' }
+      });
+      instance.showAvatar();
+
+      // Switch from poster to live avatar
+      poster.style.display   = 'none';
+      startBtn.style.display = 'none';
+      mount.style.display    = 'block';
+
+    } catch (err) {
+      console.error('Paul avatar error:', err);
+      started = false;
+      startBtn.innerHTML = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/></svg> Tap to retry';
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
