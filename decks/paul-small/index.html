@@ -138,7 +138,7 @@ html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
    ================================================================ */
 .paul-corner {
   position: absolute;
-  bottom: clamp(2rem, 4.5vh, 4rem);
+  bottom: clamp(6rem, 14vh, 9rem);  /* raised to give controls room below the frame */
   right:  clamp(2rem, 4.5vw, 5rem);
   z-index: 20;
   display: flex;
@@ -146,6 +146,8 @@ html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
   align-items: flex-end;
   gap: 0.7rem;
 }
+/* Hide name badge while a live session is active (controls appear in that space) */
+.paul-corner.session-active .paul-badge { display: none; }
 
 .paul-avatar-wrap {
   width: clamp(260px, 27vw, 340px);
@@ -450,11 +452,10 @@ function initCursorGlow() {
   var sdkBodyEls = [];  // elements the SDK injects directly into <body>
 
   /*
-   * Approx height (px) of the SDK's floating control bar.
-   * If hasVideo = true (full container), we clip this many px from the bottom
-   * so controls disappear below the frame. If false (controls-only overlay),
-   * we simply hide the element — the video is already in #paulMount via the
-   * CSS transform containing block.
+   * CTRL_H: approx height of the SDK control bar (px).
+   * Used only when the body-level element contains the full video+controls
+   * container (fallback path). In the normal path, the CSS transform trick
+   * keeps the video inside #paulMount and sdkBodyEl is controls-only.
    */
   var CTRL_H = 90;
 
@@ -463,7 +464,7 @@ function initCursorGlow() {
     var r = paulWrap.getBoundingClientRect();
 
     if (el.querySelector('video, canvas')) {
-      /* Full SDK container — pin to frame and clip the control bar off the bottom */
+      /* Full SDK container — pin to frame, clip controls off the bottom */
       el.style.cssText += [
         'position:fixed!important',
         'top:'    + r.top               + 'px!important',
@@ -478,18 +479,28 @@ function initCursorGlow() {
         'padding:0!important',
       ].join(';');
     } else {
-      /* Controls-only overlay — the CSS transform trick already contains the
-         video inside #paulMount, so this floating bar just covers Paul's face.
-         Hide it entirely. */
-      el.style.setProperty('display', 'none', 'important');
+      /* Controls-only overlay — place it directly below the avatar frame */
+      el.style.cssText += [
+        'position:fixed!important',
+        'top:'    + (r.bottom + 8)    + 'px!important',
+        'left:'   + r.left             + 'px!important',
+        'width:'  + r.width            + 'px!important',
+        'height:auto!important',
+        'max-height:none!important',
+        'border-radius:0 0 12px 12px!important',
+        'overflow:visible!important',
+        'z-index:20!important',
+        'transform:none!important',
+        'margin:0!important',
+        'padding:0!important',
+        'display:block!important',
+      ].join(';');
     }
   }
 
-  /* Re-pin video containers on resize */
+  /* Re-pin all body-level elements on resize */
   window.addEventListener('resize', function () {
-    sdkBodyEls.forEach(function (el) {
-      if (el.querySelector('video, canvas')) pinToFrame(el);
-    });
+    sdkBodyEls.forEach(function (el) { pinToFrame(el); });
   });
 
   startBtn.addEventListener('click', async function () {
@@ -542,6 +553,10 @@ function initCursorGlow() {
       poster.style.display   = 'none';
       startBtn.style.display = 'none';
       mount.style.display    = 'block';
+
+      /* Hide badge; controls will appear in that space below the frame */
+      var paulCorner = document.getElementById('paulCorner');
+      if (paulCorner) paulCorner.classList.add('session-active');
 
       /* Give SDK 600 ms to finish injecting, then handle everything it added */
       setTimeout(function () {
