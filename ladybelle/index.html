@@ -65,10 +65,17 @@
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: 16px;
-    padding: 34px 30px 32px;
+    overflow: hidden;
     transition: transform .25s var(--ease-out), box-shadow .25s var(--ease-out);
   }
   .char-card:hover { transform: translateY(-3px); box-shadow: 0 28px 64px -32px rgba(0,0,0,0.18); }
+  .char-card-img {
+    width: 100%; height: 240px;
+    object-fit: contain;
+    background: #f5f2ec;
+    display: block;
+  }
+  .char-card-body { padding: 28px 30px 30px; }
   .char-num {
     font-family: var(--f-serif); font-style: italic;
     font-size: 26px; color: var(--gold); margin-bottom: 14px;
@@ -266,22 +273,31 @@
 
     <div class="char-grid">
       <div class="char-card reveal" data-delay="60">
-        <div class="char-num">01</div>
-        <p class="char-role">The Star</p>
-        <h3 class="char-name">Lady Belle</h3>
-        <p class="char-body">A sweet white Snoodle (schnauzer-poodle) puppy, recently adopted into a loving family of four. Hopeful, gentle, curious, and brave-in-progress. Her job is clearing morsels from the floor, and her greatest love is a warm lap and her first Christmas snow.</p>
+        <img class="char-card-img" src="assets/lady-belle-char.jpg" alt="Lady Belle illustration">
+        <div class="char-card-body">
+          <div class="char-num">01</div>
+          <p class="char-role">The Star</p>
+          <h3 class="char-name">Lady Belle</h3>
+          <p class="char-body">A sweet white Snoodle (schnauzer-poodle) puppy, recently adopted into a loving family of four. Hopeful, gentle, curious, and brave-in-progress. Her job is clearing morsels from the floor, and her greatest love is a warm lap and her first Christmas snow.</p>
+        </div>
       </div>
       <div class="char-card reveal" data-delay="120">
-        <div class="char-num">02</div>
-        <p class="char-role">The Schemer</p>
-        <h3 class="char-name">Shadow</h3>
-        <p class="char-body">All-black, long and lean, with bright yellow eyes and canines that show when his mouth is closed. Shadow is the leader of the two cat brothers — the one who comes up with the teasing. His habit of pouncing gives Belle a good reason to be nervous.</p>
+        <img class="char-card-img" src="assets/shadow-char.jpg" alt="Shadow illustration">
+        <div class="char-card-body">
+          <div class="char-num">02</div>
+          <p class="char-role">The Schemer</p>
+          <h3 class="char-name">Shadow</h3>
+          <p class="char-body">All-black, long and lean, with bright yellow eyes and canines that show when his mouth is closed. Shadow is the leader of the two cat brothers — the one who comes up with the teasing. His habit of pouncing gives Belle a good reason to be nervous.</p>
+        </div>
       </div>
       <div class="char-card reveal" data-delay="180">
-        <div class="char-num">03</div>
-        <p class="char-role">The Muscle</p>
-        <h3 class="char-name">Cuddles</h3>
-        <p class="char-body">Big, fat, and tiger-striped. Cuddles is Shadow's brother and backup — the two work as a team. Both cats were adopted too, and their early hissing (which gave them the name "the Hissers") gave way to a real friendship once they realized they all shared the same family.</p>
+        <img class="char-card-img" src="assets/cuddles-char.jpg" alt="Cuddles illustration">
+        <div class="char-card-body">
+          <div class="char-num">03</div>
+          <p class="char-role">The Muscle</p>
+          <h3 class="char-name">Cuddles</h3>
+          <p class="char-body">Big, fat, and tiger-striped. Cuddles is Shadow's brother and backup — the two work as a team. Both cats were adopted too, and their early hissing (which gave them the name "the Hissers") gave way to a real friendship once they realized they all shared the same family.</p>
+        </div>
       </div>
     </div>
   </div>
