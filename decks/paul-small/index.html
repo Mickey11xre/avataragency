@@ -439,36 +439,58 @@ function initCursorGlow() {
 <!-- Paul Small avatar — click-to-start -->
 <script>
 (function () {
-  var startBtn  = document.getElementById('paulStart');
-  var poster    = document.getElementById('paulPoster');
-  var mount     = document.getElementById('paulMount');
-  var paulWrap  = document.getElementById('paulWrap');
+  var startBtn   = document.getElementById('paulStart');
+  var poster     = document.getElementById('paulPoster');
+  var mount      = document.getElementById('paulMount');
+  var paulWrap   = document.getElementById('paulWrap');
   if (!startBtn || !mount || !paulWrap) return;
 
-  var started   = false;
-  var instance  = null;
-  var sdkBodyEl = null;   // any element the SDK injects directly into <body>
+  var started    = false;
+  var instance   = null;
+  var sdkBodyEls = [];  // elements the SDK injects directly into <body>
 
-  /* Pin a body-level SDK element to match paulWrap's position/size */
+  /*
+   * Approx height (px) of the SDK's floating control bar.
+   * If hasVideo = true (full container), we clip this many px from the bottom
+   * so controls disappear below the frame. If false (controls-only overlay),
+   * we simply hide the element — the video is already in #paulMount via the
+   * CSS transform containing block.
+   */
+  var CTRL_H = 90;
+
   function pinToFrame(el) {
     if (!el || !paulWrap) return;
     var r = paulWrap.getBoundingClientRect();
-    el.style.cssText += [
-      'position:fixed!important',
-      'top:'    + r.top    + 'px!important',
-      'left:'   + r.left   + 'px!important',
-      'width:'  + r.width  + 'px!important',
-      'height:' + r.height + 'px!important',
-      'border-radius:14px!important',
-      'overflow:hidden!important',
-      'z-index:20!important',
-      'transform:none!important',
-      'margin:0!important',
-    ].join(';');
+
+    if (el.querySelector('video, canvas')) {
+      /* Full SDK container — pin to frame and clip the control bar off the bottom */
+      el.style.cssText += [
+        'position:fixed!important',
+        'top:'    + r.top               + 'px!important',
+        'left:'   + r.left              + 'px!important',
+        'width:'  + r.width             + 'px!important',
+        'height:' + (r.height + CTRL_H) + 'px!important',
+        'clip-path:inset(0 0 ' + CTRL_H + 'px 0 round 14px)!important',
+        'overflow:hidden!important',
+        'z-index:20!important',
+        'transform:none!important',
+        'margin:0!important',
+        'padding:0!important',
+      ].join(';');
+    } else {
+      /* Controls-only overlay — the CSS transform trick already contains the
+         video inside #paulMount, so this floating bar just covers Paul's face.
+         Hide it entirely. */
+      el.style.setProperty('display', 'none', 'important');
+    }
   }
 
-  /* Repin on resize so the corner frame stays aligned */
-  window.addEventListener('resize', function () { if (sdkBodyEl) pinToFrame(sdkBodyEl); });
+  /* Re-pin video containers on resize */
+  window.addEventListener('resize', function () {
+    sdkBodyEls.forEach(function (el) {
+      if (el.querySelector('video, canvas')) pinToFrame(el);
+    });
+  });
 
   startBtn.addEventListener('click', async function () {
     if (started) return;
@@ -483,14 +505,13 @@ function initCursorGlow() {
       document.head.appendChild(lk);
     }
 
-    /* Watch for any element the SDK injects directly into <body> */
+    /* Watch for anything the SDK injects directly into <body> */
     var bodyObserver = new MutationObserver(function (records) {
       records.forEach(function (rec) {
         rec.addedNodes.forEach(function (node) {
           if (node.nodeType !== 1) return;
-          /* Ignore nodes that are already inside our wrapper */
           if (paulWrap.contains(node) || node === paulWrap) return;
-          sdkBodyEl = node;
+          sdkBodyEls.push(node);
         });
       });
     });
@@ -522,19 +543,19 @@ function initCursorGlow() {
       startBtn.style.display = 'none';
       mount.style.display    = 'block';
 
-      /* Give SDK 600 ms to finish injecting, then constrain anything it added */
+      /* Give SDK 600 ms to finish injecting, then handle everything it added */
       setTimeout(function () {
         bodyObserver.disconnect();
 
-        /* 1 — Constrain any position:fixed elements inside the mount */
+        /* Fix any position:fixed elements inside the mount */
         mount.querySelectorAll('*').forEach(function (el) {
           if (window.getComputedStyle(el).position === 'fixed') {
             el.style.setProperty('position', 'absolute', 'important');
           }
         });
 
-        /* 2 — Pin any body-level element the SDK inserted */
-        if (sdkBodyEl) pinToFrame(sdkBodyEl);
+        /* Handle each body-level element the SDK injected */
+        sdkBodyEls.forEach(function (el) { pinToFrame(el); });
 
       }, 600);
 
