@@ -216,15 +216,23 @@ html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
 .paul-start-btn:hover { opacity: 0.9; transform: translateX(-50%) translateY(-1px); }
 .paul-start-btn svg { flex-shrink: 0; }
 
-/* SDK avatar mount — spans entire wrap (video zone + controls zone) */
+/* SDK mount — lives only in the video zone (16:10); prevents zoom/crop */
 #paulMount {
   position: absolute; inset: 0;
   display: none;
   z-index: 5;
 }
-/* Let SDK manage its own internal layout; only force width */
-#paulMount > * {
-  width: 100% !important;
+
+/* Dark strip that covers the SDK controls bar at the bottom of the video zone.
+   Sits above #paulMount (z-index 6) so controls are hidden; matches the
+   controls-zone colour below for a seamless dark area under Paul's face. */
+.paul-controls-cover {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 72px;
+  background: rgba(14, 14, 18, 0.97);
+  z-index: 6;
+  display: none;
 }
 
 /* Name badge below the avatar */
@@ -242,6 +250,31 @@ html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
   white-space: nowrap;
 }
 .paul-badge strong { color: var(--accent); font-weight: 600; }
+
+/* Live session indicator inside controls zone */
+.paul-live-indicator {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 0.5rem;
+  color: rgba(255,255,255,0.5);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.paul-live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4ade80;
+  flex-shrink: 0;
+  animation: livePulse 1.6s ease-in-out infinite;
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.3; transform: scale(0.8); }
+}
 
 /* Guard: Napster SDK injects transparent body style — keep bg black */
 html, body { background: var(--bg) !important; }
@@ -295,7 +328,7 @@ html, body { background: var(--bg) !important; }
 
     <div class="paul-avatar-wrap" id="paulWrap">
 
-      <!-- VIDEO ZONE — 16:10 ratio; poster shown before session starts -->
+      <!-- VIDEO ZONE — 16:10 ratio; poster + live SDK video render here -->
       <div class="paul-video-zone">
 
         <!-- Poster: shown before session starts -->
@@ -314,14 +347,21 @@ html, body { background: var(--bg) !important; }
           Talk to Paul
         </button>
 
+        <!-- SDK avatar mounts here (fills video zone only — no zoom/crop) -->
+        <div id="paulMount"></div>
+
+        <!-- Cover strip: sits above #paulMount, hides SDK controls bar, matches dark zone below -->
+        <div class="paul-controls-cover" id="paulControlsCover"></div>
+
       </div>
 
-      <!-- CONTROLS ZONE — dark slot; SDK control bar renders in the bottom of #paulMount which overlaps here -->
-      <div class="paul-controls-zone" id="paulControlsZone"></div>
-
-      <!-- SDK MOUNT — position:absolute inset:0 so it spans both zones above.
-           SDK video fills the top (video zone), SDK controls render at the bottom (controls zone). -->
-      <div id="paulMount"></div>
+      <!-- CONTROLS ZONE — dark slot below video; shows live indicator during session -->
+      <div class="paul-controls-zone" id="paulControlsZone">
+        <div class="paul-live-indicator" id="paulLiveIndicator">
+          <span class="paul-live-dot"></span>
+          <span>Live conversation</span>
+        </div>
+      </div>
 
     </div>
 
@@ -579,6 +619,12 @@ function initCursorGlow() {
       poster.style.display   = 'none';
       startBtn.style.display = 'none';
       mount.style.display    = 'block';
+
+      /* Show cover (hides SDK controls bar) and live indicator */
+      var cover = document.getElementById('paulControlsCover');
+      var liveEl = document.getElementById('paulLiveIndicator');
+      if (cover)  cover.style.display  = 'block';
+      if (liveEl) liveEl.style.display = 'flex';
 
 
       /* Give SDK 600 ms to finish injecting, then handle everything it added */
