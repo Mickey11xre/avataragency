@@ -620,16 +620,40 @@ function initCursorGlow() {
       startBtn.style.display = 'none';
       mount.style.display    = 'block';
 
-      /* Show cover (hides SDK controls bar) and live indicator */
-      var cover = document.getElementById('paulControlsCover');
+      /* Show live indicator in the dark zone below */
       var liveEl = document.getElementById('paulLiveIndicator');
-      if (cover)  cover.style.display  = 'block';
       if (liveEl) liveEl.style.display = 'flex';
 
+      /*
+       * Fix SDK video layout — two problems to solve:
+       * 1. Paul's head is cropped: SDK uses center crop on a portrait video inside
+       *    our landscape container. Fix: object-position:top center on the <video>.
+       * 2. Controls bar is visible: SDK renders buttons inside #paulMount. Fix:
+       *    walk up from each button to its container (one that has no video/canvas)
+       *    and hide it.
+       * Retry up to 15× (3 s) in case the SDK renders asynchronously.
+       */
+      var fixAttempts = 0;
+      function fixSdkLayout() {
+        fixAttempts++;
 
-      /* Give SDK 600 ms to finish injecting, then handle everything it added */
-      setTimeout(function () {
-        bodyObserver.disconnect();
+        /* Anchor video crop to top so Paul's head is visible */
+        mount.querySelectorAll('video').forEach(function (v) {
+          v.style.setProperty('object-fit',       'cover',      'important');
+          v.style.setProperty('object-position',  'top center', 'important');
+        });
+
+        /* Hide controls bar: from each button, walk up to the controls container */
+        mount.querySelectorAll('button').forEach(function (btn) {
+          var el = btn.parentElement;
+          while (el && el !== mount) {
+            if (!el.querySelector('video, canvas')) {
+              el.style.setProperty('display', 'none', 'important');
+              return;
+            }
+            el = el.parentElement;
+          }
+        });
 
         /* Fix any position:fixed elements inside the mount */
         mount.querySelectorAll('*').forEach(function (el) {
@@ -638,9 +662,21 @@ function initCursorGlow() {
           }
         });
 
-        /* Handle each body-level element the SDK injected */
-        sdkBodyEls.forEach(function (el) { pinToFrame(el); });
+        /* Retry until video element appears */
+        if (!mount.querySelector('video') && fixAttempts < 15) {
+          setTimeout(fixSdkLayout, 200);
+        }
+      }
+      setTimeout(fixSdkLayout, 300);
 
+      /* Re-apply fixes whenever SDK modifies the mount DOM */
+      var mountObserver = new MutationObserver(function () { fixSdkLayout(); });
+      mountObserver.observe(mount, { childList: true, subtree: true });
+
+      /* Give SDK 600 ms to finish injecting body-level elements */
+      setTimeout(function () {
+        bodyObserver.disconnect();
+        sdkBodyEls.forEach(function (el) { pinToFrame(el); });
       }, 600);
 
     } catch (err) {
