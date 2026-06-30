@@ -8,7 +8,7 @@
 // into AGENT_ID below once his v2 twin finishes processing and the agent is created.
 // Until then this returns 503 and the case-study page shows a graceful "coming soon" state.
 
-const AGENT_ID = ''; // <-- PAUL_AGENT_ID goes here (e.g. 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx')
+const AGENT_ID = '5fe3edf4-9187-458c-ba20-56a47e53ee82'; // Paul Small — Compass Plus (V1 headshot twin, full knowledge base)
 
 export async function onRequest(context) {
   const API_KEY = context.env.NAPSTER_API_KEY;
