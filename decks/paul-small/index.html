@@ -151,6 +151,7 @@ html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
   width: clamp(260px, 27vw, 340px);
   display: flex;
   flex-direction: column;
+  position: relative;   /* containing block for #paulMount's inset:0 */
   border-radius: 14px;
   overflow: hidden;
   background: #000;
@@ -215,17 +216,15 @@ html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
 .paul-start-btn:hover { opacity: 0.9; transform: translateX(-50%) translateY(-1px); }
 .paul-start-btn svg { flex-shrink: 0; }
 
-/* SDK avatar mount — hidden until session starts */
+/* SDK avatar mount — spans entire wrap (video zone + controls zone) */
 #paulMount {
   position: absolute; inset: 0;
   display: none;
+  z-index: 5;
 }
-#paulMount > *,
-#paulMount video,
-#paulMount canvas {
+/* Let SDK manage its own internal layout; only force width */
+#paulMount > * {
   width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
 }
 
 /* Name badge below the avatar */
@@ -296,7 +295,7 @@ html, body { background: var(--bg) !important; }
 
     <div class="paul-avatar-wrap" id="paulWrap">
 
-      <!-- VIDEO ZONE — 16:10 ratio; poster + SDK video render here -->
+      <!-- VIDEO ZONE — 16:10 ratio; poster shown before session starts -->
       <div class="paul-video-zone">
 
         <!-- Poster: shown before session starts -->
@@ -315,13 +314,14 @@ html, body { background: var(--bg) !important; }
           Talk to Paul
         </button>
 
-        <!-- SDK avatar mounts here when session starts -->
-        <div id="paulMount"></div>
-
       </div>
 
-      <!-- CONTROLS ZONE — SDK control bar (mic/vol/hang-up) pins into this dark slot -->
+      <!-- CONTROLS ZONE — dark slot; SDK control bar renders in the bottom of #paulMount which overlaps here -->
       <div class="paul-controls-zone" id="paulControlsZone"></div>
+
+      <!-- SDK MOUNT — position:absolute inset:0 so it spans both zones above.
+           SDK video fills the top (video zone), SDK controls render at the bottom (controls zone). -->
+      <div id="paulMount"></div>
 
     </div>
 
