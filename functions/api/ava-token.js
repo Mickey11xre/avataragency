@@ -4,7 +4,7 @@
 // Required env var (set in Cloudflare Pages → Settings → Environment variables):
 //   NAPSTER_API_KEY  — your Napster Managed API key
 
-const AGENT_ID = '9b0dbd2b-b552-4558-a618-67d2c83d093d'; // Ava — AvatarAgency Real Estate
+const AGENT_ID = 'ab48656c-4120-4ec1-8247-310c4e219dd8'; // Ava — AvatarAgency Real Estate (digital twin, cloned voice)
 
 export async function onRequest(context) {
   const API_KEY = context.env.NAPSTER_API_KEY;
