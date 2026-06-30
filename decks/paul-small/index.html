@@ -138,21 +138,19 @@ html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
    ================================================================ */
 .paul-corner {
   position: absolute;
-  bottom: clamp(6rem, 14vh, 9rem);  /* raised to give controls room below the frame */
-  right:  clamp(2rem, 4.5vw, 5rem);
+  top:   clamp(8rem, 20vh, 14rem);  /* aligned with heading copy */
+  right: clamp(2rem, 4.5vw, 5rem);
   z-index: 20;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 0.7rem;
 }
-/* Hide name badge while a live session is active (controls appear in that space) */
-.paul-corner.session-active .paul-badge { display: none; }
 
 .paul-avatar-wrap {
   width: clamp(260px, 27vw, 340px);
-  aspect-ratio: 16 / 10;
-  position: relative;
+  display: flex;
+  flex-direction: column;
   border-radius: 14px;
   overflow: hidden;
   background: #000;
@@ -164,6 +162,23 @@ html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
   transform: translateZ(0);
   will-change: transform;
   isolation: isolate;
+}
+
+/* Video portion — maintains 16:10 ratio */
+.paul-video-zone {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  position: relative;
+  flex-shrink: 0;
+}
+
+/* Controls slot — SDK control bar pins into this dark area below the video */
+.paul-controls-zone {
+  width: 100%;
+  height: 90px;
+  background: rgba(14, 14, 18, 0.94);
+  position: relative;
+  flex-shrink: 0;
 }
 
 .paul-poster {
@@ -281,24 +296,32 @@ html, body { background: var(--bg) !important; }
 
     <div class="paul-avatar-wrap" id="paulWrap">
 
-      <!-- Poster: shown before session starts -->
-      <img
-        class="paul-poster"
-        id="paulPoster"
-        src="https://avataragency.ai/assets/paul-v1-source.jpg"
-        alt="Paul Small — AI Avatar"
-      >
+      <!-- VIDEO ZONE — 16:10 ratio; poster + SDK video render here -->
+      <div class="paul-video-zone">
 
-      <!-- Talk to Paul button -->
-      <button class="paul-start-btn" id="paulStart" type="button">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
-        </svg>
-        Talk to Paul
-      </button>
+        <!-- Poster: shown before session starts -->
+        <img
+          class="paul-poster"
+          id="paulPoster"
+          src="https://avataragency.ai/assets/paul-v1-source.jpg"
+          alt="Paul Small — AI Avatar"
+        >
 
-      <!-- SDK mounts here when session starts -->
-      <div id="paulMount"></div>
+        <!-- Talk to Paul button -->
+        <button class="paul-start-btn" id="paulStart" type="button">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/>
+          </svg>
+          Talk to Paul
+        </button>
+
+        <!-- SDK avatar mounts here when session starts -->
+        <div id="paulMount"></div>
+
+      </div>
+
+      <!-- CONTROLS ZONE — SDK control bar (mic/vol/hang-up) pins into this dark slot -->
+      <div class="paul-controls-zone" id="paulControlsZone"></div>
 
     </div>
 
@@ -479,21 +502,24 @@ function initCursorGlow() {
         'padding:0!important',
       ].join(';');
     } else {
-      /* Controls-only overlay — place it directly below the avatar frame */
+      /* Controls-only overlay — pin it into the dedicated controls zone below the video */
+      var zone = document.getElementById('paulControlsZone');
+      var zr   = zone ? zone.getBoundingClientRect() : null;
+      if (!zr) return;
       el.style.cssText += [
         'position:fixed!important',
-        'top:'    + (r.bottom + 8)    + 'px!important',
-        'left:'   + r.left             + 'px!important',
-        'width:'  + r.width            + 'px!important',
-        'height:auto!important',
-        'max-height:none!important',
-        'border-radius:0 0 12px 12px!important',
-        'overflow:visible!important',
+        'top:'    + zr.top    + 'px!important',
+        'left:'   + zr.left   + 'px!important',
+        'width:'  + zr.width  + 'px!important',
+        'height:' + zr.height + 'px!important',
+        'border-radius:0!important',
+        'overflow:hidden!important',
         'z-index:20!important',
         'transform:none!important',
         'margin:0!important',
         'padding:0!important',
         'display:block!important',
+        'background:transparent!important',
       ].join(';');
     }
   }
@@ -554,9 +580,6 @@ function initCursorGlow() {
       startBtn.style.display = 'none';
       mount.style.display    = 'block';
 
-      /* Hide badge; controls will appear in that space below the frame */
-      var paulCorner = document.getElementById('paulCorner');
-      if (paulCorner) paulCorner.classList.add('session-active');
 
       /* Give SDK 600 ms to finish injecting, then handle everything it added */
       setTimeout(function () {
