@@ -754,7 +754,7 @@ body {
           <div class="terms-row">
             <input type="checkbox" id="reg-terms" class="terms-checkbox">
             <label for="reg-terms" class="terms-label">
-              I accept the <a href="#" tabindex="-1">terms of service</a> &amp; <a href="#" tabindex="-1">privacy policy</a>
+              I accept the <a href="terms.html" target="_blank" tabindex="-1">terms of service</a> &amp; <a href="privacy.html" target="_blank" tabindex="-1">privacy policy</a>
             </label>
           </div>
           <span class="field-error" id="err-terms">You must accept the terms to continue.</span>
@@ -795,9 +795,23 @@ body {
 (function () {
   'use strict';
 
-  var form          = document.getElementById('regForm');
-  var submitBtn     = document.getElementById('regSubmit');
+  var form           = document.getElementById('regForm');
+  var submitBtn      = document.getElementById('regSubmit');
   var confirmOverlay = document.getElementById('confirmOverlay');
+
+  // Click anywhere on the overlay to dismiss and reset the form
+  confirmOverlay.addEventListener('click', function () {
+    confirmOverlay.classList.remove('is-visible');
+    form.reset();
+    form.querySelectorAll('.is-error, .is-valid').forEach(function (el) {
+      el.classList.remove('is-error', 'is-valid');
+    });
+    form.querySelectorAll('.field-error.is-visible').forEach(function (el) {
+      el.classList.remove('is-visible');
+    });
+    submitBtn.textContent = 'Create Account & Meet Ethica';
+    submitBtn.disabled = false;
+  });
 
   // ── Password visibility toggles ──────────────────
   document.querySelectorAll('.pw-toggle').forEach(function (btn) {
