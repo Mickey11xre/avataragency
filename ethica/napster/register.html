@@ -900,26 +900,32 @@ body {
     submitBtn.textContent = 'Creating your account…';
     submitBtn.disabled = true;
 
-    // Small delay to feel intentional, then save & show success
-    setTimeout(function () {
-      try {
-        localStorage.setItem('ethica_user', JSON.stringify({
-          name:         name,
-          email:        email,
-          registeredAt: new Date().toISOString(),
-          freeUsed:     false,
-          freeSeconds:  300   // 5 minutes
-        }));
-      } catch (_) {}
+    // Save session data locally
+    try {
+      localStorage.setItem('ethica_user', JSON.stringify({
+        name:         name,
+        email:        email,
+        registeredAt: new Date().toISOString(),
+        freeUsed:     false,
+        freeSeconds:  300
+      }));
+    } catch (_) {}
 
-      // Show email confirmation pop-up
+    // Fire registration emails via Worker, then show confirmation
+    fetch('https://ethica-register.michaelrivera.workers.dev/api/register', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name, email: email })
+    })
+    .catch(function () { /* email failure is non-fatal — still show modal */ })
+    .finally(function () {
       confirmOverlay.classList.add('is-visible');
 
       // Track registration event
       if (typeof gtag === 'function') {
         gtag('event', 'sign_up', { method: 'email', event_category: 'Ethica' });
       }
-    }, 900);
+    });
   });
 
 })();
