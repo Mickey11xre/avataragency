@@ -128,6 +128,108 @@
     text-align: center; font-family: var(--f-display);
     font-size: 13.5px; color: var(--text-mute); margin: 18px 0 0;
   }
+
+  /* ── Session timer badge ───────────────────────── */
+  #ethica-timer-badge {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin: 10px 0 0;
+    font-family: var(--f-display);
+    font-size: 13px;
+    color: var(--text-mute);
+    transition: color 0.3s;
+  }
+  #ethica-timer-badge.is-active { display: flex; }
+  #ethica-timer-badge.warn  { color: #d4820a; }
+  #ethica-timer-badge.crit  { color: #d03030; }
+  .timer-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: currentColor;
+    animation: timerPulse 1.2s ease-in-out infinite;
+  }
+  @keyframes timerPulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+
+  /* ── Paywall overlay ───────────────────────────── */
+  #ethica-paywall {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.82);
+    display: none;
+    align-items: center; justify-content: center;
+    z-index: 900;
+    backdrop-filter: blur(8px);
+    padding: 24px;
+  }
+  #ethica-paywall.is-active { display: flex; }
+  .paywall-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 52px 48px 44px;
+    max-width: 460px; width: 100%;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center;
+    box-shadow: 0 32px 100px rgba(0,0,0,0.5);
+    animation: paywallIn 0.32s cubic-bezier(0.34,1.56,0.64,1) both;
+  }
+  @keyframes paywallIn {
+    from { opacity:0; transform:scale(0.86) translateY(16px); }
+    to   { opacity:1; transform:scale(1)    translateY(0);    }
+  }
+  .paywall-eyebrow {
+    font-family: 'General Sans', sans-serif;
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: #c9a84c; margin-bottom: 20px;
+  }
+  .paywall-icon {
+    width: 68px; height: 68px; border-radius: 50%;
+    background: rgba(201,168,76,0.1);
+    border: 1.5px solid rgba(201,168,76,0.3);
+    display: grid; place-items: center;
+    color: #c9a84c; margin-bottom: 22px;
+  }
+  .paywall-card h2 {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 30px; font-weight: 400;
+    color: #0b0b0b; line-height: 1.18;
+    margin-bottom: 10px;
+  }
+  .paywall-card > p {
+    font-family: 'General Sans', sans-serif;
+    font-size: 14.5px; color: #666; line-height: 1.7;
+    max-width: 320px; margin-bottom: 28px;
+  }
+  .paywall-price-box {
+    background: #faf9f6; border: 1px solid #e8e4dc;
+    border-radius: 14px; padding: 18px 28px;
+    margin-bottom: 22px; width: 100%;
+  }
+  .paywall-amount {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 54px; font-weight: 300; color: #0b0b0b; line-height: 1;
+  }
+  .paywall-period {
+    font-family: 'General Sans', sans-serif;
+    font-size: 13px; color: #aaa; margin-top: 4px;
+  }
+  .paywall-btn {
+    display: flex; align-items: center; justify-content: center;
+    gap: 9px; width: 100%;
+    background: #c9a84c; color: #0b0b0b;
+    font-family: 'General Sans', sans-serif;
+    font-size: 15px; font-weight: 700;
+    padding: 15px 30px; border-radius: 999px;
+    text-decoration: none;
+    box-shadow: 0 6px 24px rgba(201,168,76,0.32);
+    transition: background 0.18s, transform 0.12s;
+    margin-bottom: 14px;
+  }
+  .paywall-btn:hover { background:#b8973e; transform:translateY(-1px); }
+  .paywall-fine {
+    font-family: 'General Sans', sans-serif;
+    font-size: 12px; color: #ccc;
+  }
 </style>
 </head>
 <body data-page="ethica">
@@ -218,12 +320,61 @@
             avatarStyle: { view: "rectangle" }
           });
           instance.showAvatar();
+
+          // ── 5-minute free session gate ────────────────
+          var timerBadge = document.getElementById('ethica-timer-badge');
+          var timerText  = document.getElementById('ethica-timer-text');
+          var paywall    = document.getElementById('ethica-paywall');
+          var user = null;
+          try { user = JSON.parse(localStorage.getItem('ethica_user') || 'null'); } catch(_) {}
+
+          // Already used free session → paywall immediately
+          if (user && user.freeUsed) {
+            if (paywall) paywall.classList.add('is-active');
+            return;
+          }
+
+          var seconds = (user && user.freeSeconds > 0) ? user.freeSeconds : 300;
+          if (timerBadge) timerBadge.classList.add('is-active');
+
+          function pad(n) { return String(n).padStart(2, '0'); }
+          function tick() {
+            var m = Math.floor(seconds / 60), s = seconds % 60;
+            if (timerText) timerText.textContent = pad(m) + ':' + pad(s) + ' free remaining';
+            if (timerBadge) {
+              timerBadge.classList.toggle('warn', seconds <= 60 && seconds > 30);
+              timerBadge.classList.toggle('crit', seconds <= 30);
+            }
+          }
+          tick();
+
+          var interval = setInterval(function () {
+            seconds--;
+            tick();
+            // Persist remaining time every 10s
+            if (seconds % 10 === 0 && user) {
+              try { user.freeSeconds = seconds; localStorage.setItem('ethica_user', JSON.stringify(user)); } catch(_) {}
+            }
+            if (seconds <= 0) {
+              clearInterval(interval);
+              if (timerBadge) timerBadge.classList.remove('is-active');
+              if (user) {
+                try { user.freeUsed = true; user.freeSeconds = 0; localStorage.setItem('ethica_user', JSON.stringify(user)); } catch(_) {}
+              }
+              if (paywall) paywall.classList.add('is-active');
+            }
+          }, 1000);
+
         } catch (err) {
           console.error("Napster avatar failed to start:", err);
         }
       })();
     </script>
     <p class="avatar-hint reveal" data-delay="120">Click the avatar and allow your microphone to start a live conversation.</p>
+    <div id="ethica-timer-badge" aria-live="polite">
+      <span class="timer-dot"></span>
+      <span id="ethica-timer-text">5:00 free remaining</span>
+    </div>
 
     <div class="reveal video-frame" data-delay="160" style="margin-top:34px;">
       <iframe src="https://www.youtube.com/embed/jbxN2VQm2No" title="Ethica — AvatarAgency" frameborder="0"
@@ -464,6 +615,32 @@
     </span>
   </div>
 </footer>
+
+<!-- ── 5-min paywall modal ──────────────────────────────────── -->
+<div id="ethica-paywall" role="dialog" aria-modal="true" aria-labelledby="paywallTitle">
+  <div class="paywall-card">
+    <div class="paywall-eyebrow">AvatarAgency · Ethica</div>
+    <div class="paywall-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M12 6v6l4 2"/>
+      </svg>
+    </div>
+    <h2 id="paywallTitle">Your free session<br>has ended.</h2>
+    <p>Subscribe to keep talking to Ethica — unlimited conversations about fraud, finances, and fighting back.</p>
+    <div class="paywall-price-box">
+      <div class="paywall-amount">$10</div>
+      <div class="paywall-period">per month &nbsp;·&nbsp; cancel anytime</div>
+    </div>
+    <a href="#" id="paywallSubscribeBtn" class="paywall-btn">
+      Subscribe &amp; Continue
+      <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M2 7h10M8 3l4 4-4 4"/>
+      </svg>
+    </a>
+    <p class="paywall-fine">No commitment. Cancel anytime from your account settings.</p>
+  </div>
+</div>
 
 <script src="atelier-v2.js?v=5"></script>
 </body>
