@@ -328,9 +328,9 @@
           var user = null;
           try { user = JSON.parse(localStorage.getItem('ethica_user') || 'null'); } catch(_) {}
 
-          // Already used free session → paywall immediately
+          // Already used free session → go to subscribe page immediately
           if (user && user.freeUsed) {
-            if (paywall) paywall.classList.add('is-active');
+            window.location.href = 'ethica/napster/subscribe.html';
             return;
           }
 
@@ -361,7 +361,7 @@
               if (user) {
                 try { user.freeUsed = true; user.freeSeconds = 0; localStorage.setItem('ethica_user', JSON.stringify(user)); } catch(_) {}
               }
-              if (paywall) paywall.classList.add('is-active');
+              window.location.href = 'ethica/napster/subscribe.html';
             }
           }, 1000);
 

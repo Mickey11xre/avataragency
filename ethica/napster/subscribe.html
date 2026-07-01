@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T8NJ9JVWFV');
+</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<base href="/">
+<title>Subscribe to Ethica — AvatarAgency</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23c9a84c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M24 6l18 10v16L24 42 6 32V16Z'/%3E%3Cpath d='M24 6v16l18 10' opacity='.5'/%3E%3Cpath d='M24 22L6 32' opacity='.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'General Sans', Arial, sans-serif;
+  background: #0b0b0b;
+  color: #1a1a1a;
+  min-height: 100vh;
+}
+
+/* ── Topbar ────────────────────────────────────────── */
+.sub-topbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 58px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  background: rgba(11,11,11,0.92);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  backdrop-filter: blur(12px);
+  z-index: 100;
+}
+.sub-topbar-logo {
+  font-family: 'General Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-decoration: none;
+}
+.sub-topbar-logo .l { color: #c9a84c; }
+.sub-topbar-back {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.sub-topbar-back:hover { color: rgba(255,255,255,0.85); }
+
+/* ── Hero: dark ────────────────────────────────────── */
+.sub-hero {
+  position: relative;
+  background: #0b0b0b;
+  padding: 130px 24px 88px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* radial gold glow behind logo */
+.sub-hero::before {
+  content: '';
+  position: absolute;
+  top: 40px; left: 50%;
+  transform: translateX(-50%);
+  width: 700px; height: 500px;
+  background: radial-gradient(ellipse at center, rgba(201,168,76,0.14) 0%, transparent 68%);
+  pointer-events: none;
+}
+/* subtle grid texture */
+.sub-hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 20%, transparent 100%);
+}
+
+.sub-hero-inner { position: relative; z-index: 1; }
+
+.sub-logo-wrap {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.sub-ethica-logo {
+  display: block;
+  width: 220px;
+  max-width: 55vw;
+  margin: 0 auto;
+  border-radius: 6px;
+  filter: drop-shadow(0 0 40px rgba(201,168,76,0.35));
+  animation: logoFloat 4s ease-in-out infinite;
+}
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-6px); }
+}
+
+.sub-fighter-tag {
+  font-family: 'General Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(201,168,76,0.65);
+  margin-bottom: 36px;
+}
+
+.sub-hero h1 {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(38px, 5vw, 60px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: #fff;
+  margin-bottom: 18px;
+}
+
+.sub-hero-desc {
+  font-family: 'General Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.48);
+  max-width: 500px;
+  margin: 0 auto 0;
+}
+
+/* divider wave */
+.sub-wave {
+  display: block;
+  width: 100%;
+  height: 72px;
+  background: #0b0b0b;
+}
+.sub-wave svg {
+  display: block;
+  width: 100%;
+  height: 72px;
+}
+
+/* ── Plans section ─────────────────────────────────── */
+.sub-plans {
+  background: #f5f2ec;
+  padding: 72px 24px 96px;
+  text-align: center;
+}
+
+.sub-plans-eyebrow {
+  font-family: 'General Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #c9a84c;
+  margin-bottom: 12px;
+}
+
+.sub-plans-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(28px, 3.5vw, 42px);
+  font-weight: 300;
+  color: #0b0b0b;
+  line-height: 1.15;
+  margin-bottom: 60px;
+}
+
+/* ── 3-column plan grid ────────────────────────────── */
+.plans-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 980px;
+  margin: 0 auto 52px;
+  align-items: start;
+}
+
+.plan-card {
+  background: #fff;
+  border: 1.5px solid #e8e4dc;
+  border-radius: 22px;
+  padding: 40px 32px 36px;
+  text-align: left;
+  position: relative;
+  transition: transform 0.22s cubic-bezier(0.34,1.1,0.64,1),
+              box-shadow 0.22s ease;
+}
+.plan-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 56px -16px rgba(0,0,0,0.12);
+}
+
+/* Guardian: elevated, gold border */
+.plan-card.is-popular {
+  border-color: #c9a84c;
+  box-shadow: 0 12px 48px -12px rgba(201,168,76,0.28);
+  transform: translateY(-10px);
+  background: #fff;
+}
+.plan-card.is-popular:hover {
+  transform: translateY(-16px);
+  box-shadow: 0 28px 64px -16px rgba(201,168,76,0.32);
+}
+
+/* "Most Popular" badge */
+.popular-chip {
+  position: absolute;
+  top: -16px; left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #d4b060, #c9a84c, #b8973e);
+  color: #0b0b0b;
+  font-family: 'General Sans', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  padding: 6px 18px;
+  border-radius: 999px;
+  white-space: nowrap;
+  box-shadow: 0 4px 14px rgba(201,168,76,0.4);
+}
+
+/* Tier name */
+.plan-name {
+  font-family: 'General Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #bbb;
+  margin-bottom: 22px;
+}
+.plan-card.is-popular .plan-name { color: #c9a84c; }
+
+/* Price */
+.plan-price-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+.plan-currency {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #0b0b0b;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.plan-amount {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 64px;
+  font-weight: 300;
+  color: #0b0b0b;
+  line-height: 0.9;
+}
+.plan-period {
+  font-family: 'General Sans', sans-serif;
+  font-size: 13px;
+  color: #bbb;
+  margin-bottom: 6px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f0ece4;
+}
+.plan-card.is-popular .plan-period { border-color: rgba(201,168,76,0.2); }
+
+/* Minutes pill */
+.plan-minutes {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'General Sans', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: #888;
+  background: #f5f2ec;
+  padding: 6px 14px;
+  border-radius: 999px;
+  margin: 18px 0 24px;
+}
+.plan-card.is-popular .plan-minutes {
+  background: rgba(201,168,76,0.1);
+  color: #a07428;
+}
+.plan-minutes-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.6;
+}
+
+/* Feature list */
+.plan-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin-bottom: 32px;
+}
+.plan-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-family: 'General Sans', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: #444;
+}
+.feat-check {
+  flex: 0 0 17px;
+  margin-top: 1px;
+}
+
+/* CTA button */
+.plan-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 14px 20px;
+  border-radius: 999px;
+  font-family: 'General Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  border: 1.5px solid #c9a84c;
+  color: #c9a84c;
+  background: transparent;
+  transition: background 0.18s, color 0.18s, transform 0.12s, box-shadow 0.18s;
+}
+.plan-btn:hover {
+  background: rgba(201,168,76,0.08);
+  transform: translateY(-1px);
+}
+.plan-card.is-popular .plan-btn {
+  background: #c9a84c;
+  color: #0b0b0b;
+  border-color: #c9a84c;
+  box-shadow: 0 6px 22px rgba(201,168,76,0.35);
+}
+.plan-card.is-popular .plan-btn:hover {
+  background: #b8973e;
+  border-color: #b8973e;
+  box-shadow: 0 8px 28px rgba(201,168,76,0.42);
+}
+
+/* ── Trust bar ─────────────────────────────────────── */
+.sub-trust {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  font-family: 'General Sans', sans-serif;
+  font-size: 13px;
+  color: #bbb;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.trust-divider { color: #ddd; }
+
+/* ── FAQ strip ─────────────────────────────────────── */
+.sub-faq {
+  background: #fff;
+  padding: 72px 24px 80px;
+  text-align: center;
+}
+.sub-faq-headline {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(24px, 3vw, 34px);
+  font-weight: 300;
+  color: #0b0b0b;
+  margin-bottom: 44px;
+}
+.faq-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: left;
+}
+.faq-item h3 {
+  font-family: 'General Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  color: #0b0b0b;
+  margin-bottom: 8px;
+}
+.faq-item p {
+  font-family: 'General Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.75;
+  color: #666;
+}
+
+/* ── Footer ────────────────────────────────────────── */
+.sub-footer {
+  background: #0b0b0b;
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.sub-footer p {
+  font-family: 'General Sans', sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+}
+.sub-footer-links {
+  display: flex;
+  gap: 24px;
+}
+.sub-footer-links a {
+  font-family: 'General Sans', sans-serif;
+  font-size: 12px;
+  color: rgba(255,255,255,0.25);
+  text-decoration: none;
+  transition: color 0.15s;
+}
+.sub-footer-links a:hover { color: rgba(201,168,76,0.7); }
+
+/* ── Responsive ────────────────────────────────────── */
+@media (max-width: 800px) {
+  .sub-topbar { padding: 0 24px; }
+  .plans-grid { grid-template-columns: 1fr; max-width: 420px; }
+  .plan-card.is-popular { transform: none; }
+  .plan-card.is-popular:hover { transform: translateY(-4px); }
+  .faq-grid { grid-template-columns: 1fr; }
+  .sub-footer { flex-direction: column; align-items: flex-start; padding: 28px 24px; }
+}
+@media (max-width: 480px) {
+  .sub-hero { padding: 110px 20px 72px; }
+  .sub-ethica-logo { width: 180px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Topbar ─────────────────────────────────────────── -->
+<nav class="sub-topbar">
+  <a href="/" class="sub-topbar-logo"><span>Avatar</span><span class="l">Agency</span></a>
+  <a href="ethica/napster/" class="sub-topbar-back">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2L4 7l5 5"/></svg>
+    Back to Ethica
+  </a>
+</nav>
+
+<!-- ── Hero ──────────────────────────────────────────── -->
+<section class="sub-hero">
+  <div class="sub-hero-inner">
+
+    <div class="sub-logo-wrap">
+      <img class="sub-ethica-logo" src="ethica/napster/ETHICA_LOGO.jpg" alt="Ethica — the fraud fighter">
+    </div>
+    <p class="sub-fighter-tag">the fraud fighter</p>
+
+    <h1>Your free session<br>has ended.</h1>
+    <p class="sub-hero-desc">Subscribe to keep the conversation going. Ethica is ready when you are — unlimited guidance on fraud, finances, and fighting back.</p>
+
+  </div>
+</section>
+
+<!-- wave transition -->
+<div class="sub-wave">
+  <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 C360,72 1080,72 1440,0 L1440,72 L0,72 Z" fill="#f5f2ec"/>
+  </svg>
+</div>
+
+<!-- ── Plans ──────────────────────────────────────────── -->
+<section class="sub-plans">
+
+  <p class="sub-plans-eyebrow">Choose your plan</p>
+  <h2 class="sub-plans-headline">Every conversation, protected.<br><em>Pick what fits.</em></h2>
+
+  <div class="plans-grid">
+
+    <!-- ── Starter ─────────────────── -->
+    <div class="plan-card">
+      <p class="plan-name">Starter</p>
+      <div class="plan-price-row">
+        <span class="plan-currency">$</span>
+        <span class="plan-amount">9</span>
+      </div>
+      <p class="plan-period">per month</p>
+      <span class="plan-minutes">
+        <span class="plan-minutes-dot"></span>
+        60 minutes / month
+      </span>
+      <ul class="plan-features">
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Live AI conversations with Ethica
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Ask about fraud prevention &amp; detection
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          PDR Framework guidance
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Mobile-friendly access
+        </li>
+      </ul>
+      <a href="#" class="plan-btn" id="btn-starter">
+        Get Started
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7.5 3l3 3.5-3 3"/></svg>
+      </a>
+    </div>
+
+    <!-- ── Guardian (popular) ─────── -->
+    <div class="plan-card is-popular">
+      <div class="popular-chip">Most Popular</div>
+      <p class="plan-name">Guardian</p>
+      <div class="plan-price-row">
+        <span class="plan-currency">$</span>
+        <span class="plan-amount">19</span>
+      </div>
+      <p class="plan-period">per month</p>
+      <span class="plan-minutes">
+        <span class="plan-minutes-dot"></span>
+        200 minutes / month
+      </span>
+      <ul class="plan-features">
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Everything in Starter
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          3× more conversation time
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Priority session start
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Early access to new features
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Email support
+        </li>
+      </ul>
+      <a href="#" class="plan-btn" id="btn-guardian">
+        Become a Guardian
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7.5 3l3 3.5-3 3"/></svg>
+      </a>
+    </div>
+
+    <!-- ── Defender ──────────────────── -->
+    <div class="plan-card">
+      <p class="plan-name">Defender</p>
+      <div class="plan-price-row">
+        <span class="plan-currency">$</span>
+        <span class="plan-amount">39</span>
+      </div>
+      <p class="plan-period">per month</p>
+      <span class="plan-minutes">
+        <span class="plan-minutes-dot"></span>
+        Unlimited minutes
+      </span>
+      <ul class="plan-features">
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Everything in Guardian
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Unlimited conversations
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Business fraud consultation
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Dedicated fraud resources
+        </li>
+        <li>
+          <svg class="feat-check" width="17" height="17" viewBox="0 0 17 17" fill="none" aria-hidden="true"><circle cx="8.5" cy="8.5" r="7.5" stroke="#c9a84c" stroke-width="1.2"/><path d="M5.5 8.5l2.2 2.2L11.5 6" stroke="#c9a84c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Priority support
+        </li>
+      </ul>
+      <a href="#" class="plan-btn" id="btn-defender">
+        Become a Defender
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 6.5h9M7.5 3l3 3.5-3 3"/></svg>
+      </a>
+    </div>
+
+  </div><!-- /plans-grid -->
+
+  <!-- Trust bar -->
+  <div class="sub-trust">
+    <span class="trust-item">
+      <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5.5" width="9" height="6.5" rx="1.5"/><path d="M4.5 5.5V4a2 2 0 0 1 4 0v1.5"/></svg>
+      Secured by Stripe
+    </span>
+    <span class="trust-divider">·</span>
+    <span class="trust-item">Cancel anytime</span>
+    <span class="trust-divider">·</span>
+    <span class="trust-item">No long-term commitment</span>
+    <span class="trust-divider">·</span>
+    <span class="trust-item">Switch plans anytime</span>
+  </div>
+
+</section>
+
+<!-- ── FAQ ────────────────────────────────────────────── -->
+<section class="sub-faq">
+  <h2 class="sub-faq-headline">Frequently asked questions</h2>
+  <div class="faq-grid">
+    <div class="faq-item">
+      <h3>What counts as a "minute"?</h3>
+      <p>Active conversation time with Ethica. Minutes only count while you're in a live session — not while the page is open idle.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can I cancel anytime?</h3>
+      <p>Yes. Cancel from your account settings at any time and you won't be charged after your current billing period ends.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Do unused minutes roll over?</h3>
+      <p>Not currently. Each billing cycle starts fresh. We're exploring rollover options for a future update.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is Ethica a real lawyer or accountant?</h3>
+      <p>No — Ethica is an AI avatar for educational purposes only. Her guidance is not legal or financial advice. Always consult a licensed professional for your specific situation.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What payment methods are accepted?</h3>
+      <p>All major credit and debit cards via Stripe. Apple Pay and Google Pay are also supported at checkout.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can I upgrade or downgrade my plan?</h3>
+      <p>Yes, switch between Starter, Guardian, and Defender anytime. Changes take effect at the start of your next billing cycle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ─────────────────────────────────────────── -->
+<footer class="sub-footer">
+  <p>&copy; 2026 AvatarAgency.ai &mdash; All Rights Reserved &middot; Los Angeles, California</p>
+  <div class="sub-footer-links">
+    <a href="terms.html">Terms</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="mailto:hello@avataragency.ai">Contact</a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // GA: track which plan CTA is clicked
+  ['btn-starter','btn-guardian','btn-defender'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('click', function () {
+      if (typeof gtag === 'function') {
+        gtag('event', 'select_subscription', {
+          plan: id.replace('btn-',''),
+          event_category: 'Ethica'
+        });
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
