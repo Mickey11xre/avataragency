@@ -912,7 +912,7 @@ body {
     } catch (_) {}
 
     // Fire registration emails via Worker, then show confirmation
-    fetch('https://ethica-register.michaelrivera.workers.dev/api/register', {
+    fetch('https://ethica-registration.michaelrivera.workers.dev/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: name, email: email })
