@@ -504,64 +504,59 @@ body {
   margin-top: 18px;
 }
 
-/* ─── Success state ──────────────────────────────── */
-.reg-success {
+/* ─── Email confirmation modal ───────────────────── */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.72);
   display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 500;
+  backdrop-filter: blur(4px);
+}
+.confirm-overlay.is-visible { display: flex; }
+.confirm-modal {
+  background: #fff;
+  border-radius: 16px;
+  padding: 52px 48px 44px;
+  max-width: 440px;
+  width: calc(100% - 48px);
+  text-align: center;
+  display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
-  gap: 18px;
-  padding: 10px 0;
+  gap: 14px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.4);
+  animation: modalIn 0.28s cubic-bezier(0.34,1.56,0.64,1) both;
 }
-.reg-success.is-visible { display: flex; }
-
-.success-ring {
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.88) translateY(12px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+.confirm-icon {
   width: 72px; height: 72px;
   border-radius: 50%;
   background: rgba(201,168,76,0.1);
-  border: 1.5px solid rgba(201,168,76,0.3);
+  border: 1.5px solid rgba(201,168,76,0.35);
   display: grid;
   place-items: center;
   color: #c9a84c;
+  margin-bottom: 4px;
 }
-
-.reg-success h3 {
+.confirm-modal h3 {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 28px;
+  font-size: 30px;
   font-weight: 400;
   color: #0b0b0b;
-  line-height: 1.2;
+  line-height: 1.15;
 }
-.reg-success p {
+.confirm-modal p {
   font-family: 'General Sans', sans-serif;
-  font-size: 14px;
-  color: #777;
+  font-size: 15px;
+  color: #555;
   line-height: 1.7;
-  max-width: 340px;
-}
-.success-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  background: #c9a84c;
-  color: #0b0b0b;
-  font-family: 'General Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 700;
-  padding: 13px 30px;
-  border-radius: 999px;
-  text-decoration: none;
-  box-shadow: 0 4px 18px rgba(201,168,76,0.3);
-  transition: background 0.18s, transform 0.12s;
-}
-.success-btn:hover {
-  background: #b8973e;
-  transform: translateY(-1px);
-}
-.success-timer {
-  font-family: 'General Sans', sans-serif;
-  font-size: 11.5px;
-  color: #b0a898;
+  max-width: 300px;
 }
 
 /* ─── Responsive ─────────────────────────────────── */
@@ -772,23 +767,6 @@ body {
 
       </form>
 
-      <!-- ── Success state ─────────────────────── -->
-      <div class="reg-success" id="regSuccess" aria-live="polite">
-        <div class="success-ring">
-          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M20 6L9 17l-5-5"/>
-          </svg>
-        </div>
-        <h3>You're in. Meet <em>Ethica.</em></h3>
-        <p>Your 5-minute free session is ready. Click below to start your live conversation with Ethica — no waiting.</p>
-        <a href="ethica/napster/" class="success-btn" id="successBtn">
-          Talk to Ethica now
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <path d="M2 7h10M8 3l4 4-4 4"/>
-          </svg>
-        </a>
-        <p class="success-timer" id="successTimer">Redirecting in <span id="countdown">5</span> seconds…</p>
-      </div>
 
       <p class="reg-session-note">
         Your first 5 minutes are completely free. After that, an affordable monthly subscription unlocks unlimited access to Ethica.
@@ -799,14 +777,27 @@ body {
 
 </div>
 
+<!-- ── Email confirmation modal ───────────────────── -->
+<div class="confirm-overlay" id="confirmOverlay" role="dialog" aria-modal="true" aria-labelledby="confirmTitle">
+  <div class="confirm-modal">
+    <div class="confirm-icon">
+      <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="4" width="20" height="16" rx="2"/>
+        <path d="M2 7l10 7 10-7"/>
+      </svg>
+    </div>
+    <h3 id="confirmTitle">Check your email</h3>
+    <p>for a link to talk to Ethica.</p>
+  </div>
+</div>
+
 <script>
 (function () {
   'use strict';
 
-  var form       = document.getElementById('regForm');
-  var submitBtn  = document.getElementById('regSubmit');
-  var successEl  = document.getElementById('regSuccess');
-  var countdownEl = document.getElementById('countdown');
+  var form          = document.getElementById('regForm');
+  var submitBtn     = document.getElementById('regSubmit');
+  var confirmOverlay = document.getElementById('confirmOverlay');
 
   // ── Password visibility toggles ──────────────────
   document.querySelectorAll('.pw-toggle').forEach(function (btn) {
@@ -905,20 +896,8 @@ body {
         }));
       } catch (_) {}
 
-      // Swap form for success state
-      form.style.display = 'none';
-      successEl.classList.add('is-visible');
-
-      // Countdown auto-redirect
-      var seconds = 5;
-      var timer = setInterval(function () {
-        seconds--;
-        if (countdownEl) countdownEl.textContent = seconds;
-        if (seconds <= 0) {
-          clearInterval(timer);
-          window.location.href = '/ethica/napster/';
-        }
-      }, 1000);
+      // Show email confirmation pop-up
+      confirmOverlay.classList.add('is-visible');
 
       // Track registration event
       if (typeof gtag === 'function') {
