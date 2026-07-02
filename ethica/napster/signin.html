@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<base href="/">
+<title>Sign In — Ethica by AvatarAgency</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23c9a84c' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M24 6l18 10v16L24 42 6 32V16Z'/%3E%3Cpath d='M24 6v16l18 10' opacity='.5'/%3E%3Cpath d='M24 22L6 32' opacity='.5'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'General Sans', sans-serif;
+  background: #f5f2ec;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Topbar ─────────────────────────────────────── */
+.reg-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 40px;
+  height: 64px;
+  background: #0b0b0b;
+  flex-shrink: 0;
+}
+.reg-topbar-logo {
+  font-family: 'General Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+.reg-topbar-logo .l { color: #c9a84c; }
+.reg-topbar-register {
+  font-family: 'General Sans', sans-serif;
+  font-size: 13px;
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  transition: color 0.18s;
+}
+.reg-topbar-register:hover { color: #c9a84c; }
+.reg-topbar-register strong { color: #c9a84c; font-weight: 600; }
+
+/* ─── Main ───────────────────────────────────────── */
+.signin-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+/* ─── Card ───────────────────────────────────────── */
+.signin-card {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 52px 48px 48px;
+  width: 100%;
+  max-width: 460px;
+  box-shadow: 0 8px 48px -12px rgba(0,0,0,0.1);
+}
+
+.signin-brand {
+  text-align: center;
+  margin-bottom: 6px;
+}
+.signin-brand-wordmark {
+  font-family: 'General Sans', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  color: #0b0b0b;
+  text-transform: uppercase;
+}
+.signin-brand-wordmark .l { color: #c9a84c; }
+.signin-brand-sub {
+  font-family: 'General Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: #c9a84c;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.signin-heading {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 30px;
+  font-weight: 400;
+  color: #0b0b0b;
+  text-align: center;
+  margin: 24px 0 6px;
+  line-height: 1.2;
+}
+.signin-heading em { color: #c9a84c; font-style: italic; }
+
+.signin-register-link {
+  text-align: center;
+  font-size: 13px;
+  color: #999;
+  margin-bottom: 32px;
+}
+.signin-register-link a {
+  color: #a8842f;
+  text-decoration: none;
+  font-weight: 500;
+}
+.signin-register-link a:hover { text-decoration: underline; }
+
+/* ─── Form fields ────────────────────────────────── */
+.field-group { display: flex; flex-direction: column; gap: 4px; margin-bottom: 20px; }
+
+.field-label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: #444;
+  letter-spacing: 0.01em;
+}
+
+.field-wrap { position: relative; }
+
+.field-input {
+  width: 100%;
+  height: 48px;
+  padding: 0 14px;
+  border: 1.5px solid #e2ddd6;
+  border-radius: 10px;
+  font-family: 'General Sans', sans-serif;
+  font-size: 14px;
+  color: #1a1a1a;
+  background: #faf9f6;
+  outline: none;
+  transition: border-color 0.18s, box-shadow 0.18s;
+}
+.field-input::placeholder { color: #bbb; }
+.field-input:focus {
+  border-color: #c9a84c;
+  box-shadow: 0 0 0 3px rgba(201,168,76,0.12);
+  background: #fff;
+}
+.field-input.has-error { border-color: #e05252; }
+
+.field-error {
+  display: none;
+  font-size: 11.5px;
+  color: #e05252;
+  margin-top: 2px;
+}
+.field-error.is-visible { display: block; }
+
+/* ─── Submit button ──────────────────────────────── */
+.signin-submit {
+  width: 100%;
+  height: 52px;
+  background: #0b0b0b;
+  color: #ffffff;
+  border: none;
+  border-radius: 10px;
+  font-family: 'General Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.18s, transform 0.12s;
+}
+.signin-submit:hover { background: #1f1f1f; transform: translateY(-1px); }
+.signin-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+/* ─── Not found message ──────────────────────────── */
+.signin-not-found {
+  display: none;
+  background: #fff8f0;
+  border: 1.5px solid #f0c080;
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin-top: 16px;
+  font-size: 13.5px;
+  color: #7a5000;
+  line-height: 1.6;
+  text-align: center;
+}
+.signin-not-found a {
+  color: #a8842f;
+  font-weight: 600;
+  text-decoration: none;
+}
+.signin-not-found a:hover { text-decoration: underline; }
+.signin-not-found.is-visible { display: block; }
+
+/* ─── Responsive ─────────────────────────────────── */
+@media (max-width: 520px) {
+  .signin-card { padding: 40px 28px 36px; }
+  .reg-topbar { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── Topbar ──────────────────────────────────────── -->
+<nav class="reg-topbar">
+  <a href="/" class="reg-topbar-logo"><span>Avatar</span><span class="l">Agency</span></a>
+  <a href="ethica/napster/register.html" class="reg-topbar-register">
+    New here? <strong>Create account</strong>
+  </a>
+</nav>
+
+<!-- ── Main ────────────────────────────────────────── -->
+<main class="signin-main">
+  <div class="signin-card">
+
+    <div class="signin-brand">
+      <div class="signin-brand-wordmark"><span>Avatar</span><span class="l">Agency</span></div>
+      <div class="signin-brand-sub">Presents Ethica</div>
+    </div>
+
+    <h2 class="signin-heading">Welcome back to <em>Ethica</em></h2>
+    <p class="signin-register-link">New here? <a href="ethica/napster/register.html">Create a free account</a></p>
+
+    <form id="signin-form" novalidate>
+
+      <div class="field-group">
+        <label class="field-label" for="signin-email">Email Address</label>
+        <div class="field-wrap">
+          <input class="field-input" type="email" id="signin-email" placeholder="you@example.com" autocomplete="email">
+        </div>
+        <span class="field-error" id="err-email">Please enter a valid email address.</span>
+      </div>
+
+      <button type="submit" class="signin-submit" id="signin-btn">Sign In to Ethica</button>
+
+      <div class="signin-not-found" id="not-found-msg">
+        No account found for that email on this device.<br>
+        <a href="ethica/napster/register.html">Register for free</a> to get your first 5 minutes.
+      </div>
+
+    </form>
+
+  </div>
+</main>
+
+<script>
+(function () {
+
+  var form      = document.getElementById('signin-form');
+  var emailEl   = document.getElementById('signin-email');
+  var errEmail  = document.getElementById('err-email');
+  var btnEl     = document.getElementById('signin-btn');
+  var notFound  = document.getElementById('not-found-msg');
+
+  function setError(inputEl, errEl, show) {
+    if (show) {
+      inputEl.classList.add('has-error');
+      errEl.classList.add('is-visible');
+    } else {
+      inputEl.classList.remove('has-error');
+      errEl.classList.remove('is-visible');
+    }
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    notFound.classList.remove('is-visible');
+
+    var email = emailEl.value.trim().toLowerCase();
+    var valid = true;
+
+    if (!email || !email.includes('@')) {
+      setError(emailEl, errEmail, true);
+      valid = false;
+    } else {
+      setError(emailEl, errEmail, false);
+    }
+
+    if (!valid) return;
+
+    btnEl.textContent = 'Signing in…';
+    btnEl.disabled = true;
+
+    // Check localStorage for a registered session on this device
+    var stored = null;
+    try {
+      var raw = localStorage.getItem('ethica_user');
+      if (raw) stored = JSON.parse(raw);
+    } catch (_) {}
+
+    setTimeout(function () {
+      if (stored && stored.email && stored.email.toLowerCase() === email) {
+        // Recognised — send to avatar or subscribe based on trial state
+        if (stored.freeUsed) {
+          window.location.href = 'ethica/napster/subscribe.html';
+        } else {
+          window.location.href = 'ethica/napster/';
+        }
+      } else {
+        // Not found on this device
+        btnEl.textContent = 'Sign In to Ethica';
+        btnEl.disabled = false;
+        notFound.classList.add('is-visible');
+      }
+    }, 600);
+  });
+
+})();
+</script>
+
+</body>
+</html>
