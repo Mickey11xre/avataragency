@@ -7,9 +7,9 @@
   (function(){
     try {
       var u = JSON.parse(localStorage.getItem('ethica_user') || 'null');
-      if (!u || !u.email) { window.location.replace('ethica/napster/register.html'); }
+      if (!u || !u.email) { window.location.replace('/ethica/napster/register.html'); }
     } catch(_) {
-      window.location.replace('ethica/napster/register.html');
+      window.location.replace('/ethica/napster/register.html');
     }
   })();
 </script>
