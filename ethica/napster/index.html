@@ -2,6 +2,17 @@
 <!-- build:v5 — PRIVATE / UNLISTED — do not link publicly -->
 <html lang="en">
 <head>
+<!-- Registration gate: redirect unregistered visitors immediately -->
+<script>
+  (function(){
+    try {
+      var u = JSON.parse(localStorage.getItem('ethica_user') || 'null');
+      if (!u || !u.email) { window.location.replace('ethica/napster/register.html'); }
+    } catch(_) {
+      window.location.replace('ethica/napster/register.html');
+    }
+  })();
+</script>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
 <script>
