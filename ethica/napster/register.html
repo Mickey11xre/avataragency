@@ -751,6 +751,16 @@ body {
           <span class="field-error" id="err-confirm">Passwords do not match.</span>
         </div>
 
+        <!-- Consultation opt-in -->
+        <div class="terms-group">
+          <div class="terms-row">
+            <input type="checkbox" id="reg-consult" class="terms-checkbox">
+            <label for="reg-consult" class="terms-label">
+              Please contact me to schedule a free consultation and demonstration of AvatarAgency's services.
+            </label>
+          </div>
+        </div>
+
         <!-- Terms -->
         <div class="terms-group">
           <div class="terms-row">
@@ -912,10 +922,11 @@ body {
     } catch (_) {}
 
     // Fire registration emails via Worker, then show confirmation
+    var consult = document.getElementById('reg-consult').checked;
     fetch('https://ethica-registration.michaelrivera.workers.dev/api/register', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: name, email: email })
+      body: JSON.stringify({ name: name, email: email, consult: consult })
     })
     .catch(function () { /* email failure is non-fatal — still show modal */ })
     .finally(function () {

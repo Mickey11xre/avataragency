@@ -37,8 +37,9 @@ export default {
       return new Response('Invalid JSON', { status: 400, headers: corsHeaders });
     }
 
-    const name  = (body.name  || '').trim();
-    const email = (body.email || '').trim().toLowerCase();
+    const name    = (body.name  || '').trim();
+    const email   = (body.email || '').trim().toLowerCase();
+    const consult = body.consult === true;
 
     if (!name || !email || !email.includes('@')) {
       return new Response('Missing or invalid name/email', { status: 400, headers: corsHeaders });
@@ -57,12 +58,16 @@ export default {
       sendEmail(env.RESEND_API_KEY, {
         from:    FROM_ADDRESS,
         to:      [ADMIN_EMAIL],
-        subject: `New Ethica Registration — ${name}`,
-        html:    notificationHtml(name, email, timestamp),
+        subject: `New Ethica Registration — ${name}${consult ? ' ★ Consultation Requested' : ''}`,
+        html:    notificationHtml(name, email, timestamp, consult),
       }),
     ]);
 
-    return new Response(JSON.stringify({ ok: true }), {
+    const debug = confirmRes.status === 'fulfilled'
+      ? { confirm: 'sent' }
+      : { confirm: 'failed', reason: String(confirmRes.reason) };
+
+    return new Response(JSON.stringify({ ok: true, debug }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   },
@@ -165,7 +170,7 @@ function confirmationHtml(name, ethicaUrl) {
 </html>`;
 }
 
-function notificationHtml(name, email, timestamp) {
+function notificationHtml(name, email, timestamp, consult) {
   const dt = new Date(timestamp).toLocaleString('en-US', {
     timeZone: 'America/Los_Angeles',
     dateStyle: 'long',
@@ -187,6 +192,16 @@ function notificationHtml(name, email, timestamp) {
         </span>
       </td>
     </tr>
+
+    <!-- Consultation alert banner -->
+    ${consult ? `
+    <tr>
+      <td style="background:#c9a84c;padding:14px 36px;">
+        <p style="font-family:Arial,sans-serif;font-size:13px;font-weight:700;color:#0b0b0b;margin:0;">
+          ★ Consultation Requested — follow up with this person
+        </p>
+      </td>
+    </tr>` : ''}
 
     <!-- Body -->
     <tr>
@@ -215,8 +230,12 @@ function notificationHtml(name, email, timestamp) {
             </td>
           </tr>
           <tr>
-            <td style="padding:14px 0;font-family:Arial,sans-serif;font-size:13px;color:#999999;">Registered</td>
-            <td style="padding:14px 0;font-family:Arial,sans-serif;font-size:14px;color:#0b0b0b;">${dt} PT</td>
+            <td style="padding:14px 0;border-bottom:1px solid #f0ece4;font-family:Arial,sans-serif;font-size:13px;color:#999999;">Registered</td>
+            <td style="padding:14px 0;border-bottom:1px solid #f0ece4;font-family:Arial,sans-serif;font-size:14px;color:#0b0b0b;">${dt} PT</td>
+          </tr>
+          <tr>
+            <td style="padding:14px 0;font-family:Arial,sans-serif;font-size:13px;color:#999999;">Consultation</td>
+            <td style="padding:14px 0;font-family:Arial,sans-serif;font-size:14px;font-weight:600;color:${consult ? '#a07428' : '#bbbbbb'};">${consult ? 'Yes — requested' : 'No'}</td>
           </tr>
         </table>
       </td>
