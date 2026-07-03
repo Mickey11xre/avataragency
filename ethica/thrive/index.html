@@ -7,9 +7,9 @@
   (function(){
     try {
       var u = JSON.parse(localStorage.getItem('ethica_user') || 'null');
-      if (!u || !u.email) { window.location.replace('/ethica/napster/register.html'); }
+      if (!u || !u.email) { window.location.replace('/ethica/thrive/register.html'); }
     } catch(_) {
-      window.location.replace('/ethica/napster/register.html');
+      window.location.replace('/ethica/thrive/register.html');
     }
   })();
 </script>
@@ -341,7 +341,7 @@
 
           // Already used free session → go to subscribe page immediately
           if (user && user.freeUsed) {
-            window.location.href = 'ethica/napster/subscribe.html';
+            window.location.href = '/ethica/thrive/subscribe.html';
             return;
           }
 
@@ -372,7 +372,7 @@
               if (user) {
                 try { user.freeUsed = true; user.freeSeconds = 0; localStorage.setItem('ethica_user', JSON.stringify(user)); } catch(_) {}
               }
-              window.location.href = 'ethica/napster/subscribe.html';
+              window.location.href = '/ethica/thrive/subscribe.html';
             }
           }, 1000);
 

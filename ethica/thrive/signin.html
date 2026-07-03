@@ -222,7 +222,7 @@ body {
 <!-- ── Topbar ──────────────────────────────────────── -->
 <nav class="reg-topbar">
   <a href="/" class="reg-topbar-logo"><span>Avatar</span><span class="l">Agency</span></a>
-  <a href="ethica/napster/register.html" class="reg-topbar-register">
+  <a href="/ethica/thrive/register.html" class="reg-topbar-register">
     New here? <strong>Create account</strong>
   </a>
 </nav>
@@ -237,7 +237,7 @@ body {
     </div>
 
     <h2 class="signin-heading">Welcome back to <em>Ethica</em></h2>
-    <p class="signin-register-link">New here? <a href="ethica/napster/register.html">Create a free account</a></p>
+    <p class="signin-register-link">New here? <a href="/ethica/thrive/register.html">Create a free account</a></p>
 
     <form id="signin-form" novalidate>
 
@@ -253,7 +253,7 @@ body {
 
       <div class="signin-not-found" id="not-found-msg">
         No account found for that email on this device.<br>
-        <a href="ethica/napster/register.html">Register for free</a> to get your first 5 minutes.
+        <a href="/ethica/thrive/register.html">Register for free</a> to get your first 5 minutes.
       </div>
 
     </form>
@@ -310,9 +310,9 @@ body {
       if (stored && stored.email && stored.email.toLowerCase() === email) {
         // Recognised — send to avatar or subscribe based on trial state
         if (stored.freeUsed) {
-          window.location.href = 'ethica/napster/subscribe.html';
+          window.location.href = '/ethica/thrive/subscribe.html';
         } else {
-          window.location.href = 'ethica/napster/';
+          window.location.href = '/ethica/thrive/';
         }
       } else {
         // Not found on this device

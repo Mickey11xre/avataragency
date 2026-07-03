@@ -10,7 +10,7 @@
 
 const ADMIN_EMAIL  = 'michael@avataragency.ai';
 const FROM_ADDRESS = 'Ethica @ AvatarAgency <hello@avataragency.ai>';
-const ETHICA_URL   = 'https://avataragency.ai/ethica/napster/';
+const ETHICA_URL   = 'https://avataragency.ai/ethica/thrive/';
 const ALLOWED_ORIGIN = 'https://avataragency.ai';
 
 export default {

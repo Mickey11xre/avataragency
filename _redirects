@@ -1,0 +1,2 @@
+# Ethica demo path renamed: /ethica/napster/ -> /ethica/thrive/
+/ethica/napster/*  /ethica/thrive/:splat  301

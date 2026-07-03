@@ -1,6 +1,6 @@
 # Ethica — Registration, Email Confirmation & Payment Workflow Design
 **Project:** Ethica — The Fraud Fighter (Prototype for LiveBrand.ai)
-**Status:** V1 Live at avataragency.ai/ethica/napster/
+**Status:** V1 Live at avataragency.ai/ethica/thrive/
 **Last Updated:** July 1, 2026
 
 ---
@@ -35,7 +35,7 @@ The Ethica prototype validates three core product loops:
 ## 3. Registration Flow
 
 ### Entry Point
-`/ethica/napster/register.html`
+`/ethica/thrive/register.html`
 
 ### Left Panel (Conversion)
 - **"Talk to" + ETHICA_LOGO.jpg** — superhero badge replaces word mark
@@ -85,7 +85,7 @@ The Ethica prototype validates three core product loops:
 |----------|-------|
 | `FROM_ADDRESS` | `Ethica @ AvatarAgency <hello@avataragency.ai>` |
 | `ADMIN_EMAIL` | `michael@avataragency.ai` |
-| `ETHICA_URL` | `https://avataragency.ai/ethica/napster/` |
+| `ETHICA_URL` | `https://avataragency.ai/ethica/thrive/` |
 | `RESEND_API_KEY` | Secret (Cloudflare Worker → Settings → Variables) |
 
 ### Domain Verification
@@ -99,11 +99,11 @@ Worker returns `Access-Control-Allow-Origin: https://avataragency.ai` — only t
 ## 5. Free Trial Gate
 
 ### 5-Minute Session Timer
-File: `/ethica/napster/index.html`
+File: `/ethica/thrive/index.html`
 
 On `startNapsterAvatar()`:
 1. Checks `localStorage` for `ethica_user`
-2. If `freeUsed: true` → redirects immediately to `/ethica/napster/subscribe.html`
+2. If `freeUsed: true` → redirects immediately to `/ethica/thrive/subscribe.html`
 3. If registered → starts countdown from remaining seconds (default 300)
 4. Timer badge displays below avatar: `"5:00 free remaining"`
 5. Color states: default → amber (60s) → red (30s)
@@ -115,7 +115,7 @@ On `startNapsterAvatar()`:
 ## 6. Subscription / Payment Workflow
 
 ### Subscribe Page
-`/ethica/napster/subscribe.html`
+`/ethica/thrive/subscribe.html`
 
 **Design:**
 - Dark hero with floating Ethica logo animation + gold radial glow
