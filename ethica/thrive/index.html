@@ -2,10 +2,17 @@
 <!-- build:v5 — PRIVATE / UNLISTED — do not link publicly -->
 <html lang="en">
 <head>
-<!-- Registration gate: redirect unregistered visitors immediately -->
+<!-- Registration gate: redirect unregistered visitors immediately.
+     ?demo = internal back door: seeds a fresh session (for demos/reviews). -->
 <script>
   (function(){
     try {
+      if (new URLSearchParams(window.location.search).has('demo')) {
+        localStorage.setItem('ethica_user', JSON.stringify({
+          name: 'Demo Viewer', email: 'demo@avataragency.ai',
+          registeredAt: new Date().toISOString(), freeUsed: false, freeSeconds: 300
+        }));
+      }
       var u = JSON.parse(localStorage.getItem('ethica_user') || 'null');
       if (!u || !u.email) { window.location.replace('/ethica/thrive/register.html'); }
     } catch(_) {
