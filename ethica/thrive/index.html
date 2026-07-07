@@ -406,8 +406,10 @@
 <section class="section cream" style="padding-top:clamp(30px,4vw,48px);" data-screen-label="02b Merch">
   <style>
     .merch-title { white-space: nowrap; }
-    @media (max-width: 860px) { .merch-title { white-space: normal; } }
-    .merch-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 40px; max-width: 760px; }
+    .merch-lede { white-space: nowrap; max-width: none !important; }
+    @media (max-width: 860px) { .merch-title, .merch-lede { white-space: normal; } }
+    .merch-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
+    @media (max-width: 1000px) { .merch-grid { grid-template-columns: 1fr 1fr; } }
     @media (max-width: 700px) { .merch-grid { grid-template-columns: 1fr; } }
     .merch-card { background: #fff; border: 1.5px solid #e8e4dc; border-radius: 20px; overflow: hidden; transition: transform 0.22s ease, box-shadow 0.22s ease; }
     .merch-card:hover { transform: translateY(-4px); box-shadow: 0 20px 56px -16px rgba(0,0,0,0.14); }
@@ -423,7 +425,7 @@
     <div class="reveal">
       <div class="eyebrow is-gold" style="margin-bottom:18px;">The Fraud Fighter Collection</div>
       <h2 class="display-2 merch-title">Wear the mission. <span class="mute">Fight fraud in style.</span></h2>
-      <p class="lede" style="margin-top:18px;">Official Ethica tees — premium prints for everyone who believes fraud dies and truth thrives.</p>
+      <p class="lede merch-lede" style="margin-top:18px;">Official Ethica gear — premium prints for everyone who believes fraud dies and truth thrives.</p>
     </div>
     <div class="merch-grid">
       <div class="merch-card reveal" data-delay="80">
@@ -447,6 +449,19 @@
           <div class="merch-price-row">
             <span class="merch-price">$29</span>
             <a href="#" id="btn-tee-liar" class="btn btn-gold">Get yours
+              <svg class="glyph-arrow arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="merch-card reveal" data-delay="240">
+        <img src="/ethica/thrive/ethica-hoodie.jpg" alt="Ethica hoodie — Fraud Dies. Truth Thrives." loading="lazy">
+        <div class="merch-card-body">
+          <h3>The Ethica Hoodie</h3>
+          <p class="tag">"Fraud Dies. Truth Thrives." · black · unisex fleece</p>
+          <div class="merch-price-row">
+            <span class="merch-price">$49</span>
+            <a href="#" id="btn-hoodie" class="btn btn-gold">Get yours
               <svg class="glyph-arrow arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
             </a>
           </div>
