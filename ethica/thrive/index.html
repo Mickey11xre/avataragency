@@ -413,7 +413,10 @@
     @media (max-width: 700px) { .merch-grid { grid-template-columns: 1fr; } }
     .merch-card { background: #fff; border: 1.5px solid #e8e4dc; border-radius: 20px; overflow: hidden; transition: transform 0.22s ease, box-shadow 0.22s ease; }
     .merch-card:hover { transform: translateY(-4px); box-shadow: 0 20px 56px -16px rgba(0,0,0,0.14); }
-    .merch-card img { display: block; width: 100%; height: auto; }
+    .merch-card img { display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; }
+    /* Flat product shots (no model): contain + top padding seats the garment so
+       its shoulders line up with the models' shoulders in neighboring cards */
+    .merch-card img.flat { object-fit: contain; background: #fff; padding: 17% 7% 5%; }
     .merch-card-body { padding: 22px 24px 26px; }
     .merch-card h3 { font-family: 'General Sans', sans-serif; font-size: 17px; font-weight: 600; color: var(--ink); margin: 0 0 4px; }
     .merch-card .tag { font-size: 13px; color: #8a8477; margin: 0 0 14px; }
@@ -455,7 +458,7 @@
         </div>
       </div>
       <div class="merch-card reveal" data-delay="240">
-        <img src="/ethica/thrive/ethica-hoodie.jpg" alt="Ethica hoodie — Fraud Dies. Truth Thrives." loading="lazy">
+        <img class="flat" src="/ethica/thrive/ethica-hoodie.jpg" alt="Ethica hoodie — Fraud Dies. Truth Thrives." loading="lazy">
         <div class="merch-card-body">
           <h3>The Ethica Hoodie</h3>
           <p class="tag">"Fraud Dies. Truth Thrives." · black · unisex fleece</p>
