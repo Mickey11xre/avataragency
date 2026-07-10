@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T8NJ9JVWFV');
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>THRIVE — Book THRIVE DOCTOR &amp; Special Agent Rivera | Keynotes &amp; Workshops</title>
+<meta name="description" content="Book THRIVE DOCTOR & Special Agent Rivera for keynotes, workshops, and events. Simplifying complexity through human connection, F.U.N., research-based methodologies, and AI-enabled creativity.">
+
+<link rel="canonical" href="https://avataragency.ai/thrive/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://avataragency.ai/thrive/">
+<meta property="og:title" content="THRIVE — Book THRIVE DOCTOR &amp; Special Agent Rivera">
+<meta property="og:description" content="Simplifying Complexity. Inspiring Action. Transforming Results. Keynotes, workshops, and transformative experiences.">
+<meta property="og:image" content="https://avataragency.ai/thrive/thrive-hero.jpg">
+<meta property="og:site_name" content="THRIVE">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="THRIVE — Book THRIVE DOCTOR &amp; Special Agent Rivera">
+<meta name="twitter:description" content="Simplifying Complexity. Inspiring Action. Transforming Results.">
+<meta name="twitter:image" content="https://avataragency.ai/thrive/thrive-hero.jpg">
+
+<!-- Fonts · same paper style as the Translate-to-THRIVE deck -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+
+<style>
+/* ================================================================
+   TOKENS — THRIVE palette (teal-green accent on black)
+   ================================================================ */
+:root {
+  --bg:            #000;
+  --bg-elev:       #0a0a0a;
+  --surface:       #111;
+  --border:        #1e1e1e;
+  --border-hover:  #333;
+  --text:          #e0e0e0;
+  --text-paper:    #f1ece0;
+  --text-dim:      #888;
+  --muted:         #555;
+  --accent:        #1AE5A0;
+  --accent-hl:     rgba(26,229,160,.18);
+  --accent-glow:   rgba(26,229,160,.32);
+  --gold:          #c9a84c;
+  /* white-section palette (where the THRIVE DOCTOR logo lives) */
+  --paper:         #ffffff;
+  --paper-2:       #f4f6f4;
+  --ink:           #0d1a16;
+  --ink-dim:       #4c5a54;
+  --teal-deep:     #0e7a5c;
+
+  --font-display: 'Instrument Serif', serif;
+  --font-body:    'Outfit', sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  --title-size:   clamp(2.2rem, 6vw, 5.2rem);
+  --h2-size:      clamp(1.6rem, 3.4vw, 3rem);
+  --h3-size:      clamp(1.15rem, 2vw, 1.6rem);
+  --body-size:    clamp(0.98rem, 1.35vw, 1.18rem);
+  --small-size:   clamp(0.7rem, 0.95vw, 0.85rem);
+  --pad:          clamp(2rem, 6vw, 6rem);
+  --gap:          clamp(1rem, 2.2vw, 2rem);
+  --ease:         cubic-bezier(.16,1,.3,1);
+  --dur:          .9s;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  background:var(--bg); color:var(--text);
+  font-family:var(--font-body); font-weight:300;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+
+/* ================================================================
+   SECTION BASE — ambient spotlight like the deck
+   ================================================================ */
+.sec { position:relative; padding:var(--pad); overflow:hidden; }
+.sec::before {
+  content:''; position:absolute; inset:0; z-index:0; pointer-events:none;
+  background: radial-gradient(ellipse 70% 60% at var(--sx,28%) var(--sy,32%), rgba(26,229,160,.07) 0%, transparent 70%);
+}
+.sec:nth-of-type(even)::before { --sx:74%; --sy:68%; }
+.sec-inner { position:relative; z-index:1; max-width:1080px; margin:0 auto; }
+
+/* ================================================================
+   TYPOGRAPHY
+   ================================================================ */
+.display {
+  font-family:var(--font-display); font-weight:400;
+  font-size:var(--title-size); line-height:1.06;
+  color:var(--text-paper); letter-spacing:-.01em;
+}
+.display em { font-style:italic; color:var(--accent); }
+
+.h2 {
+  font-family:var(--font-display); font-weight:400;
+  font-size:var(--h2-size); line-height:1.14; color:var(--text-paper);
+}
+.h2 em { font-style:italic; color:var(--accent); }
+
+.h3 { font-family:var(--font-display); font-weight:400; font-size:var(--h3-size); line-height:1.25; color:var(--text-paper); }
+.h3 em { font-style:italic; color:var(--accent); }
+
+.body-text {
+  font-family:var(--font-body); font-weight:300;
+  font-size:var(--body-size); line-height:1.7;
+  color:var(--text-dim); max-width:62ch;
+}
+.body-text em { color:var(--text-paper); font-style:italic; }
+.body-text b  { color:var(--text-paper); font-weight:500; }
+
+.label {
+  font-family:var(--font-mono); font-weight:500;
+  font-size:var(--small-size); letter-spacing:.18em;
+  text-transform:uppercase; color:var(--accent);
+  display:block; margin-bottom:clamp(.9rem,1.6vw,1.4rem);
+}
+
+/* ================================================================
+   REVEAL ANIMATION
+   ================================================================ */
+.reveal { opacity:0; transform:translateY(22px); transition:opacity var(--dur) var(--ease), transform var(--dur) var(--ease); }
+.in-view .reveal { opacity:1; transform:none; }
+.in-view .reveal:nth-child(2) { transition-delay:.15s; }
+.in-view .reveal:nth-child(3) { transition-delay:.3s; }
+.in-view .reveal:nth-child(4) { transition-delay:.45s; }
+.in-view .reveal:nth-child(5) { transition-delay:.6s; }
+.in-view .reveal:nth-child(6) { transition-delay:.72s; }
+
+/* ================================================================
+   BUTTONS
+   ================================================================ */
+.btn-row { display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
+.btn {
+  display:inline-flex; align-items:center; gap:10px;
+  font-family:var(--font-body); font-weight:600; font-size:.95rem;
+  letter-spacing:.02em; text-decoration:none;
+  padding:15px 28px; border-radius:100px;
+  transition:all .3s var(--ease); cursor:pointer;
+}
+.btn svg { width:15px; height:15px; transition:transform .3s var(--ease); }
+.btn:hover svg { transform:translateX(4px); }
+.btn-solid { background:var(--accent); color:#000; }
+.btn-solid:hover { box-shadow:0 0 26px var(--accent-glow); transform:translateY(-2px); }
+.btn-ghost { background:transparent; color:var(--text-paper); border:1px solid var(--border-hover); }
+.btn-ghost:hover { border-color:var(--accent); color:var(--accent); box-shadow:0 0 18px rgba(26,229,160,.15); }
+/* buttons inside the white section */
+.on-paper .btn-solid { background:var(--teal-deep); color:#fff; }
+.on-paper .btn-solid:hover { box-shadow:0 10px 30px rgba(14,122,92,.28); }
+
+/* ================================================================
+   HERO — full-bleed poster + music player
+   ================================================================ */
+.hero { position:relative; background:#000; }
+.hero img.poster { display:block; width:100%; height:auto; }
+.hero-fade { position:absolute; left:0; right:0; bottom:0; height:16%; background:linear-gradient(to bottom, transparent, #000); pointer-events:none; }
+
+/* People on Purpose player — bottom-right corner of the hero */
+#hero-player {
+  position:absolute; bottom:clamp(.8rem,2.4vw,2rem); right:clamp(.8rem,2.4vw,2rem);
+  z-index:10; display:flex; align-items:center; gap:10px;
+  background:rgba(8,8,8,.82); backdrop-filter:blur(14px) saturate(1.4);
+  border:1px solid var(--border); border-radius:100px;
+  padding:8px 16px 8px 10px;
+}
+#hp-btn {
+  width:34px; height:34px; border-radius:50%; flex-shrink:0;
+  border:none; background:var(--accent); color:#000; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .2s, box-shadow .2s;
+}
+#hp-btn:hover { transform:scale(1.12); box-shadow:0 0 14px var(--accent-glow); }
+#hp-btn:active { transform:scale(.95); }
+#hp-btn svg { width:14px; height:14px; }
+.hp-bars { display:flex; align-items:flex-end; gap:3px; height:18px; opacity:0; transition:opacity .3s; }
+.hp-bars span { display:block; width:3px; background:var(--accent); border-radius:2px; animation:hpBar 1s ease-in-out infinite alternate; }
+.hp-bars span:nth-child(1) { height:6px;  animation-delay:0s;    animation-duration:.9s; }
+.hp-bars span:nth-child(2) { height:14px; animation-delay:.15s;  animation-duration:1.1s; }
+.hp-bars span:nth-child(3) { height:10px; animation-delay:.3s;   animation-duration:.85s; }
+.hp-bars span:nth-child(4) { height:18px; animation-delay:.05s;  animation-duration:1.2s; }
+.hp-bars span:nth-child(5) { height:8px;  animation-delay:.22s;  animation-duration:.95s; }
+#hero-player.hp-playing .hp-bars { opacity:1; }
+@keyframes hpBar { from { transform:scaleY(.3); } to { transform:scaleY(1); } }
+.hp-label { font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; color:var(--text-dim); text-transform:uppercase; white-space:nowrap; }
+@media (max-width:560px) { .hp-label { display:none; } #hero-player { padding:6px; } }
+
+/* ================================================================
+   DUO BILLING
+   ================================================================ */
+.duo-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.2rem,3vw,2.4rem); margin-top:clamp(1.6rem,3vw,2.6rem); }
+@media (max-width:720px) { .duo-grid { grid-template-columns:1fr; } }
+.duo-card {
+  border:1px solid var(--border); border-radius:18px; padding:clamp(1.4rem,2.6vw,2.2rem);
+  background:linear-gradient(180deg, rgba(17,17,17,.9), rgba(10,10,10,.9));
+  transition:border-color .3s var(--ease), transform .3s var(--ease);
+}
+.duo-card:hover { border-color:var(--accent); transform:translateY(-3px); }
+.duo-kicker { font-family:var(--font-mono); font-size:10.5px; letter-spacing:.16em; text-transform:uppercase; color:var(--text-dim); margin-bottom:10px; }
+.duo-name { font-family:var(--font-display); font-size:clamp(1.5rem,2.6vw,2.1rem); color:var(--accent); line-height:1.1; }
+.duo-person { font-family:var(--font-body); font-weight:400; font-size:.95rem; color:var(--text-paper); margin-top:8px; }
+.duo-tag { font-family:var(--font-body); font-weight:300; font-size:.9rem; color:var(--text-dim); margin-top:6px; line-height:1.55; }
+
+/* ================================================================
+   CHECK LIST (Why audiences choose)
+   ================================================================ */
+.check-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(.9rem,1.8vw,1.4rem); margin-top:clamp(1.4rem,2.6vw,2.2rem); }
+@media (max-width:720px) { .check-grid { grid-template-columns:1fr; } }
+.check-item {
+  display:flex; gap:14px; align-items:flex-start;
+  border:1px solid var(--border); border-radius:14px; padding:18px 20px;
+  background:rgba(17,17,17,.55); transition:border-color .3s var(--ease);
+}
+.check-item:hover { border-color:var(--border-hover); }
+.check-item .tick {
+  flex-shrink:0; width:22px; height:22px; border-radius:50%;
+  background:var(--accent-hl); color:var(--accent);
+  display:flex; align-items:center; justify-content:center; margin-top:2px;
+}
+.check-item .tick svg { width:11px; height:11px; }
+.check-item p { font-size:1rem; font-weight:400; color:var(--text); line-height:1.5; }
+
+/* ================================================================
+   WHITE SECTION — Signature Formula (logo home)
+   ================================================================ */
+.sec-paper { background:var(--paper); }
+.sec-paper::before { background:radial-gradient(ellipse 70% 60% at 30% 20%, rgba(14,122,92,.06) 0%, transparent 70%); }
+.sec-paper .label { color:var(--teal-deep); }
+.sec-paper .h2 { color:var(--ink); }
+.sec-paper .h2 em { color:var(--teal-deep); }
+.sec-paper .body-text { color:var(--ink-dim); }
+.formula-logo { display:block; width:min(320px, 62vw); height:auto; margin:0 auto clamp(1.6rem,3vw,2.4rem); }
+.formula-line {
+  font-family:var(--font-display); font-size:clamp(1.25rem,2.8vw,2.1rem);
+  color:var(--ink); text-align:center; line-height:1.35; margin:clamp(1rem,2vw,1.6rem) auto clamp(1.8rem,3.4vw,2.8rem);
+}
+.formula-line .plus { color:var(--teal-deep); font-style:italic; padding:0 .35em; }
+.formula-line .eq { color:var(--gold); padding:0 .35em; }
+.formula-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:clamp(.9rem,1.6vw,1.3rem); }
+@media (max-width:960px) { .formula-grid { grid-template-columns:1fr 1fr; } }
+@media (max-width:560px) { .formula-grid { grid-template-columns:1fr; } }
+.formula-card {
+  background:var(--paper-2); border:1px solid rgba(13,26,22,.08); border-radius:16px;
+  padding:clamp(1.3rem,2.2vw,1.8rem); transition:transform .3s var(--ease), box-shadow .3s var(--ease);
+}
+.formula-card:hover { transform:translateY(-4px); box-shadow:0 16px 40px rgba(13,26,22,.1); }
+.formula-card h3 { font-family:var(--font-body); font-weight:600; font-size:1.02rem; color:var(--ink); margin-bottom:8px; }
+.formula-card .fun { font-family:var(--font-mono); font-size:.78rem; letter-spacing:.1em; text-transform:uppercase; color:var(--teal-deep); display:block; margin-bottom:8px; }
+.formula-card p { font-size:.92rem; line-height:1.65; color:var(--ink-dim); }
+
+/* ================================================================
+   TOPICS
+   ================================================================ */
+.topic-list { margin-top:clamp(1.2rem,2.4vw,2rem); }
+.topic {
+  display:grid; grid-template-columns:auto 1fr; gap:clamp(1.2rem,2.6vw,2.2rem);
+  padding:clamp(1.4rem,2.6vw,2rem) 0; border-bottom:1px solid var(--border);
+  align-items:baseline;
+}
+.topic:last-child { border-bottom:none; }
+.topic-num { font-family:var(--font-mono); font-size:.8rem; letter-spacing:.12em; color:var(--accent); }
+.topic h3 { margin-bottom:8px; }
+.topic p { font-size:.98rem; line-height:1.65; color:var(--text-dim); max-width:64ch; }
+
+/* ================================================================
+   EXPERIENCE + AUDIENCES
+   ================================================================ */
+.exp-grid { display:grid; grid-template-columns:1fr 1fr; gap:clamp(.9rem,1.8vw,1.4rem); margin-top:clamp(1.4rem,2.6vw,2.2rem); }
+@media (max-width:720px) { .exp-grid { grid-template-columns:1fr; } }
+.exp-card { border-left:2px solid var(--accent); padding:6px 0 6px clamp(1.1rem,2vw,1.6rem); }
+.exp-card h3 { font-family:var(--font-body); font-weight:600; font-size:1.02rem; color:var(--text-paper); margin-bottom:6px; }
+.exp-card p { font-size:.94rem; line-height:1.6; color:var(--text-dim); }
+
+.aud-wrap { display:flex; flex-wrap:wrap; gap:12px; margin-top:clamp(1.4rem,2.6vw,2rem); }
+.aud-chip {
+  font-family:var(--font-mono); font-size:.78rem; letter-spacing:.08em; text-transform:uppercase;
+  color:var(--text); border:1px solid var(--border-hover); border-radius:100px;
+  padding:10px 18px; transition:all .3s var(--ease);
+}
+.aud-chip:hover { border-color:var(--accent); color:var(--accent); }
+
+/* ================================================================
+   TESTIMONIALS
+   ================================================================ */
+.quote-stack { display:grid; gap:clamp(1rem,2vw,1.5rem); margin-top:clamp(1.4rem,2.6vw,2.2rem); grid-template-columns:repeat(3,1fr); }
+@media (max-width:900px) { .quote-stack { grid-template-columns:1fr; } }
+.tq {
+  border:1px solid var(--border); border-radius:18px; background:rgba(17,17,17,.6);
+  padding:clamp(1.4rem,2.4vw,2rem); position:relative;
+}
+.tq::before { content:'“'; font-family:var(--font-display); font-size:3rem; color:var(--accent); line-height:0; display:block; margin:18px 0 8px; }
+.tq p { font-family:var(--font-display); font-size:clamp(1.05rem,1.6vw,1.3rem); line-height:1.45; color:var(--text-paper); }
+
+/* ================================================================
+   PROMISE
+   ================================================================ */
+.promise-list { margin:clamp(1.4rem,2.6vw,2rem) 0; display:grid; gap:12px; }
+.promise-item { display:flex; gap:14px; align-items:baseline; font-size:clamp(1.05rem,1.7vw,1.35rem); font-weight:400; color:var(--text); }
+.promise-item .dash { color:var(--accent); font-family:var(--font-mono); }
+.mission-stack {
+  font-family:var(--font-display); font-size:clamp(1.5rem,3.4vw,2.6rem); line-height:1.3;
+  color:var(--text-paper); margin-top:clamp(1.6rem,3vw,2.4rem);
+}
+.mission-stack em { font-style:italic; color:var(--accent); }
+
+/* ================================================================
+   FINAL CTA
+   ================================================================ */
+.cta-final { text-align:center; }
+.cta-final .body-text { margin:18px auto clamp(1.8rem,3vw,2.4rem); }
+.cta-final .btn-row { justify-content:center; }
+
+/* ================================================================
+   FOOTER — minimal
+   ================================================================ */
+.site-foot {
+  border-top:1px solid var(--border); padding:clamp(1.6rem,3vw,2.4rem) var(--pad);
+  display:flex; flex-direction:column; gap:14px; align-items:center; text-align:center;
+}
+.site-foot .back {
+  font-family:var(--font-mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--text-dim); text-decoration:none; transition:color .3s;
+}
+.site-foot .back:hover { color:var(--accent); }
+.site-foot .fine { font-size:.72rem; color:var(--muted); line-height:1.7; max-width:760px; }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════
+     SPEAKER NAMES — to swap a name, edit it here in the two
+     duo-cards below and in the <title>/meta tags above.
+     Current billing: THRIVE DOCTOR (Stephanie Geter)
+                      SPECIAL AGENT RIVERA (Michael Rivera)
+     ════════════════════════════════════════════════════════════ -->
+
+<!-- ── HERO — full-bleed poster ─────────────────────────────── -->
+<header class="hero">
+  <img class="poster" src="thrive-hero.jpg" alt="THRIVE — Unleash your superpower through agentic AI. THRIVE DOCTOR, Special Agent Rivera, and Ethica against a city skyline." loading="eager">
+  <div class="hero-fade"></div>
+
+  <!-- People on Purpose player -->
+  <audio id="heroAudio" preload="none" loop>
+    <source src="people-on-purpose.mp3" type="audio/mpeg">
+  </audio>
+  <div id="hero-player">
+    <button id="hp-btn" aria-label="Play music">
+      <svg id="hp-icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+      <svg id="hp-icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none;"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+    </button>
+    <div class="hp-bars"><span></span><span></span><span></span><span></span><span></span></div>
+    <span class="hp-label">People on Purpose</span>
+  </div>
+</header>
+
+<main>
+
+<!-- ── INTRO / BILLING ──────────────────────────────────────── -->
+<section class="sec" id="intro">
+  <div class="sec-inner">
+    <span class="label reveal">Speaker&nbsp;·&nbsp;Educator&nbsp;·&nbsp;Innovation Catalyst</span>
+    <h1 class="display reveal">Simplifying Complexity.<br>Inspiring Action.<br><em>Transforming Results.</em></h1>
+    <p class="body-text reveal" style="margin-top:clamp(1.4rem,2.6vw,2rem);">
+      <b>We simplify the complex to meet needs and solve problems.</b> Through the powerful blend of
+      human connection, F.U.N., research-based methodologies, and AI-enabled creativity, we help
+      individuals, teams, and organizations move <em>from confusion to clarity</em>, from challenges
+      to solutions, and from surviving to <em>thriving</em>.
+    </p>
+
+    <div class="duo-grid reveal">
+      <div class="duo-card">
+        <div class="duo-kicker">Keynote Speaker</div>
+        <div class="duo-name">THRIVE DOCTOR</div>
+        <div class="duo-person">Stephanie Geter</div>
+        <div class="duo-tag">Educator and innovation catalyst turning research into transformation audiences can feel.</div>
+      </div>
+      <div class="duo-card">
+        <div class="duo-kicker">Keynote Speaker</div>
+        <div class="duo-name">SPECIAL AGENT RIVERA</div>
+        <div class="duo-person">Michael Rivera</div>
+        <div class="duo-tag">AI builder and creative strategist showing audiences what agentic AI makes possible today.</div>
+      </div>
+    </div>
+
+    <div class="btn-row reveal" style="margin-top:clamp(1.8rem,3.2vw,2.6rem);">
+      <!-- TODO: swap href to the new THRIVE Calendly booking link when created -->
+      <a class="btn btn-solid" href="mailto:michael@avataragency.ai?subject=THRIVE%20Speaking%20Inquiry&body=Event%20name%3A%0AEvent%20date%3A%0ALocation%20(or%20virtual)%3A%0AAudience%20size%20%26%20type%3A%0AFormat%20(keynote%2Fworkshop%2Fconsultation)%3A%0AAnything%20else%3A%0A">
+        Schedule a Consultation
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+      <a class="btn btn-ghost" href="#topics">
+        Speaking Topics
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2v10M3 8l4 4 4-4"/></svg>
+      </a>
+      <!-- TODO: swap href to the new THRIVE Calendly booking link when created -->
+      <a class="btn btn-ghost" href="mailto:michael@avataragency.ai?subject=THRIVE%20Keynote%20Booking">
+        Book a Keynote
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY AUDIENCES CHOOSE ─────────────────────────────────── -->
+<section class="sec" id="why">
+  <div class="sec-inner">
+    <span class="label reveal">Why Audiences Choose THRIVE DOCTOR</span>
+    <h2 class="h2 reveal">People don't need more information —<br>they need <em>meaningful transformation.</em></h2>
+    <p class="body-text reveal" style="margin-top:clamp(1rem,1.8vw,1.4rem);">
+      THRIVE DOCTOR delivers engaging, practical, and evidence-based experiences that help audiences:
+    </p>
+
+    <div class="check-grid reveal">
+      <div class="check-item"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5l2.5 2.5L10 3"/></svg></span><p>Navigate complexity with confidence</p></div>
+      <div class="check-item"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5l2.5 2.5L10 3"/></svg></span><p>Leverage AI as a creative and collaborative partner</p></div>
+      <div class="check-item"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5l2.5 2.5L10 3"/></svg></span><p>Build stronger human connections</p></div>
+      <div class="check-item"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5l2.5 2.5L10 3"/></svg></span><p>Transform challenges into opportunities</p></div>
+      <div class="check-item"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5l2.5 2.5L10 3"/></svg></span><p>Increase engagement, innovation, and impact</p></div>
+      <div class="check-item"><span class="tick"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5l2.5 2.5L10 3"/></svg></span><p>Apply actionable strategies immediately</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SIGNATURE FORMULA — white section, logo home ─────────── -->
+<section class="sec sec-paper on-paper" id="formula">
+  <div class="sec-inner" style="text-align:center;">
+    <img class="formula-logo reveal" src="thrive-doctor-logo.png" alt="The THRIVE Doctor logo">
+    <span class="label reveal">Our Signature Formula</span>
+    <div class="formula-line reveal">
+      Human Connection <span class="plus">+</span> F.U.N. <span class="plus">+</span> Research <span class="plus">+</span> AI <span class="eq">=</span> <b>THRIVE</b>
+    </div>
+
+    <div class="formula-grid reveal" style="text-align:left;">
+      <div class="formula-card">
+        <h3>Human Connectivity</h3>
+        <p>People drive change. We create experiences that foster authentic relationships, trust, communication, and collaboration.</p>
+      </div>
+      <div class="formula-card">
+        <h3>F.U.N.</h3>
+        <span class="fun">Focused · Uplifting · Novel</span>
+        <p>Learning and innovation accelerate when people are engaged, energized, and emotionally connected to the experience.</p>
+      </div>
+      <div class="formula-card">
+        <h3>Research-Based Methodologies</h3>
+        <p>Every keynote, workshop, and consultation is grounded in proven practices from education, psychology, leadership, innovation, and organizational development.</p>
+      </div>
+      <div class="formula-card">
+        <h3>AI-Enabled Creativity &amp; Collaboration</h3>
+        <p>We harness artificial intelligence to amplify human potential, spark innovation, enhance decision-making, and create scalable solutions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SPEAKING TOPICS ──────────────────────────────────────── -->
+<section class="sec" id="topics">
+  <div class="sec-inner">
+    <span class="label reveal">Speaking Topics</span>
+    <h2 class="h2 reveal">Keynotes that move audiences<br>from surviving to <em>thriving.</em></h2>
+
+    <div class="topic-list reveal">
+      <div class="topic">
+        <span class="topic-num">01</span>
+        <div>
+          <h3 class="h3">The Future of <em>Human-Centered AI</em></h3>
+          <p>Discover how organizations can combine technology and humanity to unlock creativity, productivity, and meaningful impact.</p>
+        </div>
+      </div>
+      <div class="topic">
+        <span class="topic-num">02</span>
+        <div>
+          <h3 class="h3">Simplifying <em>Complexity</em></h3>
+          <p>Learn proven frameworks for making difficult problems understandable, manageable, and solvable.</p>
+        </div>
+      </div>
+      <div class="topic">
+        <span class="topic-num">03</span>
+        <div>
+          <h3 class="h3">Thriving in Times of <em>Change</em></h3>
+          <p>Equip leaders and teams with strategies to navigate uncertainty while maintaining resilience and momentum.</p>
+        </div>
+      </div>
+      <div class="topic">
+        <span class="topic-num">04</span>
+        <div>
+          <h3 class="h3">Innovation Through <em>Connection</em></h3>
+          <p>Explore how collaboration, trust, and creativity drive breakthrough performance.</p>
+        </div>
+      </div>
+      <div class="topic">
+        <span class="topic-num">05</span>
+        <div>
+          <h3 class="h3">AI for <em>Educators, Leaders, and Professionals</em></h3>
+          <p>Practical applications of AI that save time, increase effectiveness, and empower innovation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHAT AUDIENCES EXPERIENCE ────────────────────────────── -->
+<section class="sec" id="experience">
+  <div class="sec-inner">
+    <span class="label reveal">What Audiences Experience</span>
+    <h2 class="h2 reveal">Not a lecture.<br>An <em>experience.</em></h2>
+
+    <div class="exp-grid reveal">
+      <div class="exp-card">
+        <h3>Engaging Storytelling</h3>
+        <p>Real-world examples that resonate and inspire.</p>
+      </div>
+      <div class="exp-card">
+        <h3>Interactive Learning</h3>
+        <p>Participation-driven experiences that create lasting impact.</p>
+      </div>
+      <div class="exp-card">
+        <h3>Actionable Strategies</h3>
+        <p>Tools and frameworks participants can use immediately.</p>
+      </div>
+      <div class="exp-card">
+        <h3>Transformational Insights</h3>
+        <p>A fresh perspective on leadership, learning, innovation, and growth.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── IDEAL AUDIENCES ──────────────────────────────────────── -->
+<section class="sec" id="audiences">
+  <div class="sec-inner">
+    <span class="label reveal">Ideal Audiences</span>
+    <h2 class="h2 reveal">Built for rooms that are<br>ready to <em>grow.</em></h2>
+    <div class="aud-wrap reveal">
+      <span class="aud-chip">Educational Organizations</span>
+      <span class="aud-chip">Universities &amp; Colleges</span>
+      <span class="aud-chip">Corporate Teams</span>
+      <span class="aud-chip">Leadership Conferences</span>
+      <span class="aud-chip">Healthcare Professionals</span>
+      <span class="aud-chip">Nonprofit Organizations</span>
+      <span class="aud-chip">Government Agencies</span>
+      <span class="aud-chip">Professional Associations</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── TESTIMONIALS ─────────────────────────────────────────── -->
+<section class="sec" id="testimonials">
+  <div class="sec-inner">
+    <span class="label reveal">What They're Saying</span>
+    <div class="quote-stack reveal">
+      <div class="tq"><p>THRIVE DOCTOR transforms complex ideas into practical strategies that inspire immediate action.</p></div>
+      <div class="tq"><p>A perfect blend of research, innovation, humor, and humanity.</p></div>
+      <div class="tq"><p>Our team left energized, equipped, and ready to thrive.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── THE THRIVE PROMISE ───────────────────────────────────── -->
+<section class="sec" id="promise">
+  <div class="sec-inner">
+    <span class="label reveal">The THRIVE Promise</span>
+    <h2 class="h2 reveal">The future belongs to those who can —</h2>
+    <div class="promise-list reveal">
+      <div class="promise-item"><span class="dash">—</span> Connect authentically</div>
+      <div class="promise-item"><span class="dash">—</span> Learn continuously</div>
+      <div class="promise-item"><span class="dash">—</span> Innovate courageously</div>
+      <div class="promise-item"><span class="dash">—</span> Leverage technology wisely</div>
+      <div class="promise-item"><span class="dash">—</span> Solve problems creatively</div>
+    </div>
+    <p class="body-text reveal">Our mission is simple:</p>
+    <div class="mission-stack reveal">
+      Simplify the Complex.<br>
+      Empower People.<br>
+      Inspire Innovation.<br>
+      <em>Help Everyone Thrive.</em>
+    </div>
+  </div>
+</section>
+
+<!-- ── FINAL CTA ────────────────────────────────────────────── -->
+<section class="sec cta-final" id="book">
+  <div class="sec-inner">
+    <span class="label reveal" style="display:block;">Call to Action</span>
+    <h2 class="h2 reveal">Ready to help your audience <em>thrive?</em></h2>
+    <p class="body-text reveal" style="max-width:60ch;">
+      Whether you're planning a conference keynote, leadership retreat, professional development
+      event, or organizational workshop, <b>THRIVE DOCTOR</b> delivers memorable and transformative
+      experiences.
+    </p>
+    <div class="btn-row reveal">
+      <!-- TODO: swap href to the new THRIVE Calendly booking link when created -->
+      <a class="btn btn-solid" href="mailto:michael@avataragency.ai?subject=THRIVE%20Booking%20Inquiry&body=Event%20name%3A%0AEvent%20date%3A%0ALocation%20(or%20virtual)%3A%0AAudience%20size%20%26%20type%3A%0AFormat%20(keynote%2Fworkshop%2Fconsultation)%3A%0AAnything%20else%3A%0A">
+        Book Us Today
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ── FOOTER — minimal ─────────────────────────────────────── -->
+<footer class="site-foot">
+  <a class="back" href="../">← avataragency.ai</a>
+  <p class="fine">
+    Content on this page may contain AI-generated synthetic performers. Disclosed per NY law
+    (eff. 6/9/26) &amp; FTC guidelines. © 2026 AvatarAgency.ai — All Rights Reserved · Los Angeles, California
+  </p>
+</footer>
+
+<script>
+/* Reveal on scroll */
+(function () {
+  var secs = document.querySelectorAll('.sec');
+  if (!('IntersectionObserver' in window)) {
+    secs.forEach(function (s) { s.classList.add('in-view'); });
+    return;
+  }
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.18 });
+  secs.forEach(function (s) { io.observe(s); });
+})();
+
+/* People on Purpose player */
+(function () {
+  var audio = document.getElementById('heroAudio');
+  var player = document.getElementById('hero-player');
+  var btn = document.getElementById('hp-btn');
+  var iconPlay = document.getElementById('hp-icon-play');
+  var iconPause = document.getElementById('hp-icon-pause');
+  if (!audio || !player || !btn) return;
+
+  function setPlaying(on) {
+    player.classList.toggle('hp-playing', on);
+    iconPlay.style.display = on ? 'none' : 'block';
+    iconPause.style.display = on ? 'block' : 'none';
+    btn.setAttribute('aria-label', on ? 'Pause music' : 'Play music');
+  }
+  btn.addEventListener('click', function () {
+    if (audio.paused) { audio.play().catch(function () {}); }
+    else { audio.pause(); }
+  });
+  audio.addEventListener('play',  function () { setPlaying(true);  });
+  audio.addEventListener('pause', function () { setPlaying(false); });
+  audio.addEventListener('ended', function () { setPlaying(false); });
+})();
+</script>
+</body>
+</html>
