@@ -78,7 +78,7 @@
 }
 
 * { margin:0; padding:0; box-sizing:border-box; }
-html { scroll-behavior:smooth; }
+html { scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%; }
 body {
   background:var(--bg); color:var(--text);
   font-family:var(--font-body); font-weight:300;
@@ -114,6 +114,14 @@ body {
 
 .h3 { font-family:var(--font-display); font-weight:400; font-size:var(--h3-size); line-height:1.25; color:var(--text-paper); }
 .h3 em { font-style:italic; color:var(--accent); }
+
+/* iOS Safari: em accents must declare family+style explicitly — inheritance
+   from the parent's font-family var is unreliable on mobile WebKit */
+.display em, .h2 em, .h3 em, .mission-stack em {
+  font-family:'Instrument Serif', Georgia, 'Times New Roman', serif;
+  font-style:italic;
+  font-weight:400;
+}
 
 .body-text {
   font-family:var(--font-body); font-weight:300;
