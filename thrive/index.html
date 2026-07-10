@@ -165,11 +165,11 @@ body {
    ================================================================ */
 .hero { position:relative; background:#000; }
 .hero img.poster { display:block; width:100%; height:auto; }
-.hero-fade { position:absolute; left:0; right:0; bottom:0; height:16%; background:linear-gradient(to bottom, transparent, #000); pointer-events:none; }
+.hero-fade { position:absolute; left:0; right:0; bottom:0; height:9%; background:linear-gradient(to bottom, transparent, rgba(0,0,0,.55)); pointer-events:none; }
 
 /* People on Purpose player — bottom-right corner of the hero */
 #hero-player {
-  position:absolute; bottom:clamp(.8rem,2.4vw,2rem); right:clamp(.8rem,2.4vw,2rem);
+  position:absolute; bottom:clamp(2.6rem,5.5vw,4.8rem); right:clamp(.8rem,2.4vw,2rem);
   z-index:10; display:flex; align-items:center; gap:10px;
   background:rgba(8,8,8,.82); backdrop-filter:blur(14px) saturate(1.4);
   border:1px solid var(--border); border-radius:100px;
@@ -396,17 +396,12 @@ body {
     <div class="btn-row reveal" style="margin-top:clamp(1.8rem,3.2vw,2.6rem);">
       <!-- TODO: swap href to the new THRIVE Calendly booking link when created -->
       <a class="btn btn-solid" href="mailto:michael@avataragency.ai?subject=THRIVE%20Speaking%20Inquiry&body=Event%20name%3A%0AEvent%20date%3A%0ALocation%20(or%20virtual)%3A%0AAudience%20size%20%26%20type%3A%0AFormat%20(keynote%2Fworkshop%2Fconsultation)%3A%0AAnything%20else%3A%0A">
-        Schedule a Consultation
+        Book Us Today
         <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
       </a>
       <a class="btn btn-ghost" href="#topics">
         Speaking Topics
         <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2v10M3 8l4 4 4-4"/></svg>
-      </a>
-      <!-- TODO: swap href to the new THRIVE Calendly booking link when created -->
-      <a class="btn btn-ghost" href="mailto:michael@avataragency.ai?subject=THRIVE%20Keynote%20Booking">
-        Book a Keynote
-        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
       </a>
     </div>
   </div>
