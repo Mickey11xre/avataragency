@@ -339,11 +339,16 @@ body {
   border-top:1px solid var(--border); padding:clamp(1.6rem,3vw,2.4rem) var(--pad);
   display:flex; flex-direction:column; gap:14px; align-items:center; text-align:center;
 }
-.site-foot .back {
-  font-family:var(--font-mono); font-size:.75rem; letter-spacing:.12em; text-transform:uppercase;
-  color:var(--text-dim); text-decoration:none; transition:color .3s;
+.site-foot .powered {
+  display:flex; flex-direction:column; align-items:center; gap:10px;
+  text-decoration:none; transition:opacity .3s;
 }
-.site-foot .back:hover { color:var(--accent); }
+.site-foot .powered:hover { opacity:.75; }
+.site-foot .powered-label {
+  font-family:var(--font-mono); font-size:.62rem; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--text-dim);
+}
+.site-foot .powered img { height:26px; width:auto; display:block; }
 .site-foot .fine { font-size:.72rem; color:var(--muted); line-height:1.7; max-width:760px; }
 </style>
 </head>
@@ -393,13 +398,13 @@ body {
       <div class="duo-card">
         <div class="duo-kicker">Keynote Speaker</div>
         <div class="duo-name">THRIVE DOCTOR</div>
-        <div class="duo-person">Stephanie Geter</div>
+        <div class="duo-person">Stephanie D. Geter, PhD, CPA, MBA</div>
         <div class="duo-tag">Educator and innovation catalyst turning research into transformation audiences can feel.</div>
       </div>
       <div class="duo-card">
         <div class="duo-kicker">Keynote Speaker</div>
         <div class="duo-name">SPECIAL AGENT RIVERA</div>
-        <div class="duo-person">Michael Rivera</div>
+        <div class="duo-person">Michael Rivera · Founder, AvatarAgency.ai and LiveBrand.ai</div>
         <div class="duo-tag">AI builder and creative strategist showing audiences what agentic AI makes possible today.</div>
       </div>
     </div>
@@ -618,7 +623,10 @@ body {
 
 <!-- ── FOOTER — minimal ─────────────────────────────────────── -->
 <footer class="site-foot">
-  <a class="back" href="../">← avataragency.ai</a>
+  <a class="powered" href="https://avataragency.ai">
+    <span class="powered-label">Powered by</span>
+    <img src="avataragency-logo.jpg" alt="AvatarAgency">
+  </a>
   <p class="fine">
     Content on this page may contain AI-generated synthetic performers. Disclosed per NY law
     (eff. 6/9/26) &amp; FTC guidelines. © 2026 AvatarAgency.ai — All Rights Reserved · Los Angeles, California
