@@ -358,12 +358,19 @@
           justify-content:center;padding-bottom:30px;
           background:linear-gradient(to top,rgba(0,0,0,0.42) 0%,transparent 52%);
         }
-        #paul-napster-avatar { position:absolute;inset:0;display:none; }
+        #paul-napster-avatar { position:absolute;inset:0;display:none;overflow:hidden; }
         #paul-napster-avatar > *,
         #paul-napster-avatar video,
         #paul-napster-avatar canvas {
           width:100% !important;height:100% !important;
           object-fit:cover !important;object-position:center top !important;
+        }
+        /* Pin the SDK's own wrapper — it adopts its own size when a session starts
+           (same fix as the LiveBrand assistant): */
+        #paul-napster-avatar > * {
+          position:absolute !important;inset:0 !important;
+          max-width:none !important;max-height:none !important;
+          margin:0 !important;border-radius:0 !important;
         }
         #paul-end-btn {
           display:none;font-family:var(--f-display);font-size:12px;
