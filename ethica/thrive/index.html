@@ -300,61 +300,143 @@
       <h2 class="display-2">Ask Ethica anything<br><span class="mute">about protecting your money.</span></h2>
     </div>
     <style>
-      /* Napster avatar — rectangular frame, top-anchored so her head isn't cropped */
-      #ethica-napster-avatar {
-        position: relative;
-        width: 100%;
-        aspect-ratio: 16 / 10;
-        border-radius: 18px;
-        overflow: hidden;
-        background: var(--ink);
-        box-shadow: 0 30px 70px -34px rgba(0,0,0,0.42);
+      #ethica-wrap {
+        position:relative;width:100%;max-width:760px;margin:0 auto;
+        border-radius:18px;overflow:hidden;
+        border:2px solid var(--gold);
+        box-shadow:0 30px 70px -34px rgba(0,0,0,0.42);
+        background:#000;
       }
+      #ethica-placeholder { position:relative;width:100%;cursor:pointer; }
+      #ethica-placeholder img { width:100%;height:auto;display:block; }
+      #ethica-placeholder-overlay {
+        position:absolute;inset:0;display:flex;align-items:flex-end;
+        justify-content:center;padding-bottom:30px;
+        background:linear-gradient(to top,rgba(0,0,0,0.42) 0%,transparent 52%);
+      }
+      #ethica-napster-avatar { position:absolute;inset:0;display:none;overflow:hidden; }
       #ethica-napster-avatar > *,
       #ethica-napster-avatar video,
       #ethica-napster-avatar canvas {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover;
-        object-position: center top;
+        width:100% !important;height:100% !important;
+        object-fit:cover !important;object-position:center top !important;
       }
+      /* Pin the SDK's own wrapper — it adopts its own size when a session starts
+         (same out-of-frame fix as the Paul Small avatar on /casestudy): */
+      #ethica-napster-avatar > * {
+        position:absolute !important;inset:0 !important;
+        max-width:none !important;max-height:none !important;
+        margin:0 !important;border-radius:0 !important;
+      }
+      #ethica-end-btn {
+        display:none;font-family:var(--f-display);font-size:12px;
+        color:var(--text-mute);background:none;cursor:pointer;
+        border:1px solid rgba(0,0,0,0.18);padding:5px 14px;
+        border-radius:99px;margin-top:2px;
+      }
+      #ethica-end-btn:hover { color:var(--ink);border-color:rgba(0,0,0,0.35); }
     </style>
-    <div class="reveal" data-delay="80">
-      <div id="ethica-napster-avatar"></div>
+
+    <div class="reveal" data-delay="80" style="display:flex;flex-direction:column;align-items:center;gap:14px;">
+      <div id="ethica-wrap">
+        <div id="ethica-placeholder">
+          <img src="/ethica/thrive/ethica-talk-placeholder.jpg" alt="Ethica — AI Financial Fraud Fighter, built by AvatarAgency">
+          <div id="ethica-placeholder-overlay">
+            <span style="display:inline-flex;align-items:center;gap:7px;background:var(--gold);color:#0a0a0a;
+                         font-family:var(--f-display);font-size:12.5px;font-weight:600;
+                         padding:7px 16px;border-radius:99px;letter-spacing:0.04em;">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M9 22h6"/>
+              </svg>
+              Talk to Ethica
+            </span>
+          </div>
+        </div>
+        <div id="ethica-napster-avatar"></div>
+      </div>
+
+      <p id="ethica-hint" style="font-family:var(--f-display);font-size:13.5px;color:var(--text-mute);margin:0;text-align:center;">
+        Tap to start a live conversation &nbsp;·&nbsp; 5 minutes free
+      </p>
+      <div id="ethica-timer-badge" aria-live="polite">
+        <span class="timer-dot"></span>
+        <span id="ethica-timer-text">5:00 free remaining</span>
+      </div>
+      <button id="ethica-end-btn">End chat</button>
     </div>
+
     <!-- Napster Companion Web SDK (standalone) + token from our Cloudflare Worker -->
     <script src="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js"></script>
     <script>
-      (async function startNapsterAvatar() {
-        const TOKEN_ENDPOINT = "https://napster-avatar-token.michaelrivera.workers.dev/api/avatar-token";
+    (function () {
+      var TOKEN_ENDPOINT = "https://napster-avatar-token.michaelrivera.workers.dev/api/avatar-token";
+      var placeholder = document.getElementById('ethica-placeholder');
+      var avatarMount = document.getElementById('ethica-napster-avatar');
+      var hintEl      = document.getElementById('ethica-hint');
+      var timerBadge  = document.getElementById('ethica-timer-badge');
+      var timerText   = document.getElementById('ethica-timer-text');
+      var endBtn      = document.getElementById('ethica-end-btn');
+      var wrap        = document.getElementById('ethica-wrap');
+      var instance    = null;
+      var interval    = null;
+
+      function getUser() {
+        try { return JSON.parse(localStorage.getItem('ethica_user') || 'null'); } catch (_) { return null; }
+      }
+
+      // Idempotent UI reset; does NOT tear down the SDK. Also wired as the SDK's
+      // onDestroy so the built-in hang-up button resets our timer + placeholder.
+      function resetUI() {
+        if (interval) { clearInterval(interval); interval = null; }
+        instance = null;
+        avatarMount.style.display = 'none';
+        wrap.style.height = '';
+        placeholder.style.display = 'block';
+        endBtn.style.display = 'none';
+        if (timerBadge) timerBadge.classList.remove('is-active', 'warn', 'crit');
+        hintEl.textContent = 'Session ended · Tap to start again';
+      }
+
+      function endSession() {
         try {
-          const res = await fetch(TOKEN_ENDPOINT);
-          if (!res.ok) throw new Error("Token request failed: " + res.status);
-          const data = await res.json();
-          const sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
-          if (!sdk) { console.error("Napster SDK global not found"); return; }
-          const instance = await sdk.init(data.token, {
-            mountContainer: "#ethica-napster-avatar",
-            avatarStyle: { view: "rectangle" }
+          if (instance) {
+            if (typeof instance.destroy === 'function') instance.destroy();
+            else if (typeof instance.disconnect === 'function') instance.disconnect();
+          }
+        } catch (e) {}
+        resetUI();
+      }
+
+      async function startEthica() {
+        var user = getUser();
+        // Free session already used → straight to subscribe
+        if (user && user.freeUsed) {
+          window.location.href = '/ethica/thrive/subscribe.html';
+          return;
+        }
+        wrap.style.height = wrap.offsetHeight + 'px';
+        placeholder.style.display = 'none';
+        hintEl.textContent = 'Connecting…';
+        try {
+          var res = await fetch(TOKEN_ENDPOINT);
+          if (!res.ok) throw new Error('Token request failed: ' + res.status);
+          var data = await res.json();
+          var sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
+          if (!sdk) throw new Error('Napster SDK not loaded');
+
+          avatarMount.style.display = 'block';
+          instance = await sdk.init(data.token, {
+            mountContainer: '#ethica-napster-avatar',
+            avatarStyle: { view: 'rectangle' },
+            onDestroy: resetUI
           });
           instance.showAvatar();
+          hintEl.textContent   = 'Click the avatar and allow your microphone to talk with Ethica';
+          endBtn.style.display = 'inline-block';
 
           // ── 5-minute free session gate ────────────────
-          var timerBadge = document.getElementById('ethica-timer-badge');
-          var timerText  = document.getElementById('ethica-timer-text');
-          var paywall    = document.getElementById('ethica-paywall');
-          var user = null;
-          try { user = JSON.parse(localStorage.getItem('ethica_user') || 'null'); } catch(_) {}
-
-          // Already used free session → go to subscribe page immediately
-          if (user && user.freeUsed) {
-            window.location.href = '/ethica/thrive/subscribe.html';
-            return;
-          }
-
           var seconds = (user && user.freeSeconds > 0) ? user.freeSeconds : 300;
           if (timerBadge) timerBadge.classList.add('is-active');
-
           function pad(n) { return String(n).padStart(2, '0'); }
           function tick() {
             var m = Math.floor(seconds / 60), s = seconds % 60;
@@ -365,34 +447,34 @@
             }
           }
           tick();
-
-          var interval = setInterval(function () {
+          interval = setInterval(function () {
             seconds--;
             tick();
             // Persist remaining time every 10s
             if (seconds % 10 === 0 && user) {
-              try { user.freeSeconds = seconds; localStorage.setItem('ethica_user', JSON.stringify(user)); } catch(_) {}
+              try { user.freeSeconds = seconds; localStorage.setItem('ethica_user', JSON.stringify(user)); } catch (_) {}
             }
             if (seconds <= 0) {
-              clearInterval(interval);
-              if (timerBadge) timerBadge.classList.remove('is-active');
+              clearInterval(interval); interval = null;
               if (user) {
-                try { user.freeUsed = true; user.freeSeconds = 0; localStorage.setItem('ethica_user', JSON.stringify(user)); } catch(_) {}
+                try { user.freeUsed = true; user.freeSeconds = 0; localStorage.setItem('ethica_user', JSON.stringify(user)); } catch (_) {}
               }
+              endSession();
               window.location.href = '/ethica/thrive/subscribe.html';
             }
           }, 1000);
 
         } catch (err) {
-          console.error("Napster avatar failed to start:", err);
+          console.error('Ethica avatar error:', err);
+          resetUI();
+          hintEl.textContent = 'Tap to start a live conversation · 5 minutes free';
         }
-      })();
+      }
+
+      placeholder.addEventListener('click', function () { if (!instance) startEthica(); });
+      endBtn.addEventListener('click', endSession);
+    })();
     </script>
-    <p class="avatar-hint reveal" data-delay="120">Click the avatar and allow your microphone to start a live conversation.</p>
-    <div id="ethica-timer-badge" aria-live="polite">
-      <span class="timer-dot"></span>
-      <span id="ethica-timer-text">5:00 free remaining</span>
-    </div>
 
     <div class="reveal video-frame" data-delay="160" style="margin-top:34px;">
       <iframe src="https://www.youtube.com/embed/jbxN2VQm2No" title="Ethica — AvatarAgency" frameborder="0"
