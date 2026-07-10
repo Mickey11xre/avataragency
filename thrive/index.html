@@ -236,8 +236,9 @@ body {
 /* ================================================================
    WHITE SECTION — Signature Formula (logo home)
    ================================================================ */
-.sec-paper { background:var(--paper); }
-.sec-paper::before { background:radial-gradient(ellipse 70% 60% at 30% 20%, rgba(14,122,92,.06) 0%, transparent 70%); }
+/* pure white to match the logo's opaque white background — no spotlight tint */
+.sec-paper { background:#fff; }
+.sec-paper::before { content:none; }
 .sec-paper .label { color:var(--teal-deep); }
 .sec-paper .h2 { color:var(--ink); }
 .sec-paper .h2 em { color:var(--teal-deep); }
