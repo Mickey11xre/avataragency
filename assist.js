@@ -3,7 +3,7 @@
    Drop on any page:  <script src="/assist.js" defer></script>
    Same machine as Lisa on livebrand.ai (mic-first auto-greet,
    2-min anonymous preview, registration gate, 5-min session /
-   20-min daily caps) in the Atelier design language.
+   5-min daily caps) in the Atelier design language.
    ============================================================ */
 (function () {
   if (window.__aaTwinLoaded) return;
@@ -20,7 +20,7 @@
   var SDK_URL = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js';
   var CALENDLY = 'https://calendly.com/michaelrivera007/free-consultation-meeting';
   var SESSION_CAP = 300;   // 5 min hard per session
-  var DAILY_CAP = 1200;    // 20 min per visitor per day
+  var DAILY_CAP = 300;     // 5 min per visitor per day (Michael, 2026-07-11 — was 20)
   var WARN_AT = 120;       // countdown pill for the last 2 minutes
   var AUTO_DELAY = 4000;   // page dwell before the mic-first auto flow starts
   var READY_WAIT = 45000;  // max ms to wait for the avatar to be genuinely ready
@@ -339,7 +339,7 @@
       });
       track('aa_twin_session');
 
-      /* ---- caps: 5-min session, 20-min day ---- */
+      /* ---- caps: 5-min session, 5-min day ---- */
       sessionS = 0;
       var cap = Math.min(SESSION_CAP, DAILY_CAP - usage().s);
       stopTick();
