@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Template A — "Showcase" carousel mockup (AvatarAgency demo import)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+  /* Demo brand = imported from avataragency.ai (gold/ink). Swap these three vars per client. */
+  :root {
+    --brand: #C9A84C;
+    --brand-ink: #0a0a0a;
+    --brand-cream: #fbfaf6;
+    --f-body: 'General Sans', -apple-system, sans-serif;
+    --f-serif: 'Cormorant Garamond', Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; min-height: 100vh; background: #17150f; display: grid; place-items: center; padding: 40px 16px; font-family: var(--f-body); }
+  .caption { color: #8a8278; font-size: 12.5px; text-align: center; margin-top: 22px; line-height: 1.7; max-width: 420px; }
+  .caption strong { color: #E4C97A; }
+
+  /* ── iPhone frame ── */
+  .phone { width: 390px; height: 844px; background: #000; border-radius: 54px; padding: 10px; box-shadow: 0 40px 90px rgba(0,0,0,.6), 0 0 0 2px #2a2620; position: relative; }
+  .screen { width: 100%; height: 100%; border-radius: 44px; overflow: hidden; background: var(--brand-cream); display: flex; flex-direction: column; position: relative; }
+  .island { position: absolute; top: 22px; left: 50%; transform: translateX(-50%); width: 122px; height: 34px; background: #000; border-radius: 20px; z-index: 40; }
+
+  /* ── Top ⅓: the live avatar stage ── */
+  .stage { height: 34%; position: relative; background: #0a0a0a; flex-shrink: 0; }
+  .stage img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; }
+  .stage .veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.45) 0%, transparent 30%, transparent 62%, rgba(0,0,0,.55) 100%); }
+  .stage .brandchip { position: absolute; top: 66px; left: 18px; display: flex; align-items: center; gap: 8px; z-index: 5; }
+  .stage .brandchip .word { font-size: 15px; font-weight: 600; color: #fff; letter-spacing: .01em; }
+  .stage .brandchip .word em { color: var(--brand); font-style: normal; }
+  .stage .live { position: absolute; top: 66px; right: 18px; z-index: 5; display: flex; align-items: center; gap: 6px; font-size: 10.5px; font-weight: 700; letter-spacing: .06em; color: #fff; background: rgba(0,0,0,.45); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 6px 12px; }
+  .stage .live .dot { width: 7px; height: 7px; border-radius: 50%; background: #1F9D63; box-shadow: 0 0 8px #1F9D63; }
+  .stage .hint { position: absolute; left: 50%; bottom: 12px; transform: translateX(-50%); z-index: 5; font-size: 11.5px; color: rgba(255,255,255,.92); background: rgba(0,0,0,.4); backdrop-filter: blur(6px); border-radius: 999px; padding: 7px 16px; white-space: nowrap; }
+  .stage .hint b { color: var(--brand); font-weight: 600; }
+
+  /* ── Bottom ⅔: the module carousel ── */
+  .deck { flex: 1; display: flex; flex-direction: column; min-height: 0; padding-top: 14px; }
+  .deck-head { display: flex; align-items: baseline; justify-content: space-between; padding: 0 20px 10px; }
+  .deck-head h2 { font-family: var(--f-serif); font-weight: 500; font-size: 22px; color: var(--brand-ink); margin: 0; }
+  .deck-head .swipe { font-size: 11px; color: #8a8278; letter-spacing: .04em; }
+  .rail { flex: 1; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 20px 6px; scrollbar-width: none; min-height: 0; }
+  .rail::-webkit-scrollbar { display: none; }
+  .card { scroll-snap-align: center; flex: 0 0 86%; background: #fff; border: 1px solid rgba(28,26,22,.1); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(10,10,10,.07); }
+  .card .art { height: 46%; position: relative; background: #14120d; flex-shrink: 0; }
+  .card .art img { width: 100%; height: 100%; object-fit: cover; }
+  .card .art .tag { position: absolute; top: 12px; left: 12px; font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--brand-ink); background: var(--brand); border-radius: 999px; padding: 5px 11px; }
+  .card .art .play { position: absolute; inset: 0; display: grid; place-items: center; }
+  .card .art .play span { width: 58px; height: 58px; border-radius: 50%; background: rgba(255,255,255,.92); display: grid; place-items: center; font-size: 20px; color: var(--brand-ink); padding-left: 4px; }
+  .card .body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .card h3 { font-family: var(--f-serif); font-weight: 500; font-size: 21px; color: var(--brand-ink); margin: 0; line-height: 1.15; }
+  .card p { font-size: 12.5px; line-height: 1.6; color: #4a4640; margin: 0; flex: 1; }
+  .card .cta { align-self: flex-start; font-size: 12.5px; font-weight: 600; color: var(--brand-ink); background: var(--brand); border-radius: 999px; padding: 10px 20px; text-decoration: none; }
+  .card .cta.ghost { background: transparent; border: 1px solid rgba(28,26,22,.25); }
+  .dots { display: flex; justify-content: center; gap: 6px; padding: 10px 0 4px; }
+  .dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(28,26,22,.18); }
+  .dots span.on { background: var(--brand); width: 18px; border-radius: 999px; }
+  .homebar { height: 26px; display: grid; place-items: center; }
+  .homebar i { width: 120px; height: 5px; border-radius: 999px; background: rgba(28,26,22,.25); }
+
+  .import-chip { position: absolute; left: 50%; transform: translateX(-50%); bottom: -34px; font-size: 11px; color: #8a8278; white-space: nowrap; }
+  .import-chip b { color: #E4C97A; font-weight: 600; }
+</style>
+</head>
+<body>
+<div>
+  <div class="phone">
+    <div class="island"></div>
+    <div class="screen">
+
+      <!-- TOP ⅓ — live avatar, always present -->
+      <div class="stage">
+        <img src="/assets/michael-twin.jpg" alt="Live avatar">
+        <div class="veil"></div>
+        <div class="brandchip"><span class="word">Avatar<em>Agency</em></span></div>
+        <div class="live"><span class="dot"></span>LIVE</div>
+        <div class="hint">Ask <b>Michael</b> anything — he's listening</div>
+      </div>
+
+      <!-- BOTTOM ⅔ — swipeable module deck -->
+      <div class="deck">
+        <div class="deck-head">
+          <h2>Explore</h2>
+          <span class="swipe">swipe →</span>
+        </div>
+        <div class="rail">
+
+          <div class="card">
+            <div class="art">
+              <img src="/assets/og-business.jpg" alt="">
+              <span class="tag">ABOUT</span>
+            </div>
+            <div class="body">
+              <h3>The studio that clones you.</h3>
+              <p>AI video production and digital twins for businesses of every kind — record once, show up everywhere.</p>
+              <a class="cta" href="#">Our story</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="art">
+              <img src="/assets/ava-companion.png" style="object-position:center 15%" alt="">
+              <span class="tag">VIDEO</span>
+              <div class="play"><span>▶</span></div>
+            </div>
+            <div class="body">
+              <h3>Cinematic reels.</h3>
+              <p>Watch what one cloning session produces — weeks of professional video for every platform.</p>
+              <a class="cta" href="#">Watch the reel</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="art">
+              <img src="https://cdn.printful.me/t/quick-stores/variants/w339/164908836a514767cb698__825" alt="">
+              <span class="tag">MERCH</span>
+            </div>
+            <div class="body">
+              <h3>The collection.</h3>
+              <p>Branded merchandise, printed on demand and shipped worldwide. Wear the brand.</p>
+              <a class="cta" href="#">Shop now</a>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="art">
+              <img src="/assets/michael-twin.jpg" style="object-position:center 20%" alt="">
+              <span class="tag">BOOK</span>
+            </div>
+            <div class="body">
+              <h3>Talk to the real one.</h3>
+              <p>Free 30-minute consultation — bring your business, leave with a plan.</p>
+              <a class="cta" href="#">Book a call</a>
+            </div>
+          </div>
+
+        </div>
+        <div class="dots"><span class="on"></span><span></span><span></span><span></span></div>
+        <div class="homebar"><i></i></div>
+      </div>
+
+    </div>
+    <div class="import-chip">brand + content imported automatically from <b>avataragency.ai</b></div>
+  </div>
+  <p class="caption"><strong>Template A — "Showcase."</strong> Avatar lives in the top third, always on.
+  The bottom two-thirds is a swipeable deck of module cards — About, Video, Merch, Booking —
+  toggled per plan, dressed in the client's imported brand colors.</p>
+</div>
+</body>
+</html>
