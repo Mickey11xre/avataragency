@@ -116,7 +116,7 @@
     + '<div class="aat-field"><label for="aat-email">Email</label><input type="email" id="aat-email" autocomplete="email" placeholder="you@company.com"></div>'
     + '<div class="aat-field"><label for="aat-phone">Phone <span style="color:var(--text-mute,#8a8278);font-weight:400;">(optional)</span></label><input type="tel" id="aat-phone" autocomplete="tel" placeholder="(310) 555-0100"></div>'
     + '<button type="submit" class="aat-submit">Register &amp; meet Michael</button>'
-    + '<p class="aat-fine">By registering you agree to our Terms &amp; Privacy Policy and to hearing from AvatarAgency. You’ll be speaking with an AI digital twin; conversations may be recorded.</p>'
+    + '<p class="aat-fine">By registering you agree to our <a href="/terms.html" target="_blank" rel="noopener" style="color:inherit;">Terms</a> &amp; <a href="/privacy.html" target="_blank" rel="noopener" style="color:inherit;">Privacy Policy</a> and to hearing from AvatarAgency. You’ll be speaking with an AI digital twin; conversations may be recorded.</p>'
     + '</form></div>'
     /* ready state */
     + '<div id="aat-ready" style="display:none;">'
