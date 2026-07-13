@@ -177,6 +177,39 @@ body {
 .hero img.poster { display:block; width:100%; height:auto; }
 .hero-fade { position:absolute; left:0; right:0; bottom:0; height:9%; background:linear-gradient(to bottom, transparent, rgba(0,0,0,.55)); pointer-events:none; }
 
+/* ── Meet-the-speakers buttons — under each speaker on the poster ── */
+.meet-row { position:absolute; left:0; right:0; bottom:10.5%; display:flex; justify-content:space-between; padding:0 5.5%; z-index:6; }
+.meet-btn {
+  font-family:var(--font-body, 'Outfit', sans-serif); font-size:clamp(11px, 1.3vw, 15px); font-weight:600; letter-spacing:.02em;
+  color:#06110c; background:var(--accent, #1AE5A0); border:none; border-radius:999px;
+  padding:.85em 1.6em; cursor:pointer; display:inline-flex; align-items:center; gap:.55em;
+  box-shadow:0 8px 28px var(--accent-glow, rgba(26,229,160,.32)); transition:transform 160ms ease, box-shadow 160ms ease;
+}
+.meet-btn:hover { transform:translateY(-2px); box-shadow:0 12px 34px var(--accent-glow, rgba(26,229,160,.45)); }
+.meet-btn .dot { width:.6em; height:.6em; border-radius:50%; background:#06110c; animation:meetPulse 1.6s ease-in-out infinite; }
+@keyframes meetPulse { 0%,100%{opacity:1} 50%{opacity:.35} }
+.meet-btn.is-soon { background:rgba(255,255,255,.10); color:rgba(255,255,255,.75); border:1px solid rgba(255,255,255,.25); box-shadow:none; cursor:default; backdrop-filter:blur(6px); }
+.meet-btn.is-soon:hover { transform:none; box-shadow:none; }
+@media (max-width:700px) {
+  .meet-row { position:static; padding:14px 16px; gap:10px; flex-direction:column; align-items:stretch; background:#000; }
+  .meet-btn { justify-content:center; }
+}
+
+/* ── Twin modal (user-initiated, house pattern) ── */
+.tm-overlay { position:fixed; inset:0; z-index:90; display:none; align-items:center; justify-content:center; background:rgba(0,0,0,.82); backdrop-filter:blur(6px); padding:20px; }
+.tm-overlay.open { display:flex; }
+.tm-panel { width:min(720px, 96vw); background:#0b0f0d; border:1px solid rgba(26,229,160,.3); border-radius:18px; overflow:hidden; }
+.tm-head { display:flex; align-items:center; gap:10px; padding:14px 18px; border-bottom:1px solid rgba(255,255,255,.08); }
+.tm-head .nm { font-family:var(--font-body,'Outfit',sans-serif); font-size:13px; font-weight:700; letter-spacing:.12em; color:#fff; }
+.tm-head .live { font-size:10.5px; font-weight:700; letter-spacing:.08em; color:var(--accent,#1AE5A0); }
+.tm-close { margin-left:auto; background:none; border:none; color:rgba(255,255,255,.6); font-size:22px; cursor:pointer; line-height:1; }
+.tm-stage { position:relative; aspect-ratio:16/9; background:#000; }
+#tm-mount { position:absolute; inset:0; }
+#tm-mount>*, #tm-mount video, #tm-mount canvas { width:100%!important; height:100%!important; object-fit:cover; object-position:center top; }
+#tm-mount>* { position:absolute!important; inset:0!important; max-width:none!important; max-height:none!important; margin:0!important; border-radius:0!important; }
+.tm-msg { position:absolute; inset:0; display:grid; place-items:center; color:rgba(255,255,255,.75); font-family:var(--font-body,'Outfit',sans-serif); font-size:13.5px; text-align:center; padding:0 24px; }
+.tm-fine { font-family:var(--font-body,'Outfit',sans-serif); font-size:10.5px; color:rgba(255,255,255,.45); padding:10px 18px 14px; line-height:1.5; }
+
 /* People on Purpose player — bottom-right corner of the hero */
 #hero-player {
   position:absolute; bottom:clamp(2.6rem,5.5vw,4.8rem); right:clamp(.8rem,2.4vw,2rem);
@@ -365,6 +398,12 @@ body {
 <header class="hero">
   <img class="poster" src="thrive-hero.jpg" alt="THRIVE — Unleash your superpower through agentic AI. THRIVE DOCTOR, Special Agent Rivera, and Ethica against a city skyline." loading="eager">
   <div class="hero-fade"></div>
+
+  <!-- Meet the speakers — live digital twins -->
+  <div class="meet-row">
+    <button class="meet-btn" id="meet-michael" type="button"><span class="dot"></span>Meet Michael Rivera</button>
+    <button class="meet-btn is-soon" type="button" aria-disabled="true">Meet Stephanie D. Geter &middot; Coming&nbsp;soon</button>
+  </div>
 
   <!-- People on Purpose player -->
   <audio id="heroAudio" preload="none" loop>
@@ -673,6 +712,93 @@ body {
   audio.addEventListener('play',  function () { setPlaying(true);  });
   audio.addEventListener('pause', function () { setPlaying(false); });
   audio.addEventListener('ended', function () { setPlaying(false); });
+})();
+</script>
+
+<!-- ── Twin modal: SPECIAL AGENT RIVERA (user-initiated, house pattern) ── -->
+<div class="tm-overlay" id="tm-overlay" aria-hidden="true">
+  <div class="tm-panel">
+    <div class="tm-head">
+      <span class="nm">SPECIAL AGENT RIVERA</span>
+      <span class="live">&#9679; LIVE &middot; AI DIGITAL TWIN</span>
+      <button class="tm-close" id="tm-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="tm-stage">
+      <div id="tm-mount"></div>
+      <div class="tm-msg" id="tm-msg">Connecting to Special Agent Rivera&hellip;</div>
+    </div>
+    <p class="tm-fine">You're talking with an AI digital twin of Michael Rivera, created with his authorization. Conversations may be recorded. Sessions run up to 5 minutes — for everything else, book the free discovery call.</p>
+  </div>
+</div>
+
+<script>
+(function () {
+  var TOKEN_ENDPOINT = '/api/thrive-michael-token';
+  var SDK_URL = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js';
+  var CAP_S = 300; // 5-minute session cap
+  var overlay = document.getElementById('tm-overlay');
+  var msgEl = document.getElementById('tm-msg');
+  var instance = null, starting = false, sdkLoading = null, capTimer = null;
+
+  function msg(t) { msgEl.style.display = t ? 'grid' : 'none'; msgEl.textContent = t || ''; }
+  function loadSdk() {
+    if (window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk) return Promise.resolve();
+    if (sdkLoading) return sdkLoading;
+    sdkLoading = new Promise(function (res, rej) {
+      var s = document.createElement('script');
+      s.src = SDK_URL; s.onload = res; s.onerror = rej;
+      document.body.appendChild(s);
+    });
+    return sdkLoading;
+  }
+  function teardown() {
+    if (capTimer) { clearTimeout(capTimer); capTimer = null; }
+    if (instance) { try { if (instance.destroy) instance.destroy(); } catch (_) {} instance = null; }
+    starting = false;
+    document.getElementById('tm-mount').innerHTML = '';
+  }
+  function close() { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); teardown(); }
+
+  async function open() {
+    overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false');
+    if (instance || starting) return;
+    starting = true;
+    msg('Connecting to Special Agent Rivera…');
+    try {
+      await loadSdk();
+      var res = await fetch(TOKEN_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+      if (res.status === 503) { msg('Special Agent Rivera is suiting up — check back very soon.'); starting = false; return; }
+      if (!res.ok) throw new Error('token ' + res.status);
+      var data = await res.json();
+      if (!overlay.classList.contains('open')) { starting = false; return; } // closed mid-connect
+      var sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
+      if (!sdk) throw new Error('sdk missing');
+      instance = await sdk.init(data.token, {
+        mountContainer: '#tm-mount',
+        avatarStyle: { view: 'rectangle' },
+        features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
+        onAvatarReady: function () { msg(''); },
+        onDestroy: function () { instance = null; starting = false; }
+      });
+      if (!overlay.classList.contains('open')) { teardown(); return; } // closed while connecting
+      instance.showAvatar();
+      setTimeout(function () { if (instance) msg(''); }, 4000); // fallback reveal
+      if (typeof gtag === 'function') gtag('event', 'thrive_twin_session', { event_category: 'THRIVE' });
+      capTimer = setTimeout(function () {
+        teardown();
+        msg("That's our five minutes! For dates, formats, and fees — book the free discovery call below.");
+      }, CAP_S * 1000);
+    } catch (e) {
+      msg('The twin is warming up — please try again in a minute.');
+      starting = false;
+    }
+    starting = false;
+  }
+
+  document.getElementById('meet-michael').addEventListener('click', open);
+  document.getElementById('tm-close').addEventListener('click', close);
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
 })();
 </script>
 </body>
