@@ -1,18 +1,18 @@
-// Cloudflare Pages Function — mints a Napster session token for SPECIAL AGENT RIVERA,
-// the THRIVE speaking agent on Michael's digital twin (avataragency.ai/thrive).
+// Cloudflare Pages Function — mints a Napster session token for THRIVE DOCTOR,
+// the THRIVE speaking agent on Stephanie Geter's digital twin (avataragency.ai/thrive).
 //
 // Required env var (Pages → Settings → Environment variables): NAPSTER_API_KEY
 //
-// ⚠️ ONE-LINE WIRE-UP: paste the AGENT_ID from build-thrive-agent.ps1 below.
-// Until then this returns 503 and the page shows a graceful "suiting up" state.
+// ⚠️ ONE-LINE WIRE-UP: paste the AGENT_ID from build-stephanie-twin.ps1 -Mode create-agent below.
+// Until then this returns 503 and the page shows a graceful "on her way" state.
 
-const AGENT_ID = 'a703f453-5ecf-41a0-b678-c2fb86f7d117'; // Special Agent Rivera — THRIVE (built 2026-07-14)
+const AGENT_ID = 'a731e295-9d6b-4059-b904-0055ea9cbe25'; // THRIVE DOCTOR — Stephanie Geter (built 2026-07-14)
 
 export async function onRequest(context) {
   const API_KEY = context.env.NAPSTER_API_KEY;
 
   if (!AGENT_ID) {
-    return json({ error: 'Special Agent Rivera is suiting up.' }, 503);
+    return json({ error: 'THRIVE DOCTOR is on her way.' }, 503);
   }
   if (!API_KEY) {
     return json({ error: 'Server misconfigured' }, 500);
@@ -37,7 +37,7 @@ export async function onRequest(context) {
     const data = await r.json();
     return json({ token: data.token });
   } catch (err) {
-    console.error('thrive-michael token function error:', err);
+    console.error('thrive-stephanie token function error:', err);
     return json({ error: 'Internal error' }, 500);
   }
 }

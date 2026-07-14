@@ -435,7 +435,7 @@ body {
 
     <!-- Meet the speakers — live digital twins, one under each card -->
     <div class="meet-row reveal">
-      <button class="meet-btn is-soon" type="button" aria-disabled="true">Meet Stephanie D. Geter &middot; Coming&nbsp;soon</button>
+      <button class="meet-btn" id="meet-stephanie" type="button"><span class="dot"></span>Meet Stephanie D. Geter</button>
       <button class="meet-btn" id="meet-michael" type="button"><span class="dot"></span>Meet Michael Rivera</button>
     </div>
   </div>
@@ -720,29 +720,45 @@ body {
 })();
 </script>
 
-<!-- ── Twin modal: SPECIAL AGENT RIVERA (user-initiated, house pattern) ── -->
+<!-- ── Twin modal: shared by both THRIVE speakers (user-initiated, house pattern) ── -->
 <div class="tm-overlay" id="tm-overlay" aria-hidden="true">
   <div class="tm-panel">
     <div class="tm-head">
-      <span class="nm">SPECIAL AGENT RIVERA</span>
+      <span class="nm" id="tm-name">SPECIAL AGENT RIVERA</span>
       <span class="live">&#9679; LIVE &middot; AI DIGITAL TWIN</span>
       <button class="tm-close" id="tm-close" aria-label="Close">&times;</button>
     </div>
     <div class="tm-stage">
       <div id="tm-mount"></div>
-      <div class="tm-msg" id="tm-msg">Connecting to Special Agent Rivera&hellip;</div>
+      <div class="tm-msg" id="tm-msg">Connecting&hellip;</div>
     </div>
-    <p class="tm-fine">You're talking with an AI digital twin of Michael Rivera, created with his authorization. Conversations may be recorded. Sessions run up to 5 minutes — for everything else, book the free discovery call.</p>
+    <p class="tm-fine" id="tm-fine">You're talking with an AI digital twin, created with the speaker's authorization. Conversations may be recorded. Sessions run up to 5 minutes — for everything else, book the free discovery call.</p>
   </div>
 </div>
 
 <script>
 (function () {
-  var TOKEN_ENDPOINT = '/api/thrive-michael-token';
+  var SPEAKERS = {
+    michael: {
+      stage: 'SPECIAL AGENT RIVERA',
+      person: 'Michael Rivera',
+      endpoint: '/api/thrive-michael-token',
+      soon: 'Special Agent Rivera is suiting up — check back very soon.'
+    },
+    stephanie: {
+      stage: 'THRIVE DOCTOR',
+      person: 'Stephanie D. Geter',
+      endpoint: '/api/thrive-stephanie-token',
+      soon: 'THRIVE DOCTOR is on her way — check back very soon.'
+    }
+  };
   var SDK_URL = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js';
   var CAP_S = 300; // 5-minute session cap
   var overlay = document.getElementById('tm-overlay');
   var msgEl = document.getElementById('tm-msg');
+  var nameEl = document.getElementById('tm-name');
+  var fineEl = document.getElementById('tm-fine');
+  var current = null; // active speaker key
   var instance = null, starting = false, sdkLoading = null, capTimer = null;
 
   function msg(t) { msgEl.style.display = t ? 'grid' : 'none'; msgEl.textContent = t || ''; }
@@ -764,15 +780,19 @@ body {
   }
   function close() { overlay.classList.remove('open'); overlay.setAttribute('aria-hidden', 'true'); teardown(); }
 
-  async function open() {
+  async function open(key) {
+    var sp = SPEAKERS[key];
+    if (current !== key) { teardown(); current = key; } // switching speakers: fresh session
+    nameEl.textContent = sp.stage;
+    fineEl.textContent = "You're talking with an AI digital twin of " + sp.person + ", created with their authorization. Conversations may be recorded. Sessions run up to 5 minutes — for everything else, book the free discovery call.";
     overlay.classList.add('open'); overlay.setAttribute('aria-hidden', 'false');
     if (instance || starting) return;
     starting = true;
-    msg('Connecting to Special Agent Rivera…');
+    msg('Connecting to ' + sp.stage + '…');
     try {
       await loadSdk();
-      var res = await fetch(TOKEN_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
-      if (res.status === 503) { msg('Special Agent Rivera is suiting up — check back very soon.'); starting = false; return; }
+      var res = await fetch(sp.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+      if (res.status === 503) { msg(sp.soon); starting = false; return; }
       if (!res.ok) throw new Error('token ' + res.status);
       var data = await res.json();
       if (!overlay.classList.contains('open')) { starting = false; return; } // closed mid-connect
@@ -788,7 +808,7 @@ body {
       if (!overlay.classList.contains('open')) { teardown(); return; } // closed while connecting
       instance.showAvatar();
       setTimeout(function () { if (instance) msg(''); }, 4000); // fallback reveal
-      if (typeof gtag === 'function') gtag('event', 'thrive_twin_session', { event_category: 'THRIVE' });
+      if (typeof gtag === 'function') gtag('event', 'thrive_twin_session', { event_category: 'THRIVE', event_label: key });
       capTimer = setTimeout(function () {
         teardown();
         msg("That's our five minutes! For dates, formats, and fees — book the free discovery call below.");
@@ -800,7 +820,8 @@ body {
     starting = false;
   }
 
-  document.getElementById('meet-michael').addEventListener('click', open);
+  document.getElementById('meet-michael').addEventListener('click', function () { open('michael'); });
+  document.getElementById('meet-stephanie').addEventListener('click', function () { open('stephanie'); });
   document.getElementById('tm-close').addEventListener('click', close);
   overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
