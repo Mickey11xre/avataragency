@@ -1061,5 +1061,9 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 }());
 </script>
 
+<script>
+/* Pin page background against the Napster SDK's body,html{background:transparent} injection */
+(function(){try{var h=getComputedStyle(document.documentElement),b=getComputedStyle(document.body),s=document.createElement('style');s.textContent='html{background-color:'+h.backgroundColor+' !important;background-image:'+h.backgroundImage+' !important}html body{background-color:'+b.backgroundColor+' !important;background-image:'+b.backgroundImage+' !important}';document.head.appendChild(s);}catch(e){}})();
+</script>
 </body>
 </html>

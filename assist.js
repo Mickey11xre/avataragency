@@ -9,6 +9,18 @@
   if (window.__aaTwinLoaded) return;
   window.__aaTwinLoaded = true;
 
+  // Pin the page background: the Napster SDK injects body,html{background:transparent}
+  // at session start and never removes it (page turns white otherwise). Capture the
+  // page's own computed background now and re-assert it with higher priority.
+  try {
+    var __h = getComputedStyle(document.documentElement), __b = getComputedStyle(document.body);
+    var __pin = document.createElement('style');
+    __pin.textContent =
+      'html{background-color:' + __h.backgroundColor + ' !important;background-image:' + __h.backgroundImage + ' !important}' +
+      'html body{background-color:' + __b.backgroundColor + ' !important;background-image:' + __b.backgroundImage + ' !important}';
+    document.head.appendChild(__pin);
+  } catch (e) {}
+
   var LS_USER = 'aa_twin_user';
   var LS_USAGE = 'aa_twin_usage';
   var LS_AUTOPOP = 'aa_autopop';        // YYYY-MM-DD of last auto-open (once/day cap)

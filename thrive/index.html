@@ -181,8 +181,9 @@ html body { background:var(--bg) !important; }
 .hero img.poster { display:block; width:100%; height:auto; }
 .hero-fade { position:absolute; left:0; right:0; bottom:0; height:9%; background:linear-gradient(to bottom, transparent, rgba(0,0,0,.55)); pointer-events:none; }
 
-/* ── Meet-the-speakers buttons — one under each speaker's billing card ── */
-.meet-row { display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.2rem,3vw,2.4rem); justify-items:center; margin-top:clamp(1.2rem,2.4vw,1.8rem); }
+/* ── Meet-the-speakers buttons — grid items in .duo-grid, one under each card ──
+   Desktop: row 2 of the 2-col grid. Mobile: reordered so each button follows its card. */
+.duo-grid .meet-btn { justify-self:center; align-self:start; }
 .meet-btn {
   font-family:var(--font-body, 'Outfit', sans-serif); font-size:clamp(11px, 1.3vw, 15px); font-weight:600; letter-spacing:.02em;
   color:#06110c; background:var(--accent, #1AE5A0); border:none; border-radius:999px;
@@ -195,8 +196,12 @@ html body { background:var(--bg) !important; }
 .meet-btn.is-soon { background:rgba(255,255,255,.10); color:rgba(255,255,255,.75); border:1px solid rgba(255,255,255,.25); box-shadow:none; cursor:default; backdrop-filter:blur(6px); }
 .meet-btn.is-soon:hover { transform:none; box-shadow:none; }
 @media (max-width:720px) {
-  .meet-row { grid-template-columns:1fr; gap:10px; justify-items:stretch; }
-  .meet-btn { justify-content:center; }
+  /* card, its button, next card, its button */
+  .duo-grid > :nth-child(1) { order:1; }
+  .duo-grid > :nth-child(3) { order:2; }
+  .duo-grid > :nth-child(2) { order:3; margin-top:6px; }
+  .duo-grid > :nth-child(4) { order:4; }
+  .duo-grid .meet-btn { justify-self:stretch; justify-content:center; }
 }
 
 /* ── Twin modal (user-initiated, house pattern) ── */
@@ -422,7 +427,8 @@ html body { background:var(--bg) !important; }
 <!-- ── DUO BILLING + LIVE DIGITAL TWINS ─────────────────────── -->
 <section class="sec" id="billing" style="padding-bottom:0;">
   <div class="sec-inner">
-    <!-- Card/button order mirrors the hero poster: Michael left, Stephanie right -->
+    <!-- Card/button order mirrors the hero poster: Michael left, Stephanie right.
+         Buttons live in the same grid so on mobile each stacks under its own card. -->
     <div class="duo-grid reveal" style="margin-top:0;">
       <div class="duo-card">
         <div class="duo-kicker">Keynote Speaker</div>
@@ -436,10 +442,6 @@ html body { background:var(--bg) !important; }
         <div class="duo-person">Stephanie D. Geter, PhD, CPA, MBA</div>
         <div class="duo-tag">Educator and innovation catalyst turning research into transformation audiences can feel.</div>
       </div>
-    </div>
-
-    <!-- Meet the speakers — live digital twins, one under each card -->
-    <div class="meet-row reveal">
       <button class="meet-btn" id="meet-michael" type="button"><span class="dot"></span>Meet Michael Rivera</button>
       <button class="meet-btn" id="meet-stephanie" type="button"><span class="dot"></span>Meet Stephanie D. Geter</button>
     </div>
