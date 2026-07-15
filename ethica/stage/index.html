@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Ethica — The Stage</title>
+<meta name="description" content="Talk live with Ethica, the Financial Fraud Fighter — her story, her video, her collection, all in one place.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48' fill='none' stroke='%23C9A84C' stroke-width='2'%3E%3Crect x='8' y='4' width='32' height='40' rx='6'/%3E%3Cline x1='18' y1='38' x2='30' y2='38'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap">
+<style>
+  /* ── The Stage · LiveBrand official landing template · client = ETHICA ──
+     Brand Import fills these vars per client. */
+  :root {
+    --brand: #C9A84C;
+    --brand-ink: #0a0a0a;
+    --brand-cream: #fbfaf6;
+    --f-body: 'General Sans', -apple-system, sans-serif;
+    --f-serif: 'Cormorant Garamond', Georgia, serif;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: #141210 !important; }
+  body { font-family: var(--f-body); }
+
+  /* Mobile: the page IS the stage. Desktop: an app column on dark. */
+  .app { width: 100%; height: 100dvh; background: var(--brand-cream); display: flex; flex-direction: column; overflow: hidden; position: relative; }
+  @media (min-width: 700px) {
+    body { display: grid; place-items: center; padding: 30px 0; }
+    .app { width: 430px; height: min(890px, 94vh); border-radius: 38px; border: 1px solid #2a2620; box-shadow: 0 50px 110px rgba(0,0,0,.65); }
+  }
+
+  /* ── TOP ⅓ — the live avatar stage ── */
+  .stage { height: 34%; position: relative; background: #0a0a0a; flex-shrink: 0; transform: translateZ(0); /* containing block for the SDK's fixed wrapper */ }
+  .stage video.loop { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+  .stage .veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, transparent 34%, transparent 56%, rgba(0,0,0,.55) 100%); pointer-events: none; z-index: 2; }
+  .stage .brandchip { position: absolute; top: max(14px, env(safe-area-inset-top)); left: 16px; z-index: 5; pointer-events: none; }
+  .stage .brandchip .word { font-size: 15px; font-weight: 600; color: #fff; letter-spacing: .02em; }
+  .stage .brandchip .tag { display: block; font-size: 9.5px; letter-spacing: .08em; color: rgba(255,255,255,.78); margin-top: 2px; }
+  .stage .live { position: absolute; top: max(14px, env(safe-area-inset-top)); right: 16px; z-index: 5; display: flex; align-items: center; gap: 6px; font-size: 10px; font-weight: 700; letter-spacing: .08em; color: #fff; background: rgba(0,0,0,.45); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 6px 11px; pointer-events: none; }
+  .stage .live .dot { width: 7px; height: 7px; border-radius: 50%; background: #8a8278; }
+  .stage.on .live .dot { background: #1F9D63; box-shadow: 0 0 8px #1F9D63; animation: blink 1.5s ease-in-out infinite; }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .35; } }
+
+  .stage .startpill { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 6; display: inline-flex; align-items: center; gap: 8px; background: var(--brand); color: var(--brand-ink); font-size: 12.5px; font-weight: 600; letter-spacing: .04em; padding: 10px 20px; border-radius: 999px; border: none; cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,.45); transition: transform .2s; }
+  .stage .startpill:hover { transform: translateX(-50%) scale(1.04); }
+  .stage .startpill svg { width: 13px; height: 13px; }
+  .stage.on .startpill { display: none; }
+
+  .stage .timer { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 6; display: none; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; color: #fff; background: rgba(0,0,0,.5); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 6px 13px; }
+  .stage.on .timer { display: inline-flex; }
+  .stage .timer.warn { border-color: rgba(245,166,35,.6); color: #f5c05a; }
+  .stage .timer .end { background: rgba(217,72,58,.94); border: none; color: #fff; border-radius: 999px; font-size: 10px; font-weight: 700; padding: 3px 10px; cursor: pointer; margin-left: 2px; }
+
+  /* SDK mount fills the stage; pin its wrapper inside the frame */
+  #stage-mount { position: absolute; inset: 0; display: none; overflow: hidden; z-index: 3; }
+  #stage-mount > *, #stage-mount video, #stage-mount canvas { width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center top !important; }
+  #stage-mount > * { position: absolute !important; inset: 0 !important; max-width: none !important; max-height: none !important; margin: 0 !important; border-radius: 0 !important; }
+  #stage-mount [class*="-fixed"] { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; }
+  .stage .hintline { position: absolute; left: 0; right: 0; bottom: 52px; z-index: 6; text-align: center; font-size: 10.5px; color: rgba(255,255,255,.85); pointer-events: none; text-shadow: 0 1px 6px rgba(0,0,0,.7); }
+
+  /* ── BOTTOM ⅔ — the module deck ── */
+  .deck { flex: 1; display: flex; flex-direction: column; min-height: 0; padding-top: 12px; }
+  .deck-head { display: flex; align-items: baseline; justify-content: space-between; padding: 0 20px 9px; }
+  .deck-head h2 { font-family: var(--f-serif); font-weight: 500; font-size: 22px; color: var(--brand-ink); margin: 0; }
+  .deck-head .swipe { font-size: 11px; color: #8a8278; letter-spacing: .04em; }
+  .rail { flex: 1; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 20px 6px; scrollbar-width: none; min-height: 0; -webkit-overflow-scrolling: touch; }
+  .rail::-webkit-scrollbar { display: none; }
+  .card { scroll-snap-align: center; flex: 0 0 86%; background: #fff; border: 1px solid rgba(28,26,22,.1); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(10,10,10,.07); }
+  .card .art { height: 44%; position: relative; background: #14120d; flex-shrink: 0; }
+  .card .art img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .card .art .tag { position: absolute; top: 12px; left: 12px; font-size: 10px; font-weight: 700; letter-spacing: .1em; color: var(--brand-ink); background: var(--brand); border-radius: 999px; padding: 5px 11px; z-index: 2; }
+  .card .art .play { position: absolute; inset: 0; display: grid; place-items: center; cursor: pointer; }
+  .card .art .play span { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,.93); display: grid; place-items: center; font-size: 19px; color: var(--brand-ink); padding-left: 4px; box-shadow: 0 8px 24px rgba(0,0,0,.35); transition: transform .2s; }
+  .card .art .play:hover span { transform: scale(1.08); }
+  .card .body { padding: 15px 18px 16px; display: flex; flex-direction: column; gap: 7px; flex: 1; min-height: 0; }
+  .card h3 { font-family: var(--f-serif); font-weight: 500; font-size: 21px; color: var(--brand-ink); margin: 0; line-height: 1.12; }
+  .card p { font-size: 12.5px; line-height: 1.55; color: #4a4640; margin: 0; flex: 1; overflow: hidden; }
+  .card .cta { align-self: flex-start; font-size: 12.5px; font-weight: 600; color: var(--brand-ink); background: var(--brand); border-radius: 999px; padding: 10px 20px; text-decoration: none; }
+
+  .shop3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; height: 100%; padding: 10px; background: #fff; }
+  .shop3 a.pr { border: 1px solid rgba(28,26,22,.1); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; background: #fff; text-decoration: none; }
+  .shop3 a.pr img { width: 100%; flex: 1; object-fit: cover; min-height: 0; }
+  .shop3 a.pr .pp { font-size: 10.5px; font-weight: 700; text-align: center; padding: 5px 2px; color: var(--brand-ink); }
+
+  .site-rows { display: flex; flex-direction: column; gap: 7px; height: 100%; padding: 12px; background: linear-gradient(150deg, #14120d, #2a2416); justify-content: center; }
+  .site-rows a.row { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 9px 13px; color: #f1ece0; font-size: 12px; font-weight: 500; text-decoration: none; }
+  .site-rows a.row:hover { border-color: var(--brand); }
+  .site-rows a.row span { color: var(--brand); }
+
+  .dots { display: flex; justify-content: center; gap: 6px; padding: 9px 0 3px; }
+  .dots span { width: 6px; height: 6px; border-radius: 50%; background: rgba(28,26,22,.18); transition: all .3s; }
+  .dots span.on { background: var(--brand); width: 18px; border-radius: 999px; }
+  .stagefoot { text-align: center; font-size: 9.5px; letter-spacing: .06em; color: #a39b8d; padding: 2px 0 max(10px, env(safe-area-inset-bottom)); }
+  .stagefoot b { color: #8a8278; }
+
+  /* in-app video overlay (the real Ethica film) */
+  .vid-overlay { position: absolute; inset: 0; z-index: 50; background: rgba(0,0,0,.94); display: none; align-items: center; justify-content: center; }
+  .vid-overlay.open { display: flex; }
+  .vid-overlay .vbox { width: 100%; aspect-ratio: 16/9; }
+  .vid-overlay iframe { width: 100%; height: 100%; border: 0; }
+  .vid-overlay .vclose { position: absolute; top: max(16px, env(safe-area-inset-top)); right: 16px; width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.14); border: none; color: #fff; font-size: 18px; cursor: pointer; z-index: 2; }
+
+  /* Guard the background against the SDK's transparent injection */
+  html, body { background: #141210 !important; }
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ── TOP ⅓ — Ethica, live on the Napster Companion API ── -->
+  <div class="stage" id="stage">
+    <video class="loop" id="loopVid" src="/design/livebrand/hero-media/ethica.mp4" poster="/design/livebrand/hero-media/ethica.jpg" autoplay muted loop playsinline></video>
+    <div id="stage-mount"></div>
+    <div class="veil"></div>
+    <div class="brandchip">
+      <span class="word">ETHICA</span>
+      <span class="tag">Fraud dies. Truth thrives.</span>
+    </div>
+    <div class="live"><span class="dot"></span><span id="liveTxt">PREVIEW</span></div>
+    <div class="hintline" id="hintline"></div>
+    <button class="startpill" id="startBtn" type="button">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M9 22h6"/></svg>
+      Talk to Ethica — live
+    </button>
+    <div class="timer" id="timerBadge"><span id="timerTxt">5:00</span><button class="end" id="endBtn" type="button">END</button></div>
+  </div>
+
+  <!-- ── BOTTOM ⅔ — the deck · all real content ── -->
+  <div class="deck">
+    <div class="deck-head">
+      <h2>Explore</h2>
+      <span class="swipe">swipe →</span>
+    </div>
+    <div class="rail" id="rail">
+
+      <!-- 01 · ABOUT — real copy from /ethica/thrive -->
+      <div class="card">
+        <div class="art">
+          <img src="/ethica/thrive/ETHICA_LOGO.jpg" style="object-fit:contain;background:#14120d;padding:18px" alt="Ethica logo">
+          <span class="tag">ABOUT</span>
+        </div>
+        <div class="body">
+          <h3>The hero who fights fraud in accounting.</h3>
+          <p>By day she's Marissa Brooks — a quiet accountant who found something in the numbers that couldn't be ignored. Now she helps you understand fraud, protect your finances, and fight back.</p>
+          <a class="cta" href="/ethica/thrive/">Her full story</a>
+        </div>
+      </div>
+
+      <!-- 02 · VIDEO — the real Ethica film -->
+      <div class="card">
+        <div class="art">
+          <img src="/design/livebrand/hero-media/ethica.jpg" style="object-position:center 18%" alt="Ethica — the film">
+          <span class="tag">VIDEO</span>
+          <div class="play" id="playBtn"><span>▶</span></div>
+        </div>
+        <div class="body">
+          <h3>Watch Ethica in action.</h3>
+          <p>The official Ethica film — meet accounting's first superhero in motion.</p>
+          <a class="cta" href="#" id="playCta">Play the film</a>
+        </div>
+      </div>
+
+      <!-- 03 · MERCH — the real Fraud Fighter Collection -->
+      <div class="card">
+        <div class="art">
+          <div class="shop3">
+            <a class="pr" href="https://ethica.printful.me/product/ethica-logo-tee" target="_blank" rel="noopener"><img src="https://cdn.printful.me/t/quick-stores/variants/w339/164908836a51afe739296__825" alt="Ethica Logo Tee"><span class="pp">$29</span></a>
+            <a class="pr" href="https://ethica.printful.me/product/ethica-liar-catcher-tee" target="_blank" rel="noopener"><img src="https://cdn.printful.me/t/quick-stores/variants/w339/164908566a5146c58838c__825" alt="Ethica Liar Catcher Tee"><span class="pp">$29</span></a>
+            <a class="pr" href="https://ethica.printful.me/product/ethica-crop-hoodie" target="_blank" rel="noopener"><img src="https://cdn.printful.me/t/quick-stores/variants/w339/164907876a5145d08fc56__825" alt="Ethica Crop Hoodie"><span class="pp">$49</span></a>
+          </div>
+          <span class="tag">MERCH</span>
+        </div>
+        <div class="body">
+          <h3>The Fraud Fighter Collection.</h3>
+          <p>Official Ethica gear — premium prints, secure checkout, worldwide fulfillment by Printful.</p>
+          <a class="cta" href="https://ethica.printful.me" target="_blank" rel="noopener">Shop the collection</a>
+        </div>
+      </div>
+
+      <!-- 04 · WEBSITE — real destinations -->
+      <div class="card">
+        <div class="art">
+          <div class="site-rows">
+            <a class="row" href="/ethica/thrive/">Ethica's full page <span>→</span></a>
+            <a class="row" href="/ethica/thrive/subscribe.html">Membership plans <span>→</span></a>
+            <a class="row" href="https://ethica.printful.me" target="_blank" rel="noopener">The merch store <span>→</span></a>
+            <a class="row" href="/">Built by AvatarAgency <span>→</span></a>
+          </div>
+          <span class="tag">WEBSITE</span>
+        </div>
+        <div class="body">
+          <h3>Everything Ethica, one tap.</h3>
+          <p>The Stage adds to everything she already has — it never replaces it.</p>
+          <a class="cta" href="/ethica/thrive/">Visit the full site</a>
+        </div>
+      </div>
+
+    </div>
+    <div class="dots" id="dots"><span class="on"></span><span></span><span></span><span></span></div>
+    <div class="stagefoot">THE STAGE · a <b>LiveBrand.ai</b> landing page</div>
+  </div>
+
+  <!-- in-app player for the real Ethica film -->
+  <div class="vid-overlay" id="vidOverlay">
+    <button class="vclose" id="vidClose" aria-label="Close">✕</button>
+    <div class="vbox" id="vbox"></div>
+  </div>
+
+</div>
+
+<!-- Napster Companion Web SDK (standalone) -->
+<script src="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js"></script>
+<script>
+(function () {
+  /* ── Live Ethica on the stage — same proven wiring as /ethica/thrive ── */
+  var TOKEN_ENDPOINT = 'https://napster-avatar-token.michaelrivera.workers.dev/api/avatar-token';
+  var CAP_S = 300; // 5-minute session
+  var stage = document.getElementById('stage');
+  var mount = document.getElementById('stage-mount');
+  var loopVid = document.getElementById('loopVid');
+  var startBtn = document.getElementById('startBtn');
+  var liveTxt = document.getElementById('liveTxt');
+  var hintline = document.getElementById('hintline');
+  var timerBadge = document.getElementById('timerBadge');
+  var timerTxt = document.getElementById('timerTxt');
+  var endBtn = document.getElementById('endBtn');
+  var instance = null, interval = null, starting = false;
+
+  function resetUI() {
+    if (interval) { clearInterval(interval); interval = null; }
+    instance = null; starting = false;
+    mount.style.display = 'none';
+    mount.innerHTML = '';
+    loopVid.style.display = 'block';
+    stage.classList.remove('on');
+    liveTxt.textContent = 'PREVIEW';
+    timerBadge.classList.remove('warn');
+    hintline.textContent = 'Session ended — tap to talk again';
+    setTimeout(function () { hintline.textContent = ''; }, 4000);
+  }
+
+  function endSession() {
+    try {
+      if (instance) {
+        if (typeof instance.destroy === 'function') instance.destroy();
+        else if (typeof instance.disconnect === 'function') instance.disconnect();
+      }
+    } catch (e) {}
+    resetUI();
+  }
+
+  async function startEthica() {
+    if (instance || starting) return;
+    starting = true;
+    hintline.textContent = 'Connecting…';
+    try {
+      var res = await fetch(TOKEN_ENDPOINT);
+      if (!res.ok) throw new Error('Token request failed: ' + res.status);
+      var data = await res.json();
+      var sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
+      if (!sdk) throw new Error('Napster SDK not loaded');
+
+      mount.style.display = 'block';
+      instance = await sdk.init(data.token, {
+        mountContainer: '#stage-mount',
+        avatarStyle: { view: 'rectangle' },
+        onDestroy: resetUI
+      });
+      instance.showAvatar();
+      loopVid.style.display = 'none';
+      stage.classList.add('on');
+      liveTxt.textContent = 'LIVE';
+      hintline.textContent = 'Allow your microphone to talk with Ethica';
+      setTimeout(function () { if (instance) hintline.textContent = ''; }, 6000);
+
+      var seconds = CAP_S;
+      function pad(n) { return String(n).padStart(2, '0'); }
+      function tick() {
+        timerTxt.textContent = pad(Math.floor(seconds / 60)) + ':' + pad(seconds % 60);
+        timerBadge.classList.toggle('warn', seconds <= 60);
+      }
+      tick();
+      interval = setInterval(function () {
+        seconds--; tick();
+        if (seconds <= 0) endSession();
+      }, 1000);
+    } catch (err) {
+      console.error('Ethica stage error:', err);
+      resetUI();
+      hintline.textContent = 'Couldn’t connect — tap to try again';
+    }
+    starting = false;
+  }
+
+  startBtn.addEventListener('click', startEthica);
+  endBtn.addEventListener('click', endSession);
+
+  /* ── dot sync ── */
+  var rail = document.getElementById('rail');
+  var dots = document.getElementById('dots').children;
+  rail.addEventListener('scroll', function () {
+    var i = Math.round(rail.scrollLeft / (rail.scrollWidth / dots.length));
+    i = Math.max(0, Math.min(dots.length - 1, i));
+    for (var j = 0; j < dots.length; j++) dots[j].classList.toggle('on', j === i);
+  }, { passive: true });
+
+  /* ── the real Ethica film, in-app ── */
+  var overlay = document.getElementById('vidOverlay');
+  var vbox = document.getElementById('vbox');
+  function openVid(e) {
+    if (e) e.preventDefault();
+    vbox.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/jbxN2VQm2No?autoplay=1&rel=0&modestbranding=1" title="Ethica — the film" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>';
+    overlay.classList.add('open');
+  }
+  function closeVid() { overlay.classList.remove('open'); vbox.innerHTML = ''; }
+  document.getElementById('playBtn').addEventListener('click', openVid);
+  document.getElementById('playCta').addEventListener('click', openVid);
+  document.getElementById('vidClose').addEventListener('click', closeVid);
+})();
+</script>
+<script>
+/* Pin page background against the Napster SDK's body,html{background:transparent} injection */
+(function(){try{var h=getComputedStyle(document.documentElement),b=getComputedStyle(document.body),s=document.createElement('style');s.textContent='html{background-color:'+h.backgroundColor+' !important;background-image:'+h.backgroundImage+' !important}html body{background-color:'+b.backgroundColor+' !important;background-image:'+b.backgroundImage+' !important}';document.head.appendChild(s);}catch(e){}})();
+</script>
+</body>
+</html>
