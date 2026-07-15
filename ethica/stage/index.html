@@ -48,8 +48,8 @@
   .stage .startpill svg { width: 13px; height: 13px; }
   .stage.on .startpill { display: none; }
 
-  .stage .timer { position: absolute; left: 50%; bottom: 14px; transform: translateX(-50%); z-index: 6; display: none; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; color: #fff; background: rgba(0,0,0,.5); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 6px 13px; }
-  .stage.on .timer { display: inline-flex; }
+  .stage .timer { position: absolute; left: 16px; bottom: 14px; z-index: 6; display: none; align-items: center; gap: 7px; font-size: 11px; font-weight: 600; color: #fff; background: rgba(0,0,0,.5); backdrop-filter: blur(6px); border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 6px 13px; }
+  .stage.talking .timer { display: inline-flex; }
   .stage .timer.warn { border-color: rgba(245,166,35,.6); color: #f5c05a; }
   .stage .timer .end { background: rgba(217,72,58,.94); border: none; color: #fff; border-radius: 999px; font-size: 10px; font-weight: 700; padding: 3px 10px; cursor: pointer; margin-left: 2px; }
 
@@ -58,6 +58,9 @@
   #stage-mount > *, #stage-mount video, #stage-mount canvas { width: 100% !important; height: 100% !important; object-fit: cover !important; object-position: center top !important; }
   #stage-mount > * { position: absolute !important; inset: 0 !important; max-width: none !important; max-height: none !important; margin: 0 !important; border-radius: 0 !important; }
   #stage-mount [class*="-fixed"] { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; }
+  /* No scrollbars anywhere inside the avatar frame — the SDK's inner panels overflow-scroll by default */
+  #stage-mount, #stage-mount * { overflow: hidden !important; scrollbar-width: none !important; -ms-overflow-style: none !important; }
+  #stage-mount ::-webkit-scrollbar, #stage-mount::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
   .stage .hintline { position: absolute; left: 0; right: 0; bottom: 52px; z-index: 6; text-align: center; font-size: 10.5px; color: rgba(255,255,255,.85); pointer-events: none; text-shadow: 0 1px 6px rgba(0,0,0,.7); }
 
   /* ── BOTTOM ⅔ — the module deck ── */
@@ -78,11 +81,6 @@
   .card h3 { font-family: var(--f-serif); font-weight: 500; font-size: 21px; color: var(--brand-ink); margin: 0; line-height: 1.12; }
   .card p { font-size: 12.5px; line-height: 1.55; color: #4a4640; margin: 0; flex: 1; overflow: hidden; }
   .card .cta { align-self: flex-start; font-size: 12.5px; font-weight: 600; color: var(--brand-ink); background: var(--brand); border-radius: 999px; padding: 10px 20px; text-decoration: none; }
-
-  .shop3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; height: 100%; padding: 10px; background: #fff; }
-  .shop3 a.pr { border: 1px solid rgba(28,26,22,.1); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; background: #fff; text-decoration: none; }
-  .shop3 a.pr img { width: 100%; flex: 1; object-fit: cover; min-height: 0; }
-  .shop3 a.pr .pp { font-size: 10.5px; font-weight: 700; text-align: center; padding: 5px 2px; color: var(--brand-ink); }
 
   .site-rows { display: flex; flex-direction: column; gap: 7px; height: 100%; padding: 12px; background: linear-gradient(150deg, #14120d, #2a2416); justify-content: center; }
   .site-rows a.row { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 9px 13px; color: #f1ece0; font-size: 12px; font-weight: 500; text-decoration: none; }
@@ -119,11 +117,11 @@
       <span class="word">ETHICA</span>
       <span class="tag">Fraud dies. Truth thrives.</span>
     </div>
-    <div class="live"><span class="dot"></span><span id="liveTxt">PREVIEW</span></div>
+    <div class="live"><span class="dot"></span><span id="liveTxt">CONNECTING</span></div>
     <div class="hintline" id="hintline"></div>
-    <button class="startpill" id="startBtn" type="button">
+    <button class="startpill" id="startBtn" type="button" style="display:none;">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 19v3M9 22h6"/></svg>
-      Talk to Ethica — live
+      Tap to retry
     </button>
     <div class="timer" id="timerBadge"><span id="timerTxt">5:00</span><button class="end" id="endBtn" type="button">END</button></div>
   </div>
@@ -149,34 +147,56 @@
         </div>
       </div>
 
-      <!-- 02 · VIDEO — the real Ethica film -->
+      <!-- 02 · VIDEO — the real Ethica film (real YouTube thumbnail) -->
       <div class="card">
         <div class="art">
-          <img src="/design/livebrand/hero-media/ethica.jpg" style="object-position:center 18%" alt="Ethica — the film">
+          <img src="https://img.youtube.com/vi/jbxN2VQm2No/maxresdefault.jpg" onerror="this.onerror=null;this.src='https://img.youtube.com/vi/jbxN2VQm2No/hqdefault.jpg'" alt="ETHICA — Fraud Dies. Truth Thrives. Official trailer">
           <span class="tag">VIDEO</span>
           <div class="play" id="playBtn"><span>▶</span></div>
         </div>
         <div class="body">
           <h3>Watch Ethica in action.</h3>
-          <p>The official Ethica film — meet accounting's first superhero in motion.</p>
+          <p>The official trailer — Fraud Dies. Truth Thrives.</p>
           <a class="cta" href="#" id="playCta">Play the film</a>
         </div>
       </div>
 
-      <!-- 03 · MERCH — the real Fraud Fighter Collection -->
+      <!-- 03 · MERCH — Ethica Logo Tee -->
       <div class="card">
         <div class="art">
-          <div class="shop3">
-            <a class="pr" href="https://ethica.printful.me/product/ethica-logo-tee" target="_blank" rel="noopener"><img src="https://cdn.printful.me/t/quick-stores/variants/w339/164908836a51afe739296__825" alt="Ethica Logo Tee"><span class="pp">$29</span></a>
-            <a class="pr" href="https://ethica.printful.me/product/ethica-liar-catcher-tee" target="_blank" rel="noopener"><img src="https://cdn.printful.me/t/quick-stores/variants/w339/164908566a5146c58838c__825" alt="Ethica Liar Catcher Tee"><span class="pp">$29</span></a>
-            <a class="pr" href="https://ethica.printful.me/product/ethica-crop-hoodie" target="_blank" rel="noopener"><img src="https://cdn.printful.me/t/quick-stores/variants/w339/164907876a5145d08fc56__825" alt="Ethica Crop Hoodie"><span class="pp">$49</span></a>
-          </div>
+          <img src="https://cdn.printful.me/t/quick-stores/variants/w339/164908836a51afe739296__825" style="object-fit:contain;background:#fff;padding:8px" alt="Ethica Logo Tee — heather grey fitted tee">
           <span class="tag">MERCH</span>
         </div>
         <div class="body">
-          <h3>The Fraud Fighter Collection.</h3>
-          <p>Official Ethica gear — premium prints, secure checkout, worldwide fulfillment by Printful.</p>
-          <a class="cta" href="https://ethica.printful.me" target="_blank" rel="noopener">Shop the collection</a>
+          <h3>Ethica Logo Tee &middot; $29</h3>
+          <p>The ETHICA logo on a heather grey fitted tee — premium print, secure checkout by Printful.</p>
+          <a class="cta" href="https://ethica.printful.me/product/ethica-logo-tee" target="_blank" rel="noopener">Get yours</a>
+        </div>
+      </div>
+
+      <!-- 04 · MERCH — Liar Catcher Tee -->
+      <div class="card">
+        <div class="art">
+          <img src="https://cdn.printful.me/t/quick-stores/variants/w339/164908566a5146c58838c__825" style="object-fit:contain;background:#fff;padding:8px" alt="Ethica Liar Catcher Tee — navy, royal blue and grey">
+          <span class="tag">MERCH</span>
+        </div>
+        <div class="body">
+          <h3>Liar Catcher Tee &middot; $29</h3>
+          <p>"Let ETHICA help you catch that LIAR!" — navy, royal blue &amp; grey.</p>
+          <a class="cta" href="https://ethica.printful.me/product/ethica-liar-catcher-tee" target="_blank" rel="noopener">Get yours</a>
+        </div>
+      </div>
+
+      <!-- 05 · MERCH — Crop Hoodie -->
+      <div class="card">
+        <div class="art">
+          <img src="https://cdn.printful.me/t/quick-stores/variants/w339/164907876a5145d08fc56__825" style="object-fit:contain;background:#fff;padding:8px" alt="Ethica Crop Hoodie — military green women's cropped hoodie">
+          <span class="tag">MERCH</span>
+        </div>
+        <div class="body">
+          <h3>Ethica Crop Hoodie &middot; $49</h3>
+          <p>Military green &amp; peach women's crop hoodie — worldwide fulfillment.</p>
+          <a class="cta" href="https://ethica.printful.me/product/ethica-crop-hoodie" target="_blank" rel="noopener">Get yours</a>
         </div>
       </div>
 
@@ -199,7 +219,7 @@
       </div>
 
     </div>
-    <div class="dots" id="dots"><span class="on"></span><span></span><span></span><span></span></div>
+    <div class="dots" id="dots"><span class="on"></span><span></span><span></span><span></span><span></span><span></span></div>
     <div class="stagefoot">THE STAGE · a <b>LiveBrand.ai</b> landing page</div>
   </div>
 
@@ -215,31 +235,47 @@
 <script src="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js"></script>
 <script>
 (function () {
-  /* ── Live Ethica on the stage — same proven wiring as /ethica/thrive ── */
+  /* ── Live Ethica IS the stage: SDK boots on page load, the avatar's own
+     "Chat now" starts the conversation. Same token worker as /ethica/thrive. ── */
   var TOKEN_ENDPOINT = 'https://napster-avatar-token.michaelrivera.workers.dev/api/avatar-token';
-  var CAP_S = 300; // 5-minute session
+  var CAP_S = 300; // 5-minute conversation cap
   var stage = document.getElementById('stage');
   var mount = document.getElementById('stage-mount');
   var loopVid = document.getElementById('loopVid');
-  var startBtn = document.getElementById('startBtn');
+  var startBtn = document.getElementById('startBtn'); // repurposed: retry after failure
   var liveTxt = document.getElementById('liveTxt');
   var hintline = document.getElementById('hintline');
   var timerBadge = document.getElementById('timerBadge');
   var timerTxt = document.getElementById('timerTxt');
   var endBtn = document.getElementById('endBtn');
-  var instance = null, interval = null, starting = false;
+  var instance = null, interval = null, booting = false, talking = false;
 
-  function resetUI() {
+  function stopTimer() {
     if (interval) { clearInterval(interval); interval = null; }
-    instance = null; starting = false;
+    talking = false;
+    stage.classList.remove('talking');
+    timerBadge.classList.remove('warn');
+  }
+
+  function showFallback(msg) {
+    stopTimer();
+    instance = null;
     mount.style.display = 'none';
     mount.innerHTML = '';
     loopVid.style.display = 'block';
     stage.classList.remove('on');
     liveTxt.textContent = 'PREVIEW';
-    timerBadge.classList.remove('warn');
-    hintline.textContent = 'Session ended — tap to talk again';
-    setTimeout(function () { hintline.textContent = ''; }, 4000);
+    startBtn.style.display = 'inline-flex';
+    hintline.textContent = msg || '';
+  }
+
+  function onEnded() {
+    // SDK hang-up or our END: re-boot the interactive preview for the next visitor
+    stopTimer();
+    instance = null;
+    mount.innerHTML = '';
+    hintline.textContent = '';
+    boot();
   }
 
   function endSession() {
@@ -249,13 +285,31 @@
         else if (typeof instance.disconnect === 'function') instance.disconnect();
       }
     } catch (e) {}
-    resetUI();
+    onEnded();
   }
 
-  async function startEthica() {
-    if (instance || starting) return;
-    starting = true;
-    hintline.textContent = 'Connecting…';
+  function startTimer() {
+    if (talking) return;
+    talking = true;
+    stage.classList.add('talking');
+    var seconds = CAP_S;
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function tick() {
+      timerTxt.textContent = pad(Math.floor(seconds / 60)) + ':' + pad(seconds % 60);
+      timerBadge.classList.toggle('warn', seconds <= 60);
+    }
+    tick();
+    interval = setInterval(function () {
+      seconds--; tick();
+      if (seconds <= 0) endSession();
+    }, 1000);
+  }
+
+  async function boot() {
+    if (instance || booting) return;
+    booting = true;
+    startBtn.style.display = 'none';
+    liveTxt.textContent = 'CONNECTING';
     try {
       var res = await fetch(TOKEN_ENDPOINT);
       if (!res.ok) throw new Error('Token request failed: ' + res.status);
@@ -267,36 +321,36 @@
       instance = await sdk.init(data.token, {
         mountContainer: '#stage-mount',
         avatarStyle: { view: 'rectangle' },
-        onDestroy: resetUI
+        onAvatarReady: function () {
+          loopVid.style.display = 'none';
+          stage.classList.add('on');
+          liveTxt.textContent = 'LIVE';
+        },
+        onDestroy: onEnded
       });
       instance.showAvatar();
-      loopVid.style.display = 'none';
-      stage.classList.add('on');
-      liveTxt.textContent = 'LIVE';
-      hintline.textContent = 'Allow your microphone to talk with Ethica';
-      setTimeout(function () { if (instance) hintline.textContent = ''; }, 6000);
-
-      var seconds = CAP_S;
-      function pad(n) { return String(n).padStart(2, '0'); }
-      function tick() {
-        timerTxt.textContent = pad(Math.floor(seconds / 60)) + ':' + pad(seconds % 60);
-        timerBadge.classList.toggle('warn', seconds <= 60);
-      }
-      tick();
-      interval = setInterval(function () {
-        seconds--; tick();
-        if (seconds <= 0) endSession();
-      }, 1000);
+      // fallback reveal if onAvatarReady doesn't fire on this SDK build
+      setTimeout(function () {
+        if (instance && loopVid.style.display !== 'none') {
+          loopVid.style.display = 'none';
+          stage.classList.add('on');
+          liveTxt.textContent = 'LIVE';
+        }
+      }, 5000);
     } catch (err) {
       console.error('Ethica stage error:', err);
-      resetUI();
-      hintline.textContent = 'Couldn’t connect — tap to try again';
+      showFallback('Couldn’t connect — tap to retry');
     }
-    starting = false;
+    booting = false;
   }
 
-  startBtn.addEventListener('click', startEthica);
+  // The conversation cap starts when the visitor engages the avatar
+  // (the SDK's own "Chat now" lives inside the mount).
+  mount.addEventListener('click', function () { if (instance) startTimer(); });
+
+  startBtn.addEventListener('click', boot);
   endBtn.addEventListener('click', endSession);
+  boot();
 
   /* ── dot sync ── */
   var rail = document.getElementById('rail');
