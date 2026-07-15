@@ -6,7 +6,7 @@
 // ⚠️ ONE-LINE WIRE-UP: paste the AGENT_ID from build-stephanie-twin.ps1 -Mode create-agent below.
 // Until then this returns 503 and the page shows a graceful "on her way" state.
 
-const AGENT_ID = '93a249b8-a103-4827-a006-de1b6ebc30fc'; // THRIVE DOCTOR — Stephanie Geter (v2 2026-07-14: JEE-ter pronunciation)
+const AGENT_ID = 'de8a2f1e-2ef4-4cf7-ad86-a1b47867c04e'; // THRIVE DOCTOR — Stephanie Geter (v3 2026-07-14: her verbatim greeting + Jeter respelling)
 
 export async function onRequest(context) {
   const API_KEY = context.env.NAPSTER_API_KEY;

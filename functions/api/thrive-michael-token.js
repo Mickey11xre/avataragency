@@ -6,7 +6,7 @@
 // ⚠️ ONE-LINE WIRE-UP: paste the AGENT_ID from build-thrive-agent.ps1 below.
 // Until then this returns 503 and the page shows a graceful "suiting up" state.
 
-const AGENT_ID = 'bb7272ed-f545-4066-be87-f1924a0f83f9'; // Special Agent Rivera — THRIVE (v2 2026-07-14: JEE-ter pronunciation)
+const AGENT_ID = '4250be63-f988-4749-b771-929ef35a84ac'; // Special Agent Rivera — THRIVE (v3 2026-07-14: Jeter respelling + Stephanie-live update)
 
 export async function onRequest(context) {
   const API_KEY = context.env.NAPSTER_API_KEY;
