@@ -84,6 +84,10 @@ body {
   font-family:var(--font-body); font-weight:300;
   -webkit-font-smoothing:antialiased; overflow-x:hidden;
 }
+/* The Napster SDK injects `body,html{background:transparent}` when a twin session
+   starts and never removes it — without this override the page turns white after
+   opening a Meet modal. Higher specificity + !important keeps us black. */
+html body { background:var(--bg) !important; }
 
 /* ================================================================
    SECTION BASE — ambient spotlight like the deck
