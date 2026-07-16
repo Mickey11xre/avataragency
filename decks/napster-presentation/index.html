@@ -1289,14 +1289,13 @@ strong, .accent { color: var(--accent); font-weight: inherit; }
 /* ---- Cover logo stack: Napster on top, the three brands below ---- */
 .cover-stack { display: flex; flex-direction: column; align-items: center; gap: clamp(18px,2.6vw,28px); margin-bottom: clamp(1.6rem,3vw,2.4rem); }
 .cover-stack .np-big { height: clamp(44px,5.6vw,68px); width: auto; display: block; }
-.cover-stack .brands { display: flex; align-items: center; gap: clamp(20px,3vw,38px); flex-wrap: wrap; justify-content: center; }
-.cover-stack .brands img { height: clamp(20px,2.4vw,30px); width: auto; display: block; }
-.cover-stack .brands img.thrive { height: clamp(16px,2vw,24px); }
+.cover-stack .brands { display: flex; align-items: center; gap: clamp(24px,3.6vw,48px); flex-wrap: wrap; justify-content: center; }
+.cover-stack .brands img { height: clamp(40px,5vw,60px); width: auto; display: block; }
 
 /* ---- LiveBrand logo, faithful CSS build (B3 dark variant) ---- */
 .lblogo { --s: 34px; display: inline-flex; align-items: center; vertical-align: middle; }
 .lblogo .mk { position: relative; width: var(--s); height: var(--s); flex-shrink: 0; margin-right: 2px; }
-.lblogo .rings { position: absolute; top: calc(var(--s) * -0.29); left: calc(var(--s) * -0.29); width: calc(var(--s) * 1.58); height: calc(var(--s) * 1.58); overflow: hidden; pointer-events: none; }
+.lblogo .rings { position: absolute; top: calc(var(--s) * -0.29); left: calc(var(--s) * -0.29); width: calc(var(--s) * 1.31); height: calc(var(--s) * 1.58); overflow: hidden; pointer-events: none; } /* clipped so the rings terminate before "Brand" */
 .lblogo .ring { position: absolute; left: calc(var(--s) * 0.79); top: calc(var(--s) * 0.79); transform: translate(-50%,-50%); border: 1.5px solid #fff; border-radius: 50%; }
 .lblogo .ring.o { width: calc(var(--s) * 1.41); height: calc(var(--s) * 1.41); opacity: .35; }
 .lblogo .ring.i { width: calc(var(--s) * 1.2); height: calc(var(--s) * 1.2); opacity: .55; }
@@ -1306,13 +1305,18 @@ strong, .accent { color: var(--accent); font-weight: inherit; }
 .lblogo .br { font-family: var(--font-display); font-weight: 500; font-size: calc(var(--s) * 0.56); color: #fff; }
 .lblogo .ai { font-family: var(--font-body); font-size: calc(var(--s) * 0.22); color: #7C756A; margin-left: 3px; }
 
-/* ---- 5-up deployment cards (linked) ---- */
-.val-grid.five { grid-template-columns: repeat(5, 1fr); max-width: 1180px; gap: clamp(10px,1.2vw,16px); }
-@media (max-width: 980px) { .val-grid.five { grid-template-columns: repeat(2, 1fr); } }
+/* ---- 6-up deployment cards (linked) ---- */
+.val-grid.six { grid-template-columns: repeat(6, 1fr); max-width: 1300px; gap: clamp(8px,1vw,14px); }
+@media (max-width: 980px) { .val-grid.six { grid-template-columns: repeat(2, 1fr); } }
+.val-grid.six .val { padding: clamp(12px,1.4vw,18px); }
+.val-grid.six h3 { font-size: clamp(0.95rem,1.2vw,1.15rem); }
+.val-grid.six p { font-size: clamp(0.72rem,0.85vw,0.86rem); }
 a.val { text-decoration: none; display: block; cursor: pointer; }
 a.val:hover { border-color: var(--accent); }
-.val .vlogo { height: 34px; display: flex; align-items: center; margin-bottom: 12px; }
+.val .vlogo { height: clamp(30px,3.2vw,42px); display: flex; align-items: center; margin-bottom: 12px; }
 .val .vlogo img { max-height: 100%; max-width: 100%; object-fit: contain; display: block; }
+.val .vphoto { width: 100%; aspect-ratio: 16/11; border-radius: 8px; overflow: hidden; margin-bottom: 10px; background: #000; }
+.val .vphoto img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
 .val .go { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; color: var(--muted); text-transform: uppercase; margin-top: 10px; display: block; }
 a.val:hover .go { color: var(--accent); }
 
@@ -1388,9 +1392,9 @@ html, body { background: var(--bg) !important; }
     <div class="cover-stack reveal">
       <img class="np-big" src="napster_logo_black_bg.jpg" alt="Napster">
       <div class="brands">
+        <img src="thrive_logo.jpg" alt="THRIVE">
+        <span class="lblogo" style="--s: clamp(34px,4.2vw,50px);" aria-label="LiveBrand.ai"><span class="mk"><span class="rings"><span class="ring o"></span><span class="ring i"></span></span><span class="disc"><span class="lv">Live</span></span></span><span class="wd"><span class="br">Brand</span><span class="ai">.ai</span></span></span>
         <img src="avataragency_logo_black_bg.jpg" alt="AvatarAgency">
-        <img class="thrive" src="thrive_logo.jpg" alt="THRIVE">
-        <span class="lblogo" aria-label="LiveBrand.ai"><span class="mk"><span class="rings"><span class="ring o"></span><span class="ring i"></span></span><span class="disc"><span class="lv">Live</span></span></span><span class="wd"><span class="br">Brand</span><span class="ai">.ai</span></span></span>
       </div>
     </div>
     <h1 class="display reveal">Live on your API. <em>Today.</em></h1>
@@ -1402,12 +1406,13 @@ html, body { background: var(--bg) !important; }
   <div class="slide-content" style="justify-content: center; align-items: center; text-align: center;">
     <h3 class="kicker reveal">Production, not demos</h3>
     <h1 class="display reveal" style="font-size: clamp(1.6rem,3.4vw,3rem); max-width: 26ch; margin: 0 auto;">Some of our <em>Napster API</em> deployments.</h1>
-    <div class="val-grid five reveal">
-      <a class="val" style="--c: var(--accent)" href="https://avataragency.ai/" target="_blank" rel="noopener"><div class="vn">01</div><h3>Michael Rivera's Digital Twin</h3><p>The founder's twin greets every visitor by voice and captures leads mid-conversation.</p><span class="go">avataragency.ai →</span></a>
-      <a class="val" style="--c: var(--teal)" href="https://avataragency.ai/thrive/" target="_blank" rel="noopener"><div class="vn">02</div><div class="vlogo"><img src="thrive_logo.jpg" alt="THRIVE"></div><h3>Our Own Digital Twins</h3><p>Both keynote speakers, cloned and live on their speaking page.</p><span class="go">avataragency.ai/thrive →</span></a>
-      <a class="val" style="--c: var(--amber)" href="https://avataragency.ai/ethica/thrive/" target="_blank" rel="noopener"><div class="vn">03</div><div class="vlogo"><img src="https://avataragency.ai/ethica/thrive/ETHICA_LOGO.jpg" alt="ETHICA"></div><h3>Ethica</h3><p>The Financial Fraud Fighter — avatar, memberships, and merch on one page.</p><span class="go">/ethica →</span></a>
-      <a class="val" style="--c: var(--cyan)" href="https://avataragency.ai/casestudy" target="_blank" rel="noopener"><div class="vn">04</div><h3>Real Estate Agent Case Study</h3><p>Paul Small — a working agent's digital twin talking to his clients.</p><span class="go">/casestudy →</span></a>
-      <a class="val" style="--c: var(--violet)" href="https://avataragency.ai/ladybelle/" target="_blank" rel="noopener"><div class="vn">05</div><h3>Avatar Character Case Study</h3><p>Lady Belle — an illustrated character brought to life with a cloned voice.</p><span class="go">/ladybelle →</span></a>
+    <div class="val-grid six reveal">
+      <a class="val" style="--c: var(--accent)" href="https://avataragency.ai/" target="_blank" rel="noopener"><div class="vn">01</div><div class="vlogo"><img src="avataragency_logo_black_bg.jpg" alt="AvatarAgency"></div><p>The founder's twin greets every visitor by voice and captures leads mid-conversation.</p><span class="go">avataragency.ai →</span></a>
+      <a class="val" style="--c: var(--teal)" href="https://avataragency.ai/thrive/" target="_blank" rel="noopener"><div class="vn">02</div><div class="vlogo"><img src="thrive_logo.jpg" alt="THRIVE"></div><p>Both keynote speakers, cloned and live on their speaking page.</p><span class="go">/thrive →</span></a>
+      <a class="val" style="--c: var(--amber)" href="https://avataragency.ai/ethica/thrive/" target="_blank" rel="noopener"><div class="vn">03</div><div class="vlogo"><img src="https://avataragency.ai/ethica/thrive/ETHICA_LOGO.jpg" alt="ETHICA"></div><p>The Financial Fraud Fighter — avatar, memberships, and merch on one page.</p><span class="go">/ethica →</span></a>
+      <a class="val" style="--c: var(--gold-light)" href="https://livebrand.ai" target="_blank" rel="noopener"><div class="vn">04</div><div class="vlogo"><span class="lblogo" style="--s: 26px;"><span class="mk"><span class="rings"><span class="ring o"></span><span class="ring i"></span></span><span class="disc"><span class="lv">Live</span></span></span><span class="wd"><span class="br">Brand</span><span class="ai">.ai</span></span></span></div><p>Our avatar concierge walks every customer through sign-up — a companion selling companions.</p><span class="go">livebrand.ai →</span></a>
+      <a class="val" style="--c: var(--cyan)" href="https://avataragency.ai/casestudy" target="_blank" rel="noopener"><div class="vn">05</div><div class="vphoto"><img src="https://avataragency.ai/assets/paul-v1-source.jpg" alt="Paul Small — digital twin"></div><h3>Real Estate Agent Case Study</h3><p>Paul Small — a working agent's digital twin talking to his clients.</p><span class="go">/casestudy →</span></a>
+      <a class="val" style="--c: var(--violet)" href="https://avataragency.ai/ladybelle/" target="_blank" rel="noopener"><div class="vn">06</div><div class="vphoto"><img src="https://avataragency.ai/ladybelle/assets/lady-belle-char.jpg" alt="Lady Belle — illustrated avatar"></div><h3>Avatar Character Case Study</h3><p>Lady Belle — an illustrated character brought to life with a cloned voice.</p><span class="go">/ladybelle →</span></a>
     </div>
     <p class="fine reveal">Tap any card — every one of these is live right now, metering through the Companion API on Azure</p>
   </div>
@@ -1458,7 +1463,8 @@ html, body { background: var(--bg) !important; }
   <div class="slide-content">
     <div class="iso-text">
       <h3 class="kicker reveal">The engine behind the funnel</h3>
-      <h2 class="scene-title reveal"><span class="lblogo" style="--s: clamp(30px,3.4vw,44px);"><span class="mk"><span class="rings"><span class="ring o"></span><span class="ring i"></span></span><span class="disc"><span class="lv">Live</span></span></span><span class="wd"><span class="br">Brand</span><span class="ai">.ai</span></span></span><br><em>your image, your voice, your brand.</em></h2>
+      <div class="reveal" style="text-align:center; margin: 0 0 clamp(0.9rem,1.6vw,1.3rem);"><span class="lblogo" style="--s: clamp(44px,5vw,62px);"><span class="mk"><span class="rings"><span class="ring o"></span><span class="ring i"></span></span><span class="disc"><span class="lv">Live</span></span></span><span class="wd"><span class="br">Brand</span><span class="ai">.ai</span></span></span></div>
+      <h2 class="scene-title reveal"><em>your image, your voice, your brand.</em></h2>
       <p class="body-text reveal">A self-serve platform that turns any professional into an avatar owner: pick a lane, order in minutes, and a managed 12-stage pipeline delivers the live page.</p>
       <ul class="fine-list reveal">
         <li><span class="k">01 · Wizard</span><span class="v">Order in minutes</span></li>
