@@ -31,12 +31,6 @@
     .app { width: min(860px, 92vw); height: min(880px, 92vh); border-radius: 18px; border: 1px solid #2a2620; box-shadow: 0 50px 110px rgba(0,0,0,.65); }
     .stage { height: 42%; }
     .stage .loop { object-position: center 30%; }  /* head + shoulders in the wide crop */
-    .card { flex: 0 0 46%; }               /* two cards + a peek on laptop */
-    .deck-head h2 { font-size: 25px; }
-    .card h3 { font-size: 22px; }
-    .card p { font-size: 13.5px; }
-    .card .art { height: 48%; }
-    .card .art.merchart { height: 58%; }
   }
 
   /* ── TOP ⅓ — the live avatar stage ── */
@@ -115,6 +109,16 @@
   .vid-overlay .vbox { width: 100%; aspect-ratio: 16/9; }
   .vid-overlay iframe { width: 100%; height: 100%; border: 0; }
   .vid-overlay .vclose { position: absolute; top: max(16px, env(safe-area-inset-top)); right: 16px; width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,.14); border: none; color: #fff; font-size: 18px; cursor: pointer; z-index: 2; }
+
+  /* Laptop card sizing — AFTER the base .card rules so the override wins the cascade */
+  @media (min-width: 700px) {
+    .card { flex: 0 0 46%; }               /* two cards + a peek on laptop */
+    .card .art { height: 48%; }
+    .card .art.merchart { height: 58%; }
+    .card h3 { font-size: 22px; }
+    .card p { font-size: 13.5px; }
+    .deck-head h2 { font-size: 25px; }
+  }
 
   /* Guard the background against the SDK's transparent injection */
   html, body { background: #141210 !important; }
