@@ -1,2 +1,4 @@
 # Ethica demo path renamed: /ethica/napster/ -> /ethica/thrive/
 /ethica/napster/*  /ethica/thrive/:splat  301
+# Morgan deck renamed per revisions doc 2026-07-15
+/decks/napster-partner/*  /decks/napster-presentation/:splat  301
