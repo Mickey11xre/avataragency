@@ -381,16 +381,28 @@ html body { background:var(--bg) !important; }
   border-top:1px solid var(--border); padding:clamp(1.6rem,3vw,2.4rem) var(--pad);
   display:flex; flex-direction:column; gap:14px; align-items:center; text-align:center;
 }
-.site-foot .powered {
-  display:flex; flex-direction:column; align-items:center; gap:10px;
-  text-decoration:none; transition:opacity .3s;
+/* AvatarAgency services block (from the translatetothrive deck) */
+.aa-help { display:flex; flex-direction:column; align-items:center; gap:clamp(14px,2vw,20px); padding-top:clamp(.6rem,1.2vw,1rem); }
+.aa-help-head {
+  font-family:var(--font-display); font-weight:400; font-size:clamp(1.25rem,2.6vw,1.9rem);
+  color:var(--text-paper); margin:0; line-height:1.2;
 }
-.site-foot .powered:hover { opacity:.75; }
-.site-foot .powered-label {
-  font-family:var(--font-mono); font-size:.62rem; letter-spacing:.22em;
-  text-transform:uppercase; color:var(--text-dim);
+.aa-help-logo { display:block; text-decoration:none; transition:opacity .3s; }
+.aa-help-logo:hover { opacity:.8; }
+.aa-help-logo img { height:clamp(30px,4vw,42px); width:auto; display:block; }
+.aa-help-btn {
+  display:inline-block; font-family:var(--font-mono); font-weight:600; font-size:12.5px;
+  letter-spacing:.18em; text-transform:uppercase; color:#0a0a0a; background:#C9A84C;
+  padding:14px 34px; border-radius:100px; text-decoration:none;
+  transition:transform .2s var(--ease), box-shadow .2s;
 }
-.site-foot .powered img { height:26px; width:auto; display:block; }
+.aa-help-btn:hover { transform:translateY(-2px); box-shadow:0 0 24px rgba(201,168,76,.4); }
+.aa-help-svc { list-style:none; width:min(92vw,560px); margin:4px 0 0; padding:0; }
+.aa-help-svc li {
+  font-family:var(--font-body); font-weight:600; font-size:clamp(.95rem,1.4vw,1.05rem);
+  color:#fff; text-align:center; padding:13px 0; border-bottom:1px solid var(--border);
+}
+.aa-help-svc li:first-child { border-top:1px solid var(--border); }
 .site-foot .fine { font-size:.72rem; color:var(--muted); line-height:1.7; max-width:760px; }
 </style>
 </head>
@@ -695,12 +707,21 @@ html body { background:var(--bg) !important; }
 
 </main>
 
-<!-- ── FOOTER — minimal ─────────────────────────────────────── -->
+<!-- ── FOOTER — AvatarAgency services (from the translatetothrive deck) ── -->
 <footer class="site-foot">
-  <a class="powered" href="https://avataragency.ai">
-    <span class="powered-label">Powered by</span>
-    <img src="avataragency-logo.jpg" alt="AvatarAgency">
-  </a>
+  <div class="aa-help">
+    <h3 class="aa-help-head">Need AI Marketing and Consulting Services?</h3>
+    <a class="aa-help-logo" href="https://avataragency.ai" aria-label="AvatarAgency">
+      <img src="avataragency-logo.jpg" alt="AvatarAgency">
+    </a>
+    <a class="aa-help-btn" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a Strategy Call</a>
+    <ul class="aa-help-svc">
+      <li>AI Imaging &amp; Video Production</li>
+      <li>Presentation &amp; Curriculum Development Services</li>
+      <li>Branding &amp; Website Design</li>
+      <li>Digital Interactive Custom Avatars</li>
+    </ul>
+  </div>
   <p class="fine">
     Content on this page may contain AI-generated synthetic performers. Disclosed per NY law
     (eff. 6/9/26) &amp; FTC guidelines. © 2026 AvatarAgency.ai — All Rights Reserved · Los Angeles, California
