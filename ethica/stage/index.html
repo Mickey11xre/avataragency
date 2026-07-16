@@ -28,17 +28,20 @@
   .app { width: 100%; height: 100dvh; background: var(--brand-cream); display: flex; flex-direction: column; overflow: hidden; position: relative; }
   @media (min-width: 700px) {
     body { display: grid; place-items: center; padding: 26px 0; }
-    .app { width: min(980px, 94vw); height: min(940px, 94vh); border-radius: 26px; border: 1px solid #2a2620; box-shadow: 0 50px 110px rgba(0,0,0,.65); }
-    .stage { height: 44%; }
-    .card { flex: 0 0 44%; }               /* two cards + a peek on laptop */
-    .deck-head h2 { font-size: 26px; }
-    .card h3 { font-size: 23px; }
+    .app { width: min(860px, 92vw); height: min(880px, 92vh); border-radius: 18px; border: 1px solid #2a2620; box-shadow: 0 50px 110px rgba(0,0,0,.65); }
+    .stage { height: 42%; }
+    .stage .loop { object-position: center 30%; }  /* head + shoulders in the wide crop */
+    .card { flex: 0 0 46%; }               /* two cards + a peek on laptop */
+    .deck-head h2 { font-size: 25px; }
+    .card h3 { font-size: 22px; }
     .card p { font-size: 13.5px; }
+    .card .art { height: 48%; }
+    .card .art.merchart { height: 58%; }
   }
 
   /* ── TOP ⅓ — the live avatar stage ── */
   .stage { height: 34%; position: relative; background: #0a0a0a; flex-shrink: 0; transform: translateZ(0); /* containing block for the SDK's fixed wrapper */ }
-  .stage video.loop { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; display: block; }
+  .stage .loop { width: 100%; height: 100%; object-fit: cover; object-position: center 26%; display: block; }
   .stage .veil { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.5) 0%, transparent 34%, transparent 56%, rgba(0,0,0,.55) 100%); pointer-events: none; z-index: 2; }
   .stage .brandchip { position: absolute; top: max(14px, env(safe-area-inset-top)); left: 16px; z-index: 5; pointer-events: none; }
   .stage .brandchip .word { font-size: 15px; font-weight: 600; color: #fff; letter-spacing: .02em; }
@@ -80,7 +83,7 @@
   .deck-head .swipe { font-size: 11px; color: #8a8278; letter-spacing: .04em; }
   .rail { flex: 1; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 2px 20px 6px; scrollbar-width: none; min-height: 0; -webkit-overflow-scrolling: touch; }
   .rail::-webkit-scrollbar { display: none; }
-  .card { scroll-snap-align: center; flex: 0 0 86%; background: #fff; border: 1px solid rgba(28,26,22,.1); border-radius: 22px; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(10,10,10,.07); }
+  .card { scroll-snap-align: center; flex: 0 0 86%; background: #fff; border: 1px solid rgba(28,26,22,.1); border-radius: 0; overflow: hidden; display: flex; flex-direction: column; box-shadow: 0 10px 30px rgba(10,10,10,.07); }
   .card .art { height: 44%; position: relative; background: #14120d; flex-shrink: 0; }
   .card .art img { width: 100%; height: 100%; object-fit: cover; display: block; }
   /* Merch cards: the product dominates the frame */
@@ -95,7 +98,7 @@
   .card p { font-size: 12.5px; line-height: 1.55; color: #4a4640; margin: 0; flex: 1; overflow: hidden; }
   .card .cta { align-self: flex-start; font-size: 12.5px; font-weight: 600; color: var(--brand-ink); background: var(--brand); border-radius: 999px; padding: 10px 20px; text-decoration: none; }
 
-  .site-rows { display: flex; flex-direction: column; gap: 7px; height: 100%; padding: 12px; background: linear-gradient(150deg, #14120d, #2a2416); justify-content: center; }
+  .site-rows { display: flex; flex-direction: column; gap: 7px; height: 100%; padding: 46px 12px 12px; background: linear-gradient(150deg, #14120d, #2a2416); justify-content: flex-start; }
   .site-rows a.row { display: flex; align-items: center; justify-content: space-between; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12); border-radius: 10px; padding: 9px 13px; color: #f1ece0; font-size: 12px; font-weight: 500; text-decoration: none; }
   .site-rows a.row:hover { border-color: var(--brand); }
   .site-rows a.row span { color: var(--brand); }
@@ -123,7 +126,7 @@
 
   <!-- ── TOP ⅓ — Ethica, live on the Napster Companion API ── -->
   <div class="stage" id="stage">
-    <video class="loop" id="loopVid" src="/design/livebrand/hero-media/ethica.mp4" poster="/design/livebrand/hero-media/ethica.jpg" autoplay muted loop playsinline></video>
+    <img class="loop" id="loopVid" src="/ethica/thrive/ethica-talk-placeholder.jpg" alt="Ethica — tap to start a live conversation">
     <div id="stage-mount"></div>
     <div class="veil"></div>
     <div class="brandchip">
