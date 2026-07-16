@@ -181,9 +181,16 @@ html body { background:var(--bg) !important; }
 .hero img.poster { display:block; width:100%; height:auto; }
 .hero-fade { position:absolute; left:0; right:0; bottom:0; height:9%; background:linear-gradient(to bottom, transparent, rgba(0,0,0,.55)); pointer-events:none; }
 
-/* ── Meet-the-speakers buttons — grid items in .duo-grid, one under each card ──
-   Desktop: row 2 of the 2-col grid. Mobile: reordered so each button follows its card. */
-.duo-grid .meet-btn { justify-self:center; align-self:start; }
+/* ── Meet-the-speakers cells (avatar face + button) — grid items in .duo-grid ──
+   Desktop: row 2 of the 2-col grid. Mobile: reordered so each cell follows its card. */
+.duo-grid .meet-cell { justify-self:center; align-self:start; display:flex; flex-direction:column; align-items:center; gap:11px; }
+.meet-face {
+  width:78px; height:78px; border-radius:50%; overflow:hidden; padding:0;
+  border:2px solid var(--accent, #1AE5A0); background:#000; cursor:pointer;
+  box-shadow:0 0 20px rgba(26,229,160,.25); transition:transform .2s var(--ease), box-shadow .2s;
+}
+.meet-face:hover { transform:scale(1.07); box-shadow:0 0 28px rgba(26,229,160,.45); }
+.meet-face img { width:100%; height:100%; object-fit:cover; object-position:center 16%; display:block; }
 .meet-btn {
   font-family:var(--font-body, 'Outfit', sans-serif); font-size:clamp(11px, 1.3vw, 15px); font-weight:600; letter-spacing:.02em;
   color:#06110c; background:var(--accent, #1AE5A0); border:none; border-radius:999px;
@@ -196,12 +203,13 @@ html body { background:var(--bg) !important; }
 .meet-btn.is-soon { background:rgba(255,255,255,.10); color:rgba(255,255,255,.75); border:1px solid rgba(255,255,255,.25); box-shadow:none; cursor:default; backdrop-filter:blur(6px); }
 .meet-btn.is-soon:hover { transform:none; box-shadow:none; }
 @media (max-width:720px) {
-  /* card, its button, next card, its button */
+  /* card, its cell, next card, its cell */
   .duo-grid > :nth-child(1) { order:1; }
   .duo-grid > :nth-child(3) { order:2; }
   .duo-grid > :nth-child(2) { order:3; margin-top:6px; }
   .duo-grid > :nth-child(4) { order:4; }
-  .duo-grid .meet-btn { justify-self:stretch; justify-content:center; }
+  .duo-grid .meet-cell { justify-self:stretch; }
+  .meet-cell .meet-btn { width:100%; justify-content:center; }
 }
 
 /* ── Twin modal (user-initiated, house pattern) ── */
@@ -454,8 +462,14 @@ html body { background:var(--bg) !important; }
         <div class="duo-person">Stephanie D. Geter, PhD, CPA, MBA, CFE</div>
         <div class="duo-tag">Educator and innovation catalyst turning research into transformation audiences can feel.</div>
       </div>
-      <button class="meet-btn" id="meet-michael" type="button"><span class="dot"></span>Talk to Michael's Avatar</button>
-      <button class="meet-btn" id="meet-stephanie" type="button"><span class="dot"></span>Talk to Stephanie's Avatar</button>
+      <div class="meet-cell">
+        <button class="meet-face" id="face-michael" type="button" aria-label="Talk to Michael's Avatar"><img src="/assets/michael-twin.jpg" alt="Michael Rivera's avatar"></button>
+        <button class="meet-btn" id="meet-michael" type="button"><span class="dot"></span>Talk to Michael's Avatar</button>
+      </div>
+      <div class="meet-cell">
+        <button class="meet-face" id="face-stephanie" type="button" aria-label="Talk to Stephanie's Avatar"><img src="/assets/stephanie-twin.jpg" alt="Stephanie Geter's avatar"></button>
+        <button class="meet-btn" id="meet-stephanie" type="button"><span class="dot"></span>Talk to Stephanie's Avatar</button>
+      </div>
     </div>
   </div>
 </section>
@@ -871,6 +885,8 @@ html body { background:var(--bg) !important; }
 
   document.getElementById('meet-michael').addEventListener('click', function () { open('michael'); });
   document.getElementById('meet-stephanie').addEventListener('click', function () { open('stephanie'); });
+  document.getElementById('face-michael').addEventListener('click', function () { open('michael'); });
+  document.getElementById('face-stephanie').addEventListener('click', function () { open('stephanie'); });
   document.getElementById('tm-close').addEventListener('click', close);
   overlay.addEventListener('click', function (e) { if (e.target === overlay) close(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlay.classList.contains('open')) close(); });
