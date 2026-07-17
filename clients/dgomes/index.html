@@ -209,7 +209,7 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Creative Delivered</h2>
-      <div class="note">First cut ready for your review</div>
+      <div class="note">Rev. 2 ready for your review</div>
     </div>
 
     <div class="table">
@@ -222,15 +222,23 @@
       </div>
 
       <div class="trow">
-        <div class="name">Dave Ramsey Video<small>First cut — ready for your review</small></div>
+        <div class="name">Dave Ramsey Video Rev. 2<small>Current cut — revision round 1 of 2, no additional charge</small></div>
         <div class="col-format"><span class="badge h">Long Form 16:9</span></div>
         <div class="col-min">1920×1080</div>
+        <div>1:10</div>
+        <a class="watch" href="/clients/dgomes/brand-video-02.mp4" download="Danny_Gomes_Dave_Ramsey_Video_Rev2.mp4">↓ Download</a>
+      </div>
+
+      <div class="trow">
+        <div class="name">Dave Ramsey Video Rev. 1<small>Original cut — superseded by Rev. 2</small></div>
+        <div class="col-format"><span class="badge">Long Form 16:9</span></div>
+        <div class="col-min">1920×1080</div>
         <div>1:09</div>
-        <a class="watch" href="/clients/dgomes/brand-video-01.mp4" download="Danny_Gomes_Dave_Ramsey_Video.mp4">↓ Download</a>
+        <a class="watch" href="/clients/dgomes/brand-video-01.mp4" download="Danny_Gomes_Dave_Ramsey_Video_Rev1.mp4">↓ Download</a>
       </div>
 
       <div class="tfoot">
-        <div>Total Delivered</div>
+        <div>Total Billed</div>
         <div class="col-format">1 creative</div>
         <div class="col-min"></div>
         <div class="tot">1:09</div>
@@ -249,15 +257,15 @@
     </div>
 
     <div class="video-block">
-      <h3>Dave Ramsey Video</h3>
-      <div class="vmeta">Long Form · 16:9 · 1920×1080 · 1:09</div>
+      <h3>Dave Ramsey Video Rev. 2</h3>
+      <div class="vmeta">Current cut · incorporates your round-1 notes · 16:9 · 1920×1080 · 1:10</div>
       <div class="frame wide">
-        <video id="review-video" controls preload="metadata" playsinline
-               src="/clients/dgomes/brand-video-01.mp4"></video>
-        <script>document.getElementById('review-video').volume = 0.5;</script>
+        <video id="review-video-2" controls preload="metadata" playsinline
+               src="/clients/dgomes/brand-video-02.mp4"></video>
+        <script>document.getElementById('review-video-2').volume = 0.5;</script>
         <script>
         (function () {
-          var KEY = 'dgomes_dr_video_review';
+          var KEY = 'dgomes_dr_video_rev2_review';
           var ta = null, savedEl = null, savedTimer = null;
 
           function showSaved() {
@@ -267,7 +275,7 @@
           }
           function mailBody(status) {
             var notes = (ta.value || '').trim() || '(no written notes)';
-            return 'Video: Dave Ramsey Video (1:09)%0D%0AStatus: ' + status +
+            return 'Video: Dave Ramsey Video Rev. 2 (1:10)%0D%0AStatus: ' + status +
                    '%0D%0A%0D%0ANotes:%0D%0A' + encodeURIComponent(notes) +
                    '%0D%0A%0D%0A— Sent from the Danny Gomes client portal';
           }
@@ -287,18 +295,19 @@
               showSaved();
             });
             document.getElementById('rb-approve').addEventListener('click', function () {
-              openMail('Danny Gomes — Dave Ramsey Video APPROVED', 'APPROVED ✔');
+              openMail('Danny Gomes — Dave Ramsey Video Rev. 2 APPROVED', 'APPROVED ✔');
             });
             document.getElementById('rb-send').addEventListener('click', function () {
-              openMail('Danny Gomes — Dave Ramsey Video revision notes', 'Revision notes');
+              openMail('Danny Gomes — Dave Ramsey Video Rev. 2 revision notes', 'Revision notes');
             });
           });
         })();
         </script>
       </div>
       <div class="review-note">
-        <b>Your review:</b> this deliverable includes up to <b>2 rounds of revisions</b> at no charge.
-        Please send your notes within <b>5 business days</b> — or approve it as-is and it's yours to publish.
+        <b>Your review:</b> Rev. 2 incorporates your first round of notes — <b>1 of your 2 included
+        revision rounds</b> has been used, so one more is available at no charge. Please send any
+        further notes within <b>5 business days</b> — or approve and it's yours to publish.
       </div>
 
       <!-- ---- Review comments + approval ---- -->
@@ -313,6 +322,16 @@
           <button class="btn primary" id="rb-send">Send Notes to Michael</button>
         </div>
         <div class="rb-hint">Both buttons open an email to Michael with your notes attached — just press send.</div>
+      </div>
+    </div>
+
+    <div class="video-block" style="margin-top:34px">
+      <h3 style="color:var(--muted)">Dave Ramsey Video Rev. 1</h3>
+      <div class="vmeta">Original cut · superseded by Rev. 2 · 16:9 · 1920×1080 · 1:09</div>
+      <div class="frame wide">
+        <video id="review-video-1" controls preload="metadata" playsinline
+               src="/clients/dgomes/brand-video-01.mp4"></video>
+        <script>document.getElementById('review-video-1').volume = 0.5;</script>
       </div>
     </div>
   </div>
