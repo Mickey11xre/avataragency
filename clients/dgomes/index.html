@@ -103,6 +103,21 @@
   .review-note{margin-top:14px;font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:var(--bg-2)}
   .review-note b{color:var(--gold-2)}
 
+  /* ---- Review comments + approval ---- */
+  .review-box{margin-top:18px;background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .rb-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+  .rb-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .rb-saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+  .rb-saved.show{opacity:1}
+  #rb-comments{width:100%;min-height:110px;resize:vertical;background:#0c0c10;border:1px solid var(--line);border-radius:12px;color:var(--txt);font-family:inherit;font-size:14px;line-height:1.6;padding:14px 16px}
+  #rb-comments:focus{outline:none;border-color:rgba(201,162,75,.55);box-shadow:0 0 0 3px rgba(201,162,75,.12)}
+  #rb-comments::placeholder{color:var(--muted-2)}
+  .rb-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+  .rb-actions .btn{cursor:pointer;border:none;font-family:inherit}
+  .btn.approve{background:linear-gradient(90deg,#3da874,var(--green));color:#07130c;padding:13px 24px;border-radius:999px;font-weight:700;font-size:15px}
+  .btn.approve:hover{filter:brightness(1.08)}
+  .rb-hint{margin-top:12px;font-size:12px;color:var(--muted-2)}
+
   /* ---- CTA / footer ---- */
   .cta{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:34px;text-align:center}
   .cta h2{font-size:24px;font-weight:800;letter-spacing:-.3px;text-transform:none;color:var(--txt)}
@@ -240,11 +255,64 @@
         <video id="review-video" controls preload="metadata" playsinline
                src="/clients/dgomes/brand-video-01.mp4"></video>
         <script>document.getElementById('review-video').volume = 0.5;</script>
+        <script>
+        (function () {
+          var KEY = 'dgomes_dr_video_review';
+          var ta = null, savedEl = null, savedTimer = null;
+
+          function showSaved() {
+            savedEl.classList.add('show');
+            clearTimeout(savedTimer);
+            savedTimer = setTimeout(function () { savedEl.classList.remove('show'); }, 1600);
+          }
+          function mailBody(status) {
+            var notes = (ta.value || '').trim() || '(no written notes)';
+            return 'Video: Dave Ramsey Video (1:09)%0D%0AStatus: ' + status +
+                   '%0D%0A%0D%0ANotes:%0D%0A' + encodeURIComponent(notes) +
+                   '%0D%0A%0D%0A— Sent from the Danny Gomes client portal';
+          }
+          function openMail(subject, status) {
+            window.location.href = 'mailto:michael@avataragency.ai?subject=' +
+              encodeURIComponent(subject) + '&body=' + mailBody(status);
+          }
+
+          document.addEventListener('DOMContentLoaded', function () {
+            ta = document.getElementById('rb-comments');
+            savedEl = document.getElementById('rb-saved');
+            // restore
+            try { ta.value = localStorage.getItem(KEY) || ''; } catch (e) {}
+            // auto-save as he types
+            ta.addEventListener('input', function () {
+              try { localStorage.setItem(KEY, ta.value); } catch (e) {}
+              showSaved();
+            });
+            document.getElementById('rb-approve').addEventListener('click', function () {
+              openMail('Danny Gomes — Dave Ramsey Video APPROVED', 'APPROVED ✔');
+            });
+            document.getElementById('rb-send').addEventListener('click', function () {
+              openMail('Danny Gomes — Dave Ramsey Video revision notes', 'Revision notes');
+            });
+          });
+        })();
+        </script>
       </div>
       <div class="review-note">
         <b>Your review:</b> this deliverable includes up to <b>2 rounds of revisions</b> at no charge.
-        Please send your notes within <b>5 business days</b> — email or text Michael directly with any changes,
-        or approve it as-is and it's yours to publish.
+        Please send your notes within <b>5 business days</b> — or approve it as-is and it's yours to publish.
+      </div>
+
+      <!-- ---- Review comments + approval ---- -->
+      <div class="review-box">
+        <div class="rb-head">
+          <span class="rb-title">Your Notes &amp; Approval</span>
+          <span class="rb-saved" id="rb-saved">Saved ✓</span>
+        </div>
+        <textarea id="rb-comments" placeholder="Type any revision notes here — timing, music, wording, anything. Your notes save automatically in this browser as you type."></textarea>
+        <div class="rb-actions">
+          <button class="btn approve" id="rb-approve">✓ Approve Video</button>
+          <button class="btn primary" id="rb-send">Send Notes to Michael</button>
+        </div>
+        <div class="rb-hint">Both buttons open an email to Michael with your notes attached — just press send.</div>
       </div>
     </div>
   </div>
