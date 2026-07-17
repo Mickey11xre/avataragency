@@ -186,48 +186,124 @@
       <h2 class="display-2">Chat with Lady Belle<br><span class="mute">in her own voice.</span></h2>
     </div>
     <style>
-      #ladybelle-avatar {
+      /* Contained frame, house pattern (matches Ethica / Paul Small) */
+      #lb-wrap {
         position: relative;
         width: 100%;
         aspect-ratio: 16 / 10;
         border-radius: 18px;
         overflow: hidden;
+        border: 2px solid var(--gold, #C9A84C);
         background: var(--ink);
         box-shadow: 0 30px 70px -34px rgba(0,0,0,0.42);
+        transform: translateZ(0); /* containing block for the SDK's fixed wrapper */
       }
-      #ladybelle-avatar > *,
-      #ladybelle-avatar video,
-      #ladybelle-avatar canvas {
-        width: 100% !important;
-        height: 100% !important;
-        object-fit: cover;
-        object-position: center top;
+      #lb-placeholder { position: absolute; inset: 0; cursor: pointer; z-index: 2; }
+      #lb-placeholder img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+      #lb-placeholder .ovl {
+        position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: center;
+        padding-bottom: 28px; background: linear-gradient(to top, rgba(0,0,0,0.42) 0%, transparent 52%);
+      }
+      #lb-placeholder .pill {
+        display: inline-flex; align-items: center; gap: 7px;
+        background: var(--gold, #C9A84C); color: #0a0a0a;
+        font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em;
+        padding: 9px 18px; border-radius: 99px;
+      }
+      #ladybelle-avatar { position: absolute; inset: 0; display: none; overflow: hidden; }
+      #ladybelle-avatar > *, #ladybelle-avatar video, #ladybelle-avatar canvas {
+        width: 100% !important; height: 100% !important;
+        object-fit: cover !important; object-position: center top !important;
+      }
+      #ladybelle-avatar > * { position: absolute !important; inset: 0 !important; max-width: none !important; max-height: none !important; margin: 0 !important; border-radius: 0 !important; }
+      #ladybelle-avatar [class*="-fixed"] { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; }
+      #ladybelle-avatar, #ladybelle-avatar * { overflow: hidden !important; scrollbar-width: none !important; }
+      #ladybelle-avatar ::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+      #lb-end {
+        display: none; margin: 12px auto 0; font-size: 12px; color: var(--text-mid, #8a8477);
+        background: none; cursor: pointer; border: 1px solid rgba(0,0,0,0.18);
+        padding: 5px 14px; border-radius: 99px;
       }
     </style>
     <div class="reveal" data-delay="80">
-      <div id="ladybelle-avatar"></div>
+      <div id="lb-wrap">
+        <div id="lb-placeholder">
+          <img src="lady-belle-still.jpg" alt="Lady Belle — tap to start a live conversation">
+          <div class="ovl"><span class="pill">🎙&nbsp; Talk to Lady Belle</span></div>
+        </div>
+        <div id="ladybelle-avatar"></div>
+      </div>
+      <button id="lb-end" type="button">End chat</button>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js"></script>
     <script>
-      (async function startLadyBelleAvatar() {
-        const TOKEN_ENDPOINT = "/api/ladybelle-token";
-        try {
-          const res = await fetch(TOKEN_ENDPOINT);
-          if (!res.ok) throw new Error("Token request failed: " + res.status);
-          const data = await res.json();
-          const sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
-          if (!sdk) { console.error("Napster SDK global not found"); return; }
-          const instance = await sdk.init(data.token, {
-            mountContainer: "#ladybelle-avatar",
-            avatarStyle: { view: "rectangle" }
-          });
-          instance.showAvatar();
-        } catch (err) {
-          console.error("Lady Belle avatar failed to start:", err);
+      (function () {
+        var TOKEN_ENDPOINT = "/api/ladybelle-token";
+        var CAP_S = 300; // 5-minute session cap
+        var placeholder = document.getElementById("lb-placeholder");
+        var mount = document.getElementById("ladybelle-avatar");
+        var endBtn = document.getElementById("lb-end");
+        var hint = document.getElementById("lb-hint");
+        var instance = null, interval = null, starting = false;
+
+        function resetUI() {
+          if (interval) { clearInterval(interval); interval = null; }
+          instance = null; starting = false;
+          mount.style.display = "none";
+          mount.innerHTML = "";
+          placeholder.style.display = "block";
+          endBtn.style.display = "none";
+          if (hint) hint.textContent = "Tap Lady Belle to start again — 5 minutes free.";
         }
+
+        function endSession() {
+          try {
+            if (instance) {
+              if (typeof instance.destroy === "function") instance.destroy();
+              else if (typeof instance.disconnect === "function") instance.disconnect();
+            }
+          } catch (e) {}
+          resetUI();
+        }
+
+        async function startLadyBelle() {
+          if (instance || starting) return;
+          starting = true;
+          if (hint) hint.textContent = "Connecting to Lady Belle…";
+          try {
+            var res = await fetch(TOKEN_ENDPOINT);
+            if (!res.ok) throw new Error("Token request failed: " + res.status);
+            var data = await res.json();
+            var sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
+            if (!sdk) throw new Error("Napster SDK global not found");
+            mount.style.display = "block";
+            instance = await sdk.init(data.token, {
+              mountContainer: "#ladybelle-avatar",
+              avatarStyle: { view: "rectangle" },
+              onDestroy: resetUI
+            });
+            instance.showAvatar();
+            placeholder.style.display = "none";
+            endBtn.style.display = "block";
+            if (hint) hint.textContent = "Allow your microphone to talk with Lady Belle.";
+            var remaining = CAP_S;
+            interval = setInterval(function () {
+              remaining--;
+              if (remaining <= 0) endSession();
+            }, 1000);
+          } catch (err) {
+            console.error("Lady Belle avatar failed to start:", err);
+            resetUI();
+            if (hint) hint.textContent = "Couldn't connect — tap to try again.";
+          }
+          starting = false;
+        }
+
+        placeholder.addEventListener("click", startLadyBelle);
+        endBtn.addEventListener("click", endSession);
       })();
     </script>
-    <p class="avatar-hint reveal" data-delay="120">Click the avatar and allow your microphone to start a live conversation with Lady Belle.</p>
+    <p class="avatar-hint reveal" data-delay="120" id="lb-hint">Tap Lady Belle and allow your microphone to start a live conversation — 5 minutes free.</p>
   </div>
 </section>
 
