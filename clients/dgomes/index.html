@@ -333,6 +333,57 @@
                src="/clients/dgomes/brand-video-01.mp4"></video>
         <script>document.getElementById('review-video-1').volume = 0.5;</script>
       </div>
+
+      <div class="review-box">
+        <div class="rb-head">
+          <span class="rb-title">Round 1 — Your Requested Revisions</span>
+          <span class="rb-saved" id="rb1-saved">Saved ✓</span>
+        </div>
+        <textarea id="rb1-comments"></textarea>
+        <div class="rb-actions">
+          <button class="btn approve" id="rb1-approve">✓ Approve Video</button>
+          <button class="btn primary" id="rb1-send">Send Notes to Michael</button>
+        </div>
+        <div class="rb-hint">These are the round-1 notes addressed in Rev. 2 above. You can still edit them or use the buttons — both open an email to Michael.</div>
+      </div>
+      <script>
+      (function () {
+        var KEY = 'dgomes_dr_video_review';
+        var SEED = '1. Your voice overall on the video sounds off.\n' +
+                   '2. Remove the facial hair from the army video clip.\n' +
+                   '3. Gomes with an S — pronounced like "Homes," not "Gomez."';
+        var ta, savedEl, savedTimer;
+        function showSaved() {
+          savedEl.classList.add('show');
+          clearTimeout(savedTimer);
+          savedTimer = setTimeout(function () { savedEl.classList.remove('show'); }, 1600);
+        }
+        function openMail(subject, status) {
+          var notes = (ta.value || '').trim() || '(no written notes)';
+          window.location.href = 'mailto:michael@avataragency.ai?subject=' + encodeURIComponent(subject) +
+            '&body=' + 'Video: Dave Ramsey Video Rev. 1 (1:09)%0D%0AStatus: ' + status +
+            '%0D%0A%0D%0ANotes:%0D%0A' + encodeURIComponent(notes) +
+            '%0D%0A%0D%0A— Sent from the Danny Gomes client portal';
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          ta = document.getElementById('rb1-comments');
+          savedEl = document.getElementById('rb1-saved');
+          var stored = null;
+          try { stored = localStorage.getItem(KEY); } catch (e) {}
+          ta.value = (stored && stored.trim()) ? stored : SEED;
+          ta.addEventListener('input', function () {
+            try { localStorage.setItem(KEY, ta.value); } catch (e) {}
+            showSaved();
+          });
+          document.getElementById('rb1-approve').addEventListener('click', function () {
+            openMail('Danny Gomes — Dave Ramsey Video Rev. 1 APPROVED', 'APPROVED ✔');
+          });
+          document.getElementById('rb1-send').addEventListener('click', function () {
+            openMail('Danny Gomes — Dave Ramsey Video Rev. 1 notes', 'Revision notes');
+          });
+        });
+      })();
+      </script>
     </div>
   </div>
 </section>
