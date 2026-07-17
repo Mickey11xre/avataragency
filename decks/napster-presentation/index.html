@@ -1166,7 +1166,7 @@ strong, .accent { color: var(--accent); font-weight: inherit; }
 .ask-col h4::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
 .ask-col.b h4 { color: var(--teal); }
 .ask-col.b h4::before { background: var(--teal); }
-.ask-item { display: flex; gap: 11px; align-items: flex-start; font-family: var(--font-body); font-weight: 300; font-size: clamp(0.85rem,1.05vw,1rem); line-height: 1.5; color: var(--text-dim); margin-bottom: clamp(9px,1.2vw,13px); }
+.ask-item { display: flex; gap: 12px; align-items: flex-start; font-family: var(--font-body); font-weight: 300; font-size: clamp(1.02rem,1.35vw,1.25rem); line-height: 1.55; color: var(--text-dim); margin-bottom: clamp(12px,1.6vw,17px); }
 .ask-item .ar { flex: 0 0 auto; color: var(--accent); font-weight: 600; }
 .ask-col.b .ask-item .ar { color: var(--teal); }
 .ask-item b { color: var(--text-paper); font-weight: 500; }
@@ -1406,13 +1406,12 @@ html, body { background: var(--bg) !important; }
   <div class="slide-content" style="justify-content: center; align-items: center; text-align: center;">
     <h3 class="kicker reveal">Production, not demos</h3>
     <h1 class="display reveal" style="font-size: clamp(1.6rem,3.4vw,3rem); max-width: 26ch; margin: 0 auto;">Some of our <em>Napster API</em> deployments.</h1>
-    <div class="val-grid six reveal">
+    <div class="val-grid six reveal" style="grid-template-columns: repeat(5, 1fr); max-width: 1220px;">
       <a class="val" style="--c: var(--accent)" href="https://avataragency.ai/" target="_blank" rel="noopener"><div class="vn">01</div><div class="vlogo"><img src="avataragency_logo_black_bg.jpg" alt="AvatarAgency"></div><p>The founder's twin greets every visitor by voice and captures leads mid-conversation.</p><span class="go">avataragency.ai →</span></a>
-      <a class="val" style="--c: var(--teal)" href="https://avataragency.ai/thrive/" target="_blank" rel="noopener"><div class="vn">02</div><div class="vlogo"><img src="thrive_logo.jpg" alt="THRIVE"></div><p>Both keynote speakers, cloned and live on their speaking page.</p><span class="go">/thrive →</span></a>
-      <a class="val" style="--c: var(--amber)" href="https://avataragency.ai/ethica/thrive/" target="_blank" rel="noopener"><div class="vn">03</div><div class="vlogo" style="height: clamp(44px,4.6vw,60px);"><img src="https://avataragency.ai/ethica/thrive/ETHICA_LOGO.jpg" alt="ETHICA"></div><p>The Financial Fraud Fighter — avatar, memberships, and merch on one page.</p><span class="go">/ethica →</span></a>
-      <a class="val" style="--c: var(--gold-light)" href="https://livebrand.ai" target="_blank" rel="noopener"><div class="vn">04</div><div class="vlogo" style="height: clamp(44px,4.6vw,60px);"><span class="lblogo" style="--s: clamp(30px,3.2vw,40px);"><span class="mk"><span class="rings"><span class="ring o"></span><span class="ring i"></span></span><span class="disc"><span class="lv">Live</span></span></span><span class="wd"><span class="br">Brand</span><span class="ai">.ai</span></span></span></div><p>Our avatar concierge walks every customer through sign-up — a companion selling companions.</p><span class="go">livebrand.ai →</span></a>
-      <a class="val" style="--c: var(--cyan)" href="https://avataragency.ai/casestudy" target="_blank" rel="noopener"><div class="vn">05</div><div class="vphoto"><img src="paul-small.jpg" alt="Paul Small — digital twin"></div><h3>Real Estate Agent Case Study</h3><p>Paul Small — a working agent's digital twin talking to his clients.</p><span class="go">/casestudy →</span></a>
-      <a class="val" style="--c: var(--violet)" href="https://avataragency.ai/ladybelle/" target="_blank" rel="noopener"><div class="vn">06</div><div class="vphoto"><img src="lady-belle.jpg" alt="Lady Belle — illustrated avatar"></div><h3>Avatar Character Case Study</h3><p>Lady Belle — an illustrated character brought to life with a cloned voice.</p><span class="go">/ladybelle →</span></a>
+      <a class="val" style="--c: var(--amber)" href="https://avataragency.ai/ethica/thrive/" target="_blank" rel="noopener"><div class="vn">02</div><div class="vlogo" style="height: clamp(44px,4.6vw,60px);"><img src="https://avataragency.ai/ethica/thrive/ETHICA_LOGO.jpg" alt="ETHICA"></div><p>The Financial Fraud Fighter — avatar, memberships, and merch on one page.</p><span class="go">/ethica →</span></a>
+      <a class="val" style="--c: var(--gold-light)" href="https://livebrand.ai" target="_blank" rel="noopener"><div class="vn">03</div><div class="vlogo" style="height: clamp(44px,4.6vw,60px);"><span class="lblogo" style="--s: clamp(30px,3.2vw,40px);"><span class="mk"><span class="rings"><span class="ring o"></span><span class="ring i"></span></span><span class="disc"><span class="lv">Live</span></span></span><span class="wd"><span class="br">Brand</span><span class="ai">.ai</span></span></span></div><p>Our avatar concierge walks every customer through sign-up — a companion selling companions.</p><span class="go">livebrand.ai →</span></a>
+      <a class="val" style="--c: var(--cyan)" href="https://avataragency.ai/casestudy" target="_blank" rel="noopener"><div class="vn">04</div><div class="vphoto"><img src="paul-small.jpg" alt="Paul Small — digital twin"></div><h3>Real Estate Agent Case Study</h3><p>Paul Small — a working agent's digital twin talking to his clients.</p><span class="go">/casestudy →</span></a>
+      <a class="val" style="--c: var(--violet)" href="https://avataragency.ai/ladybelle/" target="_blank" rel="noopener"><div class="vn">05</div><div class="vphoto"><img src="lady-belle.jpg" alt="Lady Belle — illustrated avatar"></div><h3>Avatar Character Case Study</h3><p>Lady Belle — an illustrated character brought to life with a cloned voice.</p><span class="go">/ladybelle →</span></a>
     </div>
     <p class="fine reveal">Tap any card — every one of these is live right now, metering through the Companion API on Azure</p>
   </div>
@@ -1463,9 +1462,9 @@ html, body { background: var(--bg) !important; }
 <section class="slide iso-slide" data-title="LiveBrand">
   <div class="slide-content">
     <div class="iso-text">
-      <h3 class="kicker reveal">The engine behind the funnel</h3>
+      <h3 class="kicker reveal">Subscription based revenue model</h3>
       <div class="reveal" style="text-align:center; margin: 0 0 clamp(0.9rem,1.6vw,1.3rem);"><span class="lblogo" style="--s: clamp(44px,5vw,62px);"><span class="mk"><span class="rings"><span class="ring o"></span><span class="ring i"></span></span><span class="disc"><span class="lv">Live</span></span></span><span class="wd"><span class="br">Brand</span><span class="ai">.ai</span></span></span></div>
-      <h2 class="scene-title reveal"><em>your image, your voice, your brand.</em></h2>
+      <h2 class="scene-title reveal"><em>your image, your voice, your brand, your revenue!</em></h2>
       <p class="body-text reveal">A self-serve platform that turns any professional into an avatar owner: pick a lane, order in minutes, and a managed 12-stage pipeline delivers the live page.</p>
       <ul class="fine-list reveal">
         <li><span class="k">01 · Wizard</span><span class="v">Order in minutes</span></li>
@@ -1478,29 +1477,6 @@ html, body { background: var(--bg) !important; }
       <a class="browser-frame" href="https://livebrand.ai" target="_blank" rel="noopener">
         <span class="bar"><i></i><i></i><i></i><span class="url">livebrand.ai</span></span>
         <img src="livebrand-home.jpg" alt="LiveBrand.ai — your image, your voice, your brand">
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- 06 · THE STAGE — every LiveBrand client's landing page (live Ethica instance) -->
-<section class="slide iso-slide" data-title="The Stage">
-  <div class="slide-content">
-    <div class="iso-text">
-      <h3 class="kicker reveal">What every client gets</h3>
-      <h2 class="scene-title reveal">Every client gets a <em>Stage.</em></h2>
-      <p class="body-text reveal">The client's avatar owns the top third — live, user-initiated. Everything they already have — their story, their video, their store — swipes beneath it. This is Ethica's, live right now.</p>
-      <ul class="fine-list reveal">
-        <li><span class="k">01 · Avatar</span><span class="v">Live on the Companion API</span></li>
-        <li><span class="k">02 · Modules</span><span class="v">Story · trailer · merch</span></li>
-        <li><span class="k">03 · All real</span><span class="v">Live checkout, real links</span></li>
-        <li class="teal"><span class="k">04 · Live at</span><span class="v">avataragency.ai/ethica/stage</span></li>
-      </ul>
-    </div>
-    <div class="iso-stage reveal" style="aspect-ratio:auto;">
-      <a class="phone-frame" href="https://avataragency.ai/ethica/stage/" target="_blank" rel="noopener">
-        <img src="ethica-stage-phone.jpg" alt="The Ethica Stage — live avatar over a swipeable module deck">
-        <span class="cap">TAP TO OPEN THE LIVE PAGE</span>
       </a>
     </div>
   </div>
@@ -1529,6 +1505,31 @@ html, body { background: var(--bg) !important; }
   </div>
 </section>
 
+<!-- 06 · THE STAGE — every LiveBrand client's landing page (live Ethica instance) -->
+<section class="slide iso-slide" data-title="The Stage">
+  <div class="slide-content">
+    <div class="iso-text">
+      <h3 class="kicker reveal">What every client gets</h3>
+      <h2 class="scene-title reveal">Every client gets a <em>Stage.</em></h2>
+      <p class="body-text reveal">The client's avatar owns the top third — live, user-initiated. Everything they already have — their story, their video, their store — swipes beneath it. This is Ethica's, live right now.</p>
+      <ul class="fine-list reveal">
+        <li><span class="k">01 · Avatar</span><span class="v">Live on the Companion API</span></li>
+        <li><span class="k">02 · Modules</span><span class="v">Story · trailer · merch</span></li>
+        <li><span class="k">03 · All real</span><span class="v">Live checkout, real links</span></li>
+        <li class="teal"><span class="k">04 · Live at</span><span class="v">avataragency.ai/ethica/stage</span></li>
+      </ul>
+    </div>
+    <div class="iso-stage reveal" style="aspect-ratio:auto;">
+      <a class="phone-frame" href="https://avataragency.ai/ethica/stage/" target="_blank" rel="noopener">
+        <img src="ethica-stage-phone.jpg" alt="The Ethica Stage — live avatar over a swipeable module deck">
+        <span class="cap">TAP TO OPEN THE LIVE PAGE</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+
 <!-- 09 · THE FLYWHEEL -->
 <section class="slide" data-title="The flywheel">
   <div class="slide-content" style="justify-content: center; align-items: center; text-align: center;">
@@ -1542,7 +1543,7 @@ html, body { background: var(--bg) !important; }
         <polygon points="100,-4 92,10 108,10" transform="rotate(254 100 100)"></polygon>
       </svg>
       <div class="fw-core"><span class="a">NAPSTER</span><span class="b">ON AZURE</span></div>
-      <div class="fw-node n1"><div class="t">THRIVE</div><div class="s">educates the market</div></div>
+      <a class="fw-node n1" href="https://avataragency.ai/thrive/" target="_blank" rel="noopener" style="text-decoration:none;"><div class="t"><img src="thrive_logo.jpg" alt="THRIVE" style="height:15px;width:auto;display:inline-block;vertical-align:middle;"></div><div class="s">educates the market</div></a>
       <div class="fw-node n2"><div class="t">LiveBrand</div><div class="s">converts the room</div></div>
       <div class="fw-node n3"><div class="t">AvatarAgency</div><div class="s">delivers the builds</div></div>
     </div>
@@ -1560,8 +1561,7 @@ html, body { background: var(--bg) !important; }
         <h4>What we're asking</h4>
         <div class="ask-item"><span class="ar">&rarr;</span><span><b>A partner structure</b> — reseller terms for Napster API, Station, and Mini Station.</span></div>
         <div class="ask-item"><span class="ar">&rarr;</span><span><b>NV2 early access</b> — we'll be the public design partner and put video twins on stage.</span></div>
-        <div class="ask-item"><span class="ar">&rarr;</span><span><b>Commercial-use confirmation</b> — the stock-companion clearance, in writing.</span></div>
-        <div class="ask-item"><span class="ar">&rarr;</span><span><b>Roadmap visibility</b> — and a named partnerships contact.</span></div>
+        <div class="ask-item"><span class="ar">&rarr;</span><span><b>Partnership visibility</b> — make us a named contact.</span></div>
         <div class="ask-item"><span class="ar">&rarr;</span><span><b>Access to Thunder Studios</b> — for live training and presentations.</span></div>
       </div>
       <div class="ask-col b">
