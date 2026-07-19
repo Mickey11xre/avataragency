@@ -1444,6 +1444,11 @@ html, body { background: var(--bg) !important; }
 .feat-stack .fs-row .k { color:var(--text-paper); font-weight:600; min-width:128px; flex-shrink:0; }
 .feat-stack .fs-row .v { color:var(--text-dim); }
 .feat-stack .fs-foot { margin-top:12px; font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); }
+.horizon-bar { grid-column:1 / -1; margin-top:clamp(0.9rem,1.8vw,1.5rem); padding-top:clamp(0.8rem,1.4vw,1.1rem); border-top:1px dashed color-mix(in srgb, var(--cyan) 45%, transparent); display:flex; align-items:baseline; gap:clamp(12px,1.6vw,20px); }
+.horizon-bar .hz-tag { flex:0 0 auto; font-family:var(--font-mono); font-size:10px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--cyan); }
+.horizon-bar p { font-family:var(--font-display); font-style:italic; font-weight:400; font-size:clamp(0.92rem,1.25vw,1.1rem); line-height:1.5; color:var(--text-dim); margin:0; max-width:78ch; }
+.horizon-bar p b { color:var(--text-paper); font-weight:500; font-style:normal; }
+@media (max-width:960px){ .horizon-bar { flex-direction:column; gap:6px; } }
 </style>
 <section class="slide iso-slide" data-title="Revenue features">
   <div class="slide-content">
@@ -1470,6 +1475,10 @@ html, body { background: var(--bg) !important; }
         <div class="fs-row"><span class="k">Live inventory</span><span class="v">Shopify · Square stock answers</span></div>
         <div class="fs-foot">Every feature = a Functions API call · metered on Azure</div>
       </div>
+    </div>
+    <div class="horizon-bar reveal">
+      <span class="hz-tag">On the horizon</span>
+      <p>Personal AI assistants are beginning to book and buy on their owners' behalf — the <b>Agent-to-Agent web</b> (the industry calls it "A2A"), already running on Azure. Every avatar we deploy is that business's agent, standing ready to answer when they call.</p>
     </div>
   </div>
 </section>
