@@ -1461,8 +1461,8 @@ html, body { background: var(--bg) !important; }
 <style>
 .ind-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:clamp(10px,1.4vw,16px); width:100%; max-width:1000px; margin:clamp(1.3rem,2.4vw,1.9rem) auto 0; }
 @media (max-width:820px){ .ind-grid { grid-template-columns:repeat(2,1fr); } }
-.ind-card { border:1px solid var(--border); border-radius:12px; padding:clamp(14px,1.6vw,20px) clamp(14px,1.5vw,18px); text-align:left; background:rgba(255,255,255,0.02); }
-.ind-card .num { font-family:var(--font-body); font-size:0.72rem; letter-spacing:0.14em; color:var(--muted); }
+.ind-card { border:1px solid color-mix(in srgb, var(--c) 38%, transparent); border-radius:12px; padding:clamp(14px,1.6vw,20px) clamp(14px,1.5vw,18px); text-align:left; background:linear-gradient(160deg, color-mix(in srgb, var(--c) 14%, transparent), color-mix(in srgb, var(--c) 5%, transparent)); }
+.ind-card .num { font-family:var(--font-body); font-size:0.72rem; letter-spacing:0.14em; color:var(--c); font-weight:600; }
 .ind-card h4 { font-family:var(--font-body); font-weight:500; font-size:clamp(0.98rem,1.25vw,1.15rem); color:var(--text-paper); margin:6px 0 5px; line-height:1.25; }
 .ind-card p { font-family:var(--font-body); font-weight:300; font-size:clamp(0.8rem,0.95vw,0.9rem); line-height:1.45; color:var(--text-dim); margin:0; }
 .ind-channels { font-family:var(--font-body); font-weight:300; font-size:clamp(0.88rem,1.05vw,1rem); color:var(--text-dim); margin:clamp(1.1rem,2vw,1.5rem) auto clamp(2.6rem,7vh,4rem); max-width:70ch; }
@@ -1473,15 +1473,15 @@ html, body { background: var(--bg) !important; }
     <h3 class="kicker reveal">Distribution pipelines, by industry</h3>
     <h1 class="display reveal" style="font-size: clamp(1.7rem,3.6vw,3.2rem); max-width: 24ch; margin: 0 auto;">The industries we're <span style="white-space:nowrap;">targeting <span class="hl">first.</span></span></h1>
     <div class="ind-grid reveal">
-      <div class="ind-card"><span class="num">01</span><h4>Real Estate</h4><p>Agent twins + listing spokespersons. Deployed with a Compass advisor and a nationwide senior-services network behind him.</p></div>
-      <div class="ind-card"><span class="num">02</span><h4>Accounting &amp; Finance</h4><p>Fraud-education and advisory personas — deployed today, presented by a PhD/CPA on stage.</p></div>
-      <div class="ind-card"><span class="num">03</span><h4>Speakers, Coaches &amp; Trainers</h4><p>Our own THRIVE duo is the proof: the talk sells the twin, the twin sells the talk.</p></div>
-      <div class="ind-card"><span class="num">04</span><h4>Universities &amp; Education</h4><p>Professor and instructor twins — office hours at any hour, tutoring, and alumni engagement.</p></div>
-      <div class="ind-card"><span class="num">05</span><h4>Authors &amp; Children's Media</h4><p>Storybook characters kids can talk to — a published series is live now, safely guardrailed.</p></div>
-      <div class="ind-card"><span class="num">06</span><h4>Legal Services</h4><p>Intake-concierge avatars for firms — answers, qualifies, and books the consultation.</p></div>
-      <div class="ind-card"><span class="num">07</span><h4>Senior &amp; Transition Services</h4><p>Guides for downsizing, care, and estates — and digital twins that preserve a senior's stories and legacy for their family.</p></div>
-      <div class="ind-card"><span class="num">08</span><h4>Home Services &amp; Contractors</h4><p>The missed call is the lost job — a twin that answers every inquiry and captures the lead.</p></div>
-      <div class="ind-card"><span class="num">09</span><h4>Restaurants &amp; Hospitality</h4><p>Reservations, menus, private events — multilingual, around the clock.</p></div>
+      <div class="ind-card" style="--c:#E9C46A;"><span class="num">01</span><h4>Real Estate</h4><p>Agent twins + listing spokespersons. Deployed with a Compass advisor and a nationwide senior-services network behind him.</p></div>
+      <div class="ind-card" style="--c:#F4A261;"><span class="num">02</span><h4>Accounting &amp; Finance</h4><p>Fraud-education and advisory personas — deployed today, presented by a PhD/CPA on stage.</p></div>
+      <div class="ind-card" style="--c:#E76F51;"><span class="num">03</span><h4>Speakers, Coaches &amp; Trainers</h4><p>Our own THRIVE duo is the proof: the talk sells the twin, the twin sells the talk.</p></div>
+      <div class="ind-card" style="--c:#D96A9E;"><span class="num">04</span><h4>Universities &amp; Education</h4><p>Professor and instructor twins — office hours at any hour, tutoring, and alumni engagement.</p></div>
+      <div class="ind-card" style="--c:#A06CD5;"><span class="num">05</span><h4>Authors &amp; Children's Media</h4><p>Storybook characters kids can talk to — a published series is live now, safely guardrailed.</p></div>
+      <div class="ind-card" style="--c:#6C7BD9;"><span class="num">06</span><h4>Legal Services</h4><p>Intake-concierge avatars for firms — answers, qualifies, and books the consultation.</p></div>
+      <div class="ind-card" style="--c:#4A9DE0;"><span class="num">07</span><h4>Senior &amp; Transition Services</h4><p>Guides for downsizing, care, and estates — and digital twins that preserve a senior's stories and legacy for their family.</p></div>
+      <div class="ind-card" style="--c:#3FC1C9;"><span class="num">08</span><h4>Home Services &amp; Contractors</h4><p>The missed call is the lost job — a twin that answers every inquiry and captures the lead.</p></div>
+      <div class="ind-card" style="--c:#57C785;"><span class="num">09</span><h4>Restaurants &amp; Hospitality</h4><p>Reservations, menus, private events — multilingual, around the clock.</p></div>
     </div>
     <p class="ind-channels reveal">Each industry is a pipeline, reached three ways: <b>live event speeches &amp; trainings</b> (with on-site digital-twin cloning) · <b>targeted online marketing</b> · the <b>LiveBrand self-serve platform</b>.</p>
   </div>
