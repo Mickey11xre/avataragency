@@ -1415,7 +1415,35 @@ html, body { background: var(--bg) !important; }
   </div>
 </section>
 
-<!-- 02 · OUR NAPSTER API DEPLOYMENTS (each card links to the live deployment) -->
+<!-- 02 · THUNDER STUDIOS — MICHAEL + STEPHANIE (copy TBD, placeholder in place) -->
+<style>
+.ts-grid { display:grid; grid-template-columns:1fr 0.72fr; gap:clamp(24px,min(4vw,5.6vh),64px); align-items:center; width:100%; max-width:1060px; margin:0 auto; text-align:left; }
+@media (max-width:820px){ .ts-grid { grid-template-columns:1fr; gap:22px; } }
+.ts-copy h1 { margin:clamp(0.5rem,min(1.2vw,1.7vh),0.9rem) 0 clamp(0.6rem,min(1.4vw,2vh),1rem); }
+.ts-copy .ts-body { font-family:var(--font-body); font-weight:300; font-size:clamp(0.9rem,min(1.3vw,1.85vh),1.15rem); line-height:1.6; color:var(--text-dim); max-width:46ch; }
+.ts-copy .ts-body + .ts-body { margin-top:clamp(0.6rem,min(1.2vw,1.7vh),0.95rem); }
+.ts-photo { position:relative; border:1px solid var(--border); border-radius:16px; overflow:hidden; background:#0a0a0a; box-shadow:0 40px 90px -40px rgba(0,0,0,0.75), 0 0 0 1px rgba(201,168,76,0.12); aspect-ratio:1100/1467; height:min(66vh,520px); width:auto; margin-left:auto; }
+.ts-photo img { display:block; width:100%; height:100%; object-fit:cover; }
+.ts-cap { font-family:var(--font-mono); font-size:clamp(0.6rem,min(0.8vw,1.15vh),0.72rem); letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); margin-top:clamp(8px,1.4vh,13px); text-align:right; }
+</style>
+<section class="slide" data-title="Thunder Studios">
+  <div class="slide-content">
+    <div class="ts-grid">
+      <div class="ts-copy">
+        <h3 class="kicker reveal">Thunder Studios · Los Angeles</h3>
+        <h1 class="display reveal" style="font-size: clamp(1.4rem,min(3.3vw,4.7vh),2.8rem); max-width: 18ch;">Headline goes <span class="hl">here.</span></h1>
+        <p class="ts-body reveal">Placeholder copy — replace this paragraph. This block is sized for roughly two short paragraphs, which is what reads comfortably beside a portrait photo at this scale.</p>
+        <p class="ts-body reveal">A second paragraph fits here if you want one. Delete it if a single paragraph is enough.</p>
+      </div>
+      <div class="reveal">
+        <div class="ts-photo"><img src="thunder-studios-mr-sg.jpg" alt="Michael Rivera and Dr. Stephanie Geter at Thunder Studios, Los Angeles"></div>
+        <p class="ts-cap">Michael Rivera &amp; Dr. Stephanie Geter · Thunder Studios</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 03 · OUR NAPSTER API DEPLOYMENTS (each card links to the live deployment) -->
 <section class="slide" data-title="Deployments">
   <div class="slide-content" style="justify-content: center; align-items: center; text-align: center;">
     <h3 class="kicker reveal">Production, not demos</h3>
