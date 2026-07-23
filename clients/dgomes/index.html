@@ -73,7 +73,7 @@
   .meter-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:12px}
   .meter-top b{color:var(--txt)}
   .meter{height:14px;border-radius:999px;background:#0c0c10;border:1px solid var(--line);overflow:hidden}
-  .meter .fill{height:100%;width:14.4%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
+  .meter .fill{height:100%;width:29.6%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
   .meter-legend{display:flex;gap:22px;margin-top:14px;font-size:12px;color:var(--muted)}
   .meter-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:middle}
   .lg-used{background:var(--gold-2)}
@@ -102,6 +102,14 @@
   .frame video{position:absolute;inset:0;width:100%;height:100%;border:0}
   .review-note{margin-top:14px;font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:var(--bg-2)}
   .review-note b{color:var(--gold-2)}
+  .badge.v{border-color:rgba(78,201,138,.35);color:var(--green)}
+  .approved-banner{margin-top:14px;font-size:14px;font-weight:600;color:var(--green);border:1px solid rgba(78,201,138,.35);border-radius:12px;padding:14px 18px;background:rgba(78,201,138,.07)}
+  .reels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:640px}
+  .reel .frame.tall{aspect-ratio:9/16}
+  .reel h4{font-size:15px;font-weight:600;margin-top:12px}
+  .reel .rmeta{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .reel .watch{display:inline-block;margin-top:4px}
+  @media(max-width:600px){.reels{grid-template-columns:1fr}}
 
   /* ---- Review comments + approval ---- */
   .review-box{margin-top:18px;background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:22px}
@@ -183,22 +191,22 @@
       </div>
       <div class="stat">
         <div class="k">Credit Used</div>
-        <div class="v">1:09 <small>min</small></div>
-        <div class="d">$115.00 · 1 creative delivered for review</div>
+        <div class="v">2:22 <small>min</small></div>
+        <div class="d">$236.67 · 3 creatives delivered</div>
       </div>
       <div class="stat remaining">
         <div class="k">Remaining Balance</div>
-        <div class="v">6:51 <small>min</small></div>
-        <div class="d">$685.00 of production credit available</div>
+        <div class="v">5:38 <small>min</small></div>
+        <div class="d">$563.33 of production credit available</div>
       </div>
     </div>
 
     <div class="meter-card">
-      <div class="meter-top"><span>Usage</span><span><b>14.4%</b> of credit used</span></div>
+      <div class="meter-top"><span>Usage</span><span><b>29.6%</b> of credit used</span></div>
       <div class="meter"><div class="fill"></div></div>
       <div class="meter-legend">
-        <span><i class="lg-used"></i>Used — 1:09 ($115)</span>
-        <span><i class="lg-rem"></i>Remaining — 6:51 ($685)</span>
+        <span><i class="lg-used"></i>Used — 2:22 ($236.67)</span>
+        <span><i class="lg-rem"></i>Remaining — 5:38 ($563.33)</span>
       </div>
     </div>
   </div>
@@ -209,7 +217,7 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Creative Delivered</h2>
-      <div class="note">Rev. 2 ready for your review</div>
+      <div class="note">Rev. 2 approved · vertical shorts delivered</div>
     </div>
 
     <div class="table">
@@ -222,11 +230,27 @@
       </div>
 
       <div class="trow">
-        <div class="name">Dave Ramsey Video Rev. 2<small>Current cut — social-optimized 1080p · revision round 1 of 2, no additional charge</small></div>
+        <div class="name">Dave Ramsey Video Rev. 2 <span class="badge v">APPROVED ✓</span><small>Final cut — approved July 22, 2026 · social-optimized 1080p</small></div>
         <div class="col-format"><span class="badge h">Long Form 16:9</span></div>
         <div class="col-min">1920×1080</div>
         <div>1:10</div>
         <a class="watch" href="/clients/dgomes/brand-video-02.mp4" download="Danny_Gomes_Dave_Ramsey_Video_Rev2.mp4">↓ Download</a>
+      </div>
+
+      <div class="trow">
+        <div class="name">Vertical Short No. 1<small>Social reel with captions — IG / TikTok / Shorts</small></div>
+        <div class="col-format"><span class="badge v">Vertical 9:16</span></div>
+        <div class="col-min">1080×1920</div>
+        <div>0:41</div>
+        <a class="watch" href="/clients/dgomes/vertical-01.mp4" download="Danny_Gomes_Dave_Ramsey_Vertical_Short_1.mp4">↓ Download</a>
+      </div>
+
+      <div class="trow">
+        <div class="name">Vertical Short No. 2<small>Social reel with captions — IG / TikTok / Shorts</small></div>
+        <div class="col-format"><span class="badge v">Vertical 9:16</span></div>
+        <div class="col-min">1080×1920</div>
+        <div>0:32</div>
+        <a class="watch" href="/clients/dgomes/vertical-02.mp4" download="Danny_Gomes_Dave_Ramsey_Vertical_Short_2.mp4">↓ Download</a>
       </div>
 
       <div class="trow">
@@ -239,9 +263,9 @@
 
       <div class="tfoot">
         <div>Total Billed</div>
-        <div class="col-format">1 creative</div>
+        <div class="col-format">3 creatives</div>
         <div class="col-min"></div>
-        <div class="tot">1:09</div>
+        <div class="tot">2:22</div>
         <div></div>
       </div>
     </div>
@@ -257,71 +281,44 @@
     </div>
 
     <div class="video-block">
-      <h3>Dave Ramsey Video Rev. 2</h3>
-      <div class="vmeta">Current cut · incorporates your round-1 notes · 16:9 · 1920×1080 · 1:10</div>
+      <h3>Dave Ramsey Video Rev. 2 <span class="badge v">APPROVED ✓</span></h3>
+      <div class="vmeta">Final cut · approved July 22, 2026 · 16:9 · 1920×1080 · 1:10</div>
       <div class="frame wide">
         <video id="review-video-2" controls preload="metadata" playsinline
                src="/clients/dgomes/brand-video-02.mp4"></video>
         <script>document.getElementById('review-video-2').volume = 0.5;</script>
-        <script>
-        (function () {
-          var KEY = 'dgomes_dr_video_rev2_review';
-          var ta = null, savedEl = null, savedTimer = null;
-
-          function showSaved() {
-            savedEl.classList.add('show');
-            clearTimeout(savedTimer);
-            savedTimer = setTimeout(function () { savedEl.classList.remove('show'); }, 1600);
-          }
-          function mailBody(status) {
-            var notes = (ta.value || '').trim() || '(no written notes)';
-            return 'Video: Dave Ramsey Video Rev. 2 (1:10)%0D%0AStatus: ' + status +
-                   '%0D%0A%0D%0ANotes:%0D%0A' + encodeURIComponent(notes) +
-                   '%0D%0A%0D%0A— Sent from the Danny Gomes client portal';
-          }
-          function openMail(subject, status) {
-            window.location.href = 'mailto:michael@avataragency.ai?subject=' +
-              encodeURIComponent(subject) + '&body=' + mailBody(status);
-          }
-
-          document.addEventListener('DOMContentLoaded', function () {
-            ta = document.getElementById('rb-comments');
-            savedEl = document.getElementById('rb-saved');
-            // restore
-            try { ta.value = localStorage.getItem(KEY) || ''; } catch (e) {}
-            // auto-save as he types
-            ta.addEventListener('input', function () {
-              try { localStorage.setItem(KEY, ta.value); } catch (e) {}
-              showSaved();
-            });
-            document.getElementById('rb-approve').addEventListener('click', function () {
-              openMail('Danny Gomes — Dave Ramsey Video Rev. 2 APPROVED', 'APPROVED ✔');
-            });
-            document.getElementById('rb-send').addEventListener('click', function () {
-              openMail('Danny Gomes — Dave Ramsey Video Rev. 2 revision notes', 'Revision notes');
-            });
-          });
-        })();
-        </script>
       </div>
-      <div class="review-note">
-        <b>Your review:</b> Rev. 2 incorporates your first round of notes — <b>1 of your 2 included
-        revision rounds</b> has been used, so one more is available at no charge. Please send any
-        further notes within <b>5 business days</b> — or approve and it's yours to publish.
+      <div class="approved-banner">
+        ✓ Approved — thank you, Danny! This cut is final and yours to publish. Download it above,
+        or grab the vertical versions below for Instagram, TikTok, and YouTube Shorts.
       </div>
+    </div>
 
-      <!-- ---- Review comments + approval ---- -->
-      <div class="review-box">
-        <div class="rb-head">
-          <span class="rb-title">Your Notes &amp; Approval</span>
-          <span class="rb-saved" id="rb-saved">Saved ✓</span>
+    <!-- ---- Vertical shorts ---- -->
+    <div class="video-block" style="margin-top:34px">
+      <h3>Vertical Shorts</h3>
+      <div class="vmeta">Cut from your approved video · captioned · 9:16 · 1080×1920 · ready to post</div>
+      <div class="reels">
+        <div class="reel">
+          <div class="frame tall">
+            <video id="reel-1" controls preload="metadata" playsinline
+                   src="/clients/dgomes/vertical-01.mp4"></video>
+            <script>document.getElementById('reel-1').volume = 0.5;</script>
+          </div>
+          <h4>Vertical Short No. 1</h4>
+          <div class="rmeta">9:16 · 0:41 · captioned</div>
+          <a class="watch" href="/clients/dgomes/vertical-01.mp4" download="Danny_Gomes_Dave_Ramsey_Vertical_Short_1.mp4">↓ Download</a>
         </div>
-        <textarea id="rb-comments" placeholder="Type any revision notes here — timing, music, wording, anything. Your notes save automatically in this browser as you type."></textarea>
-        <div class="rb-actions">
-          <button class="btn approve" id="rb-approve">✓ Approve Video</button>
-          <button class="btn primary" id="rb-send">Send Notes to Michael</button>
+        <div class="reel">
+          <div class="frame tall">
+            <video id="reel-2" controls preload="metadata" playsinline
+                   src="/clients/dgomes/vertical-02.mp4"></video>
+            <script>document.getElementById('reel-2').volume = 0.5;</script>
+          </div>
+          <h4>Vertical Short No. 2</h4>
+          <div class="rmeta">9:16 · 0:32 · captioned</div>
+          <a class="watch" href="/clients/dgomes/vertical-02.mp4" download="Danny_Gomes_Dave_Ramsey_Vertical_Short_2.mp4">↓ Download</a>
         </div>
-        <div class="rb-hint">Both buttons open an email to Michael with your notes attached — just press send.</div>
       </div>
     </div>
 
@@ -409,8 +406,8 @@
 <section style="padding-top:0">
   <div class="wrap">
     <div class="cta">
-      <h2>You have 6:51 of production credit remaining</h2>
-      <p>That's $685 of done-for-you video still on your account — market updates, listing videos, or probate-education shorts. Let's put it to work before November 21.</p>
+      <h2>You have 5:38 of production credit remaining</h2>
+      <p>That's $563 of done-for-you video still on your account — market updates, listing videos, or probate-education shorts. Let's put it to work before November 21.</p>
       <div class="btns">
         <a class="btn primary" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a Production Call</a>
         <a class="btn ghost" href="mailto:michael@avataragency.ai">Email Michael</a>
