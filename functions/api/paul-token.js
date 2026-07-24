@@ -26,7 +26,7 @@ export async function onRequest(context) {
       {
         method: 'POST',
         headers: { 'X-Api-Key': API_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ channelType: 'webrtc' }),
+        body: JSON.stringify({ channelType: 'webrtc', initialSpeech: "Speak first, immediately, before the visitor says anything. Warmly introduce yourself as Paul Small's digital twin — a West-side Los Angeles real-estate advisor with Compass. Unhurried and neighborly, welcome them and invite them to ask about buying, selling, or downsizing on the West side — no rush and no pressure, you're just here to help. Keep it under fifteen seconds." }),
       }
     );
 

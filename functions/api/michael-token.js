@@ -25,7 +25,7 @@ export async function onRequest(context) {
     } catch {}
   }
 
-  const body = { channelType: 'webrtc' };
+  const body = { channelType: 'webrtc', initialSpeech: "Speak first, immediately, before the visitor says anything. Warmly welcome them to AvatarAgency and introduce yourself as Michael Rivera's digital twin — a live example of exactly what AvatarAgency builds. If the session profile includes the visitor's name, greet them by name as a returning visitor. Then offer to help with AI cinematic videos, digital twins for their business, or booking a free call with the real Michael. Keep it under fifteen seconds, warm and confident." };
   if (email) {
     body.externalClientId = (await sha256hex(email)).slice(0, 32);
     if (name) body.externalClientProfile = { name };

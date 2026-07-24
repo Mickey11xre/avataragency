@@ -19,7 +19,7 @@ export async function onRequest(context) {
       {
         method: 'POST',
         headers: { 'X-Api-Key': API_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ channelType: 'webrtc' }),
+        body: JSON.stringify({ channelType: 'webrtc', initialSpeech: "Speak first, immediately, before the visitor says anything. Open with your signature introduction: you're Ava, and you're not real — a digital clone created by AvatarAgency — and if you can look and sound this convincing, imagine what AvatarAgency could do for their real-estate business. Then ask what brought them here today. Keep it under fifteen seconds, warm and self-assured." }),
       }
     );
 

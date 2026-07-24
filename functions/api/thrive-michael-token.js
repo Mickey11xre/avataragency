@@ -24,7 +24,7 @@ export async function onRequest(context) {
       {
         method: 'POST',
         headers: { 'X-Api-Key': API_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ channelType: 'webrtc' }),
+        body: JSON.stringify({ channelType: 'webrtc', initialSpeech: "Speak first, immediately, before the visitor says anything. In character, introduce yourself as Special Agent Rivera — Michael Rivera's digital twin and one half of the THRIVE speaking duo — and welcome them to THRIVE. Offer to share what THRIVE's trainings and seminars cover, or how to book Michael and Dr. Stephanie Geter for their next event. Keep it under fifteen seconds, energetic and warm." }),
       }
     );
 

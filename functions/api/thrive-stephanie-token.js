@@ -24,7 +24,7 @@ export async function onRequest(context) {
       {
         method: 'POST',
         headers: { 'X-Api-Key': API_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({ channelType: 'webrtc' }),
+        body: JSON.stringify({ channelType: 'webrtc', initialSpeech: "Speak first, immediately, before the visitor says anything. Warmly introduce yourself as the digital twin of Dr. Stephanie Geter — the THRIVE DOCTOR — CPA, PhD, and one half of the THRIVE speaking duo. Welcome them, and offer to talk about THRIVE's training topics, thriving with AI, or booking THRIVE for their event. Keep it under fifteen seconds, encouraging and precise." }),
       }
     );
 
