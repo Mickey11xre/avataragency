@@ -141,12 +141,12 @@
     + '<h4 id="aat-end-title">Thanks for the conversation!</h4>'
     + '<p id="aat-end-sub">Michael’s twin is here whenever you need — or take the next step.</p>'
     + '<div class="row"><button class="aat-again" id="aat-again">Talk again</button>'
-    + '<a class="aat-book" id="aat-book" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a call</a></div>'
+    + '<a class="aat-book" id="aat-book" href="' + CALENDLY + '" target="_blank" rel="noopener">Book a strategy meeting</a></div>'
     + '</div></div>'
     + '<div class="aat-banner" id="aat-banner">Enjoying the conversation? Register free in 30 seconds to keep talking.</div>'
     + '<h3 id="aat-hello">You’re in.</h3>'
     + '<p class="sub">Just start talking — Michael can hear you. Ask about digital twins, AI video, or what AvatarAgency can build for you.</p>'
-    + '<div class="aat-note">💡 Want a digital twin like this — or cinematic AI video — for <em>your</em> business? <a href="' + CALENDLY + '" id="aat-note-book" target="_blank" rel="noopener">Book a free consultation &rarr;</a></div>'
+    + '<div class="aat-note">💡 Want a digital twin like this — or cinematic AI video — for <em>your</em> business? <a href="' + CALENDLY + '" id="aat-note-book" target="_blank" rel="noopener">Book a strategy meeting &rarr;</a></div>'
     + '</div>'
     + '</div></aside>';
   document.body.appendChild(wrap);

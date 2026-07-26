@@ -213,7 +213,7 @@
             <source src="vsl.mp4?v=1" type="video/mp4">
           </video>
         </div>
-        <a class="twin-pill" href="#twin"><span class="dot"></span>Questions? Talk to Michael's Digital Twin.</a>
+        <button type="button" class="twin-pill" id="strat-twin-open"><span class="dot"></span>Questions? Talk to Michael's Digital Twin.</button>
       </div>
     </div>
     <div class="trust">
@@ -400,5 +400,19 @@
   })();
 </script>
 
+<!-- Michael's digital twin — the SAME launcher + window as the AvatarAgency home page -->
+<script src="/assist.js?v=20260725" defer></script>
+<script>
+  // Wire the hero pill to open assist.js's window (same one its own bottom-right launcher opens).
+  (function () {
+    var pill = document.getElementById('strat-twin-open');
+    if (!pill) return;
+    pill.addEventListener('click', function () {
+      var open = document.getElementById('aat-open'); // assist.js injects this launcher
+      if (open) open.click();
+      else setTimeout(function () { var o = document.getElementById('aat-open'); if (o) o.click(); }, 400);
+    });
+  })();
+</script>
 </body>
 </html>
