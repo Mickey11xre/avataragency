@@ -118,11 +118,14 @@
   .midcta p{margin:16px auto 28px;color:var(--muted);max-width:48ch}
 
   .proof-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:18px;margin-top:42px}
-  .proof{aspect-ratio:16/10;background:var(--panel);border:1px solid var(--hairline);border-radius:6px;
-         display:flex;flex-direction:column;justify-content:flex-end;padding:18px;gap:4px}
-  .proof .ph{font-family:var(--label);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#57503f}
+  .proof{background:var(--panel);border:1px solid var(--hairline);border-radius:6px;
+         overflow:hidden;display:flex;flex-direction:column}
+  .proof img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block}
+  .proof .pt{padding:16px 18px 20px;display:flex;flex-direction:column;gap:4px}
   .proof b{font-family:var(--display);font-size:18px;font-weight:700;letter-spacing:-.02em}
-  .proof span{font-size:12.5px;color:var(--muted)}
+  .proof span{font-size:13px;color:var(--muted);line-height:1.5}
+  .proof-note{margin:30px auto 0;text-align:center;color:var(--muted);font-size:14.5px;max-width:64ch}
+  .proof-note b{color:var(--gold);font-weight:600}
 
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:44px}
   .step{background:var(--panel);border:1px solid var(--hairline);border-radius:6px;padding:30px 26px}
@@ -304,11 +307,12 @@
     <div class="eyebrow">Recent Work</div>
     <h2>See it, don't take our word for it.</h2>
     <div class="proof-grid">
-      <div class="proof"><span class="ph">Video thumb placeholder</span><b>“My Hermosa Beach”</b><span>Cinematic brand film · Real estate</span></div>
-      <div class="proof"><span class="ph">Video thumb placeholder</span><b>Legacy Realty Partners</b><span>Outreach video campaign</span></div>
-      <div class="proof"><span class="ph">Video thumb placeholder</span><b>Thrive Doctor™</b><span>Brand launch · Medical</span></div>
-      <div class="proof"><span class="ph">Live embed placeholder</span><b>Talk to an Avatar</b><span>Interactive digital twin demo</span></div>
+      <div class="proof"><img src="work-avatars.jpg?v=1" alt="Custom-designed superhero avatar character on a cinematic set"><div class="pt"><b>Custom Designed Avatars</b><span>Movie-style trailers starring avatar characters we design from scratch — cast, styled, and directed for your brand.</span></div></div>
+      <div class="proof"><img src="work-realestate.jpg?v=1" alt="AI real-estate avatar standing beside a sold sign in front of a home"><div class="pt"><b>Real Estate Agent Marketing</b><span>Cinematic agent intros and property tours that make you the name every buyer and seller remembers.</span></div></div>
+      <div class="proof"><img src="work-product.jpg?v=1" alt="Beauty product commercial still with model applying lip balm"><div class="pt"><b>Product Marketing</b><span>Your product, lit and styled like a national ad campaign — scroll-stopping films for launches and promotions.</span></div></div>
+      <div class="proof"><img src="work-interactive.jpg?v=1" alt="Interactive talking avatar on a live video call"><div class="pt"><b>Talking Interactive Avatars</b><span>Avatars that talk — answering questions, capturing leads, and selling for you 24/7.</span></div></div>
     </div>
+    <p class="proof-note"><b>Client work stays confidential — that's part of the service.</b> Most of our clients keep their digital twins private, so what you see here is representative. Full case studies are shared privately during your strategy meeting.</p>
   </div>
 </section>
 
