@@ -393,8 +393,10 @@
   })();
 </script>
 
-<!-- Michael's digital twin — the SAME launcher + window as the AvatarAgency home page -->
-<script src="/assist.js?v=20260725" defer></script>
+<!-- Michael's digital twin — the SAME launcher + window as the AvatarAgency home page,
+     but USER-INITIATED ONLY here (no auto-pop) so it never interrupts the sales video. -->
+<script>window.AA_TWIN_NO_AUTOPOP = true;</script>
+<script src="/assist.js?v=20260725b" defer></script>
 <script>
   // Wire the hero pill to open assist.js's window (same one its own bottom-right launcher opens).
   (function () {

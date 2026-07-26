@@ -556,6 +556,7 @@
   }
 
   async function autoGreet() {
+    if (window.AA_TWIN_NO_AUTOPOP) return; // page opted out (e.g. sales-video landing pages) — user-initiated only
     if (isStandalone()) return; // browser pages only, not installed PWAs
     if (panel.classList.contains('open') || instance || starting) return;
     try { if (localStorage.getItem(LS_AUTOPOP) === todayKey()) return; } catch (_) { return; }
