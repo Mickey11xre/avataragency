@@ -8,7 +8,7 @@
 // POST {name?, email?} — registered visitors get persistent memory:
 // externalClientId = SHA-256(email)[:32], same recipe as Lisa's token Worker.
 
-const AGENT_ID = '772cf1a3-f3eb-48ee-83d5-9b9b9f96885c'; // Michael Rivera Digital v1.3 (strategy-meeting CTA + no-invented-names, 2026-07-25)
+const AGENT_ID = 'fc21d1f6-aaaf-464b-a835-5ba138df5079'; // Michael Rivera Digital v1.4 (no AvatarAgency cost quotes, 2026-07-26)
 
 export async function onRequest(context) {
   const API_KEY = context.env.NAPSTER_API_KEY;
