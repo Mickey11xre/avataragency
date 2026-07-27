@@ -194,6 +194,8 @@ a{color:inherit}
 .price .includes p{color:var(--ink-dim)}
 .price .includes b{color:var(--ink)}
 .price .cta-note{margin-top:14px}
+.auto-card.wide{grid-column:1/-1;border-color:var(--accent);background:linear-gradient(180deg,var(--accent-soft),var(--paper) 60%);transition:border-color .35s}
+.auto-card.wide h3{color:var(--accent);transition:color .35s}
 .faq details[open] summary::after{content:"–"}
 .faq details p{margin-top:12px;color:var(--ink-dim);max-width:720px}
 
@@ -345,7 +347,7 @@ footer p+p{margin-top:8px}
         <div class="tl-item">
           <span class="mono">Min 47–55</span>
           <h3>Automate your #1 headache</h3>
-          <p>We take the biggest time-sink from your intake call and build the workflow that handles it — before we hang up.</p>
+          <p>We take the biggest time-sink from your intake call and build the workflow that handles it during your 60-minute coaching session.</p>
         </div>
         <div class="tl-item">
           <span class="mono">Min 55–60</span>
@@ -524,6 +526,12 @@ footer p+p{margin-top:8px}
   var grid = document.getElementById("autoGrid");
   var pills = document.querySelectorAll(".pill");
 
+  // Universal feature — shown for every business type
+  var SECOND_BRAIN = {
+    h:"Your Claude second brain",
+    p:"We build your Claude account's second brain — a living memory of your business that keeps learning long after the training session, getting smarter and smarter and making your business more efficient and scalable."
+  };
+
   function apply(key){
     var v = VERTICALS[key] || VERTICALS.local;
     document.documentElement.style.setProperty("--accent", v.accent);
@@ -531,9 +539,9 @@ footer p+p{margin-top:8px}
     document.querySelectorAll("[data-swap='noun']").forEach(function(el){ el.textContent = v.noun; });
     document.querySelectorAll("[data-swap='label']").forEach(function(el){ el.textContent = v.label; });
     grid.innerHTML = "";
-    v.autos.forEach(function(a){
+    v.autos.concat([SECOND_BRAIN]).forEach(function(a, i, arr){
       var d = document.createElement("div");
-      d.className = "auto-card";
+      d.className = "auto-card" + (i === arr.length - 1 ? " wide" : "");
       d.innerHTML = "<h3></h3><p></p>";
       d.querySelector("h3").textContent = a.h;
       d.querySelector("p").textContent = a.p;
