@@ -7,7 +7,7 @@
 // ⚠️ ONE-LINE WIRE-UP: paste the AGENT_ID from thrive-doctor-marketing/build-agent.ps1 below.
 // Until then this returns 503 and the page shows a graceful "on her way" state.
 
-const AGENT_ID = '163956c4-0061-4708-bb91-fcaca5c89298'; // THRIVE DOCTOR digital-twin-marketing (2026-07-24)
+const AGENT_ID = '0a5acfb0-6e07-496f-bdc0-16445097f039'; // THRIVE DOCTOR digital-twin-marketing v2 (AvatarAgency-only, no LiveBrand; 2026-07-26)
 
 // initialSpeech: she speaks first at connect — pitching getting-your-own-twin, not booking a talk.
 const INITIAL_SPEECH =
