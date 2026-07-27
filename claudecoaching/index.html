@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Claude Coaching — Master Claude in 90 Minutes | AvatarAgency</title>
-<meta name="description" content="Private 1-on-1 AI coaching tailored to your business. In 90 minutes, Claude is connected to your real apps and running your busywork. Book a free 15-minute fit call.">
+<meta name="description" content="Private 1-on-1 AI coaching tailored to your business. In 90 minutes, Claude is connected to your real apps and running your busywork. Book a free 15-minute discovery call.">
 <meta name="robots" content="noindex"><!-- DRAFT: remove at launch -->
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
@@ -172,6 +172,28 @@ a{color:inherit}
 .faq details:last-of-type{border-bottom:none}
 .faq summary{cursor:pointer;font-weight:600;font-size:1.05rem;list-style:none;display:flex;justify-content:space-between;gap:16px}
 .faq summary::after{content:"+";color:var(--accent);font-family:var(--sans);font-weight:400;transition:color .35s}
+
+/* ---------- price ---------- */
+.price .box{
+  max-width:780px;margin:0 auto;text-align:center;
+  border:1px solid var(--accent);border-radius:var(--radius);
+  background:linear-gradient(180deg,var(--accent-soft),var(--paper) 58%);
+  padding:56px 44px 48px;
+}
+.price .amount{
+  font-family:var(--display);font-weight:800;line-height:1;
+  font-size:clamp(3.2rem,9vw,5rem);letter-spacing:-.04em;
+  color:var(--accent);margin:16px 0 14px;transition:color .35s;
+}
+.price .amount small{font-size:.32em;font-weight:700;letter-spacing:0;vertical-align:.5em;color:var(--ink-dim)}
+.price .lead{font-size:1.08rem;color:var(--ink-dim);max-width:54ch;margin:0 auto 34px}
+.price .lead strong{color:var(--ink)}
+.price .includes{list-style:none;text-align:left;max-width:580px;margin:0 auto 36px;display:grid;gap:16px}
+.price .includes li{display:flex;gap:14px;align-items:flex-start}
+.price .includes .tick{color:var(--accent);font-weight:700;flex:0 0 auto;transition:color .35s}
+.price .includes p{color:var(--ink-dim)}
+.price .includes b{color:var(--ink)}
+.price .cta-note{margin-top:14px}
 .faq details[open] summary::after{content:"–"}
 .faq details p{margin-top:12px;color:var(--ink-dim);max-width:720px}
 
@@ -210,7 +232,7 @@ footer p+p{margin-top:8px}
       <span class="word">Claude</span>
       <span class="subword">Coaching</span>
     </a>
-    <a class="btn small" href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book Your Free Fit Call</a>
+    <a class="btn small" href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book Your Free Discovery Call</a>
   </div>
 </header>
 
@@ -237,7 +259,7 @@ footer p+p{margin-top:8px}
           <button class="pill" data-v="local" aria-pressed="true">My Business</button>
         </div>
 
-        <a class="btn big" href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book Your Free 15-Minute Fit Call</a>
+        <a class="btn big" href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book Your Free 15-Minute Discovery Call</a>
         <div class="cta-note">Free call · No tech skills needed · You keep the plan either way</div>
       </div>
 
@@ -276,7 +298,7 @@ footer p+p{margin-top:8px}
         <p>Their AI reads their inbox, knows their calendar, follows up with every lead, and drafts the busywork — because someone sat with them and set it up right. It took an afternoon, not a semester.</p>
       </div>
       <div class="card">
-        <h3>Group two is still "looking into it."</h3>
+        <h3>Group two is still using AI like they use Google search.</h3>
         <p>They've tried AI. Asked it a few questions, got generic answers, moved on. Nobody showed them that AI connected to <em>their</em> email, <em>their</em> calendar, <em>their</em> customers isn't generic at all. Every month, the gap gets wider.</p>
       </div>
     </div>
@@ -346,6 +368,27 @@ footer p+p{margin-top:8px}
     <h2 class="section-h">What we'll set up for a <em data-swap="label">business like yours</em></h2>
     <div class="auto-grid" id="autoGrid"><!-- cards injected --></div>
     <p class="note">Tap a business type at the top of the page — this section, and your entire session, adapts to it.</p>
+  </div>
+</section>
+
+<!-- ================= PRICE ================= -->
+<section class="price reveal">
+  <div class="wrap">
+    <div class="box">
+      <div class="mono eyebrow">The Investment</div>
+      <div class="amount">Only $497<small>&nbsp;flat</small></div>
+      <p class="lead">One session. One flat price. For what a single new patient or client is worth to you, this will be <strong>the best investment you make in your business this year</strong>.</p>
+
+      <div class="mono" style="color:var(--ink);margin-bottom:18px">What You Get</div>
+      <ul class="includes">
+        <li><span class="tick">✓</span><p><b>30-minute intake session</b> — I learn your business, your situation, and your top three time-sinks, so your training arrives fully optimized for you — nothing generic.</p></li>
+        <li><span class="tick">✓</span><p><b>60-minute coaching intensive</b> — a separate session built specifically around your business. By the end, you're a confident master of your own AI setup — and the busywork that eats your weeks is handled for good.</p></li>
+        <li><span class="tick">✓</span><p><b>Your Golden Nuggets guide</b> — a quick-reference playbook delivered after your session, so every shortcut, setup, and golden nugget you learned is one glance away whenever you need it.</p></li>
+      </ul>
+
+      <a class="btn big" href="#" data-todo="checkout-link">Order Now</a>
+      <div class="cta-note">Prefer to talk first? <a href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book your free 15-minute discovery call</a>.</div>
+    </div>
   </div>
 </section>
 
@@ -423,8 +466,8 @@ footer p+p{margin-top:8px}
   <div class="wrap">
     <div class="mono eyebrow">Your Move</div>
     <h2>Ninety minutes from now, you could be the AI business in your market.</h2>
-    <p>Start with a free 15-minute fit call. We'll map exactly what your session would set up — and you keep the plan whether we work together or not.</p>
-    <a class="btn big" href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book Your Free Fit Call</a>
+    <p>Start with a free 15-minute discovery call. We'll map exactly what your session would set up — and you keep the plan whether we work together or not.</p>
+    <a class="btn big" href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book Your Free Discovery Call</a>
   </div>
 </section>
 
