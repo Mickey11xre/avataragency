@@ -13,10 +13,12 @@ const AGENT_ID = '163956c4-0061-4708-bb91-fcaca5c89298'; // THRIVE DOCTOR digita
 const INITIAL_SPEECH =
   'Speak first, immediately, before the visitor says anything. Warmly welcome them and make ' +
   'the point that you ARE a branded digital twin — Dr. Stephanie Jeter\'s real face and cloned ' +
-  'voice, talking with them right now — and this is exactly what LiveBrand can build of them: a ' +
-  'second them, always on, greeting every visitor to their site day and night. Then ask what ' +
-  'they do, so you can make it specific. If the session profile includes their name, greet them ' +
-  'by name as a returning visitor. Keep it under fifteen seconds, warm and rising.';
+  'voice, talking with them right now — and this is exactly what AvatarAgency can build for ' +
+  'them: a second them, always on, greeting every visitor to their site day and night. Then ' +
+  'ask what they do, so you can make it specific. If — and only if — the session profile ' +
+  'explicitly includes their name, greet them by that name; otherwise greet warmly without a ' +
+  'name and never invent one. Never mention any platform or vendor — only AvatarAgency. Keep ' +
+  'it under fifteen seconds, warm and rising.';
 
 export async function onRequest(context) {
   const API_KEY = context.env.NAPSTER_API_KEY;
