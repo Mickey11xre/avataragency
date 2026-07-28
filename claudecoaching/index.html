@@ -14,6 +14,84 @@
   gtag('js', new Date());
   gtag('config', 'G-T8NJ9JVWFV');
 </script>
+<link rel="canonical" href="https://avataragency.ai/claudecoaching/">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://avataragency.ai/claudecoaching/">
+<meta property="og:title" content="Claude Coaching — Master Claude in 90 Minutes | AvatarAgency">
+<meta property="og:description" content="Private 1-on-1 AI coaching for busy business owners, professionals, executives & individuals. In 90 minutes, Claude is connected to your real apps and running your busywork. $497 flat.">
+<meta property="og:image" content="https://avataragency.ai/claudecoaching/HERO_COMPOSITE_v2.jpg">
+<meta property="og:site_name" content="AvatarAgency">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@AvatarAgencyai">
+<meta name="twitter:title" content="Claude Coaching — Master Claude in 90 Minutes">
+<meta name="twitter:description" content="Private 1-on-1 AI coaching tailored to your business or your life. I guide every click — you leave with AI running your busywork. $497 flat.">
+<meta name="twitter:image" content="https://avataragency.ai/claudecoaching/HERO_COMPOSITE_v2.jpg">
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Service",
+      "@id": "https://avataragency.ai/claudecoaching/#service",
+      "name": "Claude Coaching — Master Claude in 90 Minutes",
+      "serviceType": "Private 1-on-1 AI coaching",
+      "description": "Private, one-on-one coaching that connects Claude to your real email, calendar, and files in a 90-minute session: 30-minute intake plus 60-minute coaching intensive, a business second brain, a written playbook, and 30 days of digital-twin coach access.",
+      "url": "https://avataragency.ai/claudecoaching/",
+      "image": "https://avataragency.ai/claudecoaching/HERO_COMPOSITE_v2.jpg",
+      "provider": {
+        "@type": "Organization",
+        "name": "AvatarAgency",
+        "url": "https://avataragency.ai",
+        "founder": { "@type": "Person", "name": "Michael Rivera" }
+      },
+      "areaServed": { "@type": "AdministrativeArea", "name": "Los Angeles / Southern California (sessions delivered remotely, US-wide)" },
+      "audience": { "@type": "Audience", "audienceType": "Busy business owners, professionals, executives, and individuals" },
+      "offers": {
+        "@type": "Offer",
+        "price": "497",
+        "priceCurrency": "USD",
+        "description": "One flat price: 30-minute intake session, 60-minute coaching intensive, Golden Nuggets quick-reference guide, and 30 days of AI coach (digital twin) access.",
+        "url": "https://avataragency.ai/claudecoaching/",
+        "availability": "https://schema.org/LimitedAvailability"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://avataragency.ai/claudecoaching/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "I'm not technical at all. Is Claude coaching really for me?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It's built for you. This is private coaching, not a class — Michael guides you through every single click, at your pace, in your own account. If you can use email, you can do this." }
+        },
+        {
+          "@type": "Question",
+          "name": "What do I actually leave the session with?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Claude connected to your email, calendar, and files; a second brain that knows your business; two to three business skills running on your real data; one custom automation for your biggest headache; and a written playbook of all of it." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does Claude coaching cost?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Coaching sessions start at $497 flat, with a premium option that includes done-for-you setup and a 30-day follow-up. Fit is confirmed on a free 15-minute discovery call first, with zero obligation." }
+        },
+        {
+          "@type": "Question",
+          "name": "Is my business data safe?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Everything is set up in your own accounts, under your own logins — nothing runs through the coach's. The session also covers the privacy settings that matter for your industry." }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens after the 90 minutes?",
+          "acceptedAnswer": { "@type": "Answer", "text": "You keep everything built in the session, plus a playbook to keep going on your own, and 30 days of access to Michael's digital twin for any Claude question. Ongoing coaching and done-for-you automations are available for the road ahead." }
+        }
+      ]
+    }
+  ]
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
@@ -645,6 +723,31 @@ footer p+p{margin-top:8px}
   } else {
     document.querySelectorAll(".reveal").forEach(function(el){ el.classList.add("in"); });
   }
+})();
+</script>
+<script>
+/* CTA + engagement tracking (GA4). Meta Pixel events mirror these once the Pixel lands. */
+(function(){
+  if (typeof gtag !== "function") return;
+  var vertical = new URLSearchParams(location.search).get("v") || "local";
+  document.querySelectorAll('a[href*="calendly.com"]').forEach(function(a, i){
+    a.addEventListener("click", function(){
+      gtag("event", "generate_lead", { method: "calendly", cta_position: i, vertical: vertical });
+    });
+  });
+  document.querySelectorAll('a[data-todo="checkout-link"]').forEach(function(a){
+    a.addEventListener("click", function(){
+      gtag("event", "begin_checkout", { currency: "USD", value: 497, vertical: vertical });
+    });
+  });
+  var fired50 = false;
+  window.addEventListener("scroll", function(){
+    if (fired50) return;
+    if ((window.scrollY + window.innerHeight) / document.body.scrollHeight > 0.5) {
+      fired50 = true;
+      gtag("event", "scroll_50", { vertical: vertical });
+    }
+  }, { passive: true });
 })();
 </script>
 </body>

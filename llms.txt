@@ -1,0 +1,47 @@
+# AvatarAgency
+
+> AvatarAgency (avataragency.ai) is a Los Angeles AI consulting and creative agency founded by
+> Michael Rivera. It builds digital twins (interactive talking avatars of real people),
+> produces cinematic AI video, runs done-for-you content engines for high-ticket businesses,
+> and delivers private 1-on-1 Claude coaching. Sessions are delivered remotely, US-wide.
+
+## Offers
+
+- [Claude Coaching](https://avataragency.ai/claudecoaching/): "Master Claude in 90 Minutes" —
+  private 1-on-1 AI coaching for busy business owners, professionals, executives, and
+  individuals. $497 flat: 30-minute intake call + 60-minute coaching intensive that connects
+  Claude (Anthropic's AI assistant) to the client's real email, calendar, and files; builds a
+  business "second brain"; automates their biggest time-sink live; includes a written
+  quick-reference playbook and 30 days of daily access to Michael's digital-twin AI coach.
+  Starts with a free 15-minute discovery call. Premium tier ($1,997) adds done-for-you setup
+  of one workflow and a 30-day follow-up call. Independently operated; not affiliated with
+  Anthropic.
+- [Creative Strategist](https://avataragency.ai/strategist/): AvatarAgency as your outsourced
+  creative strategist — digital twin creation, cinematic AI video production, and a complete
+  content engine, run for you while you run your business. Engagement begins with a booked
+  strategy meeting.
+- [Real Estate](https://avataragency.ai/real-estate.html): interactive AI avatars and video
+  for real-estate agents — a digital twin that answers property questions and captures leads
+  around the clock.
+- [Business](https://avataragency.ai/business.html): AI video and digital cloning for
+  businesses — one cloning session becomes weeks of professional video content.
+- [Authors](https://avataragency.ai/authors.html): talking author avatars and illustrated
+  character avatars that let readers converse with a book's author or characters.
+- [THRIVE](https://avataragency.ai/thrive/): keynote speaking duo — Stephanie Geter (THRIVE
+  DOCTOR) and Michael Rivera (Special Agent Rivera) on human connection + AI.
+
+## Key facts
+
+- Founder: Michael Rivera — Los Angeles; ex-Activision; 15+ years real-estate development;
+  AI founder. His own interactive digital twin greets visitors on the homepage.
+- Specialty: digital twins that talk in real time (web, with screen-share), cinematic AI
+  video without crews or studios, and practical AI adoption for owner-operated businesses
+  (dentists, orthodontists, lawyers, med spas, real-estate professionals).
+- Contact: https://avataragency.ai/contact.html
+
+## Pages
+
+- [Home](https://avataragency.ai/)
+- [Services](https://avataragency.ai/services.html)
+- [About](https://avataragency.ai/about.html)
+- [Contact](https://avataragency.ai/contact.html)
