@@ -73,7 +73,7 @@
   .meter-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:12px}
   .meter-top b{color:var(--txt)}
   .meter{height:14px;border-radius:999px;background:#0c0c10;border:1px solid var(--line);overflow:hidden}
-  .meter .fill{height:100%;width:29.6%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
+  .meter .fill{height:100%;width:44.2%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
   .meter-legend{display:flex;gap:22px;margin-top:14px;font-size:12px;color:var(--muted)}
   .meter-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:middle}
   .lg-used{background:var(--gold-2)}
@@ -117,9 +117,9 @@
   .rb-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
   .rb-saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
   .rb-saved.show{opacity:1}
-  #rb-comments{width:100%;min-height:110px;resize:vertical;background:#0c0c10;border:1px solid var(--line);border-radius:12px;color:var(--txt);font-family:inherit;font-size:14px;line-height:1.6;padding:14px 16px}
-  #rb-comments:focus{outline:none;border-color:rgba(201,162,75,.55);box-shadow:0 0 0 3px rgba(201,162,75,.12)}
-  #rb-comments::placeholder{color:var(--muted-2)}
+  #rb-comments,#rb1-comments,#rb3-comments{width:100%;min-height:110px;resize:vertical;background:#0c0c10;border:1px solid var(--line);border-radius:12px;color:var(--txt);font-family:inherit;font-size:14px;line-height:1.6;padding:14px 16px}
+  #rb-comments:focus,#rb1-comments:focus,#rb3-comments:focus{outline:none;border-color:rgba(201,162,75,.55);box-shadow:0 0 0 3px rgba(201,162,75,.12)}
+  #rb-comments::placeholder,#rb1-comments::placeholder,#rb3-comments::placeholder{color:var(--muted-2)}
   .rb-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
   .rb-actions .btn{cursor:pointer;border:none;font-family:inherit}
   .btn.approve{background:linear-gradient(90deg,#3da874,var(--green));color:#07130c;padding:13px 24px;border-radius:999px;font-weight:700;font-size:15px}
@@ -191,22 +191,22 @@
       </div>
       <div class="stat">
         <div class="k">Credit Used</div>
-        <div class="v">2:22 <small>min</small></div>
-        <div class="d">$236.67 · 3 creatives delivered</div>
+        <div class="v">3:32 <small>min</small></div>
+        <div class="d">$353.33 · 4 creatives delivered</div>
       </div>
       <div class="stat remaining">
         <div class="k">Remaining Balance</div>
-        <div class="v">5:38 <small>min</small></div>
-        <div class="d">$563.33 of production credit available</div>
+        <div class="v">4:28 <small>min</small></div>
+        <div class="d">$446.67 of production credit available</div>
       </div>
     </div>
 
     <div class="meter-card">
-      <div class="meter-top"><span>Usage</span><span><b>29.6%</b> of credit used</span></div>
+      <div class="meter-top"><span>Usage</span><span><b>44.2%</b> of credit used</span></div>
       <div class="meter"><div class="fill"></div></div>
       <div class="meter-legend">
-        <span><i class="lg-used"></i>Used — 2:22 ($236.67)</span>
-        <span><i class="lg-rem"></i>Remaining — 5:38 ($563.33)</span>
+        <span><i class="lg-used"></i>Used — 3:32 ($353.33)</span>
+        <span><i class="lg-rem"></i>Remaining — 4:28 ($446.67)</span>
       </div>
     </div>
   </div>
@@ -227,6 +227,14 @@
         <div class="col-min">Resolution</div>
         <div>Length</div>
         <div>File</div>
+      </div>
+
+      <div class="trow">
+        <div class="name">Probate Outreach Video<small>New delivery — ready for your review · social-optimized 1080p</small></div>
+        <div class="col-format"><span class="badge h">Long Form 16:9</span></div>
+        <div class="col-min">1920×1080</div>
+        <div>1:10</div>
+        <a class="watch" href="/clients/dgomes/brand-video-03.mp4" download="Danny_Gomes_Probate_Outreach_Video.mp4">↓ Download</a>
       </div>
 
       <div class="trow">
@@ -255,9 +263,9 @@
 
       <div class="tfoot">
         <div>Total Billed</div>
-        <div class="col-format">3 creatives</div>
+        <div class="col-format">4 creatives</div>
         <div class="col-min"></div>
-        <div class="tot">2:22</div>
+        <div class="tot">3:32</div>
         <div></div>
       </div>
     </div>
@@ -269,12 +277,73 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Review Your Creative</h2>
-      <div class="note">Click play to preview</div>
+      <div class="note">Probate Outreach Video ready for your review</div>
     </div>
 
     <div class="video-block">
-      <h3>Dave Ramsey Video Rev. 2 <span class="badge v">APPROVED ✓</span></h3>
-      <div class="vmeta">Final cut · approved July 22, 2026 · 16:9 · 1920×1080 · 1:10</div>
+      <h3>Probate Outreach Video</h3>
+      <div class="vmeta">New delivery · 16:9 · 1920×1080 · 1:10</div>
+      <div class="frame wide">
+        <video id="review-video-3" controls preload="metadata" playsinline
+               src="/clients/dgomes/brand-video-03.mp4"></video>
+        <script>document.getElementById('review-video-3').volume = 0.5;</script>
+      </div>
+      <div class="review-note">
+        <b>Your review:</b> this deliverable includes up to <b>2 rounds of revisions</b> at no charge.
+        Please send your notes within <b>5 business days</b> — or approve it as-is and it's yours to publish.
+      </div>
+
+      <div class="review-box">
+        <div class="rb-head">
+          <span class="rb-title">Your Notes &amp; Approval — Probate Outreach Video</span>
+          <span class="rb-saved" id="rb3-saved">Saved ✓</span>
+        </div>
+        <textarea id="rb3-comments" placeholder="Type any revision notes here — timing, music, wording, anything. Your notes save automatically in this browser as you type."></textarea>
+        <div class="rb-actions">
+          <button class="btn approve" id="rb3-approve">✓ Approve Video</button>
+          <button class="btn primary" id="rb3-send">Send Notes to Michael</button>
+        </div>
+        <div class="rb-hint">Both buttons open an email to Michael with your notes attached — just press send.</div>
+      </div>
+      <script>
+      (function () {
+        var KEY = 'dgomes_probate_review';
+        var ta, savedEl, savedTimer;
+        function showSaved() {
+          savedEl.classList.add('show');
+          clearTimeout(savedTimer);
+          savedTimer = setTimeout(function () { savedEl.classList.remove('show'); }, 1600);
+        }
+        function openMail(subject, status) {
+          var notes = (ta.value || '').trim() || '(no written notes)';
+          window.location.href = 'mailto:michael@avataragency.ai?subject=' + encodeURIComponent(subject) +
+            '&body=' + 'Video: Probate Outreach Video (1:10)%0D%0AStatus: ' + status +
+            '%0D%0A%0D%0ANotes:%0D%0A' + encodeURIComponent(notes) +
+            '%0D%0A%0D%0A— Sent from the Danny Gomes client portal';
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          ta = document.getElementById('rb3-comments');
+          savedEl = document.getElementById('rb3-saved');
+          var stored = null;
+          try { stored = localStorage.getItem(KEY); } catch (e) {}
+          if (stored) ta.value = stored;
+          ta.addEventListener('input', function () {
+            try { localStorage.setItem(KEY, ta.value); } catch (e) {}
+            showSaved();
+          });
+          document.getElementById('rb3-approve').addEventListener('click', function () {
+            openMail('Danny Gomes — Probate Outreach Video APPROVED', 'APPROVED ✔');
+          });
+          document.getElementById('rb3-send').addEventListener('click', function () {
+            openMail('Danny Gomes — Probate Outreach Video notes', 'Revision notes');
+          });
+        });
+      })();
+      </script>
+    </div>
+
+    <div class="video-block" style="margin-top:34px">
+      <h3>Dave Ramsey Video Rev. 2 <span class="badge v">APPROVED ✓</span></h3>      <div class="vmeta">Final cut · approved July 22, 2026 · 16:9 · 1920×1080 · 1:10</div>
       <div class="frame wide">
         <video id="review-video-2" controls preload="metadata" playsinline
                src="/clients/dgomes/brand-video-02.mp4"></video>
