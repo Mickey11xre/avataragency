@@ -74,7 +74,7 @@ a{color:inherit}
 
 /* ---------- hero ---------- */
 .hero{padding:0;background:var(--paper)}
-.hero .inner{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:center;min-height:min(calc(100svh - 66px),860px);padding:20px 0 0}
+.hero .inner{display:grid;grid-template-columns:1.08fr .92fr;gap:44px;align-items:start;min-height:min(calc(100svh - 66px),860px);padding:34px 0 0}
 .hero h1{font-size:clamp(2.3rem,5.5vw,3.9rem);font-weight:800;margin:22px 0 18px}
 .hero h1 em{font-style:normal;color:var(--accent);transition:color .35s}
 .sub{font-size:clamp(1.02rem,2.2vw,1.22rem);color:var(--ink-dim);max-width:560px;margin-bottom:24px}
@@ -89,10 +89,10 @@ a{color:inherit}
 .pill:hover{color:var(--ink);border-color:var(--ink-dim)}
 .pill[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--on-accent);font-weight:600}
 .cta-note{font-size:.85rem;color:var(--ink-dim);margin-top:12px}
-.hero-photo{position:relative;display:flex;justify-content:center;align-self:end}
+.hero-photo{position:relative;display:flex;justify-content:center;align-self:start;margin-top:30px}
 .hero-photo img{
   display:block;width:auto;max-width:100%;
-  max-height:min(78svh,800px);
+  max-height:min(calc(100svh - 150px),800px);
 }
 .hero-photo .badge{
   position:absolute;left:50%;transform:translateX(-50%);bottom:26px;background:var(--paper);
@@ -234,7 +234,7 @@ footer p+p{margin-top:8px}
       <span class="word">Claude</span>
       <span class="subword">Coaching</span>
     </a>
-    <a class="btn small" href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book Your Free Discovery Call</a>
+    <a class="btn small" href="https://calendly.com/michaelrivera007/free-claude-coaching-consultation-meeting">Book Your Free Discovery Call</a>
   </div>
 </header>
 
@@ -256,7 +256,7 @@ footer p+p{margin-top:8px}
           <button class="pill" data-v="local" aria-pressed="true">My Business</button>
         </div>
 
-        <a class="btn big" href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book Your Free 15-Minute Discovery Call</a>
+        <a class="btn big" href="https://calendly.com/michaelrivera007/free-claude-coaching-consultation-meeting">Book Your Free 15-Minute Discovery Call</a>
         <div class="cta-note">Free video call · No tech skills needed · Let's see if we're a fit.</div>
         <div class="cta-note" style="color:var(--accent);font-weight:600">Private one-on-one coaching sessions are limited — secure your reservation today!</div>
       </div>
@@ -387,7 +387,7 @@ footer p+p{margin-top:8px}
 
       <p class="lead" style="margin-bottom:18px;color:var(--accent);font-weight:600">Private one-on-one coaching sessions are limited — secure your reservation today!</p>
       <a class="btn big" href="#" data-todo="checkout-link">Order Now</a>
-      <div class="cta-note">Prefer to talk first? <a href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book your free 15-minute discovery call</a>.</div>
+      <div class="cta-note">Prefer to talk first? <a href="https://calendly.com/michaelrivera007/free-claude-coaching-consultation-meeting">Book your free 15-minute discovery call</a>.</div>
     </div>
   </div>
 </section>
@@ -467,7 +467,7 @@ footer p+p{margin-top:8px}
     <div class="mono eyebrow">Your Move</div>
     <h2>Ninety minutes from now, you could be the AI business in your market.</h2>
     <p>Start with a free 15-minute discovery call. We'll map exactly what your session would set up — and you keep the plan whether we work together or not.</p>
-    <a class="btn big" href="https://calendly.com/michaelrivera007/free-consultation-meeting">Book Your Free Discovery Call</a>
+    <a class="btn big" href="https://calendly.com/michaelrivera007/free-claude-coaching-consultation-meeting">Book Your Free Discovery Call</a>
   </div>
 </section>
 
