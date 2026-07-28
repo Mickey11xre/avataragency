@@ -243,17 +243,18 @@ footer p+p{margin-top:8px}
   <div class="wrap">
     <div class="inner">
       <div>
-        <div class="mono eyebrow">For Busy Business Owners, Professionals &amp; Executives</div>
+        <div class="mono eyebrow">For Busy Business Owners, Professionals, Executives &amp; Individuals</div>
         <h1>Master Claude in <em>90 Minutes.</em></h1>
-        <p class="sub">We know you're busy running your business — you don't have time to teach yourself AI. <strong>You don't need to.</strong> Private, one-on-one coaching tailored to your <strong data-swap="noun">business</strong>: I guide every click, and you leave with AI already running your busywork.</p>
+        <p class="sub">We know you're busy — you don't have time to teach yourself AI. <strong>You don't need to.</strong> Private, one-on-one coaching tailored to your <strong data-swap="noun">business</strong>: I guide every click, and you leave with AI already running your busywork.</p>
 
-        <div class="switcher" role="group" aria-label="Tailor this page to your business">
+        <div class="switcher" role="group" aria-label="Tailor this page to you">
           <span class="mono">Tailored to:</span>
           <button class="pill" data-v="dentist">Dentist</button>
           <button class="pill" data-v="ortho">Orthodontist</button>
           <button class="pill" data-v="lawyer">Lawyer</button>
           <button class="pill" data-v="medspa">Med Spa</button>
           <button class="pill" data-v="local" aria-pressed="true">My Business</button>
+          <button class="pill" data-v="personal">Just for Me</button>
         </div>
 
         <a class="btn big" href="https://calendly.com/michaelrivera007/free-claude-coaching-consultation-meeting">Book Your Free 15-Minute Discovery Call</a>
@@ -280,7 +281,7 @@ footer p+p{margin-top:8px}
       </video>
     </div>
     <div class="industries mono">
-      <span>Dental &amp; Ortho</span>·<span>Legal</span>·<span>Med Spas</span>·<span>High-Ticket Local</span>
+      <span>Dental &amp; Ortho</span>·<span>Legal</span>·<span>Med Spas</span>·<span>High-Ticket Local</span>·<span>Busy Individuals</span>
     </div>
   </div>
 </section>
@@ -289,7 +290,7 @@ footer p+p{margin-top:8px}
 <section class="shift reveal">
   <div class="wrap">
     <div class="mono eyebrow">The Shift</div>
-    <h2>AI just split business owners into two groups.</h2>
+    <h2>AI just split everyone into two groups.</h2>
     <div class="two">
       <div class="card win">
         <h3>Group one got a guide.</h3>
@@ -297,7 +298,7 @@ footer p+p{margin-top:8px}
       </div>
       <div class="card">
         <h3>Group two is still using AI like they use Google search.</h3>
-        <p>They've tried AI. Asked it a few questions, got generic answers, moved on. Nobody showed them that AI connected to <em>their</em> email, <em>their</em> calendar, <em>their</em> customers isn't generic at all. Every month, the gap gets wider.</p>
+        <p>They've tried AI. Asked it a few questions, got generic answers, moved on. Nobody showed them that AI connected to <em>their</em> email, <em>their</em> calendar, <em>their</em> world isn't generic at all. Every month, the gap gets wider.</p>
       </div>
     </div>
   </div>
@@ -520,16 +521,28 @@ footer p+p{margin-top:8px}
         {h:"Lead follow-up drafts", p:"Every inquiry gets a fast, personal reply drafted for your approval — because speed-to-lead wins the customer."},
         {h:"Invoice reminders", p:"Overdue invoices chased with the right tone for each customer — gentle for the good ones, firm for the repeat offenders."}
       ]
+    },
+    personal:{
+      label:"life like yours", noun:"life", accent:"#7E6BC4",
+      autos:[
+        {h:"Your personal Monday brief", p:"Your week, your appointments, and your open to-dos in one summary — pulled from your real calendar and inbox before your first coffee."},
+        {h:"Inbox under control", p:"Claude reads your email, flags what actually needs you, and drafts the replies — so Sunday night stops being email night."},
+        {h:"Life admin, handled", p:"Trip planning, appointments, research, bills, family logistics — delegated to an AI that knows exactly how you like things done."}
+      ]
     }
   };
 
   var grid = document.getElementById("autoGrid");
   var pills = document.querySelectorAll(".pill");
 
-  // Universal feature — shown for every business type
-  var SECOND_BRAIN = {
+  // Universal feature — shown for every variant; wording adapts for personal use
+  var SECOND_BRAIN_BIZ = {
     h:"Your Claude second brain",
     p:"We build your Claude account's second brain — a living memory of your business that keeps learning long after the training session, getting smarter and smarter and making your business more efficient and scalable."
+  };
+  var SECOND_BRAIN_PERSONAL = {
+    h:"Your Claude second brain",
+    p:"We build your Claude account's second brain — a living memory of how you live and work that keeps learning long after the training session, getting smarter and smarter and giving you back more time every week."
   };
 
   function apply(key){
@@ -539,7 +552,7 @@ footer p+p{margin-top:8px}
     document.querySelectorAll("[data-swap='noun']").forEach(function(el){ el.textContent = v.noun; });
     document.querySelectorAll("[data-swap='label']").forEach(function(el){ el.textContent = v.label; });
     grid.innerHTML = "";
-    v.autos.concat([SECOND_BRAIN]).forEach(function(a, i, arr){
+    v.autos.concat([key === "personal" ? SECOND_BRAIN_PERSONAL : SECOND_BRAIN_BIZ]).forEach(function(a, i, arr){
       var d = document.createElement("div");
       d.className = "auto-card" + (i === arr.length - 1 ? " wide" : "");
       d.innerHTML = "<h3></h3><p></p>";
