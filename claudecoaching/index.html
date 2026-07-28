@@ -376,14 +376,14 @@ footer p+p{margin-top:8px}
     <div class="box">
       <div class="mono eyebrow">The Investment</div>
       <div class="amount">Only $497<small>&nbsp;flat</small></div>
-      <p class="lead">One session. One flat price. For what a single new patient or client is worth to you, this will be <strong>the best investment you make in your business this year</strong>.</p>
+      <p class="lead">One session. One flat price. <span data-swap="phrase" data-biz="For what a single new patient or client is worth to you" data-personal="For the hours you get back every single week">For what a single new patient or client is worth to you</span>, this will be <strong>the best investment you make <span data-swap="phrase" data-biz="in your business this year" data-personal="this year">in your business this year</span></strong>.</p>
 
       <div class="mono" style="color:var(--ink);margin-bottom:18px">What You Get</div>
       <ul class="includes">
-        <li><span class="tick">✓</span><p><b>30-minute intake session</b> — I learn your business, your situation, and your top three time-sinks, so your training arrives fully optimized for you — nothing generic.</p></li>
-        <li><span class="tick">✓</span><p><b>60-minute coaching intensive</b> — a separate session built specifically around your business. By the end, you're a confident master of your own AI setup — and the busywork that eats your weeks is handled for good.</p></li>
+        <li><span class="tick">✓</span><p><b>30-minute intake session</b> — I learn your <span data-swap="noun">business</span>, your situation, and your top three time-sinks, so your training arrives fully optimized for you — nothing generic.</p></li>
+        <li><span class="tick">✓</span><p><b>60-minute coaching intensive</b> — a separate session built specifically around your <span data-swap="noun">business</span>. By the end, you're a confident master of your own AI setup — and the busywork that eats your weeks is handled for good.</p></li>
         <li><span class="tick">✓</span><p><b>Your Golden Nuggets guide</b> — a quick-reference playbook delivered after your session, so every shortcut, setup, and golden nugget you learned is one glance away whenever you need it.</p></li>
-        <li><span class="tick">✓</span><p><b>30 days of AI coach access</b> — got a question after your session? My digital twin is on call for your first 30 days — up to 10 minutes a day — to answer anything about Claude and how to use it in your business.</p></li>
+        <li><span class="tick">✓</span><p><b>30 days of AI coach access</b> — got a question after your session? My digital twin is on call for your first 30 days — up to 10 minutes a day — to answer anything about Claude and how to use it in your <span data-swap="noun">business</span>.</p></li>
       </ul>
 
       <p class="lead" style="margin-bottom:18px;color:var(--accent);font-weight:600">Private one-on-one coaching sessions are limited — secure your reservation today!</p>
@@ -551,6 +551,7 @@ footer p+p{margin-top:8px}
     document.documentElement.style.setProperty("--accent-soft", v.accent + "1A");
     document.querySelectorAll("[data-swap='noun']").forEach(function(el){ el.textContent = v.noun; });
     document.querySelectorAll("[data-swap='label']").forEach(function(el){ el.textContent = v.label; });
+    document.querySelectorAll("[data-swap='phrase']").forEach(function(el){ el.textContent = key === "personal" ? el.dataset.personal : el.dataset.biz; });
     grid.innerHTML = "";
     v.autos.concat([key === "personal" ? SECOND_BRAIN_PERSONAL : SECOND_BRAIN_BIZ]).forEach(function(a, i, arr){
       var d = document.createElement("div");
