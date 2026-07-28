@@ -271,7 +271,9 @@ a{color:inherit}
 .price .includes .tick{color:var(--accent);font-weight:700;flex:0 0 auto;transition:color .35s}
 .price .includes p{color:var(--ink-dim)}
 .price .includes b{color:var(--ink)}
-.price .cta-note{margin-top:14px}
+.price .cta-note{margin-top:12px}
+.price .trust{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;margin-top:16px;font-size:.85rem;color:var(--ink-dim)}
+.price .trust b{color:var(--accent);font-weight:700;transition:color .35s}
 .auto-card.wide{grid-column:1/-1;border-color:var(--accent);background:linear-gradient(180deg,var(--accent-soft),var(--paper) 60%);transition:border-color .35s}
 .auto-card.wide h3{color:var(--accent);transition:color .35s}
 
@@ -518,20 +520,19 @@ footer p+p{margin-top:8px}
 <section class="price reveal">
   <div class="wrap">
     <div class="box">
-      <div class="mono eyebrow">The Investment</div>
-      <div class="amount">Only $497<small>&nbsp;flat</small></div>
-      <p class="lead">One session. One flat price. <span data-swap="phrase" data-biz="For what a single new patient or client is worth to you" data-personal="For the hours you get back every single week">For what a single new patient or client is worth to you</span>, this will be <strong>the best investment you make <span data-swap="phrase" data-biz="in your business this year" data-personal="this year">in your business this year</span></strong>.</p>
-
-      <div class="mono" style="color:var(--ink);margin-bottom:18px">What You Get</div>
-      <ul class="includes">
+      <div class="mono eyebrow">The Investment — What You Get</div>
+      <ul class="includes" style="margin-top:26px">
         <li><span class="tick">✓</span><p><b>30-minute intake session</b> — I learn your <span data-swap="noun">business</span>, your situation, and your top three time-sinks, so your training arrives fully optimized for you — nothing generic.</p></li>
         <li><span class="tick">✓</span><p><b>60-minute coaching intensive</b> — a separate session built specifically around your <span data-swap="noun">business</span>. By the end, you're a confident master of your own AI setup — and the busywork that eats your weeks is handled for good.</p></li>
         <li><span class="tick">✓</span><p><b>Your Golden Nuggets guide</b> — a quick-reference playbook delivered after your session, so every shortcut, setup, and golden nugget you learned is one glance away whenever you need it.</p></li>
         <li><span class="tick">✓</span><p><b>30 days of AI coach access</b> — got a question after your session? My digital twin is on call for your first 30 days — up to 10 minutes a day — to answer anything about Claude and how to use it in your <span data-swap="noun">business</span>.</p></li>
       </ul>
 
+      <div class="amount">Only $497<small>&nbsp;flat</small></div>
+      <p class="lead">One session. One flat price. <span data-swap="phrase" data-biz="For what a single new patient or client is worth to you" data-personal="For the hours you get back every single week">For what a single new patient or client is worth to you</span>, this will be <strong>the best investment you make <span data-swap="phrase" data-biz="in your business this year" data-personal="this year">in your business this year</span></strong>.</p>
       <p class="lead" style="margin-bottom:18px;color:var(--accent);font-weight:600">Private one-on-one coaching sessions are limited — secure your reservation today!</p>
       <a class="btn big" href="#" data-todo="checkout-link">Order Now</a>
+      <div class="trust" aria-label="What's guaranteed"><span><b>✓</b> Free 15-min call first</span><span><b>✓</b> Keep everything we build</span><span><b>✓</b> 30 days of twin support</span></div>
       <div class="cta-note">Prefer to talk first? <a href="https://calendly.com/michaelrivera007/free-claude-coaching-consultation-meeting">Book your free 15-minute discovery call</a>.</div>
     </div>
   </div>
