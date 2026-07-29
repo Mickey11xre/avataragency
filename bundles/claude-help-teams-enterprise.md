@@ -4420,7 +4420,7 @@ You can verify multiple domains for a single organization, but all domains must 
 
 3. Enter the domain(s) you want to verify in the **Update organization email domains** modal and click the “+” button:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2498843282/561d5ceb1c3a5df75bdfee8bfc3f/d2491145-362d-490b-bdcf-66a0a7656ddc?expires=1785363300&amp;signature=3eb70a3b8d63ee4d6b649877acec6ac83c34a85fdbfc34197a8fc682935bd4dd&amp;req=diQuHsF6noNXW%2FMW1HO4zSdmHnk6%2FMePe3H0OpmIzWGTGOXuY%2BXncrGlvDi3%0AdIyb%0A)
+
 
 4. Click “Save” when you’re finished adding domains.
 
@@ -4428,7 +4428,7 @@ You can verify multiple domains for a single organization, but all domains must 
 
 6. Enter your domain in the text box and click “Continue”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2047042630/0617a562cd28a7ff0e607d66a30b/6bd08e1d-2b65-40ab-bc79-a257153854c1?expires=1785363300&amp;signature=01644d8b9f7bafa4ab9b3c7e75e851a9473457f198db7b8ff8badb4885b84390&amp;req=diAjEcl6n4dcWfMW1HO4zWHctRiUkdKpyoyXAW0OlXrmGfDgErt7owIwCYiu%0AYDvo%0A)
+
 
 7. The setup screen displays a TXT record. **Copy the full Value using the copy button**—it begins with `anthropic-domain-verification-` and is longer than what's visible in the box. In your DNS provider, add a TXT record with **Host/Name** set to `@` (the root of your domain) and **Value** set to the copied string. Add it alongside any existing TXT records; don't replace them. The value is case-sensitive, so paste it exactly.
 
@@ -4454,7 +4454,7 @@ Clicking "Refresh" re-checks your DNS; it won't show Verified until the publishe
 
 If the record is correct and propagated but the status still shows Pending, contact Support.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2047044496/b8df54a0331784cc9ae8f00112aa/bf9609c1-dc93-4665-a066-4cae2fe4b002?expires=1785363300&amp;signature=c645a50c1a2a9133debe121ea52885e3eb47018992276fffce62cd506e6674ce&amp;req=diAjEcl6mYVWX%2FMW1HO4zVjmWSwDaXe6PM2D8ZcdgrhdamVko4%2FYxPqtNfrb%0A3YbV0Bfb0aZcSVXJKOk%3D%0A)
+
 
 **Note:** Once your domain is verified, you'll see a **Restrict organization creation** toggle under **Security** on the Organization and access organization settings page. Enable this if you want to prevent users from creating new Claude or Console organizations—including personal accounts—using your verified domains.
 
@@ -4494,7 +4494,7 @@ For IdP-specific setup instructions, see:
 
 You can now choose to toggle on **Require SSO for Console** and/or **Require SSO for Claude,** on the **Organization and access** page, under the **Authentication** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312690200/bd2403586d4f6651ccd79e2a45af/b9f8d7ce-0def-49d9-bfb2-3a14352d7214?expires=1785363300&amp;signature=64bd0ca5c2ef4caa950c90d971f9bbe3fef1cebc4256e66c5edbf69fa94a325e&amp;req=diMmFM93nYNfWfMW1HO4zdAICwqiBH8JItXtKivx6ZFUfmsljrNANEydP5Nf%0AF2lWKq2FO3gSOY4LzM4%3D%0A)
+
 
 When SSO is required, users must use the “Continue with SSO” option to log in to their Claude/Console accounts. When SSO is not required, they will have the option to choose “Continue with SSO” or “Continue with email.”
 
@@ -4589,7 +4589,7 @@ Use this table to help decide which provisioning mode is right for your organiza
 
 Both JIT and SCIM can be combined with **Enable group mappings** to control role or seat tier assignment based on IdP group membership. If you select either of these options for your provisioning mode, **Enable group mappings** will appear within the **User provisioning** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312706099/35d5d3ec149880a96bb7acec59f6/a4cfce55-86bf-40b0-b455-c8f412d48e9e?expires=1785363300&amp;signature=c05624b9f5e6da4daaff7b0be3509c50877fdf9310919ac5c6150ab2100ce116&amp;req=diMmFM5%2Bm4FWUPMW1HO4zXBDQ65XC1l1xFMG%2BIEvQScR%2FKN6nz6AiMamchMh%0AM4gwmSUV%2F0z7mNP4v1Y%3D%0A)
+
 
 ### Available roles and seat tiers
 
@@ -4673,7 +4673,7 @@ Once your IdP is connected, continue to Step 3.
 
 4. Toggle **Enable group mappings** on (if it’s not already):
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312714635/b57870b51e6511c8293637bceee2/da1ceabc-b6bc-451b-9cda-24ff6aa90d02?expires=1785363300&amp;signature=934bcd29ca8274c262646990d0b7c67b09c556838ce02257b34f2996df16aa86&amp;req=diMmFM5%2FmYdcXPMW1HO4zeBEbsDbkflLyb72rapuHpM6RVcelw4xUSfdtavM%0AFM3Q%0A)
+
 
 5. In the **Enable group mappings** section, click “Add” next to each role and select the corresponding group from your IdP in the dropdown.
 
@@ -4725,7 +4725,7 @@ Verify you have enough seats purchased and available to add members to your org.
 
 4. **For SCIM:** Click "Sync" to prompt an immediate sync, or wait for the automatic sync cycle:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312717421/c97fce49ad17d4660880a05fbaaf/59fbfa2a-1072-4662-8ca5-102970d5a795?expires=1785363300&amp;signature=1d191fb6c951e912f042411ca1f65229cfae301304a765d09fd2b9c576ab7e28&amp;req=diMmFM5%2FmoVdWPMW1HO4zZ9La1iuH8nB5hujYvMis4eb1LBvrii1zCNki6q3%0AFqvH%0A)
+
 
 ### I lost Admin/Owner access after enabling group mappings
 
@@ -5203,7 +5203,7 @@ Your personal GitHub token is verified to confirm you have access, then Cowork u
 
 An initial sync runs automatically when you connect a repository. After that, organization owners can opt-in to continued automatic updates per marketplace by going to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, clicking the menu button in the upper right corner of the marketplace, then toggling "Sync automatically" on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193200015/a239033a9ab19fbd39f1a0d9edce/CleanShot+2026-03-23+at+11_41_31%402x.png?expires=1785363300&amp;signature=b1f33fb9f6d17c45281c5efa4e79cbcfee7218d0a3dfa56bb490ff08e3c3c4a6&amp;req=diEuFct%2BnYFeXPMW1HO4zUYv5tj6x3wXRDH%2FtUo5ov4cseF5YL3yX0dxbqmx%0AcDFykRRT4nt2UvQawg4%3D%0A)
+
 
 Enabling automatic sync creates a webhook on the connected repository. The person turning the toggle on must have admin-level access to that repository on GitHub. This is checked through their personal GitHub connection, which is separate from the Claude GitHub App installation. Without admin access, the page shows "Cannot access repository. Ensure the repository exists and the Claude GitHub App is installed," even when the App is installed correctly and manual updates work.
 
@@ -6401,7 +6401,7 @@ You can trigger a manual sync from two places in your admin settings.
 
 2. Click "Check for updates" under **SCIM sync**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312613548/44cd5970ee3c3b2c7f8dcd592d71/image+%2824%29.png?expires=1785363300&amp;signature=bcd8f8e01badefdd0fd29775b53ea6bab05e2a617dabee2971b8667b1c01b023&amp;req=diMmFM9%2FnoRbUfMW1HO4zW4gbDCuM863rgfl7PnOiukqYnlpwZrfHQZi9k8p%0AlFFF%0A)
+
 
 3. Select whether to sync members, groups, or both.
 
@@ -6413,7 +6413,7 @@ You can trigger a manual sync from two places in your admin settings.
 
 3. Select whether to sync members, groups, or both:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312608119/e4b0ef4f309f3c4eac8311a6ef47/image.png?expires=1785363300&amp;signature=56ad5354b4785854e7c62e84d551e6af9a7f28f6a4dfd9b9fdb0e7022cb7fdc8&amp;req=diMmFM9%2BlYBeUPMW1HO4zX%2F4fr%2FzzTgc43OpyTHzM9RFrsU2wZi6PPP9t6ab%0A38J4%0A)
+
 
 **Note:** If you trigger a manual sync while background changes are processing, your organization takes the most recent change for each member or group. If multiple changes are queued for the same member or group, you may need to resync again to make sure everything applies correctly.
 
@@ -6509,9 +6509,9 @@ Before configuring your Identity Provider (IdP), you must verify ownership of yo
 
 3. Wait for the DNS propagation. Once the platform detects the record, the domain status will update to “**Verified**.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256015862/476131c3139aec4db01b96127544/10c7a165-8b26-4443-b064-9d659659c65e?expires=1785363300&amp;signature=83dc6e17e7cd5fa9bc19f4c02635cbced051dc1058dcb840b50073667a998cdf&amp;req=diIiEMl%2FmIlZW%2FMW1HO4zdpfuC%2BLHFCM006zz1SmF9UsSfOst9efhzkUj2jP%0A0oDhVvWZ7Dh4UvaGArc%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256025910/a82e2de9382824fa9db7666f67c4/CleanShot%2B2026-04-09%2Bat%2B16_25_20-402x.png?expires=1785363300&amp;signature=58658f290b186fbce8d826f49b49c8f4c14abd658085ea21bb7559fe713432e7&amp;req=diIiEMl8mIheWfMW1HO4zV%2BGnRw8RbxEx57dwYq5DdLwlGuew3i%2B%2FT88krg%2F%0AeFFyZ7xF%2BlPfLCq6Z9M%3D%0A)
+
+
 
 **Important:** Each domain can only have one identity provider. If multiple organizations share a single login domain, IT administrators from both organizations will be able to modify login settings. Contact **[Anthropic Support](https://claude.fedstart.com/support)** for assistance with multi-organization setups. For more details about multi-organization setups, see our **[SCIM provisioning guide](https://support.claude.com/en/articles/14503643-set-up-scim-in-claude-for-government)**.
 
@@ -6539,7 +6539,7 @@ Once your SAML application is set up in your IdP, provide Anthropic with the det
 
 - Claims Information — Attribute mappings for user name and email.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256004522/a97b91092b393e93b2d7779f63e6/2db86a6d-1582-419e-925e-cbc914468fa1?expires=1785363300&amp;signature=be2a12f1417adbb4392429d315c739434dd611b57f8be6a461f7aaf0f1dd2ac6&amp;req=diIiEMl%2BmYRdW%2FMW1HO4zQE9JrK1%2FBf4bfNHh%2Fvd8OHHgE9Y4%2FwTnrlg8mUh%0AIHYAT0uTJF6CtVfMbpU%3D%0A)
+
 
 **Tip:** Using a metadata XML file: Most IdPs let you download a metadata.xml file. Upload it on the identity settings page to auto-fill the Signing Certificate, IdP Entity ID, and SSO URL. Some IdPs (like Entra ID) also include claims information in the metadata file; if present, the system will suggest field mappings automatically.
 
@@ -6611,7 +6611,7 @@ With SCIM, login and provisioning are separate. Your IdP tells Anthropic who sho
 
 **Important**: Store this key securely. It cannot be retrieved after you leave the page.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256040196/c3b045028c4c2edef9172b6fb424/9a71258e-ae73-41e3-83a2-d24a240ac0ae?expires=1785363300&amp;signature=0750bd122cf42c3ad01bcc45cbc244f90e98bb9e699bc71db558664d9dd2bd4a&amp;req=diIiEMl6nYBWX%2FMW1HO4zSrRlakcbzUXyIvvU1hav7PxSPMd68MSBjyTMDgI%0AgVyK2zvqEvZBvZRtIrk%3D%0A)
+
 
 ### Step 2: Configure SCIM in your Identity Provider
 
@@ -6637,7 +6637,7 @@ After enabling the integration in your IdP:
 
 **Warning**: When you fully enable SCIM provisioning, any users who were **not** synced via SCIM will be removed from the organization. Confirm that all expected users appear in the sync before proceeding.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256040198/da9188b8b968d5f900cc08e9ceb2/3814ab37-c3fa-4256-8d16-49c1e1b4c654?expires=1785363300&amp;signature=1d42fab0f3b9463c39cba5dfabc68cbc3b7d5b37ee5fbd891204adbf216c9660&amp;req=diIiEMl6nYBWUfMW1HO4zeLvMl1sTE%2F5oWupW8zJgMrDP3a%2F%2BvBdneN1awOH%0Ac98ebRAfr6F6DFFhauE%3D%0A)
+
 
 ### Step 4: Map groups to roles and seat tiers
 
@@ -6653,7 +6653,7 @@ SCIM provisioning uses IdP groups to assign roles and seat tiers within Claude f
 
 3. Save your mappings.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256056441/f7eb09bba549e9861fc81b961cc7/2760fa5b-87bb-491f-9354-ca3cd2bc4475?expires=1785363300&amp;signature=b55776257233712ccf23c47c6fbd564caa5a50da0b798d2474a6089626bbdf73&amp;req=diIiEMl7m4VbWPMW1HO4zaWhsXYhtEQYh340B79BYGY86Z9%2FZ1lvxltHdqyU%0AKePszjQFol%2FhXwRgqcE%3D%0A)
+
 
 If you manage multiple organizations under a single parent (see below), each organization maintains its own role and seat tier mappings. Switch between organizations using the organization selector in the bottom-left corner of the page.
 
@@ -7300,7 +7300,7 @@ The organization default applies to every member. To set it:
 
 4. Click “Save changes.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514722139/d05c94072a41ea9090ecf386c53e/c32ee31d-954a-4551-a2da-91677fbd0b6f?expires=1785363300&amp;signature=53f03ac674d6f6c6ce21cf653ef2d56e359c5c53bcb9d12d29e530a0945a2d33&amp;req=diUmEs58n4BcUPMW1HO4zelOdzdDK0tEfdGVZ664dGHGJ6ZMpQPu8it9om%2FR%0ASCModDeuhkw3IvekxHs%3D%0A)
+
 
 ---
 
@@ -8227,9 +8227,9 @@ The organization setting is the ceiling, so a role can’t grant access to a mod
 
 If any custom role uses the model you’re disabling as its default, you’ll be prompted to change that role’s default before the change can be saved.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693921/02ea72756f5163f14e5d158516dc/69102088-cd86-498e-97aa-c8a6e0004419?expires=1785363300&amp;signature=7660ce024078f0fd17a26bbea75b0320471eb009f70fdacbc645cae7097319de&amp;req=diUmEs93nohdWPMW1HO4zXlxEuK6UdJUQf5Pb7M2Q0tcbTan5dEoNpAEiujF%0AMs2fJfM5dutK2QOh3Wg%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693922/bfc5de6626eb19dca1d7caf818ca/c3cd8bb6-f86c-4d01-92da-6ae4ca966662?expires=1785363300&amp;signature=26785929c3ce7bf1a6aa7b4cdd772129fd04eb97432e76968c6273393653f822&amp;req=diUmEs93nohdW%2FMW1HO4zTqNsYzGQFtUAod9uc510lz7AgP65WXRwFAWgL8%2F%0AUGmLAI%2F6PThc606OTB0%3D%0A)
+
+
 
 ---
 
@@ -8247,7 +8247,7 @@ If any custom role uses the model you’re disabling as its default, you’ll be
 
 Only models the role grants access to can be selected as that role’s default model.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693923/880665a87dbd4776cf19d6063a37/29d30c6d-f9fc-408c-8c72-4320c6d88d14?expires=1785363300&amp;signature=34eef22153724d1d092b6caf3f089faf47c93d01ff6a02582bee3834174de609&amp;req=diUmEs93nohdWvMW1HO4zYj9SfAA64K%2BXsqpNqvyFRKr1UaoafV%2FdHnEYSHA%0AAn2ZeLhbmqM8fzZu04A%3D%0A)
+
 
 ---
 
@@ -8265,7 +8265,7 @@ Effort limits determine how much computation members on a role can apply per res
 
 5. Click "Save" to save your changes.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2514693927/7a25673b3b075d72adb3cdc371e3/d2d7cd8d-a713-4e91-a706-f589ac46a9fe?expires=1785363300&amp;signature=45cf55696143ea56466bbe4b989da08caec368c44e50a4ae6e920db8ea408126&amp;req=diUmEs93nohdXvMW1HO4ze1xBja%2FdboaDeA1RkowXUGMUyX9umFc1Yrkta6B%0Ax9bN5A0A8SKyIDWpkmE%3D%0A)
+
 
 Members on the role see only effort levels at or below the cap in their model menu. Note that available effort levels differ depending on the model, and some models don’t support effort level settings at all. For an explanation of each level, see **[Change the model, effort, and thinking settings](https://support.claude.com/en/articles/8664678)**.
 
@@ -8673,7 +8673,7 @@ For the full walkthrough of your options, deadlines, and what happens to your su
 
 You may have both a personal account and an organization account tied to the same email address. You can switch between them by clicking your initials or name in the lower left corner of the screen.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2312193347/712f763fc290b2488c103849f20c/0c135a6f-3442-4ee1-9ab7-98673f03ef6e?expires=1785363300&amp;signature=ee795d11e0a43e2939424decff569c10d3d16e4057f67856b8548d4ed815661e&amp;req=diMmFMh3noJbXvMW1HO4zXhPndU1zhxiufhmlOXMdYaGfvgCpE%2FuKYabtjOW%0AYgS%2FRB1zlXRhp6lJPkc%3D%0A)
+
 
 A blue checkmark shows which account you're currently using. Click the other account to switch to it and access its separate conversations and projects.
 

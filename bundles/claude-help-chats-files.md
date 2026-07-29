@@ -43,15 +43,15 @@ To unshare a chat:
 
 Users on free, Pro, or Max plans can review a log of shared chats by navigating to **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)**. Find the **Privacy settings** section and click “Manage” next to **Shared chats:**
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1921669913/7cc7be48cfc7a18f9f469d6cd83c/CleanShot+2026-01-08+at+10_20_43%402x.png?expires=1785363300&amp;signature=42d396f9c7caa1c6ae73adc0a2b3845ce3cc6259b8c6fb341d73c1773342f306&amp;req=dSklF894lIheWvMW1HO4zWn5HzYeZEZoc9cNIYuX0GG7Rvx%2BDNsMyhlb6WP0%0AReKgOQvOW3HIBtzUIWw%3D%0A)
+
 
 This will open a **Shared chats** modal listing the title, date shared, and link to each chat, allowing you to easily review and access all your previously-shared content. From here, you also have the option to click “Unshare” next to each listed chat to revoke access to the last snapshot you shared:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1624243810/e6fe1d262597446c7fe21dff9f10/AD_4nXdW-GhByF8uKV7fCq9lTbkVB91FglSL6TSyXAOUk_MLcTV9YsEMBMkm9rgm1oXqv0k3sJh1JhlzZP6tHVkKbDJJ71pDRRtM3aVNG64MDuKDIzgmknh-XDZdNa7biTsTdwGoPr5GRg?expires=1785363300&amp;signature=cb0c979160aef83c0005e3f211d38a64d39032a39dabbe7de338be6f238d0f18&amp;req=dSYlEst6noleWfMW1HO4ze44eCJikhE9guvTv9woD7bJigrtH%2FcaNPPMCZ%2Bx%0AsKDYbOHd41fB8Ac9ZL8%3D%0A)
+
 
 If you don’t have any shared chat snapshots, the **Shared chats** modal will show “No shared content found”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1624243808/b025db8e598f0c88fb16d83d48d5/AD_4nXeUwCKnmFzzrjMHhfr5By4zk5pJlkEn3wbJ8-aNfu13Yl99IjBywpqPx9G07QRzpH1EwRY7uG7Q9m9fib98Gql1cIV7XwUCTzEgBNu79Ey8tCOS5CEVmwveIcEOxJ4fonBhe3g9MA?expires=1785363300&amp;signature=32a94e2c1a3abb5910a80507d09976fae82ad50bae26f7bc7d5a715bb0abc1ac&amp;req=dSYlEst6nolfUfMW1HO4zdaFncB3h4qyDeZsm0Gz1Hsx11li156NhW3SEUep%0AbtEOQ8%2Ff%2BxSafrSOMZE%3D%0A)
+
 ---
 
 SOURCE: https://support.claude.com/en/articles/10684626-enable-and-use-web-search
@@ -82,7 +82,7 @@ Web search expands Claude's knowledge with real-time data, helping you make bett
 
 An Owner or Primary Owner must first enable web search for the entire workspace. This can be found in **[Admin settings > Capabilities](https://claude.ai/admin-settings/capabilities)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2032032614/ad907328c4d9a26ee4bd9ca27a52/CleanShot+2026-02-05+at+09_01_42%402x.png?expires=1785363300&amp;signature=a8d7e57e1e12861b5185249434074b62597f90f9f286bee3411429ca91c36566&amp;req=diAkFMl9n4deXfMW1HO4zetvyre5Hs1TUJIbgsqS2%2BNgwsXv3OV1iel3cz4h%0AgcQqQsN2Ix6vHUXoS24%3D%0A)
+
 
 Once this is enabled at the workspace level, any member of the organization can switch it on while starting a chat by clicking the “+” button in the lower left corner of the chat window and selecting “Web search." Users can toggle this off for chats that don’t require web search capabilities.
 
@@ -307,7 +307,7 @@ Incognito chats are temporary conversations that aren't saved to your chat histo
 
 When starting a new chat with Claude outside of a project, you'll see a ghost icon in the upper right corner of your screen:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1719768744/c7a2fa56cf284e48472f3b9c4dbf/030563f8-9f97-4891-a749-9ae95968a063?expires=1785363300&amp;signature=04341951e730657716a9ab53dbf39017daa0d3e7e473ba3533520e624eb3e3fb&amp;req=dScmH854lYZbXfMW1HO4zeUcuwe%2BaOaIDCAt3Cx%2FSO1zzpHCNWgeiRWr1B60%0AtkjYLEqPHrCmnIfyoTQ%3D%0A)
+
 
 1. Click the ghost icon to enable incognito mode.
 
@@ -412,7 +412,7 @@ Capacity issues will not appear on our status page because they represent normal
 
 Service incidents are disruptions where Claude is unavailable or significantly degraded for all or most users. These represent actual technical problems with our systems. To check for confirmed incidents, visit status.claude.com, where you'll find real-time updates on scope, impact, and resolution progress for any active incidents.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1753796247/e6a8c6ef8653b229c5758e881242/c2fc6fc0-d163-4119-93e0-394104d86bc9?expires=1785363300&amp;signature=47244bbe1a10a4beedb4abe1d1fb05ad1c1f0e956570af2e03099209c9d8d0dd&amp;req=dSciFc53m4NbXvMW1HO4za4BXqog1LHH7y68oYp%2BYg8VJ4Kff2srBu7BSU%2Fi%0AWhxYG%2FGnNkXbsNd8cL8%3D%0A)
+
 ---
 
 SOURCE: https://support.claude.com/en/articles/14503520-available-beta-and-research-preview-features
@@ -681,7 +681,7 @@ To delete or rename an individual conversation:
 
 3. Select either "Delete" or "Rename" from the options that appear:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1621955348/4844057e0f0847b580b95bc01625/Screenshot+2025-07-15+at+11_43_18%E2%80%AFAM.png?expires=1785363300&amp;signature=3b0abd3b9fe579608a944eccdaa9cb294604209b462d7c075081199b30a85ae7&amp;req=dSYlF8B7mIJbUfMW1HO4zVBo5Ob0a4NZt5RK2C3E1TerTQTZ9E25Zz3KVZy%2B%0Ah6ki3kY33TvPTy%2FpaJQ%3D%0A)
+
 
 ## Deleting conversations in bulk
 

@@ -54,7 +54,7 @@ Voice mode transforms how you interact with Claude by:
 
 2. Tap the sound wave symbol in the lower right corner of the chat window to activate voice mode:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042358620/1bf2311353615c1c494da1312a17/124b93a8-0a9b-4c84-9d1f-ede6ca3498dd?expires=1785363300&amp;signature=e258cb9b08c98c6d4bf64ad1f7ff520b9ae87068524c52f1836a2714ddfee379&amp;req=diAjFMp7lYddWfMW1HO4zZyGrstxvVQTF6uXnTLMvvAyzoQIb6kdzOdjsov8%0ARUuZ%0A)
+
 
 3. Start talking and see your prompt automatically populate in the chat input.
 
@@ -62,7 +62,7 @@ Voice mode transforms how you interact with Claude by:
 
 5. Claude will remain in voice mode until you click the “Stop” button in the lower right corner of the chat window:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042352060/162f9e61f7fbeb689201dfc1cac1/6a7fafb2-31df-43be-a43f-0059d735e3c4?expires=1785363300&amp;signature=54800070886d059e1c25d5b7660b2eadd67d57c2a73f0a63416422d01365309c&amp;req=diAjFMp7n4FZWfMW1HO4zU6VRfjJTr9qxNdRzYWrfF6PGVYFw8xmAJK9pwYq%0Ae5fGK1XReHlcDvSv53g%3D%0A)
+
 
 ### On mobile (iOS and Android)
 
@@ -70,7 +70,7 @@ Voice mode transforms how you interact with Claude by:
 
 2. Tap the voice mode icon (sound wave symbol next to the microphone icon) in the text input field:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042359690/68879db64559ecf87991f73ce058/671ff972-9e08-4686-bc04-955dab4b2de3?expires=1785363300&amp;signature=d5a5014216caa4cdd47f03b86593482e3f3e75415f4b68dc8a1851d34bafee1e&amp;req=diAjFMp7lIdWWfMW1HO4zQTUIfF5lttND%2FRXAPlQ7LYV7EihmeV9IFeSppqK%0A5%2Fbc%0A)
+
 
 3. Choose a voice to personalize your experience.
 
@@ -108,7 +108,7 @@ To change the voice later:
 
 - **On mobile:** Click the settings button in the bottom left corner while chatting with Claude in voice mode, then tap your preferred voice and pace:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2042352063/25eca25bcfd573ecab30dd53158c/074454a6-fa5a-4c49-8b19-02d434b4ca50?expires=1785363300&amp;signature=f974041c9244aff788dfc7c9f97666773f63a0b7136ac5360c56bef36544fc2d&amp;req=diAjFMp7n4FZWvMW1HO4zZ3%2FGG%2BWZlMJy8OQfYsvK3zr0CBJ2xi%2FQ45R1TZF%0AQypZg7tlmyfJYJPcHIY%3D%0A)
+
 
 ## Choose a model
 

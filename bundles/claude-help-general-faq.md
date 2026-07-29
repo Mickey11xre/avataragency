@@ -58,7 +58,7 @@ To regain access to your account on any device, you'll need to authenticate agai
 
 If you used your Claude account to authenticate into Claude Code, you can manage your authorization tokens by navigating to [Settings > Claude Code](http://claude.ai/settings/claude-code). To remove a token and log out of Claude Code, click the trash can icon.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1608263923/b4fa7d6f6f08f2adffb4ea63bc58/image+%287%29.png?expires=1785363300&amp;signature=b1eb354bf95bb778220c255bc24f3b0efd3bb1cd1e0d70a9447f4dc3c1ec9b6a&amp;req=dSYnHst4nohdWvMW1HO4zVuHihn%2B0GS4AQofdwM8qVfC9uW5%2FTgbY1H4W3ir%0ALrBZjfXCNYUS9KAfLlI%3D%0A)
+
 
 ## Unable to access your account?
 
@@ -690,17 +690,17 @@ It’s how we’ve brought Claude’s capabilities directly to Slack, bringing A
 
 **Direct message with Claude**: Start a private conversation with @Claude.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1755143775/0ac74968f16b0c304ad05c1501c3/8f870a90-c622-449d-9eba-0a2edf5d63f1?expires=1785363300&amp;signature=d8982da261dd861320c7210e5763a24b9e6a2b73e74e4bf6ec688d56f8902cc8&amp;req=dSciE8h6noZYXPMW1HO4zb2WCgAAEId05mlLMjhGEMGdioRraT%2BrFbu37%2BLO%0Ao2lUKBb6%2B%2Fz9lRnBhUM%3D%0A)
+
 
 **AI assistant panel**: Click the Claude icon in Slack's AI assistant header to open a panel on the right side of your Slack window, allowing you to access Claude from anywhere in the Slack app.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1755144720/47781e38d6f97597aa494e0aeb2d/38f88d2c-aa96-4d35-8a02-7ad6b23f8699?expires=1785363300&amp;signature=a355840a4761585f72fbf8e89ec42a28d9cb352cc465758d33edfbe8142f6933&amp;req=dSciE8h6mYZdWfMW1HO4zUifzTTaEaCnPUSeDntyEuVh8v2SQcgyuATlYk6%2B%0AES4efXIoLMkikLB4a9k%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1755145556/3155c34bba5a64e0ab7b760e78c2/5c54e519-3c0d-4ffa-a555-0b9d9660ea53?expires=1785363300&amp;signature=1a514c4799e8096ea25e038aee48715757cf2afab826bfbff2543704c7f3a416&amp;req=dSciE8h6mIRaX%2FMW1HO4zXrVUt1%2F9ozABGejWRiWDiJjSCyMrwKCXKSj3Gqi%0A81yf%2BWb%2BRygyVC8j0o8%3D%0A)
+
+
 
 **Thread participation**: Mention @Claude in any thread to get Claude's help with the conversation.
 
-![A Slack thread where a user @mentions Claude and asks for a summary. Claude replies in the thread with a short bulleted summary of the conversation.](https://downloads.intercomcdn.com/i/o/lupk8zyo/2398958204/25a1254c9c17bb0af6bf64ac99d3/Slack_Claude_Thread.png?expires=1785363300&amp;signature=2353c4d9a15163298071735ec34d7715a1d2aa7223cc9343674c1762acb862c7&amp;req=diMuHsB7lYNfXfMW1HO4zdOLiZ4uKuirZVaRIDJSo4I4yJQIVbYNS%2BKMvSDj%0AnYHDOrfk7QSJHQn1Qho%3D%0A)
+
 
 All surfaces provide the same capabilities that you have enabled in Claude, including web search and connections to your integrated tools, allowing you to seamlessly integrate AI assistance into your existing workflow.
 
@@ -738,17 +738,17 @@ Once your Slack admin has approved Claude (or if you're on a personal Slack plan
 
 2. Click "Connect Account” to be prompted to connect your Claude account:
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1755147280/abac53f0415690817c630a420091/98c15ecd-761c-4e0d-aeae-1c52d38e52c8?expires=1785363300&amp;signature=a96848d0b9276dd9cfaab2884eeba1bdc214c85fec3cf5c88e9911b3a5cdf898&amp;req=dSciE8h6moNXWfMW1HO4zRIwhUm%2FQyNl%2Fy7g3WAjXh68CiyCHU3pa0ETN14E%0Aac%2B%2B%0A)
+  
 
 3. In the window that opens, select which organization you would like to connect with Claude for Slack.
 
 4. Click “Authorize” to allow Claude in Slack to access your Claude chat account:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1755147985/57be4bd15a4720466d9114ef9e0d/5944ab3f-20b9-43f7-b475-127b98a3eef4?expires=1785363300&amp;signature=29de307e9b8af7163d4ccad637693a5e64e88a68e9b0ec14374ad1789617d519&amp;req=dSciE8h6mohXXPMW1HO4zcpXSpA4FA6XFQ%2BRWX0w%2Fe4hHrySgg%2FdYqj8HC97%0A6%2Fv4%0A)
+
 
 5. You should see a confirmation message upon successful connection:
 
-  ![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1755148657/71571a264d97c7a145c399b3e653/f0d32375-bf8f-47d5-89e3-c165eb3a1d41?expires=1785363300&amp;signature=fc6d4e270c78633011e7af57a0ae1c7bed4a69c2a5bab6c37bfa84a73431411f&amp;req=dSciE8h6lYdaXvMW1HO4zZ9S6jQacpJoXLLzhWuBjzNuMIyRxK9RTxildNGE%0AvsZK%0A)
+  
 
 6. After successful authentication, return to Slack.
 
@@ -820,7 +820,7 @@ To disconnect your Claude account from Slack:
 
 3. Confirm the disconnection.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1755149744/97a579fedf87deb5e5b6abf48963/4cab9f61-9f98-40c4-969a-f590716dfb38?expires=1785363300&amp;signature=b3705a36e6f26a50f2105fe266bbe3c7a325e80ec4d1bf5bd5216ef8d7da2e85&amp;req=dSciE8h6lIZbXfMW1HO4zdIAvZBIaLKTQgg7UiXQlE0gx%2BwFWFWjX8GPH7HH%0AsEWfe%2B2xeY87WyoxPFc%3D%0A)
+
 
 Disconnecting will:
 
@@ -936,7 +936,7 @@ This article provides information on how to enable the Claude LTI integration in
 
 5. Click "Install" and refresh the course page.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1611422430/c8e0875feac1f2c7cb033be74fc9/AD_4nXfLU_bui3EXcCjQ0qm70HD97neqjGayKeDer_t76utlci8gZSUjYRhw6ZSOlDdqSEcwXBzd_shAh7pQEJ-8OoE0O21DM5coOgxmO_WD5hlwiuwtS2iYXcTavhIRyQT5zKFWvfn3NA?expires=1785363300&amp;signature=cfa44f6cdbb50b73736b741c182fa56c43de0c89c16affa6510cdd760dd44103&amp;req=dSYmF818n4VcWfMW1HO4zTEDau4dnfCCEv2ojHLMyla7j0GBTEE1e87sO8J6%0AuW7dOozDvf34wSktvpc%3D%0A)
+
 
 ## Turn on the Claude LTI Integration in Claude for Education organization settings
 
@@ -1013,7 +1013,7 @@ These capabilities make it easy to produce professional documents by simply chat
 
 To give Claude access to external data sources, toggle **Allow network egress** on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2054774005/25bcfffba6c249cd128d6c3f6d52/CleanShot+2026-02-11+at+16_34_47%402x.png?expires=1785363300&amp;signature=1c92fb99c629cb9a96ead338ba40b7144350e5194b5e83667da509d7a468793b&amp;req=diAiEs55mYFfXPMW1HO4zYFJywhGCprNPQVowIiib2kJEYCGmkbv7eI2ft3r%0ASWpRi9xlKO%2FpOeKtXQY%3D%0A)
+
 
 ### Enabling on Claude Mobile
 
@@ -1031,11 +1031,11 @@ Team and Enterprise organization owners can control network access settings in *
 
 - **Allow network egress to package managers and specific domains:** Claude can access package managers plus additional domains you specify. Add domains individually to whitelist specific resources your organization needs:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945362/ad72504d5429960f369b8b91b43c/86f06c0e-6eaa-4574-a4cb-2c38b273613a?expires=1785363300&amp;signature=8cbf694f09355987e8ddfa1c43b6ba7c14d0ca477f88b71a0809fe9924b86c7d&amp;req=dScvH8B6mIJZW%2FMW1HO4zXJcBmhAkypIpMW6Iph6YZdUcYrUJiSXzQHCxNrD%0AsuVo5yj43AnnX6IQRiM%3D%0A)
+
 
 **All domains:** Claude has full internet access except for domains on Anthropic's legal blocklist. While this provides maximum flexibility for file creation and analysis tasks, it’s also the riskiest option. Please review the **[security considerations below](#h_0ee9d698a1)** before enabling “All domains”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1789945361/e3188cb8edb9ca7c303615da6378/f1c99a7d-5956-48d5-9ec7-b7ae6c8c3d28?expires=1785363300&amp;signature=87b7869d4f619fc7507144f3dc6d95e522ebfb7fdfbd2c9459dd80c25fe59338&amp;req=dScvH8B6mIJZWPMW1HO4zdnseBGR6DyhqgKIA6CM1tpfteJXaWd2LecIqntw%0ANBsBZNVgWqbOoF7jlKY%3D%0A)
+
 
 ---
 
@@ -1867,7 +1867,7 @@ To start using Claude in Xcode:
 
 3. Log in with your Claude account.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1727371585/b18ca03a6357c52d12d10386f28e/dab2dcb2-f670-4173-b77d-38767a34cec1?expires=1785363300&amp;signature=4550570b1949cd79298c1aeccd3d70bb597360802f133303cf34ca58c6030873&amp;req=dSclEcp5nIRXXPMW1HO4zUAXI8kBVKvXFalhp3bugHLyKbzcZOJoXpiHf0tc%0A2he9pkGTmmcrUWaNBiY%3D%0A)
+
 
 ## Usage limits
 
@@ -1984,7 +1984,7 @@ Claude in Slack gives you AI assistance right where your team collaborates. This
 
 6. Access previous conversations by clicking the clock icon.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1755150661/a1a13c73bda421f6ee906650cfc9/22907223-e523-4a93-a6d2-3199a8368991?expires=1785363300&amp;signature=d76a2ae9715553f6dfd7e88b4b46c1c480532996ed3af271d2d2b6ce75d1dd27&amp;req=dSciE8h7nYdZWPMW1HO4zXK26hRN7jIdVfOC%2FRy97LVVJvK%2Fe82W5SdGQPqv%0AFPcidYKLIGKLIJoUvyU%3D%0A)
+
 
 ## Mention @Claude in a thread or channel
 
@@ -2531,7 +2531,7 @@ Users can approve all of Claude’s actions via a confirmation pop-up that appea
 
 - System information: REGISTER.ID, RTD, INFO
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1849431310/ffc870a5114b4178fcd74b5cccf8/Screenshot+2025-11-25+at+11_30_10%E2%80%AFAM.png?expires=1785363300&amp;signature=6ac7e96704aba88b00db3ab0e2cfe55c3473b0df077ac890a617b9a50cbedbd0&amp;req=dSgjH819nIJeWfMW1HO4zYWKaOdoJNlxqAsRdssXCyBNqUAgQwYprVwjsNot%0As7shlZRjj8%2B4gC9E%2B7E%3D%0A)
+
 
 While we continue to develop our offerings and improve safety measures to reduce these risks, users should exercise caution when using Claude for Excel and should not use it with spreadsheets from external, untrusted sources.
 
@@ -11193,7 +11193,7 @@ Claude can show current weather conditions and forecasts when you ask about the 
 
 Claude automatically displays temperatures in Fahrenheit for US locations and Celsius for everywhere else.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544927/3a9c695b24df387ecdd766ad308c/8be9f393-dcb0-4ff8-89e8-5fa47bedaa38?expires=1785363300&amp;signature=94e81c1720812b5c30e9a597a0e2c6d46215a4af274c9479ba02b4883f870977&amp;req=diAjFsx6mYhdXvMW1HO4zXlB7Tu50xuLdgndksVD5R3u6n6r2Mx%2BZnYjRlrT%0AvSSABEJum5ew4ahCZ4A%3D%0A)
+
 
 Weather is powered by Google Maps (<https://policies.google.com/privacy>).
 
@@ -11203,7 +11203,7 @@ When you ask about recipes, Claude can display formatted recipe cards that are e
 
 **Note:** Visual recipe cards are available on web and desktop only. On mobile, Claude provides recipe information as text in the conversation.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544929/12f4c51eda7779d65d3ea2c7ab16/d0f4a314-cff8-421a-b401-10c2bf50374e?expires=1785363300&amp;signature=1bf328e5810fc490540adb78045e9bf57d4cb39b5e735853d951c266d9d0c321&amp;req=diAjFsx6mYhdUPMW1HO4zUQpe7UW1FeUrIPm%2FImZVg2cukxFVpDWULp%2B%2BWPg%0ALyHmPRqqUgXLDVjO9u4%3D%0A)
+
 
 ### Custom visuals
 
@@ -11251,7 +11251,7 @@ For example, if you ask Claude to help you plan a trip, it might ask you to:
 
 This content appears at the bottom of the chat. You can still type a response if you prefer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2040544930/9ad066e137d11e4b559b0217e12d/9bf30d2d-1715-42b3-9da5-2a9298f41f08?expires=1785363300&amp;signature=6ea67e66716d5a8be18a1e88ab4a909940c4dc89033b052cf1267c4a575e4b4a&amp;req=diAjFsx6mYhcWfMW1HO4zWmF5%2FC9bx2hx4wz0C7CTALQeDoZI6YhxKUfbCLF%0A6XFAiiWOuaIben9uAVU%3D%0A)
+
 
 ---
 
@@ -11444,7 +11444,7 @@ SOURCE: https://support.claude.com/en/articles/13756069-public-sector-faqs
 
 Select your product based on both your technical/functional requirements, and also your compliance/security/deployment environment requirements. Here is a list of options:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2197717161/79965a24090029e9e58c727c3c24/pubsec-product-matrix_png+%281%29.jpg?expires=1785363300&amp;signature=772ede6c02f56172dd4c4695df4bcb5e60db147934106572ad672d1836cf00c5&amp;req=diEuEc5%2FmoBZWPMW1HO4zU94LlwmG94z2WxtU42UVC2CC9qkT1FPLh%2BHxeY%2F%0AbYVu6Do7z9vQGUAWJyw%3D%0A)
+
 
 ### What is Claude for Government (C4G)?
 
@@ -11617,7 +11617,7 @@ In Cowork, open the "Cowork" tab first, then open **Customize**.
 
 You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2100409211/fc01614dde1a616fa31ffaa9cb04/47bacf5b-a810-45b5-a468-9769f1a58ef8?expires=1785363300&amp;signature=852fe8424c3807ac0126176617ef07731024fc0cd98f3b60059b1387deb8d4b8&amp;req=diEnFs1%2BlINeWPMW1HO4zZF3IhDeNfZWxakFVfq5WwzpROQkAaboq10t1Ayd%0ADU6%2FNNnYTq2Cvh%2BvB1o%3D%0A)
+
 
 ---
 
@@ -11625,7 +11625,7 @@ You can also upload a custom plugin file if you built one yourself or received o
 
 Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2157396844/4a790e10f5b88df770783df1d7e9/image.png?expires=1785363300&amp;signature=5df3092581800c0ac350335f6e513117b73c1fa2e70fffbc7cad088d5867134d&amp;req=diEiEcp3m4lbXfMW1HO4zf4NBPP%2FhUOXmKUxugP2BQsbpz9445zQxlSwczHr%0Ay4%2B41X8E420QLAIvRSc%3D%0A)
+
 
 ---
 
@@ -11724,13 +11724,13 @@ Open each app and activate the add-in at least once before using the cross-app f
 
 Go to **Settings** in each of the add-ins and toggle **Let Claude work across files** on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2152216540/23e9f22eca1109ec09f2c6138191/2ef697a8-3a60-4193-bbd7-639ed91b20e9?expires=1785363300&amp;signature=02d2ec39121bca61adbe8248e40fd604923a20c86e7ae91c3fcaeb0e00f2a168&amp;req=diEiFMt%2Fm4RbWfMW1HO4ze%2BVVHH2Vg1cQEr1GSm7Lk3AiF3Eet%2B9%2BKJWQO3H%0A5uVg8LQexzK7zak1rfM%3D%0A)
+
 
 **Note:** This setting is default on for Pro and Max plans and default off for Team and Enterprise plans.
 
 You'll see connected file indicators when Excel, PowerPoint, Word, or Outlook files are linked to your session:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2152215013/db0cfd2aa4034975480d82218aad/8f11dc16-2173-4b34-a05a-e31a53b58cc2?expires=1785363300&amp;signature=69346e3659c840d7108c284aa3493a3f8651059f69fa8c9a7be03690fd5eadfb&amp;req=diEiFMt%2FmIFeWvMW1HO4zZtV3mi13dFiGgi4PNaz7vU8rtgM81yr30zRnz9G%0Awy7pcXmS2byrgVqT99A%3D%0A)
+
 
 ---
 
@@ -13364,7 +13364,7 @@ To validate your design system, create a test project and see if the output matc
 
 Once you’re satisfied with the design system quality, make sure the “Published” toggle is switched on. After publishing, any projects created from the Claude Design homescreen while in your organization will use your design system instead of the default.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287527007/b1c46cb8dba4cd7e8bbea85fb0c3/2819c6cf-9ce1-4df5-84c8-feae0164bf2e?expires=1785363300&amp;signature=5e337aaf66be6f7e5fad5a99cb0003acd76870d83cb7eb4c98ce6e7ee1cf161a&amp;req=diIvEcx8moFfXvMW1HO4zWNHF%2FeICDgUIQKNMXlu0T8ezsoCaLhYVxkrGv31%0AQ%2Bnl1xMHTdU6frOGS5A%3D%0A)
+
 
 ---
 
@@ -13536,7 +13536,7 @@ Use the “Export” button in the upper right corner when viewing your project 
 
   - Send to Claude Code Web
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2287510952/553a03eec5cea7b9eff53b473552/6dc33363-38b1-444e-96bb-f8218b588173?expires=1785363300&amp;signature=8f525739f553c72e38f29e189725538358ad81aaf56a54a6e68d683fd443390c&amp;req=diIvEcx%2FnYhaW%2FMW1HO4zQFD4SlZnW53nfz9ljnuyXTGw5V0wFhuFsF8j21N%0Af0e%2B0LIPfETguVRDW8c%3D%0A)
+
 
 You can also share projects within your organization using a shareable link. Sharing options include view-only, comment, and edit access.
 
@@ -14836,7 +14836,7 @@ You use **prompts** to communicate with Claude. The best approach is to speak to
 
 Type your prompt into the chat interface and click the submit button to start a conversation with Claude. You can click the "+" button in the lower left or type "/" to view additional options and commands:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1916208578/2cf2ea52f1f884084b57983a8805/image.png?expires=1785363300&amp;signature=73973811867702e7c162d8ebb3d6b7ca34d30beffb8cd2067f8bc9b8ed6a06b2&amp;req=dSkmEMt%2BlYRYUfMW1HO4zV2J7SrJsoSC9crMELaMZPyjMGKNOUJDXU2X3q%2FX%0AD%2B9%2F%2FyOLM%2F%2FwWvkx5Iw%3D%0A)
+
 
 ---
 
@@ -15476,7 +15476,7 @@ SOURCE: https://support.claude.com/en/articles/8887527-customizing-your-appearan
 
 3. Select from Light, Match System, and Dark under **Color mode**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1648260417/d478c757c7115ad58a12026d4caf/AD_4nXc__Qop4X9hknWGfGj_y_DCpLutLruhxIclJIfir0ilsgNMg7X8ksIVnqk1Oce5FKlGIOYu9CKbVsu8DqD7iIY2aC0ZfXMyFTeAdNq-Cao2mXcj_WUpNF0kM2HoYR_dEx6N_cuJow?expires=1785363300&amp;signature=400745c5792ee129dcccd7751be6608fb0880bcda1d555faf791790ba5b7269b&amp;req=dSYjHst4nYVeXvMW1HO4zc2jJ6c%2BhojnSBkgeTglJrqbM%2Bt8O0HWMy4djFfM%0A07ce4XshKMrUQNtGoM8%3D%0A)
+
 
 ## How to change your font
 
@@ -15484,13 +15484,13 @@ SOURCE: https://support.claude.com/en/articles/8887527-customizing-your-appearan
 
 2. Select from Default, Match System, and Dyslexic Friendly.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1648260416/7fc0803d44d8de40f8e6636b2eb6/AD_4nXf0UEDa1i2QmqlQtoB5BgpQ-FfZVzss_7wMVQdvkmEDSfoTxixnG0GSxC6qrOs21HdkXH-I2Yn_GHDAf8yjd6FJtoh9FadALozvIErFp9r8LychDGLPb7OpN1CN4PRcgVAYNCre?expires=1785363300&amp;signature=0c1357640c3cd9f5c6600b27be6b71d1e524c543e59598aff9853aae87a77977&amp;req=dSYjHst4nYVeX%2FMW1HO4zc8962XmW3I%2FQtNFlF5%2FHEd7X%2B6TFeg%2BlRng4RNj%0AOMIU68SnMz4tilyLvss%3D%0A)
+
 
 ## Can I disable the sidebar?
 
 It's not currently possible to completely disable the sidebar. You can click the button on the top right of the sidebar to open or close it.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1941108004/5217903737ddd9bb62fe5d7a904c/CleanShot+2026-01-14+at+09_12_58.png?expires=1785363300&amp;signature=ca06df7e89d495cdcdc4c680d02fbbf45b7d502a75d079db0de3e3f27d1932bb&amp;req=dSkjF8h%2BlYFfXfMW1HO4zUS%2BB1r1X3jsylfYa7uDb9mQuyw0u88KOjKlS6nB%0A25MBQP3MYmWcHhOYob8%3D%0A)
+
 ---
 
 SOURCE: https://support.claude.com/en/articles/8987200-can-i-use-the-claude-api-for-individual-use

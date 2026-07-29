@@ -120,23 +120,23 @@ Cowork is available for paid plans (Pro, Max, Team, Enterprise) on:
 
 Find **Projects** in the left navigation panel and click the “+” button to see the three different ways to create a project:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183720240/6f6ef438913391703598d86d606c/CleanShot+2026-03-20+at+09_11_43.png?expires=1785363300&amp;signature=c2a902d43f6e8f0d024f3c199707f57b4557775e5530b3e8d1127f495847ede8&amp;req=diEvFc58nYNbWfMW1HO4zcOgiwC51yt2ZwSvwegvtgwsFoi7PA3RqeOwdO03%0A8tNX4YA2tpbeHS9MoIk%3D%0A)
+
 
 ### Start from scratch
 
 Selecting “Start from scratch” allows you to set up a new folder with instructions and files:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177090014/07832b50003cf7fd3b4e9c7c448b/3385d9b8-c3e7-42b9-ae3f-4d213baa53a7?expires=1785363300&amp;signature=4eb8d3265eed4776bc3b5f8d76a8b76774ecb603223245b3b7217e75cae58e97&amp;req=diEgEcl3nYFeXfMW1HO4zZCoQ4hGSHaVvb0suCMAnj2wTlHH3XXdzEy7n3ru%0Aev3FsnDVjQq2TASiKpU%3D%0A)
+
 
 ### Import from a Claude project
 
 After selecting “Import from project,” you’ll see a “Search projects in Chat…” field:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183717962/acdc11bcc825ae76a13f508365bc/CleanShot+2026-03-20+at+09_12_08.png?expires=1785363300&amp;signature=7b1b5494cb97080786e7fa4243ba97a113eda2b516ea6a26cb245a9a4804d845&amp;req=diEvFc5%2FmohZW%2FMW1HO4zQQ7UGZezJscjggUT7FIJz%2F7aR8TiP2Aml8di%2BfN%0A0a62nCqWnxMln4rz1Rg%3D%0A)
+
 
 Clicking into the field will display a drop-down showing your recent projects, but you can also use it to search all your projects. After you select a chat project (bulk upload is not supported), you can name the new Cowork project and choose where to save it on your computer:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2183727973/7a25430123d9e13e7c3cdd411f70/CleanShot+2026-03-20+at+09_13_41.png?expires=1785363300&amp;signature=3bf209b8b8867fff1ecd8da8015cd7d153505dfcac269d15e0846adbce7ea585&amp;req=diEvFc58mohYWvMW1HO4zU%2FKAiZF%2BiDPI7f%2FdY0VL6hBrGBdvuS3%2BuVl5Cjd%0AHHzhFfZop0Mj8qG%2BxJ8%3D%0A)
+
 
 Clicking “Create” will transfer the files and instructions from your existing Claude project and create a new Cowork project.
 
@@ -144,11 +144,11 @@ Clicking “Create” will transfer the files and instructions from your existin
 
 If you select “Use an existing folder,” you’ll be prompted to pick a file to use as context for the new Cowork project:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177087935/2f0052dae601d0b7fecdc029e1c3/2e3ca9e7-23b1-436e-bbdb-edcd31c41f15?expires=1785363300&amp;signature=877f40dc0cbbc85d3879f06da48713baa1708e7d3c13c299a2f3b95f11f743d1&amp;req=diEgEcl2mohcXPMW1HO4zejrnzPVEyBcuv8e2Xj2xOVb%2BrxFcqd9L22DBD2H%0AmG295cAesJ%2Fu7BdVdZM%3D%0A)
+
 
 After selecting a folder, you can name the new Cowork project, choose where to save it on your computer, add instructions, and attach any additional files. Click “Create” to start using your new project:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2177087937/f59dbe3fc28448a9597ea097cb4d/96a59acb-4054-4b4b-a208-751f9711f535?expires=1785363300&amp;signature=54d6523b3cb1adffdc2d5c8e1cf755101f1669b4d7203990257bbb945a5eb182&amp;req=diEgEcl2mohcXvMW1HO4zUq4V%2Ba3haE5MfnqHouW6MJFkyxI3b7AjjnZwWp1%0Ac68vdBW%2FdMQ0PHJAPV0%3D%0A)
+
 
 ---
 
@@ -364,19 +364,19 @@ Starring a project allows for quick access from your projects and chats list, vi
 
 You can move a standalone chat into a project by clicking on the dropdown arrow next to the chat name, then “Add to project”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190248/0f19c8de18b494a27be252fdfaff/d4e7a5c5-25f5-4623-862b-c593d2dc0b39?expires=1785363300&amp;signature=3d467bed87d4514dfa23c54aed1a5989043e4dda3fd5a34fa38d56e54ad21887&amp;req=dScvEsh3nYNbUfMW1HO4zQABaWRvTKMWBSXNVFXQ%2FVE9gOiSajwyPKZJR7v0%0ADCnNOqmSIIZ4ScVzu2w%3D%0A)
+
 
 Browse or search for the correct project in the **Move chat** modal that appears, then click on it to move the chat.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784190951/34dc256ccd4c0cf74976f31062e6/55365cf2-059d-41b2-ac95-4b00c4389a76?expires=1785363300&amp;signature=fcc52b5d7ee8de990e8395f59dc2528bd21d4517e61f51b6898c2c4c7825e31e&amp;req=dScvEsh3nYhaWPMW1HO4zSMECiWzzQoCgYbpTjViBxCOBRtYUlcsu2QRQily%0AQtQNWtTQSfkCf5SBEo4%3D%0A)
+
 
 You can also remove chats from projects, or move them between projects, using the same dropdown menu within the chat:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185682/8625eac15b9fa452f148a6c47250/c53a1bc4-a991-4684-a789-5447ed789d35?expires=1785363300&amp;signature=1f4f01ae6cd875622ac3b520b8bd17a2b071530324960d8b1e2981a216277adc&amp;req=dScvEsh2mIdXW%2FMW1HO4zb6DuPIvCEYJS2r1%2FGRlqOSmKo7kOYdG61S73hsy%0AFNSRKod0rKNbA%2FrV8S0%3D%0A)
+
 
 You can move chats into projects in bulk from **[Your chat history page](https://claude.ai/recents)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1784185685/bb960063204592db277a4ba62d8d/ebbf5c69-da79-4e56-9d87-f2a97a22fe67?expires=1785363300&amp;signature=2b08a3d4d06ca2131ca5a58edd607ae147ac4f9261a113cbec5b8ec694c8cec1&amp;req=dScvEsh2mIdXXPMW1HO4zbParUlK7%2FmguQSB0Ebsw9c0fcyOhNojR%2FHZ20k8%0AI9lJeyYwhbPXaSYVGMk%3D%0A)
+
 
 Select the chats you want to move, then click the icon next to the number of selected chats to move them into your project.
 
@@ -481,7 +481,7 @@ When creating a project on a Team or Enterprise plan, you can choose between two
 
 - **Private:** Only invited members can view and use the project.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370991/2b6b16e5deff094e073a5b4bb0ea/63197103-24c0-41e5-aebd-9b8f431837bb?expires=1785363300&amp;signature=2c7acff900648d4ae0ce34b5303514ae214fd6d7eedb0fe8dbfc7690fe92d838&amp;req=dScjFsp5nYhWWPMW1HO4zd3a2VknIo2kHK95%2FTFaPylHBb0mFWQf9vbR9lr0%0AEd%2BieeUBw3yRT6Kib04%3D%0A)
+
 
 ## What are public projects?
 
@@ -491,11 +491,11 @@ If you choose to share a project with the rest of your organization upon creatio
 
 Yes, you can switch the visibility of a project you created as public to private at any time by opening the project and clicking the “Share” button to the right of the project name:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370987/5d5db997e6b42e627ffa62fddf75/4823906b-9535-4a19-b89e-a1003f1e6e68?expires=1785363300&amp;signature=0e7a68eb2aeec72bbea30bf54121c7db28c0b6a8011d04f9e555817ac94d13a4&amp;req=dScjFsp5nYhXXvMW1HO4zUiDoiz0hwUqE8Kp5wh0MSC29paZiBlVXlo%2Bso9I%0AAatGeCMG74ccxEfOhJY%3D%0A)
+
 
 Click “Everyone at [your organization]” under **General access** and select “Only people invited” to change the project from public to private:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370988/386407facbf3e73d2f5538623a18/69d8ffcd-e1ca-470f-a219-5b88704e41f2?expires=1785363300&amp;signature=4234c0fb33b53ffe077389ac94544c1b38ba23e4ed71087fc86dfc65b00e520b&amp;req=dScjFsp5nYhXUfMW1HO4zckCIfdhZCGnl3XeGelDRW1OysFoW440UQ0MDuhY%0AScT%2FiXLuyh%2FD5JAtavI%3D%0A)
+
 
 ## What are private projects?
 
@@ -505,11 +505,11 @@ Choosing “Only people invited” keeps your project private so that you are th
 
 Yes, you can switch the visibility of a project you created as private to public at any time by opening the project and clicking the “Share” button to the right of the project name:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370989/f829dcd8bdd88e944322f678323f/9d25eff1-6df3-40be-82eb-ba7fe09187e8?expires=1785363300&amp;signature=036164097bd7e527fb4ceebc28ae6f86dbbf56efd93b9ccd61f7181e4f8ee38c&amp;req=dScjFsp5nYhXUPMW1HO4zaSEGlafTLsO2JrJefVtywnhwAxJT%2FYGoVeJZ2Ie%0A1lgGtXr%2F2pLjzCd1%2BpM%3D%0A)
+
 
 Click “Only people invited” under General access and select “Everyone at [your organization]” to change the project from private to public:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1740370990/d173fbc6f030780d30c6d7b8e204/7e47b9d1-89fe-4607-8b5b-f7b06e7ad0d6?expires=1785363300&amp;signature=a294329fa255f1879f1f8653e039d58eb3cc7431af572570f9cc06306fdb41c0&amp;req=dScjFsp5nYhWWfMW1HO4zT7Q0824uw8VAmYRPrgMBZlTy%2Bx5vTwKmzt%2F2ElD%0AvCBDBrOIPILYUj2ZHoI%3D%0A)
+
 
 ## Add and remove access to private projects
 
@@ -627,7 +627,7 @@ Follow these steps:
 
 2. Find **Public projects** and toggle it off
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2053902291/8c39d1a79dedc97411eed54dec5c/CleanShot+2026-02-11+at+11_25_34%402x.png?expires=1785363300&amp;signature=59208db41c744af14915780fb42beaee5a36ab25a42fc49b78cf0de5de08869d&amp;req=diAiFcB%2Bn4NWWPMW1HO4zfGib2KnbQNcYabJlVJ9VPy3dIKSSDuaNVVMdtN1%0AimDNHdRGQWaU9pt2qP8%3D%0A)
+
 
 ## How does disabling public projects work?
 

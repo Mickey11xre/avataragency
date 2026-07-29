@@ -363,7 +363,7 @@ for specific instructions.
 
 Custom desktop extensions uploads allow Team and Enterprise plans to leverage organization-specific workflows that aren’t available in the public directory. After creating a custom desktop extension, Owners and Primary Owners can navigate to Settings > Extensions within Claude Desktop and click “Advanced settings” to access the **Extension Developer** section:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1681607607/ba6e379d2769d190f0970a0adaed/AD_4nXd4aZkqjJFpiXMPF28Pih7HmSJ9pPsnoWAfVgiLdFRFiTkO92YtXteIjvDHaPl7T0tjfpRTBOlyrMbQ_aciCNDgfIuEvV3szmKvt72x5O51DMSClXOYWk1JIRIzylwkj3joXqZcLw?expires=1785363300&amp;signature=6c1152240e2de343ecc0a6c5b55dcebd63ea72df37ab625e3c0fd60cb9487391&amp;req=dSYvF89%2BmodfXvMW1HO4zWbPxEV8MT4xHn9K2IaIG2I0BVJPxN%2B%2BXFWzfpWE%0A%2BMakhFS6CMmRPkkg5zc%3D%0A)
+
 
 Click “Install Extension…” and select the .mcpb file. Follow the prompts to install and configure your custom desktop extension. For more in-depth information, please refer to our [desktop extension developer documentation](https://github.com/anthropics/mcpb).
 
@@ -13473,7 +13473,7 @@ The Web Search connector gives Claude the ability to search the public internet 
 
 For questions about web search in commercial Claude, see **[Enabling and using web search](https://support.claude.com/en/articles/10684626-enabling-and-using-web-search)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2256120763/7652c6c669446113eae75f3c5977/9c74d57e-aaa2-4f1c-bfe4-2b9b87fd41ab?expires=1785363300&amp;signature=f9d7df2dbf51458f82dc62f88eeb7c4fdcf0b1082f535cda3296987bb0870f08&amp;req=diIiEMh8nYZZWvMW1HO4zQvFLLdQi8f7M%2Fw5SJgC29Fpj7Fkr%2Fz4s4x7cfX0%0APqW7516f366s5hoVTGM%3D%0A)
+
 
 ## How Web Search differs for Claude for Government
 

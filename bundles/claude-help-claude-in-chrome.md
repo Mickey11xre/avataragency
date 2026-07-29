@@ -39,7 +39,7 @@ Follow these steps to enable the Claude in Chrome connector in your desktop app:
 
 4. Toggle the connector on, then download and install the extension if you haven’t already.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1892696502/a23969725f631e99b9e4c47ec6e9/89803b8f-4f3c-4983-8b4d-63aec687ea1a?expires=1785363300&amp;signature=1a73c58977a94d4c3f537698fe17b83b62e9243641db2089661b4ae4b27e8704&amp;req=dSguFM93m4RfW%2FMW1HO4zdOezI5f7rB6hnw73Y7ib%2BeAM8%2FcGjg82jA350qN%0AA9cf%2FvJJ6Yz66%2Bw%2Bgsk%3D%0A)
+
 
 Completing these steps will add Claude in Chrome to the “Connectors” drop-down on your chats with Claude. This is disabled by default, so you’ll need to enable it manually for each conversation.
 
@@ -470,7 +470,7 @@ Claude in Chrome uses a multi-layered permission system to give you control over
 
 Choose "Manually approve" to have Claude create a plan from your prompt, which you can approve and allow Claude to execute. The plan will specify which websites you’re allowing Claude to access, as well as the approach it will follow:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1843320727/8d1c859ae9b8e0cdb536d024bf40/9bc3d239-8eb6-4bae-a032-a236f88ee606?expires=1785363300&amp;signature=f1f06c8073d21f2f4e1246cafa47573dbca1199768a0ea3db3505823fcb8dd39&amp;req=dSgjFcp8nYZdXvMW1HO4zYqyZcdO%2BoG0gN0ADj5oqFAXc%2F%2Faedq5V21%2FBBnu%0AkW%2FWgs11GpTpUhIJmew%3D%0A)
+
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
@@ -498,7 +498,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **Permission required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1847222875/162eb012ebe473ed2b852b97e223/0209db51-6057-4ec4-a9b7-8358287d46a3?expires=1785363300&amp;signature=e57dc083ca556511d221cd476a6ce3b03db3123a312b818662b8287e1fb4e8f8&amp;req=dSgjEct8n4lYXPMW1HO4zeoCY8MopXd8JCxYSFHKWIi9Yz%2FkzYWZH1KyoDoj%0AhiHJoMxa3FQ1nZUoA2k%3D%0A)
+
 
 ### Permission options
 

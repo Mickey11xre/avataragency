@@ -101,7 +101,7 @@ As a Primary Owner or Owner of a Team or Enterprise plan, you can manage the abi
 
 2. Use the toggle to change the **Rate chats** setting for your organization:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2058292603/75752add0bed6a9f3ab217f01708/CleanShot%2B2026-02-12%2Bat%2B08_55_14-402x.png?expires=1785363300&amp;signature=98d12c71d2288a52e7c6f9f16e5c301c158871663e08a4fdeb742e8ff4ffbcdc&amp;req=diAiHst3n4dfWvMW1HO4zYGm8iIfFqvP085gFtEpvcRQ92OGFC1Vk6EfnHd2%0A8FWO%2BAuZQTk4pjVxgQc%3D%0A)
+
 
 More information on how Anthropic collects, uses, and stores feedback data can be found in our Privacy Center: **[How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)**
 ---
@@ -425,7 +425,7 @@ SOURCE: https://support.claude.com/en/articles/11818288-why-am-i-being-asked-to-
 
 If you see the following pop-up when you log in to your Claude account, you’ll need to click the “Verify now” button to verify your payment method:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1631413861/42c3b13d7fc44a11a88ec2b9cd03/AD_4nXeMx8QXpeZZCkfAnVSwx8KZ9n4Vr2rvPdQddyE6ZNxch__F6ZqFs1G4ZmU52Wvb7gRlwRqquTLdw8IQv-gICDyP-MXqiQK_Oe7gX3SKsCKKt2IEpMx4qDeMeeZufMaJfv16XgOH5g?expires=1785363300&amp;signature=2af7de38f546cb58493d05840bec02cca6d30e6adf9c06d2e5aa8d45f9569126&amp;req=dSYkF81%2FnolZWPMW1HO4zf7%2BjEHt7oPxn6MrEicvimDi7XSEujMgbnc6l4aM%0A5fxnHhRlB3GLiodNxG4%3D%0A)
+
 
 ## What happens if I click “Remind me later?”
 
@@ -658,7 +658,7 @@ After navigating to **[Organization settings > Usage](https://claude.ai/admin-se
 
 The **Usage and spend limits** section will show the current limit (if any) or **Unlimited**. Clicking on "Adjust limit" opens a modal where you can either input an amount and click "Set spend limit," or click "Set to unlimited" to remove the organization-wide monthly spend limit.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2149347604/936ac4eb025d3ef1f00c3b8a26b0/image.png?expires=1785363300&amp;signature=38645f060a09a347070545e914100744840ac13196fa9ccc5ce0b3000ac65800&amp;req=diEjH8p6modfXfMW1HO4zQHwg6TUkC2l6DwhVVpk1mAziqjv81I%2FsQi0Ck8F%0AGLwXgp2WAGTInqyLTok%3D%0A)
+
 
 Changes to your organization’s overall spend limit go into effect immediately.
 
@@ -666,11 +666,11 @@ Changes to your organization’s overall spend limit go into effect immediately.
 
 Owners and Primary Owners on **seat-based Enterprise plans only** can set spend limits that apply to all users within a specific seat tier.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2149351600/c5b979c366ac2738f60ea84e85b3/CleanShot+2026-03-10+at+15_37_41%402x.png?expires=1785363300&amp;signature=6626a6c2789a941559a10b3fd8128e3dc62255eb51d39ca76ec01dcff8439ea7&amp;req=diEjH8p7nIdfWfMW1HO4zYnqMICXJXOK0wfO62ivdG%2FlkZxf1SejNNM5LU1g%0AaA7HMDNGCNeZ%2B5Huv%2Fg%3D%0A)
+
 
 Select the "By group" tab to see **Standard seats** and **Premium seats** groups. Click the "..." icon next to the current limit, then "Edit limit." This opens a modal where you can either select "Set dollar amount" and input an amount, or click "Unlimited" to remove the limit for that seat type. Click "Set limit" to save your changes.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2149362056/44993661ca2db771fe924d0346f6/image.png?expires=1785363300&amp;signature=33e795fbac0b49f033e3549d7799f13efa28b4acad8c9daf18ec50399cf4402f&amp;req=diEjH8p4n4FaX%2FMW1HO4zRzvvIAIdk5Fq7nEDCGq9G5zCDm1e3BLWR%2FhjvKs%0AexthjzJ6DDuc5UEy7w4%3D%0A)
+
 
 ---
 
@@ -678,11 +678,11 @@ Select the "By group" tab to see **Standard seats** and **Premium seats** groups
 
 Owners and Primary Owners can also set individual monthly spend limits for each member by finding **Spend limits by user** and clicking the "..." button next to the user, then "Edit limit."
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2149370853/db66f5cd03683b9cc119d0dcd6b8/image.png?expires=1785363300&amp;signature=c305173f67a958588826f814f962a7ec21f072b992bd8af867ad4cab86e051d8&amp;req=diEjH8p5nYlaWvMW1HO4zaPdGQJUUyxFe9HwvwG7ubgfPktGdMUZ3B7yuLEM%0AlQoPtpCVp66Itz4ZZ1U%3D%0A)
+
 
 Enter the amount and click "Set limit." Alternatively, selecting "Set to unlimited" will remove that member's monthly spend limit (they will still be subject to any organization or seat-level spend limits).
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2149374028/97813fe3b515c2e839d8d92abd79/image.png?expires=1785363300&amp;signature=6b5328ec2967f4ca95686402cfaaeda291afff963034b3fcc55be10b86144ed2&amp;req=diEjH8p5mYFdUfMW1HO4zevsAvKJNeiJw6z2wGSwkbuPYPvVyQhCyampTnYw%0A%2FOdbnEAlYhKox7rh7wA%3D%0A)
+
 
 This allows owners fine control over usage credits, so you can set limits for different members based on their roles or individual needs. Once a user reaches their defined spend limit, this will automatically pause their usage credits until the end of the month. They will need to wait for their usage limits to reset before using Claude again.
 
@@ -745,11 +745,11 @@ Owners and Primary Owners of Team plans with monthly subscriptions can switch fr
 
 3. Or from /upgrade, click the “Switch to Annual plan” button:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1690325734/d47f714680d78408d6022d06b8d1/image.png?expires=1785456000&amp;signature=f207c4a3ea3122ee7c2463be6e76353e0dfda6def678f2402b33465cd6fc4268&amp;req=dSYuFsp8mIZcXfMW3Hu4gZzas%2FXtvDtXm2rRiVwqPzYvVi3DprCHx7LAadwr%0Acw%3D%3D%0A)
+
 
 4. The confirmation screen will display the total cost for your upgrade from monthly to annual billing:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1690326039/3a91cdc5fff57d188a18ecc6273f/image.png?expires=1785456000&amp;signature=d4d9c462dd5d0fbcbd50835899d2f8b1df149da3a46b565dd448b45a62546964&amp;req=dSYuFsp8m4FcUPMW3Hu4gbNj%2Bk78WQnkje5vzcg6znXvlw13uIcYEmUm22Sr%0Aww%3D%3D%0A)
+
 
 5. Click “Confirm subscription.”
 
@@ -854,7 +854,7 @@ To enable usage credits on your paid Claude plan:
 
 8. You can also enable auto-reload to automatically make a purchase when your balance falls below a threshold you set:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1805819785/5e203c38e6ba3f76bfd1dab0d5ce/fe062e7c-18cb-48cc-a7e2-754ac6e6c4be?expires=1785363300&amp;signature=032d3e2464679d2243c1cb8cf8dc35ff3cbd1beb824c41e20cf896a14bd65484&amp;req=dSgnE8F%2FlIZXXPMW1HO4zYj2AReao%2FM7opE7m38YdfdJdPUi4Osx0z0C1nvI%0AsLqnW3mtparDO8qDZ1k%3D%0A)
+
 
 **Note:** There is a daily redemption limit of $2000.
 
@@ -973,7 +973,7 @@ This page includes the following analytics:
 
 - Sessions in Cowork
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515895966/9f231a620f47d49e0ee648152189/848c1787-4eaa-4809-8fd2-1dbe2722560f?expires=1785363300&amp;signature=7bc38cd483637b17585799e857c9260ecc2456ae33a6cd3cd18bbcd7c9e7834a&amp;req=diUmE8F3mIhZX%2FMW1HO4zZL6waNxnYZyExEG4dCAGDZ%2F84zj8UYuKDkK7WT%2B%0A4lwZyAgpZpKjlWH%2FYqU%3D%0A)
+
 
 ### Who’s using Claude?
 
@@ -985,7 +985,7 @@ This page includes the following analytics:
 
 Use the dropdown on the **Active members and assigned seats** chart to filter by product, including Claude Design.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896351/4d955858e6662c37489cc1470871/457cf159-8c2a-4403-ba22-cb92cb47e459?expires=1785363300&amp;signature=71ad5e11105d1221be1bc5cf290625885d96a3084ecad9a80e5f4a2729eccb64&amp;req=diUmE8F3m4JaWPMW1HO4zYEqejKqRJOsYqPRsgaNdTy665pa2c0tC6D8UtWq%0AfrWxbfUrab93zP%2B8CZw%3D%0A)
+
 
 ### How are they using Claude?
 
@@ -999,9 +999,9 @@ Use the dropdown on the **Active members and assigned seats** chart to filter by
 
 - How agentic is their work? (beta)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896562/51c6c1c2d73f9873b4ba8e64e5d3/762c32a7-e6d6-4ef1-a6b6-33d638f5008c?expires=1785363300&amp;signature=82f57fcbb1055fed8693bdb8d9eb05683ee7f338942e2469b30b1436f6e7bdc3&amp;req=diUmE8F3m4RZW%2FMW1HO4zQmHaEuI3oecWdW5GUm%2B9K2jDbKVIi1Bzojd6G%2BB%0Akauj%2BqKc2J1stDzTDAI%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896563/abf008596ce5501297a609696362/fce5423c-4769-4b73-9a0a-c50f6407ebea?expires=1785363300&amp;signature=017940f7f216820f6459bf12139b057da1b14c47dca72ce1df74ff6163a11b9d&amp;req=diUmE8F3m4RZWvMW1HO4zR%2BIDoJtu%2FT0LS3kobW3ZgRRIRalWzRJ8xwVW2j5%0AeljC5crYLtntMlCaShs%3D%0A)
+
+
 
 ### What are the results?
 
@@ -1017,7 +1017,7 @@ Use the dropdown on the **Active members and assigned seats** chart to filter by
 
 - Estimated time saved
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896943/dd415f03afe56ca38308ef987f86/189e8ebc-5594-4f4b-bd84-e3c11c824d5b?expires=1785363300&amp;signature=f11a7535b7554eb0ad0217d21eb9dd04f837c149097ce497273fec668d8b12f0&amp;req=diUmE8F3m4hbWvMW1HO4zfJThCE8r99FiovaLYNN7RmfhQqwXynyVds5doK6%0Alna7ZNFh8z%2F%2B7ZadTzo%3D%0A)
+
 
 ### How much is Claude costing?
 
@@ -1033,9 +1033,9 @@ This section includes the following analytics:
 
 - Spend by model (month-to-date, quarter-to-date, year-to-date, 1 year)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896942/b403f2d216fc40b5195911020b8e/446b99f1-3187-4b79-b2be-9f17b1632ff8?expires=1785363300&amp;signature=05f25a417672d49682b1270b7b461e0daee550368d493fb4e6a94f721a37ca15&amp;req=diUmE8F3m4hbW%2FMW1HO4zYE%2BQ9sB6jLeWbBLGZ4vBJV5nWMWrVgU1PkX6WE9%0ABn%2BJO764RxxDK3loW4s%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515896941/2239ce38639df339b24d5af1cb50/f829bc2a-ee52-4135-9b13-09ef1b7d66d6?expires=1785363300&amp;signature=2a59b87b9f0de087808539c74b48c6353a909e7ccc4228f0fbe19bbd4a207af9&amp;req=diUmE8F3m4hbWPMW1HO4zTz0Nu8BIcpTC%2BtvTPa1I7ETQUNEI%2Fep2JdjtMpS%0AtAmxI6l%2Fux5d7rl9XNE%3D%0A)
+
+
 
 ## Export a spend report
 
@@ -1111,7 +1111,7 @@ Navigate to **[Analytics > Claude Chat](https://claude.ai/analytics/usage)** to 
 
 - Top members by chats
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515898793/405db0c492da11886c28a2b82731/71a55afc-1cef-4c50-b7e1-86775cb9a168?expires=1785363300&amp;signature=3960087bccd0cec041e9617b22bf95111f34aa87a4bbd13e835a191aa81e1af4&amp;req=diUmE8F3lYZWWvMW1HO4zbhc8fifZ%2BciTcfMEUwBBiX2nKbMbreWbujdwNCh%0AgNK5NCHDSvU6W9rgWUg%3D%0A)
+
 
 ### Projects
 
@@ -1123,7 +1123,7 @@ Navigate to **[Analytics > Claude Chat](https://claude.ai/analytics/usage)** to 
 
 - Top members by project usage
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515899610/91d93108f0767e795fb9e488e882/71607d6d-dff1-4a13-a445-aa1d79850eed?expires=1785363300&amp;signature=34c1e9a476936b04a4a8635a8193561d9567f4184e2f33ced848e6b542406ace&amp;req=diUmE8F3lIdeWfMW1HO4zWhGoTmanSChExu5cYiHHN%2BAe6QklwLawqmkETfr%0AeH3qK90Fe4M5yGW%2BGUo%3D%0A)
+
 
 ### Artifacts
 
@@ -1133,7 +1133,7 @@ Navigate to **[Analytics > Claude Chat](https://claude.ai/analytics/usage)** to 
 
 - Top 10 users by artifacts generated (month-to-date, quarter-to-date, year-to-date, 1 year)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515899838/33d737f2357d6e485704669962ae/43faadc3-47da-4a93-bbb7-47a7983e7441?expires=1785363300&amp;signature=dec43c42e0f23b124091c33a5a0a7c2591233c7ed836ed33505a18de6a9a02cb&amp;req=diUmE8F3lIlcUfMW1HO4zcSk4r%2FReO3DjHDogqK0V%2Bxl27wllDeblnueKfYy%0ADR8UMzJUqZDcgBME0qQ%3D%0A)
+
 
 ---
 
@@ -1229,7 +1229,7 @@ Navigate to **[Analytics > Cowork](https://claude.ai/analytics/cowork)** to view
 
 - Daily, weekly, and monthly active Cowork users
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2515901489/8005693d55b7fefbfe9233258d39/106c22a0-3f47-47a6-abbd-4788dd70f218?expires=1785363300&amp;signature=40625da56a1eb87d923f3a23fc5f1dbdc8c0b226c15a5edf141be14f8c45c943&amp;req=diUmE8B%2BnIVXUPMW1HO4zX7WEo2yW0KrFSi1Z3SzLLuRQfEZjNWeUoG0jYXd%0AMMwtsS4u9s7wEjdXsCc%3D%0A)
+
 
 **Note:** Cowork analytics are available alongside Chat and Claude Code data in the **[Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api)**.
 
@@ -1239,7 +1239,7 @@ Navigate to **[Analytics > Cowork](https://claude.ai/analytics/cowork)** to view
 
 When your admin turns on individual usage analytics, any member of the organization can see their own usage broken down by product, model, and skill, along with where they stand against any spend limits set for them. Individual usage analytics are available in **[Settings > Usage](https://claude.ai/settings/usage)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2533906328/1f5cd0a57def40676410f8f379b4/member-usage-30d-model.png?expires=1785363300&amp;signature=aa8cf8c52e1c1e7729ec048699dfca0e6850829a30cbdb06d391cc2a5c0b6a25&amp;req=diUkFcB%2Bm4JdUfMW1HO4zfveB6rGeujZWGUKUw6QS4%2BBo9BRXPJS%2ByntzB%2Fp%0AzzAwna%2F44sLizXevXXw%3D%0A)
+
 
 ---
 
@@ -1433,7 +1433,7 @@ Your organization's billing address determines where your invoices are sent. You
 
 If you want to use a name other than the one tied to your payment method, an organization Owner should check the "Use a different name on invoices" box when adding or updating your payment method in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922145253/f2e3d4e0fe43a2ea07e89244764c/image.png?expires=1785363300&amp;signature=c150ca97f2f43f15b5c539a76708b1a0e25497f7369f16d0ade6591aa49a668f&amp;req=dSklFMh6mINaWvMW1HO4zRZTxF%2FCvcjQKAqLF4ERnlXG6cFEniBds%2FiTfAId%0AhbQgGdSvoQmVVtvp%2Few%3D%0A)
+
 
 ## When will I be billed?
 
@@ -2565,7 +2565,7 @@ Create roles that delegate parts of administration without granting the Owner ro
 
 4. For each team or department, decide which features they need access to.
 
-![Image of the Organization settings page in Claude, with a box around the People section which contains three options: Members, Groups, and Roles.](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484535492/d17b343f54f754bb3af73fe880a9/Org+settings+-+People.png?expires=1785363300&amp;signature=ac70e3ba65ba3a92aec4dfc4e2bee8a631ced649562c869f946e4681360a1fe2&amp;req=diQvEsx9mIVWW%2FMW1HO4zVA%2FMt%2BTKY6pvDbmWeIt%2FcT4tUhZ9RO8z6axLWdL%0AWDJeL2bjqrH61Tgtzwc%3D%0A)
+
 
 Remember: any feature you want to control per-group must be **enabled** at the organization level. If a feature is toggled off at the organization level, no custom role can grant access to it.
 
@@ -2583,7 +2583,7 @@ Create your custom roles before enabling any features or migrating members. This
 
 3. Name the role and toggle the appropriate capabilities on the **Capabilities** tab, or choose "All capabilities" or "All generally available" to grant everything at once:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2539844315/2e98adc9b24a95bf64b7ef759c94/a0c6bd31-327c-48b8-9ece-1b985eafccec?expires=1785363300&amp;signature=432d00becb0f40fb1433ed3a163a507174a0f14d63cec8829404b09b473caffa&amp;req=diUkH8F6mYJeXPMW1HO4zfzK2ObZ4No5Jsssa0E%2FK2YLtHsjqOHufjkMdId2%0Af7AV%0A)
+
 
 4. On the **Permissions** tab, set admin permissions for the role. See **Step 3**.
 
@@ -2613,7 +2613,7 @@ Set admin permissions on each role to delegate access to admin settings, like bi
 
 3. Select the **Permissions** tab, between **Capabilities** and **Connectors**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484538453/66f52673b2d1fc7b0d4b48ed4ff6/fbf992ce-c4a1-402e-80cd-0c8449f916bd?expires=1785363300&amp;signature=495e4639e612b43e75e4e57ca73b4229806c6992d4856327008d3db9c18fad4e&amp;req=diQvEsx9lYVaWvMW1HO4za6MibekWkGEJQR8u%2B9qQFlbBzi0dW55VWAfEQ9c%0A6b3Dvh7Gu%2BpCrqRjl1I%3D%0A)
+
 
 ### **Set admin permissions**
 
@@ -2653,7 +2653,7 @@ Set connector permissions on each role to control which connectors, and which to
 
 The default settings for new roles are permissive. When creating or modifying a role, confirm the settings on each tab to avoid granting unintended permissions.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484539079/2325428311fffccd6951d5f2dc46/e4326a16-d44b-4e5d-9ecd-5c3dbbc7651a?expires=1785363300&amp;signature=2fcfc8c2dd7f29da330986414194ac27939b185b33cf6cfd2fdc44d917823444&amp;req=diQvEsx9lIFYUPMW1HO4zZGDXFygDvVxHNJQDqL6ZaClWuKzoogj4VfLP0Cl%0ATmV3XpR9xPcLRugHvH8%3D%0A)
+
 
 ### Set connector-level permissions
 
@@ -2669,7 +2669,7 @@ The **Connectors** tab lists an **All connectors** row at the top, followed by e
 
 Choosing “Always allow,” “Needs approval,” or “Blocked” applies that level to every tool on the connector. The **All connectors** row works the same way one level up: it sets a baseline for every connector at once, including any connector you add later. Use it to set a role’s default, then override individual connectors.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484540660/36fd30e963d7881bbff5b85bdf32/cc91e30c-af8c-4271-bff4-b34393d6122e?expires=1785363300&amp;signature=148cdb7f79622250643f73bcce0d21bae3878c54f2d76d87d33b64802c51af1e&amp;req=diQvEsx6nYdZWfMW1HO4za3dLAOE2oUr%2B48W%2BGCIbmdJYISS6syg9ygWqb7L%0A%2BPKlcOmCdXzfNGfJGrs%3D%0A)
+
 
 ### Set per-tool permissions
 
@@ -2677,7 +2677,7 @@ Set a connector to **Custom** to reveal its tools as individual rows. Each tool 
 
 Per-tool permissions let a role reach part of a connector. For example, with Jira set to **Custom**, its `search_issues` tool set to “Needs approval,” and every other Jira tool set to “Blocked,” members with the role can search Jira but nothing else. Claude only sees the tools you’ve granted, so asking it to create a ticket returns “I don’t have a tool for that” rather than an error.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484553274/3c0781dc9c7704a7b67d4858b88b/Screenshot+2026-06-17+at+4_28_45%E2%80%AFPM.png?expires=1785363300&amp;signature=3630f1ce9b78bed06fad769d9e11437a1486b5aedc33d0d14b34285becd8085d&amp;req=diQvEsx7noNYXfMW1HO4zXcI%2BoJDAtxg1VjQ9K3ENRvM99HVzpeZTjXIdfF4%0AksFlCkPTjJTiQtGTfCE%3D%0A)
+
 
 ### Review cross-role conflicts
 
@@ -2685,7 +2685,7 @@ Because connector permissions are additive across roles, blocking a connector in
 
 If you have unsaved edits when you open a linked role, you’re asked to discard them first.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484556183/b644bbfba5350ae2a460117f23e3/Screenshot+2026-06-17+at+4_31_03%E2%80%AFPM.png?expires=1785363300&amp;signature=0cb84fc171eccf942b3d4ff895c2e35cf7b85917c88f552edc6c526f13ac2ea4&amp;req=diQvEsx7m4BXWvMW1HO4zX8ytugG59fUGc8KkqwXsZ6TbRlG7hDcpT8yuJ7h%0AMA%2F%2B3LxMjQF2r6EelIU%3D%0A)
+
 
 ### Verify enforcement
 
@@ -2735,13 +2735,13 @@ Verify model access after you've migrated members to "Custom" roles. See **Step 
 
 4. Assign each group to the custom roles you created in step 2.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260371973/b503c99ef71d8a89b7aff606511b/b1afd593-3b23-4fa9-8b9b-ee6beaf74fd7?expires=1785363300&amp;signature=dcaa229adf0ec45508ebe19033f0ebc660ade183b208ca944df3e823d30df939&amp;req=diIhFsp5nIhYWvMW1HO4zdMu8WV1HAppKwlCydrbfL5CZSCVD2zG9%2FpZqe7P%0AKpZFhkwwjW0kC7usXug%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260372813/83ccc4784bdfc8600101bc42ec4b/6e7456ac-9887-4e04-b757-3972110fbdce?expires=1785363300&amp;signature=b9c73c1b60fad8db65fa72c3be9997b817380dddc06f51d59f75bb32b0885bfd&amp;req=diIhFsp5n4leWvMW1HO4zQetnyZUYqz7czQdKdGFNsfwJhcY9QOtXnEgmvd6%0AK9eAMAv%2BipNDE1cd16g%3D%0A)
+
+
 
 If you use SCIM directory sync, you can sync groups from your identity provider instead of creating them manually. For details on SCIM group sync, see **[Manage groups and group spend limits on Enterprise plans](https://support.claude.com/en/articles/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260374677/5f9d8febb8ae25153a94d0b827b9/c8314b27-96c1-4743-ae8b-25e511181837?expires=1785363300&amp;signature=13ca98db296b70de5c5b1bd3e541fae47ae3f1d30b65728809be7f7526b11d65&amp;req=diIhFsp5mYdYXvMW1HO4zXzl64p27jiZKYkQn0Dd8NWai1ROHRF91Qe0Pyur%0A36VkjdL%2BmkwVnHtccp8%3D%0A)
+
 
 **Multiple organizations under the same parent organization:** Groups are managed at the parent organization level and propagate to all child organizations. You may see members from other organizations listed in a group—this doesn't mean they have access to your organization. Custom roles assigned to a group only grant capabilities to members who are part of your specific organization.
 
@@ -2783,7 +2783,7 @@ Use this path only if your organization already enabled group mappings for role 
 
 3. Save your changes. Members in those IdP groups are migrated to "Custom" roles on the next sync.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2434934020/d154818947d8d84ebf1aec8d5462/image.png?expires=1785363300&amp;signature=fa7397761c789d96458bd2623db0219459b2e1b31e671c39658f44051a097568&amp;req=diQkEsB9mYFdWfMW1HO4zQyCmErgT0ZrSnpHYy0fFQvml40K4nhRZs0ESk4Z%0AAebbKevXCVpsRWoGNN8%3D%0A)
+
 
 Members in IdP groups mapped to "Custom" roles follow the permissions of the custom roles assigned to their groups in Claude. Members in IdP groups mapped to User follow the organization-level capability settings. If a member is in groups across both mappings, "Custom" roles take precedence.
 
@@ -2799,11 +2799,11 @@ Use this path if your organization hasn’t enabled group mappings.
 
 3. Use the bulk assignment tool in the Members table to change the selected members' role to "Custom."
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260377969/ba3b7ba08518f0a50e2a84f82655/bdf1aea3-2fe7-4f3c-868b-cc35ae8b7d1d?expires=1785363300&amp;signature=b2b7d33a901a567646372681a1065fc00e3a03eca67b08d61f8ef5c8394f857c&amp;req=diIhFsp5mohZUPMW1HO4zYFuwIQhg8qPlPaXg%2F0URIlWZeGmRcc07mkdlii3%0AI9U9c2YM7Nr5E2tgT2s%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260378309/abe25b6478c721a2f965b35361b7/beff124a-0a44-4f7f-97f8-391ce6e8c55b?expires=1785363300&amp;signature=09439745113d1ad2cc96c62263e8b64e70695cc5ccd25aca1bb101fa6e007113&amp;req=diIhFsp5lYJfUPMW1HO4zRgyEF3fVerVZ8KPhClFzQlGES1ZbQbT%2BSVHhgmn%0AHR%2B6iHlaYyXVasjnxNE%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2484560173/7abf3438fa3d65afa03c4a99d4d4/Screenshot+2026-06-17+at+4_34_49%E2%80%AFPM.png?expires=1785363300&amp;signature=4990f08b9eb63019b7d58bf3cf2b78e4bfed469df13fefa9e12a8770f156744b&amp;req=diQvEsx4nYBYWvMW1HO4zUXuwkt%2FLYBTiQnXWL6R1K9x2R7X1lwQ6OjRQpA5%0AoeDyqRrkmOJhnlobbCA%3D%0A)
+
+
+
 
 We recommend migrating a pilot group first—one team or department—and verifying their access is correct before expanding to the rest of the organization.
 
@@ -2839,9 +2839,9 @@ Enabling a feature at the organization level doesn't mean everyone gets it—cus
 
 Navigate to the “Usage” page to assign a per-user monthly spend limit to any group.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260386576/377ac052069ff5a35b3023f50d12/dface609-9d85-4ee1-8ed3-bfe019a2bd0a?expires=1785363300&amp;signature=74ec981088fe8a85bab65f23bc7cbbc3d49a9e54508ccfc5fe3fb9ad225ddb46&amp;req=diIhFsp2m4RYX%2FMW1HO4zfvdi5KcQwWJBMkPcsY1DF5n1guPlRAA1siMwL1G%0AKIcaDpdDPcPBfuDU0FU%3D%0A)
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2260386575/b9798bb7a2ab92024fa4d97f2ff4/7b2327e1-ab3f-41e5-8be0-77c0f35a4015?expires=1785363300&amp;signature=9d38bc307bee6b025c1bd1281d652be0f47c5217533c5ee289742793a96f49a8&amp;req=diIhFsp2m4RYXPMW1HO4zW55wNSaxlIyJuVz%2B3EZKJ62Ne4eCaoRpNIPzfLB%0A4OqtfZm5OVRSznZL1zs%3D%0A)
+
+
 
 Note the following precedence rules:
 
@@ -3070,7 +3070,7 @@ Team and Enterprise plan admins can enable this organization-wide by following t
 
 2. Find the **Claude Design** toggle under **Anthropic Labs** and switch it on.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2289240025/8a528b6cccc3ea1001c25953cb14/image.png?expires=1785363300&amp;signature=b8fb61879ecda51d5b391b0b2efbe41cf0eb12cadb3d56a46b2181605bf83169&amp;req=diIvH8t6nYFdXPMW1HO4zahp3ecLH%2BUmDIPtKBLQ9H%2FvfGJvB1PrqVcg3D3h%0AifmxWu%2BFQdddUfHQRjI%3D%0A)
+
 
 ---
 
@@ -3679,7 +3679,7 @@ There's no separate option to remove a card, and updating to a new card replaces
 
 If you want to use a name other than the one tied to your payment method, check the "Use a different name on invoices" box when adding or updating your payment method in **[Settings > Billing](https://claude.ai/settings/billing)**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922141785/666191101c11030b05f03a668a74/image.png?expires=1785363300&amp;signature=44866aa1d40528b581b51b14648c81411986e747acc493fd161270c9f79225c3&amp;req=dSklFMh6nIZXXPMW1HO4zVXW8GiobTDPQoNvNFTb5cf5xtVW1uAqEwJLbCLH%0A4thgAvD9O8JFoaFVlP4%3D%0A)
+
 
 ## How can I edit a paid invoice?
 

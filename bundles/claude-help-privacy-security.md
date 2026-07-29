@@ -82,7 +82,7 @@ Session duration controls allow Enterprise and Console Admins to set a maximum s
 
 5. Confirm your selection by clicking “Enable.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1888469436/1725e63ea1a2615948faecf4ec73/9bd276a1-7329-414d-87a1-d04dac93fff7?expires=1785363300&amp;signature=bb4c031552d98adf57518221dbf6c81b4920fa1fb4250eb22c24c42f59dee462&amp;req=dSgvHs14lIVcX%2FMW1HO4zQNx6%2BckRVlTg%2F6XaftFnjwtn3dTbTG%2FSvKvVnD4%0AtLDIXuYNYWZcH2HxHes%3D%0A)
+
 
 ### For Console Admins
 
@@ -96,7 +96,7 @@ Session duration controls allow Enterprise and Console Admins to set a maximum s
 
 5. Confirm your selection by clicking “Enable.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1888469435/7a766bbe02e61c7d8f05deb5b8f0/b0bda400-47c6-43dd-9907-131ebe180b36?expires=1785363300&amp;signature=fb8a3e3b72d400b3d283f29c56756aca0b660b58b6a6ae322b19c5caba70f81a&amp;req=dSgvHs14lIVcXPMW1HO4zWzx2Lw1IXwiXZ5D7eVpMtck52b9cE%2BrZSxnnYxH%0AgRfKDBul2Y1o4RxpgLM%3D%0A)
+
 
 ### What happens after enabling shortened session length?
 
@@ -114,7 +114,7 @@ You can change the session duration at any time by selecting a new value from th
 
 - Sessions scheduled to expire beyond the new duration will have their expiration shortened accordingly.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1888469437/46ac5bc55484ca01556d87a5ade7/b01a7651-ad65-4b32-93ff-16dbc9ca97c0?expires=1785363300&amp;signature=5578de82b25a262d260f7e06e8ecb7e269399107b8259feffac055872dad0bd6&amp;req=dSgvHs14lIVcXvMW1HO4zZ7mWs2Y4TqgA00cbyPOLDUb3rBYwtkpM%2BeshnFR%0AKF8XipuzJ0NhHhHbwLI%3D%0A)
+
 
 ## Disabling session length settings
 

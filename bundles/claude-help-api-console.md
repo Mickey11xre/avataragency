@@ -105,7 +105,7 @@ To manage feedback for your Console organization:
 
 2. Toggle the feedback switch on or off.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1729186182/ebf4032a12a8c56959ca927726ce/Screenshot+2025-09-16+at+12_32_31%E2%80%AFPM.png?expires=1785363300&amp;signature=92f2896b3bd753c9ef78eead8e49a0e0314029499e51c17e01b58d2f630f3b43&amp;req=dSclH8h2m4BXW%2FMW1HO4zVpN5HIeX2tGJ%2FadMup7FQd9c2%2FYK5ANNC3Y460n%0Ay88U8%2FEMIgXfZwmdhxo%3D%0A)
+
 
 More information on how Anthropic collects, uses, and stores feedback data can be found in our Privacy Center: [How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)
 ---
@@ -124,13 +124,13 @@ The prompt sharing feature enables teams to collaborate on prompt development wi
 
 3. Select "Share" from the dropdown menu:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409899224/f39d557d4925710cb16384886baa/AD_4nXf-Ev9bV40PoDjQX2fMF_zYpHSMQp7u3X92DNp-KRcykraFg8DnLdHCamIzXEPhtAEYhsBT9grnobQwQm1tgtnjR0EfyEuOFV61_InUuDwa121cj-1_KDtm9_NOYRD4LjcZQUIK?expires=1785363300&amp;signature=373787a032d3817b0c6a180f912f1c437c41fcfa2f9786a67c70ef5c978639e8&amp;req=dSQnH8F3lINdXfMW1HO4zajBO1wtPwy45HPc4FxcZurfIAjOzaR05cYyPL6x%0AcuiZ%0A)
+
 
 4. Change the access settings from "Private" to "Shared."
 
 5. Click the "Copy link" button that appears:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409899713/0fd923a839b2c0ff8a0b5e11cf0c/AD_4nXdGUlO0CiCdnhllDnlz2Dd75uiNClFmR8_Qi1Wx6MM9rF-EUSIzRzvs_P6kGSqWBuF-l4iBMRtoEN8ip1-c8bqNzSqKA7SX1STIjtRqNisW-NCmcl9DEhWjv4edORWaT4LNZuPVww?expires=1785363300&amp;signature=946c6d54be0734896381ef8f852b2a527ec211ae087aa0ceefa3bfbb4c525468&amp;req=dSQnH8F3lIZeWvMW1HO4zaU8nlK3OM%2BqiqPPSiDAl9KZBvceCUD3ljLV%2Bz6L%0Av21c%0A)
+
 
 6. Share the link with members of your workspace.
 
@@ -152,7 +152,7 @@ When working on a shared prompt:
 
 **Note:** If a collaborator saves changes to the prompt while you are viewing it, you will be prompted with a message to “Go to the Latest Version,” where all their changes will be reflected.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409901036/6b69f2878fcb1b4e9ba0747464ac/AD_4nXcp1htcsSLR8H98i7KazEFqIkOhVUHnw__-17jbMZ-n70qnSttxx_m7wNNaHsK7FZHoG8v6zRyqkElQrtdVkxnydo2hzsznCwt6ehzqlGAR7Js7TggP6WmVfwnUTgbouDIxyGS0?expires=1785363300&amp;signature=4f8d63ea60e2249f0f987f6fe67c92f429139abab31de9b2742fac2507886cdc&amp;req=dSQnH8B%2BnIFcX%2FMW1HO4zUnGutIMA0Al83rdFAdB3KzsgdT5tNJtDkGawvJX%0AxydAz1bnCbrIj3w1ZDY%3D%0A)
+
 
 ## Viewing Version History
 
@@ -162,13 +162,13 @@ To see previous versions of a prompt:
 
 2. Select "Version history" from the dropdown:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409901693/2924593d08c79c5ef1c4ca795f9d/AD_4nXf-Ev9bV40PoDjQX2fMF_zYpHSMQp7u3X92DNp-KRcykraFg8DnLdHCamIzXEPhtAEYhsBT9grnobQwQm1tgtnjR0EfyEuOFV61_InUuDwa121cj-1_KDtm9_NOYRD4LjcZQUIK?expires=1785363300&amp;signature=b0d20c9a8e15ebdecde221a03b83c50fdec1c009d151a7401178e3279ce0dc4a&amp;req=dSQnH8B%2BnIdWWvMW1HO4zdOs5EEjM3HdplKKWUPxWw0I15lHtbJJl9I9dOaZ%0Ak5TC%0A)
+
 
 3. Choose the specific version you want to view from the list.
 
 **Note:**  Past versions cannot be edited. To restore the prompt to a previous version, select the version from the version history list, and click the “Restore” button in the pop up.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409902092/39258424bd71205743134bb5a2d8/AD_4nXe7EGQNq4UAioXobBxbEdluYda1qU277VuDxoqXgmL9z1ch8ro5k3RjDmBWlpPzcfI8eeAbbmiouCc2AEfGPO_LiwFekOgCDj5MV8klaRgH1BHko5OZ1WtWq8Ow0HlYif77j2AxRQ?expires=1785363300&amp;signature=ecd99eca3e63b21b73574d800ee5f573c549fec72030a5cd2bf8cacbd660e463&amp;req=dSQnH8B%2Bn4FWW%2FMW1HO4zeZkcjJQjdQjRPhLT%2BKEBGNaYyrpha5MVXrk8yFy%0AiQSZdoGMP%2Fj6QwrCMAM%3D%0A)
+
 
 ## Unsharing a Prompt
 
@@ -178,7 +178,7 @@ To see previous versions of a prompt:
 
 3. Change the access settings from "Shared" to "Private":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1409898166/d7f3c0233ef3a3fa66701b558db7/AD_4nXcuZY7tln-InGzsyEmOZdRER_FWN9rQmcKalQqRTu6lSEyFSGBhGuvVPkLv7QHvsJCZsHz6-lTOX_tw77ribji4VlTsdG2dp-orGm6ST7IQ9aRnZvQMNvetkik0voTDZ1rHuFP5zA?expires=1785363300&amp;signature=73262366dd9c55d7b0bc3c697d4457685d9e7dadc139894383e4937892019847&amp;req=dSQnH8F3lYBZX%2FMW1HO4zZMvtFLdQvViH68akkuAPm0m%2BvbMFtjqhlvIKBK9%0A1qH096n1t%2Fl8GXFThFI%3D%0A)
+
 
 **Note:** Unsharing immediately disables access via the direct link. Anyone that the link was previously shared with will no longer be able to view the prompt.
 ---
@@ -195,7 +195,7 @@ SOURCE: https://support.claude.com/en/articles/13346458-customizing-your-console
 
 3. Select from Light, System, or Dark under **Color mode**.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1922579101/ede30d38dca693c59f9c15d79e69/CleanShot+2026-01-08+at+15_45_20%402x.png?expires=1785363300&amp;signature=3528c040086e08a5990e0443049e758e0dd8276cb18f76ff00fcfbbd78bd9fd6&amp;req=dSklFMx5lIBfWPMW1HO4zRpFC80HSxF1O9Kw38RlAYKDwxZ5EvklFDxylgn2%0A3dyoymJCq5ZNxEBIJKU%3D%0A)
+
 ---
 
 SOURCE: https://support.claude.com/en/articles/13443764-inviting-members-to-the-claude-console
@@ -316,15 +316,15 @@ Code examples in our documentation include an "Open in Workbench" option, which 
 
 Workbench (legacy) allows you to create and test prompts within your Claude Console account. You can enter your prompt into the "Human" dialogue box and click "Run" to test Claude's output. Click on the + icon in the upper left to create a new prompt, or click on the bulleted list icon to see prompts you've tested in the past:
 
-![](https://downloads.intercomcdn.com/i/o/888021849/31a22a0dc4d1fc4b605cc8ee/Screenshot+2023-11-19+at+4.21.51+PM.png?expires=1785363300&amp;signature=adc62c68e3a3d0db7ecf228daf5b583126afa7219b4f8107e1520400bfb7d585&amp;req=fCgvFst%2FlYVWFb4f3HP0gKWhcTgK0UVbOkmmaOsi7ID3LkfCWclXt1OY1bMo%0A7bPmClABOtcMotmarg%3D%3D%0A)
+
 
 Workbench (legacy) also allows you to configure several settings when prompting Claude. You can click on the slider icon to review your model settings. This allows you to select the model, temperature, and max tokens to sample:
 
-![](https://downloads.intercomcdn.com/i/o/888023061/61e26396355f6f6cd506d7e4/Screenshot+2023-11-19+at+4.09.28+PM.png?expires=1785363300&amp;signature=081f8f79d9ba62fa2fca1168488037d04235d47b125468c817cfe2db444ab1b8&amp;req=fCgvFst9nYdeFb4f3HP0gN55XNHWOoe3DUq7%2BRvcmSMA3tPIaSRuO%2Fm6UmcO%0AUzqC4J%2F5g%2FR%2FAm1V1Q%3D%3D%0A)
+
 
 After crafting your prompt, click on the "Get code" button to generate a sample using our Python and Typescript SDKs:
 
-![](https://downloads.intercomcdn.com/i/o/888023545/b12afe07f16f079daff7587d/Screenshot+2023-11-19+at+4.28.27+PM.png?expires=1785363300&amp;signature=1776b79110f418e277cacbc2a83480b08dbd170f05b361bc3b16c6bde5aad58e&amp;req=fCgvFst9mIVaFb4f3HP0gEZTsTuY4efrRWixPJbjiQfuMYI0qY7rUrsaDvn5%0Aw8XK5QW3hN9TLF0WiQ%3D%3D%0A)
+
 
 ## How can I access my previous work and prompt history in Workbench (legacy)?
 
@@ -336,7 +336,7 @@ You can access your previous Workbench prompts on your Console account by follow
 
 3. Click the "List prompts" button on the upper left corner of the page, next to the "+" button to create a new prompt:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1945992985/45a8969fb6cec956bd44fb5c4ba7/CleanShot+2026-01-15+at+12_07_22%402x.png?expires=1785363300&amp;signature=c4057b8ce5e6ccae3e7c20ef7420de980e5235c8664a2efb68d97a254c6d5a64&amp;req=dSkjE8B3n4hXXPMW1HO4zQQ9sFQKMXC7TyGSpkcb8MWKY0q45iWHFrsciVgF%0A3q%2FP%2FQqtSeCkPWx5ZxA%3D%0A)
+
 
 4. A list of your previously-saved prompts will appear.
 
