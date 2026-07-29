@@ -181,7 +181,7 @@ To set global instructions:
 
 3. Type your instructions in the text box and click "Save":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1785257100&amp;signature=b94031e4d4de7ccedc66a2b4d1f8751405d80003e93bbede0a4b35dc6902f174&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6t3uM1ax8iWjaktE942%2BG9q1rIU2WcBKIelo%0AX3BZgO5oiF6BYoG%2F0Qk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2525926874/15324ac4155d7802272e8bdef04b/ec66cd09-a4db-4f1d-8f30-226c9d126333?expires=1785363300&amp;signature=32c4bf785186ae52bf29effbc288a72f4236b62e842f6c8caf18aab542295a3f&amp;req=diUlE8B8m4lYXfMW1HO4zcDl6t3vMFKz8iWjaktE9416aNIG1wzce9iyDxrf%0AraNdaChtTDDQ0KB9AYI%3D%0A)
 
 ### Folder instructions
 
@@ -714,7 +714,7 @@ There are two ways to create a scheduled task:
 
 6. You can explicitly confirm you want to schedule the task when prompted by Claude by clicking “Schedule":
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2104085399/4dda7e6f76026fd827db0b9323a9/f20635bf-15e7-4978-a213-5b9f67e9fb9a?expires=1785257100&amp;signature=68386fcb8f2f8f91cad4038aa16159327e4cb003dc84544e9fe3307ca5bc8c23&amp;req=diEnEsl2mIJWUPMW1HO4zeLJBkDm%2Bu2GPx%2FSrZI7l8wOvZzPcKy0i6H671f3%0ApkR0%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2104085399/4dda7e6f76026fd827db0b9323a9/f20635bf-15e7-4978-a213-5b9f67e9fb9a?expires=1785363300&amp;signature=d8dba8f5e2adb075a13cd3ca70d32ba08192254524b91d04a45b858975d71f1e&amp;req=diEnEsl2mIJWUPMW1HO4zeLJBkDn%2BemEPx%2FSrZI7l8ys4LnBCOrFC73R7QZ7%0AdlZN%0A)
 
 7. Claude will create and schedule your task, and it will be added to the **Scheduled tasks** page.
 
@@ -813,11 +813,11 @@ Follow these steps to get started:
 
 5. You’ll land on a page describing the functionality. Click “Get started”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169954086/419674f781edb2977b93cce062b4/93b1893c-d79a-4eb6-b2f1-2fe3e043bd90?expires=1785257100&amp;signature=76cd3fa213c03d49b83b49880fe52dc8f3875d1c01f46bc2ac3e9733410baf8f&amp;req=diEhH8B7mYFXX%2FMW1HO4zSZP0peJEAn%2BB32drIe5EDlsi1zVLSy9vJFQJFdp%0AvcoC%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169954086/419674f781edb2977b93cce062b4/93b1893c-d79a-4eb6-b2f1-2fe3e043bd90?expires=1785363300&amp;signature=0208614e28b553263e49f56a54f542410f85915f6f9fa9a44899bcb18986dd71&amp;req=diEhH8B7mYFXX%2FMW1HO4zSZP0peIEw38B32drIe5EDnxp6HBGnE4sLyDnUdH%0AIj8m%0A)
 
 6. On the next screen, you can give Claude access to your files and keep your computer awake by toggling those on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169955082/de4053ee0eab8fcb9263584bb171/d39b77da-1a69-4682-9fdb-7ed488f236b0?expires=1785257100&amp;signature=e831d78f059aa91170d85c5149690b0dc1986a707399de7f1e2b917214f95bf4&amp;req=diEhH8B7mIFXW%2FMW1HO4zaZWs9%2BaWAYfepuGRb1rD3L8kn2buxDAIbVNpEDo%0Abbty%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2169955082/de4053ee0eab8fcb9263584bb171/d39b77da-1a69-4682-9fdb-7ed488f236b0?expires=1785363300&amp;signature=8a8d3ef0f4198cb3cda1c7b0ddb9b4ea84df0cba72921f2c60415529a9dd6e24&amp;req=diEhH8B7mIFXW%2FMW1HO4zaZWs9%2BbWwIdepuGRb1rD3JNL%2Fpjpi9pgxDaCC2V%0AnzcG%0A)
 
 7. Click “Finish setup.”
 
@@ -1019,7 +1019,7 @@ If your work involves a physical machine, Claude keeps working while you step aw
 
 Claude asks for your permission before accessing each application. You’ll see a prompt and must approve before Claude can interact with that app. Some apps are off-limits by default.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193297849/243cf7bd2386d92a253c2cec7d32/46cb6fcb-c0ee-4d1c-9974-9c1c1058c81c?expires=1785257100&amp;signature=d6a8807e1dd0e9332e149be8c648e6bf6316259246f0d17461ee4358f5842771&amp;req=diEuFct3molbUPMW1HO4za8%2BRnmARiedOFMEfKzd96qlZdSP883P2CiYpHyJ%0ALDY%2FVupYU38qRtcnW6s%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193297849/243cf7bd2386d92a253c2cec7d32/46cb6fcb-c0ee-4d1c-9974-9c1c1058c81c?expires=1785363300&amp;signature=71e1a2b014ecc325f62d8c30e628544677cff7673c1a695d5b4ac54e064f9da1&amp;req=diEuFct3molbUPMW1HO4za8%2BRnmBRSOfOFMEfKzd96qFun5V5Iw9el1LZvu0%0Agv7kyqUs34DZN%2F5Ps9w%3D%0A)
 
 Claude is trained to avoid risky operations—like transferring funds, modifying or deleting files, or handling sensitive data—and to flag signs of prompt injection. However, these safeguards aren't perfect, and Claude may occasionally act outside these boundaries.
 
@@ -1107,7 +1107,7 @@ To start using computer use:
 
 3. Find the **Computer use** toggle and turn it on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193911341/630e6df3b08b27d1c7b4f1ca6a1f/image.png?expires=1785257100&amp;signature=a348333872280d2dd12e4384199b797e0ada9dd26d4d95f99179b2b254b0f5d4&amp;req=diEuFcB%2FnIJbWPMW1HO4zR8GoUF%2BQE0xjdPXX%2BaSOrFfm7IVJeI1xHV6ASc5%0AeNYA%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2193911341/630e6df3b08b27d1c7b4f1ca6a1f/image.png?expires=1785363300&amp;signature=c2f2593f331f9bd39e4defa32daceeae69c47525a17cdcca48e37119fcfadf61&amp;req=diEuFcB%2FnIJbWPMW1HO4zR8GoUF%2FQ0kzjdPXX%2BaSOrGIWLfm9w9g7K159RtQ%0AVvpK%0A)
 
 4. Open Cowork or Claude Code in the desktop app and start a session.
 

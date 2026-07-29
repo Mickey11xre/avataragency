@@ -41,7 +41,7 @@ If you followed the steps above to delete your Console organization but want to 
 
 If you have an outstanding balance, you will see a message during the deletion flow that prompts you to pay the balance first by routing you to [Settings > Billing](https://platform.claude.com/settings/billing).
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1973957766/5c2dd87c0818a0400099a833c9b3/4cc3130a-f696-4967-9fe3-e5623c6f02bd?expires=1785257100&amp;signature=74ce7881382a847832ec741d0b0cd07c3122844a37914f89ac0d466dffd720a3&amp;req=dSkgFcB7moZZX%2FMW1HO4zbYXUBJgWeMaFZRyvJPpBZ8DQycMHQZ9u0YUIgf2%0AXcokX0GtrUXDTACm5vQ%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1973957766/5c2dd87c0818a0400099a833c9b3/4cc3130a-f696-4967-9fe3-e5623c6f02bd?expires=1785363300&amp;signature=1a46727cad57220cb8e88a4a43a2bdb15ea206b281dbef5d2475387b7847060a&amp;req=dSkgFcB7moZZX%2FMW1HO4zbYXUBJhWucYFZRyvJPpBZ%2F2duAWxm5wABFx3tUX%0AdOMHpMf02z%2FS6ipPj08%3D%0A)
 
 You must pay this outstanding balance before you’re able to move forward with the deletion process.
 
@@ -49,7 +49,7 @@ You must pay this outstanding balance before you’re able to move forward with 
 
 There are some scenarios where you will need to contact our team to delete your account. If this is the case, it will be noted when you try to delete your organization:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1973957765/19dda72a40db95d78c00c27a1a1c/6ce89be6-93ce-409c-bbea-d34be09db348?expires=1785257100&amp;signature=a264f2efd687246ecb854b24968e8284773e1248bdafb1c1a292e9136fd6eb26&amp;req=dSkgFcB7moZZXPMW1HO4zRW12%2BDPfaP4ZxDZGlqR6GjcyxzECaLih52YPrjO%0Ak03M6rMklWJPWjzUt4o%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1973957765/19dda72a40db95d78c00c27a1a1c/6ce89be6-93ce-409c-bbea-d34be09db348?expires=1785363300&amp;signature=298d3bda88b9c13ee760836549cde1be6ebeae0d5d105f8c20ab6e33dda663bf&amp;req=dSkgFcB7moZZXPMW1HO4zRW12%2BDOfqf6ZxDZGlqR6Gisjib6FAoVwdLCtEHO%0ADbcoN3SAEDgn8R1Pc2E%3D%0A)
 
 If you are seeing this message, this indicates that your Console organization cannot be deleted via the self-service pathway.
 ---
@@ -149,7 +149,7 @@ SOURCE: https://support.claude.com/en/articles/13189465-log-in-to-your-claude-ac
 
 When you open Claude on a web browser ([claude.ai](http://claude.ai)), the desktop app, or a mobile app, you will see two different options for logging in to your Claude account.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893216804/f2209c3ec6cf4fc2e803d13bbc9d/40520c9e-ff82-4a7c-adca-5a064fe18d8c?expires=1785257100&amp;signature=ac31d41cfd496f057180d07034e03e44baef764689b69fee7327e3828b9dda5f&amp;req=dSguFct%2Fm4lfXfMW1HO4zXg5BoeO5hW1zWhrqpWiTMk1S5O83oOT1jl1YXiZ%0AAD1MfbMh70EmDP8sd9M%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893216804/f2209c3ec6cf4fc2e803d13bbc9d/40520c9e-ff82-4a7c-adca-5a064fe18d8c?expires=1785363300&amp;signature=6e8f8d1aceeeca2bf8bee581b5add524827280879cbcb1ce3d3fea567ef77570&amp;req=dSguFct%2Fm4lfXfMW1HO4zXg5BoeP5RG3zWhrqpWiTMnMosg8NPE1DEEIoo%2Bi%0AdUiEr8Igq1dwXQ86Fv8%3D%0A)
 
 ## Continue with Google
 
@@ -306,7 +306,7 @@ The email domain that was used to create your Team or Enterprise plan organizati
 
 Owners can remove domains by opening up the same modal and clicking the trash can icon to the right of the domain:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2053873852/1cbccea3b7067e03205f2ff8546b/CleanShot+2026-02-11+at+11_16_07%402x.png?expires=1785257100&amp;signature=3872072175676bcb1da7c1df2d7a720510a38f88215350d297f61460643ae411&amp;req=diAiFcF5nolaW%2FMW1HO4zUrhFu6abA8bkeFUnrkrQZiMXkKEEWKCZyF%2F2kB7%0APzKco0waZtrByWQHo5I%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2053873852/1cbccea3b7067e03205f2ff8546b/CleanShot+2026-02-11+at+11_16_07%402x.png?expires=1785363300&amp;signature=aa98804b230c9a13b492bff1a85d38f70dd0b6e450a83d5c5c963b129c449bb0&amp;req=diAiFcF5nolaW%2FMW1HO4zUrhFu6bbwsZkeFUnrkrQZh%2B9cZT6JCCvIh3qPyZ%0A3YJ2vUZVje9SGhsCrls%3D%0A)
 
 While the account creator must use a business email address, you can add public domains like @gmail.com, @yahoo.com, and @hotmail.com as allowed domains for other members of your organization.
 ---
@@ -317,7 +317,7 @@ SOURCE: https://support.claude.com/en/articles/13371040-logging-in-to-your-conso
 
 When you navigate to the [Claude Console](https://platform.claude.com), you will see two different options for logging in to your Console account.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1935026646/d90d1613a3dbe763fef5abb96e3c/image.png?expires=1785257100&amp;signature=0a69be11a292a5a6fc5bbd91c8a487590ca628e2d65124b71d41e5a96df2c6b7&amp;req=dSkkE8l8m4dbX%2FMW1HO4zcrI54zupYcM8vUNcPt4%2B715umn6VI5xH%2B%2BGH3xj%0AyTNxRNruTk36JzVWu2E%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1935026646/d90d1613a3dbe763fef5abb96e3c/image.png?expires=1785363300&amp;signature=93a3ff9af06383aaa731cd12657ced88a100ef0e745046d77e688298712f80d5&amp;req=dSkkE8l8m4dbX%2FMW1HO4zcrI54zvpoMO8vUNcPt4%2B73eyBd1G5RwMn55kflP%0A5JDHgDTE55kg7bc6V24%3D%0A)
 
 ## Continue with Google
 
@@ -656,7 +656,7 @@ Once the requirements are in place, you can set up 1Password from a few places i
 
 4. Toggle on **Password managers**:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2546126596/ba71ca47e2df21cec62c243831f8/5b1c67e1-607d-4c73-8f61-d1ceb081082a?expires=1785257100&amp;signature=03bd7ea93144cb16ccf3c22efc7ccaeaee3798b61e194568bf4e8229a3e235c1&amp;req=diUjEMh8m4RWX%2FMW1HO4zU5lnm5sqMJiGkiu4hEpcPWHIV%2Bg0x7RJkF3cpJ3%0Aq7vNL8ebFct16eHRXBc%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2546126596/ba71ca47e2df21cec62c243831f8/5b1c67e1-607d-4c73-8f61-d1ceb081082a?expires=1785363300&amp;signature=c9a373e9a757d2833ccb99fce736ae3b31733bd6f3acdbed7024ba5426ede844&amp;req=diUjEMh8m4RWX%2FMW1HO4zU5lnm5tq8ZgGkiu4hEpcPWbuPXwPQftKIRctGt7%0Aauje2v3Xz7mlyi7TdTE%3D%0A)
 
 Once enabled, eligible users will see the discovery options above. Users still need to install and set up the required apps and extensions themselves.
 
@@ -714,7 +714,7 @@ SOURCE: https://support.claude.com/en/articles/8287232-verify-your-phone-number
 
 When you first create a Claude account, you’ll be asked to enter your phone number from a **[supported location](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)** to receive a verification code via text message:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893173143/de034a2e7d9a6ae1f703cf867afd/image.png?expires=1785257100&amp;signature=abcf91d64654de6c323e339faf4702065e127f791136a5a9fedd682de45b5f70&amp;req=dSguFch5noBbWvMW1HO4zVIf8JVh2S17oTnI%2BoMZk7cfZh31IL7lt7%2FhaoBG%0AgzbgA5SfTtvbew3KTIY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893173143/de034a2e7d9a6ae1f703cf867afd/image.png?expires=1785363300&amp;signature=55eb96fc53f9ccb7bf9837f9c8ab23aa01ce2c8604bd094217e4fe74f4cd2eb7&amp;req=dSguFch5noBbWvMW1HO4zVIf8JVg2il5oTnI%2BoMZk7cUEmwGkjcre%2F2VcK7G%0AIefKVWCEmL1deLAqSYE%3D%0A)
 
 Once you receive the text message with the code, type it into the box and click “Verify code.” This will complete the verification and account creation process and allow you to start chatting with Claude.
 
@@ -776,7 +776,7 @@ SOURCE: https://support.claude.com/en/articles/9028421-how-can-i-delete-my-claud
 
 Once you are logged in, click your initials or name in the lower left corner and select "Settings." Navigate to **[Settings > Account](https://claude.ai/settings/account)** and click the "Delete account" button:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2274267534/e7064e2657b1bd20031ba40da11c/CleanShot+2026-04-14+at+09_48_08.png?expires=1785257100&amp;signature=6a12b2930a35d194102ff3c7fe28f9255026ad516c0c011a1940394798ab9dd4&amp;req=diIgEst4moRcXfMW1HO4zeqzlXkMI4b9oVDupr7i4TGXNYItDIRqWu2ldNlu%0API1rIHnhG5AJMWekPTM%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/2274267534/e7064e2657b1bd20031ba40da11c/CleanShot+2026-04-14+at+09_48_08.png?expires=1785363300&amp;signature=24807df950fd83e1df271ea59d34de34586fd99e3589a473000c6a55c4036ede&amp;req=diIgEst4moRcXfMW1HO4zeqzlXkNIIL%2FoVDupr7i4TESqJ56MsgRXPIs%2Bhjt%0AHJSu9YzFPuL3ixxgggM%3D%0A)
 
 ## Considerations for paid Claude accounts
 
@@ -794,7 +794,7 @@ If you have multiple accounts associated with the same email address, you'll nee
 
 There are some scenarios where you will need to **[contact our team](https://support.claude.com/en/articles/9015913-how-to-get-support)** to delete your account. If this is the case, it will be noted in your account:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584796811/331afc5dc61eec6f72786155b782/Screenshot+2025-06-23+at+1_54_23%E2%80%AFPM.png?expires=1785257100&amp;signature=af14d180adda49d4bf8a8966028d5bc8a4ca3e7bde5add157ce55470986e1601&amp;req=dSUvEs53m4leWPMW1HO4zXW0qxAJHo1aVOsMorzl%2B%2FTengGR7yGvNSvytN7f%0A0nSF2ZB%2FfvqRYuNSFdY%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1584796811/331afc5dc61eec6f72786155b782/Screenshot+2025-06-23+at+1_54_23%E2%80%AFPM.png?expires=1785363300&amp;signature=d2c9efcd97dd1a1928752d08924a1a0522183efbed46dfacd87dbc9703d6a285&amp;req=dSUvEs53m4leWPMW1HO4zXW0qxAIHYlYVOsMorzl%2B%2FSF1LGQ7HEFner7MFoK%0AbKGCja%2BA2blTa6xUfT8%3D%0A)
 ---
 
 SOURCE: https://support.claude.com/en/articles/9267387-how-can-i-access-the-personal-information-that-anthropic-has-on-my-account

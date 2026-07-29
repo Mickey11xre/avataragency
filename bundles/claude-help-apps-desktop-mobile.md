@@ -1014,7 +1014,7 @@ Permission requirements vary by feature:
 
 For features requiring permissions (like location or calendar access), Claude will request permission contextually with clear explanations of why the access is needed. You’ll be prompted to approve the action with three options: Allow once, Always allow, or Don't allow.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1707351614/ccb910e4b87b1e96ad9a11bbd835/b57b2130-d8d6-4499-89f6-6c12de236fd4?expires=1785257100&amp;signature=d2bf90e35fb23092edbb4f6cb7f231ade7f19b710dbf46996b37a05ed2c93f0b&amp;req=dScnEcp7nIdeXfMW1HO4zQe5GlqN3iL1S5x65TIld%2FAByeOvyK%2BntBI9ZKb6%0ATRv2INv6Pg4vbmbUKCU%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1707351614/ccb910e4b87b1e96ad9a11bbd835/b57b2130-d8d6-4499-89f6-6c12de236fd4?expires=1785363300&amp;signature=869b979ce6eaccd23a46c1741be5936d9938c1dcc17966e2d970332ddb16811a&amp;req=dScnEcp7nIdeXfMW1HO4zQe5GlqM3Sb3S5x65TIld%2FAchwmkT8dHuaFUSRVd%0Aa06jsJd37NgYprPyj8E%3D%0A)
 
 These permissions can be managed at any time in your device settings by going to Settings > Apps > Claude > Permissions. Click into each permission listed under **Allowed** and **Not allowed** to make changes. You can toggle between “Allow only while using the app” or “Ask every time” to change Claude’s access, or remove permissions by choosing “Don’t allow.” Claude will only request permissions if needed for specific features, and you can always choose to decline while still using other capabilities.
 
@@ -1117,11 +1117,11 @@ The desktop extension allowlist is disabled by default, so an organization Owner
 
 4. Switch to the "Desktop" tab:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781755172/63c92550571842577ad435860ec5/6f5cc4e1-ff7d-48de-863a-c4e6184d4605?expires=1785257100&amp;signature=f70f26eb6c205651b5a09a6c8800cd204f496ddc448587243491c2ce0e981194&amp;req=dScvF857mIBYW%2FMW1HO4zQ9pXU8I%2Bnfa0ugSQm1MFW9aC6922z4MF3NrtIgB%0AKiw7%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781755172/63c92550571842577ad435860ec5/6f5cc4e1-ff7d-48de-863a-c4e6184d4605?expires=1785363300&amp;signature=a66badf09ba72dee228f7b5d0438ee4fe32affb21c41ed2e83f3b72cfd13baab&amp;req=dScvF857mIBYW%2FMW1HO4zQ9pXU8J%2BXPY0ugSQm1MFW8H7WjerqsitKS0q7Od%0A2hSc%0A)
 
 5. Toggle **Allowlist** on:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781755578/a6bafff5f084dc86ae463703fd3d/6cf0ee18-4e71-4129-98e8-cc08174e3c3a?expires=1785257100&amp;signature=912b815a6209dee5b2fce9e2a5c348f55013f9bc57182b7de1c38ffaff675092&amp;req=dScvF857mIRYUfMW1HO4zaj0BHQpTKAFTAorLxpdoc9syoMcL17jmgJTOW%2Fp%0A%2F%2B7U%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781755578/a6bafff5f084dc86ae463703fd3d/6cf0ee18-4e71-4129-98e8-cc08174e3c3a?expires=1785363300&amp;signature=1bc7f76b5e15afb5b9a30bdd0791c7bf62f839e769933462ae4ab3b8fd7a81ac&amp;req=dScvF857mIRYUfMW1HO4zaj0BHQoT6QHTAorLxpdoc%2FPZT%2FpylUEseQWrgHD%0AnGjd%0A)
 
 ## What happens after enabling the allowlist?
 
@@ -1139,7 +1139,7 @@ Consider completing the allowlist setup during off-hours to minimize disruption 
 
 **Important:** The allowlist requires Claude Desktop version 0.13.91 or higher, so users should update the desktop app by clicking “Claude”, then either “Check for updates” or “Restart to update to Claude 0.13.91”:
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781756960/ad18af50c83d35f2673656c23e00/a7ee450f-0c7d-42d6-a75f-fb1bc088cb52?expires=1785257100&amp;signature=c16c91f9a26af0175ca64feac314a625a89e64c2453711a39029f89881d1ed87&amp;req=dScvF857m4hZWfMW1HO4zYUJqYaoDzXqCEDZ5AdBjIZ52DE4dTVY72aPSGhe%0AxavBaLo7cYOPz0rr7WA%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781756960/ad18af50c83d35f2673656c23e00/a7ee450f-0c7d-42d6-a75f-fb1bc088cb52?expires=1785363300&amp;signature=219b685f3e2b2ad143c13bd3f01456295c5f55343dbc7cc1756b31791c6c7f18&amp;req=dScvF857m4hZWfMW1HO4zYUJqYapDDHoCEDZ5AdBjIZj3IJJIw5RwAgKJ9S6%0A8TLXOheCjP5ScI4eevc%3D%0A)
 
 ## Managing allowed extensions
 
@@ -1157,7 +1157,7 @@ After enabling the allowlist, you can choose which extensions to allow:
 
 If you want to remove an extension from the allowlist, click the “...” button and “Remove from allowlist.”
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781751250/6558c0f59aea7976bd44b0213d76/e750f02b-cd0d-437e-a83f-9ac362cdf456?expires=1785257100&amp;signature=b1512ab54f2a69f0d9c317475dc7d476a29e6c66b1edb428c05c008e66749623&amp;req=dScvF857nINaWfMW1HO4zTrxBa0r%2BlCUqXridZhfx1J8W9krTaAKhh2mW8pB%0AOQ7Hjd65qUGrttGC6Nk%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1781751250/6558c0f59aea7976bd44b0213d76/e750f02b-cd0d-437e-a83f-9ac362cdf456?expires=1785363300&amp;signature=eade347fc1f252cfaf727cb621e790f09b297492df4ad81fcf3a12daf6476dc6&amp;req=dScvF857nINaWfMW1HO4zTrxBa0q%2BVSWqXridZhfx1J%2FGRpALv3pAljhMza%2F%0AzZrT6M3aQKN781IUFP4%3D%0A)
 
 ## Uploading custom extensions
 
@@ -1453,7 +1453,7 @@ When you first open the updated version of Claude Desktop, you'll see a prompt t
 
 Once enabled, double-tapping Option will open a text box where you can type your message and start a new chat. You can also click "New chat" to see your five most recent conversations.
 
-![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893088365/2ca4b782dda90abea1fe5f4150af/CleanShot+2025-12-18+at+13_14_30%402x.png?expires=1785257100&amp;signature=767852dad1c606cd89d8449fe7a4aa9b370f8e66c4782b282efba2df3e328a5b&amp;req=dSguFcl2lYJZXPMW1HO4zWggD9tTo5ubRC8c%2FcM5c2J92ZUuAHl33HBOzZre%0AA9giKUnR4NMsk0FvFd8%3D%0A)
+![](https://downloads.intercomcdn.com/i/o/lupk8zyo/1893088365/2ca4b782dda90abea1fe5f4150af/CleanShot+2025-12-18+at+13_14_30%402x.png?expires=1785363300&amp;signature=1398a90a4082eebdf74b62a2303b3ea436da997ae5dbd4c79784ef944a46b3b8&amp;req=dSguFcl2lYJZXPMW1HO4zWggD9tSoJ%2BZRC8c%2FcM5c2LCwcYq8upwpqz4Q%2Bc3%0AVwcBUdrPo4YtxGGXoIw%3D%0A)
 
 ### Enable the voice shortcut (optional)
 
