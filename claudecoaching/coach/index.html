@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your AI Coach — Claude Coaching | AvatarAgency</title>
+<meta name="robots" content="noindex"><!-- student-only page: never index -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T8NJ9JVWFV');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFFFF; --cream:#FAF6F0; --ink:#211F1B; --ink-dim:rgba(33,31,27,.66);
+  --line:rgba(33,31,27,.12); --accent:#D97757; --accent-soft:rgba(217,119,87,.10);
+  --maxw:860px; --radius:14px;
+  --display:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --label:'Montserrat','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.mono{font-family:var(--label);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+.topbar{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:9px;height:66px}
+.topbar .word{font-family:var(--display);font-weight:800;font-size:1.5rem;letter-spacing:-.02em}
+.topbar .subword{font-family:var(--label);font-size:.6rem;letter-spacing:.42em;text-transform:uppercase;color:var(--accent)}
+.hero{padding:44px 0 10px;text-align:center}
+.hero h1{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.1;font-size:clamp(1.9rem,5vw,2.8rem);margin:12px 0 10px}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero .sub{color:var(--ink-dim);max-width:56ch;margin:0 auto}
+
+/* ---------- stage ---------- */
+.stage-wrap{padding:26px 0 12px}
+.stage{
+  position:relative;max-width:780px;margin:0 auto;aspect-ratio:16/9;
+  border-radius:var(--radius);overflow:hidden;background:#141210;
+  border:1px solid var(--line);box-shadow:0 24px 60px rgba(33,31,27,.18);
+}
+#coach-mount{position:absolute;inset:0}
+#coach-mount>*{width:100%!important;height:100%!important} /* SDK containment */
+.poster{position:absolute;inset:0;background:url('/assets/michael-twin.jpg') center/cover no-repeat}
+.poster::after{content:"";position:absolute;inset:0;background:rgba(20,18,16,.36)}
+.overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;z-index:3;text-align:center;padding:20px}
+.overlay .badge{background:rgba(255,255,255,.94);color:#C4372E;font-family:var(--label);font-size:.62rem;font-weight:700;letter-spacing:.12em;padding:5px 11px;border-radius:999px}
+.overlay h2{color:#fff;font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:clamp(1.2rem,3.4vw,1.7rem);text-shadow:0 2px 14px rgba(0,0,0,.4)}
+.overlay .gate{display:flex;flex-direction:column;gap:10px;width:min(340px,86%)}
+.overlay input{padding:12px 16px;border-radius:10px;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.95);font-family:var(--sans);font-size:.95rem;color:var(--ink)}
+.overlay .btn{background:var(--accent);color:#fff;border:0;cursor:pointer;font-family:var(--sans);font-weight:700;font-size:1rem;padding:14px 30px;border-radius:999px;transition:transform .15s}
+.overlay .btn:hover{transform:translateY(-1px)}
+.overlay .note{color:rgba(255,255,255,.85);font-size:.8rem;max-width:40ch}
+.timer{position:absolute;top:12px;right:12px;z-index:4;background:rgba(20,18,16,.72);color:#fff;font-family:var(--label);font-size:.72rem;font-weight:600;letter-spacing:.06em;padding:6px 12px;border-radius:999px;display:none}
+.timer.warn{background:#C4372E}
+.endcard{position:absolute;inset:0;z-index:5;display:none;flex-direction:column;align-items:center;justify-content:center;gap:12px;background:rgba(20,18,16,.92);color:#fff;text-align:center;padding:24px}
+.endcard h3{font-family:var(--display);font-weight:800;font-size:1.4rem;letter-spacing:-.01em}
+.endcard p{color:rgba(255,255,255,.8);font-size:.95rem;max-width:44ch}
+.endcard a{color:var(--accent)}
+
+.under{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;padding:16px 0 6px;color:var(--ink-dim);font-size:.85rem}
+.under b{color:var(--accent);font-weight:700}
+.tips{padding:34px 0 60px}
+.tips .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:780px;margin:0 auto}
+.tip{border:1px solid var(--line);border-radius:var(--radius);padding:18px;background:var(--paper)}
+.tip h3{font-family:var(--display);font-weight:800;font-size:.95rem;letter-spacing:-.01em;margin-bottom:6px}
+.tip p{color:var(--ink-dim);font-size:.85rem;line-height:1.55}
+footer{padding:26px 0 44px;text-align:center;font-family:var(--label);font-size:10.5px;letter-spacing:.08em;color:var(--ink-dim);border-top:1px solid var(--line)}
+footer a{color:inherit}
+@media (max-width:760px){ .tips .grid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <span class="word">Claude</span>
+    <span class="subword">Coaching</span>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <div class="mono" style="color:var(--accent)">Students Only — Your 24/7 AI Coach</div>
+    <h1>Ask your coach. <em>Out loud.</em></h1>
+    <p class="sub">This is Michael's digital twin — your on-call Claude coach for 30 days after your session. Up to 10 minutes a day: ask anything about Claude, share your screen when you're stuck, and keep moving.</p>
+  </div>
+</section>
+
+<section class="stage-wrap">
+  <div class="wrap">
+    <div class="stage" id="stage">
+      <div class="poster" id="poster"></div>
+      <div id="coach-mount"></div>
+      <div class="timer" id="timer"></div>
+
+      <div class="overlay" id="overlay">
+        <span class="badge">● LIVE AI COACH</span>
+        <h2>Start your coaching conversation</h2>
+        <div class="gate">
+          <input type="text" id="g-name" placeholder="Your first name" autocomplete="given-name">
+          <input type="email" id="g-email" placeholder="Email you enrolled with" autocomplete="email">
+          <button class="btn" id="startBtn">Start session →</button>
+        </div>
+        <span class="note">Your browser will ask for microphone access — that's how you and your coach talk.</span>
+      </div>
+
+      <div class="endcard" id="endcard">
+        <h3 id="ec-title">Session ended</h3>
+        <p id="ec-body">Come back any time — your coach is here every day.</p>
+        <p><a href="https://avataragency.ai/claudecoaching/">Claude Coaching home</a></p>
+      </div>
+    </div>
+
+    <div class="under">
+      <span><b>✓</b> Included with your session — 30 days</span>
+      <span><b>✓</b> Up to 10 minutes a day</span>
+      <span><b>✓</b> Screen share when you're stuck</span>
+    </div>
+  </div>
+</section>
+
+<section class="tips">
+  <div class="wrap">
+    <div class="grid">
+      <div class="tip"><h3>Ask real questions</h3><p>"How do I get Claude to draft my follow-ups?" beats "what can you do?" — the more specific, the more golden the nugget.</p></div>
+      <div class="tip"><h3>Share your screen</h3><p>Stuck on a button or a setting? Click the screen-share icon and your coach will look at it with you and guide every click.</p></div>
+      <div class="tip"><h3>Keep the tab open</h3><p>Switch tabs and your coach follows in a floating picture-in-picture window — keep working while you talk.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>You're talking with Michael Rivera's AI digital twin — a synthetic performer, not a live human.</p>
+    <p>© 2026 AvatarAgency · Claude is a product of Anthropic. This coaching service is independently operated by AvatarAgency and is not affiliated with, sponsored by, or endorsed by Anthropic.</p>
+    <p><a href="https://avataragency.ai/privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="https://avataragency.ai/terms.html">Terms of Service</a></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ============ Claude Coach stage — built on the proven assist.js machinery ============
+     INTERIM: uses the founder twin via /api/michael-token.
+     SWAP LATER (per COACH_TWIN_SPEC): TOKEN_ENDPOINT -> '/api/coach-token' (email+code gate,
+     KV budget enforcement, Claude Coach agent). The client cap below is UX; the server is
+     the real meter. */
+  var TOKEN_ENDPOINT = '/api/michael-token';
+  var SDK_URL = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js';
+  var SESSION_CAP = 600;   // 10 minutes, per the coaching offer
+  var WARN_AT = 60;
+
+  var SDK_FEATURES = {
+    showSDKLoader: { enabled: false },
+    screenShare: { enabled: true },        // student can show the coach their screen
+    pictureInPicture: { enabled: true }    // coach follows on tab switch
+  };
+
+  var overlay = document.getElementById('overlay');
+  var poster = document.getElementById('poster');
+  var endcard = document.getElementById('endcard');
+  var timerEl = document.getElementById('timer');
+  var startBtn = document.getElementById('startBtn');
+  var instance = null, starting = false, remaining = SESSION_CAP, tick = null;
+
+  var sdkLoading = null;
+  function loadSdk(){
+    if (window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk) return Promise.resolve();
+    if (sdkLoading) return sdkLoading;
+    sdkLoading = new Promise(function(res, rej){
+      var s = document.createElement('script');
+      s.src = SDK_URL; s.async = true;
+      s.onload = res; s.onerror = function(){ rej(new Error('sdk load failed')); };
+      document.head.appendChild(s);
+    });
+    return sdkLoading;
+  }
+  function mintToken(name, email){
+    return fetch(TOKEN_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: name || '', email: email || '' })
+    }).then(function(r){ if(!r.ok) throw new Error('token ' + r.status); return r.json(); });
+  }
+  function micPermission(){
+    return new Promise(function(res){
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) { res(false); return; }
+      navigator.mediaDevices.getUserMedia({ audio: true }).then(function(stream){
+        try { stream.getTracks().forEach(function(t){ t.stop(); }); } catch(_){}
+        res(true);
+      }).catch(function(){ res(false); });
+    });
+  }
+  function fmt(s){ var m = Math.floor(s/60), x = s%60; return m + ':' + (x<10?'0':'') + x; }
+  function startTick(){
+    timerEl.style.display = 'block';
+    tick = setInterval(function(){
+      remaining--;
+      timerEl.textContent = fmt(remaining) + ' left today';
+      if (remaining === WARN_AT) timerEl.classList.add('warn');
+      if (remaining <= 0) endSession('cap');
+    }, 1000);
+  }
+  function stopTick(){ if (tick) { clearInterval(tick); tick = null; } timerEl.style.display = 'none'; }
+  function showEnd(kind){
+    var t = document.getElementById('ec-title'), b = document.getElementById('ec-body');
+    if (kind === 'cap') {
+      t.textContent = "That's your 10 minutes today!";
+      b.textContent = 'Great session. Your coach resets at midnight — come back tomorrow and pick up right where you left off.';
+    } else {
+      t.textContent = 'Session ended';
+      b.textContent = 'Come back any time — your coach is here every day, for your full 30 days.';
+    }
+    endcard.style.display = 'flex';
+  }
+  var ending = false;
+  function endSession(kind){
+    if (ending) return; ending = true;
+    stopTick();
+    try { if (instance && typeof instance.destroy === 'function') instance.destroy(); } catch(_){}
+    instance = null; starting = false;
+    showEnd(kind);
+    if (typeof gtag === 'function') gtag('event', 'coach_session_end', { reason: kind, seconds_used: SESSION_CAP - remaining });
+    setTimeout(function(){ ending = false; }, 500);
+  }
+
+  startBtn.addEventListener('click', async function(){
+    if (starting || instance) return;
+    var name = document.getElementById('g-name').value.trim();
+    var email = document.getElementById('g-email').value.trim();
+    if (!email || email.indexOf('@') < 0) { document.getElementById('g-email').focus(); return; }
+    starting = true;
+    startBtn.textContent = 'Connecting…';
+    try {
+      var micOk = await micPermission();
+      if (!micOk) { startBtn.textContent = 'Microphone needed — try again'; starting = false; return; }
+      await loadSdk();
+      var data = await mintToken(name, email);
+      var sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
+      if (!sdk) throw new Error('sdk missing');
+      instance = await sdk.init(data.token, {
+        mountContainer: '#coach-mount',
+        avatarStyle: { view: 'rectangle' },
+        features: SDK_FEATURES,
+        onAvatarReady: function(){
+          overlay.style.display = 'none';
+          poster.style.display = 'none';
+          remaining = SESSION_CAP;
+          timerEl.classList.remove('warn');
+          timerEl.textContent = fmt(remaining) + ' left today';
+          startTick();
+          if (typeof gtag === 'function') gtag('event', 'coach_session_start', { named: !!name });
+        },
+        onDestroy: function(){   // SDK's red hang-up gives NO callback without this (E-checklist)
+          stopTick();
+          instance = null; starting = false;
+          showEnd('bye');
+        }
+      });
+    } catch(e) {
+      starting = false;
+      startBtn.textContent = 'Connection hiccup — try again';
+    }
+  });
+})();
+</script>
+</body>
+</html>
