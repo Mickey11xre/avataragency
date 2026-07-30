@@ -567,7 +567,7 @@ footer p+p{margin-top:8px}
       <div class="amount">Only $497<small>&nbsp;flat</small></div>
       <p class="lead">Two sessions. One flat price. <span data-swap="phrase" data-biz="For what a single new patient or client is worth to you" data-personal="For the hours you get back every single week">For what a single new patient or client is worth to you</span>, this will be <strong>the best investment you make <span data-swap="phrase" data-biz="in your business this year" data-personal="this year">in your business this year</span></strong>.</p>
       <p class="lead" style="margin-bottom:18px;color:var(--accent);font-weight:600">Private one-on-one coaching sessions are limited — secure your reservation today!</p>
-      <a class="btn big" href="#" data-todo="checkout-link">Order Now</a>
+      <a class="btn big" href="https://buy.stripe.com/bJe00l9TV5Osdg75qG4ZG04" data-checkout="stripe">Order Now</a>
       <div class="trust" aria-label="What's guaranteed"><span><b>✓</b> Free 15-min call first</span><span><b>✓</b> Keep everything we build</span><span><b>✓</b> 7-day "Worth It" guarantee</span><span><b>✓</b> 30 days of twin support</span></div>
       <div class="cta-note">Prefer to talk first? <a href="https://calendly.com/michaelrivera007/free-claude-coaching-consultation-meeting">Book your free 15-minute discovery call</a>.</div>
     </div>
@@ -777,7 +777,7 @@ footer p+p{margin-top:8px}
       gtag("event", "generate_lead", { method: "calendly", cta_position: i, vertical: vertical });
     });
   });
-  document.querySelectorAll('a[data-todo="checkout-link"]').forEach(function(a){
+  document.querySelectorAll('a[data-checkout="stripe"]').forEach(function(a){
     a.addEventListener("click", function(){
       gtag("event", "begin_checkout", { currency: "USD", value: 497, vertical: vertical });
     });
