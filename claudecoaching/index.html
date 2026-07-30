@@ -193,6 +193,9 @@ a{color:inherit}
   aspect-ratio:16/9;background:var(--cream);
 }
 .vsl video{width:100%;height:100%;object-fit:cover;display:block}
+.vsl-ctas{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:22px}
+.btn.outline{background:transparent;color:var(--accent);border:2px solid var(--accent);transition:all .2s}
+.btn.outline:hover{background:var(--accent);color:var(--on-accent)}
 .vsl-caption{text-align:center;color:var(--ink-dim);font-size:.92rem;margin-top:16px}
 .vsl-caption b{color:var(--accent);transition:color .35s}
 .industries{margin-top:26px;color:var(--ink-dim);text-align:center}
@@ -411,6 +414,10 @@ footer p+p{margin-top:8px}
       <video controls preload="metadata" poster="vsl-poster.jpg">
         <source src="vsl.mp4" type="video/mp4">
       </video>
+    </div>
+    <div class="vsl-ctas">
+      <a class="btn big" href="https://calendly.com/michaelrivera007/free-claude-coaching-consultation-meeting">Book Your Free Discovery Call</a>
+      <a class="btn big outline" href="https://buy.stripe.com/bJe00l9TV5Osdg75qG4ZG04" data-checkout="stripe">Order Now</a>
     </div>
     <p class="vsl-caption"><b>Yes — this video is my digital twin.</b> It's also your on-call coach for 30 days after your session.</p>
     <div class="industries mono">
