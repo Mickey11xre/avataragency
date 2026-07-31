@@ -767,11 +767,17 @@ footer p+p{margin-top:8px}
   }
 
   pills.forEach(function(p){
-    p.addEventListener("click", function(){ apply(p.dataset.v); });
+    p.addEventListener("click", function(){
+      apply(p.dataset.v);
+      window.__ccVertical = p.dataset.v;
+      if (typeof gtag === "function") gtag("event", "select_vertical", { vertical: p.dataset.v });
+    });
   });
 
   var param = new URLSearchParams(location.search).get("v");
-  apply(VERTICALS[param] ? param : "local");
+  var initial = VERTICALS[param] ? param : "local";
+  window.__ccVertical = initial;
+  apply(initial);
 
   if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches && "IntersectionObserver" in window){
     var io = new IntersectionObserver(function(entries){
@@ -787,15 +793,15 @@ footer p+p{margin-top:8px}
 /* CTA + engagement tracking (GA4). Meta Pixel events mirror these once the Pixel lands. */
 (function(){
   if (typeof gtag !== "function") return;
-  var vertical = new URLSearchParams(location.search).get("v") || "local";
+  function vert(){ return window.__ccVertical || new URLSearchParams(location.search).get("v") || "local"; }
   document.querySelectorAll('a[href*="calendly.com"]').forEach(function(a, i){
     a.addEventListener("click", function(){
-      gtag("event", "generate_lead", { method: "calendly", cta_position: i, vertical: vertical });
+      gtag("event", "generate_lead", { method: "calendly", cta_position: i, vertical: vert() });
     });
   });
   document.querySelectorAll('a[data-checkout="stripe"]').forEach(function(a){
     a.addEventListener("click", function(){
-      gtag("event", "begin_checkout", { currency: "USD", value: 497, vertical: vertical });
+      gtag("event", "begin_checkout", { currency: "USD", value: 497, vertical: vert() });
     });
   });
   var fired50 = false;
@@ -803,7 +809,7 @@ footer p+p{margin-top:8px}
     if (fired50) return;
     if ((window.scrollY + window.innerHeight) / document.body.scrollHeight > 0.5) {
       fired50 = true;
-      gtag("event", "scroll_50", { vertical: vertical });
+      gtag("event", "scroll_50", { vertical: vert() });
     }
   }, { passive: true });
 })();
