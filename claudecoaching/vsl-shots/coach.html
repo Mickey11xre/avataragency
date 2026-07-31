@@ -125,8 +125,8 @@ body{background:var(--paper);font-family:var(--sans);color:var(--ink)}
       cap2t=document.getElementById('cap2text'), vid=document.getElementById('twinvid'),
       cwave=document.getElementById('cwave'), vstatus=document.getElementById('vstatus'),
       uwave=document.getElementById('uwave');
-  var Q="How do I make Claude remember my brand voice?";
-  var A="Great question — let's set it up together, right now. Share your screen and I'll look at it with you.";
+  var Q="How do I schedule Claude to check my emails every morning?";
+  var A="Easy — let's set it up together, right now. Share your screen and I'll build your morning email check with you.";
   function speakInto(el, text, wordMs, done){
     var words=text.split(' '), i=0;
     var t=setInterval(function(){ el.textContent=words.slice(0,++i).join(' '); if(i>=words.length){clearInterval(t); done&&done();} }, wordMs);
