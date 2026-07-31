@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Session Documents — Claude Coaching | AvatarAgency</title>
+<meta name="robots" content="noindex"><!-- student-only page: never index -->
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T8NJ9JVWFV');
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFFFF; --cream:#FAF6F0; --ink:#211F1B; --ink-dim:rgba(33,31,27,.66);
+  --line:rgba(33,31,27,.12); --accent:#D97757; --accent-soft:rgba(217,119,87,.10);
+  --maxw:720px; --radius:14px;
+  --display:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --label:'Montserrat','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.mono{font-family:var(--label);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase}
+.topbar{background:rgba(255,255,255,.92);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:9px;height:66px}
+.topbar .word{font-family:var(--display);font-weight:800;font-size:1.5rem;letter-spacing:-.02em}
+.topbar .subword{font-family:var(--label);font-size:.6rem;letter-spacing:.42em;text-transform:uppercase;color:var(--accent)}
+
+/* countdown banner */
+.count{display:none;background:linear-gradient(100deg,#D97757,#C4622F);color:#fff;padding:18px 0}
+.count .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:8px 18px;justify-content:space-between}
+.count .lead{font-family:var(--display);font-weight:700;letter-spacing:-.01em;font-size:1.02rem}
+.count .clock{display:flex;gap:10px}
+.count .cell{background:rgba(255,255,255,.16);border-radius:10px;padding:7px 10px;min-width:58px;text-align:center}
+.count .cell b{display:block;font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.1;font-variant-numeric:tabular-nums}
+.count .cell span{font-family:var(--label);font-size:.58rem;letter-spacing:.14em;text-transform:uppercase;opacity:.85}
+
+.hero{padding:48px 0 8px}
+h1{font-family:var(--display);font-weight:800;letter-spacing:-.03em;line-height:1.1;font-size:clamp(1.9rem,5vw,2.6rem);margin:12px 0 12px}
+h1 em{font-style:normal;color:var(--accent)}
+.sub{color:var(--ink-dim);max-width:58ch}
+
+.cards{padding:28px 0 6px}
+.card{border:1px solid var(--line);border-radius:var(--radius);padding:18px 18px;margin-bottom:14px;background:var(--paper)}
+.card b{display:block;font-family:var(--display);letter-spacing:-.01em;font-size:1.03rem;margin-bottom:3px}
+.card b i{font-style:normal;color:var(--accent);margin-right:8px}
+.card p{color:var(--ink-dim);font-size:.93rem}
+
+.phi{background:#FBF1EC;border:1px solid rgba(196,55,46,.35);border-radius:var(--radius);padding:18px 20px;margin:10px 0 26px;font-size:.95rem}
+.phi b{color:#A33B2E}
+
+.up{border:2px dashed rgba(217,119,87,.5);border-radius:var(--radius);background:var(--accent-soft);padding:34px 22px;text-align:center;cursor:pointer;transition:background .2s}
+.up.drag{background:rgba(217,119,87,.2)}
+.up .big{font-family:var(--display);font-weight:700;font-size:1.06rem}
+.up .small{color:var(--ink-dim);font-size:.88rem;margin-top:4px}
+.up input{display:none}
+.filelist{margin:16px 0 8px}
+.file{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin-bottom:8px;font-size:.93rem}
+.file .st{margin-left:auto;font-family:var(--label);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-dim)}
+.file .st.ok{color:#2E7D5B}.file .st.err{color:#A33B2E}
+.btn{display:inline-block;background:var(--accent);color:#fff;border:none;border-radius:999px;font-family:var(--sans);font-weight:700;font-size:1rem;padding:14px 34px;cursor:pointer;margin:14px 0 8px}
+.btn[disabled]{opacity:.5;cursor:default}
+.done{display:none;background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;margin:14px 0}
+.done b{color:#2E7D5B}
+.already{color:var(--ink-dim);font-size:.9rem;margin:10px 0 0}
+.reassure{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;color:var(--ink-dim);font-size:.95rem;margin:26px 0 60px}
+.reassure b{color:var(--ink)}
+footer{padding:28px 0 44px;text-align:center;font-family:var(--label);font-size:10.5px;letter-spacing:.08em;color:var(--ink-dim);border-top:1px solid var(--line)}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <span class="word">Claude</span>
+    <span class="subword">Coaching</span>
+  </div>
+</header>
+
+<div class="count" id="count">
+  <div class="wrap">
+    <span class="lead" id="countLead">Your coaching session is coming up</span>
+    <span class="clock">
+      <span class="cell"><b id="cd">0</b><span>days</span></span>
+      <span class="cell"><b id="ch">0</b><span>hours</span></span>
+      <span class="cell"><b id="cm">0</b><span>min</span></span>
+      <span class="cell"><b id="cs">0</b><span>sec</span></span>
+    </span>
+  </div>
+</div>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="mono" style="color:var(--accent)">Before your 60-minute intensive</span>
+    <h1 id="title">Send me your documents — <em>I'll build your session around them</em></h1>
+    <p class="sub">These teach Claude your business before we meet, so our hour goes into
+    building — not gathering. Five minutes now saves us fifteen on the call.</p>
+  </div>
+</section>
+
+<section class="cards">
+  <div class="wrap">
+    <div class="card"><b><i>1</i>Services &amp; pricing</b><p>Your service list, price sheet, or rate card — whatever you'd hand a new customer.</p></div>
+    <div class="card"><b><i>2</i>Your FAQ</b><p>The questions you answer over and over — an FAQ page, a doc, or just a quick list you type from memory.</p></div>
+    <div class="card"><b><i>3</i>Your voice</b><p>2–3 emails or posts YOU wrote that sound like you. This is how Claude learns to write in your voice, not a robot's.</p></div>
+    <div class="card"><b><i>4</i>How things work</b><p>Any process docs, templates, or checklists your business runs on. Rough is fine — Claude reads messy.</p></div>
+
+    <div class="phi"><b>Important — please leave these out:</b> nothing with patient or client
+    names, health details, case details, or financial account numbers. Business documents
+    only. If in doubt, leave it out — we can talk it through on the call.</div>
+
+    <div class="up" id="drop">
+      <div class="big">Drag files here, or tap to choose</div>
+      <div class="small">PDF, Word, text, spreadsheets, images · up to 8&nbsp;MB each</div>
+      <input type="file" id="picker" multiple accept=".pdf,.doc,.docx,.txt,.md,.csv,.xlsx,.png,.jpg,.jpeg">
+    </div>
+    <div class="filelist" id="filelist"></div>
+    <button class="btn" id="send" disabled>Send documents</button>
+    <div class="done" id="done"><b>Got them — thank you!</b> <span id="doneMsg">Your documents are in. You can add more any time before the session.</span></div>
+    <p class="already" id="already"></p>
+
+    <div class="reassure"><b>Prefer email?</b> Just reply to my email with the files attached —
+    either way works. Questions? michael@avataragency.ai</div>
+  </div>
+</section>
+
+<footer>© 2026 AVATARAGENCY.AI · CLAUDE COACHING</footer>
+
+<script>
+(function(){
+  var qs = new URLSearchParams(location.search);
+  var slug = (qs.get("c")||"").toLowerCase().replace(/[^a-z0-9-]/g,"").slice(0,64);
+  var first = (qs.get("n")||"").replace(/[^A-Za-z' -]/g,"").slice(0,40);
+  if (first) document.getElementById("title").innerHTML =
+    first + ", send me your documents — <em>I'll build your session around them</em>";
+
+  /* ---- countdown: s = epoch seconds, epoch ms, or ISO datetime ---- */
+  var s = qs.get("s"), target = null;
+  if (s) {
+    if (/^\d+$/.test(s)) target = new Date(s.length > 11 ? +s : +s*1000);
+    else { var d = new Date(s); if (!isNaN(d)) target = d; }
+  }
+  if (target && target > new Date()) {
+    document.getElementById("count").style.display = "block";
+    document.getElementById("countLead").textContent =
+      (first ? first + ", your" : "Your") + " coaching session is in";
+    var cd=document.getElementById("cd"), ch=document.getElementById("ch"),
+        cm=document.getElementById("cm"), cs=document.getElementById("cs");
+    function tick(){
+      var ms = target - new Date();
+      if (ms <= 0) { document.getElementById("countLead").textContent = "Your session is starting — see you in there!"; cd.textContent=ch.textContent=cm.textContent=cs.textContent="0"; clearInterval(t); return; }
+      cd.textContent = Math.floor(ms/86400000);
+      ch.textContent = Math.floor(ms/3600000)%24;
+      cm.textContent = Math.floor(ms/60000)%60;
+      cs.textContent = Math.floor(ms/1000)%60;
+    }
+    tick(); var t = setInterval(tick, 1000);
+  }
+
+  /* ---- uploads ---- */
+  var MAX = 8*1024*1024;
+  var OK_EXT = /\.(pdf|docx?|txt|md|csv|xlsx|png|jpe?g)$/i;
+  var picker = document.getElementById("picker"), drop = document.getElementById("drop"),
+      list = document.getElementById("filelist"), send = document.getElementById("send"),
+      queue = [];
+
+  drop.addEventListener("click", function(){ picker.click(); });
+  picker.addEventListener("change", function(){ add(picker.files); picker.value=""; });
+  ["dragover","dragenter"].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add("drag"); }); });
+  ["dragleave","drop"].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove("drag"); }); });
+  drop.addEventListener("drop", function(e){ add(e.dataTransfer.files); });
+
+  function add(files){
+    Array.from(files).forEach(function(f){
+      var st = "ready";
+      if (!OK_EXT.test(f.name)) st = "type not accepted";
+      else if (f.size > MAX) st = "over 8 MB";
+      queue.push({ f:f, status:st });
+    });
+    render();
+  }
+  function render(){
+    list.innerHTML = "";
+    var sendable = 0;
+    queue.forEach(function(q){
+      var d = document.createElement("div"); d.className = "file";
+      var ok = q.status==="ready"||q.status==="sent";
+      if (q.status==="ready") sendable++;
+      d.innerHTML = "<span>📄</span><span></span><span class='st'></span>";
+      d.children[1].textContent = q.f.name + " (" + (q.f.size/1048576).toFixed(1) + " MB)";
+      var stEl = d.children[2];
+      stEl.textContent = q.status;
+      stEl.className = "st " + (q.status==="sent" ? "ok" : (ok ? "" : "err"));
+      list.appendChild(d);
+    });
+    send.disabled = sendable === 0 || !slug;
+    if (!slug && queue.length) send.textContent = "Upload link missing your name-code — email the files instead";
+  }
+
+  function b64(file){
+    return new Promise(function(res, rej){
+      var r = new FileReader();
+      r.onload = function(){ res(String(r.result).split(",")[1]); };
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+
+  send.addEventListener("click", function(){
+    send.disabled = true; send.textContent = "Sending…";
+    var ready = queue.filter(function(q){ return q.status==="ready"; });
+    (function next(i){
+      if (i >= ready.length){
+        send.textContent = "Send documents";
+        document.getElementById("done").style.display = "block";
+        if (typeof gtag === "function") gtag("event","intake_docs_uploaded",{ client: slug, files: ready.length });
+        refresh();
+        return;
+      }
+      var q = ready[i];
+      b64(q.f).then(function(data){
+        return fetch("/api/intake-docs?c=" + encodeURIComponent(slug), {
+          method:"POST", headers:{ "Content-Type":"application/json" },
+          body: JSON.stringify({ files:[{ fn:q.f.name, type:q.f.type||"application/octet-stream", data:data }] })
+        });
+      }).then(function(r){ return r.json(); }).then(function(j){
+        q.status = j && j.ok ? "sent" : "failed — try email";
+        render(); next(i+1);
+      }).catch(function(){ q.status = "failed — try email"; render(); next(i+1); });
+    })(0);
+  });
+
+  function refresh(){
+    if (!slug) return;
+    fetch("/api/intake-docs?c=" + encodeURIComponent(slug)).then(function(r){ return r.json(); }).then(function(j){
+      if (j && j.files && j.files.length)
+        document.getElementById("already").textContent =
+          "On file for your session: " + j.files.map(function(f){ return f.fn; }).join(" · ");
+    }).catch(function(){});
+  }
+  refresh();
+})();
+</script>
+</body>
+</html>
