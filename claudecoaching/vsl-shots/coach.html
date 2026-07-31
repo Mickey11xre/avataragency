@@ -34,8 +34,8 @@ body{background:var(--paper);font-family:var(--sans);color:var(--ink)}
 .cap.show{opacity:1;transform:none}
 .cap .who{font-family:var(--label);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:4px;color:rgba(255,255,255,.65)}
 .cap.you{align-self:flex-end;background:rgba(217,119,87,.92)}
-.cap.coach{align-self:flex-start}
-.cap.coach .who{color:#F2B29B}
+.cap.mentor{align-self:flex-start}
+.cap.mentor .who{color:#F2B29B}
 
 /* voice bar replaces text input */
 .voicebar{max-width:900px;width:100%;margin:18px auto 0;display:flex;align-items:center;gap:14px;border:1px solid var(--line);border-radius:999px;padding:13px 22px;background:var(--paper)}
@@ -92,7 +92,7 @@ body{background:var(--paper);font-family:var(--sans);color:var(--ink)}
     <div class="main">
       <div class="captions">
         <div class="cap you" id="cap1"><span class="who">You — speaking</span><span id="cap1text"></span></div>
-        <div class="cap coach" id="cap2"><span class="who">Coach Michael — speaking</span><span id="cap2text"></span></div>
+        <div class="cap mentor" id="cap2"><span class="who">Coach Michael — speaking</span><span id="cap2text"></span></div>
       </div>
       <div class="voicebar">
         <span class="mic"><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg></span>
@@ -133,8 +133,8 @@ body{background:var(--paper);font-family:var(--sans);color:var(--ink)}
   }
   // Timeline: window in → LIVE → student SPEAKS (caption at speech pace) →
   // twin VIDEO plays (real lips) + twin caption + waveform → day counter ticks
-  setTimeout(function(){ coach.classList.add('show'); }, 800);
-  setTimeout(function(){ live.classList.add('on'); }, 1500);
+  setTimeout(function(){ coach.classList.add('show'); }, 2800);
+  setTimeout(function(){ live.classList.add('on'); }, 3500);
   setTimeout(function(){
     cap1.classList.add('show');
     speakInto(cap1t, Q, 200, function(){
@@ -147,9 +147,9 @@ body{background:var(--paper);font-family:var(--sans);color:var(--ink)}
         speakInto(cap2t, A, 210);
       }, 500);
     });
-  }, 2100);
-  setTimeout(function(){ day.textContent='DAY 17 OF 30'; }, 6800);
-  setTimeout(function(){ day.textContent='DAY 29 OF 30'; }, 8600);
+  }, 4100);
+  setTimeout(function(){ day.textContent='DAY 17 OF 30'; }, 8800);
+  setTimeout(function(){ day.textContent='DAY 29 OF 30'; }, 10600);
 })();
 </script>
 </body>
