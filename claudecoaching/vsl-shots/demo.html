@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VSL Shot 8 — Silent Demo</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFFFFF;--cream:#FAF6F0;--ink:#211F1B;--ink-dim:rgba(33,31,27,.66);--line:rgba(33,31,27,.12);--accent:#D97757;
+--display:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;--sans:'Inter',system-ui,sans-serif;--label:'Montserrat','Inter',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden}
+body{background:var(--paper);font-family:var(--sans);color:var(--ink);display:flex;align-items:center;justify-content:center}
+.frame{width:100vw;height:100vh;display:flex;flex-direction:column;background:var(--paper)}
+.bar{display:flex;align-items:center;gap:10px;padding:14px 22px;border-bottom:1px solid var(--line);background:var(--cream)}
+.bar .dots{display:flex;gap:6px}
+.bar .dots i{width:11px;height:11px;border-radius:50%;background:rgba(33,31,27,.18)}
+.bar .title{font-family:var(--label);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
+.bar .title b{color:var(--accent)}
+.shell{flex:1;display:flex;min-height:0}
+.side{flex:0 0 230px;background:var(--cream);border-right:1px solid var(--line);padding:18px 14px}
+.side .new{display:block;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:.85rem;font-weight:600;padding:9px 12px;margin-bottom:16px}
+.side .new b{color:var(--accent)}
+.side .lbl{font-family:var(--label);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:9px}
+.side ul{list-style:none}
+.side li{font-size:.85rem;color:var(--ink-dim);padding:7px 9px;border-radius:6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.side li.on{background:rgba(217,119,87,.12);color:var(--ink)}
+.main{flex:1;display:flex;flex-direction:column;padding:34px 44px 26px;min-width:0}
+.chat{flex:1;display:flex;flex-direction:column;justify-content:flex-end;gap:0;max-width:860px;width:100%;margin:0 auto}
+.q{align-self:flex-end;max-width:60%;background:var(--cream);border:1px solid var(--line);border-radius:16px 16px 4px 16px;padding:14px 18px;font-size:1.05rem;min-height:1em;opacity:0}
+.q.show{opacity:1}
+.q .caret{display:inline-block;width:2px;height:1.1em;background:var(--ink);vertical-align:text-bottom;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.a{display:flex;gap:14px;max-width:78%;margin-top:26px;font-size:1.02rem;color:var(--ink-dim);opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.a.show{opacity:1;transform:none}
+.a .spark{color:var(--accent);font-size:1.3rem;line-height:1.3}
+.a b{color:var(--ink)}
+.a ul{list-style:none;margin-top:10px}
+.a li{padding:5px 0;opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s}
+.a li.show{opacity:1;transform:none}
+.a li b{color:var(--ink)}
+.a li .tick{color:var(--accent);font-weight:700;margin-right:8px}
+.inputrow{max-width:860px;width:100%;margin:26px auto 0;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;padding:14px 18px;color:var(--ink-dim);font-size:.95rem;background:var(--paper)}
+.inputrow .send{margin-left:auto;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="title"><b>✳</b>&nbsp;Claude</span></div>
+  <div class="shell">
+    <aside class="side">
+      <span class="new"><b>+</b> New chat</span>
+      <div class="lbl">Chats</div>
+      <ul>
+        <li class="on">Monday morning brief</li>
+        <li>Draft my follow-up emails</li>
+        <li>Summarize meeting notes</li>
+        <li>Ideas for spring promotion</li>
+        <li>Plan next week's schedule</li>
+        <li>Review pricing spreadsheet</li>
+      </ul>
+    </aside>
+    <div class="main">
+      <div class="chat">
+        <div class="q" id="q"><span id="qtext"></span><span class="caret" id="caret"></span></div>
+        <div class="a" id="a">
+          <span class="spark">✳</span>
+          <div>
+            <b>Here's your Monday, pulled from your calendar and inbox:</b>
+            <ul id="alist">
+              <li><span class="tick">✓</span><b>9:00</b> — New-client consult (Riverside file is prepped in Drive)</li>
+              <li><span class="tick">✓</span><b>3 follow-ups due today</b> — drafts are ready for your review</li>
+              <li><span class="tick">✓</span><b>Invoice #214</b> is 12 days overdue — reminder drafted, gentle tone</li>
+              <li><span class="tick">✓</span><b>Top priority:</b> the Hendricks proposal — you have a free hour at 1:30</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="inputrow"><span>Message Claude…</span><span class="send">↑</span></div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var TEXT = "What's on my plate this week?";
+  var q = document.getElementById('q'), qt = document.getElementById('qtext'),
+      caret = document.getElementById('caret'), a = document.getElementById('a'),
+      items = document.querySelectorAll('#alist li');
+  // Timeline (deterministic, starts on load):
+  // 0.8s: question bubble appears, typing begins (55ms/char ≈ 1.6s)
+  // +0.6s pause → answer block fades in → items cascade every 650ms → hold end state
+  setTimeout(function(){
+    q.classList.add('show');
+    var i = 0;
+    var t = setInterval(function(){
+      qt.textContent = TEXT.slice(0, ++i);
+      if (i >= TEXT.length) {
+        clearInterval(t);
+        setTimeout(function(){ caret.style.display='none'; a.classList.add('show');
+          items.forEach(function(li, n){ setTimeout(function(){ li.classList.add('show'); }, 500 + n*650); });
+        }, 600);
+      }
+    }, 55);
+  }, 800);
+})();
+</script>
+</body>
+</html>

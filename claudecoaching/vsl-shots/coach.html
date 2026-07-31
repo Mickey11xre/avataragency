@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VSL Shot 12A — Coach On Call</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#FFFFFF;--cream:#FAF6F0;--ink:#211F1B;--ink-dim:rgba(33,31,27,.66);--line:rgba(33,31,27,.12);--accent:#D97757;
+--display:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;--sans:'Inter',system-ui,sans-serif;--label:'Montserrat','Inter',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden}
+body{background:var(--paper);font-family:var(--sans);color:var(--ink)}
+.frame{width:100vw;height:100vh;display:flex;flex-direction:column;background:var(--paper)}
+.bar{display:flex;align-items:center;gap:10px;padding:14px 22px;border-bottom:1px solid var(--line);background:var(--cream)}
+.bar .dots{display:flex;gap:6px}
+.bar .dots i{width:11px;height:11px;border-radius:50%;background:rgba(33,31,27,.18)}
+.bar .title{font-family:var(--label);font-size:.78rem;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dim)}
+.bar .title b{color:var(--accent)}
+.shell{flex:1;display:flex;min-height:0;position:relative}
+.side{flex:0 0 230px;background:var(--cream);border-right:1px solid var(--line);padding:18px 14px}
+.side .new{display:block;border:1px solid var(--line);border-radius:8px;background:var(--paper);font-size:.85rem;font-weight:600;padding:9px 12px;margin-bottom:16px}
+.side .new b{color:var(--accent)}
+.side .lbl{font-family:var(--label);font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:9px}
+.side ul{list-style:none}
+.side li{font-size:.85rem;color:var(--ink-dim);padding:7px 9px;border-radius:6px}
+.side li.on{background:rgba(217,119,87,.12);color:var(--ink)}
+.main{flex:1;display:flex;flex-direction:column;padding:34px 44px 26px;min-width:0}
+.chat{flex:1;display:flex;flex-direction:column;justify-content:flex-end;max-width:860px;width:100%;margin:0 auto}
+.q{align-self:flex-end;max-width:62%;background:var(--cream);border:1px solid var(--line);border-radius:16px 16px 4px 16px;padding:13px 17px;font-size:1rem;opacity:0;transform:translateY(8px);transition:opacity .45s,transform .45s}
+.q.show{opacity:1;transform:none}
+.a{display:flex;gap:14px;max-width:76%;margin-top:20px;font-size:1rem;color:var(--ink-dim);opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s}
+.a.show{opacity:1;transform:none}
+.a .spark{color:var(--accent);font-size:1.25rem;line-height:1.3}
+.a b{color:var(--ink)}
+.inputrow{max-width:860px;width:100%;margin:24px auto 0;display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:14px;padding:14px 18px;color:var(--ink-dim);font-size:.95rem}
+.inputrow .send{margin-left:auto;width:30px;height:30px;border-radius:50%;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center}
+
+/* coach window */
+.coach{position:absolute;top:26px;right:34px;width:340px;border-radius:14px;overflow:hidden;border:3px solid #fff;
+  box-shadow:0 22px 54px rgba(33,31,27,.32);background:#141210;transform:scale(.05);opacity:0;transform-origin:top right;
+  transition:transform .6s cubic-bezier(.2,.9,.3,1.15),opacity .4s;z-index:5}
+.coach.show{transform:scale(1);opacity:1}
+.coach .vid{position:relative}
+.coach img{display:block;width:100%}
+.coach .live{position:absolute;top:10px;left:10px;background:rgba(255,255,255,.94);color:#C4372E;font-family:var(--label);font-size:.66rem;font-weight:700;letter-spacing:.1em;padding:5px 10px;border-radius:999px;opacity:0;transition:opacity .3s}
+.coach .live.on{opacity:1;animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{50%{opacity:.55}}
+.coach .name{position:absolute;bottom:10px;left:10px;color:#fff;background:rgba(33,31,27,.55);font-size:.74rem;font-weight:600;padding:5px 10px;border-radius:6px}
+.coach .day{position:absolute;top:10px;right:10px;color:#fff;background:rgba(33,31,27,.6);font-family:var(--label);font-size:.62rem;font-weight:700;letter-spacing:.08em;padding:5px 9px;border-radius:6px}
+.coach .wave{position:absolute;bottom:12px;right:12px;display:flex;gap:3px;align-items:flex-end;height:16px}
+.coach .wave i{width:3px;background:var(--accent);border-radius:2px;animation:wv 1.1s ease-in-out infinite}
+.coach .wave i:nth-child(2){animation-delay:.15s}.coach .wave i:nth-child(3){animation-delay:.3s}
+.coach .wave i:nth-child(4){animation-delay:.45s}.coach .wave i:nth-child(5){animation-delay:.6s}
+@keyframes wv{0%,100%{height:4px}50%{height:16px}}
+.coach .ctrl{display:flex;justify-content:center;gap:12px;padding:10px 0;background:#141210}
+.coach .ctrl span{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.14);display:flex;align-items:center;justify-content:center}
+.coach .ctrl svg{width:16px;height:16px;fill:#fff}
+.coach .ctrl .hang{background:#D0342C}
+</style>
+</head>
+<body>
+<div class="frame">
+  <div class="bar"><span class="dots"><i></i><i></i><i></i></span><span class="title"><b>✳</b>&nbsp;Claude</span></div>
+  <div class="shell">
+    <aside class="side">
+      <span class="new"><b>+</b> New chat</span>
+      <div class="lbl">Chats</div>
+      <ul>
+        <li class="on">Ask my coach</li>
+        <li>Monday morning brief</li>
+        <li>Draft my follow-up emails</li>
+        <li>Summarize meeting notes</li>
+        <li>Plan next week's schedule</li>
+      </ul>
+    </aside>
+    <div class="main">
+      <div class="chat">
+        <div class="q" id="q1">How do I make Claude remember my brand voice?</div>
+        <div class="a" id="a1"><span class="spark">✳</span><p><b>Great question — let's set it up together.</b> Open your second brain project… I'll walk you through it right now. Share your screen if you want me to look with you.</p></div>
+      </div>
+      <div class="inputrow"><span>Message Claude…</span><span class="send">↑</span></div>
+    </div>
+
+    <div class="coach" id="coach">
+      <div class="vid">
+        <img src="/claudecoaching/michael-twin-widget.jpg" alt="">
+        <span class="live" id="live">● LIVE</span>
+        <span class="day" id="day">DAY 3 OF 30</span>
+        <span class="name">Coach Michael</span>
+        <span class="wave"><i></i><i></i><i></i><i></i><i></i></span>
+      </div>
+      <div class="ctrl">
+        <span><svg viewBox="0 0 24 24"><path d="M12 14a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v5a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-3.08A7 7 0 0 0 19 11h-2z"/></svg></span>
+        <span><svg viewBox="0 0 24 24"><path d="M3 5h18v12h-7v2h3v2H7v-2h3v-2H3V5zm2 2v8h14V7H5zm7 1 3 3h-2v3h-2v-3h-2l3-3z"/></svg></span>
+        <span class="hang"><svg viewBox="0 0 24 24"><path d="M12 9c-3.6 0-6.9 1.2-9.5 3.2a1 1 0 0 0-.2 1.4l1.7 2.2a1 1 0 0 0 1.3.3l2.8-1.4a1 1 0 0 0 .55-.9v-1.5a12.4 12.4 0 0 1 6.7 0v1.5a1 1 0 0 0 .55.9l2.8 1.4a1 1 0 0 0 1.3-.3l1.7-2.2a1 1 0 0 0-.2-1.4C18.9 10.2 15.6 9 12 9z"/></svg></span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+(function(){
+  var coach = document.getElementById('coach'), live = document.getElementById('live'),
+      day = document.getElementById('day'), q1 = document.getElementById('q1'), a1 = document.getElementById('a1');
+  // Timeline: 0.8s coach window scales in → 1.4s LIVE on → 2.0s question appears →
+  // 3.0s answer appears → 4.2s day counter ticks 3→17→29 → hold
+  setTimeout(function(){ coach.classList.add('show'); }, 800);
+  setTimeout(function(){ live.classList.add('on'); }, 1500);
+  setTimeout(function(){ q1.classList.add('show'); }, 2100);
+  setTimeout(function(){ a1.classList.add('show'); }, 3100);
+  setTimeout(function(){ day.textContent = 'DAY 17 OF 30'; }, 4400);
+  setTimeout(function(){ day.textContent = 'DAY 29 OF 30'; }, 5600);
+})();
+</script>
+</body>
+</html>
