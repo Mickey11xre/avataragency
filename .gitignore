@@ -1,0 +1,34 @@
+# This repo deploys to avataragency.ai via Cloudflare Pages — anything committed
+# here becomes publicly fetchable. Keep working files and other products out.
+
+# Local tooling / agent config
+.claude/
+CLAUDE.md
+
+# Editor + OS noise
+.DS_Store
+Thumbs.db
+*.swp
+
+# Working copies and backups — never publish these
+*.bak
+*.new
+*.orig
+*.tmp
+*.prefix-bak-*
+*_snippet.css
+*_snippet.html
+_preview.html
+
+# LiveBrand is a separate product with its own repo (C:\Dev\livebrand-ops).
+# Its design system and mockups must not deploy to avataragency.ai.
+design/
+docs/
+
+# In-progress builders not ready to be public
+clients/prototype/
+clone-brand-builder.html
+clone-brand-builder.js
+
+# Raw generator output — rename and place deliberately before committing
+**/Gemini_Generated_Image_*
