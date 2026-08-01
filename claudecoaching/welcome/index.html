@@ -19,8 +19,37 @@
       localStorage.setItem("cc_purchase_fired", "1");
     }
   } catch(e) {}
-  /* META PIXEL: when the Pixel lands, fire fbq('track','Purchase',{currency:'USD',value:497}) here with the same guard. */
 </script>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1798663051496549');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1798663051496549&ev=PageView&noscript=1"/></noscript>
+<script>
+  /* Meta Purchase — separate guard key from GA so neither suppresses the other.
+     eventId is stored so a future Conversions API send can deduplicate against this browser event. */
+  try {
+    if (typeof fbq === "function" && !localStorage.getItem("cc_purchase_fired_fb")) {
+      var ccEventId = "cc-" + Date.now() + "-" + Math.random().toString(36).slice(2, 10);
+      fbq("track", "Purchase",
+          { currency: "USD", value: 497, content_name: "Claude Coaching 90-min session" },
+          { eventID: ccEventId });
+      localStorage.setItem("cc_purchase_fired_fb", "1");
+      localStorage.setItem("cc_purchase_event_id", ccEventId);
+    }
+  } catch(e) {}
+</script>
+<!-- End Meta Pixel -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">

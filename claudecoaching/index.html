@@ -14,6 +14,22 @@
   gtag('js', new Date());
   gtag('config', 'G-T8NJ9JVWFV');
 </script>
+<!-- Meta Pixel -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1798663051496549');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1798663051496549&ev=PageView&noscript=1"/></noscript>
+<!-- End Meta Pixel -->
 <link rel="canonical" href="https://avataragency.ai/claudecoaching/">
 <!-- Open Graph -->
 <meta property="og:type" content="website">
@@ -771,6 +787,7 @@ footer p+p{margin-top:8px}
       apply(p.dataset.v);
       window.__ccVertical = p.dataset.v;
       if (typeof gtag === "function") gtag("event", "select_vertical", { vertical: p.dataset.v });
+      if (typeof fbq === "function") fbq("trackCustom", "SelectVertical", { vertical: p.dataset.v });
     });
   });
 
@@ -790,18 +807,25 @@ footer p+p{margin-top:8px}
 })();
 </script>
 <script>
-/* CTA + engagement tracking (GA4). Meta Pixel events mirror these once the Pixel lands. */
+/* CTA + engagement tracking — GA4 and Meta Pixel fire side by side.
+   Each is guarded independently so one failing to load never silences the other. */
 (function(){
-  if (typeof gtag !== "function") return;
+  function ga(name, params){ if (typeof gtag === "function") gtag("event", name, params); }
+  function fb(name, params, custom){
+    if (typeof fbq !== "function") return;
+    fbq(custom ? "trackCustom" : "track", name, params);
+  }
   function vert(){ return window.__ccVertical || new URLSearchParams(location.search).get("v") || "local"; }
   document.querySelectorAll('a[href*="calendly.com"]').forEach(function(a, i){
     a.addEventListener("click", function(){
-      gtag("event", "generate_lead", { method: "calendly", cta_position: i, vertical: vert() });
+      ga("generate_lead", { method: "calendly", cta_position: i, vertical: vert() });
+      fb("Lead", { content_name: "discovery_call", cta_position: i, vertical: vert() });
     });
   });
   document.querySelectorAll('a[data-checkout="stripe"]').forEach(function(a){
     a.addEventListener("click", function(){
-      gtag("event", "begin_checkout", { currency: "USD", value: 497, vertical: vert() });
+      ga("begin_checkout", { currency: "USD", value: 497, vertical: vert() });
+      fb("InitiateCheckout", { currency: "USD", value: 497, content_name: "Claude Coaching 90-min session", vertical: vert() });
     });
   });
   var fired50 = false;
@@ -809,7 +833,8 @@ footer p+p{margin-top:8px}
     if (fired50) return;
     if ((window.scrollY + window.innerHeight) / document.body.scrollHeight > 0.5) {
       fired50 = true;
-      gtag("event", "scroll_50", { vertical: vert() });
+      ga("scroll_50", { vertical: vert() });
+      fb("Scroll50", { vertical: vert() }, true);
     }
   }, { passive: true });
 })();
