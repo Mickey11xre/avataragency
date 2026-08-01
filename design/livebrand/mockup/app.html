@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Talk to Ava</title>
+<!-- MOCKUP of client-page template v1.1 in APP MODE (display-mode media query forced on).
+     Sample client: Summit Realty Group · avatar: Ava. Gate/SDK/analytics stripped for capture. -->
+<link rel="stylesheet" href="/design/livebrand/tokens.css">
+<link rel="stylesheet" href="/design/livebrand/components.css">
+<style>
+:root { --client-accent: #C4952A; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--lb-bg); font-family: var(--lb-font-body); color: var(--lb-text-primary); }
+
+.av-topbar {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 68px; padding: 0 var(--lb-space-32);
+  border-bottom: 1px solid var(--lb-border); background: var(--lb-surface);
+}
+.client-logo-text { font-family: var(--lb-font-display); font-weight: var(--lb-fw-medium); font-size: 17px; color: var(--lb-text-primary); letter-spacing: .01em; }
+.client-logo-text em { font-style: normal; color: var(--client-accent); }
+.av-topbar-right { display: flex; align-items: center; gap: var(--lb-space-16); }
+.av-topbar a.plans-link { font-size: var(--lb-small-size); color: var(--lb-text-muted); text-decoration: none; }
+
+.av-main { max-width: 900px; margin: 0 auto; padding: var(--lb-space-48) var(--lb-space-24) var(--lb-space-96); text-align: center; }
+.av-main h1 { font-family: var(--lb-font-display); font-weight: var(--lb-fw-medium); font-size: var(--lb-h1-size); line-height: var(--lb-h1-lh); margin-bottom: var(--lb-space-8); }
+.av-main h1 em { font-style: italic; color: var(--client-accent); }
+
+.av-stage { position: relative; width: 100%; aspect-ratio: 16/9; background: var(--lb-ink-100); border: 1px solid var(--lb-border); border-radius: var(--lb-radius-lg); overflow: hidden; margin-bottom: var(--lb-space-16); }
+#lb-avatar-mount { position: absolute; inset: 0; }
+#lb-avatar-mount img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+
+.av-hint { font-size: var(--lb-small-size); color: var(--lb-text-muted); margin-bottom: var(--lb-space-16); }
+
+#trial-badge { display: inline-flex; margin: 0 auto var(--lb-space-24); }
+.av-disclosure { font-size: 12px; color: var(--lb-ink-300); max-width: 60ch; margin: 0 auto; line-height: 1.6; }
+.app-info-btn { display: none; }
+
+/* ── APP MODE (forced on for this mockup — mirrors template v1.1 exactly) ── */
+@media all {
+  body { display: flex; flex-direction: column; height: 100dvh; overflow: hidden; }
+  .av-topbar { flex-shrink: 0; height: auto; min-height: 52px; padding-top: 58px; padding-bottom: 10px; /* simulated safe-area-inset-top (real device: env()) */ }
+  .av-topbar a.plans-link { display: none; }
+  .av-main { position: relative; flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; width: 100%; max-width: none; margin: 0; padding: var(--lb-space-12) 0 0; }
+  .av-main h1 { font-size: 16px; line-height: 24px; height: 24px; margin: 0 var(--lb-space-16) var(--lb-space-8); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
+  .av-stage { flex: 1 1 auto; min-height: 0; aspect-ratio: auto; border: none; border-radius: 0; margin-bottom: 0; }
+  #trial-badge { position: absolute; top: calc(var(--lb-space-12) + 24px + var(--lb-space-8) + 10px); right: 10px; margin: 0; z-index: 6; background: rgba(255,255,255,0.82); backdrop-filter: blur(4px); border-radius: var(--lb-radius-pill); padding: 6px 12px; }
+  .av-hint { font-size: 11px; margin: 6px var(--lb-space-16) 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; }
+  .av-disclosure { font-size: 10px; line-height: 1.4; max-width: none; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 56px 0 var(--lb-space-16); margin: 2px 0 6px; text-align: left; }
+  .app-info-btn { display: flex; align-items: center; justify-content: center; position: fixed; right: 12px; bottom: 12px; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--lb-border); background: var(--lb-surface); color: var(--lb-text-muted); font-size: 15px; font-family: var(--lb-font-body); z-index: 40; }
+}
+</style>
+</head>
+<body>
+
+<nav class="av-topbar">
+  <span class="client-logo-text">SUMMIT <em>REALTY</em> GROUP</span>
+  <div class="av-topbar-right">
+    <a class="plans-link" href="#">Plans</a>
+    <span class="lb-live"><span class="lb-live__dot"></span><span class="lb-live__label">On Air</span></span>
+  </div>
+</nav>
+
+<main class="av-main">
+  <h1>You're talking with <em>Ava</em></h1>
+
+  <div class="av-stage">
+    <div id="lb-avatar-mount"><img src="ava.jpg" alt="Ava — live avatar"></div>
+  </div>
+
+  <div class="lb-live" id="trial-badge" aria-live="polite">
+    <span class="lb-live__dot"></span>
+    <span class="lb-live__label" id="trial-text">04:32 free today</span>
+  </div>
+
+  <p class="av-hint">Tap the avatar and allow your microphone to start the conversation.</p>
+  <p class="av-disclosure">Ava is an AI-generated digital performer created with the authorization of Summit Realty Group.</p>
+</main>
+
+<button type="button" class="app-info-btn" aria-label="Terms, privacy and about">&#9432;</button>
+
+</body>
+</html>

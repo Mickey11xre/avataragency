@@ -80,8 +80,31 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:
 .step .n{font-family:var(--display);font-weight:800;font-size:34px;color:var(--accent);line-height:1}
 .step h3{font-family:var(--display);font-weight:800;font-size:1.02rem;margin:10px 0 6px;letter-spacing:-.01em}
 .step p{color:var(--ink-dim);font-size:.92rem}
+/* ── Acknowledgment gate ── */
+.ack{padding:44px 0 0}
+.ack .box{border:1px solid var(--line);border-radius:var(--radius);background:var(--cream);padding:32px 28px}
+.ack h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:1.5rem;margin:10px 0 8px}
+.ack .lead{color:var(--ink-dim);font-size:.96rem;max-width:62ch;margin-bottom:24px}
+.ack label.ackitem{display:flex;gap:13px;align-items:flex-start;background:var(--paper);border:1px solid var(--line);border-radius:11px;padding:15px 16px;margin-bottom:10px;cursor:pointer;transition:border-color .15s,background .15s}
+.ack label.ackitem:hover{border-color:var(--accent)}
+.ack label.ackitem input{margin-top:4px;width:18px;height:18px;accent-color:var(--accent);flex:0 0 auto}
+.ack label.ackitem b{display:block;font-family:var(--display);font-weight:700;font-size:.98rem;letter-spacing:-.01em;margin-bottom:2px}
+.ack label.ackitem p{color:var(--ink-dim);font-size:.9rem;line-height:1.5}
+.ack .sign{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 6px}
+.ack .sign input{width:100%;font-family:var(--sans);font-size:1rem;padding:13px 14px;border:1px solid var(--line);border-radius:11px;background:var(--paper);color:var(--ink)}
+.ack .sign input:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.ack .legal{color:var(--ink-dim);font-size:.85rem;margin:10px 0 18px;max-width:62ch}
+.ack .legal a{color:var(--accent)}
+.ack button{font-family:var(--display);font-weight:700;font-size:1rem;padding:15px 30px;border:0;border-radius:11px;background:var(--accent);color:var(--on-accent);cursor:pointer;transition:opacity .15s}
+.ack button[disabled]{opacity:.4;cursor:not-allowed}
+.ack .msg{font-size:.9rem;margin-top:12px;min-height:1.2em}
+.ack .msg.err{color:#B3341A}
+.ack .done{display:flex;gap:12px;align-items:center;border:1px solid var(--accent);border-radius:var(--radius);background:var(--accent-soft);padding:18px 20px;font-size:.95rem}
+.ack .done svg{flex:0 0 auto}
 .book{padding:26px 0 80px}
 .book .box{border:1px solid var(--accent);border-radius:var(--radius);background:linear-gradient(180deg,var(--accent-soft),var(--paper) 55%);padding:36px 28px;text-align:center}
+.book.locked{opacity:.35;pointer-events:none;filter:grayscale(1)}
+@media (max-width:620px){ .ack .sign{grid-template-columns:1fr} }
 .book h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;font-size:clamp(1.5rem,4vw,2rem);margin-bottom:10px}
 .book .note{color:var(--ink-dim);max-width:52ch;margin:0 auto 22px}
 #calendly-slot{min-height:660px;border-radius:12px;overflow:hidden}
@@ -125,7 +148,67 @@ footer{padding:28px 0 44px;text-align:center;font-family:var(--label);font-size:
   </div>
 </section>
 
-<section class="book">
+<section class="ack" id="ack">
+  <div class="wrap">
+    <div class="box" id="ack-form">
+      <div class="mono" style="color:var(--accent)">One quick thing first</div>
+      <h2>How we'll work together</h2>
+      <p class="lead">Five short points, in plain English. They protect your privacy and set clear expectations
+        for both of us before we get into your accounts. Read them, tick them, and your calendar opens below.</p>
+
+      <label class="ackitem"><input type="checkbox" data-id="recording"><div>
+        <b>Our sessions are recorded</b>
+        <p>I use an AI notetaker so I can pay attention to you instead of typing. The recording stays private
+          between us and is used only to prepare your session materials. You can tell me at the start of any call
+          that you'd rather I not record — that's completely fine — and you can ask me to delete a recording at any time.</p>
+      </div></label>
+
+      <label class="ackitem"><input type="checkbox" data-id="no-confidential"><div>
+        <b>I'll keep confidential material out of it</b>
+        <p>Nothing I share or put on screen will include patient records, attorney–client privileged material,
+          government ID numbers, or full financial account numbers. Business documents, yes — other people's
+          private details, no.</p>
+      </div></label>
+
+      <label class="ackitem"><input type="checkbox" data-id="own-accounts"><div>
+        <b>My accounts stay mine</b>
+        <p>I type my own passwords; Michael never asks for them, stores them, or logs into my accounts outside a
+          live session with me watching. Anything we connect, I can disconnect myself afterwards.</p>
+      </div></label>
+
+      <label class="ackitem"><input type="checkbox" data-id="review-before-send"><div>
+        <b>I review before anything goes out</b>
+        <p>AI drafts; I approve. Emails, documents and automations we build are mine to check before they reach
+          anyone, and what they produce is my responsibility — AI can be confidently wrong.</p>
+      </div></label>
+
+      <label class="ackitem"><input type="checkbox" data-id="not-advice"><div>
+        <b>This is coaching, not professional advice</b>
+        <p>It's training on how to use AI tools — not legal, medical, tax, or financial advice, and no guarantee of
+          any particular result. Whether and how I use AI in my own work is my decision.</p>
+      </div></label>
+
+      <div class="sign">
+        <input type="text" id="ack-name" autocomplete="name" placeholder="Type your full name">
+        <input type="email" id="ack-email" autocomplete="email" placeholder="Your email address">
+      </div>
+      <p class="legal">Typing your name is your signature. It also confirms you've read the
+        <a href="https://avataragency.ai/terms.html" target="_blank" rel="noopener">Terms of Service</a> and
+        <a href="https://avataragency.ai/privacy.html" target="_blank" rel="noopener">Privacy Policy</a>.
+        We record the date, time and your agreement — nothing more.</p>
+
+      <button id="ack-go" disabled>Agree &amp; open my calendar</button>
+      <p class="msg" id="ack-msg"></p>
+    </div>
+
+    <div class="box done" id="ack-done" hidden>
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#D97757" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+      <span id="ack-done-text">Thanks — that's on file. Your calendar is open below.</span>
+    </div>
+  </div>
+</section>
+
+<section class="book locked" id="book">
   <div class="wrap">
     <div class="box">
       <h2>Pick your intake time</h2>
@@ -151,14 +234,100 @@ footer{padding:28px 0 44px;text-align:center;font-family:var(--label);font-size:
 <script>
   // 30-minute INTAKE session (clean slug, renamed 2026-07-29)
   var INTAKE_CALENDLY_URL = "https://calendly.com/michaelrivera007/free-claude-coaching-30-minute-intake-session";
-  if (INTAKE_CALENDLY_URL) {
+
+  // Bump ACK_VERSION whenever the wording of the five acknowledgments changes, so a stored
+  // record always says which text that client actually agreed to.
+  var ACK_VERSION = "2026-08-01";
+
+  var boxes   = Array.prototype.slice.call(document.querySelectorAll("#ack-form input[type=checkbox]"));
+  var nameEl  = document.getElementById("ack-name");
+  var emailEl = document.getElementById("ack-email");
+  var goEl    = document.getElementById("ack-go");
+  var msgEl   = document.getElementById("ack-msg");
+  var formEl  = document.getElementById("ack-form");
+  var doneEl  = document.getElementById("ack-done");
+  var bookEl  = document.getElementById("book");
+  var loaded  = false;
+
+  function openCalendar(){
+    if (loaded || !INTAKE_CALENDLY_URL) return;
+    loaded = true;
+    bookEl.classList.remove("locked");
     var s = document.createElement("script");
     s.src = "https://assets.calendly.com/assets/external/widget.js";
     s.async = true;
     document.head.appendChild(s);
-    var slot = document.getElementById("calendly-slot");
-    slot.innerHTML = '<div class="calendly-inline-widget" data-url="' + INTAKE_CALENDLY_URL + '?hide_gdpr_banner=1" style="min-width:320px;height:660px;"></div>';
+    document.getElementById("calendly-slot").innerHTML =
+      '<div class="calendly-inline-widget" data-url="' + INTAKE_CALENDLY_URL +
+      '?hide_gdpr_banner=1" style="min-width:320px;height:660px;"></div>';
   }
+
+  function ready(){
+    return boxes.every(function(b){ return b.checked; }) &&
+           nameEl.value.trim().length >= 2 &&
+           /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(emailEl.value.trim());
+  }
+  function sync(){ goEl.disabled = !ready(); }
+
+  boxes.forEach(function(b){ b.addEventListener("change", sync); });
+  nameEl.addEventListener("input", sync);
+  emailEl.addEventListener("input", sync);
+
+  function unlock(name, scroll){
+    formEl.hidden = true;
+    doneEl.hidden = false;
+    if (name) {
+      document.getElementById("ack-done-text").textContent =
+        "Thanks, " + name.split(" ")[0] + " — that's on file. Your calendar is open below.";
+    }
+    openCalendar();
+    if (scroll) bookEl.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  goEl.addEventListener("click", function(){
+    if (!ready()) return;
+    goEl.disabled = true;
+    msgEl.className = "msg";
+    msgEl.textContent = "Saving…";
+
+    var name = nameEl.value.trim();
+    fetch("/api/consent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: name,
+        email: emailEl.value.trim(),
+        items: boxes.map(function(b){ return b.getAttribute("data-id"); }),
+        version: ACK_VERSION,
+        page: "welcome"
+      })
+    }).then(function(r){ return r.json().catch(function(){ return {}; }).then(function(j){ return { ok: r.ok, j: j }; }); })
+      .then(function(res){
+        if (!res.ok) throw new Error((res.j && res.j.error) || "Could not save.");
+        try {
+          localStorage.setItem("cc_ack", JSON.stringify({ v: ACK_VERSION, name: name, iso: res.j.iso }));
+        } catch(e) {}
+        if (typeof gtag === "function") gtag("event", "coaching_agreement_signed", { version: ACK_VERSION });
+        if (typeof fbq === "function") fbq("trackCustom", "CoachingAgreementSigned", { version: ACK_VERSION });
+        unlock(name, true);
+      })
+      .catch(function(err){
+        // Never trap a paying client behind a failed write — let them book, and flag it to me.
+        msgEl.className = "msg err";
+        msgEl.textContent = (err && err.message ? err.message : "Something went wrong") +
+          " — opening your calendar anyway. Please mention this to me on our call.";
+        goEl.disabled = false;
+        openCalendar();
+      });
+  });
+
+  // Already agreed to this version in this browser? Don't ask twice.
+  try {
+    var prior = JSON.parse(localStorage.getItem("cc_ack") || "null");
+    if (prior && prior.v === ACK_VERSION) unlock(prior.name, false);
+  } catch(e) {}
+
+  sync();
 </script>
 </body>
 </html>

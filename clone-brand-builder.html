@@ -1,0 +1,259 @@
+<!doctype html>
+<!-- build:v1 — Clone & Brand Builder (Phase 1 prototype) -->
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T8NJ9JVWFV');
+</script>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Prototype: keep out of search until launch-ready -->
+<meta name="robots" content="noindex">
+<title>Clone &amp; Brand Builder — AvatarAgency</title>
+<meta name="description" content="Answer a few questions and get a free Brand Blueprint — your positioning, voice, content pillars, and a custom AI clone persona — from AvatarAgency.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="atelier-v5.css">
+
+<style>
+  /* ── Clone & Brand Builder wizard ─────────────────────────── */
+  .cbb-hero { padding: clamp(48px,8vw,96px) 24px clamp(24px,4vw,40px); text-align: center; }
+  .cbb-hero .eyebrow { justify-content: center; }
+  .cbb-wrap { max-width: 760px; margin: 0 auto; padding: 0 24px clamp(80px,12vw,140px); }
+
+  .cbb-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    box-shadow: 0 24px 60px rgba(10,10,10,0.06);
+    padding: clamp(28px,4vw,44px);
+  }
+
+  /* progress */
+  .cbb-progress { margin-bottom: 30px; }
+  .cbb-progress-meta {
+    display: flex; justify-content: space-between; align-items: baseline;
+    font-family: var(--f-display); font-size: 11.5px; font-weight: 600;
+    letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mute);
+    margin-bottom: 10px;
+  }
+  .cbb-progress-bar { height: 4px; background: var(--cream-2); border-radius: 99px; overflow: hidden; }
+  .cbb-progress-fill { height: 100%; width: 0; background: var(--gold); border-radius: 99px; transition: width .35s var(--ease-out); }
+
+  /* step heading */
+  .cbb-step-kicker { font-family: var(--f-display); font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 10px; }
+  .cbb-step-title { font-family: var(--f-serif); font-size: clamp(26px,4vw,36px); font-weight: 400; line-height: 1.12; color: var(--ink); margin: 0 0 6px; }
+  .cbb-step-sub { font-family: var(--f-display); font-size: 15px; color: var(--text-mid); line-height: 1.6; margin: 0 0 26px; }
+
+  /* fields */
+  .cbb-field { margin-bottom: 20px; }
+  .cbb-field > label { display: block; font-family: var(--f-display); font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 7px; }
+  .cbb-field .cbb-help { font-family: var(--f-display); font-size: 12.5px; color: var(--text-mute); margin: -3px 0 9px; }
+  .cbb-req { color: var(--gold-deep); }
+  .cbb-input, .cbb-textarea, .cbb-select {
+    width: 100%; box-sizing: border-box; font-family: var(--f-display); font-size: 15px;
+    color: var(--ink); background: var(--cream); border: 1px solid var(--line-strong);
+    border-radius: 10px; padding: 12px 14px; outline: none; transition: border-color .18s, background .18s;
+  }
+  .cbb-input:focus, .cbb-textarea:focus, .cbb-select:focus { border-color: var(--gold); background: #fff; }
+  .cbb-textarea { resize: vertical; min-height: 92px; line-height: 1.55; }
+  .cbb-select { appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 14 14' fill='none' stroke='%238a8278' stroke-width='2'><path d='M3 5l4 4 4-4'/></svg>"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 38px; }
+
+  /* chips */
+  .cbb-chips { display: flex; flex-wrap: wrap; gap: 9px; }
+  .cbb-chip {
+    font-family: var(--f-display); font-size: 13.5px; font-weight: 500; color: var(--text-mid);
+    background: var(--cream); border: 1px solid var(--line-strong); border-radius: 99px;
+    padding: 9px 16px; cursor: pointer; user-select: none; transition: all .15s;
+  }
+  .cbb-chip:hover { border-color: var(--gold); color: var(--ink); }
+  .cbb-chip.is-on { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+  /* choice cards */
+  .cbb-choices { display: grid; gap: 12px; }
+  .cbb-choice {
+    text-align: left; width: 100%; cursor: pointer; background: var(--cream);
+    border: 1.5px solid var(--line-strong); border-radius: 14px; padding: 18px 20px; transition: all .16s;
+  }
+  .cbb-choice:hover { border-color: var(--gold); }
+  .cbb-choice.is-on { border-color: var(--gold); background: var(--gold-faint); box-shadow: 0 0 0 1px var(--gold) inset; }
+  .cbb-choice-title { font-family: var(--f-display); font-size: 15.5px; font-weight: 600; color: var(--ink); margin-bottom: 3px; }
+  .cbb-choice-desc { font-family: var(--f-display); font-size: 13px; color: var(--text-mid); line-height: 1.5; }
+
+  /* divider note */
+  .cbb-divider { display: flex; align-items: center; gap: 12px; margin: 26px 0 18px; }
+  .cbb-divider::before, .cbb-divider::after { content: ""; flex: 1; height: 1px; background: var(--line); }
+  .cbb-divider span { font-family: var(--f-display); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-mute); }
+
+  .cbb-error { font-family: var(--f-display); font-size: 12.5px; color: #b4452f; margin-top: 4px; display: none; }
+  .cbb-field.has-error .cbb-input, .cbb-field.has-error .cbb-textarea, .cbb-field.has-error .cbb-select { border-color: #b4452f; }
+  .cbb-field.has-error .cbb-error { display: block; }
+
+  /* nav */
+  .cbb-nav { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin-top: 30px; }
+  .cbb-nav .cbb-back { font-family: var(--f-display); font-size: 13.5px; font-weight: 600; color: var(--text-mute); background: none; border: none; cursor: pointer; padding: 8px 4px; transition: color .15s; }
+  .cbb-nav .cbb-back:hover { color: var(--ink); }
+  .cbb-nav .cbb-back[hidden] { visibility: hidden; }
+  .cbb-eg { font-family: var(--f-display); font-size: 12.5px; color: var(--text-mute); text-align: center; margin-top: 18px; }
+  .cbb-eg a { color: var(--gold-deep); cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+
+  /* intro panel */
+  .cbb-intro-points { display: grid; gap: 12px; margin: 22px 0 28px; text-align: left; }
+  .cbb-intro-point { display: flex; gap: 12px; font-family: var(--f-display); font-size: 14.5px; color: var(--text-mid); line-height: 1.5; }
+  .cbb-intro-point svg { flex: none; margin-top: 2px; color: var(--gold); }
+
+  /* result */
+  .cbb-bp-head { text-align: center; margin-bottom: 8px; }
+  .cbb-bp-section { border-top: 1px solid var(--line); padding: 26px 0; }
+  .cbb-bp-section:first-of-type { border-top: none; }
+  .cbb-bp-label { font-family: var(--f-display); font-size: 11.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold-deep); margin-bottom: 12px; }
+  .cbb-bp-section h3 { font-family: var(--f-serif); font-size: 23px; font-weight: 400; color: var(--ink); margin: 0 0 10px; }
+  .cbb-bp-section p { font-family: var(--f-display); font-size: 15px; color: var(--text-mid); line-height: 1.7; margin: 0 0 10px; }
+  .cbb-bp-section p strong { color: var(--ink); font-weight: 600; }
+  .cbb-pillars { display: grid; gap: 14px; }
+  .cbb-pillar { background: var(--cream-2); border-radius: 12px; padding: 16px 18px; }
+  .cbb-pillar h4 { font-family: var(--f-display); font-size: 14.5px; font-weight: 700; color: var(--ink); margin: 0 0 5px; }
+  .cbb-pillar p { font-size: 13.5px; margin: 0; }
+  .cbb-ideas { margin: 0; padding-left: 20px; }
+  .cbb-ideas li { font-family: var(--f-display); font-size: 14.5px; color: var(--text-mid); line-height: 1.6; margin-bottom: 8px; }
+  .cbb-la { background: var(--ink); border-radius: 14px; padding: 22px 22px 8px; margin-top: 8px; }
+  .cbb-la-intro { font-family: var(--f-display); font-size: 13px; color: var(--text-on-dark-mute); line-height: 1.6; margin: 0 0 16px; }
+  .cbb-la-field { margin-bottom: 16px; }
+  .cbb-la-field-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  .cbb-la-field-label { font-family: var(--f-display); font-size: 10.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); }
+  .cbb-copy { font-family: var(--f-display); font-size: 11px; font-weight: 600; color: var(--text-on-dark-mute); background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.16); border-radius: 6px; padding: 4px 9px; cursor: pointer; transition: all .15s; }
+  .cbb-copy:hover { color: #fff; background: rgba(255,255,255,0.16); }
+  .cbb-la-field pre { font-family: ui-monospace, 'SFMono-Regular', Menlo, monospace; font-size: 12.5px; color: var(--text-on-dark); background: rgba(0,0,0,0.28); border-radius: 8px; padding: 12px 14px; margin: 0; white-space: pre-wrap; word-break: break-word; line-height: 1.55; }
+  .cbb-result-cta { text-align: center; background: var(--cream-2); border-radius: 16px; padding: 32px 24px; margin-top: 28px; }
+  .cbb-result-cta h3 { font-family: var(--f-serif); font-size: 26px; font-weight: 400; color: var(--ink); margin: 0 0 8px; }
+  .cbb-result-cta p { font-family: var(--f-display); font-size: 14.5px; color: var(--text-mid); margin: 0 0 20px; }
+  .cbb-cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .cbb-restart { display: block; margin: 18px auto 0; font-family: var(--f-display); font-size: 12.5px; color: var(--text-mute); background: none; border: none; cursor: pointer; }
+  .cbb-restart:hover { color: var(--ink); }
+
+  @media (max-width: 560px) {
+    .cbb-card { padding: 24px 18px; border-radius: 14px; }
+    .cbb-cta-row .btn { width: 100%; justify-content: center; }
+  }
+</style>
+</head>
+<body data-page="clone-brand-builder">
+
+<!-- ── HEADER ────────────────────────────────────────────────── -->
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="logo-lockup"><span class="c">Avatar</span><span class="l">Agency</span></a>
+    <nav class="nav">
+      <a href="index.html" class="nav-link" data-nav="home">Home</a>
+      <a href="real-estate.html" class="nav-link" data-nav="real-estate">Real Estate</a>
+      <a href="business.html" class="nav-link" data-nav="business">Business</a>
+      <a href="authors.html" class="nav-link" data-nav="authors">Authors</a>
+      <a href="about.html" class="nav-link" data-nav="about">About</a>
+      <a href="contact.html" class="nav-link" data-nav="contact">Contact</a>
+    </nav>
+    <button class="nav-hamburger" aria-label="Menu" aria-expanded="false"><span></span><span></span><span></span></button>
+  </div>
+  <nav class="nav-mobile">
+    <a href="index.html" class="nav-link" data-nav="home">Home</a>
+    <a href="real-estate.html" class="nav-link" data-nav="real-estate">Real Estate</a>
+    <a href="business.html" class="nav-link" data-nav="business">Business</a>
+    <a href="authors.html" class="nav-link" data-nav="authors">Authors</a>
+    <a href="about.html" class="nav-link" data-nav="about">About</a>
+    <a href="contact.html" class="nav-link" data-nav="contact">Contact</a>
+  </nav>
+</header>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<main class="page-top">
+<section class="cbb-hero">
+  <div class="eyebrow is-gold" style="margin-bottom:18px;">Clone &amp; Brand Builder</div>
+  <h1 class="display-1" style="max-width:640px;margin:0 auto 14px;">
+    Build your brand.<br><span class="gold">Then bring your clone to life.</span>
+  </h1>
+  <p class="lede" style="max-width:540px;margin:0 auto;">
+    Answer a few questions and get a free Brand Blueprint — your positioning, voice, content
+    pillars, and a custom AI clone persona — ready in minutes.
+  </p>
+</section>
+
+<!-- ── WIZARD ───────────────────────────────────────────────── -->
+<div class="cbb-wrap">
+  <div class="cbb-card">
+    <div class="cbb-progress" id="cbb-progress" hidden>
+      <div class="cbb-progress-meta">
+        <span id="cbb-progress-step">Step 1 of 7</span>
+        <span id="cbb-progress-name"></span>
+      </div>
+      <div class="cbb-progress-bar"><div class="cbb-progress-fill" id="cbb-progress-fill"></div></div>
+    </div>
+
+    <form id="cbb-stage" novalidate><!-- panels injected by JS --></form>
+
+    <div class="cbb-nav" id="cbb-nav" hidden>
+      <button type="button" class="cbb-back" id="cbb-back">&larr; Back</button>
+      <button type="button" class="btn btn-ink" id="cbb-next">
+        Continue
+        <svg class="glyph-arrow arrow" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </button>
+    </div>
+  </div>
+  <p class="cbb-eg" id="cbb-eg">Want to see a finished example first? <a id="cbb-load-ethica">Load the Ethica sample →</a></p>
+</div>
+</main>
+
+<!-- ── FOOTER ────────────────────────────────────────────────── -->
+<footer class="site-footer">
+  <div class="site-footer-grid">
+    <div class="footer-col">
+      <a href="index.html" class="logo-lockup" style="font-size:24px;"><span class="c">Avatar</span><span class="l">Agency</span></a>
+      <p class="footer-brand-blurb">A full-service AI marketing studio. Cinematic video, digital cloning, and the system that turns presence into pipeline.</p>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">Verticals</div>
+      <ul>
+        <li><a href="real-estate.html">Real Estate</a></li>
+        <li><a href="business.html">Business &amp; Influencers</a></li>
+        <li><a href="authors.html">Authors &amp; Publishers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">Services</div>
+      <ul>
+        <li><a href="services.html">Services Overview</a></li>
+        <li><a href="services.html#cloning">Digital Cloning</a></li>
+        <li><a href="services.html#video">AI Video Production</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <div class="footer-col-label">Get in Touch</div>
+      <ul>
+        <li><a href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a Call</a></li>
+        <li><a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a></li>
+        <li><a href="tel:3109809378">(310) 980-9378</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <span>Content on this page may contain AI-generated synthetic performers. Disclosed per NY law (eff. 6/9/26) &amp; FTC guidelines. &copy; 2026 AvatarAgency.ai &mdash; All Rights Reserved &middot; Los Angeles, California</span>
+    <span class="footer-legal-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Ethics &amp; AI Use</a>
+    </span>
+  </div>
+</footer>
+
+<script src="atelier-v2.js?v=5"></script>
+<script src="clone-brand-builder.js?v=1"></script>
+</body>
+</html>

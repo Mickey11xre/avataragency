@@ -1,0 +1,12 @@
+  /* ---------- AI Clone strip ---------- */
+  section.looks-block{background:linear-gradient(180deg,#16181d 0%,#202530 100%);color:#fff;}
+  section.looks-block .sec-eyebrow{color:var(--gold);}
+  section.looks-block h2{color:#fff;}
+  section.looks-block h2::after{background:var(--gold);}
+  section.looks-block .looks-sub{color:#c6cad1;max-width:760px;}
+  .looks-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:24px;}
+  .looks-row figure{flex:1 1 0;min-width:140px;max-width:200px;margin:0;text-align:center;}
+  .looks-row img{width:100%;height:auto;border-radius:8px;display:block;box-shadow:0 6px 18px rgba(0,0,0,.4);}
+  .looks-row figcaption{margin-top:9px;font-size:11px;letter-spacing:.6px;text-transform:uppercase;color:var(--gold);}
+  .looks-row figure.real figcaption{color:#fff;}
+  .looks-row figure.real img{outline:2px solid rgba(255,255,255,.55);outline-offset:2px;}

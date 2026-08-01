@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="LiveBrand mark">
+  <!-- Broadcast rings — inherit the circle ink, equal stroke, opacity fade -->
+  <circle cx="50" cy="50" r="35.25" fill="none" stroke="#0A0A0A" stroke-width="1.5" opacity="0.10"/>
+  <circle cx="50" cy="50" r="30"    fill="none" stroke="#0A0A0A" stroke-width="1.5" opacity="0.25"/>
+  <!-- Circle mark -->
+  <circle cx="50" cy="50" r="25" fill="#0A0A0A"/>
+  <text x="50" y="50" text-anchor="middle" dominant-baseline="central"
+        font-family="Inter, -apple-system, BlinkMacSystemFont, sans-serif"
+        font-weight="300" font-size="26" letter-spacing="-0.4" fill="#FFFFFF">Live</text>
+</svg>

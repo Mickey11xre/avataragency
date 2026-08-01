@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>LiveBrand — Branded App mockup poster</title>
+<link rel="stylesheet" href="/design/livebrand/tokens.css">
+<link rel="stylesheet" href="/design/livebrand/components.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { width: 1200px; height: 1600px; background: var(--lb-ground-cream); font-family: var(--lb-font-body); overflow: hidden; position: relative; }
+
+.poster { height: 100%; display: flex; flex-direction: column; align-items: center; padding: 64px 0 56px; }
+
+.brand { display: flex; justify-content: center; }
+.headline { font-family: var(--lb-font-display); font-weight: 500; font-size: 44px; color: var(--lb-text-primary); margin-top: 34px; text-align: center; }
+.headline em { font-style: italic; }
+.sub { font-family: var(--lb-font-serif); font-size: 21px; color: var(--lb-text-muted); margin-top: 12px; text-align: center; }
+
+/* ---- iPhone frame ---- */
+.phone-wrap { flex: 1; display: flex; align-items: center; justify-content: center; margin-top: 26px; }
+.phone {
+  position: relative; width: 418px; height: 872px;
+  background: #0A0A0A; border-radius: 62px;
+  padding: 14px;
+  box-shadow: 0 40px 90px -30px rgba(18,16,14,0.45), 0 0 0 2px #2a2a2a inset;
+}
+.phone .screen {
+  position: relative; width: 390px; height: 844px;
+  border-radius: 48px; overflow: hidden; background: #fff;
+}
+.phone iframe { width: 390px; height: 844px; border: 0; display: block; }
+/* dynamic island */
+.island { position: absolute; top: 26px; left: 50%; transform: translateX(-50%); width: 118px; height: 34px; background: #0A0A0A; border-radius: 20px; z-index: 5; }
+/* side buttons */
+.btn-side { position: absolute; background: #232323; border-radius: 3px; }
+.btn-power { right: -3px; top: 240px; width: 4px; height: 96px; }
+.btn-vol1 { left: -3px; top: 200px; width: 4px; height: 60px; }
+.btn-vol2 { left: -3px; top: 272px; width: 4px; height: 60px; }
+.btn-mute { left: -3px; top: 148px; width: 4px; height: 32px; }
+
+.caption { font-family: var(--lb-font-body); font-size: 16px; color: var(--lb-ink-300); margin-top: 34px; text-align: center; letter-spacing: .02em; }
+</style>
+</head>
+<body>
+<div class="poster">
+  <div class="brand">
+    <span class="lb-logo" style="--lb-logo-size:44px">
+      <span class="lb-logo__mark">
+        <span class="lb-logo__rings"><span class="lb-logo__ring lb-logo__ring--outer"></span><span class="lb-logo__ring lb-logo__ring--inner"></span></span>
+        <span class="lb-logo__disc"><span class="lb-logo__live">Live</span></span>
+      </span>
+      <span class="lb-logo__word"><span class="lb-logo__brand">Brand</span><span class="lb-logo__ai">.ai</span></span>
+    </span>
+  </div>
+
+  <h1 class="headline">Your brand. <em>In their pocket.</em></h1>
+  <p class="sub">Every LiveBrand client gets their own branded app — their avatar, on their followers&rsquo; home screen.</p>
+
+  <div class="phone-wrap">
+    <div class="phone">
+      <span class="btn-mute"></span><span class="btn-vol1"></span><span class="btn-vol2"></span><span class="btn-power"></span>
+      <div class="screen">
+        <div class="island"></div>
+        <iframe src="app.html" scrolling="no"></iframe>
+      </div>
+    </div>
+  </div>
+
+  <p class="caption">One avatar. Theirs. &nbsp;·&nbsp; No app store needed &nbsp;·&nbsp; livebrand.ai</p>
+</div>
+</body>
+</html>
