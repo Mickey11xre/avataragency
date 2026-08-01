@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Your Claude Guide — Dana | Claude Coaching by AvatarAgency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFFFF;
+  --cream:#FDF8F4;
+  --sand:#F6EFE8;
+  --ink:#1D1A17;
+  --ink-soft:#5A534B;
+  --ink-faint:#8C8478;
+  --line:rgba(29,26,23,.13);
+  --accent:#D97757;
+  --accent-deep:#B85C3E;
+  --accent-wash:rgba(217,119,87,.09);
+  --serif:Georgia,'Iowan Old Style','Times New Roman',serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --label:'Montserrat','Inter',system-ui,sans-serif;
+  --pagew:820px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--sand);color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.62;-webkit-font-smoothing:antialiased}
+
+/* ---------- page shell ---------- */
+.page{
+  width:var(--pagew);min-height:1060px;margin:26px auto;background:var(--paper);
+  padding:62px 74px 70px;position:relative;
+  box-shadow:0 2px 28px rgba(29,26,23,.09);
+}
+.page.cover{padding:0;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+
+/* ---------- type ---------- */
+h1{font-family:var(--serif);font-weight:400;font-size:52px;line-height:1.08;letter-spacing:-.015em}
+h2{font-family:var(--serif);font-weight:400;font-size:31px;line-height:1.16;letter-spacing:-.01em;margin-bottom:6px}
+h3{font-family:var(--sans);font-weight:700;font-size:16.5px;letter-spacing:-.005em;margin:26px 0 8px}
+h4{font-family:var(--label);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:700;margin-bottom:9px}
+p{margin-bottom:13px;max-width:64ch}
+p.lede{font-size:17px;color:var(--ink-soft);max-width:60ch}
+strong{font-weight:600}
+em{font-style:italic}
+a{color:var(--accent-deep)}
+.small{font-size:13.5px;color:var(--ink-soft)}
+
+/* ---------- section header ---------- */
+.sec-head{display:flex;align-items:baseline;gap:16px;border-bottom:1px solid var(--line);padding-bottom:16px;margin-bottom:26px}
+.sec-num{font-family:var(--serif);font-size:44px;line-height:1;color:var(--accent);flex:0 0 auto}
+.sec-head .txt{flex:1}
+
+/* ---------- running header / footer ---------- */
+.runhead{position:absolute;top:26px;left:74px;right:74px;display:flex;justify-content:space-between;
+  font-family:var(--label);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint)}
+.runfoot{position:absolute;bottom:30px;left:74px;right:74px;display:flex;justify-content:space-between;align-items:center;
+  font-family:var(--label);font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+  border-top:1px solid var(--line);padding-top:12px}
+.runfoot b{color:var(--accent);font-weight:700}
+
+/* ---------- steps ---------- */
+ol.steps{list-style:none;counter-reset:s;margin:14px 0 6px}
+ol.steps>li{counter-increment:s;position:relative;padding-left:40px;margin-bottom:14px;max-width:62ch}
+ol.steps>li::before{
+  content:counter(s);position:absolute;left:0;top:-1px;width:26px;height:26px;border-radius:50%;
+  background:var(--accent);color:#fff;font-family:var(--sans);font-weight:700;font-size:13px;
+  display:flex;align-items:center;justify-content:center
+}
+ol.steps ul{margin:7px 0 0 4px;padding-left:18px}
+ol.steps ul li{margin-bottom:4px;color:var(--ink-soft);font-size:14.5px}
+
+ul.ticks{list-style:none;margin:10px 0}
+ul.ticks li{position:relative;padding-left:26px;margin-bottom:8px;max-width:62ch}
+ul.ticks li::before{content:"✓";position:absolute;left:0;top:0;color:var(--accent);font-weight:700}
+
+/* ---------- ui path chips ---------- */
+.path{display:inline-flex;align-items:center;gap:7px;flex-wrap:wrap;background:var(--cream);
+  border:1px solid var(--line);border-radius:7px;padding:5px 10px;font-size:13.5px;font-weight:500;margin:2px 0}
+.path span{white-space:nowrap}
+.path i{color:var(--accent);font-style:normal;font-weight:700}
+
+/* ---------- callouts ---------- */
+.note{border-left:3px solid var(--accent);background:var(--accent-wash);padding:15px 20px;margin:18px 0;border-radius:0 8px 8px 0}
+.note h5{font-family:var(--label);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-deep);margin-bottom:6px;font-weight:700}
+.note p{margin-bottom:0;font-size:14.5px;max-width:60ch}
+.warn{border-left:3px solid #B4463A;background:rgba(180,70,58,.07)}
+.warn h5{color:#98392F}
+
+/* ---------- prompt block ---------- */
+.prompt{background:var(--ink);color:#F4EFE8;border-radius:10px;padding:18px 22px;margin:14px 0;font-size:14.5px;line-height:1.6}
+.prompt .tag{font-family:var(--label);font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:8px;font-weight:700}
+.prompt em{color:#C9BFB2;font-style:italic}
+
+/* ---------- screenshot placeholder ---------- */
+.shot{border:2px dashed rgba(217,119,87,.55);background:repeating-linear-gradient(45deg,var(--cream),var(--cream) 12px,#FBF3ED 12px,#FBF3ED 24px);
+  border-radius:10px;margin:18px 0;padding:26px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:190px}
+.shot .id{font-family:var(--label);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#fff;background:var(--accent);
+  border-radius:999px;padding:4px 12px;font-weight:700;margin-bottom:11px}
+.shot .what{font-weight:600;font-size:14.5px;max-width:52ch;margin-bottom:5px}
+.shot .cap{font-size:13px;color:var(--ink-soft);max-width:54ch}
+.shot.tall{min-height:250px}
+.shotcap{font-size:12.5px;color:var(--ink-faint);text-align:center;margin:-8px 0 20px;font-style:italic}
+
+/* ---------- cover ---------- */
+.cover .mark{width:150px;height:150px;margin-bottom:34px}
+.cover .kick{font-family:var(--label);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:20px;font-weight:700}
+.cover h1{font-size:66px;margin-bottom:16px}
+.cover .sub{font-size:18px;color:var(--ink-soft);max-width:44ch;margin-bottom:44px}
+.cover .who{border-top:1px solid var(--line);padding-top:26px;width:340px}
+.cover .who .nm{font-family:var(--serif);font-size:23px;margin-bottom:3px}
+.cover .who .dt{font-family:var(--label);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+.cover .brand{position:absolute;bottom:56px;font-family:var(--label);font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-faint)}
+
+/* ---------- contents ---------- */
+.toc{margin-top:20px}
+.toc a{display:flex;align-items:baseline;gap:14px;text-decoration:none;color:var(--ink);padding:11px 0;border-bottom:1px solid var(--line)}
+.toc .n{font-family:var(--serif);font-size:19px;color:var(--accent);width:34px;flex:0 0 auto}
+.toc .t{font-weight:600;flex:0 0 auto}
+.toc .d{color:var(--ink-faint);font-size:13.5px;flex:1}
+
+/* ---------- session insert ---------- */
+.session{background:var(--cream);border:1px solid var(--line);border-radius:12px;padding:26px 30px;margin:20px 0}
+.session h3{margin-top:0}
+.field{display:grid;grid-template-columns:170px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);align-items:baseline}
+.field:last-child{border-bottom:0}
+.field .k{font-family:var(--label);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+.field .v{font-weight:500}
+
+/* ---------- table ---------- */
+table{width:100%;border-collapse:collapse;margin:14px 0;font-size:14.5px}
+th{text-align:left;font-family:var(--label);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-faint);
+  border-bottom:1.5px solid var(--line);padding:0 10px 8px 0;font-weight:700}
+td{padding:10px 10px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+td:first-child{font-weight:600;width:34%}
+
+/* ---------- print ---------- */
+@media print{
+  body{background:#fff}
+  .page{width:auto;min-height:auto;margin:0;box-shadow:none;padding:52px 58px 58px;page-break-after:always}
+  .page:last-child{page-break-after:auto}
+  a{color:var(--ink);text-decoration:none}
+  .shot{background:#FBF6F2}
+}
+@page{size:Letter;margin:0}
+</style>
+</head>
+<body>
+
+<!-- ============ COVER ============ -->
+<section class="page cover">
+  <svg class="mark" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+    <g fill="#D97757">
+      <rect x="456" y="100" width="88" height="470" rx="44" transform="rotate(0,500,500)"/>
+      <rect x="456" y="190" width="88" height="380" rx="44" transform="rotate(33,500,500)"/>
+      <rect x="456" y="125" width="88" height="445" rx="44" transform="rotate(70,500,500)"/>
+      <rect x="456" y="205" width="88" height="365" rx="44" transform="rotate(104,500,500)"/>
+      <rect x="456" y="110" width="88" height="460" rx="44" transform="rotate(145,500,500)"/>
+      <rect x="456" y="175" width="88" height="395" rx="44" transform="rotate(182,500,500)"/>
+      <rect x="456" y="135" width="88" height="435" rx="44" transform="rotate(214,500,500)"/>
+      <rect x="456" y="215" width="88" height="355" rx="44" transform="rotate(250,500,500)"/>
+      <rect x="456" y="115" width="88" height="455" rx="44" transform="rotate(288,500,500)"/>
+      <rect x="456" y="185" width="88" height="385" rx="44" transform="rotate(322,500,500)"/>
+    </g>
+  </svg>
+  <div class="kick">Claude Coaching</div>
+  <h1>Your Claude Guide</h1>
+  <p class="sub">Everything we set up together — and everything you need to keep going on your own.</p>
+  <div class="who">
+    <div class="nm">Dana Whitfield</div>
+    <div class="dt">Session — August 13, 2026</div>
+  </div>
+  <div class="brand">AvatarAgency · Los Angeles</div>
+</section>
+
+<!-- ============ CONTENTS ============ -->
+<section class="page">
+  <div class="runhead"><span>Your Claude Guide</span><span>Dana</span></div>
+  <h4>Start here</h4>
+  <h2>How to use this guide</h2>
+  <p class="lede">This isn't a manual to read once. It's a reference to keep open — the thing you glance at on day four when you can't remember where a setting lives.</p>
+  <p><strong>Section 1 is yours alone.</strong> It's the record of what we actually built in your session: the task we automated, the exact prompts we wrote, and the three things to do each day. If you only ever re-read one page, make it that one.</p>
+  <p><strong>Sections 2 through 8 are the foundation</strong> — how every Claude feature we touched is set up, in case you need to redo it, add a device, or bring someone else on your team up to speed.</p>
+  <p><strong>Sections 9 and 10 are the habit</strong> — the prompt patterns that always work, and what to do when something goes sideways.</p>
+
+  <div class="note">
+    <h5>You are not alone for the next 30 days</h5>
+    <p>Your digital-twin coach is live in a window above your Claude, ten minutes a day. It knows the entire Claude documentation <em>and</em> what we built in your session. When this guide doesn't answer it, ask the twin.</p>
+  </div>
+
+  <div class="toc">
+    <a href="#s1"><span class="n">1</span><span class="t">Your Session</span><span class="d">What we built together</span></a>
+    <a href="#s2"><span class="n">2</span><span class="t">The Foundation</span><span class="d">Your plan and the desktop app</span></a>
+    <a href="#s3"><span class="n">3</span><span class="t">Connectors</span><span class="d">Email, calendar, files</span></a>
+    <a href="#s4"><span class="n">4</span><span class="t">Projects</span><span class="d">Your second brain</span></a>
+    <a href="#s5"><span class="n">5</span><span class="t">Instructions</span><span class="d">Teaching Claude your voice</span></a>
+    <a href="#s6"><span class="n">6</span><span class="t">Memory</span><span class="d">What Claude carries between chats</span></a>
+    <a href="#s7"><span class="n">7</span><span class="t">Skills</span><span class="d">Repeatable procedures</span></a>
+    <a href="#s8"><span class="n">8</span><span class="t">Claude in Chrome</span><span class="d">Claude in your browser</span></a>
+    <a href="#s9"><span class="n">9</span><span class="t">Prompt Patterns</span><span class="d">The shapes that always work</span></a>
+    <a href="#s10"><span class="n">10</span><span class="t">When Things Break</span><span class="d">Fast fixes</span></a>
+  </div>
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>02</b></span></div>
+</section>
+
+<!-- ============ 1. YOUR SESSION ============ -->
+<section class="page" id="s1">
+  <div class="runhead"><span>Your Claude Guide</span><span>Section 1</span></div>
+  <div class="sec-head"><div class="sec-num">1</div><div class="txt"><h4>Personal</h4><h2>Your Session</h2></div></div>
+  <p class="lede">The record of what we built on August 13, 2026 — in your account, on your real data.</p>
+
+  <div class="session">
+    <div class="field"><span class="k">The task we killed</span><span class="v">Post-visit and recall follow-ups piling up until Sunday night</span></div>
+    <div class="field"><span class="k">Your project</span><span class="v">Riverside Dental HQ</span></div>
+    <div class="field"><span class="k">Connected</span><span class="v">Gmail, Google Calendar, Google Drive</span></div>
+    <div class="field"><span class="k">Documents loaded</span><span class="v">Services &amp; pricing, insurance FAQ, new-patient welcome letter, three emails in your voice</span></div>
+  </div>
+
+  <h3>The prompt we built together</h3>
+  <p class="small">This is the one that automates your patient follow-ups. It's saved in your project — but here it is in plain text so you always have it.</p>
+  <div class="prompt"><span class="tag">Your master prompt</span>Look at my calendar for the last 7 days and find every patient who was seen but has no follow-up sent. For each one, draft a short check-in email in my voice using the project instructions — warm, first-name, two sentences, no clinical detail. Offer to answer questions and give two options for booking their next visit. List them for my review before anything sends.</div>
+
+  <h3>Your three daily touches</h3>
+  <p>Claude earns its keep in three touches a day, each under five minutes. These are yours, in your words:</p>
+  <ul class="ticks">
+    <li><strong>Morning —</strong> Run the Monday practice brief before your first patient</li>
+    <li><strong>Midday —</strong> Run the follow-up prompt and approve the drafts</li>
+    <li><strong>Anytime —</strong> Ask Claude to draft one thing you would otherwise write yourself tonight</li>
+  </ul>
+
+  <h3>What we agreed you'd do next</h3>
+  <ul class="ticks"><li>Day 1 — re-run the follow-up build with your twin coach watching</li><li>Day 2 — run the Monday brief on your own, no help</li><li>This week — add your two remaining process docs to the project</li></ul>
+
+  <div class="note">
+    <h5>Your no-go list</h5>
+    <p>No patient names, treatment details, or insurance numbers in any document you upload. Nothing sends to a patient without your review. No pricing quoted by Claude — ever.</p>
+  </div>
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>03</b></span></div>
+</section>
+
+<!-- ============ 2. FOUNDATION ============ -->
+<section class="page" id="s2">
+  <div class="runhead"><span>Your Claude Guide</span><span>Section 2</span></div>
+  <div class="sec-head"><div class="sec-num">2</div><div class="txt"><h4>Foundation</h4><h2>Your Plan &amp; the Desktop App</h2></div></div>
+
+  <h3>Why the plan matters</h3>
+  <p>Nearly everything in this guide runs on a paid plan. The free tier exists to let you try Claude — its usage limits are far too small to carry real work, and you'll hit them mid-task.</p>
+  <table>
+    <tr><th>Plan</th><th>What it means for you</th></tr>
+    <tr><td>Free</td><td>Basic chat with limited usage. Fine for testing; not for running your business on.</td></tr>
+    <tr><td><strong>Pro</strong> — the program floor</td><td>Much higher usage, unlimited projects, Claude Code, Microsoft 365 integration. This is what your setup assumes.</td></tr>
+    <tr><td>Max</td><td>Five times Pro's usage (a twenty-times tier sits above it). For people running Claude all day, every day. Don't buy this yet.</td></tr>
+    <tr><td>Team</td><td>When you want staff in it too — admin controls, single sign-on, and your data isn't used for training by default.</td></tr>
+  </table>
+
+  <h3>The desktop app</h3>
+  <p>Claude in a browser tab is a visitor. The desktop app makes it a coworker — it's where connectors and local integrations live, and it's one keystroke away instead of buried in twenty tabs.</p>
+  <div class="shot">
+    <span class="id">Shot 01</span>
+    <span class="what">The Claude desktop app, freshly opened</span>
+    <span class="cap">Full window, empty chat, left sidebar visible. This orients the reader to the interface everything else refers to.</span>
+  </div>
+  <p class="shotcap">The desktop app — where everything in this guide happens.</p>
+
+  <div class="note">
+    <h5>Where settings live</h5>
+    <p>Almost every setup step in this guide starts the same way: <strong>click your initials in the lower-left corner, then choose Settings.</strong> Learn that one move and the rest is navigation.</p>
+  </div>
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>04</b></span></div>
+</section>
+
+<!-- ============ 3. CONNECTORS ============ -->
+<section class="page" id="s3">
+  <div class="runhead"><span>Your Claude Guide</span><span>Section 3</span></div>
+  <div class="sec-head"><div class="sec-num">3</div><div class="txt"><h4>Foundation</h4><h2>Connectors</h2></div></div>
+  <p class="lede">This is the difference between AI as a search box and AI wired into your actual work. Connectors let Claude read your real email, calendar, and files.</p>
+
+  <h3>How they work day to day</h3>
+  <p>You don't "run" a connector. You just ask Claude something that needs your data — <em>"what's on my plate this week?"</em> — and it works out which tools it needs. <strong>Every action Claude takes on your behalf requires your explicit approval.</strong> Its answers come back with citations showing which emails, events, or documents it used, linked to the originals.</p>
+
+  <div class="shot">
+    <span class="id">Shot 02</span>
+    <span class="what">A Claude answer showing source citations</span>
+    <span class="cap">A response drawn from Gmail or Calendar with the citation chips visible. Ideally the "what's on my plate this week?" answer.</span>
+  </div>
+  <p class="shotcap">Claude citing the real emails and events behind its answer.</p>
+
+  <h3>Adding a file from Google Drive to a chat</h3>
+  <ol class="steps">
+    <li>Click the <strong>plus sign</strong> in the chat interface.</li>
+    <li>Select <strong>"Add from Google Drive."</strong></li>
+    <li>Search your recent documents, or paste the document's URL.</li>
+    <li>Send your message — Claude reads the document to inform its response.</li>
+  </ol>
+  <p class="small">You can add several files to one chat, as long as they fit the conversation's context window. Google Docs sync live from Drive, so you're always working from the current version.</p>
+
+  <h3>Turning individual connectors on and off</h3>
+  <ol class="steps">
+    <li>Click the <strong>plus sign</strong> in the chat interface.</li>
+    <li>Hover over <strong>"Connectors."</strong></li>
+    <li>Toggle each connector on or off.</li>
+  </ol>
+
+  <div class="shot">
+    <span class="id">Shot 03</span>
+    <span class="what">The Connectors toggle list</span>
+    <span class="cap">Plus sign clicked, hovering "Connectors," showing the list with toggles. Crop tight to the menu.</span>
+  </div>
+  <p class="shotcap">Turning individual connectors on and off.</p>
+
+  <div class="note warn">
+    <h5>If a connector stops working</h5>
+    <p>Reconnect your Google account rather than fighting it — this is the single most common cause of "Claude can't see my email anymore." Full steps are in Section 10.</p>
+  </div>
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>05</b></span></div>
+</section>
+
+<!-- ============ 4. PROJECTS ============ -->
+<section class="page" id="s4">
+  <div class="runhead"><span>Your Claude Guide</span><span>Section 4</span></div>
+  <div class="sec-head"><div class="sec-num">4</div><div class="txt"><h4>Foundation</h4><h2>Projects — Your Second Brain</h2></div></div>
+  <p class="lede">Chats come and go. A project is where Claude keeps what it knows about your business permanently.</p>
+
+  <h3>Creating a project</h3>
+  <ol class="steps">
+    <li>Find <strong>Projects</strong> in the left navigation panel.</li>
+    <li>Click the <strong>"+"</strong> button — you'll see the ways to create one.</li>
+    <li>Choose <strong>"Start from scratch"</strong> to set up a new folder with its own instructions and files.</li>
+  </ol>
+  <p class="small">Projects are available on every plan. Free accounts are capped at five; paid plans are unlimited.</p>
+
+  <div class="shot">
+    <span class="id">Shot 04</span>
+    <span class="what">The Projects panel with the "+" button</span>
+    <span class="cap">Left navigation showing Projects, with the + visible. Include your own project in the list if you have one.</span>
+  </div>
+  <p class="shotcap">Where projects live in the left navigation.</p>
+
+  <h3>Adding your knowledge</h3>
+  <p>Open your project, find the <strong>Files</strong> section, click <strong>"+"</strong>, and either upload from your computer or choose <strong>"Drive"</strong> to pull straight from Google Drive. Everything you add becomes background knowledge for every chat inside that project.</p>
+  <p class="small">The Drive option is available for private projects only — it's disabled on shared projects.</p>
+
+  <div class="note">
+    <h5>What to feed it</h5>
+    <p>Services and pricing. Your FAQ. Two or three things <em>you</em> wrote, so Claude learns your voice. Process docs and templates. Rough is fine — Claude reads messy. Never upload customer names, health details, or account numbers.</p>
+  </div>
+
+  <h3>Why this compounds</h3>
+  <p>Every document you add makes every future answer better. A project you feed for three months is worth dramatically more than the day you built it — which is exactly why we set it up first.</p>
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>06</b></span></div>
+</section>
+
+<!-- ============ 5. INSTRUCTIONS ============ -->
+<section class="page" id="s5">
+  <div class="runhead"><span>Your Claude Guide</span><span>Section 5</span></div>
+  <div class="sec-head"><div class="sec-num">5</div><div class="txt"><h4>Foundation</h4><h2>Instructions — Teaching Claude Your Voice</h2></div></div>
+  <p class="lede">Two layers: one that applies everywhere, one that applies inside a single project.</p>
+
+  <h3>Instructions for Claude (account-wide)</h3>
+  <p>These apply to every conversation you have.</p>
+  <ol class="steps">
+    <li>Click your <strong>initials</strong> in the lower-left corner.</li>
+    <li>Select <strong>"Settings."</strong></li>
+    <li>Under <strong>"Instructions for Claude,"</strong> describe how you want it to work with you — your preferred approaches, terms you use, how you like to be communicated with.</li>
+  </ol>
+
+  <div class="shot">
+    <span class="id">Shot 05</span>
+    <span class="what">Settings → Instructions for Claude</span>
+    <span class="cap">The Instructions for Claude field, ideally with real text in it. Blur anything private before sending.</span>
+  </div>
+  <p class="shotcap">Account-wide instructions apply to every chat.</p>
+
+  <h3>Project instructions</h3>
+  <p>These apply only inside one project — which is where your business voice belongs. This is the skeleton we used in your session:</p>
+  <div class="prompt"><span class="tag">Project instruction pattern</span>You are the operations assistant for <em>[business]</em>, a <em>[type]</em> in <em>[city]</em>.
+Voice: <em>[two or three adjectives drawn from how you actually write]</em>.
+Sign-offs: <em>[your normal closing]</em>.
+Always: <em>[your rules — e.g. offer two time slots, never promise same-day]</em>.
+Never: <em>[your no-go list]</em>.</div>
+
+  <div class="note">
+    <h5>The calibration trick</h5>
+    <p>Paste in a real message you wrote, then ask: <em>"Rewrite this in my voice from the project instructions — then tell me what you changed and why."</em> Tune the instructions until the rewrite sounds like you. Ten minutes here is worth more than a hundred clever prompts later.</p>
+  </div>
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>07</b></span></div>
+</section>
+
+<!-- ============ 6. MEMORY ============ -->
+<section class="page" id="s6">
+  <div class="runhead"><span>Your Claude Guide</span><span>Section 6</span></div>
+  <div class="sec-head"><div class="sec-num">6</div><div class="txt"><h4>Foundation</h4><h2>Memory</h2></div></div>
+  <p class="lede">Memory is what stops you re-explaining yourself every Monday.</p>
+
+  <h3>Turning it on</h3>
+  <ol class="steps">
+    <li>Go to <strong>Settings → Memory</strong>.</li>
+    <li>Turn on <strong>"Generate memory from chats."</strong></li>
+  </ol>
+
+  <div class="shot">
+    <span class="id">Shot 06</span>
+    <span class="what">Settings → Memory, toggle on</span>
+    <span class="cap">The Memory settings screen with "Generate memory from chats" switched on.</span>
+  </div>
+  <p class="shotcap">Memory carries context between conversations.</p>
+
+  <h3>What it keeps</h3>
+  <ul class="ticks">
+    <li>Your role, your projects, your professional context</li>
+    <li>How you like to communicate and work</li>
+    <li>Ongoing work and project details</li>
+  </ul>
+
+  <h3>What it doesn't</h3>
+  <p><strong>Incognito chats.</strong> Outside a project you'll see a ghost icon in the upper-right corner. Switch it on and that conversation isn't saved to memory or your chat history — useful for anything sensitive. Close it when you want Claude remembering again.</p>
+
+  <h3>Turning it off</h3>
+  <p>Two options, and the difference matters. <strong>Pause</strong> keeps existing memories but stops making new ones. <strong>Reset</strong> permanently deletes everything, including project memories — it cannot be undone.</p>
+
+  <div class="note warn">
+    <h5>Reset is forever</h5>
+    <p>If you're troubleshooting, pause first. Reset only when you genuinely want to start from nothing.</p>
+  </div>
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>08</b></span></div>
+</section>
+
+<!-- ============ 7. SKILLS ============ -->
+<section class="page" id="s7">
+  <div class="runhead"><span>Your Claude Guide</span><span>Section 7</span></div>
+  <div class="sec-head"><div class="sec-num">7</div><div class="txt"><h4>Capability</h4><h2>Skills</h2></div></div>
+  <p class="lede">A project is what Claude knows. A skill is how Claude does something — a repeatable procedure it loads when the moment calls for it.</p>
+
+  <h3>Turning skills on</h3>
+  <ol class="steps">
+    <li>Go to <strong>Settings → Capabilities</strong> and make sure <strong>"Code execution and file creation"</strong> is enabled. Skills won't work without it.</li>
+    <li>Go to <strong>Customize → Skills</strong>.</li>
+    <li>Toggle individual skills on or off.</li>
+  </ol>
+
+  <div class="shot">
+    <span class="id">Shot 07</span>
+    <span class="what">Customize → Skills, with the toggle list</span>
+    <span class="cap">The Skills page showing available skills and their on/off toggles.</span>
+  </div>
+  <p class="shotcap">Enabling skills.</p>
+
+  <h3>The ones you get for free</h3>
+  <p>Anthropic maintains built-in skills for Excel spreadsheets, Word documents, PowerPoint decks, and PDFs. You don't invoke them — with code execution on, Claude reaches for them when they fit. Ask for "a PowerPoint about Q3" and it uses the PowerPoint skill on its own.</p>
+
+  <h3>Adding a custom skill</h3>
+  <ol class="steps">
+    <li>Build the skill following the standard structure, then package the folder as a <strong>ZIP</strong> file.</li>
+    <li>Go to <strong>Customize → Skills</strong>.</li>
+    <li>Click the <strong>"+"</strong> button, then <strong>"+ Create skill."</strong></li>
+    <li>Select <strong>"Upload a skill"</strong> and choose your ZIP.</li>
+    <li>It appears in your list, ready to toggle on.</li>
+  </ol>
+  <p class="small">Skills you upload are private to your account. On Team and Enterprise plans, an owner can provision skills for everyone.</p>
+
+  <div class="note">
+    <h5>Skill, project, or connector?</h5>
+    <p><strong>Connector</strong> = access to a service. <strong>Project</strong> = background knowledge always loaded. <strong>Skill</strong> = a procedure that activates when relevant, anywhere in Claude. They stack — a connector gives Claude the tool, a skill teaches it how to use the tool well.</p>
+  </div>
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>09</b></span></div>
+</section>
+
+<!-- ============ 8. CHROME ============ -->
+<section class="page" id="s8">
+  <div class="runhead"><span>Your Claude Guide</span><span>Section 8</span></div>
+  <div class="sec-head"><div class="sec-num">8</div><div class="txt"><h4>Capability</h4><h2>Claude in Chrome</h2></div></div>
+  <p class="lede">Claude alongside the web page you're actually looking at — reading it, clicking, filling forms while you watch.</p>
+
+  <h3>Installing the extension</h3>
+  <ol class="steps">
+    <li>Open a <strong>Google Chrome</strong> window.
+      <ul><li>Chrome only — not other Chromium browsers, not mobile.</li></ul>
+    </li>
+    <li>Visit the <strong>Chrome Web Store</strong> and find Claude in Chrome.</li>
+    <li>Click <strong>"Add to Chrome."</strong></li>
+    <li>Sign in with your Claude account when prompted.</li>
+    <li>Pin it: click the <strong>puzzle-piece icon</strong>, then the <strong>thumbtack</strong> next to "Claude."</li>
+    <li>Grant the permissions it asks for.</li>
+  </ol>
+
+  <div class="shot">
+    <span class="id">Shot 08</span>
+    <span class="what">The Claude side panel open next to a web page</span>
+    <span class="cap">Chrome with the Claude side panel visible alongside a normal page. Use a neutral site, nothing private.</span>
+  </div>
+  <p class="shotcap">The side panel travels with you as you browse.</p>
+
+  <h3>Connecting it to the desktop app</h3>
+  <p>So Claude can drive the browser from a desktop chat:</p>
+  <ol class="steps">
+    <li>Click your <strong>initials</strong> (lower-left) → <strong>Settings</strong>.</li>
+    <li>Go to <strong>Connectors</strong>.</li>
+    <li>Find <strong>Claude in Chrome</strong> and click <strong>"Configure."</strong></li>
+    <li>Toggle it on, and install the extension if you haven't.</li>
+  </ol>
+  <p class="small">Once connected, Claude in Chrome appears in the Connectors dropdown on your chats. It's off by default — enable it per conversation.</p>
+
+  <div class="note warn">
+    <h5>Read this before you use it</h5>
+    <p>Claude in Chrome acts on websites on your behalf. It has safety classifiers, but it's genuinely more powerful — and therefore riskier — than a chat window. Watch what it does the first few times, and never let it act on a page you wouldn't hand to an assistant.</p>
+  </div>
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>10</b></span></div>
+</section>
+
+<!-- ============ 9. PROMPT PATTERNS ============ -->
+<section class="page" id="s9">
+  <div class="runhead"><span>Your Claude Guide</span><span>Section 9</span></div>
+  <div class="sec-head"><div class="sec-num">9</div><div class="txt"><h4>Habit</h4><h2>The Prompt Patterns That Always Work</h2></div></div>
+  <p class="lede">You don't need to be clever. You need to be specific about four things: the source, the job, the format, and the voice.</p>
+
+  <h3>The morning brief</h3>
+  <div class="prompt"><span class="tag">Every Monday, or every day</span>Look at my calendar and inbox for this week. Give me: my appointments, the follow-ups I owe people, anything overdue, and my top 3 priorities — then tell me which free hour to use for the biggest one.</div>
+
+  <h3>The draft-in-my-voice</h3>
+  <div class="prompt"><span class="tag">Any writing task, inside your project</span>Draft a reply to this in my voice, using the project instructions. Keep it under <em>[length]</em>. Offer two specific times. Don't promise anything I haven't approved.</div>
+
+  <h3>The triage</h3>
+  <div class="prompt"><span class="tag">Inbox, leads, requests</span>Read my unread messages from the last three days. Flag the ones only I can answer and tell me why. Draft replies to the routine ones in my voice — I'll review before anything sends.</div>
+
+  <h3>The critique</h3>
+  <div class="prompt"><span class="tag">When you want better, not just faster</span>Here's my <em>[draft / plan / price list]</em>. Tell me the three weakest things about it and what you'd change. Be direct — I'd rather hear it from you than from a customer.</div>
+
+  <h3>The four ingredients</h3>
+  <table>
+    <tr><th>Ingredient</th><th>What it sounds like</th></tr>
+    <tr><td>Source</td><td>"From my calendar and inbox…" / "Using the pricing doc in this project…"</td></tr>
+    <tr><td>Job</td><td>"Draft…" "Summarize…" "Flag…" "Rank by…"</td></tr>
+    <tr><td>Format</td><td>"Three bullets." "Under 100 words." "A table with two columns."</td></tr>
+    <tr><td>Voice &amp; limits</td><td>"In my voice." "Don't promise same-day." "Ask me before sending."</td></tr>
+  </table>
+
+  <div class="note">
+    <h5>The first draft is never the system</h5>
+    <p>When output isn't right, don't rewrite from scratch — tell Claude what was wrong and ask it to adjust. Then save the improved prompt into your project. That's how a good prompt becomes a permanent asset.</p>
+  </div>
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>11</b></span></div>
+</section>
+
+<!-- ============ 10. TROUBLESHOOTING ============ -->
+<section class="page" id="s10">
+  <div class="runhead"><span>Your Claude Guide</span><span>Section 10</span></div>
+  <div class="sec-head"><div class="sec-num">10</div><div class="txt"><h4>Habit</h4><h2>When Things Break</h2></div></div>
+
+  <table>
+    <tr><th>What you see</th><th>What to do</th></tr>
+    <tr><td>"Claude can't see my email / calendar anymore"</td><td>Reconnect your Google account. This is the most common failure by a wide margin — tokens expire. Settings → Connectors → reconnect, and re-approve every permission screen.</td></tr>
+    <tr><td>Answers feel generic</td><td>You're probably chatting outside your project. Open the project first — that's where your knowledge and voice live.</td></tr>
+    <tr><td>It doesn't sound like you</td><td>Your project instructions need tuning, not your prompt. Run the calibration trick in Section 5.</td></tr>
+    <tr><td>Skills aren't appearing</td><td>"Code execution and file creation" is off. Settings → Capabilities.</td></tr>
+    <tr><td>You hit a usage limit</td><td>You're on Free, or doing genuinely heavy work on Pro. Check Section 2 before upgrading — most people don't need Max.</td></tr>
+    <tr><td>Claude got something wrong</td><td>Good — that's the system working. It drafts, you approve. Never send anything you haven't read.</td></tr>
+    <tr><td>You're stuck and it's day four</td><td>Open your twin coach. Ten minutes a day, thirty days, and it knows what we built.</td></tr>
+  </table>
+
+  <h3>The rule that prevents most problems</h3>
+  <p>Claude drafts. You approve. Every automation we built keeps you in the loop before anything reaches a customer — that's deliberate, and you should keep it that way even as you get faster.</p>
+
+  <div class="note">
+    <h5>Still stuck?</h5>
+    <p>Your twin coach is at <strong>avataragency.ai/claudecoaching/coach</strong> for thirty days after your session. After that, I'm at <strong>michael@avataragency.ai</strong> — and returning clients always get a fast answer.</p>
+  </div>
+
+  <h3>Ninety days from now</h3>
+  <p>The setup was the easy part; it's already done. What separates the people this works for from the people it doesn't is three touches a day for the next few weeks. That's the whole difference. Everything else in this guide is just reference.</p>
+
+  <div class="runfoot"><span>Claude Coaching · AvatarAgency</span><span><b>12</b></span></div>
+</section>
+
+</body>
+</html>
