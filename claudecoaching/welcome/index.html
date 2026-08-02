@@ -100,6 +100,9 @@ body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:
 .ack .msg{font-size:.9rem;margin-top:12px;min-height:1.2em}
 .ack .msg.err{color:#B3341A}
 .ack .done{display:flex;gap:12px;align-items:center;border:1px solid var(--accent);border-radius:var(--radius);background:var(--accent-soft);padding:18px 20px;font-size:.95rem}
+/* An author `display` rule beats the UA stylesheet's [hidden]{display:none}. Without this the
+   "that's on file" banner shows to clients who have not signed. */
+.ack [hidden]{display:none}
 .ack .done svg{flex:0 0 auto}
 .book{padding:26px 0 80px}
 .book .box{border:1px solid var(--accent);border-radius:var(--radius);background:linear-gradient(180deg,var(--accent-soft),var(--paper) 55%);padding:36px 28px;text-align:center}
