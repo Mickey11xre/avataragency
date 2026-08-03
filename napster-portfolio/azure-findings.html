@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Azure Marketplace × Napster Companion — Onboarding Findings | AvatarAgency</title>
+<meta name="robots" content="noindex, nofollow">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T8NJ9JVWFV');
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#c9a84c;--ink:#1a1a1a;--dim:#555;--line:#e8e4dc;--cream:#faf6ec}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.7;font-size:16.5px}
+.wrap{max-width:780px;margin:0 auto;padding:0 24px 60px}
+.brand{display:flex;justify-content:space-between;align-items:baseline;border-bottom:3px solid var(--gold);padding:26px 0 14px;margin-bottom:30px;flex-wrap:wrap;gap:8px}
+.brand .word{font-size:20px;font-weight:700}
+.brand .word span{color:var(--gold)}
+.brand a{font-size:13px;color:#888;text-decoration:none}
+.brand a:hover{color:var(--ink)}
+.kicker{font-size:13px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold)}
+h1{font-size:clamp(24px,4vw,34px);font-weight:800;letter-spacing:-.02em;line-height:1.15;margin:8px 0 6px}
+.byline{color:#888;font-size:14px;margin-bottom:26px}
+h2{font-size:19px;font-weight:800;margin:30px 0 10px}
+p{margin-bottom:14px}
+ol,ul{padding-left:24px;margin-bottom:14px}
+li{margin-bottom:10px}
+.hl{background:var(--cream);border-left:4px solid var(--gold);padding:14px 18px;border-radius:0 10px 10px 0;margin:18px 0}
+.small{font-size:13.5px;color:#777}
+footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:#999}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="brand">
+  <div class="word">Avatar<span>Agency</span></div>
+  <a href="/napster-portfolio/">← Back to the portfolio</a>
+</div>
+
+<div class="kicker">Partner Findings Memo · Exhibit</div>
+<h1>Azure Marketplace × Napster Companion:<br>Subscription-Expiration Postmortem</h1>
+<p class="byline">Michael Rivera, AvatarAgency · Incident of July 17–18, 2026 · Shared with the
+Napster team in the spirit of making onboarding smoother for future partners</p>
+
+<div class="hl"><b>Why this memo is on this page:</b> it's a working sample of how we partner.
+When our production agents went down to a billing-integration edge case, we didn't just get
+reactivated — we documented the root causes and sent Napster a prioritized set of product
+recommendations, most of which live on the Azure-native side of the integration. This is the
+enablement instinct, applied.</div>
+
+<h2>Setup context</h2>
+<p>Our payment method exists only at the Azure account level (entered at Azure signup,
+standard). We never entered payment info with Napster — everything bills through Azure
+Marketplace. So the only billing surface we ever watched said "Active, billing normally"
+throughout the outage.</p>
+
+<h2>Root cause of the confusion — three compounding assumptions</h2>
+<ol>
+<li><b>The plan label.</b> The 6/16 purchase was labeled "Pay-As-You-Go, $0 upfront," which
+reads as open-ended metered billing. In reality it created a 1-month term subscription with
+auto-renew defaulted OFF — the opposite of how virtually every other SaaS product behaves.</li>
+<li><b>The free-trial credits.</b> Azure's signup grants $200 in credits, and the natural
+assumption is that billing only begins once those credits are exhausted. It's not made clear
+that the $200 is use-it-or-lose-it within 30 days and that the trial itself expires on a
+clock, independent of how much credit remains. We planned around a balance; the system was
+running a countdown.</li>
+<li><b>The warnings that didn't land.</b> Digging back through Gmail afterward, Azure did send
+expiration notices. But they arrived in a personal inbox, styled like generic Azure
+marketing/billing mail, and nothing in them said what actually mattered: "your Napster
+Companion subscription will terminate and your production AI agents will stop working on this
+date." A warning that doesn't name the consequence isn't a warning.</li>
+</ol>
+
+<h2>What made recovery hard</h2>
+<ol>
+<li>The Azure subscription and the Napster Companion API subscription are different objects —
+and the visible one read "Active, billing normally" the whole time.</li>
+<li>An expired Napster API subscription is terminal — no reactivate button, repurchase only.
+This is the part that felt most broken: the org, the agents, the configuration all still
+existed, but the system's answer was "open a new account." Expiration should be forgiving —
+pay again, flip the switch, same account turns back on.</li>
+<li>Our repurchase completed cleanly on Azure's side ("configured successfully") but never
+mapped back to our existing org — the publisher-side gap the Napster team manually bridged
+~24 hours later.</li>
+</ol>
+
+<h2>Suggestions, in priority order</h2>
+<ol>
+<li><b>Auto-renew ON by default</b> — the single fix that would have prevented the whole
+incident, and it matches user expectations from every other subscription product.</li>
+<li><b>Consequence-specific warnings from the Napster side</b> at T-7 and T-1: "you will be
+billed $X on [date] / your agents stop on [date]" — Napster knows an org is about to die even
+when Azure's notices read as noise.</li>
+<li><b>Clear trial framing at signup:</b> credits expire with the trial window; the $200 is
+not a balance that gates billing.</li>
+<li><b>Forgiving expiration:</b> reactivate-in-place for a lapsed subscription instead of
+terminal cancellation + repurchase + manual remapping.</li>
+<li><b>Dashboard banner</b> that distinguishes "your Napster Companion API subscription
+expired on [date]" from a generic "inactive."</li>
+</ol>
+<p class="small">Smaller onboarding smoothers for productization: the invisible-until-enabled
+preview offer, the Microsoft.SaaS resource-provider prerequisite, and the unlabeled
+activation-propagation window.</p>
+
+<p>We recognize some of this lives on Microsoft's side of the Azure-native integration rather
+than Napster's — but as a partner, the experience arrives as one product, so we shared the
+whole picture. And genuinely — thank you to the Napster team for the fast manual reactivation
+and the demo credits.</p>
+
+<footer>AvatarAgency · Los Angeles · michael@avataragency.ai — This page is unlisted; shared
+by direct link only.</footer>
+
+</div>
+</body>
+</html>
