@@ -839,5 +839,19 @@ footer p+p{margin-top:8px}
   }, { passive: true });
 })();
 </script>
+<script>
+  /* Deep-link support: late-loading media shifts layout, so the browser's native hash jump
+     lands wrong (or not at all). Re-anchor after load and pre-reveal the target section. */
+  (function(){
+    if (!location.hash) return;
+    function go(){
+      var el = document.querySelector(location.hash);
+      if (!el) return;
+      el.classList.add("in");
+      el.scrollIntoView({ behavior: "auto", block: "start" });
+    }
+    window.addEventListener("load", function(){ setTimeout(go, 150); });
+  })();
+</script>
 </body>
 </html>
