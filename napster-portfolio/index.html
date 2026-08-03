@@ -33,9 +33,16 @@ video{width:100%;display:block}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:18px;margin:14px 0}
 .card{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column;text-decoration:none;color:var(--ink);transition:box-shadow .15s,transform .15s}
 .card:hover{box-shadow:0 10px 30px rgba(0,0,0,.12);transform:translateY(-2px)}
-.card .imgs{background:#111;display:flex}
+.card .imgs{background:#111;display:flex;position:relative}
 .card .imgs img{width:100%;height:auto;display:block}
 .card .imgs.two img{width:50%}
+/* small brand badge overlaid bottom-left of a card image */
+.brandbadge{position:absolute;left:9px;bottom:9px;display:inline-flex;align-items:center;gap:6px;
+  background:rgba(0,0,0,.58);border:1px solid rgba(255,255,255,.18);border-radius:99px;
+  padding:4px 11px 4px 8px;backdrop-filter:blur(6px);pointer-events:none}
+.brandbadge svg{display:block;flex:0 0 auto}
+.brandbadge .lbl{font-size:11px;font-weight:800;color:#fff;line-height:1;letter-spacing:.02em;white-space:nowrap}
+.brandbadge .lbl i{font-style:normal;color:var(--gold)}
 .card .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:4px;flex:1}
 .agent{font-weight:800;font-size:15px}
 .app{font-size:13px;color:var(--gold);font-weight:700;letter-spacing:.04em;text-transform:uppercase}
@@ -111,7 +118,16 @@ not evaluating the platform. <b>Our product line is built on it.</b></p>
   </a>
 
   <a class="card" href="https://avataragency.ai/claudecoaching/#twin-coach">
-    <div class="imgs"><img src="/claudecoaching/michael-rivera.jpg" alt="Coach Michael"></div>
+    <div class="imgs"><img src="/assets/michael-twin.jpg" alt="Coach Michael">
+      <span class="brandbadge">
+        <svg width="14" height="14" viewBox="0 0 100 100" fill="none" aria-hidden="true">
+          <g stroke="#D97757" stroke-width="12" stroke-linecap="round">
+            <path d="M50 11v78"/><path d="M11 50h78"/><path d="M22 22l56 56"/><path d="M78 22L22 78"/>
+          </g>
+        </svg>
+        <span class="lbl">Claude</span>
+      </span>
+    </div>
     <div class="body">
       <div class="app">Claude Coaching — AI Coach</div>
       <div class="agent">Coach Michael</div>
@@ -121,7 +137,9 @@ not evaluating the platform. <b>Our product line is built on it.</b></p>
   </a>
 
   <a class="card" href="https://avataragency.ai/strategist/">
-    <div class="imgs"><img src="/assets/michael-twin.jpg" alt="Michael twin"></div>
+    <div class="imgs"><img src="/assets/michael-twin.jpg" alt="Michael twin">
+      <span class="brandbadge"><span class="lbl">Avatar<i>Agency</i></span></span>
+    </div>
     <div class="body">
       <div class="app">Creative Strategist</div>
       <div class="agent">Michael — founder twin</div>
