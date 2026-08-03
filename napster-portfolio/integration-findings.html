@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Napster Companion API — Integration Findings v2 (84 Findings) | AvatarAgency</title>
+<meta name="robots" content="noindex, nofollow">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T8NJ9JVWFV');
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--gold:#c9a84c;--ink:#1a1a1a;--dim:#555;--line:#e8e4dc;--cream:#faf6ec}
+body{font-family:'Segoe UI',system-ui,sans-serif;color:var(--ink);background:#fff;line-height:1.7;font-size:16px}
+.wrap{max-width:820px;margin:0 auto;padding:0 24px 60px}
+.brand{display:flex;justify-content:space-between;align-items:baseline;border-bottom:3px solid var(--gold);padding:26px 0 14px;margin-bottom:8px;flex-wrap:wrap;gap:8px}
+.brand .word{font-size:20px;font-weight:700}
+.brand .word span{color:var(--gold)}
+.brand a{font-size:13px;color:#888;text-decoration:none}
+.brand a:hover{color:var(--ink)}
+h1{font-size:clamp(22px,3.6vw,30px);font-weight:800;letter-spacing:-.02em;line-height:1.2;margin:22px 0 10px}
+h2{font-size:20px;font-weight:800;margin:30px 0 10px;padding-top:8px;border-top:1px solid var(--line)}
+h3{font-size:17px;font-weight:800;margin:22px 0 8px}
+p{margin-bottom:12px}
+ul{padding-left:24px;margin-bottom:12px}
+li{margin-bottom:7px}
+hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+code{background:var(--cream);border:1px solid var(--line);border-radius:4px;padding:1px 5px;font-size:.88em;font-family:Consolas,monospace}
+table{width:100%;border-collapse:collapse;font-size:14px;margin:12px 0}
+th{text-align:left;background:#f4efe4;padding:8px 10px;border-bottom:2px solid var(--gold)}
+td{padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+footer{margin-top:44px;padding-top:14px;border-top:1px solid var(--line);font-size:12.5px;color:#999}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="brand">
+  <div class="word">Avatar<span>Agency</span></div>
+  <a href="/napster-portfolio/">&larr; Back to the portfolio</a>
+</div>
+<h1>Napster Companion API — Integration Findings, Version 2</h1>
+<p>
+<b>Prepared by:</b> AvatarAgency.ai · <b>For:</b> Napster Developer &amp; Product Team
+<b>Date:</b> 2026-07-20 · <b>Supersedes:</b> Integration Bug Report v1 (26 items, 2026-06-21)
+</p>
+<hr>
+<h2>Why this report exists</h2>
+<p>
+Between June and July 2026 we took the Napster Companion API from first contact to a
+production fleet: <b>eight live avatars</b> across seven public web properties, including
+photoreal digital twins of real people, illustrated character avatars, stock-companion
+concierges, a lead-capture tool integration, and a mobile-framed interactive experience.
+</p>
+<p>
+We are not reporting these issues as complaints. We are reporting them because we are
+almost certainly the integrator who has hit the most edges of this platform, and every
+item below cost us time that the next partner shouldn't have to spend. Where the platform
+impressed us, we've said so. Where we were wrong in our first report, we've corrected
+ourselves.
+</p>
+<p>
+<b>Version 1 (June 21) contained 26 findings. This version contains 84</b> (83 as compiled
+2026-07-20, plus finding 84 added 2026-07-23), reflecting six
+additional weeks of production operation — including embedding, sessions and webhooks,
+tool calls, fleet-scale rebuilds, and a full account outage.
+</p>
+<h2>How to read this</h2>
+<p>
+Each finding is tagged:
+</p>
+<table>
+<tr><th>Tag</th><th>Meaning</th></tr>
+<tr><td><b>[OPEN]</b></td><td>Still reproducible / unanswered as of this writing</td></tr>
+<tr><td><b>[RESOLVED]</b></td><td>Fixed, answered, or clarified by Napster — thank you</td></tr>
+<tr><td><b>[NEW]</b></td><td>Not in the June 21 report</td></tr>
+<tr><td><b>[CORRECTED]</b></td><td>We reported this wrong the first time; corrected here</td></tr>
+</table>
+<p>
+Severity reflects <b>our</b> experience of blast radius and time lost, not your roadmap:
+<b>CRITICAL</b> = blocked deployment · <b>HIGH</b> = significant developer-experience cost ·
+<b>MEDIUM</b> = polish.
+</p>
+<hr>
+<h2>Correction to Version 1 — please disregard v1 item #1</h2>
+<p>
+<b>[CORRECTED]</b> Our first report stated that a personal Microsoft account (<code>@gmail.com</code>)
+would deploy but never activate, and that an Entra/business identity was required. <b>This
+was wrong.</b> Our own build log shows the personal account worked correctly once the
+<code>Microsoft.SaaS</code> resource provider was registered (Finding 1 below). The symptoms we
+attributed to account type were caused by the missing provider registration plus the
+activation-propagation delay. We're flagging this prominently so it doesn't propagate into
+your docs or support scripts.
+</p>
+<hr>
+<h2>The seven that cost us the most</h2>
+<p>
+If this report gets triaged into a single sprint, these are the seven we'd pick:
+</p>
+<table>
+<tr><th>#</th><th>Finding</th><th>Why</th></tr>
+<tr><td>20</td><td><code>version:"v2"</code> silently completes as v1</td><td>Multiple days lost chasing a build that was correct</td></tr>
+<tr><td>15</td><td>Deployment type "Custom" → <code>provider_connection_aborted</code> after ~3s</td><td>Looks like an SDK bug; is a key-config issue</td></tr>
+<tr><td>4</td><td>Marketplace auto-renew defaults OFF</td><td>Took down eight production avatars for ~24h</td></tr>
+<tr><td>59</td><td>SDK hang-up doesn't notify the host page</td><td>Ships broken UI by default</td></tr>
+<tr><td>69</td><td>Dashboard toggles reset on every agent rebuild</td><td>Silent config loss, no API equivalent</td></tr>
+<tr><td>43</td><td>12 MB PNG returns HTTP 500</td><td>A validation message would have saved hours</td></tr>
+<tr><td>19</td><td><code>DigitalTwinConsentRequired</code> with no pointer to the fix</td><td>Cold-stops the first real twin build</td></tr>
+</table>
+<hr>
+<h1>MODULE 1 — Account, Subscription &amp; Billing</h1>
+<p>
+<b>1. [RESOLVED] <code>Microsoft.SaaS</code> provider must be registered manually — CRITICAL</b>
+Deployment fails with raw <code>MissingSubscriptionRegistration</code> ("subscription not registered to
+use namespace 'Microsoft.SaaS'"). Fix: Subscriptions → Settings → Resource providers →
+<code>Microsoft.SaaS</code> → Register → redeploy.
+*Suggested:* pre-flight check in the create blade, or register on the offer's behalf.
+</p>
+<p>
+<b>2. [OPEN] Azure Create blade hangs the browser — MEDIUM</b>
+"Page Unresponsive" during Review + Create; Chrome never completed. Microsoft Edge
+succeeded where Chrome failed. Clicking "Exit page" loses the form.
+*Suggested:* lighten the blade; document the Edge workaround.
+</p>
+<p>
+<b>3. [OPEN] Subscription activation propagates slowly behind a misleading error — HIGH</b>
+After a successful deploy, the dashboard reports "Talking with Companions is currently
+disabled. No active subscription," and API-key creation returns <b>"Access is denied."</b>
+Observed propagation: <b>15–60+ minutes</b>. "Access is denied" reads as a permissions
+problem and sends integrators down the wrong path (billing upgrades, account types).
+*Suggested:* a "provisioning — this can take up to an hour" state, and an error that names
+propagation rather than permissions.
+</p>
+<p>
+<b>4. [NEW][OPEN] Marketplace SaaS auto-renew defaults to OFF → full fleet outage — CRITICAL</b>
+Our 1-month SaaS subscription reached term end and self-cancelled. The org went inactive
+and <b>all eight token endpoints returned 401 simultaneously</b>, on the morning of a partner
+meeting. Dashboard: "Your subscription is inactive. Your AI agents are paused."
+*Suggested:* default auto-renew ON, or surface it as an explicit choice at purchase with a
+consequence statement ("your agents will stop on this date").
+</p>
+<p>
+<b>5. [NEW][OPEN] A cancelled SaaS subscription is terminal — no reactivate-in-place — HIGH</b>
+An "Unsubscribed" record cannot be revived; the only path is a fresh purchase creating a
+new SaaS object. A lapsed payment becomes a re-plumbing exercise.
+*Suggested:* reactivate-in-place for a lapsed subscription within a grace window.
+</p>
+<p>
+<b>6. [NEW][OPEN] Azure-subscription-Active ≠ SaaS-subscription-Active — HIGH</b>
+During triage the Azure subscription showed ACTIVE and billing normally while the separate
+Marketplace SaaS record showed Unsubscribed. The visible object was healthy; the buried one
+was dead. This cost hours of misdirected diagnosis.
+*Suggested:* surface SaaS-subscription state in the Napster dashboard explicitly.
+</p>
+<p>
+<b>7. [NEW][OPEN] Repurchase did not remap to the existing org (~24h outage) — CRITICAL</b>
+Azure reported "Subscribed / configured successfully," but the new subscription was never
+attached to our existing org. 401s persisted 2+ hours, then ~24 hours total until manual
+intervention. A follow-up call is still required to bind it permanently.
+*Suggested:* an automated "attach this subscription to my existing org" path.
+</p>
+<p>
+<b>8. [NEW][OPEN] "Create native integration" silently spawns a second org — HIGH</b>
+The Create button on the SaaS Overview provisions a <b>new org with a new API key</b> rather
+than attaching to the existing one — with no warning that this orphans your existing fleet's
+identity. We avoided it only because we guessed.
+*Suggested:* a confirmation dialog naming the consequence.
+</p>
+<p>
+<b>9. [NEW][OPEN] Expiration notices carry no named consequence — MEDIUM</b>
+Notices were sent, but generic in styling and silent on what would actually happen. A
+warning that doesn't name the consequence isn't a warning.
+*Suggested:* Napster-side T-7 / T-1 notices: "your agents stop on [date]."
+</p>
+<p>
+<b>10. [NEW][OPEN] Wrong-tenant sign-in throws bare <code>AADSTS90072</code> — MEDIUM</b>
+No guidance toward the tenant mismatch.
+</p>
+<p>
+<b>11. [RESOLVED] Temporary credentials expire silently → 401 with no re-auth path — CRITICAL</b>
+A working key began returning 401; the identity portal showed "You don't have a profile set
+up for this application yet," with no self-serve recovery. Root cause was a temporary
+hackathon credential — discoverable only by asking.
+*Suggested:* label non-permanent credentials as such, with an expiry date visible.
+</p>
+<p>
+<b>12. [NEW][OPEN] Undocumented concurrency limit on token minting — MEDIUM</b>
+Rapid consecutive session-token mints return intermittent <b>502</b>s. Each mint creates a real
+connection; the limit isn't published.
+*Suggested:* document the limit and return 429 rather than 502.
+</p>
+<p>
+<b>13. [OPEN] The published per-minute figure isn't the all-in price — HIGH</b>
+$0.01/min is the <b>bring-your-own-model runtime</b> rate. The Napster-hosted default measured
+<b>~$0.05/min all-in</b> against real Azure invoices — a 5× gap discovered after billing. The
+same ambiguity applies to NV2's launch pricing, which is video-model-only with LLM inference
+billed separately.
+*Suggested:* publish an all-in figure per deployment path.
+</p>
+<p>
+<b>14. [OPEN] No published partner/wholesale pricing — MEDIUM</b>
+Open: partner discount vs list; resell-and-markup vs client-pays-Azure; minimums or seat
+fees; confirmed inference cost under the managed deployment.
+</p>
+<hr>
+<h1>MODULE 2 — Companion &amp; Agent API</h1>
+<p>
+<b>15. [OPEN] Deployment type "Custom" kills sessions ~3s in — CRITICAL</b>
+Sessions connect, log *Connecting → Connection established → SDK ready*, then die with
+<b><code>provider_connection_aborted</code></b>. The single most confusing failure mode we encountered: it
+presents as an SDK or network fault. Root cause is that "Custom" expects a bring-your-own
+Azure OpenAI real-time endpoint. Fix: recreate the key with <b>Deployment = Napster</b>.
+*Suggested:* reject key creation with "Custom" if no endpoint is configured, or return an
+error naming the deployment type.
+</p>
+<p>
+<b>16. [OPEN] <code>language: "English"</code> returns 400 — must be ISO 639-1 <code>"en"</code> — MEDIUM</b>
+Undocumented. *Suggested:* state the expected format, or accept common language names.
+</p>
+<p>
+<b>17. [OPEN] <code>POST /public/faqs/{id}/items</code> returns HTTP 500 consistently — HIGH</b>
+Repeatable 500 with a validated-correct <code>{question, answer}</code> shape. We now skip the FAQ layer
+entirely and inline FAQ content in agent <code>instructions</code> as a standing fallback.
+</p>
+<p>
+<b>18. [OPEN] <code>GET /public/ethnicities</code> 404s, but <code>ethnicity</code> is mandatory — HIGH</b>
+The documented enum-discovery endpoint doesn't exist, yet the field is required on
+<code>/digital-twins</code>. We discovered working values (<code>"white"</code>, <code>"multiracial"</code>) by reading the
+400 response. Note the field is required even for non-human characters — we shipped a
+watercolor dog that needed an ethnicity.
+*Suggested:* restore the endpoint, publish the enum, and make it optional for non-human twins.
+</p>
+<p>
+<b>19. [RESOLVED, residual] <code>DigitalTwinConsentRequired</code> with no pointer — CRITICAL</b>
+The first real <code>/digital-twins</code> call returns this error with no link, no dashboard
+reference, no doc URL. The consent gate is one-time and org-wide, granted via Dashboard →
+Companions → New Digital Twin. Because plain <code>/companions</code> doesn't trigger it, an org can
+operate for weeks and hit this cold. The doc exists (thank you) — but was only found when it
+was sent to us directly.
+*Suggested:* put the URL in the error body.
+</p>
+<p>
+<b>20. [RESOLVED, by explanation] <code>version:"v2"</code> silently completes as v1 — CRITICAL</b>
+<code>POST /public/digital-twins</code> with <code>version:'v2'</code> and a spec-compliant reference video
+returned success, then completed as <code>versions:["v1"]</code>. The create response <b>never echoes
+<code>version</code></b>, so there was no signal. We reproduced it twice across different hosts and spent
+days chasing a plausible-but-wrong hypothesis (video content-type) before your team confirmed
+v2 is private-preview-gated. Our build was correct the entire time.
+*Suggested:* reject or warn on <code>version:'v2'</code> for non-entitled orgs, and echo <code>version</code> in
+the create response. This single change would have saved us the most time of anything in
+this report.
+</p>
+<p>
+<b>21. [NEW][OPEN] Dashboard "New Digital Twin" is image-only, making v2 API-exclusive — MEDIUM</b>
+Appearance accepts only an image ("Must be 16:9") with no video path — so the only way to
+attempt v2 is the API, which then silently produces v1.
+</p>
+<p>
+<b>22. [OPEN] v2 processing time documented only as "several hours" — MEDIUM</b>
+No range, no status endpoint, no webhook. We cannot give clients a timeline or build a
+progress UI.
+</p>
+<p>
+<b>23. [NEW][OPEN] No <code>GET /public/digital-twins/{id}</code> — MEDIUM</b>
+Status must be read from <code>GET /companions/{id}</code>. Twins are companions, but the resource
+asymmetry isn't documented; we found it by trial.
+</p>
+<p>
+<b>24. [NEW][OPEN] Digital-twin create response omits <code>status</code> — MEDIUM</b>
+No way to confirm from the create call that processing began.
+</p>
+<p>
+<b>25. [NEW][OPEN] All four identity fields mandatory for twins, optional for companions — LOW</b>
+<code>firstName</code>, <code>lastName</code>, <code>gender</code>, <code>ethnicity</code>. The asymmetry isn't called out.
+</p>
+<p>
+<b>26. [OPEN] Companion status flow undocumented; <code>CompanionNotReady</code> reads as an error — MEDIUM</b>
+Actual flow: <code>pending → generationCompleted → readyToUse → completed</code> (~2–3 min). Connecting
+early returns <code>CompanionNotReady</code>, which is a healthy signal that reads as a failure.
+</p>
+<p>
+<b>27. [NEW][OPEN] Bare <code>ConnectionCreationFailed</code> with no diagnostic detail — MEDIUM</b>
+No indication that the root cause was account provisioning.
+</p>
+<p>
+<b>28. [NEW][OPEN] Auto-generated <code>assistantPrompt</code> overrides custom <code>instructions</code> — HIGH</b>
+Napster generates an assistant prompt from <code>description</code>, and its injected "I am the digital
+twin" identity rules win over the agent's own <code>instructions</code> for the opening message —
+avatars greet with "I am the digital twin… How can I help you?" regardless of authored
+greeting. Working fix required <b>both</b>: embedding greeting behavior in <code>description</code> *and*
+front-loading an override in <code>instructions</code>. Either alone fails.
+*Suggested:* document the precedence, or expose the generated prompt for editing.
+</p>
+<p>
+<b>29. [NEW][OPEN] No companion-swap on an existing agent — HIGH</b>
+To move a configured agent (persona, FAQ, knowledge) onto a new face or voice, there is no
+documented <code>PATCH</code>. The fallback is building a new agent and re-supplying everything, which
+changes the agent ID and forces a redeploy of every token endpoint pointing at it. At fleet
+scale this is the single biggest operational tax we carry.
+*Suggested:* <code>PATCH /agents/{id}</code> with a <code>companionId</code> field.
+</p>
+<p>
+<b>30. [NEW][OPEN] <code>CompanionInUse</code> blocks deletion without stating the remedy — LOW</b>
+The agent must be deleted from the dashboard first; there's no cascade and no hint.
+</p>
+<p>
+<b>31. [NEW][OPEN] Function IDs are the tool's name, not a UUID — MEDIUM</b>
+<code>POST /public/functions</code> returns an id equal to <code>capture_lead</code>. Surprising, and it created a
+real hazard: <b>every agent rebuild must re-attach the function or the tool silently
+detaches</b> with no warning. We now enforce this by checklist.
+*Suggested:* warn when an agent is created without previously-attached tools.
+</p>
+<p>
+<b>32. [NEW][OPEN] Tool-call payload schema undocumented — HIGH</b>
+No published shape for what Napster POSTs to a tool URL; the 10-second response window is
+the only known constraint. We shipped defensive parsing and raw request logging to discover
+it in production.
+</p>
+<p>
+<b>33. [NEW][OPEN] Webhook payload schema undocumented; docs page didn't resolve — HIGH</b>
+<code>session.started</code> / <code>session.closed</code> exist with a per-webhook signing secret, but the payload
+JSON is unconfirmed and the documentation page failed to load.
+</p>
+<p>
+<b>34. [NEW][OPEN] Session transcript retention period undocumented — HIGH</b>
+This blocks any client-facing promise about conversation history and forced us to make our
+own database the system of record.
+</p>
+<p>
+<b>35. [NEW][OPEN] Lead contact info isn't structured on the session record — MEDIUM</b>
+Name, email and phone exist only as free text inside <code>conversation.items[].text</code>. Structured
+lead delivery requires a custom tool or transcript scraping.
+</p>
+<p>
+<b>36. [OPEN] Companion/agent count limits per subscription undocumented — MEDIUM</b>
+Asked June 19, re-asked since; still unanswered. This directly gates how we price and plan
+fleet growth.
+</p>
+<p>
+<b>37. [NEW][OPEN] Multilingual behavior is contradictory — MEDIUM</b>
+<code>language</code> takes one ISO code per agent and the platform describes that constraint to the
+model — one of our agents <b>volunteered "I can only speak English"</b> unprompted. Meanwhile
+the v2 docs advertise lip-sync during "language switching," and the underlying realtime model
+is inherently multilingual. Open: can one agent speak many languages if instructed; is
+per-language-agents-on-one-twin the intended pattern; does a cloned voice preserve likeness
+across languages.
+</p>
+<p>
+<b>38. [NEW][OPEN] Stock-companion listing pagination undocumented — LOW</b>
+<code>GET /public/companions/napster-stock</code> defaults to 10. Retrieving the full 2,000+ library
+required blind-probing five limit parameter names and two offset schemes.
+</p>
+<p>
+<b>39. [RESOLVED] Stock-companion commercial licensing was undocumented — HIGH</b>
+Whether an org may deploy stock companions on <b>clients'</b> sites as branded spokespeople was
+unpublished, and first-line support escalated rather than answered. Answered directly and
+clearly on Discord (2026-07-13): no restrictions, commercial use permitted. Thank you — this
+unblocked a product line.
+*Suggested:* put it in the docs.
+</p>
+<p>
+<b>40. [NEW][OPEN] Agent <code>temperature</code> may not be settable via API — MEDIUM</b>
+A dashboard-only setting that can't be reproduced programmatically breaks rebuild parity.
+</p>
+<p>
+<b>41. [OPEN] Voice-clone guidance is thin — MEDIUM</b>
+Documented: mp3/wav/m4a/flac/ogg/webm/mp4, ≤10 MB, 60–300 s, public HTTPS. Undocumented:
+optimal length, required audio quality, processing time, supported languages, consent
+requirements. Our production recommendation (3–5 minutes of natural, unscripted speech) came
+verbally from your team, not the docs.
+</p>
+<p>
+<b>42. [NEW][OPEN] Memory documented at the rule level, not the mechanism level — MEDIUM</b>
+Documented: <code>externalClientId</code> format and matching rules, <code>externalClientProfile</code>.
+Undocumented: how memory is surfaced to the model, memory limits (session count, decay,
+token cap), and whether returning-visitor greeting is automatic or must be prompted.
+</p>
+<hr>
+<h1>MODULE 3 — Assets &amp; Media</h1>
+<p>
+<b>43. [OPEN] A 12 MB PNG <code>pictureUrl</code> returns HTTP 500 — HIGH</b>
+Twin creation fails with a bare 500. A sub-1 MB JPEG succeeds. An undocumented size/format
+limit surfacing as a server error rather than a 4xx validation message.
+</p>
+<p>
+<b>44. [OPEN] <code>pictureUrl</code> spec is incomplete — HIGH</b>
+Documented only as "16:9, waist up, well-lit, looking into camera" — no formats, no minimum
+resolution, no maximum file size. This directly causes Finding 43.
+</p>
+<p>
+<b>45. [NEW][OPEN] V1 auto-extracts an arbitrary frame from a supplied video — MEDIUM</b>
+Our first client twin looked poor because a random video frame became the source image.
+Rebuilding V1 explicitly from a sharp studio headshot produced a dramatically better result.
+The create response echoing <code>pictureUrl</code> was the only signal that the right path was taken.
+*Suggested:* document that an explicit still beats a video-derived frame for V1 quality.
+</p>
+<p>
+<b>46. [NEW][OPEN] No ingestion diagnostics for reference media — MEDIUM</b>
+With no version echo and no ingestion feedback, we spent days on a plausible-but-wrong
+hypothesis about video content-type headers. Any per-asset ingestion status would have
+ended that immediately.
+</p>
+<p>
+<b>47. [OPEN] All media must be public HTTPS; no upload or signed-URL path — MEDIUM</b>
+Every integrator must solve hosting before they can call the API, and client media must sit
+at a publicly reachable URL — which is a real conversation with privacy-sensitive clients.
+*Suggested:* an upload endpoint or signed-URL ingestion.
+</p>
+<p>
+<b>48. [NEW] POSITIVE FINDING — illustrated / non-human characters work</b>
+A face-forward 16:9 watercolor dog was accepted by <code>/digital-twins</code> v1, lip-syncs at fair
+quality, and carries a unique cloned voice. We've shipped it to a children's-book client.
+We're flagging this as a validated use case you may not know you support — it opens
+publishing, education, and character-IP markets. (Necessarily V1, since V2 requires video of
+the subject.)
+</p>
+<p>
+<b>49. [NEW][OPEN] NV2 capture spec vs the v2 video path is unclear — MEDIUM</b>
+Does NV2 publish a capture spec distinct from the v2 path, and is NV2 the engine behind v2
+twins or a separately-invoked model?
+</p>
+<hr>
+<h1>MODULE 4 — Web SDK &amp; Embedding</h1>
+<p>
+*This module is where we spent the most engineering time, and where a small amount of work on
+your side would have the largest effect on how professional partner deployments look.*
+</p>
+<p>
+<b>50. [OPEN] <code>avatarStyle: { view: 'circle' }</code> is ignored — MEDIUM</b>
+The documented option has no effect, and the CSS fallback (<code>clip-path: circle(50%)</code>) produces
+a black split-screen artifact. We abandoned circular avatars entirely.
+</p>
+<p>
+<b>51. [OPEN] The SDK overrides host CSS on activation — HIGH</b>
+On session start it rewrites <code>border-radius</code>, border color, and dimensions on the host
+container.
+</p>
+<p>
+<b>52. [OPEN] The SDK expands its mount and defeats standard containment — HIGH</b>
+<code>aspect-ratio</code>, <code>contain: size</code>, and padding-bottom sizers all failed. A JS height-lock was
+the best available workaround and still changed shape in talk mode.
+</p>
+<p>
+<b>53. [NEW][OPEN] The SDK injects a <code>position: fixed</code> wrapper that escapes its card — HIGH</b>
+Working fix: <code>transform: translateZ(0)</code> on the frame plus
+<code>[class*="-fixed"]{position:absolute!important; inset:0!important}</code>. Related trap: setting
+<code>transform: none</code> on an ancestor releases the widget to fullscreen, so sliding panels must
+keep <code>translateX(0)</code> when open.
+</p>
+<p>
+<b>54. [NEW][OPEN] The SDK injects <code>body,html{background:transparent}</code> and never removes it — HIGH</b>
+The host page turns <b>white</b> when a session starts and stays white after it ends. We now
+ship a snippet on every page that captures computed backgrounds at load and re-asserts them
+with <code>!important</code>.
+*Suggested:* scope the injected style to the SDK's own container.
+</p>
+<p>
+<b>55. [NEW][OPEN] Inner SDK panels overflow-scroll, showing scrollbars in the frame — MEDIUM</b>
+</p>
+<p>
+<b>56. [NEW][OPEN] The container renders a white border/radius edge that can't be styled away — MEDIUM</b>
+We crop it with a deliberately oversized mount (<code>inset:-4px</code>).
+</p>
+<p>
+<b>57. [OPEN] Built-in controls aren't suppressible and overlap the avatar's face — HIGH</b>
+Unusable framing for marketing-grade embeds where the face is the product.
+</p>
+<p>
+<b>58. [OPEN] The AI-disclosure banner can't be positioned or styled — MEDIUM</b>
+To be clear: we support the disclosure and ship our own alongside it. The friction is the
+absence of a styling/positioning API, not the element's existence.
+</p>
+<p>
+<b>59. [NEW][OPEN] The SDK's hang-up button doesn't notify the host page — CRITICAL</b>
+Clicking the built-in hang-up ends the session and stops metering, but host JS receives <b>no
+callback</b> unless an <code>onDestroy</code> handler was passed. Our page showed a session countdown
+running to zero over an empty white box after the user had already hung up. <code>onDestroy</code>,
+<code>onStateChange</code> and <code>onAvatarReady</code> exist but are under-documented.
+*Suggested:* fire a default event on teardown, and document these callbacks prominently. This
+one ships broken UI by default for anyone who doesn't know to look.
+</p>
+<p>
+<b>60. [NEW][OPEN] Mic permission is requested inside <code>init()</code> with no way to defer — HIGH</b>
+Verified against both the SDK bundle and its README. This makes connect-before-prompt
+architecturally impossible and forces a slower perceived load.
+*Suggested (feature request):* a <code>deferMicPermission</code> option.
+</p>
+<p>
+<b>61. [NEW][OPEN] The ready callback fires while the loading animation is still on screen — MEDIUM</b>
+We gate on <code>video.videoWidth >gt; 0</code> plus advancing <code>currentTime</code> instead of trusting it.
+</p>
+<p>
+<b>62. [NEW][OPEN] No usable conversation-start / state event — MEDIUM</b>
+SDK state events never matched any conversation-start pattern, so metering and countdown UI
+can't be driven from them.
+</p>
+<p>
+<b>63. [NEW][OPEN] <code>features.showSDKLoader.enabled = false</code> is undocumented — LOW</b>
+Found by reading the bundle.
+</p>
+<p>
+<b>64. [OPEN] SDK distribution path and global name are wrong in the docs — HIGH</b>
+The standalone build is at <code>/lib/index.standalone.js</code> (not <code>/dist/</code>) and the global is
+<code>napsterCompanionApiSDK</code>. Worse, a <b>hard-coded "requires X domain" error message masked the
+real path/global error</b>, sending debugging in entirely the wrong direction.
+*Suggested:* fix the docs and remove the misleading hard-coded error.
+</p>
+<p>
+<b>65. [OPEN] Hiding the placeholder on session start collapses host layout — LOW</b>
+</p>
+<p>
+<b>66. [OPEN] Dark backgrounds bleed through semi-transparent placeholder edges — LOW</b>
+</p>
+<p>
+<b>67. [NEW][OPEN] Nothing prevents an auto-starting embed from silently burning minutes — HIGH</b>
+One of our pages minted a token and opened a real session on <b>every page load</b> — invisible,
+continuous metering. We now enforce user-initiated sessions as a QC gate. A related trap:
+re-initializing inside <code>onDestroy</code> makes hang-up appear broken *and* leaks spend.
+*Suggested:* an idle or auto-start guard, or simply a warning — this protects integrators
+from self-inflicted cost and protects you from the resulting support conversation.
+</p>
+<p>
+<b>68. [RESOLVED] Metering-vs-timer semantics — MEDIUM</b>
+Confirmed by your team: metering stops when the session ends, not at a preconfigured limit,
+so a page-side countdown is cosmetic and does not cap cost.
+*Suggested:* state this in the billing docs.
+</p>
+<p>
+<b>84. [NEW][RESOLVED 2026-07-24] The agent cannot speak first — no auto-greeting, no text injection — HIGH</b>
+*(Added 2026-07-23; RESOLVED next day via Discord: the <code>initialSpeech</code> field on connection
+creation — POST /agents/{id}/connections, /connections, /ws-connections, plus channel-level
+defaults — delivers an opening in the agent's own voice at connect. Documented at
+developers.napster.com → session-configuration → opening-instructions. Answered within 24h of
+asking; deployed on our side same day. Thank you — this is the feedback pipeline working.)*
+A connected avatar sits silent and smiling until the visitor speaks. We verified this is
+architectural, not configurational: the SDK instance exposes <code>showAvatar</code> / <code>hideAvatar</code> /
+<code>destroy</code> / <code>mute</code> / <code>setVolume</code> / <code>pause</code> and <b>no send method of any kind</b>; the internal
+data channel (named "chat") carries only connection plumbing, settings, and tool-call outputs;
+and the SDK's own inactivity warning — *"Say something to keep it active"* — confirms the
+user-speaks-first turn model. Instruction-level fixes ("your very first words must be…") cannot
+work because the agent's turn never runs until user audio arrives. We rebuilt an agent
+specifically to test this; it changed nothing.
+Impact: for consumer-facing deployments this is a first-contact conversion killer — a
+first-time visitor meets an avatar that stares at them, and doesn't know they're supposed to
+talk to it. Feedback we received directly from your own partnerships team ("have her be the one
+to start talking") is currently impossible to implement.
+*Suggested:* an <code>initialGreeting</code> option on <code>sdk.init()</code> that has the agent deliver its opening
+line on connect, and/or a <code>sendMessage(text)</code> method on the instance. Either one unlocks it.
+</p>
+<hr>
+<h1>MODULE 5 — Dashboard</h1>
+<p>
+<b>69. [NEW][OPEN] Toggles reset on every agent rebuild — CRITICAL</b>
+Memory, Screen Share and Picture-in-Picture are per-agent, and a rebuild produces a new agent
+with all of them off. Silently. There's no carry-forward, no warning, and no API equivalent
+we could find — so a scripted rebuild always requires a manual dashboard ritual afterward.
+We've documented this internally three separate times because it kept biting us.
+*Suggested:* expose these in the agent API, or carry them forward on rebuild.
+</p>
+<p>
+<b>70. [RESOLVED] Dashboard shows "No data" when key and view are in different projects — MEDIUM</b>
+API keys are project-scoped and companions live in the key's project. Not obvious from the
+key-creation UI.
+</p>
+<p>
+<b>71. [OPEN] Dashboard card status lags the API — LOW</b>
+Cards read "Provisioning" after the API reports <code>completed</code>. Guidance we now follow: trust
+the API, not the card.
+</p>
+<p>
+<b>72. [NEW][OPEN] Card motion is misleading as a quality signal — MEDIUM</b>
+Generated companions have an idle-motion loop on their card; <b>digital twins display as a
+still image</b> and only animate in a live session. We misread this as "the twin isn't
+working" and reversed a correct conclusion because of it.
+*Suggested:* a "preview in Playground" affordance, or a note on twin cards.
+</p>
+<p>
+<b>73. [NEW][OPEN] No agent versioning — same-named agents accumulate — MEDIUM</b>
+Deprecated agents persist in the Playground under identical names; we tested the wrong brain
+more than once. One of our agents accumulated four identically-named versions.
+*Suggested:* versioning, or at minimum a created-at stamp in the picker.
+</p>
+<p>
+<b>74. [NEW][OPEN] No export path for dashboard-authored agent instructions — HIGH</b>
+During a disaster-recovery audit we found two production personas existed <b>only</b> in the
+dashboard, with no way to export them — we transcribed them by hand into version control.
+For any team practicing infrastructure-as-code, dashboard-only state is a liability.
+*Suggested:* a read API for agent instructions.
+</p>
+<p>
+<b>75. [NEW][OPEN] Playground → Logs covers test sessions only — LOW</b>
+Live site transcripts come from the Sessions API instead; the split isn't signposted.
+</p>
+<hr>
+<h1>MODULE 6 — Documentation &amp; Support</h1>
+<p>
+<b>76. [RESOLVED] Incorrect guidance cost a day and nearly killed feasibility — CRITICAL</b>
+We were told by a Napster team member that photoreal twins with cloned voices could <b>only</b>
+be produced in the Mac app (Apple-Silicon only). As a Windows-based integrator we recorded
+this as a hard blocker and built a cost model around it. Your dev team corrected it on
+2026-06-10: the full twin is 100% API-driven, Windows is fully supported, and the Mac app and
+API use the <b>same models with no quality difference</b>.
+*Suggested:* this is a training/enablement item rather than a product defect — but it's the
+single most expensive wrong answer we received, and it came from inside the company.
+</p>
+<p>
+<b>77. [OPEN] The offer is invisible in the Azure Portal until preview access is enabled — MEDIUM</b>
+You cannot find the resource, let alone create a key, until access is granted out-of-band via
+a support request with your Azure subscription ID. Ours took ~3 days.
+*Suggested:* a self-serve request path, or a portal listing that explains the gate.
+</p>
+<p>
+<b>78. [OPEN] No consent, disclosure, or right-of-publicity guidance in the twin docs — HIGH</b>
+Documentation for cloning a real person's face and voice contains <b>no</b> consent language and
+no disclosure guidance — despite New York's synthetic-performer disclosure law taking effect
+2026-06-09 and California following. Every integrator must independently discover this. We
+built our own written-consent capture and near-embed disclosure.
+*Suggested:* a consent/disclosure page linked from the twins guide. This protects your
+customers and, frankly, protects Napster.
+</p>
+<p>
+<b>79. [NEW][OPEN] The Webhooks documentation page did not resolve — MEDIUM</b>
+</p>
+<p>
+<b>80. [RESOLVED] The consent doc existed but was undiscoverable — MEDIUM</b>
+Surfaced only when the URL was sent to us directly — not linked from the error, the
+dashboard, or the twins guide.
+</p>
+<p>
+<b>81. [NEW][OPEN] Support escalates rather than answers; product answers come from leadership — HIGH</b>
+A pattern across our record: stock-companion licensing, v2 gating, metering semantics, model
+identity, and our outage all resolved through direct contact with your leadership on Discord
+rather than through a support channel. We're grateful for that access — but it doesn't scale,
+and several batched questions remain open (companion limits, voice-clone specifics, NV2
+capture spec).
+*Suggested:* a partner-tier technical contact, or a documented escalation path.
+</p>
+<p>
+<b>82. [NEW][OPEN] No status page or proactive communication during a P0 outage — HIGH</b>
+Our 24-hour account outage was detected by us, diagnosed by us, and escalated by us through a
+community Discord. We had no way to distinguish "our integration broke" from "the platform is
+down," which is where most of the first hour went.
+*Suggested:* a status page, and proactive notification when an org is deactivated.
+</p>
+<p>
+<b>83. [NEW] POSITIVE FINDING — responsiveness when reached</b>
+Every time we reached your team directly, the answer was fast, candid, and correct — including
+during our outage, which was manually resolved on a weekend with courtesy credits applied
+unprompted. The findings in Module 6 are about the paths that lead to you, not about you.
+</p>
+<hr>
+<h1>Appendix A — Open questions we'd still like answered</h1>
+<ul>
+<li>1. Companion/agent count limits per subscription (asked 2026-06-19)</li>
+<li>2. Voice-clone optimal length, quality bar, processing time, and supported languages</li>
+<li>3. NV2 capture spec, and whether NV2 is the engine behind v2 twins</li>
+<li>4. Session transcript retention period</li>
+<li>5. Webhook and tool-call payload schemas</li>
+<li>6. Memory mechanism, limits, and returning-visitor greeting behavior</li>
+<li>7. Multilingual pattern: one agent many languages, or one agent per language?</li>
+<li>8. Partner/wholesale pricing and the billing relationship for resold usage</li>
+<li>9. v2 general-availability timeline, and criteria for private-preview entitlement</li>
+</ul>
+<hr>
+<h1>Appendix B — What we built on the platform</h1>
+<p>
+Eight production avatars across seven public properties: photoreal digital twins of four real
+people (with written consent and on-page disclosure), an illustrated character avatar for a
+children's book series, stock-companion concierges, a lead-capture tool integration firing on
+<code>session.closed</code>, and a mobile-framed interactive experience. All of it runs on the Companion
+API, metered on Azure.
+</p>
+<p>
+We're documenting the rough edges precisely because we intend to keep building here. A
+platform this capable deserves an integration path that doesn't require an integrator to
+rediscover it.
+</p>
+<p>
+<b>— AvatarAgency.ai</b>
+</p>
+<footer>AvatarAgency · Los Angeles · michael@avataragency.ai — This page is unlisted; shared by
+direct link only. Originally delivered to the Napster Developer &amp; Product Team, July 2026.</footer>
+</div>
+</body>
+</html>

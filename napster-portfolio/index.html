@@ -201,34 +201,31 @@ documented reference implementation would accelerate every agency partner.</li>
 builds re-up demand — packaging guidance like this belongs in partner enablement.</li>
 <li>A fuller friction-and-fixes log, maintained since our first build, is available under NDA.</li>
 </ul>
-<h2><span class="n">05</span>Exhibit: the Azure Marketplace findings memo — how we partner when something breaks</h2>
-<p>In July, a billing-integration edge case between Azure Marketplace and the Companion API
-took our production agents offline for two days (7/17–7/18). What we did next is the part
-worth showing: within days, we delivered the Napster team a full written postmortem — not a
-support complaint, a <b>product findings memo</b> analyzing the Azure-native subscription
-integration end to end.</p>
-<p><b>What the memo documents — 14 distinct findings and recommendations:</b></p>
+<h2><span class="n">05</span>Exhibit: the 84-finding integration report — how we partner</h2>
+<p>Between June and July we took the Companion API from first contact to a production fleet —
+and we documented every edge we hit along the way. The result is a formal report delivered to
+the Napster Developer &amp; Product Team: <b>Integration Findings v2 — 84 documented
+findings</b>, superseding our 26-finding June report, covering the full Azure Marketplace
+subscription workflow and every layer of the Companion integration: embedding, sessions and
+webhooks, tool calls, fleet-scale rebuilds, and a complete account outage.</p>
+<p><b>What the documentation discipline looks like:</b></p>
 <ul>
-<li><b>3 compounding root causes</b>, traced through the Azure billing surface: a plan label
-that reads as metered billing but creates a fixed term with auto-renew off; trial credits
-that behave as a countdown, not a balance; and expiration warnings that never name the
-consequence.</li>
-<li><b>3 recovery blockers</b>, mapped across the publisher/Marketplace boundary: two
-subscription objects where only the healthy one is visible; terminal expiration with no
-reactivate-in-place; and a repurchase that completed on Azure's side but never remapped to
-the existing org.</li>
-<li><b>5 prioritized product recommendations</b> — from auto-renew defaults to
-consequence-specific T-7/T-1 warnings — sequenced by prevention value, plus <b>3 further
-onboarding notes</b> for productization.</li>
+<li>Every finding <b>tagged</b> — [OPEN] / [RESOLVED] / [NEW] / [CORRECTED] — and
+<b>severity-rated</b> by real blast radius: CRITICAL (blocked deployment), HIGH
+(developer-experience cost), MEDIUM (polish)</li>
+<li><b>Self-correcting:</b> where our June report got something wrong, v2 says so
+prominently — so errors never propagate into Napster's docs or support scripts</li>
+<li><b>Credit where due:</b> resolved items are marked and thanked — this is partnership
+documentation, not a complaint ledger</li>
+<li>Written for the next partner: "every item below cost us time that the next partner
+shouldn't have to spend" — which is partner enablement, done from the partner side</li>
 </ul>
-<p>It spans both sides of the Azure-native integration — Napster's publisher layer and
-Microsoft's Marketplace layer — because to a partner, the experience arrives as one product.
-This is the exact craft the partner ecosystem runs on: turn friction into documentation,
-documentation into product direction.</p>
 <div class="hl">
-<b>Read it in full:</b> <a href="/napster-portfolio/azure-findings"
-style="color:var(--ink);font-weight:700">The Azure Marketplace × Companion
-subscription-expiration postmortem →</a>
+<b>Read them in full:</b>
+<a href="/napster-portfolio/integration-findings" style="color:var(--ink);font-weight:700">Integration
+Findings v2 — the complete 84-finding report →</a><br>
+<a href="/napster-portfolio/azure-findings" style="color:var(--ink);font-weight:700">Companion
+exhibit: the Azure Marketplace subscription-expiration postmortem →</a>
 </div>
 
 <h2><span class="n">06</span>Target account map — where we intend to drive Napster pipeline</h2>
