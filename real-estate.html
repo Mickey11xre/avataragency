@@ -251,13 +251,20 @@
           }
           /* SDK mount fills the locked height absolutely */
           #ava-napster-avatar {
-            position:absolute;inset:0;display:none;
+            position:absolute;inset:0;display:none;overflow:hidden;
           }
           #ava-napster-avatar > *,
           #ava-napster-avatar video,
           #ava-napster-avatar canvas {
             width:100% !important;height:100% !important;
             object-fit:cover !important;object-position:center top !important;
+          }
+          /* Pin the SDK's own wrapper — it adopts its own size when a session starts
+             (same fix as the case-study twin and the LiveBrand assistant): */
+          #ava-napster-avatar > * {
+            position:absolute !important;inset:0 !important;
+            max-width:none !important;max-height:none !important;
+            margin:0 !important;border-radius:0 !important;
           }
           #ava-end-btn {
             display:none;font-family:var(--f-display);font-size:12px;
@@ -370,6 +377,7 @@
 
         } catch (err) {
           console.error('Ava avatar error:', err);
+          wrap.style.height = '';               // release lock if we never mounted
           placeholder.style.display = 'block';
           hintEl.textContent = 'Tap to start a live conversation · 5 minute session';
         }
