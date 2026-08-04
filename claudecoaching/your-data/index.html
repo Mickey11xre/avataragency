@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Your Data — Claude Coaching · AvatarAgency</title>
+<meta name="description" content="A straight answer about what happens to your information when you use Claude: what leaves your computer, what Anthropic does and doesn't do with it, what I never see, and what you should never put in.">
+<meta name="robots" content="noindex,follow">
+<style>
+:root{
+  --paper:#FFFFFF;
+  --cream:#FAF6F0;
+  --ink:#211F1B;
+  --ink-dim:rgba(33,31,27,.66);
+  --line:rgba(33,31,27,.12);
+  --accent:#D97757;
+  --accent-soft:rgba(217,119,87,.10);
+  --on-accent:#FFFFFF;
+  --maxw:760px;
+  --radius:14px;
+  --display:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --label:'Montserrat','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:80px}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);
+     font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:var(--display);line-height:1.1;letter-spacing:-.03em;text-wrap:balance}
+h1{font-size:clamp(30px,5vw,44px)}
+h2{font-size:clamp(21px,3vw,26px);margin-bottom:14px}
+h3{font-size:18px;margin-bottom:6px}
+p{margin-bottom:16px}
+p:last-child{margin-bottom:0}
+a{color:inherit}
+a.lnk{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+a.lnk:hover{text-decoration-thickness:2px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:3px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+.mono{font-family:var(--label);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600}
+
+.topbar{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.93);
+        backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;
+              padding-top:14px;padding-bottom:14px;max-width:1080px}
+.lockup{text-decoration:none;display:flex;align-items:baseline;gap:7px}
+.lockup .word{font-family:var(--display);font-weight:800;font-size:18px;letter-spacing:-.02em}
+.lockup .subword{font-family:var(--label);font-size:11px;letter-spacing:.18em;
+                 text-transform:uppercase;color:var(--ink-dim);font-weight:600}
+.back{font-family:var(--label);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;
+      color:var(--ink-dim);text-decoration:none;font-weight:600}
+.back:hover{color:var(--accent)}
+
+header.hero{padding:56px 0 8px}
+.hero .eyebrow{color:var(--accent);margin-bottom:16px}
+.hero .lede{font-size:19px;color:var(--ink-dim);margin-top:20px}
+
+section{padding:34px 0;border-top:1px solid var(--line)}
+section:first-of-type{border-top:none}
+.sec-num{font-family:var(--label);font-size:11px;letter-spacing:.16em;color:var(--accent);
+         font-weight:700;display:block;margin-bottom:9px}
+
+.card{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius);
+      padding:26px 26px;margin:24px 0}
+.card.accent{background:var(--accent-soft);border-color:rgba(217,119,87,.28)}
+.card h3{margin-bottom:10px}
+
+ul.plain{list-style:none;display:flex;flex-direction:column;gap:11px;margin:16px 0}
+ul.plain li{padding-left:26px;position:relative}
+ul.plain li::before{content:"";position:absolute;left:4px;top:.62em;width:7px;height:7px;
+                    border-radius:50%;background:var(--accent)}
+ul.no li::before{background:transparent;box-shadow:inset 0 0 0 1.5px var(--ink-dim)}
+
+.short li{padding-left:30px}
+.short li::before{content:"✓";background:none;left:0;top:0;width:auto;height:auto;
+                  color:var(--accent);font-weight:800;font-size:15px}
+
+table{width:100%;border-collapse:collapse;margin:20px 0;font-size:15.5px}
+th,td{text-align:left;padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--label);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+   color:var(--ink-dim);font-weight:700}
+.tw{overflow-x:auto}
+
+.verify{font-size:14.5px;color:var(--ink-dim);background:var(--paper);
+        border:1px dashed var(--line);border-radius:10px;padding:16px 18px;margin-top:18px}
+.verify b{color:var(--ink)}
+
+footer{border-top:1px solid var(--line);margin-top:20px;padding:34px 0 54px;
+       font-size:14px;color:var(--ink-dim)}
+footer p{margin-bottom:9px}
+footer a{color:var(--ink-dim);text-decoration:underline;text-underline-offset:2px}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  section{padding:28px 0}
+  .card{padding:22px 20px}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="lockup" href="https://avataragency.ai/claudecoaching/" aria-label="Claude Coaching home">
+      <span class="word">Claude</span>
+      <span class="subword">Coaching</span>
+    </a>
+    <a class="back" href="https://avataragency.ai/claudecoaching/">← Back to Coaching</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow mono">Your Data</div>
+    <h1>A straight answer about your information.</h1>
+    <p class="lede">Nearly everyone who takes this seriously asks some version of this question,
+    usually before the first call. Here is the honest version — including the parts that
+    aren't reassuring.</p>
+  </header>
+
+  <section>
+    <span class="sec-num">The short version</span>
+    <h2>Four things, before the detail.</h2>
+    <ul class="plain short">
+      <li><b>Claude is a cloud service.</b> What you type, upload, or connect is sent to
+      Anthropic's servers to be processed. It does not run privately on your computer. Anyone
+      who tells you otherwise is describing a different product.</li>
+      <li><b>Your conversations are not used to train Claude unless you switch that on.</b>
+      On personal plans it is off by default, and it is your setting to control — not mine.</li>
+      <li><b>I never see your accounts, your passwords, or your files.</b> Everything is built
+      in your accounts, on your screen, with you holding the mouse.</li>
+      <li><b>None of it is required.</b> You can do the entire session without connecting a
+      single account and without a single financial document. Plenty of people should.</li>
+    </ul>
+  </section>
+
+  <section>
+    <span class="sec-num">01</span>
+    <h2>What actually happens when you use Claude</h2>
+    <p>When you ask Claude something, your words travel to Anthropic's servers, get processed
+    there, and the answer comes back. Same as your email, your bank's website, or your
+    accounting software — but worth stating plainly rather than glossing over, because it is
+    the thing people are really asking about.</p>
+    <p>So the honest question isn't <em>"does my information touch an outside company?"</em>
+    It already does, in a dozen places. The question is <b>which companies, under what written
+    terms, and what do I choose to hand over.</b> That's a question you already know how to
+    answer in your business. This page is here so you can answer it here too.</p>
+  </section>
+
+  <section>
+    <span class="sec-num">02</span>
+    <h2>What Anthropic does — and doesn't do — with it</h2>
+    <p>These are Anthropic's published terms, not my characterization of them. Every one is
+    linked below so you can read it yourself rather than take my word for it.</p>
+
+    <div class="tw">
+    <table>
+      <thead>
+        <tr><th>Question</th><th>Personal plans (Free, Pro, Max)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><b>Are my chats used to train Claude?</b></td>
+          <td><b>Not by default.</b> It's an opt-<em>in</em> setting you turn on deliberately.
+          If you never touch it, your chats are not used for training.</td>
+        </tr>
+        <tr>
+          <td><b>If I do turn it on?</b></td>
+          <td>Chats created after that point may be kept in de-identified form for up to five
+          years in Anthropic's training pipelines. It is not retroactive.</td>
+        </tr>
+        <tr>
+          <td><b>If I leave it off?</b></td>
+          <td>Conversations you delete are removed from Anthropic's back-end storage within
+          30 days.</td>
+        </tr>
+        <tr>
+          <td><b>Is there a private mode?</b></td>
+          <td>Yes. Incognito chats are never used for training regardless of your settings —
+          useful for the occasional sensitive question.</td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+
+    <p><b>We check this setting together during your session</b>, in your own account, on your
+    own screen. You'll see exactly where it lives and what it's set to. That's more useful than
+    anything I could promise you here.</p>
+
+    <div class="verify">
+      <b>Verify it yourself:</b>
+      <a class="lnk" href="https://privacy.claude.com/en/articles/10023548-how-do-you-use-personal-data-in-model-training">How Anthropic uses personal data in model training</a> ·
+      <a class="lnk" href="https://privacy.claude.com/">Anthropic Privacy Center</a><br>
+      <span style="display:inline-block;margin-top:8px">Terms of this kind change. The
+      summary above was verified against Anthropic's published policy on
+      <b>August 4, 2026</b>. If you're reading this much later, click through — the source
+      always wins over this page.</span>
+    </div>
+  </section>
+
+  <section>
+    <span class="sec-num">03</span>
+    <h2>What I never have access to</h2>
+    <p>This is the part I control completely, so I can be absolute about it.</p>
+    <ul class="plain no">
+      <li>I never ask for, receive, or store a password. Not once, not temporarily.</li>
+      <li>I never log into your accounts, and I don't have credentials to do so.</li>
+      <li>Nothing is set up under my accounts or routed through my systems. Everything we
+      build lives in yours, and it stays yours if we never speak again.</li>
+      <li>I don't retain copies of your business documents. Anything you share to prepare for
+      the session is used for the session.</li>
+    </ul>
+    <p>The session itself is you driving and me guiding — screen shared, you clicking, me
+    telling you where to click. If you'd rather I never see a particular screen, say so and
+    we'll work around it. That's a normal request, not a difficult one.</p>
+    <p>Our calls are recorded and transcribed so I can pay attention to you instead of taking
+    notes. I ask permission at the start of every call, and <b>"no" is a complete answer</b> —
+    I'll take notes by hand instead.</p>
+  </section>
+
+  <section>
+    <span class="sec-num">04</span>
+    <h2>Connectors: what they do, and why they're optional</h2>
+    <p>A connector lets Claude read your email, calendar, or files so it can answer questions
+    about your actual work rather than in generalities. That's where a lot of the value is —
+    and it does mean the content it reads is processed by Claude to produce the answer.</p>
+    <p><b>Connecting an account is a choice, made per account, and reversible.</b> You grant
+    access, and you can revoke it from your own Google or Microsoft account settings at any
+    time, with or without me. Nothing about the program depends on you leaving it on.</p>
+
+    <div class="card">
+      <h3>The no-connector version of this program</h3>
+      <p>If you'd rather connect nothing at all, here's what you still get in your 90 minutes:
+      your second brain built from documents you choose to hand over, Claude writing in your
+      voice, your Monday briefing, and templates you run yourself. It's most of the program.</p>
+      <p style="margin-bottom:0">Some clients start here and connect things later once they
+      trust it. Some never connect anything. Both are completely fine, and neither changes
+      the price or the session.</p>
+    </div>
+  </section>
+
+  <section>
+    <span class="sec-num">05</span>
+    <h2>What I'd tell you not to put in</h2>
+    <p>Not because something bad would happen — because there's no good reason to, and good
+    judgment beats blanket trust. I say this to every client, in the session, out loud.</p>
+    <ul class="plain no">
+      <li><b>Anything covered by a duty you owe someone else</b> — patient records, client
+      files under privilege, anything with someone else's name on it that isn't yours to
+      share. If you're a professional with confidentiality obligations, your obligation
+      doesn't relax because the tool is convenient.</li>
+      <li><b>Full account numbers, card numbers, or government ID numbers.</b> There is
+      essentially never a reason. If you want help with a statement, redact the account
+      number first — the analysis works identically without it.</li>
+      <li><b>Passwords, security answers, or recovery codes.</b> Ever, to anything.</li>
+      <li><b>Anything you'd be uncomfortable seeing in a screenshot.</b> That instinct is
+      well-calibrated. Trust it.</li>
+    </ul>
+    <p>For anything on this list, the answer usually isn't "don't do it" — it's "do it with
+    the sensitive parts removed." Redacted statements reconcile just as well as unredacted
+    ones. We'll set that habit up in the session.</p>
+  </section>
+
+  <section>
+    <span class="sec-num">06</span>
+    <h2>If you need stronger terms than a personal plan</h2>
+    <p>If you're in a regulated profession, or you simply want contractual commitments rather
+    than settings you toggle, Anthropic's business plans — Team and Enterprise — operate under
+    different terms from personal plans, with administrative control over retention and
+    organization-level data settings.</p>
+    <p>I'd rather point you at the source than summarize commercial terms I don't control.
+    If that's your situation, read them directly, and bring questions to the call — it's a
+    reasonable place for your own counsel or IT person to weigh in before you decide anything.</p>
+    <div class="verify">
+      <b>Read the business terms:</b>
+      <a class="lnk" href="https://www.anthropic.com/legal/commercial-terms">Anthropic Commercial Terms</a> ·
+      <a class="lnk" href="https://privacy.claude.com/">Privacy Center</a>
+    </div>
+  </section>
+
+  <section>
+    <span class="sec-num">07</span>
+    <h2>The part most people actually want to hear</h2>
+    <div class="card accent">
+      <p><b>You don't have to decide any of this before booking a call.</b> The discovery call
+      is a conversation, not a setup session — nothing gets connected, nothing gets uploaded,
+      and I don't ask you for anything.</p>
+      <p style="margin-bottom:0">And if you go ahead, you set the boundary. Tell me what's
+      off-limits at the start and we build around it. I've never once found that it made the
+      session less valuable — mostly it just makes it clearer what we're actually there to do.</p>
+    </div>
+    <p style="margin-top:24px">If your answer after reading all this is still no, that's a
+    legitimate answer and I'd rather you reach it here than halfway through a session. No
+    hard feelings and no follow-up.</p>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><b>This page carries no advertising or tracking pixels.</b> It seemed like the wrong
+    page to put them on.</p>
+    <p>© 2026 AvatarAgency · AvatarAgency.ai — Private AI coaching, tailored to your business.</p>
+    <p>Claude is a product of Anthropic. This coaching service is independently operated by
+    AvatarAgency and is not affiliated with, sponsored by, or endorsed by Anthropic. Descriptions
+    of Anthropic's policies are summaries of their published terms, which may change; the linked
+    sources are authoritative. Nothing here is legal advice.</p>
+    <p><a href="https://avataragency.ai/privacy.html">Privacy Policy</a> &nbsp;·&nbsp;
+       <a href="https://avataragency.ai/terms.html">Terms of Service</a> &nbsp;·&nbsp;
+       <a href="https://avataragency.ai/claudecoaching/">Claude Coaching</a></p>
+  </div>
+</footer>
+
+</body>
+</html>
