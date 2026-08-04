@@ -1,0 +1,571 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claude Coaching — 15-Minute Discovery Call</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="Claude Coaching — what we build in your 90 minutes, and what Monday looks like after.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟠</text></svg>">
+<style>
+:root{
+  --paper:#FFFFFF;
+  --cream:#FAF6F0;
+  --ink:#211F1B;
+  --ink-dim:rgba(33,31,27,.66);
+  --ink-faint:rgba(33,31,27,.40);
+  --line:rgba(33,31,27,.12);
+  --accent:#D97757;
+  --accent-soft:rgba(217,119,87,.10);
+  --accent-line:rgba(217,119,87,.30);
+
+  --display:system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --sans:'Inter',system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif;
+  --label:'Montserrat','Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+
+  --title:clamp(38px,6.4vw,88px);
+  --body:clamp(16px,1.5vw,21px);
+  --pad:clamp(28px,6vw,90px);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:var(--cream)!important;height:100%}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  scroll-snap-type:y mandatory;overflow-x:hidden;
+}
+h1,h2{font-family:var(--display);font-weight:800;letter-spacing:-.035em;line-height:1.02;text-wrap:balance}
+em{font-style:normal;color:var(--accent)}
+
+/* ---------- background mesh (warm, very faint) ---------- */
+#hexBg{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+
+/* ---------- slides ---------- */
+.slide{
+  position:relative;z-index:1;
+  min-height:100vh;height:100vh;width:100%;
+  scroll-snap-align:start;scroll-snap-stop:always;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:var(--pad);overflow:hidden;
+  background:var(--cream);
+}
+.slide.paper{background:var(--paper)}
+.slide > *{
+  opacity:0;transform:translateY(26px) scale(.985);filter:blur(4px);
+  transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1),filter .7s;
+}
+.slide.visible > *{opacity:1;transform:none;filter:none}
+.slide.visible > *:nth-child(2){transition-delay:.10s}
+.slide.visible > *:nth-child(3){transition-delay:.20s}
+.slide.visible > *:nth-child(4){transition-delay:.30s}
+
+.eyebrow{
+  font-family:var(--label);font-size:11px;font-weight:700;
+  letter-spacing:.22em;text-transform:uppercase;color:var(--accent);
+  margin-bottom:26px;display:flex;align-items:center;gap:12px;
+}
+.eyebrow::after{content:"";flex:1;max-width:110px;height:1px;background:var(--accent-line)}
+.sub{font-size:var(--body);color:var(--ink-dim);max-width:34ch;margin-top:28px;line-height:1.6}
+
+/* ---------- 01 title ---------- */
+.lockup{display:flex;align-items:baseline;gap:12px;margin-bottom:auto}
+.lockup .w{font-family:var(--display);font-weight:800;font-size:22px;letter-spacing:-.02em}
+.lockup .s{font-family:var(--label);font-size:11px;font-weight:600;letter-spacing:.22em;
+           text-transform:uppercase;color:var(--ink-dim)}
+.s1-mid{margin:auto 0}
+.s1-mid h1{font-size:clamp(44px,7.5vw,104px)}
+.dot{display:inline-block;width:.34em;height:.34em;border-radius:50%;background:var(--accent);
+     vertical-align:.14em;margin-left:.12em;animation:breathe 3.6s ease-in-out infinite}
+@keyframes breathe{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.45;transform:scale(.82)}}
+.keyhint{
+  margin-top:auto;font-family:var(--label);font-size:10.5px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-faint);
+  animation:hintfade 1s ease 9s forwards;
+}
+@keyframes hintfade{to{opacity:.14}}
+.keyhint kbd{
+  font-family:var(--label);background:var(--paper);border:1px solid var(--line);
+  border-radius:4px;padding:2px 6px;font-size:10px;margin:0 2px;
+}
+
+/* ---------- 02 the gap ---------- */
+.gap-h{font-size:var(--title);max-width:16ch}
+.gap-h .l2{display:block;color:var(--accent);position:relative;width:max-content;max-width:100%}
+.gap-h .l2::after{
+  content:"";position:absolute;left:0;bottom:-.12em;height:3px;width:0;
+  background:var(--accent);border-radius:2px;
+}
+.slide.visible .gap-h .l2::after{width:100%;transition:width 1.1s cubic-bezier(.2,.7,.3,1) .55s}
+
+/* ---------- 03 what we build ---------- */
+.build{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:44px}
+.bcard{
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  padding:26px 22px 24px;display:flex;flex-direction:column;gap:10px;min-height:200px;
+}
+.bnum{font-family:var(--label);font-size:10.5px;font-weight:700;letter-spacing:.2em;color:var(--accent)}
+.bcard h3{font-family:var(--display);font-weight:800;font-size:19px;letter-spacing:-.02em;line-height:1.15}
+.bcard p{font-size:14px;color:var(--ink-dim);line-height:1.55;margin-top:auto}
+.bcard.slot{
+  background:var(--accent-soft);border:1.5px dashed var(--accent-line);
+}
+.bcard.slot h3{color:var(--accent)}
+.slot-fill{
+  height:9px;border-radius:99px;background:var(--accent-line);width:62%;
+  animation:slotpulse 2.6s ease-in-out infinite;
+}
+@keyframes slotpulse{0%,100%{opacity:.5;width:56%}50%{opacity:1;width:78%}}
+.drive{
+  margin-top:34px;font-family:var(--display);font-weight:800;
+  font-size:clamp(17px,2vw,25px);letter-spacing:-.02em;
+}
+.drive span{color:var(--accent)}
+
+/* ---------- 04 monday ---------- */
+.monday{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,6vw,80px);align-items:center}
+.monday h2{font-size:clamp(31px,4.4vw,58px);max-width:13ch}
+.monday .after{margin-top:26px;font-size:var(--body);color:var(--ink-dim);max-width:30ch;line-height:1.6}
+.brief{
+  background:var(--paper);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 30px 70px -40px rgba(33,31,27,.45);overflow:hidden;
+}
+.brief-top{
+  display:flex;align-items:center;gap:8px;padding:13px 18px;
+  border-bottom:1px solid var(--line);background:var(--cream);
+}
+.brief-top i{width:9px;height:9px;border-radius:50%;background:var(--line);display:block}
+.brief-top i:first-child{background:var(--accent)}
+.brief-top span{
+  margin-left:8px;font-family:var(--label);font-size:10px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-faint);
+}
+.brief-body{padding:22px 20px 26px}
+.brief-body h4{
+  font-family:var(--display);font-weight:800;font-size:17px;letter-spacing:-.02em;margin-bottom:16px;
+}
+.brow{
+  display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-top:1px solid var(--line);
+  font-size:14.5px;line-height:1.45;
+  opacity:0;transform:translateX(-10px);
+}
+.slide.visible .brow{animation:browin .55s cubic-bezier(.2,.7,.3,1) forwards}
+.slide.visible .brow:nth-of-type(1){animation-delay:.55s}
+.slide.visible .brow:nth-of-type(2){animation-delay:.75s}
+.slide.visible .brow:nth-of-type(3){animation-delay:.95s}
+.slide.visible .brow:nth-of-type(4){animation-delay:1.15s}
+@keyframes browin{to{opacity:1;transform:none}}
+.brow b{
+  font-family:var(--label);font-size:9.5px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);background:var(--accent-soft);border-radius:99px;
+  padding:4px 9px;white-space:nowrap;margin-top:1px;
+}
+.cursorline{
+  margin-top:16px;height:2px;width:34px;background:var(--accent);border-radius:2px;
+  animation:blink 1.2s steps(2,start) infinite;
+}
+@keyframes blink{50%{opacity:0}}
+
+/* ---------- 05 offer ---------- */
+.price{display:flex;align-items:baseline;gap:18px;flex-wrap:wrap}
+.price .n{font-family:var(--display);font-weight:800;font-size:clamp(60px,10vw,140px);letter-spacing:-.05em;line-height:.9}
+.price .n em{color:var(--accent)}
+.price .f{font-family:var(--label);font-size:12px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dim)}
+.incl{display:flex;gap:14px;flex-wrap:wrap;margin-top:38px}
+.pill{
+  background:var(--paper);border:1px solid var(--line);border-radius:99px;
+  padding:11px 20px;font-size:14.5px;
+}
+.pill b{font-weight:600}
+.guarantee{
+  margin-top:36px;background:var(--accent-soft);border:1px solid var(--accent-line);
+  border-radius:14px;padding:22px 26px;max-width:56ch;font-size:16.5px;line-height:1.55;
+}
+.guarantee b{color:var(--accent)}
+
+/* ---------- 06 close ---------- */
+.slide.close{align-items:flex-start;text-align:left}
+.url{
+  font-family:var(--display);font-weight:800;letter-spacing:-.035em;
+  font-size:clamp(27px,5.2vw,72px);line-height:1.05;word-break:break-word;
+}
+.url em{color:var(--accent)}
+.urlrule{height:3px;width:0;background:var(--accent);border-radius:2px;margin-top:22px;max-width:640px}
+.slide.visible .urlrule{width:100%;transition:width 1.2s cubic-bezier(.2,.7,.3,1) .5s}
+
+/* ---------- fixed UI ---------- */
+#progressWrap{position:fixed;top:0;left:0;right:0;height:2px;background:var(--line);z-index:60}
+#progressBar{height:100%;width:0;background:var(--accent);transition:width .45s cubic-bezier(.2,.7,.3,1)}
+.nav-dots{
+  position:fixed;right:22px;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:11px;z-index:60;
+}
+.nav-dots button{
+  width:8px;height:8px;border-radius:50%;border:1px solid var(--line);
+  background:transparent;cursor:pointer;padding:0;transition:all .3s;
+}
+.nav-dots button:hover{border-color:var(--accent)}
+.nav-dots button.active{background:var(--accent);border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-soft)}
+#counter{
+  position:fixed;right:22px;bottom:20px;z-index:60;
+  font-family:var(--label);font-size:11px;letter-spacing:.16em;color:var(--ink-faint);
+  font-variant-numeric:tabular-nums;
+}
+#counter #slideCurr{color:var(--accent);font-weight:700}
+.nav-arrows{
+  position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
+  display:flex;gap:10px;z-index:60;
+}
+.nav-arrow{
+  width:38px;height:38px;border-radius:50%;border:1px solid var(--line);
+  background:rgba(255,255,255,.8);backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--ink-dim);transition:all .25s;
+}
+.nav-arrow:hover:not(:disabled){border-color:var(--accent);color:var(--accent)}
+.nav-arrow:disabled{opacity:.25;cursor:default}
+.nav-arrow svg{width:17px;height:17px}
+.watermark{
+  position:fixed;left:20px;bottom:20px;z-index:60;
+  font-family:var(--label);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);
+}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+
+/* ---------- presenter notes (hidden by default) ---------- */
+#notes{
+  position:fixed;left:0;right:0;bottom:0;z-index:80;
+  background:var(--ink);color:#F3EFE8;
+  padding:20px 26px 22px;
+  transform:translateY(105%);transition:transform .35s cubic-bezier(.2,.7,.3,1);
+  box-shadow:0 -20px 50px -30px rgba(0,0,0,.8);
+  max-height:44vh;overflow-y:auto;
+}
+#notes.on{transform:none}
+#notes .nh{
+  font-family:var(--label);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:10px;display:flex;justify-content:space-between;
+}
+#notes .nb{font-size:15px;line-height:1.6;max-width:92ch}
+#notes .nb em{color:var(--accent);font-style:italic}
+#notes .nb .say{display:block;margin-bottom:9px}
+#notes .nb .warn{color:#F0B49C;font-size:13.5px;display:block;margin-top:10px}
+
+/* ---------- blank / blackout ---------- */
+#blank{
+  position:fixed;inset:0;z-index:90;background:var(--ink);
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+#blank.on{opacity:1;pointer-events:auto}
+#blank span{
+  position:absolute;left:50%;bottom:26px;transform:translateX(-50%);
+  font-family:var(--label);font-size:10px;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.16);
+}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .build{grid-template-columns:repeat(2,1fr)}
+  .monday{grid-template-columns:1fr;gap:30px}
+  .monday h2{max-width:none}
+}
+@media (max-width:760px){
+  .build{grid-template-columns:1fr;gap:12px}
+  .bcard{min-height:0;padding:18px}
+  .bcard p{font-size:13px}
+  .nav-dots{display:none}
+  .monday .brief{order:-1}
+  .incl{gap:9px}
+  .pill{padding:9px 15px;font-size:13.5px}
+}
+@media (max-height:700px){
+  :root{--pad:clamp(20px,4vw,48px);--title:clamp(32px,5.4vw,60px)}
+  .build{margin-top:26px}
+  .bcard{min-height:0;padding:18px}
+  .guarantee{margin-top:22px;padding:16px 20px;font-size:15px}
+  .incl{margin-top:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::after{animation:none!important;transition-duration:.01ms!important}
+  .slide > *{opacity:1;transform:none;filter:none}
+  .brow{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="hexBg"></canvas>
+
+<div id="progressWrap"><div id="progressBar"></div></div>
+<nav class="nav-dots" id="navDots" aria-label="Slide navigation"></nav>
+<div id="counter"><span id="slideCurr">01</span>&thinsp;/&thinsp;<span id="slideTotal">06</span></div>
+<div class="nav-arrows">
+  <button class="nav-arrow" id="navPrev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg></button>
+  <button class="nav-arrow" id="navNext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg></button>
+</div>
+<div class="watermark">AvatarAgency</div>
+
+<!-- ============ 01 · HOLDING ============ -->
+<section class="slide paper" data-title="Welcome">
+  <div class="lockup"><span class="w">Claude</span><span class="s">Coaching</span></div>
+  <div class="s1-mid">
+    <h1>Fifteen minutes<span class="dot"></span></h1>
+    <p class="sub">Your week, what I&rsquo;d build for you, and whether it&rsquo;s a fit. If it isn&rsquo;t, I&rsquo;ll tell you.</p>
+  </div>
+  <div class="keyhint" id="keyhint">
+    <kbd>&larr;</kbd><kbd>&rarr;</kbd> move &nbsp;·&nbsp; <kbd>B</kbd> blank
+  </div>
+</section>
+
+<!-- ============ 02 · THE GAP ============ -->
+<section class="slide" data-title="The gap">
+  <div class="eyebrow">Why it didn&rsquo;t stick</div>
+  <h1 class="gap-h">You didn&rsquo;t get it wrong.<span class="l2">You got the demo.</span></h1>
+  <p class="sub">The gap isn&rsquo;t effort or intelligence. It&rsquo;s about ninety minutes of setup nobody walks you through.</p>
+</section>
+
+<!-- ============ 03 · WHAT WE BUILD ============ -->
+<section class="slide paper" data-title="Your 90 minutes">
+  <div class="eyebrow">Your 90 minutes</div>
+  <div class="build">
+    <div class="bcard">
+      <div class="bnum">01</div>
+      <h3>Claude, connected</h3>
+      <p>Your real email, calendar and files &mdash; not a sandbox.</p>
+    </div>
+    <div class="bcard">
+      <div class="bnum">02</div>
+      <h3>Your second brain</h3>
+      <p>It learns your business from your own documents.</p>
+    </div>
+    <div class="bcard slot">
+      <div class="bnum">03</div>
+      <h3>Your one thing</h3>
+      <div class="slot-fill"></div>
+      <p>The task you&rsquo;d hand an assistant &mdash; automated live, before we hang up.</p>
+    </div>
+    <div class="bcard">
+      <div class="bnum">04</div>
+      <h3>Your playbook</h3>
+      <p>Every step written down. Yours to keep.</p>
+    </div>
+  </div>
+  <div class="drive">You drive. <span>I guide every click.</span></div>
+</section>
+
+<!-- ============ 04 · MONDAY MORNING ============ -->
+<section class="slide" data-title="Monday morning">
+  <div class="monday">
+    <div>
+      <div class="eyebrow">The Monday after</div>
+      <h2>It&rsquo;s waiting for you when you open the laptop.</h2>
+      <p class="after">That&rsquo;s not the future. That&rsquo;s the Tuesday after we meet.</p>
+    </div>
+    <div class="brief">
+      <div class="brief-top"><i></i><i></i><i></i><span>Monday &middot; 8:04 AM</span></div>
+      <div class="brief-body">
+        <h4>Your morning brief</h4>
+        <div class="brow"><b>Week</b><span>Four meetings. Thursday is your only clear afternoon.</span></div>
+        <div class="brow"><b>Waiting</b><span>Three follow-ups drafted and ready to send.</span></div>
+        <div class="brow"><b>Overdue</b><span>One invoice, 12 days out. Reminder written.</span></div>
+        <div class="brow"><b>Today</b><span>Your top three, in order.</span></div>
+        <div class="cursorline"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 · THE OFFER ============ -->
+<section class="slide paper" data-title="The offer">
+  <div class="eyebrow">One program, one price</div>
+  <div class="price"><div class="n"><em>$</em>497</div><div class="f">flat &middot; nothing else to buy</div></div>
+  <div class="incl">
+    <div class="pill"><b>30-minute intake</b></div>
+    <div class="pill"><b>90-minute build session</b></div>
+    <div class="pill"><b>Your written guide</b></div>
+    <div class="pill"><b>30 days of my AI coach</b></div>
+  </div>
+  <div class="guarantee">
+    <b>Full refund any time before your session</b> &mdash; no questions. And if you finish it and don&rsquo;t think it was worth it, tell me within seven days and I refund all of it. <b>Nobody has ever asked.</b>
+  </div>
+</section>
+
+<!-- ============ 06 · YOUR MOVE ============ -->
+<section class="slide close" data-title="Your move">
+  <div class="eyebrow">Your move</div>
+  <div class="url">avataragency.ai<em>/claudecoaching</em></div>
+  <div class="urlrule"></div>
+  <p class="sub">Two minutes. Your intake books on the next page.</p>
+</section>
+
+<!-- presenter notes -->
+<div id="notes" aria-live="polite">
+  <div class="nh"><span id="notesTitle">Presenter notes</span><span>press N to hide</span></div>
+  <div class="nb" id="notesBody"></div>
+</div>
+
+<!-- blackout -->
+<div id="blank"><span>press B to return</span></div>
+
+<script>
+/* ---------- warm background mesh ---------- */
+const BG_CONFIG = { hexAlphaMax:0.055, hexCellSize:30, hexLineWidth:0.6, hexRotationSpeed:0.00006 };
+(function(){
+  const c = document.getElementById('hexBg'), x = c.getContext('2d');
+  let w,h,t=0;
+  function size(){ w=c.width=innerWidth*devicePixelRatio; h=c.height=innerHeight*devicePixelRatio;
+                   c.style.width=innerWidth+'px'; c.style.height=innerHeight+'px'; }
+  size(); addEventListener('resize', size);
+  function draw(){
+    x.clearRect(0,0,w,h);
+    const s = BG_CONFIG.hexCellSize*devicePixelRatio, cx=w/2, cy=h/2;
+    const maxD = Math.hypot(cx,cy);
+    x.lineWidth = BG_CONFIG.hexLineWidth*devicePixelRatio;
+    x.save(); x.translate(cx,cy); x.rotate(t); x.translate(-cx,-cy);
+    for(let gy=-s; gy<h+s; gy+=s*0.87){
+      for(let gx=-s; gx<w+s; gx+=s){
+        const ox = (Math.round(gy/(s*0.87))%2) ? s/2 : 0;
+        const px = gx+ox, py = gy;
+        const d = Math.hypot(px-cx,py-cy)/maxD;
+        const a = BG_CONFIG.hexAlphaMax*(1-Math.pow(d,2));
+        if(a<=0.002) continue;
+        x.strokeStyle = 'rgba(217,119,87,'+a.toFixed(4)+')';
+        x.beginPath(); x.moveTo(px,py); x.lineTo(px+s*0.5,py); x.stroke();
+        x.beginPath(); x.moveTo(px,py); x.lineTo(px+s*0.25,py+s*0.43); x.stroke();
+      }
+    }
+    x.restore();
+    t += BG_CONFIG.hexRotationSpeed;
+    requestAnimationFrame(draw);
+  }
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches) draw();
+})();
+
+/* ---------- slide engine (load-bearing) ---------- */
+class SlidePresentation {
+  constructor() {
+    this.slides = Array.from(document.querySelectorAll('.slide'));
+    this.navDots = document.getElementById('navDots');
+    this.progressBar = document.getElementById('progressBar');
+    this.currSpan = document.getElementById('slideCurr');
+    this.totalSpan = document.getElementById('slideTotal');
+    this.navPrev = document.getElementById('navPrev');
+    this.navNext = document.getElementById('navNext');
+    this.current = 0;
+    this.totalSpan.textContent = String(this.slides.length).padStart(2,'0');
+    this.buildNavDots(); this.attachObserver(); this.attachKeyboard();
+    this.attachTouch(); this.attachArrows();
+    this.slides[0].classList.add('visible');
+    this.setCurrent(0);
+  }
+  attachArrows(){
+    this.navPrev.addEventListener('click',()=>this.goTo(this.current-1));
+    this.navNext.addEventListener('click',()=>this.goTo(this.current+1));
+  }
+  updateArrowState(){
+    this.navPrev.disabled = this.current<=0;
+    this.navNext.disabled = this.current>=this.slides.length-1;
+  }
+  buildNavDots(){
+    this.navDots.innerHTML='';
+    this.slides.forEach((s,i)=>{
+      const b=document.createElement('button');
+      b.setAttribute('aria-label',`Slide ${i+1}: ${s.dataset.title||''}`);
+      b.addEventListener('click',()=>this.goTo(i));
+      this.navDots.appendChild(b);
+    });
+  }
+  attachObserver(){
+    const io=new IntersectionObserver((entries)=>{
+      entries.forEach((e)=>{
+        if(e.intersectionRatio<0.55) return;
+        e.target.classList.add('visible');
+        const i=this.slides.indexOf(e.target);
+        if(i!==-1) this.setCurrent(i);
+      });
+    },{threshold:[0,0.55,0.9]});
+    this.slides.forEach(s=>io.observe(s));
+  }
+  setCurrent(i){
+    this.current=i;
+    [...this.navDots.children].forEach((b,j)=>b.classList.toggle('active',j===i));
+    this.currSpan.textContent=String(i+1).padStart(2,'0');
+    this.progressBar.style.width=((i+1)/this.slides.length*100)+'%';
+    this.updateArrowState();
+    updateNotes(this.slides[i]);
+  }
+  goTo(i){
+    if(i<0||i>=this.slides.length) return;
+    this.slides[i].scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  attachKeyboard(){
+    document.addEventListener('keydown',(e)=>{
+      if(e.target.matches('input, textarea')) return;
+      const keys={'ArrowDown':1,'ArrowRight':1,'PageDown':1,' ':1,'j':1,
+                  'ArrowUp':-1,'ArrowLeft':-1,'PageUp':-1,'k':-1,
+                  'Home':-Infinity,'End':Infinity};
+      if(e.key in keys){
+        e.preventDefault();
+        const d=keys[e.key];
+        if(d===-Infinity) this.goTo(0);
+        else if(d===Infinity) this.goTo(this.slides.length-1);
+        else this.goTo(this.current+d);
+      }
+    });
+  }
+  attachTouch(){
+    let sy=0;
+    document.addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true});
+    document.addEventListener('touchend',e=>{
+      const d=sy-e.changedTouches[0].clientY;
+      if(Math.abs(d)<50) return;
+      this.goTo(this.current+(d>0?1:-1));
+    },{passive:true});
+  }
+}
+
+/* ---------- presenter notes + blackout ---------- */
+const notesEl  = document.getElementById('notes');
+const notesBody= document.getElementById('notesBody');
+const notesTtl = document.getElementById('notesTitle');
+const blankEl  = document.getElementById('blank');
+
+/* Presenter notes carry the internal sales script, so they are NOT in this file.
+   They live in deck-notes.js, which is fetched only when the URL carries
+   ?present. Nothing in this page's source references that file, so viewing
+   source on the public deck reveals nothing. */
+const PRESENT_MODE = /[?&]present\b/.test(location.search);
+if(!PRESENT_MODE){
+  if(notesEl) notesEl.remove();
+} else {
+  const hint = document.getElementById('keyhint');
+  if(hint) hint.insertAdjacentHTML('beforeend','&nbsp;·&nbsp;<kbd>N</kbd> notes');
+  const s = document.createElement('script');
+  s.src = 'deck-' + 'notes.js';
+  s.onerror = function(){ notesBody.innerHTML = '<span class="warn">Notes failed to load.</span>'; };
+  document.head.appendChild(s);
+}
+window.__deckNotesReady = function(){
+  if(window.deck) updateNotes(window.deck.slides[window.deck.current]);
+};
+
+function updateNotes(slide){
+  if(!PRESENT_MODE || !notesEl) return;
+  const n = (window.DECK_NOTES || {})[slide.dataset.title || ''];
+  notesBody.innerHTML = n || '<span class="say">Loading notes&hellip;</span>';
+  notesTtl.textContent = (slide.dataset.title || 'Presenter notes');
+}
+document.addEventListener('keydown',(e)=>{
+  if(e.target.matches('input, textarea')) return;
+  const k = e.key.toLowerCase();
+  if(k==='n' && PRESENT_MODE && notesEl){ e.preventDefault(); notesEl.classList.toggle('on'); }
+  if(k==='b'){ e.preventDefault(); blankEl.classList.toggle('on'); }
+  if(e.key==='Escape'){ if(notesEl) notesEl.classList.remove('on'); blankEl.classList.remove('on'); }
+});
+blankEl.addEventListener('click',()=>blankEl.classList.remove('on'));
+
+document.addEventListener('DOMContentLoaded',()=>{ window.deck = new SlidePresentation(); });
+if(document.readyState!=='loading' && !window.deck){ window.deck = new SlidePresentation(); }
+</script>
+</body>
+</html>
