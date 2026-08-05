@@ -230,11 +230,11 @@
       </div>
 
       <div class="trow">
-        <div class="name">Probate Outreach Video Rev. 2<small>Final cut with Danny's own voiceover — ready for your review · social-optimized 1080p</small></div>
+        <div class="name">Probate Outreach Video Rev. 3<small>Final cut — your re-recorded voiceover, polished audio · social-optimized 1080p</small></div>
         <div class="col-format"><span class="badge h">Long Form 16:9</span></div>
         <div class="col-min">1920×1080</div>
-        <div>1:16</div>
-        <a class="watch" href="/clients/dgomes/brand-video-04.mp4" download="Danny_Gomes_Probate_Outreach_Video_Rev2.mp4">↓ Download</a>
+        <div>1:11</div>
+        <a class="watch" href="/clients/dgomes/brand-video-05.mp4" download="Danny_Gomes_Probate_Outreach_Video_Rev3.mp4">↓ Download</a>
       </div>
 
       <div class="trow">
@@ -277,37 +277,38 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Review Your Creative</h2>
-      <div class="note">Probate Outreach Video Rev. 2 ready for your review</div>
+      <div class="note">Probate Outreach Video Rev. 3 ready for your review</div>
     </div>
 
     <div class="video-block">
-      <h3>Probate Outreach Video Rev. 2</h3>
-      <div class="vmeta">New delivery · your re-recorded voiceover · 16:9 · 1920×1080 · 1:16</div>
+      <h3>Probate Outreach Video Rev. 3</h3>
+      <div class="vmeta">New delivery · your re-recorded voiceover, polished audio · 16:9 · 1920×1080 · 1:11</div>
       <div class="frame wide">
-        <video id="review-video-4" controls preload="metadata" playsinline
-               src="/clients/dgomes/brand-video-04.mp4"></video>
-        <script>document.getElementById('review-video-4').volume = 0.5;</script>
+        <video id="review-video-5" controls preload="metadata" playsinline
+               src="/clients/dgomes/brand-video-05.mp4"></video>
+        <script>document.getElementById('review-video-5').volume = 0.5;</script>
       </div>
       <div class="review-note">
-        <b>What changed:</b> the full voiceover is now your own recording — same visuals, re-timed
-        to your delivery. Review below, or approve it as-is and it's yours to publish.
+        <b>What changed:</b> your new studio-clean voice recording with a full audio polish —
+        same approved visuals, re-timed to your delivery. Review below, or approve it as-is and
+        it's yours to publish.
       </div>
 
       <div class="review-box">
         <div class="rb-head">
-          <span class="rb-title">Your Notes &amp; Approval — Probate Outreach Video Rev. 2</span>
-          <span class="rb-saved" id="rb4-saved">Saved ✓</span>
+          <span class="rb-title">Your Notes &amp; Approval — Probate Outreach Video Rev. 3</span>
+          <span class="rb-saved" id="rb5-saved">Saved ✓</span>
         </div>
-        <textarea id="rb4-comments" placeholder="Type any revision notes here — timing, music, wording, anything. Your notes save automatically in this browser as you type."></textarea>
+        <textarea id="rb5-comments" placeholder="Type any revision notes here — timing, music, wording, anything. Your notes save automatically in this browser as you type."></textarea>
         <div class="rb-actions">
-          <button class="btn approve" id="rb4-approve">✓ Approve Video</button>
-          <button class="btn primary" id="rb4-send">Send Notes to Michael</button>
+          <button class="btn approve" id="rb5-approve">✓ Approve Video</button>
+          <button class="btn primary" id="rb5-send">Send Notes to Michael</button>
         </div>
         <div class="rb-hint">Both buttons open an email to Michael with your notes attached — just press send.</div>
       </div>
       <script>
       (function () {
-        var KEY = 'dgomes_probate_rev2_review';
+        var KEY = 'dgomes_probate_rev3_review';
         var ta, savedEl, savedTimer;
         function showSaved() {
           savedEl.classList.add('show');
@@ -317,13 +318,13 @@
         function openMail(subject, status) {
           var notes = (ta.value || '').trim() || '(no written notes)';
           window.location.href = 'mailto:michael@avataragency.ai?subject=' + encodeURIComponent(subject) +
-            '&body=' + 'Video: Probate Outreach Video Rev. 2 (1:16)%0D%0AStatus: ' + status +
+            '&body=' + 'Video: Probate Outreach Video Rev. 3 (1:11)%0D%0AStatus: ' + status +
             '%0D%0A%0D%0ANotes:%0D%0A' + encodeURIComponent(notes) +
             '%0D%0A%0D%0A— Sent from the Danny Gomes client portal';
         }
         document.addEventListener('DOMContentLoaded', function () {
-          ta = document.getElementById('rb4-comments');
-          savedEl = document.getElementById('rb4-saved');
+          ta = document.getElementById('rb5-comments');
+          savedEl = document.getElementById('rb5-saved');
           var stored = null;
           try { stored = localStorage.getItem(KEY); } catch (e) {}
           if (stored) ta.value = stored;
@@ -331,15 +332,25 @@
             try { localStorage.setItem(KEY, ta.value); } catch (e) {}
             showSaved();
           });
-          document.getElementById('rb4-approve').addEventListener('click', function () {
-            openMail('Danny Gomes — Probate Outreach Video Rev. 2 APPROVED', 'APPROVED ✔');
+          document.getElementById('rb5-approve').addEventListener('click', function () {
+            openMail('Danny Gomes — Probate Outreach Video Rev. 3 APPROVED', 'APPROVED ✔');
           });
-          document.getElementById('rb4-send').addEventListener('click', function () {
-            openMail('Danny Gomes — Probate Outreach Video Rev. 2 notes', 'Revision notes');
+          document.getElementById('rb5-send').addEventListener('click', function () {
+            openMail('Danny Gomes — Probate Outreach Video Rev. 3 notes', 'Revision notes');
           });
         });
       })();
       </script>
+    </div>
+
+    <div class="video-block" style="margin-top:34px">
+      <h3>Probate Outreach Video — Rev. 2</h3>
+      <div class="vmeta">Superseded by Rev. 3 above · kept for reference · 16:9 · 1920×1080 · 1:16</div>
+      <div class="frame wide">
+        <video id="review-video-4" controls preload="metadata" playsinline
+               src="/clients/dgomes/brand-video-04.mp4"></video>
+        <script>document.getElementById('review-video-4').volume = 0.5;</script>
+      </div>
     </div>
 
     <div class="video-block" style="margin-top:34px">
