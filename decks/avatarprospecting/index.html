@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Avatar Prospecting — AvatarAgency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FBFAF6; --cream-2:#F5F2EA; --white:#fff;
+    --ink:#0A0A0A; --ink-2:#141414;
+    --text:#1C1A16; --text-mid:#4A4640; --text-mute:#8A8278;
+    --text-on-dark:#F5F0E8; --text-on-dark-mute:rgba(255,255,255,.58);
+    --gold:#C9A84C; --gold-light:#E4C97A; --gold-deep:#8A7330;
+    --gold-faint:rgba(201,168,76,.08);
+    --line:rgba(28,26,22,.09); --line-strong:rgba(28,26,22,.18);
+    --f-display:'General Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    --f-serif:'Cormorant Garamond','Times New Roman',serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--cream);color:var(--text);font-family:var(--f-display);
+       font-weight:400;-webkit-font-smoothing:antialiased;padding:66px 24px 40px}
+  .sheet{max-width:1120px;margin:0 auto}
+
+  /* ---------- masthead ---------- */
+  .eyebrow{font-size:10.5px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;
+           color:var(--gold-deep);margin-bottom:26px;display:flex;align-items:center;
+           gap:14px;justify-content:center}
+  .eyebrow::before,.eyebrow::after{content:'';height:1px;width:40px;background:var(--line-strong)}
+  h1{font-family:var(--f-display);font-weight:500;font-size:clamp(38px,5.2vw,60px);
+     line-height:1.06;letter-spacing:-.028em;text-align:center;max-width:18ch;margin:0 auto}
+  h1 em{font-family:var(--f-serif);font-style:italic;font-weight:400;color:var(--gold-deep);
+        letter-spacing:-.005em;font-size:1.1em}
+  .dek{text-align:center;max-width:62ch;margin:24px auto 0;font-size:17px;line-height:1.65;
+       font-weight:300;color:var(--text-mid)}
+  .dek strong{font-weight:600;color:var(--text)}
+
+  /* ---------- problem contrast ---------- */
+  .contrast{display:grid;grid-template-columns:1fr auto 1fr;
+            margin:54px 0 0;border:1px solid var(--line);border-radius:4px;
+            overflow:hidden;background:var(--white)}
+  .side{padding:32px 36px}
+  .side .tag{font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;margin-bottom:14px}
+  .side.before .tag{color:var(--text-mute)}
+  .side.after  .tag{color:var(--gold-deep)}
+  .side p{font-size:15.5px;line-height:1.62;font-weight:300;color:var(--text-mid)}
+  .side p strong{font-weight:600;color:var(--text)}
+  .side.after{background:linear-gradient(180deg,var(--cream-2) 0%,var(--cream) 100%)}
+  .divider{width:1px;background:var(--line)}
+  .quiet{color:var(--text-mute)}
+
+  /* ---------- flow ---------- */
+  .sec-label{font-size:10px;font-weight:600;letter-spacing:.3em;text-transform:uppercase;
+             color:var(--text-mute);text-align:center;margin:72px 0 32px}
+  .flow{position:relative;display:grid;grid-template-columns:repeat(5,1fr);gap:16px}
+  .flow::before{content:'';position:absolute;top:22px;left:9%;right:9%;height:1px;
+                background:linear-gradient(90deg,var(--line-strong) 0%,var(--gold) 45%,var(--gold) 55%,var(--line-strong) 100%)}
+  .node{position:relative;text-align:center}
+  .num{width:44px;height:44px;border-radius:50%;background:var(--cream);border:1px solid var(--line-strong);
+       display:grid;place-items:center;margin:0 auto 16px;font-family:var(--f-serif);
+       font-size:20px;font-weight:500;color:var(--text)}
+  .node.hot .num{background:var(--ink);border-color:var(--ink);color:var(--gold-light);
+                 box-shadow:0 6px 20px rgba(10,10,10,.22)}
+  .node h3{font-size:14px;font-weight:600;letter-spacing:-.005em;margin-bottom:8px;line-height:1.3}
+  .node p{font-size:12.5px;line-height:1.58;font-weight:300;color:var(--text-mute)}
+
+  /* ---------- hero moment ---------- */
+  .hero{margin-top:64px;background:var(--ink);border-radius:6px;padding:52px 56px;
+        display:grid;grid-template-columns:1fr 372px;gap:56px;align-items:center}
+  .hero .kicker{font-size:10px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
+                color:var(--gold);margin-bottom:20px}
+  .hero h2{font-family:var(--f-display);font-weight:500;font-size:33px;line-height:1.16;
+           letter-spacing:-.025em;color:var(--text-on-dark);margin-bottom:20px}
+  .hero h2 em{font-family:var(--f-serif);font-style:italic;font-weight:400;
+              color:var(--gold-light);font-size:1.14em;letter-spacing:0}
+  .hero p{font-size:15px;line-height:1.72;font-weight:300;color:var(--text-on-dark-mute);max-width:44ch}
+  .hero .fine{margin-top:22px;padding-top:20px;border-top:1px solid rgba(255,255,255,.1);
+              font-size:12.5px;line-height:1.62;color:rgba(255,255,255,.4)}
+
+  .stage{position:relative;border-radius:4px;overflow:hidden;background:var(--white);
+         aspect-ratio:4/5;box-shadow:0 30px 70px -30px rgba(0,0,0,.85)}
+  .stage img{width:100%;height:100%;object-fit:cover;display:block}
+  .live{position:absolute;top:14px;left:14px;display:inline-flex;align-items:center;gap:7px;
+        background:rgba(10,10,10,.82);backdrop-filter:blur(6px);color:var(--text-on-dark);
+        font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
+        padding:7px 12px;border-radius:2px}
+  .live i{width:5px;height:5px;border-radius:50%;background:#39D98A;display:block}
+  .bubble{position:absolute;left:14px;right:14px;bottom:14px;background:rgba(10,10,10,.94);
+          backdrop-filter:blur(10px);border-radius:4px;padding:16px 18px;
+          border:1px solid rgba(201,168,76,.28)}
+  .bubble .who{font-size:9px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;
+               color:var(--gold);margin-bottom:9px}
+  .bubble p{font-family:var(--f-serif);font-size:16.5px;font-weight:400;line-height:1.44;
+            color:var(--text-on-dark);max-width:none}
+
+  /* ---------- outcomes ---------- */
+  .outcomes{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin-top:20px;
+            background:var(--line);border:1px solid var(--line)}
+  .card{background:var(--white);padding:30px 30px 28px}
+  .card .ic{width:34px;height:34px;border-radius:2px;background:var(--gold-faint);
+            display:grid;place-items:center;margin-bottom:17px}
+  .card .ic svg{width:17px;height:17px;stroke:var(--gold-deep);fill:none;stroke-width:1.5;
+                stroke-linecap:round;stroke-linejoin:round}
+  .card h4{font-size:14.5px;font-weight:600;margin-bottom:9px;letter-spacing:-.005em}
+  .card p{font-size:13px;line-height:1.62;font-weight:300;color:var(--text-mute)}
+
+  /* ---------- closer ---------- */
+  .closer{margin-top:72px;text-align:center;padding:52px 30px 8px;border-top:1px solid var(--line)}
+  .closer h2{font-family:var(--f-display);font-weight:500;font-size:clamp(25px,3.2vw,35px);
+             line-height:1.24;letter-spacing:-.025em;max-width:32ch;margin:0 auto}
+  .closer h2 em{font-family:var(--f-serif);font-style:italic;font-weight:400;
+                color:var(--gold-deep);font-size:1.16em;letter-spacing:0}
+  .closer .sub{margin-top:20px;font-size:14px;font-weight:300;color:var(--text-mute)}
+  .wordmark{margin-top:34px;font-size:13px;font-weight:600;letter-spacing:.22em;
+            text-transform:uppercase;color:var(--text)}
+  .wordmark span{color:var(--gold-deep)}
+
+  @media(max-width:900px){
+    .hero{grid-template-columns:1fr;gap:36px;padding:36px}
+    .flow{grid-template-columns:repeat(2,1fr);gap:30px}
+    .flow::before{display:none}
+    .outcomes,.contrast{grid-template-columns:1fr}
+    .divider{width:auto;height:1px}
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <div class="eyebrow">AvatarAgency &middot; Avatar Prospecting</div>
+  <h1>Your outreach finally lands <em>somewhere alive.</em></h1>
+  <p class="dek">Every prospecting tool on earth personalizes the <strong>email</strong>. Then the prospect clicks &mdash; and meets a static page. Avatar Prospecting replaces that arrival with your avatar, greeting them by name.</p>
+
+  <!-- problem / promise -->
+  <div class="contrast">
+    <div class="side before">
+      <div class="tag">What happens today</div>
+      <p><span class="quiet">&ldquo;Hi Sarah, I noticed your listing in Mar Vista&hellip;&rdquo;</span><br><br>She clicks. She lands on a homepage that has never heard of her, reads two lines, and leaves. <strong>The personalization died at the click.</strong></p>
+    </div>
+    <div class="divider"></div>
+    <div class="side after">
+      <div class="tag">What happens with Avatar Prospecting</div>
+      <p>She clicks &mdash; and <strong>your avatar is already talking to her.</strong> By name. Referencing exactly why you reached out. Answering her questions in your brand&rsquo;s voice, at 11pm, while your agents sleep.</p>
+    </div>
+  </div>
+
+  <!-- flow -->
+  <div class="sec-label">How it works</div>
+  <div class="flow">
+    <div class="node">
+      <div class="num">1</div>
+      <h3>Add your prospects</h3>
+      <p>Send us a list: name, company, and one line on why you&rsquo;re reaching out.</p>
+    </div>
+    <div class="node">
+      <div class="num">2</div>
+      <h3>Get unique links</h3>
+      <p>One private link per person, on your own domain. No names in the URL &mdash; ever.</p>
+    </div>
+    <div class="node">
+      <div class="num">3</div>
+      <h3>Send from anywhere</h3>
+      <p>Your email, LinkedIn, CRM, or a text. We don&rsquo;t change how you reach out.</p>
+    </div>
+    <div class="node hot">
+      <div class="num">4</div>
+      <h3>Your avatar greets them</h3>
+      <p>By name, with context, the instant the page opens. No clicking around.</p>
+    </div>
+    <div class="node">
+      <div class="num">5</div>
+      <h3>You get the lead</h3>
+      <p>Their details hit your phone the moment they share them.</p>
+    </div>
+  </div>
+
+  <!-- the moment -->
+  <div class="hero">
+    <div>
+      <div class="kicker">The moment that converts</div>
+      <h2>They don&rsquo;t arrive at a website.<br>They arrive at <em>someone.</em></h2>
+      <p>Ava knows the prospect&rsquo;s name and the reason you connected before they say a word. She answers in your brand&rsquo;s voice, remembers them if they come back, and books the appointment while the interest is still warm.</p>
+      <p class="fine">Every conversation is clearly disclosed as an AI avatar &mdash; and the context line is written by you, about a connection they&rsquo;ll recognize. Never scraped, never creepy.</p>
+    </div>
+    <div>
+      <div class="stage">
+        <img src="ava.jpg" alt="Ava, an AvatarAgency AI avatar, greeting a prospect by name">
+        <span class="live"><i></i>Live &middot; AI Avatar</span>
+        <div class="bubble">
+          <div class="who">Speaking now</div>
+          <p>&ldquo;Hi Sarah &mdash; great meeting you at the Mar&nbsp;Vista open house Thursday. I&rsquo;m Ava with Coastal Realty. Want me to pull the comps for your block?&rdquo;</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- outcomes -->
+  <div class="outcomes">
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M22 2 11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></div>
+      <h4>Answered instantly</h4>
+      <p>The window between curiosity and a closed tab is about nine seconds. Your avatar is inside it.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+      <h4>Captured automatically</h4>
+      <p>Name, number, and what they actually want &mdash; texted to you before the conversation ends.</p>
+    </div>
+    <div class="card">
+      <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="1"/><path d="M16 3v4M8 3v4M3 11h18"/></svg></div>
+      <h4>Booked while warm</h4>
+      <p>Your avatar checks the calendar and sets the showing inside the same conversation.</p>
+    </div>
+  </div>
+
+  <!-- closer -->
+  <div class="closer">
+    <h2>Anyone can personalize an email.<br><em>Only you can be there when they open it.</em></h2>
+    <p class="sub">Avatar Prospecting &mdash; a managed service from AvatarAgency.</p>
+    <div class="wordmark">Avatar<span>Agency</span></div>
+  </div>
+
+</div>
+</body>
+</html>
