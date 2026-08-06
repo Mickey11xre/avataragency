@@ -57,6 +57,22 @@
   @keyframes drift{from{transform:scale(1.005)}to{transform:scale(1.055)}}
   .stage.ready .poster{opacity:0;pointer-events:none}
 
+  /* ended — after hang-up. The still returns, dimmed, with a restart control.
+     Never a black void: there is always a face in the frame. */
+  .stage.ended .poster{opacity:1}
+  .stage.ended .poster img{filter:brightness(.58) saturate(.82);animation:none;transform:scale(1.01)}
+  .again{position:absolute;left:0;right:0;bottom:18px;display:none;justify-content:center;
+         padding:0 16px;z-index:5}
+  .stage.ended .again{display:flex}
+  .againbar{display:inline-flex;align-items:center;gap:12px;padding:10px 12px 10px 18px;
+            border-radius:999px;background:rgba(18,18,18,.85);backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,.16)}
+  .againnote{font-size:13px;color:rgba(255,255,255,.62);white-space:nowrap}
+  .againbtn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;
+            background:var(--gold);color:#1a1408;border-radius:999px;padding:10px 18px;
+            font-family:var(--f);font-size:14px;font-weight:600;letter-spacing:-.01em}
+  .againbtn svg{width:14px;height:14px;fill:#1a1408}
+
   /* hold pill — thin pulsating border, animated ellipsis, over the poster */
   /* lower third, subtitle position — never across the face */
   .hold{position:absolute;inset:0;display:grid;place-items:end center;padding:0 24px 30px;
@@ -118,6 +134,15 @@
         Tap to begin
       </button>
     </div>
+    <div class="again" id="again">
+      <div class="againbar">
+        <span class="againnote">Call ended</span>
+        <button class="againbtn" id="againbtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11z"/></svg>
+          Talk again
+        </button>
+      </div>
+    </div>
   </div>
 
   <div class="cap" id="cap"></div>
@@ -169,19 +194,65 @@
     return sdkLoading;
   }
 
+  // ⚠️ onAvatarReady fires BEFORE the video paints its first frame. Fading the
+  // poster there left 3-4s of black void — the exact thing the poster exists to
+  // prevent. So onAvatarReady only ARMS the reveal; the poster holds until a real
+  // frame is on screen.
+  function waitForVideo(tries, cb) {
+    var v = document.querySelector('#mount video');
+    if (v || tries <= 0) return cb(v);
+    setTimeout(function () { waitForVideo(tries - 1, cb); }, 120);
+  }
+
+  function onFirstFrame(video, cb) {
+    var fired = false;
+    function go() { if (!fired) { fired = true; cb(); } }
+    setTimeout(go, 6000); // never hold the poster forever
+    if (!video) return go();
+    // requestVideoFrameCallback fires on an actually-composited frame — the only
+    // signal that truly means "there is a picture". Chrome/Edge/Safari.
+    if ('requestVideoFrameCallback' in video) {
+      try { video.requestVideoFrameCallback(go); return; } catch (_) {}
+    }
+    if (video.readyState >= 3) return go();
+    video.addEventListener('playing', go, { once: true });
+    video.addEventListener('loadeddata', go, { once: true });
+  }
+
+  function armReveal() {
+    if (done) return;
+    waitForVideo(45, function (v) { onFirstFrame(v, reveal); });
+  }
+
   // Cross-fade: poster out, live avatar in. The hold pill fades with it rather
   // than snapping away, so the handoff reads as one motion.
-  function ready() {
+  function reveal() {
     if (done) return;
     done = true;
     if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
     if (stageTimer) { clearTimeout(stageTimer); stageTimer = null; }
-    stage.classList.remove('needtap');
+    stage.classList.remove('needtap', 'ended');
     stage.classList.add('ready');
     var hold = document.getElementById('hold');
     hold.style.transition = 'opacity .45s ease';
     hold.style.opacity = '0';
     setTimeout(function () { hold.style.display = 'none'; }, 500);
+    pinBg();
+  }
+
+  // Hang-up. The SDK's controls disappear with the session, so rather than leave
+  // a black rectangle we bring the still back, dimmed, with our own restart bar.
+  function endedState() {
+    instance = null;
+    done = false;
+    if (capTimer) { clearTimeout(capTimer); capTimer = null; }
+    if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
+    if (stageTimer) { clearTimeout(stageTimer); stageTimer = null; }
+    stage.classList.remove('ready', 'needtap');
+    stage.classList.add('ended');
+    document.getElementById('mount').innerHTML = '';
+    var hold = document.getElementById('hold');
+    hold.style.display = 'none';
     pinBg();
   }
 
@@ -192,7 +263,7 @@
     }, 5000);
   }
 
-  async function start() {
+  async function start(again) {
     if (instance) return;
     try {
       await loadSdk();
@@ -201,7 +272,7 @@
       var res = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ t: t })
+        body: JSON.stringify({ t: t, again: !!again })
       });
 
       if (res.status === 404) { fail('This link isn&rsquo;t valid.', 'Check the link in your email, or reply and I&rsquo;ll send a new one.'); return; }
@@ -221,17 +292,19 @@
           screenShare: { enabled: true },
           pictureInPicture: { enabled: true }
         },
-        onAvatarReady: ready,
-        onDestroy: function () { instance = null; }
+        onAvatarReady: armReveal,
+        onDestroy: endedState
       });
       instance.showAvatar();
       pinBg();
 
-      // Fallback reveal — some browsers never fire onAvatarReady cleanly.
-      setTimeout(function () { if (instance) ready(); }, 5000);
+      // Fallback — some browsers never fire onAvatarReady cleanly. Still gated on
+      // a painted frame, so this can't reintroduce the black void.
+      setTimeout(function () { if (instance) armReveal(); }, 3000);
 
       capTimer = setTimeout(function () {
-        if (instance) { try { instance.destroy && instance.destroy(); } catch (_) {} instance = null; }
+        if (instance) { try { instance.destroy && instance.destroy(); } catch (_) {} }
+        endedState();
         capEl.innerHTML = '<p>That&rsquo;s our time &mdash; reply to the email and let&rsquo;s talk properly.</p>';
       }, CAP_S * 1000);
 
@@ -258,6 +331,17 @@
     readyTimer = setTimeout(offerTap, 12000);
     stageMessages();
     start();
+  });
+
+  document.getElementById('againbtn').addEventListener('click', function () {
+    stage.classList.remove('ended');
+    var hold = document.getElementById('hold');
+    hold.style.display = ''; hold.style.opacity = '1';
+    pill.innerHTML = 'Reconnecting<span class="dots"></span>';
+    capEl.innerHTML = '';
+    done = false; instance = null;
+    readyTimer = setTimeout(offerTap, 12000);
+    start(true); // `again` -> a short welcome-back, not the full intro again
   });
 
   if (!t) {

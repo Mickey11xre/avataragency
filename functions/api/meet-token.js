@@ -57,10 +57,11 @@ export async function onRequest(context) {
   if (!API_KEY) return json({ error: 'Server misconfigured' }, 500);
   if (context.request.method !== 'POST') return json({ error: 'Method not allowed' }, 405);
 
-  let t = '';
+  let t = '', again = false;
   try {
     const b = await context.request.json();
     t = String(b.t || '').trim();
+    again = !!b.again; // reconnect after hang-up — short welcome-back, not the full intro
   } catch {}
   if (!/^[A-Za-z0-9_-]{4,64}$/.test(t)) return json({ error: 'Invalid link' }, 404);
 
@@ -73,7 +74,7 @@ export async function onRequest(context) {
 
   const body = {
     channelType: 'webrtc',
-    initialSpeech: buildSpeech(rec),
+    initialSpeech: buildSpeech(rec, again),
     // Stable per-prospect id -> returning-visitor memory. Same prospect clicking
     // twice is recognized. Must match ^[A-Za-z0-9_-]{1,32}$.
     externalClientId: (await sha256hex('twinlink:' + t)).slice(0, 32),
@@ -137,9 +138,19 @@ async function stampOpen(env, t, rec) {
 }
 
 // The greeting IS the product. Guidance, delivered in the twin's own voice.
-function buildSpeech(rec) {
+function buildSpeech(rec, again) {
   const name = (rec.firstName || '').trim();
   const ctx = (rec.context || '').trim();
+
+  // Reconnect after hang-up: they already heard the intro. Don't replay it.
+  if (again) {
+    return [
+      'Speak first, immediately, before the visitor says anything.',
+      name ? `Welcome ${name} back in ONE short, warm sentence.` : 'Welcome them back in ONE short, warm sentence.',
+      'Do NOT re-introduce yourself, do NOT repeat anything you said earlier, and do NOT restate why they were contacted.',
+      'Simply ask what they would like to pick up on. Under eight seconds.',
+    ].join(' ');
+  }
 
   const greet = name
     ? `Greet ${name} warmly and BY NAME — say her or his name in the very first sentence.`
