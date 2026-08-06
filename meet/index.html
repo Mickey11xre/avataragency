@@ -31,7 +31,11 @@
 
   /* transform:translateZ(0) makes THIS the containing block for any position:fixed
      the SDK injects — trapping the live avatar inside the card (containment kit). */
+  /* max-height keeps the stage inside short viewports (landscape phone, small
+     laptop window). When it binds the box letterboxes rather than overflowing —
+     the video is object-fit:cover, so it just crops a little tighter. */
   .stage{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;
+         max-height:66vh;max-height:66dvh;
          overflow:hidden;transform:translateZ(0);border:1px solid rgba(255,255,255,.09);
          box-shadow:0 40px 90px -40px rgba(0,0,0,.9)}
   #mount{position:absolute;inset:0;overflow:hidden}
