@@ -103,7 +103,9 @@ export async function onRequest(context) {
     // Fire-and-forget open stamp; never let bookkeeping break the greeting.
     context.waitUntil(stampOpen(context.env, t, rec));
 
-    return json({ token: data.token, firstName: rec.firstName || '' });
+    // mode drives the page's CTA under the frame (partner copy vs prospect copy),
+    // the same per-link rail that drives the greeting.
+    return json({ token: data.token, firstName: rec.firstName || '', mode: rec.mode || 'default' });
   } catch (err) {
     console.error('meet-token error:', err);
     return json({ error: 'Internal error' }, 500);
