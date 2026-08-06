@@ -582,5 +582,11 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   document.getElementById('td-end').addEventListener('click', endSession);
 })();
 </script>
+<script>
+/* Pin page background against the Napster SDK's body,html{background:transparent} injection.
+   The SDK injects it when the SCRIPT LOADS, not at session start — so this guard is installed
+   at page load. `html body` outranks the SDK's `body` selector regardless of source order. */
+(function(){try{var h=getComputedStyle(document.documentElement),b=getComputedStyle(document.body),s=document.createElement('style');s.textContent='html{background-color:'+h.backgroundColor+' !important;background-image:'+h.backgroundImage+' !important}html body{background-color:'+b.backgroundColor+' !important;background-image:'+b.backgroundImage+' !important}';document.head.appendChild(s);}catch(e){}})();
+</script>
 </body>
 </html>
