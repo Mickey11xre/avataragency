@@ -123,11 +123,18 @@ export async function onRequest(context) {
   }
 }
 
+// Accept either binding name — the dashboard binding was created as PROSPECT
+// (singular); tolerate both so a rename never silently kills tracking.
+function kvOf(env) {
+  return env.PROSPECTS || env.PROSPECT || null;
+}
+
 // KV first (production), seed second (works with zero dashboard setup).
 async function lookup(env, t) {
-  if (env.PROSPECTS) {
+  const kv = kvOf(env);
+  if (kv) {
     try {
-      const raw = await env.PROSPECTS.get(t);
+      const raw = await kv.get(t);
       if (raw) return JSON.parse(raw);
     } catch (e) {
       console.error('KV read failed, falling back to seed:', e);
@@ -137,14 +144,15 @@ async function lookup(env, t) {
 }
 
 async function stampOpen(env, t, rec) {
-  if (!env.PROSPECTS) return; // seed rows are read-only
+  const kv = kvOf(env);
+  if (!kv) return; // no binding — seed rows stay read-only
   try {
     const next = {
       ...rec,
       opened: rec.opened || new Date().toISOString(),
       sessions: (rec.sessions || 0) + 1,
     };
-    await env.PROSPECTS.put(t, JSON.stringify(next));
+    await kv.put(t, JSON.stringify(next));
   } catch (e) {
     console.error('open stamp failed:', e);
   }
