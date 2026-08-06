@@ -43,6 +43,17 @@ const SEED = {
       "we met on July twenty-first to talk about the Companion API, and you asked how this scales and how the data gets into a business's CRM",
     mode: 'napster', // partner framing, not a sales pitch
   },
+  // Rehearsal row — Morgan's EXACT profile under a different token, so Michael can
+  // hear her precise greeting without touching her link. Different token = different
+  // externalClientId, so rehearsal conversations can never leak into her twin memory,
+  // and her open/session stamps stay clean.
+  'mg-rehearsal': {
+    firstName: 'Morgan',
+    company: 'Napster',
+    context:
+      "we met on July twenty-first to talk about the Companion API, and you asked how this scales and how the data gets into a business's CRM",
+    mode: 'napster',
+  },
   // Self-test row — send yourself the identical email path before the real one.
   'test1234': {
     firstName: 'Michael',
