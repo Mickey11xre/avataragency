@@ -25,9 +25,8 @@
        -webkit-font-smoothing:antialiased}
 
   .wrap{width:100%;max-width:760px;display:flex;flex-direction:column;align-items:center}
-  .mark{font-size:10.5px;font-weight:600;letter-spacing:.28em;text-transform:uppercase;
-        color:var(--on-dark-mute);margin-bottom:22px}
-  .mark span{color:var(--gold)}
+  .mark{margin-bottom:26px;line-height:0}
+  .mark img{height:34px;width:auto;display:block}
 
   /* transform:translateZ(0) makes THIS the containing block for any position:fixed
      the SDK injects — trapping the live avatar inside the card (containment kit). */
@@ -62,14 +61,18 @@
   /* lower third, subtitle position — never across the face */
   .hold{position:absolute;inset:0;display:grid;place-items:end center;padding:0 24px 30px;
         text-align:center;z-index:3}
-  .pill{display:inline-block;padding:13px 22px;border-radius:999px;font-size:14.5px;
-        font-weight:400;letter-spacing:.01em;color:var(--on-dark);
+  /* min-width holds the pill steady across both messages; the .dots span reserves a
+     fixed slot so the animated ellipsis can't reflow it. Nothing resizes, ever. */
+  .pill{display:inline-flex;align-items:center;justify-content:center;
+        min-width:252px;padding:15px 28px;border-radius:999px;font-size:15px;
+        font-weight:400;letter-spacing:.01em;color:var(--on-dark);white-space:nowrap;
         background:rgba(255,255,255,.05);backdrop-filter:blur(8px);
         border:1px solid rgba(255,255,255,.9);animation:borderPulse 1.6s ease infinite}
   @keyframes borderPulse{
     0%,100%{border-color:rgba(255,255,255,.85);box-shadow:0 0 0 0 rgba(255,255,255,.12)}
     50%    {border-color:rgba(255,255,255,.28);box-shadow:0 0 0 7px rgba(255,255,255,0)}
   }
+  .dots{display:inline-block;width:1.15em;text-align:left}
   .dots::after{content:'.';animation:dots 1.2s steps(1,end) infinite}
   @keyframes dots{0%{content:'.'}33%{content:'..'}66%{content:'...'}}
 
@@ -92,13 +95,14 @@
 
   @media(max-width:640px){
     .stage{aspect-ratio:4/5}
-    .pill{font-size:13.5px;padding:12px 18px}
+    .pill{font-size:14px;padding:13px 22px;min-width:216px}
+    .mark img{height:28px}
   }
 </style>
 </head>
 <body>
 <div class="wrap">
-  <div class="mark">Avatar<span>Agency</span></div>
+  <div class="mark"><img src="aa-logo.png" alt="AvatarAgency"></div>
 
   <div class="stage" id="stage">
     <div id="mount"></div>

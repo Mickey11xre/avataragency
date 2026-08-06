@@ -21,7 +21,7 @@
 // The dedicated prospecting agent: partner-mode brain, prepared answers for the
 // scale + CRM questions, temperature 0.6. Created by
 // livebrand-ops/twin-michael-prospecting/build-agent.ps1 — paste its AGENT_ID here.
-const PROSPECTING_AGENT_ID = ''; // <-- paste here
+const PROSPECTING_AGENT_ID = '951db9c4-cf49-4eb7-a4ff-7d6122faa835'; // created 2026-08-06
 
 // Until that exists, fall back to the live site twin so the link is REVIEWABLE.
 // initialSpeech and externalClientProfile are per-CONNECTION, so the personalized
