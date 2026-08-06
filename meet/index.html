@@ -41,8 +41,22 @@
         max-height:none!important;margin:0!important;border-radius:0!important}
   #mount,#mount *{overflow:hidden!important;scrollbar-width:none}
 
-  /* hold pill — thin pulsating border, animated ellipsis, no avatar thumbnail */
-  .hold{position:absolute;inset:0;display:grid;place-items:center;padding:24px;
+  /* poster — the twin's own source frame, so the still and the live avatar are the
+     same shot. Sits under the hold pill and cross-fades out when the avatar is ready.
+     Kept sharp (not blurred) and gently drifting: "here, not yet speaking" rather
+     than "broken video player". */
+  .poster{position:absolute;inset:0;z-index:1;opacity:1;transition:opacity .7s ease}
+  .poster img{width:100%;height:100%;object-fit:cover;object-position:center 18%;
+              display:block;filter:brightness(.86) saturate(.96);
+              animation:drift 18s ease-in-out infinite alternate}
+  .poster::after{content:'';position:absolute;inset:0;
+                 background:radial-gradient(130% 100% at 50% 40%,transparent 52%,rgba(0,0,0,.5) 100%)}
+  @keyframes drift{from{transform:scale(1.005)}to{transform:scale(1.055)}}
+  .stage.ready .poster{opacity:0;pointer-events:none}
+
+  /* hold pill — thin pulsating border, animated ellipsis, over the poster */
+  /* lower third, subtitle position — never across the face */
+  .hold{position:absolute;inset:0;display:grid;place-items:end center;padding:0 24px 30px;
         text-align:center;z-index:3}
   .pill{display:inline-block;padding:13px 22px;border-radius:999px;font-size:14.5px;
         font-weight:400;letter-spacing:.01em;color:var(--on-dark);
@@ -84,6 +98,9 @@
 
   <div class="stage" id="stage">
     <div id="mount"></div>
+    <div class="poster" id="poster">
+      <img src="twin-poster.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
+    </div>
     <div class="hold" id="hold">
       <span class="pill" id="pill">Please hold<span class="dots"></span></span>
     </div>
@@ -111,7 +128,8 @@
   var capEl = document.getElementById('cap');
   var errEl = document.getElementById('err');
   var pill  = document.getElementById('pill');
-  var instance = null, sdkLoading = null, capTimer = null, readyTimer = null, done = false;
+  var instance = null, sdkLoading = null, capTimer = null, readyTimer = null,
+      stageTimer = null, done = false;
 
   var t = new URLSearchParams(location.search).get('t') || '';
 
@@ -125,6 +143,7 @@
   }
 
   function fail(msg, sub) {
+    pinBg();
     stage.classList.remove('needtap');
     document.getElementById('hold').style.display = 'none';
     errEl.hidden = false;
@@ -142,19 +161,35 @@
     return sdkLoading;
   }
 
+  // Cross-fade: poster out, live avatar in. The hold pill fades with it rather
+  // than snapping away, so the handoff reads as one motion.
   function ready() {
     if (done) return;
     done = true;
     if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
+    if (stageTimer) { clearTimeout(stageTimer); stageTimer = null; }
     stage.classList.remove('needtap');
-    document.getElementById('hold').style.display = 'none';
+    stage.classList.add('ready');
+    var hold = document.getElementById('hold');
+    hold.style.transition = 'opacity .45s ease';
+    hold.style.opacity = '0';
+    setTimeout(function () { hold.style.display = 'none'; }, 500);
     pinBg();
+  }
+
+  // Give the wait a shape, so it never feels stalled.
+  function stageMessages() {
+    stageTimer = setTimeout(function () {
+      if (!done) pill.innerHTML = 'Almost there<span class="dots"></span>';
+    }, 5000);
   }
 
   async function start() {
     if (instance) return;
     try {
       await loadSdk();
+      pinBg(); // the SDK injects `background:transparent` the moment it LOADS,
+               // not at session start — re-assert immediately or the page goes white
       var res = await fetch(ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -202,14 +237,18 @@
 
   function offerTap() {
     if (done) return;
+    pinBg();
     stage.classList.add('needtap');
   }
 
   document.getElementById('tapbtn').addEventListener('click', function () {
     stage.classList.remove('needtap');
-    document.getElementById('hold').style.display = '';
+    var hold = document.getElementById('hold');
+    hold.style.display = ''; hold.style.opacity = '1';
     pill.innerHTML = 'Connecting<span class="dots"></span>';
     instance = null;
+    readyTimer = setTimeout(offerTap, 12000);
+    stageMessages();
     start();
   });
 
@@ -220,6 +259,7 @@
     // Auto-start. If nothing is live after 9s, assume the browser blocked us and
     // fall back to a single tap — the gesture that unblocks audio and mic.
     readyTimer = setTimeout(offerTap, 9000);
+    stageMessages();
     start();
   }
 })();
