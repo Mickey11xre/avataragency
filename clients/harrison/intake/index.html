@@ -18,6 +18,8 @@
     --gold:#c9a24b;
     --gold-2:#e3c478;
     --green:#4ec98a;
+    --cream:#f2ece0;
+    --cream-2:#fbfaf6;
     --radius:16px;
     --max:1080px;
   }
@@ -68,12 +70,14 @@
   .q label{display:block;font-size:15px;font-weight:600;color:var(--txt);margin-bottom:6px}
   .q .help{font-size:13px;color:var(--muted-2);margin-bottom:10px;line-height:1.5}
   input[type=text],input[type=email],input[type=url],textarea{
-    width:100%;background:#0c0c10;border:1px solid var(--line);border-radius:12px;
+    width:100%;background:#0c0c10;border:2px solid rgba(242,236,224,.42);border-radius:12px;
     color:var(--txt);font-family:inherit;font-size:14.5px;line-height:1.6;padding:13px 15px;
+    transition:border-color .15s,box-shadow .15s;
   }
   textarea{min-height:96px;resize:vertical}
   textarea.tall{min-height:140px}
-  input:focus,textarea:focus{outline:none;border-color:rgba(201,162,75,.55);box-shadow:0 0 0 3px rgba(201,162,75,.12)}
+  input:hover,textarea:hover{border-color:rgba(242,236,224,.65)}
+  input:focus,textarea:focus{outline:none;border-color:var(--cream);box-shadow:0 0 0 3px rgba(242,236,224,.14)}
   input::placeholder,textarea::placeholder{color:#5a5a66}
   .two{display:grid;grid-template-columns:1fr 1fr;gap:18px}
   @media(max-width:700px){.two{grid-template-columns:1fr}}
@@ -81,6 +85,34 @@
   .ref .n{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
   .ref input{margin-bottom:10px}
   .ref textarea{min-height:64px}
+
+  /* ---- Color palettes ---- */
+  .pals{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px}
+  @media(max-width:700px){.pals{grid-template-columns:1fr}}
+  .pal{border:2px solid rgba(242,236,224,.28);border-radius:12px;padding:14px;cursor:pointer;background:rgba(12,12,16,.5);transition:.15s;user-select:none}
+  .pal:hover{border-color:rgba(242,236,224,.6)}
+  .pal.on{border-color:var(--gold-2);background:rgba(201,162,75,.10)}
+  .pal .sw{display:flex;gap:0;border-radius:8px;overflow:hidden;height:40px;margin-bottom:10px}
+  .pal .sw i{flex:1}
+  .pal .nm{font-size:13.5px;font-weight:600;color:var(--txt);display:flex;align-items:center;gap:8px}
+  .pal .nm .tick{width:16px;height:16px;border-radius:50%;border:1.5px solid var(--muted-2);flex:0 0 auto;display:flex;align-items:center;justify-content:center;font-size:10px;color:#1a1407}
+  .pal.on .nm .tick{background:var(--gold-2);border-color:var(--gold-2)}
+  .pal.on .nm .tick::after{content:"✓"}
+
+  /* ---- Sticky save ---- */
+  .savebar{position:fixed;right:20px;bottom:20px;z-index:20;display:flex;align-items:center;gap:10px;
+    background:rgba(16,16,20,.92);backdrop-filter:blur(10px);border:1px solid var(--line);
+    border-radius:999px;padding:8px 10px 8px 16px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  .savebar .txt{font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .savebar .txt b{color:var(--green)}
+  .savebar button{padding:10px 18px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;
+    font-weight:600;font-size:13.5px;background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+  .savebar button:hover{filter:brightness(1.08)}
+  .savebar button:disabled{opacity:.6;cursor:default}
+  @media(max-width:600px){.savebar{right:12px;bottom:12px;padding:6px 8px 6px 12px}.savebar .txt{display:none}}
+  .resume-note{margin-top:18px;border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:10px;padding:14px 18px;background:rgba(201,162,75,.06);font-size:14px;color:var(--muted)}
+  .resume-note b{color:var(--txt)}
 
   /* ---- Uploads ---- */
   .drop{border:1.5px dashed var(--line);border-radius:14px;padding:30px 20px;text-align:center;transition:.2s;cursor:pointer;background:rgba(12,12,16,.4)}
@@ -129,7 +161,10 @@
     <div class="welcome">
       <p>Welcome — and congratulations on getting started. This form is the same set of questions we'll walk through together in our creative kickoff meeting. Seeing them ahead of time gives you room to think, gather materials, and talk it over with anyone else involved in the decision.</p>
       <p><b>Answer what you can.</b> There are no wrong answers, and nothing here is locked in — it's a starting point for the conversation, not a contract. If a question doesn't apply to you, skip it. If you're not sure, say so; "I don't know yet" is genuinely useful information for us.</p>
-      <p><b>Your answers save automatically as you type.</b> You can close this page and come back to it later on any device using the same link — your work will be here waiting.</p>
+      <p><b>You don't have to finish this in one sitting.</b> Your answers save automatically as you type, and there's a <b>Save Progress</b> button in the corner of the screen you can press anytime.</p>
+      <div class="resume-note">
+        <b>Coming back later?</b> Just open this same link again — on your computer, tablet, or phone. Everything you've written will be exactly where you left it.
+      </div>
     </div>
   </div>
 </header>
@@ -258,19 +293,15 @@
     </div>
     <div class="card">
       <div class="q">
+        <label>Which of these color moods feels closest?</label>
+        <div class="help">Tap any that appeal to you — pick more than one if you like, or none at all. These aren't final palettes, just a quick way to point us in a direction.</div>
+        <div class="pals" id="pals"></div>
+        <input type="hidden" id="q_palettes" data-q>
+      </div>
+      <div class="q">
         <label for="q_colors">Colors you're drawn to — and any you dislike</label>
-        <div class="help">Describe them however you like ("warm autumn tones," "soft pastels") or give exact codes if you have them.</div>
+        <div class="help">In your own words is perfect ("warm autumn tones," "soft pastels," "nothing neon"). If you have exact colors or codes from existing materials, share those too.</div>
         <textarea id="q_colors" data-q></textarea>
-      </div>
-      <div class="q">
-        <label for="q_type">How should the text feel?</label>
-        <div class="help">Elegant serif, friendly rounded, handwritten, crisp and modern? If you have fonts you love, name them.</div>
-        <textarea id="q_type" data-q></textarea>
-      </div>
-      <div class="q">
-        <label for="q_imagery">What should the imagery feel like?</label>
-        <div class="help">Illustrated or photographic? Bright and airy, warm and cozy, rich and dramatic?</div>
-        <textarea id="q_imagery" data-q></textarea>
       </div>
       <div class="q">
         <label for="q_existing_brand">Do you have any existing brand materials we should match or build on?</label>
@@ -484,6 +515,11 @@
   </div>
 </section>
 
+<div class="savebar">
+  <span class="txt" id="saveTxt">Saves automatically</span>
+  <button id="btnSave">Save Progress</button>
+</div>
+
 <footer>
   <div class="wrap">
     <div>© 2026 AvatarAgency.ai · Woodland Hills, California</div>
@@ -501,6 +537,46 @@
     slug = m ? m[1].toLowerCase() : 'intake';
   }
   var DOC = slug + '-intake';
+  // ---- color palettes ----
+  var PALETTES = [
+    ['Warm & Earthy',      ['#C8794F','#E0B589','#A65D3A','#7D8471','#F2E8DC']],
+    ['Soft & Pastel',      ['#F6D0CE','#BFE3D5','#CBDDF0','#DBCCEC','#FDF6EF']],
+    ['Bold & Vibrant',     ['#FF6B4A','#00B8A9','#FFC93C','#F45B99','#1B3A6B']],
+    ['Deep & Jewel-Toned', ['#0B6E4F','#1B4079','#8B1E3F','#5B3E8E','#C9A24B']],
+    ['Muted & Natural',    ['#A3B18A','#DAD7CD','#6B705C','#E9EDC9','#588157']],
+    ['Classic & Timeless', ['#1F2A44','#F5F1E8','#6E2639','#C9A24B','#33363B']],
+    ['Fresh & Airy',       ['#FDFDFB','#A8DADC','#C9E4CA','#F7E9A0','#E4E7EB']],
+    ['Dark & Dramatic',    ['#14161A','#2D1B2E','#8C1C13','#C9A24B','#5C6068']]
+  ];
+  var palHidden = document.getElementById('q_palettes');
+  var palsEl = document.getElementById('pals');
+  PALETTES.forEach(function(p){
+    var d = document.createElement('div');
+    d.className = 'pal';
+    d.setAttribute('data-name', p[0]);
+    d.innerHTML = '<div class="sw">' + p[1].map(function(c){
+        return '<i style="background:' + c + '"></i>'; }).join('') +
+      '</div><div class="nm"><span class="tick"></span><span></span></div>';
+    d.querySelector('.nm span:last-child').textContent = p[0];
+    d.addEventListener('click', function(){
+      d.classList.toggle('on');
+      syncPals();
+      palHidden.dispatchEvent(new Event('input', { bubbles: true }));
+    });
+    palsEl.appendChild(d);
+  });
+  function syncPals(){
+    var on = [].slice.call(palsEl.querySelectorAll('.pal.on'))
+      .map(function(e){ return e.getAttribute('data-name'); });
+    palHidden.value = on.join(', ');
+  }
+  function restorePals(){
+    var picked = (palHidden.value || '').split(',').map(function(s){ return s.trim(); });
+    [].slice.call(palsEl.querySelectorAll('.pal')).forEach(function(e){
+      if (picked.indexOf(e.getAttribute('data-name')) !== -1) e.classList.add('on');
+    });
+  }
+
   var fields = [].slice.call(document.querySelectorAll('[data-q]'));
   var saveEl = document.getElementById('saveState');
   var saveTimer = null, flashTimer = null, dirty = false;
@@ -521,6 +597,7 @@
         if (typeof v === 'string' && v) el.value = v;
       });
       if (state && state.done) markDone(true);
+      restorePals();
     })
     .catch(function(){ /* offline / first visit — local draft still protects them */ });
 
@@ -530,6 +607,7 @@
     fields.forEach(function(el){
       if (!el.value && typeof local[el.id] === 'string') el.value = local[el.id];
     });
+    restorePals();
   } catch (e) {}
 
   function collect() {
@@ -567,6 +645,30 @@
 
   // last-chance save when leaving
   window.addEventListener('beforeunload', function(){ if (dirty) { collect(); } });
+
+  // ---- explicit Save Progress button ----
+  var btnSave = document.getElementById('btnSave');
+  var saveTxt = document.getElementById('saveTxt');
+  btnSave.addEventListener('click', function(){
+    btnSave.disabled = true;
+    btnSave.textContent = 'Saving…';
+    clearTimeout(saveTimer);
+    save(false).then(function(){
+      dirty = false;
+      btnSave.textContent = 'Saved ✓';
+      saveTxt.innerHTML = '<b>Saved.</b> You can close this page.';
+      flashSaved();
+      setTimeout(function(){
+        btnSave.disabled = false;
+        btnSave.textContent = 'Save Progress';
+        saveTxt.textContent = 'Saves automatically';
+      }, 3500);
+    }).catch(function(){
+      btnSave.disabled = false;
+      btnSave.textContent = 'Try again';
+      saveTxt.textContent = 'Save failed — check connection';
+    });
+  });
 
   // ---- finished button ----
   function markDone(silent) {
