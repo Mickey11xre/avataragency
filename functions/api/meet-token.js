@@ -18,7 +18,18 @@
 //
 // POST { t: "<token>" } -> { token, firstName } | 410 expired/revoked | 404 unknown
 
-const AGENT_ID = 'REPLACE_WITH_PROSPECTING_AGENT_ID'; // Michael Rivera Digital — Avatar Prospecting
+// The dedicated prospecting agent: partner-mode brain, prepared answers for the
+// scale + CRM questions, temperature 0.6. Created by
+// livebrand-ops/twin-michael-prospecting/build-agent.ps1 — paste its AGENT_ID here.
+const PROSPECTING_AGENT_ID = ''; // <-- paste here
+
+// Until that exists, fall back to the live site twin so the link is REVIEWABLE.
+// initialSpeech and externalClientProfile are per-CONNECTION, so the personalized
+// greeting is byte-identical either way; only the agent's knowledge base differs
+// (the fallback has the general site brain, not the partner-mode one).
+const FALLBACK_AGENT_ID = 'fc21d1f6-aaaf-464b-a835-5ba138df5079'; // Michael Rivera Digital v1.4
+
+const AGENT_ID = PROSPECTING_AGENT_ID || FALLBACK_AGENT_ID;
 
 // --- Seed rows (used until the KV namespace is bound) -----------------------
 // context = why we're reaching out, in Michael's own words, about a connection
