@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Meet Michael Rivera's Digital Twin — AvatarAgency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0A0A0A; --ink-2:#141414;
+    --on-dark:#F5F0E8; --on-dark-mute:rgba(255,255,255,.56);
+    --gold:#C9A84C; --gold-light:#E4C97A;
+    --f:'General Sans',-apple-system,BlinkMacSystemFont,sans-serif;
+    --f-serif:'Cormorant Garamond',Georgia,serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--ink);min-height:100%}
+  body{font-family:var(--f);color:var(--on-dark);display:flex;flex-direction:column;
+       align-items:center;justify-content:center;min-height:100dvh;padding:28px 20px 34px;
+       -webkit-font-smoothing:antialiased}
+
+  .wrap{width:100%;max-width:760px;display:flex;flex-direction:column;align-items:center}
+  .mark{margin-bottom:26px;line-height:0}
+  .mark a{display:block;opacity:1;transition:opacity .2s ease}
+  .mark a:hover{opacity:.72}
+  .mark img{height:34px;width:auto;display:block}
+
+  /* transform:translateZ(0) makes THIS the containing block for any position:fixed
+     the SDK injects — trapping the live avatar inside the card (containment kit). */
+  /* max-height keeps the stage inside short viewports (landscape phone, small
+     laptop window). When it binds the box letterboxes rather than overflowing —
+     the video is object-fit:cover, so it just crops a little tighter. */
+  .stage{position:relative;width:100%;aspect-ratio:16/9;background:#000;border-radius:6px;
+         max-height:66vh;max-height:66dvh;
+         overflow:hidden;transform:translateZ(0);border:1px solid rgba(255,255,255,.09);
+         box-shadow:0 40px 90px -40px rgba(0,0,0,.9)}
+  #mount{position:absolute;inset:0;overflow:hidden}
+  #mount>*,#mount video,#mount canvas{width:100%!important;height:100%!important;
+        object-fit:cover;object-position:center 18%}
+  #mount>*{position:absolute!important;inset:0!important;max-width:none!important;
+        max-height:none!important;margin:0!important;border-radius:0!important}
+  #mount,#mount *{overflow:hidden!important;scrollbar-width:none}
+
+  /* poster — the twin's own source frame, so the still and the live avatar are the
+     same shot. Sits under the hold pill and cross-fades out when the avatar is ready.
+     Kept sharp (not blurred) and gently drifting: "here, not yet speaking" rather
+     than "broken video player". */
+  .poster{position:absolute;inset:0;z-index:1;opacity:1;transition:opacity .7s ease}
+  .poster img{width:100%;height:100%;object-fit:cover;object-position:center 18%;
+              display:block;filter:brightness(.86) saturate(.96);
+              animation:drift 18s ease-in-out infinite alternate}
+  .poster::after{content:'';position:absolute;inset:0;
+                 background:radial-gradient(130% 100% at 50% 40%,transparent 52%,rgba(0,0,0,.5) 100%)}
+  @keyframes drift{from{transform:scale(1.005)}to{transform:scale(1.055)}}
+  .stage.ready .poster{opacity:0;pointer-events:none}
+
+  /* ended — after hang-up. The still returns, dimmed, with a restart control.
+     Never a black void: there is always a face in the frame. */
+  .stage.ended .poster{opacity:1}
+  .stage.ended .poster img{filter:brightness(.58) saturate(.82);animation:none;transform:scale(1.01)}
+  .again{position:absolute;left:0;right:0;bottom:18px;display:none;justify-content:center;
+         padding:0 16px;z-index:5}
+  .stage.ended .again{display:flex}
+  .againbar{display:inline-flex;align-items:center;gap:12px;padding:10px 12px 10px 18px;
+            border-radius:999px;background:rgba(18,18,18,.85);backdrop-filter:blur(10px);
+            border:1px solid rgba(255,255,255,.16)}
+  .againnote{font-size:13px;color:rgba(255,255,255,.62);white-space:nowrap}
+  .againbtn{display:inline-flex;align-items:center;gap:8px;border:none;cursor:pointer;
+            background:var(--gold);color:#1a1408;border-radius:999px;padding:10px 18px;
+            font-family:var(--f);font-size:14px;font-weight:600;letter-spacing:-.01em}
+  .againbtn svg{width:14px;height:14px;fill:#1a1408}
+
+  /* hold pill — thin pulsating border, animated ellipsis, over the poster */
+  /* lower third, subtitle position — never across the face */
+  .hold{position:absolute;inset:0;display:grid;place-items:end center;padding:0 24px 30px;
+        text-align:center;z-index:3}
+  /* min-width holds the pill steady across both messages; the .dots span reserves a
+     fixed slot so the animated ellipsis can't reflow it. Nothing resizes, ever. */
+  .pill{display:inline-flex;align-items:center;justify-content:center;
+        min-width:252px;padding:15px 28px;border-radius:999px;font-size:15px;
+        font-weight:400;letter-spacing:.01em;color:var(--on-dark);white-space:nowrap;
+        background:rgba(255,255,255,.05);backdrop-filter:blur(8px);
+        border:1px solid rgba(255,255,255,.9);animation:borderPulse 1.6s ease infinite}
+  @keyframes borderPulse{
+    0%,100%{border-color:rgba(255,255,255,.85);box-shadow:0 0 0 0 rgba(255,255,255,.12)}
+    50%    {border-color:rgba(255,255,255,.28);box-shadow:0 0 0 7px rgba(255,255,255,0)}
+  }
+  .dots{display:inline-block;width:1.15em;text-align:left}
+  .dots::after{content:'.';animation:dots 1.2s steps(1,end) infinite}
+  @keyframes dots{0%{content:'.'}33%{content:'..'}66%{content:'...'}}
+
+  /* tap-to-start fallback — only shown if autoplay/mic is blocked */
+  .tap{position:absolute;inset:0;display:none;place-items:center;z-index:4;
+       background:rgba(0,0,0,.55);backdrop-filter:blur(3px);cursor:pointer}
+  .stage.needtap .tap{display:grid}
+  .stage.needtap .hold{display:none}
+  .tapbtn{display:inline-flex;align-items:center;gap:11px;padding:15px 26px;border:none;
+          border-radius:999px;background:var(--gold);color:#1a1408;font-family:var(--f);
+          font-size:15.5px;font-weight:600;letter-spacing:-.01em;cursor:pointer}
+  .tapbtn svg{width:15px;height:15px;fill:#1a1408}
+
+  /* CTA under the frame — the escape hatch for prospects who won't talk to an
+     avatar. Quiet on purpose: the conversation above is the primary path. */
+  .cta{margin-top:24px;text-align:center}
+  .cta-line{font-size:14.5px;font-weight:300;color:var(--on-dark-mute);margin-bottom:14px}
+  .cta-btn{display:inline-flex;align-items:center;gap:9px;padding:13px 26px;border-radius:999px;
+           border:1px solid var(--gold);color:var(--gold-light);text-decoration:none;
+           font-size:14.5px;font-weight:600;letter-spacing:-.01em;
+           transition:background .2s ease,color .2s ease}
+  .cta-btn:hover{background:var(--gold);color:#1a1408}
+  .cta-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:1.8;
+               stroke-linecap:round;stroke-linejoin:round}
+
+  .cap{margin-top:20px;text-align:center;min-height:22px}
+  .cap p{font-family:var(--f-serif);font-style:italic;font-size:17px;color:var(--on-dark-mute)}
+  .err{margin-top:20px;text-align:center;font-size:15px;line-height:1.6;color:var(--on-dark-mute)}
+  .err a{color:var(--gold-light)}
+  .disclose{margin-top:26px;font-size:11.5px;letter-spacing:.02em;color:rgba(255,255,255,.32);
+            text-align:center;line-height:1.6}
+
+  @media(max-width:640px){
+    .stage{aspect-ratio:4/5}
+    .pill{font-size:14px;padding:13px 22px;min-width:216px}
+    .mark img{height:28px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="mark">
+    <a href="/strategist/" target="_blank" rel="noopener" aria-label="AvatarAgency — Creative Strategist">
+      <img src="aa-logo.png" alt="AvatarAgency">
+    </a>
+  </div>
+
+  <div class="stage" id="stage">
+    <div id="mount"></div>
+    <div class="poster" id="poster">
+      <img src="twin-poster.jpg" alt="" aria-hidden="true" decoding="async" fetchpriority="high">
+    </div>
+    <div class="hold" id="hold">
+      <span class="pill" id="pill">Please hold<span class="dots"></span></span>
+    </div>
+    <div class="tap" id="tap">
+      <button class="tapbtn" id="tapbtn" type="button">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        Tap to begin
+      </button>
+    </div>
+    <div class="again" id="again">
+      <div class="againbar">
+        <span class="againnote">Call ended</span>
+        <button class="againbtn" id="againbtn" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 14a3 3 0 0 0 3-3V5a3 3 0 0 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.9V21h2v-3.1A7 7 0 0 0 19 11z"/></svg>
+          Talk again
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="cta" id="cta" hidden>
+    <p class="cta-line" id="cta-line"></p>
+    <a class="cta-btn" id="cta-btn" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+      <span id="cta-btn-text"></span>
+    </a>
+  </div>
+
+  <div class="cap" id="cap"></div>
+  <div class="err" id="err" hidden></div>
+  <p class="disclose">You are speaking with an AI digital twin of Michael Rivera, not the real person.</p>
+</div>
+
+<script>
+(function () {
+  'use strict';
+  // Same endpoint and agent as the AvatarAgency home page (fc21d1f6, site brain):
+  // identical face, identical knowledge, identical speak-first greeting. This page
+  // is public — no token, so the greeting is the general one, exactly as on home.
+  var ENDPOINT = '/api/michael-token';
+  var SDK_URL = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js';
+  var CAP_S = 600; // 10-minute session cap
+
+  var stage = document.getElementById('stage');
+  var capEl = document.getElementById('cap');
+  var errEl = document.getElementById('err');
+  var pill  = document.getElementById('pill');
+  var instance = null, sdkLoading = null, capTimer = null, readyTimer = null,
+      stageTimer = null, done = false;
+
+  // CTA under the frame — the escape hatch for visitors who won't talk to an avatar.
+  // Rendered on load (not after connect) so it's there even if the twin fails.
+  var CAL_URL = 'https://calendly.com/michaelrivera007/free-avataragency-consultation-meeting-clone';
+  function renderCta() {
+    document.getElementById('cta-line').textContent = 'See what this could do in your business.';
+    document.getElementById('cta-btn-text').textContent = 'Book a Strategy Meeting';
+    document.getElementById('cta-btn').href = CAL_URL;
+    document.getElementById('cta').hidden = false;
+  }
+  renderCta();
+
+  // The SDK injects `body,html{background:transparent}` at session start and never
+  // removes it — capture the real backgrounds and re-assert them (background pin).
+  var htmlBg = getComputedStyle(document.documentElement).backgroundColor;
+  var bodyBg = getComputedStyle(document.body).backgroundColor;
+  function pinBg() {
+    document.documentElement.style.setProperty('background-color', htmlBg, 'important');
+    document.body.style.setProperty('background-color', bodyBg, 'important');
+  }
+
+  function fail(msg, sub) {
+    pinBg();
+    stage.classList.remove('needtap');
+    document.getElementById('hold').style.display = 'none';
+    errEl.hidden = false;
+    errEl.innerHTML = msg + (sub ? '<br><span style="opacity:.7">' + sub + '</span>' : '');
+  }
+
+  function loadSdk() {
+    if (window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk) return Promise.resolve();
+    if (sdkLoading) return sdkLoading;
+    sdkLoading = new Promise(function (res, rej) {
+      var s = document.createElement('script');
+      s.src = SDK_URL; s.onload = res; s.onerror = rej;
+      document.body.appendChild(s);
+    });
+    return sdkLoading;
+  }
+
+  // ⚠️ onAvatarReady fires BEFORE the video paints its first frame. Fading the
+  // poster there left 3-4s of black void — the exact thing the poster exists to
+  // prevent. So onAvatarReady only ARMS the reveal; the poster holds until a real
+  // frame is on screen.
+  function waitForVideo(tries, cb) {
+    var v = document.querySelector('#mount video');
+    if (v || tries <= 0) return cb(v);
+    setTimeout(function () { waitForVideo(tries - 1, cb); }, 120);
+  }
+
+  function onFirstFrame(video, cb) {
+    var fired = false;
+    function go() { if (!fired) { fired = true; cb(); } }
+    setTimeout(go, 6000); // never hold the poster forever
+    if (!video) return go();
+    // requestVideoFrameCallback fires on an actually-composited frame — the only
+    // signal that truly means "there is a picture". Chrome/Edge/Safari.
+    if ('requestVideoFrameCallback' in video) {
+      try { video.requestVideoFrameCallback(go); return; } catch (_) {}
+    }
+    if (video.readyState >= 3) return go();
+    video.addEventListener('playing', go, { once: true });
+    video.addEventListener('loadeddata', go, { once: true });
+  }
+
+  function armReveal() {
+    if (done) return;
+    waitForVideo(45, function (v) { onFirstFrame(v, reveal); });
+  }
+
+  // Cross-fade: poster out, live avatar in. The hold pill fades with it rather
+  // than snapping away, so the handoff reads as one motion.
+  function reveal() {
+    if (done) return;
+    done = true;
+    if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
+    if (stageTimer) { clearTimeout(stageTimer); stageTimer = null; }
+    stage.classList.remove('needtap', 'ended');
+    stage.classList.add('ready');
+    var hold = document.getElementById('hold');
+    hold.style.transition = 'opacity .45s ease';
+    hold.style.opacity = '0';
+    setTimeout(function () { hold.style.display = 'none'; }, 500);
+    pinBg();
+  }
+
+  // Hang-up. The SDK's controls disappear with the session, so rather than leave
+  // a black rectangle we bring the still back, dimmed, with our own restart bar.
+  function endedState() {
+    instance = null;
+    done = false;
+    if (capTimer) { clearTimeout(capTimer); capTimer = null; }
+    if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
+    if (stageTimer) { clearTimeout(stageTimer); stageTimer = null; }
+    stage.classList.remove('ready', 'needtap');
+    stage.classList.add('ended');
+    document.getElementById('mount').innerHTML = '';
+    var hold = document.getElementById('hold');
+    hold.style.display = 'none';
+    pinBg();
+  }
+
+  // Give the wait a shape, so it never feels stalled.
+  function stageMessages() {
+    stageTimer = setTimeout(function () {
+      if (!done) pill.innerHTML = 'Almost there<span class="dots"></span>';
+    }, 5000);
+  }
+
+  var attempts = 0;
+  async function start() {
+    if (instance) return;
+    attempts++;
+    try {
+      await loadSdk();
+      pinBg(); // the SDK injects `background:transparent` the moment it LOADS,
+               // not at session start — re-assert immediately or the page goes white
+      var res = await fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: '{}'
+      });
+      if (!res.ok) throw new Error('token ' + res.status);
+
+      var data = await res.json();
+      var sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
+      if (!sdk) throw new Error('sdk missing');
+
+      pinBg();
+      instance = await sdk.init(data.token, {
+        mountContainer: '#mount',
+        avatarStyle: { view: 'rectangle' },
+        features: {
+          showSDKLoader: { enabled: false },
+          screenShare: { enabled: true },
+          pictureInPicture: { enabled: true }
+        },
+        onAvatarReady: armReveal,
+        onDestroy: endedState
+      });
+      instance.showAvatar();
+      pinBg();
+
+      // Fallback — some browsers never fire onAvatarReady cleanly. Still gated on
+      // a painted frame, so this can't reintroduce the black void.
+      setTimeout(function () { if (instance) armReveal(); }, 3000);
+
+      capTimer = setTimeout(function () {
+        if (instance) { try { instance.destroy && instance.destroy(); } catch (_) {} }
+        endedState();
+        capEl.innerHTML = '<p>That&rsquo;s our time &mdash; grab a spot on the calendar below and let&rsquo;s talk properly.</p>';
+      }, CAP_S * 1000);
+
+      if (typeof gtag === 'function') gtag('event', 'meetmichael_twin_session', { event_category: 'MEET_MICHAEL' });
+    } catch (e) {
+      // First failure is usually autoplay/mic blocked or a locked-down corporate
+      // browser — offer the gesture that unblocks it. If a deliberate tap fails
+      // too, it isn't a permissions issue: say so instead of looping forever.
+      if (instance) return;
+      if (attempts >= 2) {
+        fail('The twin can&rsquo;t connect right now.',
+             'Give it a minute and refresh &mdash; or book a time below and talk to the real Michael.');
+      } else {
+        offerTap();
+      }
+    }
+  }
+
+  function offerTap() {
+    if (done) return;
+    pinBg();
+    stage.classList.add('needtap');
+  }
+
+  document.getElementById('tapbtn').addEventListener('click', function () {
+    stage.classList.remove('needtap');
+    var hold = document.getElementById('hold');
+    hold.style.display = ''; hold.style.opacity = '1';
+    pill.innerHTML = 'Connecting<span class="dots"></span>';
+    instance = null;
+    readyTimer = setTimeout(offerTap, 12000);
+    stageMessages();
+    start();
+  });
+
+  document.getElementById('againbtn').addEventListener('click', function () {
+    stage.classList.remove('ended');
+    var hold = document.getElementById('hold');
+    hold.style.display = ''; hold.style.opacity = '1';
+    pill.innerHTML = 'Reconnecting<span class="dots"></span>';
+    capEl.innerHTML = '';
+    done = false; instance = null;
+    readyTimer = setTimeout(offerTap, 12000);
+    start();
+  });
+
+  // Public page — always auto-start. If nothing is live after 9s, assume the
+  // browser blocked us and fall back to a single tap, the gesture that unblocks
+  // audio and mic.
+  readyTimer = setTimeout(offerTap, 9000);
+  stageMessages();
+  start();
+})();
+</script>
+<script>
+/* Pin page background against the Napster SDK's body,html{background:transparent} injection.
+   The SDK injects it when the SCRIPT LOADS, not at session start — so this guard is installed
+   at page load. `html body` outranks the SDK's `body` selector regardless of source order. */
+(function(){try{var h=getComputedStyle(document.documentElement),b=getComputedStyle(document.body),s=document.createElement('style');s.textContent='html{background-color:'+h.backgroundColor+' !important;background-image:'+h.backgroundImage+' !important}html body{background-color:'+b.backgroundColor+' !important;background-image:'+b.backgroundImage+' !important}';document.head.appendChild(s);}catch(e){}})();
+</script>
+</body>
+</html>
