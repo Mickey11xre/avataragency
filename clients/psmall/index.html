@@ -75,7 +75,7 @@
   .meter-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:12px}
   .meter-top b{color:var(--txt)}
   .meter{height:14px;border-radius:999px;background:#0c0c10;border:1px solid var(--line);overflow:hidden}
-  .meter .fill{height:100%;width:32.5%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
+  .meter .fill{height:100%;width:55.8%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
   .meter-legend{display:flex;gap:22px;margin-top:14px;font-size:12px;color:var(--muted)}
   .meter-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:middle}
   .lg-used{background:var(--gold-2)}
@@ -153,7 +153,7 @@
       <div class="item">Service Agreement<span>April 24, 2026</span></div>
       <div class="item">Amount Paid<span>$850.00</span></div>
       <div class="item">Production Credit<span>$1,000.00 (10:00 min)</span></div>
-      <div class="item">Deliverables<span>4 of 4 Delivered</span></div>
+      <div class="item">Deliverables<span>5 of 5 Delivered</span></div>
     </div>
   </div>
 </header>
@@ -174,22 +174,22 @@
       </div>
       <div class="stat">
         <div class="k">Credit Used</div>
-        <div class="v">3:15 <small>min</small></div>
-        <div class="d">$325.00 · 4 creatives delivered</div>
+        <div class="v">5:35 <small>min</small></div>
+        <div class="d">$558.33 · 5 creatives delivered</div>
       </div>
       <div class="stat remaining">
         <div class="k">Remaining Balance</div>
-        <div class="v">6:45 <small>min</small></div>
-        <div class="d">$675.00 of production credit available</div>
+        <div class="v">4:25 <small>min</small></div>
+        <div class="d">$441.67 of production credit available</div>
       </div>
     </div>
 
     <div class="meter-card">
-      <div class="meter-top"><span>Usage</span><span><b>32.5%</b> of credit used</span></div>
-      <div class="meter"><div class="fill"></div></div>
+      <div class="meter-top"><span>Usage</span><span><b>55.8%</b> of credit used</span></div>
+      <div class="meter"><div class="fill" style="width:55.8%"></div></div>
       <div class="meter-legend">
-        <span><i class="lg-used"></i>Used — 3:15 ($325)</span>
-        <span><i class="lg-rem"></i>Remaining — 6:45 ($675)</span>
+        <span><i class="lg-used"></i>Used — 5:35 ($558)</span>
+        <span><i class="lg-rem"></i>Remaining — 4:25 ($442)</span>
       </div>
     </div>
   </div>
@@ -210,6 +210,14 @@
         <div class="col-min">Resolution</div>
         <div>Length</div>
         <div>File</div>
+      </div>
+
+      <div class="trow">
+        <div class="name">Hermosa Beach Video<small>New delivery — “My Hermosa Beach” brand film · 4 acts, 14 scenes</small></div>
+        <div class="col-format"><span class="badge h">Long Form 16:9</span></div>
+        <div class="col-min">1920×1080</div>
+        <div>2:20</div>
+        <a class="watch" href="/clients/psmall/hermosa-beach-video.mp4" download="Paul_Small_Hermosa_Beach_Video.mp4">↓ Download</a>
       </div>
 
       <div class="trow">
@@ -246,9 +254,9 @@
 
       <div class="tfoot">
         <div>Total Delivered</div>
-        <div class="col-format">4 creatives</div>
+        <div class="col-format">5 creatives</div>
         <div class="col-min"></div>
-        <div class="tot">3:15</div>
+        <div class="tot">5:35</div>
         <div></div>
       </div>
     </div>
@@ -264,6 +272,16 @@
     </div>
 
     <div class="video-block">
+      <h3>Hermosa Beach Video</h3>
+      <div class="vmeta">New delivery · “My Hermosa Beach” brand film · 16:9 · 1920×1080 · 2:20</div>
+      <div class="frame wide">
+        <video id="hermosa-video" controls preload="metadata" playsinline
+               src="/clients/psmall/hermosa-beach-video.mp4"></video>
+        <script>document.getElementById('hermosa-video').volume = 0.6;</script>
+      </div>
+    </div>
+
+    <div class="video-block" style="margin-top:34px">
       <h3>Cinematic Showcase Film</h3>
       <div class="vmeta">Long Form · 16:9 · 1920×1080 · 1:32</div>
       <div class="frame wide">
@@ -301,12 +319,12 @@
 <section style="padding-top:0">
   <div class="wrap">
     <div class="sec-head">
-      <h2>In Production · My Hermosa Beach</h2>
-      <div class="note">Storyboard ready for your review</div>
+      <h2>Production Reference · My Hermosa Beach</h2>
+      <div class="note">The approved storyboard behind your finished film</div>
     </div>
     <div class="cta">
       <h2>My Hermosa Beach — Storyboard</h2>
-      <p>Your next brand film, boarded beat-by-beat: 14 scenes across 4 acts, each with a locked first frame, the voiceover, and the intended shot motion. Take a look and send your notes.</p>
+      <p>The approved board your film was built from: 14 scenes across 4 acts, each with its locked first frame, the voiceover, and the shot motion. Kept here for reference.</p>
       <div class="btns">
         <a class="btn primary" href="hermosa-storyboard.html" target="_blank" rel="noopener">View Storyboard (for review)</a>
       </div>
@@ -318,8 +336,8 @@
 <section style="padding-top:0">
   <div class="wrap">
     <div class="cta">
-      <h2>You have 6:45 of production credit remaining</h2>
-      <p>That's $675 of done-for-you video still available on your account — enough for several more reels or another showcase film. Let's put it to work.</p>
+      <h2>You have 4:25 of production credit remaining</h2>
+      <p>That's $441.67 of done-for-you video still available on your account — enough for several more reels or another short film. Let's put it to work.</p>
       <div class="btns">
         <a class="btn primary" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a Production Call</a>
         <a class="btn ghost" href="mailto:michael@avataragency.ai">Email Michael</a>
