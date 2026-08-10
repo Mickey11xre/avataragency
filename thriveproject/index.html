@@ -402,7 +402,7 @@ body{background:#0B0F0C;color:var(--paper);overflow-x:hidden;
         <div class="eyebrow">01 &mdash; The Reframe</div>
         <h2>What does it mean to <em>thrive</em> in college?</h2>
         <div class="hr"></div>
-        <p>Colleges have always measured success. Thriving is bigger &mdash; students fully engaged intellectually, socially, and emotionally.</p>
+        <p>Colleges have always measured success. Thriving is bigger &mdash; students fully engaged intellectually, socially, and psychologically.</p>
         <p>And unlike the things campuses can't change, every factor of thriving is <em>malleable</em>. Institutions can teach students to thrive.</p>
       </div>
 
@@ -721,14 +721,28 @@ window.CAR=(function(){
   function icon(){ ppPath.setAttribute("d", v.paused?PLAY:PAUSE);
     pp.setAttribute("aria-label", v.paused?"Play":"Pause"); }
 
+  /* Hide the poster only once playback has really begun, and hide it INSTANTLY.
+     Frame 1 of the clip is blank white, so crossfading the finished logo out over
+     300ms dissolves it into nothing before the animation restarts — which reads as
+     the logo jumping out of position. The 300ms fade is kept for the return on
+     "ended" (the pleasant direction), where the rewind is already delayed 340ms. */
+  function showFilm(){
+    var pz=vid.querySelector(".vposter");
+    if(pz){ pz.style.transition="none"; }
+    vid.classList.add("live");
+    if(pz){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ pz.style.transition=""; }); }); }
+  }
   function toggle(){
-    if(v.paused){ vid.classList.add("live"); v.play().catch(function(){}); }
+    if(v.paused){
+      var pr=v.play();
+      if(pr && pr.then){ pr.then(showFilm).catch(function(){}); } else { showFilm(); }
+    }
     else { v.pause(); }
   }
   vid.querySelector(".vplay").addEventListener("click",toggle);
   pp.addEventListener("click",function(e){ e.stopPropagation(); toggle(); });
 
-  v.addEventListener("play",  function(){ vid.classList.add("live"); icon(); });
+  v.addEventListener("play",  function(){ showFilm(); icon(); });
   v.addEventListener("pause", icon);
   v.addEventListener("timeupdate", paint);
   v.addEventListener("loadedmetadata", paint);
