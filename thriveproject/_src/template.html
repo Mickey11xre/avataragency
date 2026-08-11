@@ -91,9 +91,17 @@ body{background:#0B0F0C;color:var(--paper);overflow-x:hidden;
 .note{margin-top:12px;font-size:10.5px;letter-spacing:.05em;color:rgba(63,90,73,.72);font-style:italic}
 
 /* the twin, presented as a live call rather than a headline */
+/* The call frame is 16:9 landscape - Napster companion spec. It was previously clamped
+   to max-height:clamp(150px,24vh,220px) with object-fit:cover, which squashed a 448px-wide
+   frame to 173px (about 2.6:1) and cut the bottom off the control bar. The source asset is
+   intact at 900x502 with the full bar and clearance below it; the crop was purely CSS.
+   aspect-ratio pins the ratio so it stays on spec whatever the card width, and whatever a
+   future asset is exported at. Do not reintroduce a height clamp here - clamp the CARD if
+   space is ever a problem, not the frame. */
 .twin{position:relative;margin:2px 0 14px;border-radius:2px 16px 2px 16px;overflow:hidden;
+  aspect-ratio:16/9;
   box-shadow:0 12px 30px rgba(0,0,0,.30),0 0 0 1px rgba(28,51,39,.16)}
-.twin img{display:block;width:100%;height:auto;max-height:clamp(150px,24vh,220px);object-fit:cover;object-position:50% 62%}
+.twin img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 50%}
 .twin::after{content:"";position:absolute;inset:0;pointer-events:none;
   box-shadow:0 0 34px rgba(0,0,0,.22) inset}
 .live{position:absolute;left:11px;top:11px;display:flex;align-items:center;gap:7px;
