@@ -2,3 +2,9 @@
 /ethica/napster/*  /ethica/thrive/:splat  301
 # Morgan deck renamed per revisions doc 2026-07-15
 /decks/napster-partner/*  /decks/napster-presentation/:splat  301
+# The Schreiner pitch site lives at /thriveproject. Every internal doc, the source
+# folder (DEPLOY_thrivingproject) and the deploy instructions all say "thrivingproject",
+# so that spelling gets typed and shared. It has never existed; catch it rather than
+# serve Cloudflare's 404. 2026-08-11
+/thrivingproject       /thriveproject/        301
+/thrivingproject/*     /thriveproject/:splat  301

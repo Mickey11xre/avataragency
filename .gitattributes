@@ -1,0 +1,19 @@
+# core.autocrlf is true on the Windows machine that maintains this repo, so by default
+# git rewrites LF -> CRLF on checkout. For most of the site that is harmless.
+#
+# For thriveproject it is NOT. That page is a byte-exact build product: _src/build.js
+# regenerates index.html from a template plus base64 assets, and the build is verified
+# with a byte-for-byte compare. If git normalises line endings on checkout, a fresh clone
+# on Windows produces a template with CRLF, the build emits a 7.6MB file with different
+# bytes, `build.js --check` fails for no real reason, and the deployed page churns.
+#
+# -text disables all EOL conversion for these paths. Do not remove it.
+thriveproject/index.html          -text
+thriveproject/_src/template.html  -text
+thriveproject/_src/build.js       -text
+thriveproject/_src/config.json    -text
+
+# embedded media: never touched by EOL rules, marked explicitly so diffs stay quiet
+*.webp binary
+*.mp4  binary
+*.webm binary
