@@ -273,9 +273,12 @@ body{background:#0B0F0C;color:var(--paper);overflow-x:hidden;
 .wide5 .wideimg{height:clamp(152px,18.5vh,180px);margin:0 0 12px}
 .wide5 .wideimg img{object-position:50% 30%}
 /* ---------- 3D cylinder carousel, in paper rather than plastic ---------- */
+/* No grab cursor: the cylinder turns on hover now, so nothing has to be held. The
+   cards are the click target, so they carry the pointer cursor instead. */
 .carousel{position:relative;height:212px;margin:12px 0 2px;perspective:1000px;
-  touch-action:pan-y;cursor:grab;user-select:none}
+  touch-action:pan-y;user-select:none}
 .carousel.grabbing{cursor:grabbing}
+.pkg{cursor:pointer}
 .cstage{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}
 .pkg{position:absolute;left:-116px;top:-95px;width:232px;height:190px;
   transform-style:preserve-3d;will-change:transform,opacity}
@@ -554,7 +557,7 @@ body{background:#0B0F0C;color:var(--paper);overflow-x:hidden;
           <p>Every population on campus, plus a private working session with Dr. Schreiner.</p>
           <span class="btn btn-ghost">Learn more</span></div></article>
       </div>
-      <div class="chint">Drag to explore</div>
+      <div class="chint">Swipe to explore</div>
     </div>
 
     <div class="regwrap"><span class="btn btn-solid">Register your campus</span></div>
@@ -678,7 +681,7 @@ window.CAR=(function(){
   var cards=[].slice.call(stage.querySelectorAll(".pkg")), N=cards.length;
   var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var S={p:0,target:null,drag:false,moved:0,lastX:0,resume:0,mx:0,my:0,tx:0,ty:0,cw:232,
-         v:0,lastT:0};
+         v:0,lastT:0,hx:null,lastSpin:0};
 
   /* spacing has to be clamped to the PANEL width, not just the card width, or the
      flanking cards slide outside the paper on a narrow screen */
@@ -695,7 +698,10 @@ window.CAR=(function(){
   /* A finger travels less far than a mouse, so a touch drag is geared shorter —
      otherwise a thumb-swipe across a phone barely advances one card. */
   var coarse = window.matchMedia("(pointer:coarse)").matches;
-  function gear(){ return S.cw*(coarse?0.78:0.92); }
+  function gear(){ return S.cw*(coarse?0.72:0.92); }
+  /* Hover-swipe is geared much longer than a drag: crossing the whole carousel should
+     turn it a couple of cards, not send it spinning. */
+  function hoverGear(){ return S.cw*1.5; }
 
   root.addEventListener("pointerdown",function(e){
     S.drag=true; S.moved=0; S.lastX=e.clientX; S.target=null;
@@ -712,6 +718,17 @@ window.CAR=(function(){
       /* weighted toward the newest sample: a thumb-flick may only deliver 3-4 moves,
          and a slower filter would still be warming up when the finger lifts */
       S.v = S.v*0.55 + (dp/dt)*0.45;
+    }
+    /* Hover-swipe: moving the mouse across the carousel turns it with no button held.
+       Touch has no hover — a finger only ever gets here through a real drag, which the
+       branch above already handled — so this is deliberately mouse-only. */
+    else if(e.pointerType==="mouse" && S.hx!==null){
+      var hdx=e.clientX-S.hx; S.hx=e.clientX;
+      if(hdx){
+        S.p-=hdx/hoverGear(); S.target=null;
+        if(Math.abs(hdx)>1.5) S.lastSpin=Date.now();
+        S.resume=Date.now()+900;      /* hold the idle drift off while it is being steered */
+      }
     }
     var r=root.getBoundingClientRect();
     S.tx=Math.max(-1,Math.min(1,(e.clientX-(r.left+r.width/2))/(r.width/2)));
@@ -731,12 +748,31 @@ window.CAR=(function(){
   }
   root.addEventListener("pointerup",endDrag);
   root.addEventListener("pointercancel",endDrag);
-  root.addEventListener("pointerleave",function(){ S.tx=0; S.ty=0; });
+  root.addEventListener("pointerenter",function(e){
+    if(e.pointerType==="mouse") S.hx=e.clientX;   /* seed, or the first move jumps */
+  });
+  root.addEventListener("pointerleave",function(){
+    S.tx=0; S.ty=0; S.hx=null;
+    if(!S.drag && S.target===null) S.target=Math.round(S.p);   /* settle onto a card */
+  });
+
+  /* Each package opens its own detail page. Those pages do not exist yet, so this reads
+     data-href and stays inert until one is present — add
+       data-href="/thriveproject/packages/<slug>/"
+     to the <article class="pkg"> and it starts navigating. Deliberately does NOT invent a
+     URL: a tap that 404s is worse than a tap that waits. Until then a click still does
+     something useful rather than nothing, and brings the card to the front. */
+  function openPackage(i){
+    var href=cards[i].getAttribute("data-href");
+    if(href){ location.href=href; return; }
+    S.target=nearest(i); S.resume=Date.now()+5000;
+  }
 
   cards.forEach(function(c,i){
     c.addEventListener("click",function(){
       if(S.moved>6) return;                       // that was a drag, not a click
-      S.target=nearest(i); S.resume=Date.now()+5000;
+      if(Date.now()-S.lastSpin<220) return;       // still being steered — don't misfire
+      openPackage(i);
     });
   });
 
