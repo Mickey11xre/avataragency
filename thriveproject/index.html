@@ -33,20 +33,23 @@ body{background:#0B0F0C;color:var(--paper);overflow-x:hidden;
 #mast .tag{font-size:clamp(9px,.78vw,11px);letter-spacing:.34em;text-transform:uppercase;
   color:rgba(241,234,218,.72);text-shadow:0 1px 12px rgba(0,0,0,.7)}
 
+/* These labels sit over moving video, so they need real size and a real shadow —
+   at 10px/.5 opacity they were legible only if you already knew what they said. */
 #rail{position:absolute;right:clamp(14px,2.2vw,34px);top:50%;transform:translateY(-50%);
-  z-index:6;display:flex;flex-direction:column;gap:16px;align-items:flex-end}
-#rail .d{display:flex;align-items:center;gap:10px;opacity:.5;transition:opacity .45s ease;
-  cursor:pointer;padding:3px 0 3px 14px}
-#rail .d:hover{opacity:.95}
-#rail .d .lbl{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#F1EADA;
-  text-shadow:0 1px 10px rgba(0,0,0,.8);opacity:0;transform:translateX(6px);white-space:nowrap;
+  z-index:6;display:flex;flex-direction:column;gap:19px;align-items:flex-end}
+#rail .d{display:flex;align-items:center;gap:12px;opacity:.62;transition:opacity .45s ease;
+  cursor:pointer;padding:5px 0 5px 14px}
+#rail .d:hover{opacity:1}
+#rail .d .lbl{font-size:12.5px;letter-spacing:.17em;text-transform:uppercase;color:#F1EADA;
+  text-shadow:0 1px 2px rgba(0,0,0,.9),0 1px 12px rgba(0,0,0,.75);
+  opacity:0;transform:translateX(6px);white-space:nowrap;
   transition:opacity .45s ease,transform .45s ease}
-#rail .d .dot{width:7px;height:7px;border-radius:50%;background:rgba(241,234,218,.55);
-  box-shadow:0 0 0 1px rgba(0,0,0,.25);transition:transform .45s ease,background .45s ease}
+#rail .d .dot{width:9px;height:9px;border-radius:50%;background:rgba(241,234,218,.6);
+  box-shadow:0 0 0 1px rgba(0,0,0,.3);transition:transform .45s ease,background .45s ease}
 #rail .d.on{opacity:1}
-#rail .d.on .dot{background:#F1EADA;transform:scale(1.7)}
-#rail:hover .d .lbl{opacity:.5;transform:translateX(0)}
-#rail:hover .d.on .lbl{opacity:.92;transform:translateX(0)}
+#rail .d.on .dot{background:#F1EADA;transform:scale(1.55)}
+#rail:hover .d .lbl{opacity:.72;transform:translateX(0)}
+#rail:hover .d.on .lbl{opacity:1;transform:translateX(0)}
 
 /* ---------- the blooming panels ---------- */
 .leaf{
@@ -674,7 +677,8 @@ window.CAR=(function(){
   if(!root||!stage) return null;
   var cards=[].slice.call(stage.querySelectorAll(".pkg")), N=cards.length;
   var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var S={p:0,target:null,drag:false,moved:0,lastX:0,resume:0,mx:0,my:0,tx:0,ty:0,cw:232};
+  var S={p:0,target:null,drag:false,moved:0,lastX:0,resume:0,mx:0,my:0,tx:0,ty:0,cw:232,
+         v:0,lastT:0};
 
   /* spacing has to be clamped to the PANEL width, not just the card width, or the
      flanking cards slide outside the paper on a narrow screen */
@@ -688,19 +692,43 @@ window.CAR=(function(){
 
   function nearest(i){ return i + N*Math.round((S.p-i)/N); }   // closest wrap of card i
 
+  /* A finger travels less far than a mouse, so a touch drag is geared shorter —
+     otherwise a thumb-swipe across a phone barely advances one card. */
+  var coarse = window.matchMedia("(pointer:coarse)").matches;
+  function gear(){ return S.cw*(coarse?0.78:0.92); }
+
   root.addEventListener("pointerdown",function(e){
     S.drag=true; S.moved=0; S.lastX=e.clientX; S.target=null;
+    S.v=0; S.lastT=performance.now();
     root.classList.add("grabbing"); root.setPointerCapture(e.pointerId);
   });
   root.addEventListener("pointermove",function(e){
-    if(S.drag){ var dx=e.clientX-S.lastX; S.lastX=e.clientX; S.moved+=Math.abs(dx);
-      S.p-=dx/(S.cw*0.92); }
+    if(S.drag){
+      var dx=e.clientX-S.lastX; S.lastX=e.clientX; S.moved+=Math.abs(dx);
+      var dp=-dx/gear(); S.p+=dp;
+      /* velocity in cards-per-ms, low-passed: pointermove fires irregularly, so a
+         raw last-delta reading makes the throw wildly inconsistent */
+      var now=performance.now(), dt=Math.max(1, now-S.lastT); S.lastT=now;
+      /* weighted toward the newest sample: a thumb-flick may only deliver 3-4 moves,
+         and a slower filter would still be warming up when the finger lifts */
+      S.v = S.v*0.55 + (dp/dt)*0.45;
+    }
     var r=root.getBoundingClientRect();
     S.tx=Math.max(-1,Math.min(1,(e.clientX-(r.left+r.width/2))/(r.width/2)));
     S.ty=Math.max(-1,Math.min(1,(e.clientY-(r.top+r.height/2))/(r.height/2)));
   });
-  function endDrag(){ if(!S.drag) return; S.drag=false; root.classList.remove("grabbing");
-    S.target=Math.round(S.p); S.resume=Date.now()+4000; }
+  /* Release used to be a bare Math.round(S.p), so a quick flick that travelled less
+     than half a card snapped straight back where it came from — which is exactly what
+     a thumb-swipe does, and why the carousel felt stuck on a phone. Carry the throw. */
+  function endDrag(){
+    if(!S.drag) return;
+    S.drag=false; root.classList.remove("grabbing");
+    var paused = performance.now()-S.lastT > 90;      // finger stopped before lifting
+    var fling  = paused ? 0 : S.v*150;
+    fling = Math.max(-2.5, Math.min(2.5, fling));     // cap, or a fast swipe spins forever
+    S.target=Math.round(S.p+fling); S.v=0;
+    S.resume=Date.now()+4000;
+  }
   root.addEventListener("pointerup",endDrag);
   root.addEventListener("pointercancel",endDrag);
   root.addEventListener("pointerleave",function(){ S.tx=0; S.ty=0; });
@@ -721,7 +749,9 @@ window.CAR=(function(){
       S.p+=(S.target-S.p)*0.13;
       if(Math.abs(S.target-S.p)<0.002){ S.p=S.target; S.target=null; }
     } else if(!S.drag && Date.now()>S.resume){
-      S.p+=0.0016;                                 // slow premium drift
+      /* was 0.0016 — one card every ~10s, too slow to register as movement at all.
+         0.0034 is roughly a card every 5s: visibly turning, still unhurried. */
+      S.p+=0.0034;
     }
     S.mx+=(S.tx-S.mx)*0.08; S.my+=(S.ty-S.my)*0.08;   // inertia damping
     stage.style.transform="rotateY("+(S.mx*5).toFixed(2)+"deg) rotateX("+(-S.my*3).toFixed(2)+"deg)";
