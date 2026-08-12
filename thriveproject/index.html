@@ -271,7 +271,17 @@ body{background:#0B0F0C;color:var(--paper);overflow-x:hidden;
   border:1px solid rgba(138,111,53,.42);padding:5px 11px;border-radius:2px;
   background:rgba(255,255,255,.72);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
 .vbar{position:absolute;left:0;right:0;bottom:0;padding:0 3.4% 3.2%;
-  background:linear-gradient(to top,rgba(255,255,255,.96) 40%,rgba(255,255,255,0))}
+  background:linear-gradient(to top,rgba(255,255,255,.96) 40%,rgba(255,255,255,0));
+  transition:opacity .28s ease}
+/* The film runs ten seconds and the frame is the whole point, so the transport gets out
+   of the way while it plays and returns the moment it stops.
+   Deliberately NOT keyed to .playing: that class also covers paused-mid-film, where the
+   viewer needs the controls back to resume. .rolling means "actually rolling right now".
+   pointer-events:none matters as much as the fade - .vbar sits at z-index 4, above the
+   full-frame .vplay button at 3, so without it the invisible bar would keep swallowing
+   the click that pauses. With it, clicking anywhere on the film pauses and the controls
+   come straight back. */
+.vid.rolling .vbar{opacity:0;pointer-events:none}
 .vprog{height:3px;border-radius:2px;background:rgba(28,51,39,.15);overflow:hidden;margin-bottom:3.2%}
 .vprog i{display:block;height:100%;width:0;background:#2E5540}
 .vctl{display:flex;align-items:center;gap:3.4%;color:#2E5540}
@@ -917,12 +927,15 @@ window.CAR=(function(){
   vid.querySelector(".vplay").addEventListener("click",toggle);
   pp.addEventListener("click",function(e){ e.stopPropagation(); toggle(); });
 
-  v.addEventListener("play",  function(){ showFilm(); icon(); });
-  v.addEventListener("pause", icon);
+  /* `rolling` hides the transport while the film actually plays (see .vid.rolling .vbar).
+     Driven off the media events rather than the click, so it stays correct however
+     playback starts or stops - autoplay-block, seek, fullscreen, end of clip. */
+  v.addEventListener("play",  function(){ showFilm(); vid.classList.add("rolling"); icon(); });
+  v.addEventListener("pause", function(){ vid.classList.remove("rolling"); icon(); });
   v.addEventListener("timeupdate", paint);
   v.addEventListener("loadedmetadata", paint);
   v.addEventListener("ended", function(){
-    vid.classList.remove("playing"); icon();
+    vid.classList.remove("playing"); vid.classList.remove("rolling"); icon();
     /* rewind only after the poster has faded back over it, or the viewer catches
        a frame of white as the decoder jumps to the head of the clip */
     setTimeout(function(){ if(v.paused){ v.currentTime=0; paint(); } },340);
