@@ -73,7 +73,7 @@
   .meter-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:12px}
   .meter-top b{color:var(--txt)}
   .meter{height:14px;border-radius:999px;background:#0c0c10;border:1px solid var(--line);overflow:hidden}
-  .meter .fill{height:100%;width:44.2%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
+  .meter .fill{height:100%;width:46.3%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
   .meter-legend{display:flex;gap:22px;margin-top:14px;font-size:12px;color:var(--muted)}
   .meter-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:middle}
   .lg-used{background:var(--gold-2)}
@@ -191,22 +191,22 @@
       </div>
       <div class="stat">
         <div class="k">Credit Used</div>
-        <div class="v">3:32 <small>min</small></div>
-        <div class="d">$353.33 · 4 creatives delivered</div>
+        <div class="v">3:42 <small>min</small></div>
+        <div class="d">$370.00 · 4 creatives delivered</div>
       </div>
       <div class="stat remaining">
         <div class="k">Remaining Balance</div>
-        <div class="v">4:28 <small>min</small></div>
-        <div class="d">$446.67 of production credit available</div>
+        <div class="v">4:18 <small>min</small></div>
+        <div class="d">$430.00 of production credit available</div>
       </div>
     </div>
 
     <div class="meter-card">
-      <div class="meter-top"><span>Usage</span><span><b>44.2%</b> of credit used</span></div>
+      <div class="meter-top"><span>Usage</span><span><b>46.3%</b> of credit used</span></div>
       <div class="meter"><div class="fill"></div></div>
       <div class="meter-legend">
-        <span><i class="lg-used"></i>Used — 3:32 ($353.33)</span>
-        <span><i class="lg-rem"></i>Remaining — 4:28 ($446.67)</span>
+        <span><i class="lg-used"></i>Used — 3:42 ($370.00)</span>
+        <span><i class="lg-rem"></i>Remaining — 4:18 ($430.00)</span>
       </div>
     </div>
   </div>
@@ -238,11 +238,11 @@
       </div>
 
       <div class="trow">
-        <div class="name">Dave Ramsey Video Rev. 2 <span class="badge v">APPROVED ✓</span><small>Final cut — approved July 22, 2026 · social-optimized 1080p</small></div>
+        <div class="name">Dave Ramsey Video Rev. 3<small>New delivery — re-recorded voiceover, polished audio · social-optimized 1080p</small></div>
         <div class="col-format"><span class="badge h">Long Form 16:9</span></div>
         <div class="col-min">1920×1080</div>
-        <div>1:10</div>
-        <a class="watch" href="/clients/dgomes/brand-video-02.mp4" download="Danny_Gomes_Dave_Ramsey_Video_Rev2.mp4">↓ Download</a>
+        <div>1:20</div>
+        <a class="watch" href="/clients/dgomes/brand-video-06.mp4" download="Danny_Gomes_Dave_Ramsey_Video_Rev3.mp4">↓ Download</a>
       </div>
 
       <div class="trow">
@@ -265,7 +265,7 @@
         <div>Total Billed</div>
         <div class="col-format">4 creatives</div>
         <div class="col-min"></div>
-        <div class="tot">3:32</div>
+        <div class="tot">3:42</div>
         <div></div>
       </div>
     </div>
@@ -364,15 +364,75 @@
     </div>
 
     <div class="video-block" style="margin-top:34px">
-      <h3>Dave Ramsey Video Rev. 2 <span class="badge v">APPROVED ✓</span></h3>      <div class="vmeta">Final cut · approved July 22, 2026 · 16:9 · 1920×1080 · 1:10</div>
+      <h3>Dave Ramsey Video Rev. 3</h3>
+      <div class="vmeta">New delivery · your re-recorded voiceover, polished audio · 16:9 · 1920×1080 · 1:20</div>
+      <div class="frame wide">
+        <video id="review-video-6" controls preload="metadata" playsinline
+               src="/clients/dgomes/brand-video-06.mp4"></video>
+        <script>document.getElementById('review-video-6').volume = 0.5;</script>
+      </div>
+      <div class="review-note">
+        <b>What changed:</b> the full voiceover is your new studio-clean recording, with a complete
+        audio polish — same approved visuals, re-timed to your delivery. Review below, or approve
+        it as-is and it's yours to publish.
+      </div>
+
+      <div class="review-box">
+        <div class="rb-head">
+          <span class="rb-title">Your Notes &amp; Approval — Dave Ramsey Video Rev. 3</span>
+          <span class="rb-saved" id="rb6-saved">Saved ✓</span>
+        </div>
+        <textarea id="rb6-comments" placeholder="Type any revision notes here — timing, music, wording, anything. Your notes save automatically in this browser as you type."></textarea>
+        <div class="rb-actions">
+          <button class="btn approve" id="rb6-approve">✓ Approve Video</button>
+          <button class="btn primary" id="rb6-send">Send Notes to Michael</button>
+        </div>
+        <div class="rb-hint">Both buttons open an email to Michael with your notes attached — just press send.</div>
+      </div>
+      <script>
+      (function () {
+        var KEY = 'dgomes_ramsey_rev3_review';
+        var ta, savedEl, savedTimer;
+        function showSaved() {
+          savedEl.classList.add('show');
+          clearTimeout(savedTimer);
+          savedTimer = setTimeout(function () { savedEl.classList.remove('show'); }, 1600);
+        }
+        function openMail(subject, status) {
+          var notes = (ta.value || '').trim() || '(no written notes)';
+          window.location.href = 'mailto:michael@avataragency.ai?subject=' + encodeURIComponent(subject) +
+            '&body=' + 'Video: Dave Ramsey Video Rev. 3 (1:20)%0D%0AStatus: ' + status +
+            '%0D%0A%0D%0ANotes:%0D%0A' + encodeURIComponent(notes) +
+            '%0D%0A%0D%0A— Sent from the Danny Gomes client portal';
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          ta = document.getElementById('rb6-comments');
+          savedEl = document.getElementById('rb6-saved');
+          var stored = null;
+          try { stored = localStorage.getItem(KEY); } catch (e) {}
+          if (stored) ta.value = stored;
+          ta.addEventListener('input', function () {
+            try { localStorage.setItem(KEY, ta.value); } catch (e) {}
+            showSaved();
+          });
+          document.getElementById('rb6-approve').addEventListener('click', function () {
+            openMail('Danny Gomes — Dave Ramsey Video Rev. 3 APPROVED', 'APPROVED ✔');
+          });
+          document.getElementById('rb6-send').addEventListener('click', function () {
+            openMail('Danny Gomes — Dave Ramsey Video Rev. 3 notes', 'Revision notes');
+          });
+        });
+      })();
+      </script>
+    </div>
+
+    <div class="video-block" style="margin-top:34px">
+      <h3>Dave Ramsey Video — Rev. 2</h3>
+      <div class="vmeta">Superseded by Rev. 3 above · kept for reference · 16:9 · 1920×1080 · 1:10</div>
       <div class="frame wide">
         <video id="review-video-2" controls preload="metadata" playsinline
                src="/clients/dgomes/brand-video-02.mp4"></video>
         <script>document.getElementById('review-video-2').volume = 0.5;</script>
-      </div>
-      <div class="approved-banner">
-        ✓ Approved — thank you, Danny! This cut is final and yours to publish. Download it above,
-        or grab the vertical versions below for Instagram, TikTok, and YouTube Shorts.
       </div>
     </div>
 
@@ -488,8 +548,8 @@
 <section style="padding-top:0">
   <div class="wrap">
     <div class="cta">
-      <h2>You have 4:28 of production credit remaining</h2>
-      <p>That's $447 of done-for-you video still on your account — market updates, listing videos, or probate-education shorts. Let's put it to work before November 21.</p>
+      <h2>You have 4:18 of production credit remaining</h2>
+      <p>That's $430 of done-for-you video still on your account — market updates, listing videos, or probate-education shorts. Let's put it to work before November 21.</p>
       <div class="btns">
         <a class="btn primary" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a Production Call</a>
         <a class="btn ghost" href="mailto:michael@avataragency.ai">Email Michael</a>
