@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AvatarAgency — Client Account · Alena Nawrocki</title>
+<style>
+:root{
+    --bg:#0a0a0c;
+    --bg-2:#101014;
+    --card:#15151b;
+    --card-2:#1b1b22;
+    --line:#26262f;
+    --txt:#f4f4f6;
+    --muted:#9a9aa6;
+    --muted-2:#6d6d78;
+    --gold:#c9a24b;
+    --gold-2:#e3c478;
+    --green:#4ec98a;
+    --radius:16px;
+    --max:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(201,162,75,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(78,201,138,.05), transparent 55%),
+      var(--bg);
+    color:var(--txt);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+
+  /* ---- Top bar ---- */
+  .topbar{border-bottom:1px solid var(--line);background:rgba(10,10,12,.7);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-weight:700;letter-spacing:.5px;font-size:18px}
+  .brand b{color:var(--gold-2)}
+  .pill{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+
+  /* ---- Hero ---- */
+  .hero{padding:54px 0 34px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .hero h1{font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.5px}
+  .hero h1 .sub{display:block;font-size:18px;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:12px}
+  .meta-row{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px}
+  .meta-row .item{font-size:13px;color:var(--muted)}
+  .meta-row .item span{display:block;color:var(--txt);font-size:15px;font-weight:600;margin-top:2px}
+
+  /* ---- Section ---- */
+  section{padding:48px 0}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:8px}
+  .sec-head h2{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .sec-head .note{font-size:13px;color:var(--muted-2)}
+
+  /* ---- Balance cards ---- */
+  .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .stat{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .stat .k{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+  .stat .v{font-size:34px;font-weight:800;letter-spacing:-1px;margin-top:8px}
+  .stat .v small{font-size:16px;font-weight:600;color:var(--muted)}
+  .stat .d{font-size:13px;color:var(--muted-2);margin-top:6px}
+  .stat.remaining{border-color:rgba(201,162,75,.45);background:linear-gradient(180deg,rgba(201,162,75,.10),var(--card-2))}
+  .stat.remaining .v{color:var(--gold-2)}
+
+  /* ---- Usage meter ---- */
+  .meter-card{margin-top:18px;background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+  .meter-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:12px}
+  .meter-top b{color:var(--txt)}
+  .meter{height:14px;border-radius:999px;background:#0c0c10;border:1px solid var(--line);overflow:hidden}
+  .meter .fill{height:100%;width:44.2%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
+  .meter-legend{display:flex;gap:22px;margin-top:14px;font-size:12px;color:var(--muted)}
+  .meter-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:middle}
+  .lg-used{background:var(--gold-2)}
+  .lg-rem{background:#2c2c36}
+
+  /* ---- Deliverables table ---- */
+  .table{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .trow{display:grid;grid-template-columns:1.8fr .8fr .7fr .7fr 1fr;gap:12px;padding:16px 20px;align-items:center;border-top:1px solid var(--line);font-size:14px}
+  .trow:first-child{border-top:none}
+  .thead{background:var(--bg-2);color:var(--muted);font-size:11px;letter-spacing:1.5px;text-transform:uppercase}
+  .trow .name{font-weight:600}
+  .trow .name small{display:block;color:var(--muted-2);font-weight:400;font-size:12px;margin-top:2px}
+  .badge{display:inline-block;font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .badge.h{border-color:rgba(201,162,75,.4);color:var(--gold-2)}
+  .watch{justify-self:start;font-size:13px;font-weight:600;color:var(--gold-2);border:1px solid rgba(201,162,75,.4);border-radius:999px;padding:7px 14px;transition:.15s}
+  .watch:hover{background:rgba(201,162,75,.12)}
+  .tfoot{display:grid;grid-template-columns:1.8fr .8fr .7fr .7fr 1fr;gap:12px;padding:16px 20px;border-top:1px solid var(--line);background:var(--bg-2);font-size:14px;font-weight:700}
+  .tfoot .tot{color:var(--gold-2)}
+
+  /* ---- Video gallery ---- */
+  .video-block{margin-bottom:10px}
+  .video-block h3{font-size:20px;font-weight:700;margin-bottom:4px}
+  .video-block .vmeta{font-size:13px;color:var(--muted);margin-bottom:16px}
+  .frame{position:relative;width:100%;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .frame.wide{aspect-ratio:16/9}
+  .frame video{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .review-note{margin-top:14px;font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:var(--bg-2)}
+  .review-note b{color:var(--gold-2)}
+  .badge.v{border-color:rgba(78,201,138,.35);color:var(--green)}
+  .approved-banner{margin-top:14px;font-size:14px;font-weight:600;color:var(--green);border:1px solid rgba(78,201,138,.35);border-radius:12px;padding:14px 18px;background:rgba(78,201,138,.07)}
+  .reels{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:640px}
+  .reel .frame.tall{aspect-ratio:9/16}
+  .reel h4{font-size:15px;font-weight:600;margin-top:12px}
+  .reel .rmeta{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .reel .watch{display:inline-block;margin-top:4px}
+  @media(max-width:600px){.reels{grid-template-columns:1fr}}
+
+  /* ---- Review comments + approval ---- */
+  .review-box{margin-top:18px;background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .rb-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:12px}
+  .rb-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .rb-saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
+  .rb-saved.show{opacity:1}
+  #rb-comments,#rb1-comments,#rb3-comments{width:100%;min-height:110px;resize:vertical;background:#0c0c10;border:1px solid var(--line);border-radius:12px;color:var(--txt);font-family:inherit;font-size:14px;line-height:1.6;padding:14px 16px}
+  #rb-comments:focus,#rb1-comments:focus,#rb3-comments:focus{outline:none;border-color:rgba(201,162,75,.55);box-shadow:0 0 0 3px rgba(201,162,75,.12)}
+  #rb-comments::placeholder,#rb1-comments::placeholder,#rb3-comments::placeholder{color:var(--muted-2)}
+  .rb-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
+  .rb-actions .btn{cursor:pointer;border:none;font-family:inherit}
+  .btn.approve{background:linear-gradient(90deg,#3da874,var(--green));color:#07130c;padding:13px 24px;border-radius:999px;font-weight:700;font-size:15px}
+  .btn.approve:hover{filter:brightness(1.08)}
+  .rb-hint{margin-top:12px;font-size:12px;color:var(--muted-2)}
+
+  /* ---- CTA / footer ---- */
+  .cta{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:34px;text-align:center}
+  .cta h2{font-size:24px;font-weight:800;letter-spacing:-.3px;text-transform:none;color:var(--txt)}
+  .cta p{color:var(--muted);margin:10px auto 22px;max-width:520px}
+  .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{padding:13px 24px;border-radius:999px;font-weight:600;font-size:15px;transition:.15s}
+  .btn.primary{background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.ghost{border:1px solid var(--line);color:var(--txt)}
+  .btn.ghost:hover{border-color:var(--gold)}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;color:var(--muted-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer a{color:var(--muted)}
+  footer a:hover{color:var(--gold-2)}
+
+  @media(max-width:780px){
+    .hero h1{font-size:30px}
+    .grid-3{grid-template-columns:1fr}
+    .trow,.tfoot{grid-template-columns:1.4fr .9fr;grid-auto-rows:auto}
+    .trow .col-format,.trow .col-min,.tfoot .col-format,.tfoot .col-min{display:none}
+    .watch{justify-self:start}
+  }
+
+  /* ---- additions for this portal: pending + document deliverables ---- */
+  .stage{display:inline-block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    border-radius:999px;padding:5px 12px;border:1px solid var(--line);color:var(--muted)}
+  .stage.live{color:var(--green);border-color:rgba(78,201,138,.4);background:rgba(78,201,138,.07)}
+  .stage.prod{color:var(--gold-2);border-color:rgba(201,162,75,.42);background:rgba(201,162,75,.08)}
+  .stage.soon{color:var(--muted);border-color:var(--line)}
+  .block-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .block-head h3{font-size:20px;font-weight:700;letter-spacing:-.2px}
+  .deliv-no{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .lede{font-size:14.5px;color:var(--muted);max-width:62ch;margin-bottom:20px}
+  .lede b{color:var(--txt);font-weight:600}
+  /* placeholder frame for a deliverable that has nothing to show yet */
+  .frame.pending{display:flex;align-items:center;justify-content:center;text-align:center;
+    background:linear-gradient(180deg,var(--card),var(--card-2));border-style:dashed;padding:30px}
+  .frame.pending .ph{max-width:44ch}
+  .frame.pending .ph .big{font-size:15px;font-weight:600;color:var(--txt);margin-bottom:8px}
+  .frame.pending .ph .small{font-size:13px;color:var(--muted-2);line-height:1.6}
+  .frame.pending .ph .dot{display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:var(--gold);margin-right:8px;vertical-align:middle;
+    box-shadow:0 0 0 4px rgba(201,162,75,.14)}
+  /* what the AI-visibility program covers */
+  .covers{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:18px}
+  .cover{border:1px solid var(--line);border-radius:12px;padding:15px 17px;background:rgba(255,255,255,.02)}
+  .cover .t{font-size:13px;font-weight:600;color:var(--txt);margin-bottom:5px}
+  .cover .d{font-size:12.5px;color:var(--muted);line-height:1.55}
+  .platforms{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0 4px}
+  .platforms span{font-size:12px;color:var(--muted);border:1px solid var(--line);
+    border-radius:999px;padding:6px 14px;background:rgba(255,255,255,.02)}
+
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Avatar<b>Agency</b></div>
+    <div class="pill">Private Client Portal · Confidential</div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Client Account</div>
+    <h1>Alena Nawrocki
+      <span class="sub">Your creative, your review notes, and everything in production — in one place.</span>
+    </h1>
+    <div class="meta-row">
+      <div class="item">Engagement<span>Service Agreement · Jul 21, 2026</span></div>
+      <div class="item">Amended<span>Addendum No. 1 · Aug 14, 2026</span></div>
+      <div class="item">Ready to review<span>2 vertical shorts</span></div>
+      <div class="item">In production<span>90-second service video</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ 01 — SERVICE VIDEO PRODUCTION ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Your Creative</h2>
+      <div class="note">Newest work appears here as it is delivered</div>
+    </div>
+
+    <div class="video-block">
+      <div class="deliv-no">01 — Service Video Production</div>
+      <div class="block-head">
+        <h3>~90-Second Horizontal Format (16:9)</h3>
+        <span class="stage prod">In production</span>
+      </div>
+      <div class="lede">
+        Your scripted, clone-driven service video, built from your own photographs and recorded
+        voice. Production opens with a <b>storyboard</b> — a scene-by-scene visual plan delivered
+        as your first-round review — so the creative direction is approved before the video is
+        built. Optimized for Meta feed placement and equally suited to your practice website.
+      </div>
+      <div class="frame wide pending">
+        <div class="ph">
+          <div class="big"><span class="dot"></span>Currently in production</div>
+          <div class="small">
+            Your storyboard arrives here first for review and approval. The finished
+            90-second video follows, and will appear in this space with its own notes
+            and approval panel.
+          </div>
+        </div>
+      </div>
+    </div>
+
+<!-- ============ 02 — VERTICAL SHORT-FORM ============ -->
+    <div class="video-block" style="margin-top:44px">
+      <div class="deliv-no">02 — Vertical Short-Form Edit</div>
+      <div class="block-head">
+        <h3>~30-Second Version (9:16)</h3>
+        <span class="stage live">Ready for your review</span>
+      </div>
+      <div class="lede">
+        Two short-form concepts, built as <b>original scripts and original content</b> rather than
+        cut-downs of the 90-second video, so you have social creative in hand while that piece is
+        still in production. These two are <b>test pieces</b> — tell us what lands and what
+        doesn't, and we produce more along the direction you like. Held at the agreed
+        <b>$250 per video</b> rate.
+      </div>
+
+      <div class="reels">
+        <div class="reel">
+          <div class="frame tall">
+            <video id="reel-1" controls preload="metadata" playsinline
+                   src="/clients/anawrocki/vertical-01.mp4"></video>
+          </div>
+          <h4>Invisalign</h4>
+          <div class="rmeta">Vertical · 1080×1944 · 0:21 · captioned</div>
+          <a class="watch" href="/clients/anawrocki/vertical-01.mp4"
+             download="Alena_Nawrocki_Invisalign_Vertical.mp4">↓ Download</a>
+        </div>
+        <div class="reel">
+          <div class="frame tall">
+            <video id="reel-2" controls preload="metadata" playsinline
+                   src="/clients/anawrocki/vertical-02.mp4"></video>
+          </div>
+          <h4>Scared of the Dentist</h4>
+          <div class="rmeta">Vertical · 0:23 · captioned</div>
+          <a class="watch" href="/clients/anawrocki/vertical-02.mp4"
+             download="Alena_Nawrocki_Scared_Of_The_Dentist_Vertical.mp4">↓ Download</a>
+        </div>
+      </div>
+
+      <div class="review-note">
+        <b>What we're asking:</b> these are a direction test, not a final set. Watch both, then
+        tell us which one feels more like your practice — the tone, the pacing, the hook in the
+        first two seconds. Your answer sets the template for the rest of the shorts.
+      </div>
+
+      <div class="review-box">
+        <div class="rb-head">
+          <span class="rb-title">Your Notes &amp; Approval — Vertical Short-Form Tests</span>
+          <span class="rb-saved" id="rb1-saved">Saved ✓</span>
+        </div>
+        <textarea id="rb1" rows="5"
+          placeholder="Which one felt more like you? Anything you'd change in the opening seconds, the pacing, the captions, or the music?"></textarea>
+        <div class="rb-actions">
+          <button class="btn approve" id="rb1-approve">Approve &amp; Continue This Direction</button>
+          <button class="btn ghost" id="rb1-send">Send Notes</button>
+        </div>
+        <div class="rb-hint">
+          Your notes save to this browser as you type, so you can come back and finish later.
+          Either button opens an email to Michael with your notes attached.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 — AI VISIBILITY GUIDANCE ============ -->
+<section style="border-top:1px solid var(--line)">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>AI Visibility</h2>
+      <div class="note">Baseline audit in preparation</div>
+    </div>
+
+    <div class="video-block">
+      <div class="deliv-no">03 — AI Visibility Guidance</div>
+      <div class="block-head">
+        <h3>ChatGPT, Gemini, Grok &amp; Perplexity</h3>
+        <span class="stage soon">Audit in preparation</span>
+      </div>
+      <div class="lede">
+        Patients increasingly ask an AI assistant for a dentist before they ever open a search
+        engine. This program finds out what those assistants say about your practice today, then
+        fixes what makes them say it.
+      </div>
+
+      <div class="platforms">
+        <span>ChatGPT</span><span>Gemini</span><span>Grok</span><span>Perplexity</span>
+      </div>
+
+      <div class="covers">
+        <div class="cover">
+          <div class="t">Baseline audit</div>
+          <div class="d">How your practice appears — or doesn't — across all four platforms, on real patient searches.</div>
+        </div>
+        <div class="cover">
+          <div class="t">Prioritized action plan</div>
+          <div class="d">Google Business Profile, review and directory presence, consistent listings, and site content structured for AI citation.</div>
+        </div>
+        <div class="cover">
+          <div class="t">Walkthrough call</div>
+          <div class="d">A one-on-one session to go through the plan together and answer questions.</div>
+        </div>
+        <div class="cover">
+          <div class="t">60–90 day re-check</div>
+          <div class="d">The same searches re-run against the baseline, so movement is measured rather than assumed.</div>
+        </div>
+      </div>
+
+      <div class="frame wide pending" style="margin-top:22px;aspect-ratio:auto;min-height:190px">
+        <div class="ph">
+          <div class="big"><span class="dot"></span>Your baseline audit document</div>
+          <div class="small">
+            The written audit and action plan will be published here as a PDF you can read in
+            the browser or download. This space is reserved for it.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="wrap">
+    <h2>Questions on any of this?</h2>
+    <p>Reply to any delivery email, or reach Michael directly.</p>
+    <div class="btns">
+      <a class="btn primary" href="mailto:michael@avataragency.ai?subject=Alena%20Nawrocki%20%E2%80%94%20Portal%20Question">Email Michael</a>
+      <a class="btn ghost" href="tel:+13109809378">(310) 980-9378</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 AvatarAgency.ai · Woodland Hills, California</div>
+    <div>Prepared for Alena Nawrocki</div>
+  </div>
+</footer>
+
+<script>
+/* Players open at half volume so a review session never starts at full blast. */
+[['reel-1'],['reel-2']].forEach(function(p){
+  var v=document.getElementById(p[0]); if(v) v.volume=0.5;
+});
+
+/* Review box: notes persist to this browser as the client types, and both buttons
+   compose a prefilled mail to Michael. No backend, same pattern as the other portals. */
+(function(){
+  var KEY='anawrocki-vertical-tests';
+  var ta=document.getElementById('rb1'), saved=document.getElementById('rb1-saved');
+  if(!ta) return;
+  try{ var prev=localStorage.getItem(KEY); if(prev) ta.value=prev; }catch(e){}
+  var t=null;
+  ta.addEventListener('input',function(){
+    try{ localStorage.setItem(KEY, ta.value); }catch(e){}
+    saved.classList.add('show');
+    clearTimeout(t); t=setTimeout(function(){ saved.classList.remove('show'); },1400);
+  });
+  function mail(subject, lead){
+    var body = lead + '\n\n' + (ta.value.trim() || '(no notes added)') + '\n\n— Alena Nawrocki';
+    location.href = 'mailto:michael@avataragency.ai'
+      + '?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent(body);
+  }
+  document.getElementById('rb1-approve').addEventListener('click',function(){
+    mail('APPROVED — Alena Nawrocki — Vertical Short-Form Tests',
+         'These are approved. Please continue producing shorts in this direction.');
+  });
+  document.getElementById('rb1-send').addEventListener('click',function(){
+    mail('Notes — Alena Nawrocki — Vertical Short-Form Tests',
+         'Here are my notes on the two vertical tests:');
+  });
+})();
+</script>
+
+</body>
+</html>
