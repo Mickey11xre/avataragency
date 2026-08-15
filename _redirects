@@ -8,3 +8,10 @@
 # serve Cloudflare's 404. 2026-08-11
 /thrivingproject       /thriveproject/        301
 /thrivingproject/*     /thriveproject/:splat  301
+# Dental Arts landing page: the canonical path is /clients/dental-arts/ (handoff 2026-08-15),
+# but /dentalarts is the short form that gets typed. Without this it hits the SPA fallback
+# and silently serves the homepage at HTTP 200, which reads as "the deploy failed".
+# NOTE: the page is an UNLISTED, noindexed preview while Ron's likeness release and the ESP
+# wiring are open. A redirect is not a public link, but do not advertise either URL. 2026-08-15
+/dentalarts            /clients/dental-arts/  301
+/dentalarts/*          /clients/dental-arts/  301
