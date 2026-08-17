@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Intake Review — AvatarAgency</title>
+<style>
+  :root{
+    --bg:#0a0a0c;--bg-2:#101014;--card:#15151b;--card-2:#1b1b22;--line:#26262f;
+    --txt:#f4f4f6;--muted:#9a9aa6;--muted-2:#6d6d78;--gold:#c9a24b;--gold-2:#e3c478;
+    --green:#4ec98a;--radius:16px;--max:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    background:radial-gradient(1200px 600px at 80% -10%, rgba(201,162,75,.10), transparent 60%),var(--bg);
+    color:var(--txt);font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  a{color:var(--gold-2)}
+  .topbar{border-bottom:1px solid var(--line);background:rgba(10,10,12,.7);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .brand{font-weight:700;font-size:18px}.brand b{color:var(--gold-2)}
+  .pill{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+  .hero{padding:44px 0 28px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  h1{font-size:32px;font-weight:800;letter-spacing:-.5px}
+  .meta{margin-top:14px;color:var(--muted);font-size:14px}
+  .meta .done{color:var(--green);font-weight:600}
+  section{padding:34px 0}
+  .grp{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin-bottom:18px}
+  .grp h2{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:18px}
+  .qa{padding:14px 0;border-top:1px solid var(--line)}
+  .qa:first-of-type{border-top:none;padding-top:0}
+  .qa .q{font-size:13px;color:var(--muted);margin-bottom:6px}
+  .qa .a{font-size:15px;white-space:pre-wrap;word-break:break-word}
+  .qa .a.empty{color:var(--muted-2);font-style:italic}
+  .qa .a a{word-break:break-all}
+  .files{display:grid;gap:8px}
+  .frow{display:flex;justify-content:space-between;align-items:center;gap:12px;background:rgba(12,12,16,.6);border:1px solid var(--line);border-radius:10px;padding:11px 14px;font-size:14px}
+  .frow .sz{color:var(--muted-2);font-size:12.5px;white-space:nowrap}
+  .note{color:var(--muted-2);font-size:13px;margin-top:10px}
+  .err{background:rgba(229,120,111,.08);border:1px solid rgba(229,120,111,.35);border-radius:12px;padding:18px;color:#e5786f}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Avatar<b>Agency</b></div>
+    <div class="pill">Internal · Intake Review</div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Creative Intake</div>
+    <h1 id="title">Loading…</h1>
+    <div class="meta" id="meta"></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap" id="out"></div>
+</section>
+
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var key = params.get('k') || '';
+  var slug = (params.get('c') || '').toLowerCase();
+  if (!/^[a-z0-9-]{1,64}$/.test(slug)) {
+    var m = location.pathname.match(/\/clients\/([a-z0-9-]+)\//i);
+    slug = m ? m[1].toLowerCase() : 'intake';
+  }
+  var DOC = slug + '-intake';
+  var out = document.getElementById('out');
+
+  // Question labels, grouped exactly like the form
+  var GROUPS = [
+    ['1 · The Basics', [
+      ['q_name','Your name(s)'],['q_email','Best email'],
+      ['q_project','What are we building together?'],
+      ['q_deadline','Date working toward'],['q_decision','Who approves final work']
+    ]],
+    ['2 · Brand Foundation', [
+      ['q_audience','Ideal audience'],['q_promise','What people should feel'],
+      ['q_story','Story / mission behind it'],['q_words','Brand personality'],
+      ['q_admire','Brands/work admired'],['q_avoid','What to avoid']
+    ]],
+    ['3 · Logo', [
+      ['q_logo_have','Existing logo/artwork'],['q_logo_style','Direction that feels right'],
+      ['q_logo_where','Where the logo must live'],['q_logo_refs','Logos they love']
+    ]],
+    ['4 · Style Guide', [
+      ['q_palettes','Color moods selected'],
+      ['q_colors','Colors (and dislikes)'],
+      ['q_existing_brand','Existing brand materials']
+    ]],
+    ['5 · Website', [
+      ['q_site_subject','What the website is about'],['q_site_goal','#1 visitor action'],
+      ['q_site_pages','Pages / sections'],['q_site_hope','What they hope to see'],
+      ['q_ref1_url','Reference 1 — URL'],['q_ref1_why','Reference 1 — why'],
+      ['q_ref2_url','Reference 2 — URL'],['q_ref2_why','Reference 2 — why'],
+      ['q_ref3_url','Reference 3 — URL'],['q_ref3_why','Reference 3 — why'],
+      ['q_ref_dislike','Sites they disliked'],
+      ['q_content','Content they already have'],['q_domain','Domain'],
+      ['q_social','Social channels'],['q_search','Search phrases'],
+      ['q_site_extra','Other site needs']
+    ]],
+    ['6 · Interactive Avatar', [
+      ['q_av_who','Who the avatar is'],['q_av_look','How they should look'],
+      ['q_av_personality','Personality'],['q_av_voice','How they should sound'],
+      ['q_av_speak','How they talk'],['q_av_greeting','Opening line'],
+      ['q_av_know','What the avatar should know'],['q_av_source','Training materials'],
+      ['q_av_questions','Expected visitor questions'],['q_av_never','What it must NEVER do']
+    ]],
+    ['7 · Anything Else', [ ['q_anything','Anything else'] ]]
+  ];
+
+  function esc(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+  function linkify(s){
+    return esc(s).replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  }
+
+  fetch('/api/review?doc=' + encodeURIComponent(DOC))
+    .then(function(r){ return r.json(); })
+    .then(function(state){
+      var items = (state && state.items) || {};
+      var name = (state && state.name) || '';
+      document.getElementById('title').textContent = name ? (name + ' — Intake') : (slug + ' — Intake');
+      var meta = [];
+      if (state && state.updatedAt) meta.push('Last updated ' + new Date(state.updatedAt).toLocaleString());
+      if (state && state.done) meta.push('<span class="done">✓ Client marked finished ' + new Date(state.done).toLocaleString() + '</span>');
+      else meta.push('<span style="color:var(--muted-2)">Still in progress</span>');
+      document.getElementById('meta').innerHTML = meta.join(' &nbsp;·&nbsp; ');
+
+      var answered = 0, total = 0;
+      var html = '';
+      GROUPS.forEach(function(g){
+        html += '<div class="grp"><h2>' + esc(g[0]) + '</h2>';
+        g[1].forEach(function(pair){
+          total++;
+          var v = (items[pair[0]] && items[pair[0]].comment) || '';
+          if (v.trim()) answered++;
+          html += '<div class="qa"><div class="q">' + esc(pair[1]) + '</div>' +
+                  '<div class="a' + (v.trim() ? '' : ' empty') + '">' +
+                  (v.trim() ? linkify(v) : '— not answered —') + '</div></div>';
+        });
+        html += '</div>';
+      });
+      out.innerHTML = '<div class="grp"><h2>Uploaded Files</h2><div class="files" id="files">' +
+                      '<div class="note">Loading…</div></div></div>' + html;
+      document.getElementById('meta').innerHTML += ' &nbsp;·&nbsp; ' + answered + ' of ' + total + ' answered';
+
+      // files
+      fetch('/api/intake-docs?c=' + encodeURIComponent(slug))
+        .then(function(r){ return r.json(); })
+        .then(function(j){
+          var el = document.getElementById('files');
+          if (!j || !j.files || !j.files.length) { el.innerHTML = '<div class="note">No files uploaded yet.</div>'; return; }
+          el.innerHTML = j.files.map(function(f){
+            var kb = f.size ? (f.size > 1048576 ? (f.size/1048576).toFixed(1)+' MB' : Math.round(f.size/1024)+' KB') : '';
+            var href = '/api/intake-docs?c=' + encodeURIComponent(slug) + '&get=' + encodeURIComponent(f.key) + '&k=' + encodeURIComponent(key);
+            return '<div class="frow"><a href="' + href + '">' + esc(f.fn) + '</a><span class="sz">' + kb + '</span></div>';
+          }).join('');
+          if (!key) el.innerHTML += '<div class="note">Add <b>?k=YOUR_DOCS_KEY</b> to this URL to enable downloads.</div>';
+        }).catch(function(){
+          document.getElementById('files').innerHTML = '<div class="note">Could not load files.</div>';
+        });
+    })
+    .catch(function(){
+      out.innerHTML = '<div class="err">Could not load intake data. Check that the review API is reachable.</div>';
+      document.getElementById('title').textContent = 'Error';
+    });
+})();
+</script>
+</body>
+</html>
