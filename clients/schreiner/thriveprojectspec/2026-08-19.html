@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>The Thriving Project — Website Architecture Report · AvatarAgency</title>
+<style>
+  :root{
+    --ink:#15241c; --ink-soft:#3d5247; --paper:#fbfaf7; --card:#ffffff;
+    --green-900:#1B4332; --green-700:#2D6A4F; --green-500:#40916C; --green-300:#74C69D; --green-100:#D8F3DC;
+    --gold:#C9A84C; --soil:#7B5E3B; --red:#B4432F;
+    --line:#dfe6e0; --fade:.42;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Georgia,'Times New Roman',serif;background:var(--paper);color:var(--ink);line-height:1.65;font-size:16px}
+  .sans{font-family:'Helvetica Neue',Arial,sans-serif}
+  header.masthead{background:linear-gradient(160deg,var(--green-900) 0%,var(--green-700) 70%,var(--green-500) 100%);color:#fff;padding:64px 8% 56px}
+  header.masthead .kicker{font-family:'Helvetica Neue',Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;font-size:12px;color:var(--green-300);margin-bottom:14px}
+  header.masthead h1{font-size:clamp(28px,4vw,44px);font-weight:400;line-height:1.15;max-width:820px}
+  header.masthead .sub{margin-top:18px;color:var(--green-100);max-width:760px;font-size:17px}
+  header.masthead .meta{margin-top:26px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:13px;color:#cfe6d8;display:flex;gap:28px;flex-wrap:wrap}
+  main{max-width:1120px;margin:0 auto;padding:0 24px 90px}
+  section{margin-top:64px}
+  h2{font-size:26px;font-weight:400;color:var(--green-900);border-bottom:3px solid var(--gold);display:inline-block;padding-bottom:6px;margin-bottom:8px}
+  .secnum{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;display:block;margin-bottom:6px;margin-top:0}
+  h3{font-size:19px;color:var(--green-700);margin:28px 0 10px;font-weight:600;font-family:'Helvetica Neue',Arial,sans-serif}
+  p{margin:12px 0;max-width:78ch}
+  .lead{font-size:18px;color:var(--ink-soft)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:22px 26px;margin:18px 0;box-shadow:0 1px 3px rgba(27,67,50,.06)}
+  .callout{border-left:4px solid var(--gold);background:#fdf9ef;padding:16px 20px;margin:20px 0;border-radius:0 8px 8px 0}
+  .callout.green{border-left-color:var(--green-500);background:#f2faf4}
+  .callout.red{border-left-color:var(--red);background:#fdf3f1}
+  .small{font-size:13.5px;color:var(--ink-soft)}
+  table{border-collapse:collapse;width:100%;margin:18px 0;font-family:'Helvetica Neue',Arial,sans-serif;font-size:14px;background:#fff}
+  th{background:var(--green-900);color:#fff;text-align:left;padding:10px 12px;font-weight:600}
+  td{border:1px solid var(--line);padding:9px 12px;vertical-align:top}
+  tr:nth-child(even) td{background:#f6f8f6}
+  code{font-family:ui-monospace,'SF Mono',Menlo,monospace;font-size:.86em;background:#eef2ee;border:1px solid var(--line);border-radius:4px;padding:1px 6px;color:var(--green-900)}
+  a{color:var(--green-700)}
+  ul.tight{margin:10px 0 10px 22px}
+  ul.tight li{margin:7px 0;max-width:76ch}
+  ol.tight{margin:10px 0 10px 22px}
+  ol.tight li{margin:8px 0;max-width:76ch}
+  .badge{display:inline-block;font-family:'Helvetica Neue',Arial,sans-serif;font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 10px;border-radius:20px;font-weight:700}
+  .badge.p1{background:var(--green-100);color:var(--green-900)}
+  .badge.p2{background:#eee9df;color:var(--soil)}
+  .badge.new{background:var(--gold);color:#fff}
+  .badge.fix{background:#f6ddd7;color:var(--red)}
+
+  /* ============ SITEMAP TREE ============ */
+  .tree{margin:30px 0;font-family:'Helvetica Neue',Arial,sans-serif}
+  .tree .root{display:flex;justify-content:center}
+  .rootbox{background:var(--green-900);color:#fff;border-radius:10px;padding:14px 34px;text-align:center;box-shadow:0 3px 10px rgba(27,67,50,.25)}
+  .rootbox .t{font-size:16px;font-weight:700}
+  .rootbox .u{font-size:11.5px;color:var(--green-300);margin-top:2px}
+  .trunk{width:2px;height:26px;background:var(--green-500);margin:0 auto}
+  .branchbar{height:2px;background:var(--green-500);margin:0 40px;position:relative}
+  .branches{display:grid;grid-template-columns:repeat(auto-fit,minmax(158px,1fr));gap:14px;padding:0 12px;margin-top:0}
+  .branch{position:relative;padding-top:22px}
+  .branch::before{content:'';position:absolute;top:0;left:50%;width:2px;height:22px;background:var(--green-500)}
+  .bcard{background:#fff;border:1.5px solid var(--green-500);border-radius:8px;overflow:hidden;height:100%}
+  .bcard .bhead{background:var(--green-700);color:#fff;padding:8px 10px;font-size:12.5px;font-weight:700;line-height:1.3}
+  .bcard .bhead .bu{display:block;font-weight:400;font-size:10.5px;color:var(--green-300);margin-top:1px}
+  .bcard ul{list-style:none;padding:8px 10px}
+  .bcard li{font-size:11.8px;padding:4px 2px 4px 10px;border-left:2px solid var(--green-300);margin:4px 0;line-height:1.35;color:var(--ink-soft)}
+  .bcard li .u{display:block;font-size:10px;color:#8aa093}
+  .bcard li.warn{border-left-color:var(--red);color:var(--red)}
+  .bcard.ghost{border-style:dashed;opacity:var(--fade)}
+  .bcard.ghost .bhead{background:var(--soil)}
+  .legend{display:flex;gap:22px;flex-wrap:wrap;margin:14px 4px;font-family:'Helvetica Neue',Arial,sans-serif;font-size:12.5px;color:var(--ink-soft);align-items:center}
+  .swatch{display:inline-block;width:14px;height:14px;border-radius:3px;vertical-align:-2px;margin-right:6px}
+
+  /* ============ FUNNEL / FLOW ============ */
+  .flow{display:flex;align-items:stretch;gap:0;margin:22px 0;flex-wrap:wrap;font-family:'Helvetica Neue',Arial,sans-serif}
+  .fstep{flex:1;min-width:150px;background:#fff;border:1.5px solid var(--green-500);border-radius:8px;padding:12px 14px;position:relative;margin-right:26px;margin-bottom:12px}
+  .fstep:last-child{margin-right:0}
+  .fstep::after{content:'➜';position:absolute;right:-22px;top:50%;transform:translateY(-50%);color:var(--green-500);font-size:15px}
+  .fstep:last-child::after{content:''}
+  .fstep .ft{font-weight:700;font-size:13px;color:var(--green-900)}
+  .fstep .fd{font-size:11.8px;color:var(--ink-soft);margin-top:4px;line-height:1.45}
+  .rail{border:1px dashed var(--line);border-radius:12px;padding:16px 18px 6px;margin:16px 0;background:#fcfdfc}
+  .rail .rlabel{font-family:'Helvetica Neue',Arial,sans-serif;font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:4px}
+  .rail.card-rail .rlabel{color:var(--green-700)}
+  .rail.inv-rail .rlabel{color:var(--soil)}
+  .rail.inv-rail .fstep{border-color:var(--soil)}
+  .rail.inv-rail .fstep::after{color:var(--soil)}
+
+  /* ============ HOMEPAGE MOVEMENTS ============ */
+  .movements{margin:26px 0;font-family:'Helvetica Neue',Arial,sans-serif;position:relative}
+  .mv{display:flex;gap:0;margin:0;align-items:stretch}
+  .mvline{width:46px;flex:none;display:flex;flex-direction:column;align-items:center}
+  .mvline .dot{width:30px;height:30px;flex:none;border-radius:50%;background:var(--green-700);color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 4px var(--green-100)}
+  .mvline .stem{width:2px;flex:1;background:var(--green-300);min-height:14px}
+  .mv:last-child .mvline .stem{background:transparent}
+  .mvcard{flex:1;background:#fff;border:1px solid var(--line);border-left:4px solid var(--green-500);border-radius:8px;padding:12px 16px;margin:0 0 14px 12px;box-shadow:0 1px 3px rgba(27,67,50,.05)}
+  .mvcard .mvtop{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+  .mvcard .mvt{font-weight:700;font-size:14.5px;color:var(--green-900)}
+  .mvcard .grow{font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);font-weight:700;white-space:nowrap}
+  .mvcard .mvd{font-size:12.8px;color:var(--ink-soft);margin-top:5px;line-height:1.5;max-width:none}
+  .mvcard .routes{margin-top:8px;display:flex;gap:6px;flex-wrap:wrap}
+  .rchip{font-size:10.8px;background:var(--green-100);color:var(--green-900);border-radius:12px;padding:2px 10px;font-weight:600}
+  .rchip.cta{background:var(--gold);color:#fff}
+  .rchip.ghosted{background:#eee9df;color:var(--soil);opacity:.6;border:1px dashed var(--soil)}
+  .mv.ghost .mvcard{border-left-color:var(--soil);opacity:var(--fade)}
+  .mv.ghost .mvline .dot{background:var(--soil)}
+  .toc{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:20px 28px;margin-top:40px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .toc ol{margin-left:20px;font-size:14.5px;columns:2;column-gap:44px}
+  .toc li{margin:6px 0;-webkit-column-break-inside:avoid}
+  .toc a{text-decoration:none}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin:20px 0}
+  .kpi{background:#fff;border:1px solid var(--line);border-top:4px solid var(--green-500);border-radius:8px;padding:14px 16px;font-family:'Helvetica Neue',Arial,sans-serif}
+  .kpi .n{font-size:26px;font-weight:700;color:var(--green-900)}
+  .kpi .l{font-size:12px;color:var(--ink-soft);margin-top:3px;line-height:1.4}
+  footer{border-top:1px solid var(--line);margin-top:70px;padding:26px 8%;font-family:'Helvetica Neue',Arial,sans-serif;font-size:12.5px;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  @media print{.fstep::after{right:-20px}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="kicker">AvatarAgency × THRIVE · Design Phase Foundation Document</div>
+  <h1>The Thriving Project — Site Architecture &amp; Conversion Blueprint</h1>
+  <p class="sub">Current-state site map of thrivingincollege.org, evaluation of the approved concept design, and the proposed information architecture for the September 2026 rebuild of The Thriving Project — engineered for revenue conversion, conventional SEO, and AI-referral (AEO) visibility from day one.</p>
+  <div class="meta">
+    <span>Prepared for: Dr. Laurie A. Schreiner</span>
+    <span>By: AvatarAgency and THRIVE — Michael Rivera and Stephanie D. Geter</span>
+    <span>Date: August 19, 2026</span>
+    <span>Target launch: September 15, 2026</span>
+  </div>
+</header>
+
+<main>
+
+<div class="toc">
+  <strong>Contents</strong>
+  <ol>
+    <li><a href="#exec">Executive summary</a></li>
+    <li><a href="#current">Current site map — thrivingincollege.org</a></li>
+    <li><a href="#concept">Concept design evaluation</a></li>
+    <li><a href="#newarch">Proposed site architecture</a></li>
+    <li><a href="#purchase">The purchase engine — Stripe dual-rail flow</a></li>
+    <li><a href="#pricing">Pricing page specification</a></li>
+    <li><a href="#aeo">AEO + SEO structural requirements</a></li>
+    <li><a href="#offsite">What this architecture cannot fix — the off-site track</a></li>
+    <li><a href="#research">Research findings — industry &amp; e-commerce evidence</a></li>
+    <li><a href="#patterns">Design pattern references (Mobbin)</a></li>
+    <li><a href="#phase23">Appendix A — Phase 2 &amp; 3 module architecture</a></li>
+    <li><a href="#sources">Appendix B — Sources</a></li>
+  </ol>
+</div>
+
+<!-- ============ 1. EXECUTIVE SUMMARY ============ -->
+<section id="exec">
+  <span class="secnum">Section 01</span>
+  <h2>Executive summary</h2>
+  <p class="lead">Your current site is a 20-page Wix build whose structure works against revenue: two of your three revenue lines — consulting and speaking — have no pages at all, the same package is priced differently in two places, and the purchase path ends in a generic contact form. The concept design you approved solves the <em>emotional</em> problem: it is beautiful, alive, and true to your research. This document solves the <em>structural</em> problem — how every part of your work plugs into that concept in a way that flows naturally to purchase.</p>
+
+  
+  <div class="kpis">
+    <div class="kpi"><div class="n">20 → 28</div><div class="l">pages now vs. proposed Phase 1, including four new discovery pages (plus reserved slots for later phases)</div></div>
+    <div class="kpi"><div class="n">2</div><div class="l">purchase rails on every package: instant card checkout + institutional quote/invoice (PO, Net 30)</div></div>
+    <div class="kpi"><div class="n">67%</div><div class="l">of B2B buyers prefer a rep-free buying experience (Gartner 2026) — public pricing and self-service win</div></div>
+    <div class="kpi"><div class="n">$2.5–5K</div><div class="l">typical university p-card single-purchase limit — card checkout serves every tier except the $10K flagship</div></div>
+    <div class="kpi"><div class="n">0</div><div class="l">major AI crawlers execute JavaScript (Vercel/MERJ) — every word must live in the initial HTML beneath the animation</div></div>
+  </div>
+
+  <div class="callout green">
+    <strong>The five structural decisions this report recommends:</strong>
+    <ol class="tight">
+      <li><strong>Product-first navigation, audience-second.</strong> Primary navigation mirrors your peer set (NSSE, CCSSE, HERI): Instruments · Packages &amp; Pricing · Research &amp; Results · Consulting &amp; Speaking · About. Audience routing ("For campus leaders / For researchers / For faculty &amp; staff") lives as homepage cards rather than as the navigation spine.</li>
+      <li><strong>One canonical pricing page</strong> with a five-package comparison table — the $10,000 Thriving Campus Package anchoring the right edge and a "Most Popular" badge on the Expanded Report — replacing the three separate pricing surfaces on the site today.</li>
+      <li><strong>Dual purchase rails on every package:</strong> Stripe Checkout for card/p-card buyers, and a quote→invoice rail (Stripe Quotes + Invoicing, PO number field, Net 30, ACH) for procurement offices. Pay first, intake after — never intake before payment.</li>
+      <li><strong>The animation is a layer, not the page.</strong> The approved scroll experience renders above a complete semantic HTML document. Text is never painted into canvas frames; a reduced-motion/no-JS version is the crawlable, accessible fallback.</li>
+      <li><strong>Answer-page layer for AEO:</strong> dedicated definitional pages (<code>/what-is-thriving/</code>, one page per instrument, a research library with DOIs) carry the AI-citation weight, so the cinematic homepage does not have to compromise to earn it.</li>
+    </ol>
+  </div>
+
+  <p class="small"><em>Method note: the industry and e-commerce findings in Section 09 come from multi-source research across comparable vendors and published usability studies; every claim carries a source link in Appendix B. The current-site map draws on our full crawl of August 7, re-verified for this document.</em></p>
+</section>
+
+<!-- ============ 2. CURRENT SITE MAP ============ -->
+<section id="current">
+  <span class="secnum">Section 02</span>
+  <h2>Current site map — thrivingincollege.org</h2>
+  <p>Twenty pages on Wix, organized as a flat list with no hierarchy, no hub pages, and no purchase logic. The diagram below groups pages the way visitors encounter them. Flagged entries carry structural issues that should not carry over into the new site.</p>
+
+  <div class="tree">
+    <div class="root">
+      <div class="rootbox"><div class="t">HOME — thrivingincollege.org</div><div class="u">"What is Thriving?" · bio · survey overviews · contact form</div></div>
+    </div>
+    <div class="trunk"></div>
+    <div class="branchbar"></div>
+    <div class="branches">
+      <div class="branch"><div class="bcard">
+        <div class="bhead">STUDENT INSTRUMENTS<span class="bu">5 pages, no hub</span></div>
+        <ul>
+          <li>Undergraduate TQ<span class="u">/undergradtq</span></li>
+          <li class="warn">Sophomore Experiences<span class="u">/sophmoreexperiences — misspelled slug</span></li>
+          <li>Adult Learner TQ<span class="u">/adultlearnertq</span></li>
+          <li>Graduate TQ<span class="u">/graduatetq</span></li>
+          <li>Community College TQ<span class="u">/ccstudenttq</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard">
+        <div class="bhead">FACULTY &amp; STAFF<span class="bu">2 pages</span></div>
+        <ul>
+          <li class="warn">Faculty TQ<span class="u">/copy-of-faculty-staff-tq — Wix "copy-of" artifact</span></li>
+          <li class="warn">Staff TQ<span class="u">/copy-of-faculty-tq — slugs are swapped vs. content</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard">
+        <div class="bhead">PRICING ×2 + STORE<span class="bu">3 conflicting surfaces</span></div>
+        <ul>
+          <li>Packages &amp; Prices (students)<span class="u">/packages-prices</span></li>
+          <li class="warn">Packages (fac/staff)<span class="u">/packages — near-duplicate page</span></li>
+          <li class="warn">TQ Store<span class="u">/tq-store — Expanded pkg $3,000 here vs $2,500 on packages pages; custom Qs $50/item vs $300/5</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard">
+        <div class="bhead">RESEARCH LIBRARY<span class="bu">3 pages, stops at 2019</span></div>
+        <ul>
+          <li>Publications<span class="u">/publications — 17 items</span></li>
+          <li>Presentations<span class="u">/presentations — ~20 items</span></li>
+          <li>Dissertations<span class="u">/dissertations — 21 items</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard">
+        <div class="bhead">RESEARCHERS<span class="bu">1 page</span></div>
+        <ul>
+          <li class="warn">Researcher Request Form<span class="u">/researcher-request-form — download-PDF → sign → scan → email workflow</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard">
+        <div class="bhead">LEGAL<span class="bu">4 footer pages</span></div>
+        <ul>
+          <li>Privacy Policy<span class="u">/privacypolicy</span></li>
+          <li>Terms<span class="u">/terms</span></li>
+          <li>Disclaimer<span class="u">/disclaimer</span></li>
+          <li>Refund Policy<span class="u">/refundpolicy</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard ghost" style="opacity:1;border-color:var(--red);border-style:dashed">
+        <div class="bhead" style="background:var(--red)">MISSING ENTIRELY<span class="bu">invisible revenue</span></div>
+        <ul>
+          <li class="warn">Consulting — no page, despite "200+ campuses advised"</li>
+          <li class="warn">Speaking — no page, despite active keynote calendar</li>
+          <li class="warn">Case studies / testimonials — none</li>
+          <li class="warn">Blog / news — none since 2019-era content</li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="callout red">
+    <strong>Where the current structure loses buyers.</strong> The path to purchase stops short in several places: the "Dr. Laurie Schreiner" navigation item links back to the homepage; "Register Your Campus" opens directly into a store with many options and no guidance on choosing among them; pricing differs between the packages pages and the store ($2,500 vs $3,000) at the exact moment of decision; the researcher path requires downloading, printing and returning a PDF; and consulting and speaking — the two highest-value services — have no pages at all. Each of these is a structural issue rather than a wording one, which is why the rebuild starts here.
+  </div>
+
+  <h3>Migration ledger — every legacy URL gets a 301</h3>
+  <p class="small">AI crawlers re-request old URLs for years — 34% of GPTBot fetches hit 404s in Vercel's server-log study — so the redirect map below is a launch requirement rather than a refinement. It also preserves the Google ranking equity your current pages have accumulated.</p>
+  <table>
+    <tr><th>Legacy URL (Wix)</th><th>301 →  New URL</th><th>Note</th></tr>
+    <tr><td><code>/undergradtq</code></td><td><code>/instruments/undergraduate/</code></td><td></td></tr>
+    <tr><td><code>/sophmoreexperiences</code></td><td><code>/instruments/sophomore/</code></td><td>fixes misspelling</td></tr>
+    <tr><td><code>/adultlearnertq</code></td><td><code>/instruments/adult-learner/</code></td><td></td></tr>
+    <tr><td><code>/graduatetq</code></td><td><code>/instruments/graduate/</code></td><td></td></tr>
+    <tr><td><code>/ccstudenttq</code></td><td><code>/instruments/community-college/</code></td><td></td></tr>
+    <tr><td><code>/copy-of-faculty-staff-tq</code></td><td><code>/instruments/faculty/</code></td><td>kills Wix artifact slug</td></tr>
+    <tr><td><code>/copy-of-faculty-tq</code></td><td><code>/instruments/staff/</code></td><td>kills Wix artifact slug</td></tr>
+    <tr><td><code>/packages-prices</code> and <code>/packages</code></td><td><code>/packages/</code></td><td>two pages collapse into one canonical pricing page</td></tr>
+    <tr><td><code>/tq-store</code></td><td><code>/packages/</code></td><td>store merges into pricing → checkout</td></tr>
+    <tr><td><code>/publications</code></td><td><code>/research/publications/</code></td><td></td></tr>
+    <tr><td><code>/presentations</code></td><td><code>/research/presentations/</code></td><td></td></tr>
+    <tr><td><code>/dissertations</code></td><td><code>/research/dissertations/</code></td><td></td></tr>
+    <tr><td><code>/researcher-request-form</code></td><td><code>/for-researchers/</code></td><td></td></tr>
+    <tr><td><code>/privacypolicy</code>, <code>/terms</code>, <code>/disclaimer</code>, <code>/refundpolicy</code></td><td><code>/legal/privacy/</code> etc.</td><td>refund policy stays prominent near checkout too</td></tr>
+  </table>
+</section>
+<!-- ============ 3. CONCEPT EVALUATION ============ -->
+<section id="concept">
+  <span class="secnum">Section 03</span>
+  <h2>Concept design evaluation — avataragency.ai/thriveproject</h2>
+  <p class="lead">The approved concept is a single scroll-driven experience in five movements, and what it gets right is the <em>feeling</em>: the seedling-to-tree growth sequence, the rooted green palette, the butterfly, the interactivity. Our assessment is that the concept is the right <strong>homepage</strong> — it is not yet a <strong>site</strong>. It compresses the whole of your work into one page. The build unfolds it into a navigable architecture without losing any of that.</p>
+
+  <table>
+    <tr><th>Concept section (as built)</th><th>What it does well</th><th>What the full site needs from it</th></tr>
+    <tr><td><strong>01 · The Reframe</strong> — "What does it mean to thrive in college?" + brand film</td><td>Leads with the definitional question — accidentally perfect for AEO; hero film slot above the fold matches contract Item 01/02</td><td>Back it with real DOM text (the thriving definition verbatim) and link out to <code>/what-is-thriving/</code>; film placeholder → SHERO film</td></tr>
+    <tr><td><strong>02 · The Researcher</strong> — bio + 45 yrs / 200+ campuses / 150k+ students</td><td>The right proof points in the right order — authority established before anything is offered</td><td>Link to full <code>/about/laurie-schreiner/</code> entity page; stats become schema-backed, source-attributed claims</td></tr>
+    <tr><td><strong>03 · Ask the Researcher</strong> — avatar session card</td><td>The signature AvatarAgency differentiator, beautifully staged</td><td><strong>Phase 2 module.</strong> For launch, this slot becomes "Book a consult"; the avatar card returns to the same position when Phase 2 is scoped. We would rather hold it than ship an interactive element that is not ready.</td></tr>
+    <tr><td><strong>04 · Engagements</strong> — 5 packages, swipe cards, "Register your campus"</td><td>All five packages present with Learn-more CTAs</td><td>Cards route to the canonical <code>/packages/</code> comparison table; "Register your campus" becomes the site-wide primary CTA into the purchase engine</td></tr>
+    <tr><td><strong>05 · The Instruments</strong> — 7 tools, α=.89, consulting portal + dashboard teasers, "Book a Live Consult"</td><td>Product family finally legible as a family</td><td>Each instrument links to its own page; "Book a Live Consult" routes to <code>/consulting/</code> (new revenue page); dashboard teaser is Phase 2/3 (pending Point Loma review)</td></tr>
+  </table>
+
+  <div class="callout">
+    <strong>Three structural gaps in the concept</strong> — expected, since it was built to show the design direction rather than the site structure: <strong>(1)</strong> no navigation header — a scroll story has no way to jump to pricing, research, or contact; the build adds a persistent slim nav that appears after the first movement. <strong>(2)</strong> No pages beneath it — every "Learn more" currently has nowhere to go. <strong>(3)</strong> No purchase mechanics — "Register your campus" must land somewhere that takes money. Sections 04–06 of this report supply all three.
+  </div>
+
+  <div class="callout green">
+    <strong>What is preserved untouched:</strong> the scroll-driven seedling→roots→tree growth sequence, the green rooted palette, the butterfly accent, the animated logo, the cinematic pacing, and the film above the fold. The architecture below is designed so that none of these are compromised — the animation becomes the presentation layer of the homepage while the semantic layer underneath does the SEO/AEO work (see Section 07).
+  </div>
+</section>
+
+<!-- ============ 4. PROPOSED ARCHITECTURE ============ -->
+<section id="newarch">
+  <span class="secnum">Section 04</span>
+  <h2>Proposed site architecture</h2>
+  <p>Twenty-eight Phase 1 pages in six sections, with Phase 2/3 expansion slots (faded) already positioned so later modules plug in without restructuring nav or URLs. Primary navigation: <strong>Instruments · Packages &amp; Pricing · Research &amp; Results · Consulting &amp; Speaking · About</strong> — plus the persistent gold CTA button <strong>"Register Your Campus."</strong></p>
+
+  <h3>Homepage anatomy — the animated layer, movement by movement</h3>
+  <p>The concept's five cards were visual proof, not architecture. The production homepage is <strong>seven scroll movements</strong>: a cinematic hero, one movement for each of the five site sections, and a closing router. Every movement is a beat in the growth animation <em>and</em> a card that links into its section — so the homepage becomes a narrative table of contents for the whole site. One deliberate reorder from the concept: <strong>evidence comes before the ask</strong> (Research &amp; Results moves ahead of Packages), because for a $1,500–$10,000 institutional purchase, proof must precede price.</p>
+
+  <div class="movements">
+    <div class="mv">
+      <div class="mvline"><div class="dot">1</div><div class="stem"></div></div>
+      <div class="mvcard">
+        <div class="mvtop"><span class="mvt">The Reframe — hero</span><span class="grow">seed &amp; soil</span></div>
+        <div class="mvd"><strong>SHERO cinematic film above the fold</strong> + "What does it mean to thrive in college?" with the thriving definition as real DOM text beneath it. The seed rests in the soil; roots begin as the visitor scrolls.</div>
+        <div class="routes"><span class="rchip">/what-is-thriving/</span><span class="rchip cta">Register Your Campus (persistent from here on)</span></div>
+      </div>
+    </div>
+    <div class="mv">
+      <div class="mvline"><div class="dot">2</div><div class="stem"></div></div>
+      <div class="mvcard">
+        <div class="mvtop"><span class="mvt">The Researcher — authority</span><span class="grow">roots take hold</span></div>
+        <div class="mvd">Dr. Schreiner's card: 45 years · 200+ campuses advised · 150k+ students studied. Authority established before anything is offered.</div>
+        <div class="routes"><span class="rchip">/about/laurie-schreiner/</span></div>
+      </div>
+    </div>
+    <div class="mv">
+      <div class="mvline"><div class="dot">3</div><div class="stem"></div></div>
+      <div class="mvcard">
+        <div class="mvtop"><span class="mvt">The Instruments — the product family</span><span class="grow">sprout breaks ground</span></div>
+        <div class="mvd">The seven-instrument strip (undergrad → staff), legible as one family for the first time. Each instrument links to its own page.</div>
+        <div class="routes"><span class="rchip">/instruments/ + 7 children</span></div>
+      </div>
+    </div>
+    <div class="mv">
+      <div class="mvline"><div class="dot">4</div><div class="stem"></div></div>
+      <div class="mvcard">
+        <div class="mvtop"><span class="mvt">The Evidence — proof before price</span><span class="grow">trunk &amp; branches</span></div>
+        <div class="mvd">National norms, reliability coefficients (α .85–.94), publications and dissertations count — the credibility beat that earns the next movement's ask.</div>
+        <div class="routes"><span class="rchip">/research/</span><span class="rchip">/what-is-thriving/</span></div>
+      </div>
+    </div>
+    <div class="mv">
+      <div class="mvline"><div class="dot">5</div><div class="stem"></div></div>
+      <div class="mvcard">
+        <div class="mvtop"><span class="mvt">The Engagements — the ask</span><span class="grow">full tree</span></div>
+        <div class="mvd">The five package cards at the moment the tree reaches full growth — the visual metaphor lands exactly where the purchase decision does.</div>
+        <div class="routes"><span class="rchip">/packages/</span><span class="rchip">/packages/&lt;tier&gt;/</span></div>
+      </div>
+    </div>
+    <div class="mv">
+      <div class="mvline"><div class="dot">6</div><div class="stem"></div></div>
+      <div class="mvcard">
+        <div class="mvtop"><span class="mvt">Work with Dr. Schreiner — services</span><span class="grow">canopy spreads</span></div>
+        <div class="mvd">Consulting and speaking, made visible for the first time. This movement occupies the slot the concept gave to "Ask the Researcher" — the avatar card returns here in Phase 2.</div>
+        <div class="routes"><span class="rchip">/consulting/</span><span class="rchip">/speaking/</span><span class="rchip ghosted">Ask the Researcher — Phase 2 /ask/</span></div>
+      </div>
+    </div>
+    <div class="mv">
+      <div class="mvline"><div class="dot">7</div><div class="stem"></div></div>
+      <div class="mvcard">
+        <div class="mvtop"><span class="mvt">Choose Your Path — the router</span><span class="grow">the butterfly lands</span></div>
+        <div class="mvd">Three audience cards (campus leaders · researchers · faculty &amp; staff leaders) + the full-width Register Your Campus close + footer. The butterfly arrives only here, at rest on the finished tree.</div>
+        <div class="routes"><span class="rchip">/packages/</span><span class="rchip">/for-researchers/</span><span class="rchip">/instruments/faculty/</span><span class="rchip ghosted">For Students — Phase 2</span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="small">Semantic-layer note (per Section 07): each movement is an <code>&lt;section&gt;</code> with a real heading and DOM copy in the initial HTML — the animation reveals them; it never contains them. With motion disabled, the seven movements simply stack as a clean single page. <strong>Headings as questions:</strong> each movement's H2 is written as the question buyers actually ask — "What does it mean to thrive in college?", "Who created the Thriving Quotient?", "Which Thriving instrument fits my campus?", "How reliable are the results?", "What does a campus survey cost?" — at summary depth, each linking down to its canonical answer page; capsule text is never duplicated verbatim between homepage and answer page.</p>
+
+  <h3>The full site tree</h3>
+
+  <div class="legend">
+    <span><span class="swatch" style="background:var(--green-700)"></span>Phase 1 — build now</span>
+    <span><span class="swatch" style="background:var(--soil);opacity:.45"></span>Phase 2/3 — faded expansion slot (do not build, do not break)</span>
+    <span><span class="swatch" style="background:var(--gold)"></span>NEW = page that does not exist on the current site</span>
+  </div>
+
+  <div class="tree">
+    <div class="root">
+      <div class="rootbox"><div class="t">HOME — the animated growth experience</div><div class="u">7 scroll movements (hero film → researcher → instruments → evidence → packages → services → router) · semantic layer · persistent nav + "Register Your Campus"</div></div>
+    </div>
+    <div class="trunk"></div>
+    <div class="branchbar"></div>
+    <div class="branches">
+      <div class="branch"><div class="bcard">
+        <div class="bhead">THE INSTRUMENTS<span class="bu">/instruments/ hub + 7 children</span></div>
+        <ul>
+          <li>Instruments hub — family overview, comparison strip <span class="u">/instruments/</span></li>
+          <li>Undergraduate TQ <span class="u">/instruments/undergraduate/</span></li>
+          <li>Sophomore Experiences <span class="u">/instruments/sophomore/</span></li>
+          <li>Adult Learner TQ <span class="u">/instruments/adult-learner/</span></li>
+          <li>Graduate TQ <span class="u">/instruments/graduate/</span></li>
+          <li>Community College TQ <span class="u">/instruments/community-college/</span></li>
+          <li>Faculty TQ <span class="u">/instruments/faculty/</span></li>
+          <li>Staff TQ <span class="u">/instruments/staff/</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard">
+        <div class="bhead">PACKAGES &amp; PRICING<span class="bu">the purchase engine</span></div>
+        <ul>
+          <li>Canonical pricing page — 5-tier comparison table, add-ons, FAQ <span class="u">/packages/</span></li>
+          <li>Package detail ×5 — what you receive, sample outputs, dual buy CTAs <span class="u">/packages/&lt;tier&gt;/</span></li>
+          <li>Stripe Checkout (hosted) <span class="u">card / p-card rail</span></li>
+          <li>Request a quote / invoice <span class="u">/packages/request-invoice/ — PO, Net 30, ACH</span></li>
+          <li>Post-purchase intake <span class="u">/welcome/ — after payment, never before</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard">
+        <div class="bhead">RESEARCH &amp; RESULTS<span class="bu">/research/ hub + library</span></div>
+        <ul>
+          <li>Research hub — the evidence story <span class="u">/research/</span></li>
+          <li>What is Thriving? — definitional answer page <span class="u">/what-is-thriving/ · NEW</span></li>
+          <li>Thriving vs. Retention, Engagement &amp; Belonging — vocabulary bridge <span class="u">/thriving-vs-retention-engagement-belonging/ · NEW</span></li>
+          <li>Why do sophomores slump? — answer page <span class="u">/what-causes-the-sophomore-slump/ · NEW</span></li>
+          <li>NSSE Alternative — comparison page <span class="u">/compare/nsse-alternative/ · NEW</span></li>
+          <li>Thriving Quotient vs. NSSE — comparison page <span class="u">/compare/thriving-quotient-vs-nsse/ · NEW</span></li>
+          <li>Publications (ScholarlyArticle + DOIs) <span class="u">/research/publications/</span></li>
+          <li>Presentations <span class="u">/research/presentations/</span></li>
+          <li>Dissertations <span class="u">/research/dissertations/</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard">
+        <div class="bhead">CONSULTING &amp; SPEAKING<span class="bu">the invisible revenue, made visible</span></div>
+        <ul>
+          <li>Consulting — engagement formats, outcomes, "Book a consult" <span class="u">/consulting/ · NEW</span></li>
+          <li>Speaking — keynotes &amp; workshops, booking path <span class="u">/speaking/ · NEW</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard">
+        <div class="bhead">ABOUT &amp; TRUST<span class="bu">entity + procurement layer</span></div>
+        <ul>
+          <li>Dr. Laurie Schreiner — entity hub page <span class="u">/about/laurie-schreiner/</span></li>
+          <li>For Researchers — permission request <span class="u">/for-researchers/</span></li>
+          <li>Procurement kit — W-9, vendor info, sample quote <span class="u">/procurement/ · NEW</span></li>
+          <li>Contact — single business email <span class="u">/contact/</span></li>
+          <li>Legal ×4 <span class="u">/legal/…</span></li>
+        </ul>
+      </div></div>
+      <div class="branch"><div class="bcard ghost">
+        <div class="bhead">PHASE 2/3 SLOTS<span class="bu">reserved — do not build yet</span></div>
+        <ul>
+          <li>Ask the Researcher — twin + assistant <span class="u">/ask/</span></li>
+          <li>For Students — TQ Companion <span class="u">/students/</span></li>
+          <li>Campus Stories — case studies from your existing student comments <span class="u">/stories/</span></li>
+          <li>Dashboard demo (Point Loma) <span class="u">/dashboard/</span></li>
+          <li>Campus data portal <span class="u">/portal/</span></li>
+          <li>Insights — blog + newsletter + podcast <span class="u">/insights/</span></li>
+          <li>Online researcher workflow <span class="u">upgrade of /for-researchers/</span></li>
+        </ul>
+      </div></div>
+    </div>
+  </div>
+
+  <h3>Homepage audience cards — routing without audience-nav failure</h3>
+  <p>NN/g documents five failure modes of audience-based <em>primary</em> navigation (self-identification confusion, label ambiguity, pricing anxiety between segments, duplicated content, added cognitive load). The evidence-backed pattern — used by Gallup and Maze — is product-first nav with audience cards as a <em>secondary</em> homepage layer. After the growth animation's final movement, three cards:</p>
+  <table>
+    <tr><th>Card</th><th>Routes to</th><th>Job</th></tr>
+    <tr><td><strong>For campus leaders</strong> — "Measure and grow thriving on your campus"</td><td><code>/packages/</code></td><td>The buying path. Provosts, VPs, retention directors — straight to the comparison table.</td></tr>
+    <tr><td><strong>For researchers</strong> — "Use the Thriving Quotient in your study"</td><td><code>/for-researchers/</code></td><td>Separates the $250 permission flow from the institutional funnel so it never muddies the store.</td></tr>
+    <tr><td><strong>For faculty &amp; staff leaders</strong> — "Thriving isn't only for students"</td><td><code>/instruments/faculty/</code></td><td>Surfaces the faculty/staff instruments the current site buries under broken slugs.</td></tr>
+  </table>
+  <p class="small">A fourth card — <strong>For students</strong> — is reserved for Phase 2, matching the Phase 1 scope you set: no student section at launch.</p>
+</section>
+
+<!-- ============ 5. PURCHASE ENGINE ============ -->
+<section id="purchase">
+  <span class="secnum">Section 05</span>
+  <h2>The purchase engine — Stripe dual-rail flow</h2>
+  <p class="lead">One canonical rule, drawn from your true peer set (NSSE, CCSSE, HERI, Gallup Education): <strong>publish every price, let the buyer choose the rail.</strong> University p-card limits sit at $2,500–$5,000 per transaction, so instant card checkout serves the $250–$3,000 tiers; the $10,000 Thriving Campus Package converts through quote→invoice. Both rails converge on the same post-purchase intake form, which removes the back-and-forth of collecting invoicing details by email after a sale.</p>
+
+  <div class="rail card-rail">
+    <div class="rlabel">Rail 1 — Card / P-Card (instant, self-service) · tiers $250–$3,000</div>
+    <div class="flow">
+      <div class="fstep"><div class="ft">Package page</div><div class="fd">What you receive + sample report + "Purchase now" CTA</div></div>
+      <div class="fstep"><div class="ft">Stripe Checkout</div><div class="fd">Hosted session · line items = package + optional instrument add-ons · optional PO/reference field · minimal form (Baymard: every removed field fights the 70% abandonment baseline)</div></div>
+      <div class="fstep"><div class="ft">Payment confirmed</div><div class="fd">Stripe receipt · webhook fires · confirmation page</div></div>
+      <div class="fstep"><div class="ft">Intake form</div><div class="fd">Institution, admin window, survey population, IRB contact — AFTER payment, the NSSE registration-then-customization pattern</div></div>
+      <div class="fstep"><div class="ft">Kickoff</div><div class="fd">Automated welcome email + calendar link for setup call</div></div>
+    </div>
+  </div>
+
+  <div class="rail inv-rail">
+    <div class="rlabel">Rail 2 — Quote / Invoice (procurement-friendly) · required for $10K, offered on all tiers</div>
+    <div class="flow">
+      <div class="fstep"><div class="ft">Request form</div><div class="fd">"Request invoice or quote — PO accepted · Net 30 · W-9 available" · institution, contact, package, PO# if in hand</div></div>
+      <div class="fstep"><div class="ft">Stripe Quote</div><div class="fd">Formal quote PDF with QT number for the buyer's budget packet</div></div>
+      <div class="fstep"><div class="ft">Net-30 invoice</div><div class="fd">One-click quote→invoice conversion · PO number in custom header field · auto-reminders</div></div>
+      <div class="fstep"><div class="ft">Hosted invoice page</div><div class="fd">Pay by card OR ACH direct debit (CCSSE-style institutions often refuse cards) · PDF attached</div></div>
+      <div class="fstep"><div class="ft">Same intake + kickoff</div><div class="fd">Both rails converge — one fulfillment pipeline</div></div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Stripe build decisions (recommended):</strong>
+    <ul class="tight">
+      <li><strong>Stripe Checkout Sessions</strong> (hosted or embedded), not a custom Elements cart — built-in line items, receipts, discounts, custom fields, adjustable quantities/optional items handle "package + add-on instruments" without cart plumbing. A true multi-step cart is over-engineering for 12 SKUs and adds the exact friction Baymard measures (23 avg form elements vs ~12 ideal; ~35% conversion lift available from checkout design alone).</li>
+      <li><strong>Stripe Quotes + Invoicing</strong> for Rail 2 — Stripe documents PO numbers as the canonical custom-field use; Net-30 default terms in the invoice template; ACH enabled.</li>
+      <li><strong>Skip Stripe Tax at launch.</strong> Electronically delivered survey access + reports from a California sole proprietor are not taxable in CA (CDTFA Pub. 109). Enable Stripe's free threshold monitoring; keep every deliverable digital — bundling anything physical (e.g., printed reports) would make the whole sale taxable.</li>
+      <li><strong>Collect the PO up front</strong> in the request form — Stripe custom fields work in Checkout but can't be added on the hosted invoice page at pay time.</li>
+      <li><strong>Publish refund/withdrawal terms</strong> near checkout (NSSE publishes theirs; it reads as institutional confidence, and your existing refund-policy content migrates here).</li>
+    </ul>
+  </div>
+
+  <h3>The procurement kit — <code>/procurement/</code> <span class="badge new">NEW</span></h3>
+  <p>Universities cannot pay a new vendor without onboarding paperwork — a signed W-9 plus a supporting quote, which takes 5–7 business days at a typical institution. A single page carrying a downloadable W-9, a vendor information sheet (EIN, remit-to address), a sole-source justification template, and a sample quote and invoice removes days from every purchase-order sale. None of the comparable vendors we examined offer this.</p>
+</section>
+
+<!-- ============ 6. PRICING PAGE SPEC ============ -->
+<section id="pricing">
+  <span class="secnum">Section 06</span>
+  <h2>Pricing page specification — <code>/packages/</code></h2>
+  <p>One canonical page replacing three conflicting surfaces. Layout follows the replicated (not folklore) pricing-psychology findings: visual prominence + "Most Popular" badge + high-anchor tier are the levers that survive replication testing; decoy-pricing tricks do not.</p>
+  <table>
+    <tr><th></th><th>Researcher<br>$250</th><th>Survey<br>$500</th><th>Basic Report<br>$1,500</th><th style="background:var(--green-500)">Expanded Report ★ Most Popular<br>$2,500–3,000*</th><th style="background:var(--gold)">Thriving Campus<br>$10,000</th></tr>
+    <tr><td>Who it's for</td><td>Doctoral researchers</td><td>DIY campuses</td><td>First campus administration</td><td>Campuses acting on results</td><td>Whole-campus transformation</td></tr>
+    <tr><td>Purchase rail</td><td>Card</td><td>Card</td><td>Card</td><td>Card or invoice</td><td>Quote → invoice (PO/Net 30)</td></tr>
+    <tr><td>Buy CTA</td><td>Purchase now</td><td>Purchase now</td><td>Purchase now</td><td><strong>Purchase now</strong> / Request invoice</td><td><strong>Request a quote</strong></td></tr>
+  </table>
+  <p class="small">*The Expanded Report Package currently appears at $2,500 on the packages pages and $3,000 in the store, and institution-specific questions appear at both $300 for five and $50 per item. <strong>We need your confirmation of the correct figures before this page is built.</strong> The architecture reserves the price cells; the copy phase fills them.</p>
+  <ul class="tight">
+    <li><strong>Below the table:</strong> instrument add-on strip (7 instruments as checkable add-ons), then institution-count social proof ("used on N campuses · N students surveyed" — figures to be confirmed with you), then a 5-question FAQ module (AEO asset), then both rails' CTAs repeated.</li>
+    <li><strong>Anchoring:</strong> Thriving Campus at $10,000 sits rightmost in gold — it makes $2,500 read as reasonable and converts the flagship via quote requests.</li>
+    <li><strong>Consulting &amp; speaking are deliberately absent</strong> from this table — they are relationship sales with their own pages and "book a call" CTAs. Mixing quote-only services into a self-service table depresses both.</li>
+    <li><strong>Pricing-intent search is served here, not on a separate page.</strong> <code>/packages/</code> carries a question-formatted H2 — <em>"How much does a student success survey cost?"</em> — with a 30–60 word answer beneath it stating the range in plain, quotable prose. One pricing surface, one source of truth: a second one would recreate the inconsistency this page exists to fix.</li>
+    <li><strong>Price appears as visible text, not only as structured data.</strong> Every instrument page carries a quotable line near the top — "The Undergraduate Thriving Quotient is licensed to institutions from $X." When an AI assistant recently surfaced your $10,000 Thriving Campus Package in an answer, it did so because the figure was readable prose on the page, not because of markup. <em>Pending your price confirmation above.</em></li>
+  </ul>
+</section>
+<!-- ============ 7. AEO + SEO ============ -->
+<section id="aeo">
+  <span class="secnum">Section 07</span>
+  <h2>AEO + SEO structural requirements — baked in from day one</h2>
+  <p class="lead">The single most important technical fact for this build: <strong>none of the major AI crawlers execute JavaScript</strong> (Vercel/MERJ server-log study — GPTBot, ClaudeBot, PerplexityBot all fetch JS files but process them as text). A canvas-driven homepage that assembles its content in JavaScript is an <em>empty page</em> to every AI system we want recommending your work. The fix is architectural, and it protects the animation rather than limiting it.</p>
+
+  <h3>The two-layer homepage</h3>
+  <table>
+    <tr><th>Layer</th><th>What it is</th><th>Who consumes it</th></tr>
+    <tr><td><strong>Presentation layer</strong></td><td>The approved scroll experience: canvas frame-scrub of the growth sequence, animated logo, butterfly, film. Loads after first paint and drives from native scroll position (no wheel-event hijacking — preserves anchor links and in-page find).</td><td>Human visitors with JS + motion enabled</td></tr>
+    <tr><td><strong>Semantic layer</strong></td><td>A complete HTML document in the initial server response: H1, the thriving definition verbatim, section copy as real DOM text nodes (never pixels painted into canvas frames), nav links, footer, JSON-LD. The narrative text that appears between animation beats IS this DOM text, positioned and revealed by CSS.</td><td>Every crawler, every AI system, screen readers, and the <code>prefers-reduced-motion</code> / no-JS fallback (static final-tree hero image, all content visible)</td></tr>
+  </table>
+  <p class="small">Verification rule for the whole build: <code>curl</code> any page — what curl sees is what GPTBot sees. If the content isn't in the curl output, it doesn't exist. This runs as an automated check on every deploy, not a launch-day check — curl the homepage and assert the thriving definition, all seven movement headings, nav links and JSON-LD are present.</p>
+
+  <h3>Why the answer pages carry the AEO weight</h3>
+  <ul class="tight">
+    <li><strong>The unit of AI citation is the chunk, not the page</strong> — an H2 plus the content beneath it, independently answerable. Question-formatted H2s ("What is the Thriving Quotient?") matching real query phrasing, one question per section.</li>
+    <li><strong>Answer capsules:</strong> a 30–60 word direct answer directly under the H1/H2 — present in 72.4% of ChatGPT-cited posts (strongest single predictor; Search Engine Land 7,500-referral study). Keep links OUT of the capsule (~91% of cited capsules contained zero links).</li>
+    <li><strong>Original data wins:</strong> 52.2% of cited posts contain proprietary data. Your national norms, sample sizes, and reliability coefficients are exactly this kind of asset — formatted as self-contained attributed stats ("In Schreiner's 2012 study of 14,067 undergraduates…"). The Princeton GEO experiment measured statistics +41%, citations up to +115%, expert quotes +28% visibility.</li>
+    <li><strong>You coined the term.</strong> "Thriving Quotient" is your intellectual property, backed by DOI-linked publications. The site's job is to be the canonical source that AI systems resolve the term to. <code>/what-is-thriving/</code> and the research library with <code>ScholarlyArticle</code> markup make that claim machine-readable.</li>
+    <li><strong>Professional-services sites currently have the lowest AI citation rates of any category (&lt;4%)</strong> — which means structured effort now, in this specific niche, is a durable advantage that is difficult for others to catch up on later.</li>
+  </ul>
+
+  <h3>Launch checklist (structural, all Phase 1)</h3>
+  <table>
+    <tr><th>Area</th><th>Requirement</th></tr>
+    <tr><td>Rendering</td><td>Static/SSG HTML; 100% of content, meta, links, JSON-LD in initial response; animation as progressive enhancement; no-JS + reduced-motion fallbacks; WebP/AVIF frames, preload frame 1 only, green Core Web Vitals</td></tr>
+    <tr><td>URLs</td><td>Flat, descriptive, stable (per Section 04 map); 301s from every legacy URL; hard 404s; self-referencing canonicals; single URL form; <code>&lt;html lang="en"&gt;</code>; skip hreflang</td></tr>
+    <tr><td>Page templates</td><td>Answer-capsule slot under every H1 · question-formatted H2s · "X is defined as…" definitional block component · visible 3–6 question FAQ module on product/methodology pages · stat-callout component (number + population + year + source) · comparison-table component</td></tr>
+    <tr><td>Structured data</td><td>Server-rendered JSON-LD <code>@graph</code> with <code>@id</code> cross-refs: <code>Organization</code> + <code>BreadcrumbList</code> site-wide · <code>Person</code> (Schreiner) with <code>sameAs</code> → Google Scholar, ORCID, APU faculty page, LinkedIn, <strong>Wikidata</strong> + <code>knowsAbout</code> + <code>hasCredential</code> · <code>Product</code>+<code>Offer</code> per instrument/package · <code>Service</code> for consulting/speaking · <code>FAQPage</code> mirroring visible FAQs · <code>ScholarlyArticle</code> (with DOIs) + <code>Book</code> in the library · <code>ContactPoint</code> with <code>contactType: "research permissions"</code> in the Organization graph</td></tr>
+    <tr><td><strong>Permissions contact</strong></td><td>The research-permissions email surfaces in three places, because a crawler resolves from wherever it lands. In our audit, one assistant read 95 sources, opened your surveys page, and still could not find a permissions contact — it sent the doctoral student to the APU faculty directory instead: (1) DOM text on <code>/for-researchers/</code> under the H2 "How do I request permission to use the Thriving Quotient in my research?" (2) the <code>ContactPoint</code> above (3) a visible line on every <code>/instruments/*</code> page footer/sidebar</td></tr>
+    <tr><td>Crawler access</td><td>robots.txt ALLOWS OAI-SearchBot, ChatGPT-User, Claude-SearchBot, Claude-User, PerplexityBot, Perplexity-User. <strong>We recommend allowing the training crawlers as well (GPTBot, ClaudeBot, Google-Extended).</strong> The content is public marketing material, and the goal is for AI systems to treat you as the canonical source for "Thriving Quotient" — which is as much a training-data outcome as a retrieval one. Our market research found that AI assistants largely decide who to recommend before they search, so presence in the underlying model matters at least as much as being retrievable. This is your decision to make; our recommendation is to allow them.</td></tr>
+    <tr><td><strong>AI measurement</strong></td><td>Built at launch, near-impossible to retrofit: (1) server-log retention + parsing for AI crawler user-agents (GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot, Claude-SearchBot, Google-Extended) — who fetched what, how often, how many 404s; (2) analytics referral segments for chatgpt.com, perplexity.ai, claude.ai, gemini.google.com from day one. At the November re-check this turns "you're mentioned more" into "41 sessions arrived from ChatGPT last month, up from zero."</td></tr>
+    <tr><td>Indexing</td><td>sitemap.xml with real lastmod · Google Search Console AND Bing Webmaster Tools (ChatGPT retrieval is Bing-backed) · IndexNow · simple auto-generated /llms.txt (near-zero cost; 97% of llms.txt files are never fetched per Ahrefs — option value only)</td></tr>
+    <tr><td>Entity</td><td><code>/about/laurie-schreiner/</code> as the single @id hub all content references; site facts consistent with APU faculty page / Google Scholar / ORCID; publication library with DOI links = canonical "Thriving Quotient" source</td></tr>
+  </table>
+</section>
+
+<!-- ============ 8. OFF-SITE TRACK ============ -->
+<section id="offsite">
+  <span class="secnum">Section 08</span>
+  <h2>What this architecture cannot fix — the off-site track</h2>
+  <p class="lead">Everything in Sections 01–07 happens on your own website, and all of it is necessary. But we want to be straightforward with you about a limit: the largest single component of your AI visibility score — <strong>Discovery, currently 9 out of 100 and weighted at 40%</strong> — is mostly determined by what appears on <em>other people’s</em> websites. This section exists so that the architecture is never mistaken for a complete solution to the problem the audit identified.</p>
+
+  <div class="callout red">
+    <strong>What the numbers suggest.</strong> Applying the audit’s own weighting, building this architecture exactly as specified should move your composite score from 32 to roughly <strong>49 — a substantial gain, but still inside the "Emerging" band.</strong> Reaching "Competitive" (around 60) requires the architecture <em>and</em> the off-site work described below. These are estimates rather than promises, but the shape is reliable: website readiness is capped at 20% of the score, which makes it the cheapest component to maximize and the least valuable to maximize on its own. The honest summary is that <strong>the website is the necessary half, not the sufficient half.</strong>
+  </div>
+
+  <h3>Why your own HTML cannot solve it</h3>
+  <p>Two findings from the audit make this concrete, and neither is a defect in your website:</p>
+  <ul class="tight">
+    <li>When AI assistants were asked about instruments measuring student thriving, several cited <strong>Georgia Southern and Rutgers repositories</strong> — institutions hosting adaptations of your work — rather than thrivingincollege.org. They knew the instrument; they did not know where to license it.</li>
+    <li>On queries about retention surveys and student-success consultants, <strong>RNL</strong> is named first and you are absent — despite your co-authorship of the Student Satisfaction Inventory that underpins part of their offering.</li>
+  </ul>
+  <p>Both are third-party citation problems. No amount of structure on your own site changes what another institution’s repository page says.</p>
+
+  <h3>The off-site workstream (separate scope)</h3>
+  <p>This is not included in the current agreement and would be scoped separately. We are naming it now so it is visible in the plan rather than surfacing as a surprise in November.</p>
+  <ul class="tight">
+    <li><strong>Third-party citation placement:</strong> getting your instruments listed — with prices and a link — on the repositories, directories, and comparison round-ups AI assistants already draw from; and pursuing the round-ups where NSSE, CCSSE and RNL appear and you do not.</li>
+    <li><strong>Wikidata entity:</strong> a Wikidata item for "Thriving Quotient" naming you as its creator, linked to your researcher profile. This is how AI systems resolve a term to a specific thing rather than a string of words, and for a researcher whose coined term is the product, it is the highest-value identifier available. It is also inexpensive. <em>A note on the distinction: Wikidata is a structured database anyone may contribute to. A Wikipedia article is different — those are written by independent editors, and it would be inappropriate for us to create or commission one on your behalf.</em></li>
+    <li><strong>Repository attribution:</strong> where other institutions host derivative instruments, requesting attribution links back to thrivingincollege.org as the canonical licensing source.</li>
+  </ul>
+
+  <h3>Sequencing — protecting the measurement</h3>
+  <p>Your audit will be re-run in mid-November using the identical 22 queries across the same five AI platforms. If the rebuilt site launches September 15 and nothing else changes in between, that re-check becomes a clean before-and-after measurement of exactly this work — which is worth protecting deliberately.</p>
+  <table>
+    <tr><th>Window</th><th>What happens</th></tr>
+    <tr><td>Now → September 15</td><td>Everything shipping before launch counts as one change: the site, the four new discovery pages, and the Wikidata entity. The November re-check measures that bundle.</td></tr>
+    <tr><td>September 15 → mid-November</td><td><strong>Hold steady.</strong> No structural or copy changes beyond bug fixes, and no new off-site placements. Preparation for the off-site work can proceed; nothing publishes.</td></tr>
+    <tr><td>After the re-check</td><td>The off-site citation work begins as its own scoped engagement, with the November results as its baseline.</td></tr>
+  </table>
+  <p class="small">This keeps the before-and-after clean and gives the off-site work its own measurable starting point — two clear pictures of what moved, rather than one where the causes are tangled together. The trade-off is roughly eight weeks before off-site work begins; we are happy to discuss whether that trade is right for you.</p>
+</section>
+
+<!-- ============ 9. RESEARCH FINDINGS ============ -->
+<section id="research">
+  <span class="secnum">Section 09</span>
+  <h2>Research findings — how this field actually sells</h2>
+  <p class="lead">We examined the ten most relevant vendors in your field. The split is stark, and your closest peers are on the transparent side of it.</p>
+  <table>
+    <tr><th>Vendor</th><th>Nav logic</th><th>Pricing</th><th>Buy online?</th></tr>
+    <tr><td><strong>NSSE</strong> (Indiana U.) — closest analog</td><td>By instrument (NSSE/FSSE/BCSSE)</td><td><strong>Public, enrollment-tiered</strong> ($2,775–$10,550 + $300 registration; add-ons à la carte)</td><td>Yes — self-service registration, invoice after customization, pre-registration quotes for budget cycles</td></tr>
+    <tr><td><strong>CCSSE</strong> (UT Austin)</td><td>By instrument</td><td><strong>Public, tiered</strong> ($4,300–$23,050; published discounts up to 40%)</td><td>Yes — online registration; invoice to the president; <strong>ACH/check only, no cards</strong></td></tr>
+    <tr><td><strong>HERI/CIRP</strong> (UCLA)</td><td>By engagement stage</td><td>Fee page (semi-public)</td><td>Portal + contact</td></tr>
+    <tr><td><strong>Gallup CliftonStrengths</strong> (Education)</td><td>Content + audience layer + Shop</td><td><strong>Public in store</strong>; educator discount auto-applies at checkout (.edu + 10-code min)</td><td><strong>Yes — real cart, fully self-service</strong></td></tr>
+    <tr><td>RNL · EAB · Credo/Carnegie · SEM Works · Skyfactor · Qualtrics</td><td>By solution/outcome</td><td>Hidden — quote only</td><td>No — sales-led ("Contact us")</td></tr>
+  </table>
+  <div class="callout green"><strong>The strategic read:</strong> the university-housed instrument vendors — the sites your buyers already know and trust — all publish transparent tiered pricing with self-service registration and invoice payment. The consultancies hide pricing behind sales teams. You have fixed, published prices from $250 to $10,000, which places you decisively in the NSSE/CCSSE/Gallup group — and gives you a genuine edge over them, since none offers a modern card checkout and CCSSE will not take cards at all. Consulting and speaking remain the one part of your work that is legitimately sales-led.</div>
+
+  <h3>Conversion evidence applied to this build</h3>
+  <ul class="tight">
+    <li><strong>70.19%</strong> average cart abandonment; "too long/complicated checkout" alone drives 17% of US abandonment; average US checkout has 23.48 form elements vs ~12 ideal; Baymard estimates a <strong>35% conversion lift</strong> from checkout design alone → direct-to-Checkout, no multi-step cart, minimal fields, no forced account creation.</li>
+    <li><strong>67% of B2B buyers prefer rep-free purchase</strong> (Gartner 2026, up from 61% in 2025); buyers with high decision confidence report 2× higher deal quality → public pricing + self-service is the confidence engine.</li>
+    <li><strong>Audience nav fails as primary nav</strong> (NN/g: five documented failure modes) → product-first nav, audience cards secondary. Labels "mutually exclusive and jargon-free," clarified with "For…".</li>
+    <li><strong>Pricing psychology that replicates:</strong> visual prominence, "Most Popular" badges, default selection, high-anchor tier. The classic decoy effect largely fails replication (11 of 91 attempts) — we don't build on it.</li>
+    <li><strong>Separate purchase from setup</strong> (NSSE/CCSSE pattern): pay → then intake. Front-loading intake into checkout is measurably where carts die.</li>
+    <li><strong>Institutional social proof is not consumer testimonials:</strong> the peer set leads with participation counts ("1,500+ institutions, 16M administrations" — Skyfactor). Your equivalents — campuses served, students surveyed, 21 dissertations, reliability of α=.85–.94 — belong beside the pricing calls to action.</li>
+  </ul>
+</section>
+
+<!-- ============ 10. MOBBIN PATTERNS ============ -->
+<section id="patterns">
+  <span class="secnum">Section 10</span>
+  <h2>Design pattern references (Mobbin)</h2>
+  <p>Concrete visual references for the three highest-stakes templates, pulled from the connected Mobbin account. These inform layout structure — the visual language stays Thriving-brand (rooted greens, gold accents, the growth motif).</p>
+  <table>
+    <tr><th>Template</th><th>Reference</th><th>What to take</th></tr>
+    <tr><td rowspan="3"><strong>/packages/ pricing table</strong></td><td><a href="https://mobbin.com/sites/sections/d14c5119-0015-4405-99d0-784b521e51d3">ElevenLabs pricing</a></td><td>Inverted "MOST POPULAR" header bar on the featured tier; per-column CTA; "everything in X, plus…" feature inheritance — maps perfectly to Researcher→Survey→Basic→Expanded→Campus</td></tr>
+    <tr><td><a href="https://mobbin.com/sites/sections/86a4762c-79ce-4fe5-8aa7-8bdbba561302">Webflow pricing</a></td><td>Tinted featured column + top-border accent; compact spec rows with info tooltips — right density for psychometric detail</td></tr>
+    <tr><td><a href="https://mobbin.com/sites/sections/db55d7e4-744f-49b9-accb-7f9248ca938c">Zendesk pricing</a></td><td>"Plans start at $19/month" framing above the table — your version, "Campus packages from $500," softens the first encounter with the $10,000 tier</td></tr>
+    <tr><td rowspan="2"><strong>Homepage audience cards</strong></td><td><a href="https://mobbin.com/sites/sections/0f2d1d3a-7a0c-4945-9400-0913cc165adc">Maze "For Product Managers / Designers"</a></td><td>Large tinted role cards with one-line value prop + arrow — the exact secondary-routing pattern NN/g endorses</td></tr>
+    <tr><td><a href="https://mobbin.com/sites/sections/7c6d42e0-85b8-4d1d-bfc9-20a11bf77019">Customer.io split panel</a></td><td>Two-audience split with distinct CTAs ("Reach support" vs "Request a demo") — model for Purchase-now vs Request-a-quote dual CTAs</td></tr>
+    <tr><td><strong>Checkout flow</strong></td><td><a href="https://mobbin.com/flows/0a9a45a0-7b9c-4e1c-b838-faa75bd1e3ed">lululemon checkout</a> · <a href="https://mobbin.com/flows/6ae7faf9-4e5c-45ed-be50-f78dfb1ae61a">Shop (Shopify) checkout</a></td><td>Persistent order summary at right; email-first identity; progress indicator; express-pay options up top. Stripe Checkout gives us this structure out of the box — the reference is for the package-page → checkout handoff</td></tr>
+  </table>
+</section>
+
+<!-- ============ 10. PHASE 2/3 APPENDIX ============ -->
+<section id="phase23">
+  <span class="secnum">Appendix A</span>
+  <h2>Phase 2 &amp; 3 module architecture <span class="badge p2">FUTURE — NOT IN PHASE 1 BUILD</span></h2>
+  <p>Per the signed agreement, everything below is scoped and priced separately, later. It appears here so the Phase 1 architecture reserves clean insertion points — no future module should force a nav restructure, URL change, or homepage redesign.</p>
+  <table>
+    <tr><th>Future module</th><th>Reserved slot</th><th>Insertion plan</th></tr>
+    <tr><td>Interactive digital twin of Dr. Schreiner (knowledge base limited to material you supply and approve)</td><td><code>/ask/</code></td><td>Concept section 03 ("Ask the Researcher") becomes live; nav gains one item; avatar card pins on interaction per the existing avatar-interface concept doc</td></tr>
+    <tr><td>Virtual assistant avatar (non-likeness navigation helper)</td><td>site-wide widget</td><td>Floating assistant, no page required; technical and psychometric questions reserved for your own twin</td></tr>
+    <tr><td>TQ Success Companion + student section</td><td><code>/students/</code></td><td>Fourth audience card un-fades; TQ character introduced</td></tr>
+    <tr><td>Student success stories (from your existing student comments)</td><td><code>/stories/</code></td><td>Feeds testimonial strips on /packages/ and instrument pages</td></tr>
+    <tr><td>Campus case studies &amp; testimonials</td><td><code>/stories/</code> children</td><td>Case-study cards attach to each package tier</td></tr>
+    <tr><td>Interactive dashboard integration (Point Loma)</td><td><code>/dashboard/</code></td><td><strong>Open item:</strong> you asked for this to be priced individually and possibly scheduled earlier; the Point Loma recording you sent is under review. The slot is reserved either way, and a demo-video embed could ship in Phase 1 if the review supports it.</td></tr>
+    <tr><td>Campus data upload &amp; analysis portal</td><td><code>/portal/</code></td><td>Authenticated area; separate subdomain acceptable if needed</td></tr>
+    <tr><td>Online researcher permission workflow</td><td>upgrade in place</td><td><code>/for-researchers/</code> URL unchanged; PDF flow swaps to web form + e-sign + approval queue</td></tr>
+    <tr><td>Smart order intake (post-purchase pop-up)</td><td>upgrade in place</td><td><code>/welcome/</code> intake evolves into conditional smart forms per package</td></tr>
+    <tr><td>Lead magnet, email capture, newsletter</td><td><code>/insights/</code></td><td>Blog/insights hub with capture; the Phase 1 semantic layer already reserves footer + end-of-page capture slots</td></tr>
+    <tr><td>Generated podcast &amp; publications</td><td><code>/insights/podcast/</code></td><td>Each episode subject to your written approval, per the service agreement</td></tr>
+    <tr><td>Subscription twin access / consulting add-ons</td><td><code>/packages/</code> extension</td><td>Appears as a sixth column or add-on row — the table component is built to accept it</td></tr>
+    <tr><td><strong>Off-site citation campaign</strong> — placements on the repositories, directories, and comparison round-ups AI assistants already cite</td><td>off-site — no URL</td><td>Runs after the November re-check, per the sequencing in Section 08; scoped as its own engagement</td></tr>
+    <tr><td>Answer-page expansion for the remaining unanswered query categories</td><td><code>/compare/…</code>, root answer pages</td><td>The four new discovery pages establish the template; expansion follows copy capacity</td></tr>
+  </table>
+  <p class="small"><strong>A note on <code>/stories/</code>:</strong> the campus case studies drawn from your existing student comments may be the strongest citation asset you have — original data is the second-strongest predictor of AI citation, appearing in 52.2% of cited pages. When Phase 2 is scoped, we would recommend this module lead it.</p>
+</section>
+
+<!-- ============ 11. SOURCES ============ -->
+<section id="sources">
+  <span class="secnum">Appendix B</span>
+  <h2>Sources</h2>
+  <h3>Industry &amp; commerce</h3>
+  <ul class="tight small">
+    <li>NSSE registration &amp; pricing — nsse.indiana.edu/nsse/registration-pricing/pricing/index.html · FSSE pricing — nsse.indiana.edu/fsse/registration-pricing</li>
+    <li>CCCSE options &amp; rates — cccse.org/ccsse/options-and-rates · HERI — heri.ucla.edu · Gallup educator pricing — support.gallup.com (CliftonStrengths for Students educator pricing) · ruffalonl.com · eab.com · carnegiehighered.com/credo · semworks.net · Macmillan/Skyfactor partnership release — macmillanlearning.com</li>
+    <li>Gartner 2026 B2B buyer survey (67% rep-free preference) — gartner.com/en/newsroom 2026-03-09; 2025 survey (61%) — 2025-06-25</li>
+    <li>Baymard Institute checkout usability benchmark — baymard.com/blog/ecommerce-checkout-usability-report-and-benchmark</li>
+    <li>NN/g, Audience-Based Navigation — nngroup.com/articles/audience-based-navigation · NN/g Scrolljacking 101 — nngroup.com/articles/scrolljacking-101</li>
+    <li>Decoy-effect replication review (Yang &amp; Lynn 2014; Frederick et al. 2014) — atticusli.com/replication-crisis/decoy-effect-asymmetric-dominance</li>
+    <li>University p-card limits: UNC Policy 1252 ($5,000) — policies.unc.edu · SUNY Buffalo purchasing thresholds — buffalo.edu · U. Oregon vendor setup (W-9 + quote, 5–7 days) — ba.uoregon.edu/accounts-payable/vendor-setup</li>
+    <li>Stripe: Checkout Sessions vs Payment Intents — docs.stripe.com/payments/checkout-sessions-and-payment-intents-comparison · Invoicing custom fields/PO — docs.stripe.com/invoicing/customize · Quotes — docs.stripe.com/quotes · Invoicing + ACH — docs.stripe.com/invoicing/ach-direct-debit · Stripe Tax digital products — docs.stripe.com/tax/digital-products</li>
+    <li>CDTFA Publication 109 (California nontaxable electronic delivery) — cdtfa.ca.gov/formspubs/pub109</li>
+  </ul>
+  <h3>SEO / AEO / technical</h3>
+  <ul class="tight small">
+    <li>Vercel + MERJ, "The Rise of the AI Crawler" (no major AI crawler executes JS) — vercel.com/blog/the-rise-of-the-ai-crawler</li>
+    <li>Princeton GEO study (Aggarwal et al.) — arxiv.org/pdf/2311.09735</li>
+    <li>Search Engine Land: ChatGPT citation-trait study (answer capsules 72.4%) — searchengineland.com/how-to-get-cited-by-chatgpt-the-content-traits-llms-quote-most-464868 · Schema &amp; AI search — searchengineland.com/schema-markup-ai-search-no-hype-472339 · ChatGPT/Bing — searchengineland.com/chatgpt-search-microsoft-bing-seo-448019</li>
+    <li>Similarweb AEO guide + 2026 AI search stats — similarweb.com/blog/marketing/geo/ · Profound 680M-citation analysis — tryprofound.com/blog/ai-platform-citation-patterns</li>
+    <li>Ahrefs llms.txt study (97% never fetched) — ahrefs.com/blog/llmstxt-study · CapConvert robots.txt for AI crawlers — capconvert.com · Passionfruit on FAQ rich-result removal — getpassionfruit.com</li>
+    <li>SchemaValidator Person-schema guide — schemavalidator.org/guides/person-schema-authors · Stackmatix SPA SEO — stackmatix.com</li>
+  </ul>
+  <h3>Project documents</h3>
+  <ul class="tight small">
+    <li>Content Audit: thrivingincollege.org (crawl of 2026-08-07) · AI Referral and SEO Analysis, v2 (2026-08-17) · Feature Catalog · Service Agreement of August 18, 2026</li>
+    <li>Concept design — avataragency.ai/thriveproject/ (structure re-verified by live fetch, 2026-08-19)</li>
+  </ul>
+</section>
+
+</main>
+<footer>
+  <span><strong>AvatarAgency × THRIVE</strong> · The Thriving Project — Site Architecture &amp; Conversion Blueprint</span>
+  <span>August 19, 2026 · Phase 1 target launch September 15, 2026</span>
+</footer>
+</body>
+</html>

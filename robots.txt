@@ -1,38 +1,47 @@
 User-agent: *
 Allow: /
 Disallow: /aiso/client/
+Disallow: /clients/
 
 User-agent: Googlebot
 Allow: /
 Disallow: /aiso/client/
+Disallow: /clients/
 
 User-agent: Bingbot
 Allow: /
 Disallow: /aiso/client/
+Disallow: /clients/
 
 User-agent: Applebot
 Allow: /
 Disallow: /aiso/client/
+Disallow: /clients/
 
 User-agent: GPTBot
 Allow: /
 Disallow: /aiso/client/
+Disallow: /clients/
 
 User-agent: ClaudeBot
 Allow: /
 Disallow: /aiso/client/
+Disallow: /clients/
 
 User-agent: CCBot
 Allow: /
 Disallow: /aiso/client/
+Disallow: /clients/
 
 User-agent: PerplexityBot
 Allow: /
 Disallow: /aiso/client/
+Disallow: /clients/
 
 User-agent: anthropic-ai
 Allow: /
 Disallow: /aiso/client/
+Disallow: /clients/
 
 Disallow: /protection.html
 
