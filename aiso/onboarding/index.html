@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Client Onboarding — AI Referral Optimization Program | AvatarAgency</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#151518; --panel2:#1c1c21; --panel3:#232329;
+    --ink:#f2ede3; --ink-dim:#b9b3a6; --ink-mute:#7d776c;
+    --gold:#c9a84c; --gold-soft:#e3c766; --line:#2a2a30; --line2:#35353c;
+    --good:#5fa87a; --serious:#c05e5e;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:0 22px}
+
+  /* header */
+  header{border-bottom:1px solid var(--line);padding:16px 0;position:sticky;top:0;background:rgba(12,12,14,.95);backdrop-filter:blur(10px);z-index:20}
+  .head-in{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+  .logo{font-weight:800;letter-spacing:.02em;font-size:1.02rem}
+  .logo span{color:var(--gold)}
+  .logo small{display:block;color:var(--ink-mute);font-weight:600;font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;margin-top:2px}
+  .prog{flex:1;min-width:190px;max-width:330px}
+  .prog-bar{height:6px;background:var(--panel3);border-radius:3px;overflow:hidden}
+  .prog-fill{height:100%;width:0;background:var(--gold);transition:width .3s ease}
+  .prog-txt{font-size:.72rem;color:var(--ink-mute);margin-top:5px;text-align:right;font-variant-numeric:tabular-nums}
+
+  /* hero */
+  .hero{padding:44px 0 26px}
+  .kicker{color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.15em;font-size:.72rem;margin-bottom:12px}
+  h1{font-size:clamp(1.6rem,4vw,2.3rem);line-height:1.16;font-weight:800}
+  .lead{margin-top:14px;color:var(--ink-dim);font-size:1rem;max-width:60ch}
+  .note-box{margin-top:22px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:0 10px 10px 0;padding:16px 18px}
+  .note-box b{color:var(--ink)}
+  .note-box p{color:var(--ink-dim);font-size:.9rem}
+  .note-box p+p{margin-top:8px}
+
+  /* sections */
+  section.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px;margin-bottom:20px}
+  .sec-head{display:flex;align-items:baseline;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:20px}
+  .sec-num{color:var(--gold);font-weight:800;font-size:.78rem;letter-spacing:.1em;flex:none}
+  .sec-head h2{font-size:1.14rem;font-weight:800}
+  .sec-head p{color:var(--ink-mute);font-size:.82rem;margin-top:3px}
+
+  /* fields */
+  .row{display:flex;gap:16px;flex-wrap:wrap}
+  .row > .f{flex:1;min-width:210px}
+  .f{margin-bottom:16px}
+  label{display:block;font-size:.76rem;font-weight:700;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:6px}
+  label .req{color:var(--gold);margin-left:3px}
+  .hint{font-size:.79rem;color:var(--ink-mute);margin-top:5px;line-height:1.5}
+  input[type=text],input[type=email],input[type=tel],input[type=url],select,textarea{
+    width:100%;background:var(--bg);border:1px solid var(--line2);border-radius:8px;color:var(--ink);
+    padding:11px 13px;font-size:.94rem;font-family:inherit}
+  textarea{min-height:78px;resize:vertical;line-height:1.55}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+  input::placeholder,textarea::placeholder{color:#5a554d}
+  select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23b9b3a6'><path d='M7 10l5 5 5-5z'/></svg>");background-repeat:no-repeat;background-position:right 10px center;background-size:18px;padding-right:34px}
+  .err{color:var(--serious);font-size:.78rem;margin-top:5px;display:none}
+  .f.bad input,.f.bad select,.f.bad textarea{border-color:var(--serious)}
+  .f.bad .err{display:block}
+
+  /* access blocks */
+  .acc{background:var(--panel2);border:1px solid var(--line2);border-radius:12px;padding:18px;margin-bottom:14px}
+  .acc.on{border-color:var(--gold);box-shadow:inset 0 0 0 1px rgba(201,168,76,.18)}
+  .acc-top{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;flex-wrap:wrap}
+  .acc-name{font-weight:800;font-size:.98rem}
+  .acc-name .tag{display:inline-block;background:rgba(201,168,76,.14);color:var(--gold);font-size:.62rem;font-weight:800;letter-spacing:.09em;padding:2px 7px;border-radius:9px;margin-left:8px;vertical-align:middle;text-transform:uppercase}
+  .acc-name .tag.opt{background:#2a2a30;color:var(--ink-mute)}
+  .acc-why{color:var(--ink-mute);font-size:.82rem;margin-top:4px;max-width:56ch}
+  .acc-body{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line2);display:none}
+  .acc.on .acc-body{display:block}
+  .role{background:rgba(201,168,76,.07);border:1px solid rgba(201,168,76,.22);border-radius:8px;padding:11px 13px;font-size:.83rem;color:var(--ink-dim);margin-bottom:14px}
+  .role b{color:var(--gold-soft)}
+  .role ol{margin:7px 0 0 18px}
+  .role li{margin-bottom:3px}
+
+  /* checkboxes */
+  .chk{display:flex;gap:11px;align-items:flex-start;cursor:pointer;user-select:none;
+       text-transform:none;letter-spacing:normal;font-weight:400;color:var(--ink);margin-bottom:0}
+  .chk input{appearance:none;flex:none;width:21px;height:21px;border:2px solid var(--line2);border-radius:5px;background:var(--bg);cursor:pointer;margin-top:1px;position:relative;transition:all .15s}
+  .chk input:checked{background:var(--gold);border-color:var(--gold)}
+  .chk input:checked::after{content:"";position:absolute;left:6px;top:2px;width:5px;height:10px;border:solid #14110f;border-width:0 2.5px 2.5px 0;transform:rotate(45deg)}
+  .chk span{font-size:.9rem;color:var(--ink)}
+  .chk.auth span{font-weight:600}
+  .chk small{display:block;color:var(--ink-mute);font-size:.79rem;font-weight:400;margin-top:3px}
+  .chkgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:11px}
+  .chkgrid .chk{background:var(--bg);border:1px solid var(--line2);border-radius:8px;padding:11px 13px}
+  .chkgrid .chk:has(input:checked){border-color:var(--gold)}
+
+  /* consent */
+  .consent{background:var(--panel2);border:1px solid var(--line2);border-radius:12px;padding:20px;margin-bottom:18px}
+  .consent h3{font-size:.94rem;margin-bottom:10px}
+  .consent ul{margin:0 0 0 18px;color:var(--ink-dim);font-size:.87rem}
+  .consent li{margin-bottom:6px}
+  .sig{background:var(--bg);border:1px dashed var(--line2);border-radius:10px;padding:18px;margin-top:16px}
+  .sig .row{gap:16px}
+  #sigName{font-family:"Segoe Script","Brush Script MT",cursive;font-size:1.22rem}
+
+  /* submit */
+  .actions{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:6px}
+  .btn{background:var(--gold);color:#14110f;font-weight:800;padding:15px 30px;border:none;border-radius:9px;font-size:1rem;cursor:pointer;font-family:inherit}
+  .btn:hover{background:var(--gold-soft)}
+  .btn.ghost{background:transparent;color:var(--ink-dim);border:1px solid var(--line2);font-weight:600;padding:14px 22px}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold-soft)}
+  .formerr{background:rgba(192,94,94,.1);border:1px solid rgba(192,94,94,.35);color:#e39a9a;border-radius:8px;padding:12px 14px;font-size:.88rem;margin-bottom:16px;display:none}
+
+  /* success */
+  #done{display:none;text-align:center;padding:56px 22px}
+  #done .big{font-size:3rem}
+  #done h2{margin:14px 0 8px;font-size:1.5rem}
+  #done p{color:var(--ink-dim);max-width:50ch;margin:0 auto 8px}
+
+  footer{border-top:1px solid var(--line);padding:26px 0 46px;color:var(--ink-mute);font-size:.78rem;text-align:center}
+  footer b{color:var(--ink-dim)}
+
+  @media print{
+    body{background:#fff;color:#000}
+    header,.actions,.prog{display:none}
+    section.card,.acc,.consent{border-color:#bbb;background:#fff;break-inside:avoid}
+    .acc-body{display:block !important}
+    h1,.acc-name,.sec-head h2{color:#000}
+  }
+</style>
+</head>
+<body>
+
+<header><div class="wrap"><div class="head-in">
+  <div class="logo">Avatar<span>Agency</span>.ai
+    <small>AI Referral Optimization · Client Onboarding</small></div>
+  <div class="prog">
+    <div class="prog-bar"><div class="prog-fill" id="pf"></div></div>
+    <div class="prog-txt" id="pt">0% complete</div>
+  </div>
+</div></div></header>
+
+<main id="formview">
+<div class="wrap">
+
+  <div class="hero">
+    <div class="kicker">Step 1 of 1 · About 10–15 minutes</div>
+    <h1>Let's get your practice ready to be recommended.</h1>
+    <p class="lead">This form gives us the two things we need to start: the facts about your business that
+      AI assistants should be quoting, and permission to update the places they read those facts from.</p>
+
+    <div class="note-box">
+      <p><b>We never ask for your passwords.</b> Every access request below works the same way: you add
+      <b>michael@avataragency.ai</b> as a manager or editor from inside your own account, using that
+      platform's built-in invite feature. You keep full ownership, you can see exactly what we change,
+      and you can remove our access at any time with one click.</p>
+      <p>If you don't know an answer, leave it blank — we'll find it or ask you. Only the gold-starred
+      fields are required.</p>
+    </div>
+  </div>
+
+  <div class="formerr" id="formerr"></div>
+
+  <!-- ══════════ 1. BUSINESS BASICS ══════════ -->
+  <section class="card">
+    <div class="sec-head"><span class="sec-num">01</span><div>
+      <h2>Your business</h2>
+      <p>The identity AI assistants should be matching, exactly as customers know you.</p></div></div>
+
+    <div class="row">
+      <div class="f"><label>Business name<span class="req">★</span></label>
+        <input type="text" name="bizName" data-req placeholder="Dental Arts San Diego">
+        <div class="err">Required</div></div>
+      <div class="f"><label>Legal entity name (if different)</label>
+        <input type="text" name="legalName" placeholder="Alena Nawrocki DDS Inc."></div>
+    </div>
+
+    <div class="row">
+      <div class="f"><label>Primary contact name<span class="req">★</span></label>
+        <input type="text" name="contactName" data-req><div class="err">Required</div></div>
+      <div class="f"><label>Role / title</label><input type="text" name="contactRole" placeholder="Owner"></div>
+    </div>
+
+    <div class="row">
+      <div class="f"><label>Email<span class="req">★</span></label>
+        <input type="email" name="email" data-req><div class="err">A valid email is required</div></div>
+      <div class="f"><label>Main business phone<span class="req">★</span></label>
+        <input type="tel" name="phone" data-req placeholder="(619) 555-0100">
+        <div class="hint">The number that should appear everywhere. Mismatched phone numbers across
+          listings are one of the most common reasons AI assistants distrust a business.</div>
+        <div class="err">Required</div></div>
+    </div>
+
+    <div class="f"><label>Website address<span class="req">★</span></label>
+      <input type="url" name="website" data-req placeholder="https://yourbusiness.com">
+      <div class="err">Required</div></div>
+
+    <div class="f"><label>Street address<span class="req">★</span></label>
+      <input type="text" name="street" data-req><div class="err">Required</div></div>
+    <div class="row">
+      <div class="f"><label>City<span class="req">★</span></label><input type="text" name="city" data-req><div class="err">Required</div></div>
+      <div class="f"><label>State<span class="req">★</span></label><input type="text" name="state" data-req><div class="err">Required</div></div>
+      <div class="f"><label>ZIP<span class="req">★</span></label><input type="text" name="zip" data-req><div class="err">Required</div></div>
+    </div>
+
+    <div class="f"><label>Additional locations or business names at this address</label>
+      <textarea name="otherListings" placeholder="e.g. Emergency Dentist San Diego, All-on-4 Implant Clinic — same address, separate Google listings"></textarea>
+      <div class="hint">Many businesses run specialty listings alongside their main one. We link them
+        rather than delete them — but we need to know they exist.</div></div>
+
+    <div class="f"><label>Who do customers choose you over? Name 2–3 competitors</label>
+      <textarea name="competitors" placeholder="One per line"></textarea></div>
+  </section>
+
+  <!-- ══════════ 2. WHAT YOU OFFER ══════════ -->
+  <section class="card">
+    <div class="sec-head"><span class="sec-num">02</span><div>
+      <h2>What you offer</h2>
+      <p>Every fact here becomes a published, machine-readable answer. Nothing gets published that you
+        haven't confirmed.</p></div></div>
+
+    <div class="f"><label>Your top revenue services or products<span class="req">★</span></label>
+      <textarea name="services" data-req placeholder="One per line — e.g.&#10;Invisalign&#10;Dental implants / All-on-4&#10;Veneers&#10;Emergency care"></textarea>
+      <div class="hint">List everything you want to be found for, most important first.</div>
+      <div class="err">Required</div></div>
+
+    <div class="f"><label>What are you best known for?<span class="req">★</span></label>
+      <textarea name="differentiator" data-req placeholder="The one thing that makes people choose you"></textarea>
+      <div class="hint">This is usually where we find the biggest win — something true about you that
+        simply isn't published anywhere a machine can read it.</div>
+      <div class="err">Required</div></div>
+
+    <div class="f"><label>Languages spoken by your team</label>
+      <input type="text" name="languages" placeholder="English, Spanish, Russian, Tagalog, Japanese">
+      <div class="hint">Include every language, even if only one team member speaks it.</div></div>
+
+    <div class="row">
+      <div class="f"><label>Business hours<span class="req">★</span></label>
+        <textarea name="hours" data-req placeholder="Mon–Thu 8am–5pm&#10;Fri 8am–2pm&#10;Sat by appointment&#10;Closed Sunday"></textarea>
+        <div class="err">Required</div></div>
+      <div class="f"><label>Evening, weekend, emergency or same-day availability</label>
+        <textarea name="afterHours" placeholder="Same-day emergency appointments; evening appointments until 7pm Tuesdays"></textarea>
+        <div class="hint">These are consistently the highest-winning questions. Be specific.</div></div>
+    </div>
+
+    <div class="f"><label>Insurance, financing and payment options accepted</label>
+      <textarea name="payment" placeholder="Delta Dental, Cigna, Aetna · CareCredit financing · in-house membership plan"></textarea></div>
+
+    <div class="f"><label>Current new-customer offer, if any</label>
+      <input type="text" name="offer" placeholder="$125 new patient exam, X-rays and cleaning"></div>
+
+    <div class="f"><label>Service area</label>
+      <select name="areaType">
+        <option value="">Select…</option>
+        <option>Local — customers come to our location</option>
+        <option>Regional — we serve a metro area or several cities</option>
+        <option>National — location doesn't matter to our customers</option>
+        <option>International</option>
+      </select>
+      <div class="hint">This decides whether we optimize for "near me" questions or category questions.</div></div>
+
+    <div class="f"><label>Anything we should NOT say or publish</label>
+      <textarea name="doNotSay" placeholder="Claims you can't substantiate, services you're phasing out, pricing you'd rather not post"></textarea></div>
+  </section>
+
+  <!-- ══════════ 3. ACCESS ══════════ -->
+  <section class="card">
+    <div class="sec-head"><span class="sec-num">03</span><div>
+      <h2>Access authorization</h2>
+      <p>Check each account you're authorizing us to work in. No passwords — you send an invite from
+        inside your own account.</p></div></div>
+
+    <div class="note-box" style="margin:0 0 22px">
+      <p><b>How this works.</b> Tick the box to authorize, then follow the short steps shown to add
+      <b>michael@avataragency.ai</b> to that account. If you'd rather we walk you through it live, tick
+      the box anyway and check "I'd like help with this" at the bottom of the section.</p>
+    </div>
+
+    <!-- Website / CMS -->
+    <div class="acc" data-acc>
+      <div class="acc-top"><div>
+        <div class="acc-name">Website / content management system<span class="tag">Required</span></div>
+        <div class="acc-why">Where we publish the service pages, FAQ content and machine-readable labels
+          that AI assistants quote.</div>
+      </div></div>
+      <label class="chk auth" style="margin-top:14px"><input type="checkbox" name="auth_cms" data-toggle>
+        <span>I authorize AvatarAgency to be added as an editor on our website
+          <small>Editor-level access only — no hosting, billing or domain control.</small></span></label>
+      <div class="acc-body">
+        <div class="row">
+          <div class="f"><label>Platform</label>
+            <select name="cmsPlatform"><option value="">Select…</option>
+              <option>WordPress</option><option>Webflow</option><option>Wix</option>
+              <option>Squarespace</option><option>Shopify</option><option>GoDaddy / Website Builder</option>
+              <option>Duda</option><option>Custom / developer-built</option><option>I don't know</option>
+            </select></div>
+          <div class="f"><label>Admin login URL, if you know it</label>
+            <input type="url" name="cmsUrl" placeholder="https://yourbusiness.com/wp-admin"></div>
+        </div>
+        <div class="f"><label>Who currently maintains the website?</label>
+          <input type="text" name="cmsManager" placeholder="Agency or person's name, and their email">
+          <div class="hint">If an outside agency built or manages your site, we coordinate with them
+            rather than working around them.</div></div>
+        <div class="role"><b>To grant access:</b> in your site admin, go to Users → Add New (or Invite),
+          enter <b>michael@avataragency.ai</b>, and choose <b>Editor</b> or <b>Admin</b>.
+          If an agency manages the site, forward them this request instead.</div>
+      </div>
+    </div>
+
+    <!-- Domain / DNS -->
+    <div class="acc" data-acc>
+      <div class="acc-top"><div>
+        <div class="acc-name">Domain registrar / DNS<span class="tag opt">If possible</span></div>
+        <div class="acc-why">Needed only to place the AI summary file at your domain root. If this isn't
+          practical, we hand your web provider a one-line instruction instead.</div>
+      </div></div>
+      <label class="chk auth" style="margin-top:14px"><input type="checkbox" name="auth_dns" data-toggle>
+        <span>I authorize AvatarAgency to be added as a delegate on our domain account</span></label>
+      <div class="acc-body">
+        <div class="row">
+          <div class="f"><label>Registrar</label>
+            <input type="text" name="dnsRegistrar" placeholder="GoDaddy, Namecheap, Cloudflare, Google Domains…"></div>
+          <div class="f"><label>Domain(s) covered</label>
+            <input type="text" name="dnsDomains" placeholder="yourbusiness.com"></div>
+        </div>
+        <div class="role"><b>To grant access:</b> most registrars have Account → Delegate Access or
+          Sharing & Delegation. Add <b>michael@avataragency.ai</b> with <b>edit</b> rights on DNS only.</div>
+      </div>
+    </div>
+
+    <!-- Google Business Profile -->
+    <div class="acc" data-acc>
+      <div class="acc-top"><div>
+        <div class="acc-name">Google Business Profile<span class="tag">Required</span></div>
+        <div class="acc-why">The single highest-value source AI assistants read about a local business —
+          hours, services, attributes, photos and the owner-posted Q&amp;A most businesses never use.</div>
+      </div></div>
+      <label class="chk auth" style="margin-top:14px"><input type="checkbox" name="auth_gbp" data-toggle>
+        <span>I authorize AvatarAgency to be added as a <b>Manager</b> on our Google Business Profile
+          <small>Manager role cannot remove owners, transfer ownership or delete the listing.</small></span></label>
+      <div class="acc-body">
+        <div class="f"><label>Profile link or the exact business name on Google</label>
+          <input type="text" name="gbpLink" placeholder="https://maps.app.goo.gl/… or the listing name"></div>
+        <div class="f"><label>Other listings you own that also need this</label>
+          <textarea name="gbpOther" placeholder="List any additional Google listings — specialty or secondary locations"></textarea></div>
+        <div class="role"><b>To grant access:</b>
+          <ol>
+            <li>Search your business name on Google while signed in as the owner</li>
+            <li>Open your business profile → <b>Settings</b> → <b>People and access</b></li>
+            <li><b>Add</b> → <b>michael@avataragency.ai</b> → choose <b>Manager</b> → Invite</li>
+          </ol></div>
+      </div>
+    </div>
+
+    <!-- Search Console + Analytics -->
+    <div class="acc" data-acc>
+      <div class="acc-top"><div>
+        <div class="acc-name">Google Search Console &amp; Analytics<span class="tag opt">Recommended</span></div>
+        <div class="acc-why">Lets us verify that new pages are actually being indexed and read, and
+          measure whether AI-referred visitors arrive.</div>
+      </div></div>
+      <label class="chk auth" style="margin-top:14px"><input type="checkbox" name="auth_gsc" data-toggle>
+        <span>I authorize AvatarAgency to be added to our Search Console and/or Analytics</span></label>
+      <div class="acc-body">
+        <div class="chkgrid" style="margin-bottom:14px">
+          <label class="chk"><input type="checkbox" name="gsc_sc"><span>Search Console</span></label>
+          <label class="chk"><input type="checkbox" name="gsc_ga"><span>Google Analytics</span></label>
+          <label class="chk"><input type="checkbox" name="gsc_none"><span>Not set up yet — please create</span></label>
+        </div>
+        <div class="role"><b>To grant access:</b> Search Console → Settings → Users and permissions →
+          Add user → <b>michael@avataragency.ai</b> → <b>Full</b>.  Analytics → Admin → Account access
+          management → <b>+</b> → Editor.</div>
+      </div>
+    </div>
+
+    <!-- Review + directory profiles -->
+    <div class="acc" data-acc>
+      <div class="acc-top"><div>
+        <div class="acc-name">Review sites &amp; industry directories<span class="tag">Required</span></div>
+        <div class="acc-why">AI assistants routinely quote thin third-party profiles over your own
+          website. Wrong phone numbers and stale hours on these profiles do real damage.</div>
+      </div></div>
+      <label class="chk auth" style="margin-top:14px"><input type="checkbox" name="auth_dirs" data-toggle>
+        <span>I authorize AvatarAgency to claim, correct and update our listings on the platforms below</span></label>
+      <div class="acc-body">
+        <label style="margin-bottom:9px">Check every platform where you have a profile — or think you might</label>
+        <div class="chkgrid" style="margin-bottom:16px">
+          <label class="chk"><input type="checkbox" name="dir_yelp"><span>Yelp<small>Note: Yelp has no limited role — see below</small></span></label>
+          <label class="chk"><input type="checkbox" name="dir_bing"><span>Bing Places</span></label>
+          <label class="chk"><input type="checkbox" name="dir_apple"><span>Apple Business Connect</span></label>
+          <label class="chk"><input type="checkbox" name="dir_fb"><span>Facebook page</span></label>
+          <label class="chk"><input type="checkbox" name="dir_ig"><span>Instagram business</span></label>
+          <label class="chk"><input type="checkbox" name="dir_bbb"><span>Better Business Bureau</span></label>
+          <label class="chk"><input type="checkbox" name="dir_nextdoor"><span>Nextdoor</span></label>
+          <label class="chk"><input type="checkbox" name="dir_industry"><span>Industry directory</span></label>
+          <label class="chk"><input type="checkbox" name="dir_insurance"><span>Insurance / provider directory</span></label>
+          <label class="chk"><input type="checkbox" name="dir_booking"><span>Online booking platform</span></label>
+        </div>
+        <div class="f"><label>Name the industry, insurance and booking platforms that apply</label>
+          <textarea name="dirDetail" placeholder="e.g. Healthgrades, Vitals, WebMD, Zocdoc, Delta Dental provider directory, Yellow Pages"></textarea>
+          <div class="hint">You don't need logins for these. Most are claimed by verifying the business
+            phone or email — we'll tell you when a code is on its way to you.</div></div>
+        <div class="f"><label>Profiles you know contain wrong information</label>
+          <textarea name="dirWrong" placeholder="Old address, wrong phone, closed hours, a name you no longer use…"></textarea></div>
+        <div class="role"><b>One thing to know about Yelp.</b> Unlike Google, Yelp has no limited
+          permission level — anyone you invite gets the same access you have, including the ability to
+          change payment details and buy advertising. We will never do either. If you would rather not
+          grant that, leave Yelp unchecked and we will send you the corrections to paste in yourself.</div>
+      </div>
+    </div>
+
+    <!-- Email / marketing platform -->
+    <div class="acc" data-acc>
+      <div class="acc-top"><div>
+        <div class="acc-name">Marketing &amp; email platform<span class="tag opt">If applicable</span></div>
+        <div class="acc-why">Only needed if your program includes landing pages or email follow-up.</div>
+      </div></div>
+      <label class="chk auth" style="margin-top:14px"><input type="checkbox" name="auth_esp" data-toggle>
+        <span>I authorize AvatarAgency to be added to our email marketing platform</span></label>
+      <div class="acc-body">
+        <div class="row">
+          <div class="f"><label>Platform</label>
+            <input type="text" name="espName" placeholder="Mailchimp, Constant Contact, HubSpot…"></div>
+          <div class="f"><label>Account email</label><input type="email" name="espEmail"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Existing agency — always expanded: we need to know who they are either way -->
+    <div class="acc on">
+      <div class="acc-top"><div>
+        <div class="acc-name">Your current marketing agency or web provider<span class="tag opt">If you have one</span></div>
+        <div class="acc-why">We coordinate with them rather than around them. Overlapping edits are the
+          fastest way to break a website — and if they hold your website keys, the work routes through
+          them. Tell us who they are even if you'd rather we didn't contact them.</div>
+      </div></div>
+      <div class="acc-body" style="border-top:none;margin-top:14px;padding-top:0">
+        <div class="row">
+          <div class="f"><label>Agency / provider name</label>
+            <input type="text" name="agencyName" placeholder="Wonderist Agency"></div>
+          <div class="f"><label>Our contact there — name</label>
+            <input type="text" name="agencyContactName" placeholder="First and last name"></div>
+        </div>
+        <div class="row">
+          <div class="f"><label>Their email</label>
+            <input type="email" name="agencyContactEmail" placeholder="name@agency.com"></div>
+          <div class="f"><label>Their phone</label>
+            <input type="tel" name="agencyContactPhone" placeholder="(555) 555-0100"></div>
+          <div class="f"><label>Their role</label>
+            <input type="text" name="agencyContactRole" placeholder="Account manager"></div>
+        </div>
+        <div class="f"><label>What do they currently manage for you?</label>
+          <textarea name="agencyScope" placeholder="Website, Google Ads, Google Business Profile, social, email…"></textarea></div>
+        <div class="f"><label>How should we approach them?</label>
+          <select name="agencyApproach">
+            <option value="">Select…</option>
+            <option>Contact them directly — I'll let them know you're reaching out</option>
+            <option>Introduce us by email first, then you take it from there</option>
+            <option>Send me what you need and I'll pass it to them myself</option>
+            <option>Don't contact them yet — let's discuss on our call</option>
+          </select>
+          <div class="hint">There's no wrong answer. Some owners prefer to stay in the middle, and that
+            works fine — it just changes how we sequence the work.</div></div>
+        <label class="chk auth" style="margin-top:4px"><input type="checkbox" name="auth_agency">
+          <span>I authorize AvatarAgency to contact this provider directly about this work
+            <small>Leave unchecked if you'd rather introduce us yourself, or hold off for now.</small></span></label>
+      </div>
+    </div>
+
+    <div style="margin-top:18px">
+      <label class="chk"><input type="checkbox" name="needHelp">
+        <span>I'd like help with this — please walk me through granting access on a call
+          <small>Completely fine. Most owners choose this. We'll book 20 minutes and do it together.</small></span></label>
+    </div>
+  </section>
+
+  <!-- ══════════ 4. AUTHORIZATION ══════════ -->
+  <section class="card">
+    <div class="sec-head"><span class="sec-num">04</span><div>
+      <h2>Authorization &amp; signature</h2>
+      <p>A plain-English record of what you're permitting.</p></div></div>
+
+    <div class="consent">
+      <h3>What you are authorizing</h3>
+      <ul>
+        <li>AvatarAgency (Michael Rivera, michael@avataragency.ai) may access the accounts checked above
+          at the permission level described, for the purpose of performing the AI Referral Optimization
+          Program.</li>
+        <li>Changes are limited to business information, page content, structured labelling, and listing
+          corrections. We do not alter billing, run advertising, delete accounts, or transfer ownership.</li>
+        <li><b>No passwords are requested or accepted.</b> Access is granted through each platform's own
+          invitation system and appears in your account records.</li>
+        <li>Published content comes from what you supply here or confirm in writing. We publish nothing
+          about services, hours, credentials or ratings that you have not confirmed.</li>
+        <li>You may withdraw any access at any time, from inside the platform or by emailing us. This
+          authorization otherwise remains in effect for the duration of the program, including the
+          follow-up re-check.</li>
+        <li>Your information is used only to perform this work and is never sold or shared.</li>
+      </ul>
+
+      <div class="sig">
+        <label class="chk auth" style="margin-bottom:16px"><input type="checkbox" name="agree" data-req-chk>
+          <span>I have read the above and I am authorized to grant this access on behalf of the business<span class="req">★</span></span></label>
+        <div class="row">
+          <div class="f" style="margin-bottom:0"><label>Type your full name as signature<span class="req">★</span></label>
+            <input type="text" id="sigName" name="signature" data-req placeholder="Your name">
+            <div class="err">Required</div></div>
+          <div class="f" style="margin-bottom:0;max-width:200px"><label>Date<span class="req">★</span></label>
+            <input type="text" name="sigDate" id="sigDate" readonly></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="f"><label>Anything else we should know?</label>
+      <textarea name="notes" placeholder="Constraints, sensitivities, deadlines, a launch you're planning…"></textarea></div>
+
+    <div class="actions">
+      <button class="btn" id="submitBtn" type="button">Submit onboarding form</button>
+      <button class="btn ghost" type="button" onclick="window.print()">Print / save a copy</button>
+    </div>
+  </section>
+
+</div>
+</main>
+
+<div id="done" class="wrap">
+  <div class="big">✓</div>
+  <h2>Thank you — we have everything we need to start.</h2>
+  <p>Michael will confirm receipt within one business day and follow up on any access that still needs
+    to be granted.</p>
+  <p style="color:var(--gold)">Nothing gets published without your written confirmation first.</p>
+</div>
+
+<footer><div class="wrap">
+  <b>AvatarAgency.ai</b> · michael@avataragency.ai · (310) 980-9378<br>
+  We never ask for passwords. Access is always granted through each platform's own invitation system.
+</div></footer>
+
+<script>
+(function(){
+  var form = document.getElementById('formview');
+  var DEMO = location.protocol === 'file:' || location.search.indexOf('demo') > -1;
+
+  // today's date
+  var d = new Date();
+  document.getElementById('sigDate').value =
+    (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear();
+
+  // expand/collapse access blocks
+  document.querySelectorAll('[data-toggle]').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      cb.closest('[data-acc]').classList.toggle('on', cb.checked);
+      progress();
+    });
+  });
+
+  // progress
+  var tracked = Array.prototype.slice.call(
+    form.querySelectorAll('input[data-req], textarea[data-req], input[data-req-chk]'));
+  function progress(){
+    var done = tracked.filter(function(el){
+      return el.type === 'checkbox' ? el.checked : el.value.trim() !== '';
+    }).length;
+    var pct = Math.round(done / tracked.length * 100);
+    document.getElementById('pf').style.width = pct + '%';
+    document.getElementById('pt').textContent = pct + '% complete';
+  }
+  form.addEventListener('input', progress);
+  form.addEventListener('change', progress);
+  progress();
+
+  function fieldOf(el){ return el.closest('.f') || el.closest('.sig'); }
+
+  document.getElementById('submitBtn').addEventListener('click', function(){
+    var bad = null, errBox = document.getElementById('formerr');
+    form.querySelectorAll('.bad').forEach(function(n){ n.classList.remove('bad'); });
+
+    tracked.forEach(function(el){
+      var ok = el.type === 'checkbox' ? el.checked : el.value.trim() !== '';
+      if (ok && el.type === 'email') ok = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(el.value.trim());
+      if (!ok){ var f = fieldOf(el); if (f) f.classList.add('bad'); if (!bad) bad = el; }
+    });
+
+    if (bad){
+      errBox.textContent = 'Please complete the highlighted fields before submitting.';
+      errBox.style.display = 'block';
+      bad.scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+    errBox.style.display = 'none';
+
+    var data = {};
+    form.querySelectorAll('input, select, textarea').forEach(function(el){
+      if (!el.name) return;
+      data[el.name] = el.type === 'checkbox' ? el.checked : el.value.trim();
+    });
+    data.submittedAt = new Date().toISOString();
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true; btn.textContent = 'Submitting…';
+
+    function finish(){
+      form.style.display = 'none';
+      document.getElementById('done').style.display = 'block';
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    if (DEMO){ setTimeout(finish, 500); return; }
+
+    fetch('/api/aiso-client-intake', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(data)
+    }).then(function(r){
+      if (!r.ok) throw new Error('bad response');
+      finish();
+    }).catch(function(){
+      btn.disabled = false; btn.textContent = 'Submit onboarding form';
+      errBox.textContent = 'Something went wrong sending the form. Please email michael@avataragency.ai and we will sort it out.';
+      errBox.style.display = 'block';
+    });
+  });
+})();
+</script>
+</body>
+</html>
