@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>AI Referral Optimization Dashboard — Dental Arts San Diego | AvatarAgency</title>
+<style>
+:root{
+  --bg:#0e0d0b; --panel:#171512; --panel2:#1e1b17; --line:#2c2822;
+  --ink:#f2ede3; --ink2:#c9c2b4; --muted:#8a8375;
+  --gold:#c9a227; --gold-soft:#e3c766; --wine:#9c4b56;
+  --good:#4a9d75; --good-bg:rgba(74,157,117,.14);
+  --warn:#d1a03c; --warn-bg:rgba(209,160,60,.14);
+  --serious:#c05e5e; --serious-bg:rgba(192,94,94,.13);
+  --track:#2a2721; --cellw:#211e19;
+}
+body.light{
+  --bg:#f7f4ee; --panel:#ffffff; --panel2:#f1ede4; --line:#ddd6c8;
+  --ink:#191713; --ink2:#453f36; --muted:#7a7365;
+  --gold:#a8841c; --gold-soft:#8a6d15; --wine:#8c3d48;
+  --good:#2e7a54; --good-bg:rgba(46,122,84,.12);
+  --warn:#9a6d13; --warn-bg:rgba(154,109,19,.12);
+  --serious:#b04848; --serious-bg:rgba(176,72,72,.11);
+  --track:#e6e0d2; --cellw:#efeadf;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+a{color:var(--gold-soft);text-decoration:none}
+h2{font-size:1.3rem;font-weight:800;margin-bottom:4px}
+h3{font-size:1rem;font-weight:700;margin:0 0 10px}
+.kick{color:var(--gold);font-size:.7rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:6px}
+.sub{color:var(--muted);font-size:.9rem;max-width:66ch;margin-bottom:20px}
+.plain{background:var(--panel2);border-left:3px solid var(--gold);border-radius:0 8px 8px 0;padding:13px 16px;margin:16px 0;color:var(--ink2);font-size:.92rem}
+.plain b{color:var(--ink)} .plain .tag{display:block;color:var(--gold);font-size:.66rem;font-weight:800;text-transform:uppercase;letter-spacing:.14em;margin-bottom:4px}
+
+/* header + tabs */
+header{border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:30}
+.head-in{display:flex;justify-content:space-between;align-items:center;padding:14px 0;gap:12px;flex-wrap:wrap}
+.brand{font-weight:800}.brand span{color:var(--gold)}
+.hright{display:flex;align-items:center;gap:14px}
+.client{text-align:right;font-size:.8rem;color:var(--muted)}
+.client b{color:var(--ink);display:block;font-size:.92rem}
+.mode-btn{background:var(--panel);border:1px solid var(--line);color:var(--ink2);border-radius:20px;padding:6px 14px;font-size:.78rem;cursor:pointer}
+.tabs{display:flex;gap:2px;overflow-x:auto;padding-bottom:0}
+.tab{padding:10px 16px;font-size:.86rem;font-weight:700;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap}
+.tab.on{color:var(--ink);border-bottom-color:var(--gold)}
+.tab .cnt{background:var(--panel2);border-radius:10px;padding:1px 7px;font-size:.7rem;margin-left:6px;color:var(--muted)}
+.view{display:none;padding:34px 0 60px}.view.on{display:block}
+.section{margin-bottom:34px}
+
+/* counters row (Wix pattern) */
+.counters{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:18px 0}
+.counter{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.counter .n{font-size:1.55rem;font-weight:800}
+.counter .d{color:var(--muted);font-size:.76rem;margin-top:2px}
+.counter.g .n{color:var(--good)} .counter.w .n{color:var(--warn)} .counter.s .n{color:var(--serious)}
+
+/* hero */
+.hero{display:flex;gap:34px;align-items:center;flex-wrap:wrap}
+.gauge-big{width:270px;flex:none;text-align:center}
+.gauge-big .num{font-size:3.2rem;font-weight:800;line-height:1;margin-top:-86px}
+.gauge-big .band{color:var(--gold);font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;margin-top:2px}
+.bandbar{display:flex;gap:3px;margin-top:14px;font-size:.62rem;color:var(--muted)}
+.bandbar div{flex:1;padding-top:6px;border-top:4px solid var(--track);text-align:center}
+.bandbar div.hit{border-top-color:var(--gold);color:var(--ink2);font-weight:700}
+.hero-copy{flex:1;min-width:280px}
+.hero-copy h1{font-size:1.55rem;font-weight:800;line-height:1.3;margin-bottom:10px}
+.hero-copy p{color:var(--ink2);font-size:.95rem;max-width:58ch}
+.bench{display:flex;gap:18px;margin-top:16px;flex-wrap:wrap}
+.bench .b{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 16px;font-size:.82rem;color:var(--muted)}
+.bench .b b{display:block;font-size:1.15rem;color:var(--ink)}
+
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:13px}
+.pillar{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px 16px;text-align:center;cursor:pointer}
+.pillar .num{font-size:1.75rem;font-weight:800;margin-top:-60px}
+.pillar h4{font-size:.92rem;margin-top:4px}
+.pillar .w{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.06em}
+.pillar p{color:var(--ink2);font-size:.8rem;margin-top:8px;text-align:left}
+.pillar .go{color:var(--gold-soft);font-size:.75rem;display:block;margin-top:8px;text-align:left}
+
+/* platform bars + benchmark tick */
+.bar-row{display:flex;align-items:center;margin-bottom:12px}
+.bar-row .lbl{width:104px;flex:none;font-weight:700;font-size:.88rem}
+.bar-row .track{flex:1;background:var(--track);height:20px;border-radius:0 4px 4px 0;position:relative}
+.bar-row .fill{background:var(--wine);height:100%;border-radius:0 4px 4px 0}
+.bar-row .tick{position:absolute;top:-5px;bottom:-5px;width:2px;background:var(--gold)}
+.bar-row .tick i{position:absolute;top:-14px;left:-30px;width:64px;font-style:normal;font-size:.58rem;color:var(--gold);text-align:center;letter-spacing:.04em}
+.bar-row .val{width:150px;flex:none;padding-left:12px;font-size:.84rem;color:var(--ink2)}
+.bar-row.pending .track{background:repeating-linear-gradient(45deg,var(--track),var(--track) 6px,var(--cellw) 6px,var(--cellw) 12px)}
+.axis-note{color:var(--muted);font-size:.74rem;margin-top:4px;margin-left:104px;border-top:1px solid var(--line);padding-top:5px}
+
+/* matrix */
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.78rem;color:var(--muted);margin-bottom:14px}
+.legend span{display:flex;align-items:center;gap:6px}
+.cell-demo{width:20px;height:20px;border-radius:5px;display:inline-block}
+.mtable{width:100%;border-collapse:separate;border-spacing:2px;font-size:.84rem}
+.mtable th{color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.07em;padding:6px 8px;text-align:center}
+.mtable th:first-child{text-align:left}
+.mtable td.q{padding:7px 10px;background:var(--panel);border-radius:6px;min-width:230px}
+.mtable td.q small{color:var(--muted);display:block;font-size:.72rem}
+.mtable td.c{width:64px;text-align:center;border-radius:6px;font-weight:800;font-size:.8rem;cursor:default;padding:7px 0}
+td.c.y{background:var(--good-bg);color:var(--good)}
+td.c.n{background:var(--serious-bg);color:var(--serious)}
+td.c.m{background:var(--warn-bg);color:var(--warn)}
+td.c.p{background:var(--cellw);color:var(--muted)}
+tr.cat td{background:none;color:var(--gold);font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.12em;padding:14px 6px 4px}
+tr.detail td{background:var(--panel2);border-radius:6px;padding:9px 12px;color:var(--ink2);font-size:.8rem}
+
+/* competitors */
+.ctable{width:100%;border-collapse:collapse;font-size:.87rem}
+.ctable th{text-align:left;color:var(--muted);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;padding:8px 10px;border-bottom:1px solid var(--line)}
+.ctable td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.ctable .freq{display:flex;align-items:center;gap:8px}
+.ctable .fbar{height:10px;background:var(--wine);border-radius:0 3px 3px 0}
+.rk{color:var(--muted);font-size:.78rem;width:24px}
+.adgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px}
+.ad{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:.84rem}
+.ad b{display:block}.ad span{color:var(--muted);font-size:.74rem}
+
+/* reputation */
+.rrow{display:flex;align-items:center;margin-bottom:11px}
+.rrow .lbl{width:130px;flex:none;font-weight:700;font-size:.86rem}
+.rrow .lbl small{display:block;color:var(--muted);font-weight:400;font-size:.7rem}
+.rrow .track{flex:1;background:var(--track);height:16px;border-radius:0 4px 4px 0;position:relative}
+.rrow .fill{height:100%;background:var(--wine);border-radius:0 4px 4px 0}
+.rrow .val{width:110px;flex:none;padding-left:12px;font-size:.84rem;color:var(--ink2)}
+.entity{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.ecard{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 16px;font-size:.85rem}
+.ecard b{display:block;margin-bottom:2px}
+.ecard .st{font-size:.7rem;font-weight:800;padding:2px 9px;border-radius:10px;display:inline-block;margin-top:8px}
+.st.ok{background:var(--good-bg);color:var(--good)} .st.iss{background:var(--serious-bg);color:var(--serious)} .st.wn{background:var(--warn-bg);color:var(--warn)}
+.ecard p{color:var(--muted);font-size:.76rem;margin-top:4px}
+
+/* website issues */
+.issue{display:flex;gap:14px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 16px;margin-bottom:8px;font-size:.88rem}
+.issue .sev{flex:none;width:86px;text-align:center;font-size:.68rem;font-weight:800;padding:3px 0;border-radius:10px;height:fit-content;margin-top:2px}
+.sev.crit{background:var(--serious-bg);color:var(--serious)} .sev.warn2{background:var(--warn-bg);color:var(--warn)} .sev.good2{background:var(--good-bg);color:var(--good)}
+.issue small{display:block;color:var(--muted);font-size:.78rem;margin-top:2px}
+.issue .fix{color:var(--gold-soft);font-size:.78rem}
+.crawlers{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-top:10px}
+.crawler{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:.82rem;display:flex;justify-content:space-between;align-items:center}
+.crawler .ok{color:var(--good);font-weight:800;font-size:.76rem}
+
+/* actions */
+.act{display:flex;gap:12px;align-items:flex-start;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 15px;margin-bottom:8px}
+.act .st2{flex:none;font-size:.68rem;font-weight:800;padding:3px 10px;border-radius:12px;margin-top:2px;min-width:92px;text-align:center}
+.st2.todo{background:var(--cellw);color:var(--muted)} .st2.doing{background:var(--warn-bg);color:var(--warn)} .st2.done{background:var(--good-bg);color:var(--good)}
+.imp{flex:none;font-size:.66rem;font-weight:800;padding:3px 8px;border-radius:10px;margin-top:2px}
+.imp.hi{background:var(--serious-bg);color:var(--serious)} .imp.md{background:var(--warn-bg);color:var(--warn)}
+.act .t{font-size:.89rem}.act .t small{display:block;color:var(--muted);font-size:.77rem}
+.gh{font-size:.72rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:18px 0 8px}
+
+/* recheck */
+.ba{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:13px}
+.ba .cell{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+.ba .metric{color:var(--muted);font-size:.74rem;text-transform:uppercase;letter-spacing:.07em}
+.ba .now{font-size:1.6rem;font-weight:800;margin:5px 0 2px}
+.ba .then{color:var(--muted);font-size:.8rem;border-top:1px dashed var(--line);margin-top:9px;padding-top:7px}
+footer{border-top:1px solid var(--line);padding:26px 0 44px;color:var(--muted);font-size:.78rem}
+@media(max-width:720px){.mtable td.q{min-width:150px}.bar-row .val{width:90px}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap">
+  <div class="head-in">
+    <div class="brand">Avatar<span>Agency</span>.ai <span style="color:var(--muted);font-weight:600;font-size:.82rem">· AI Referral Optimization Dashboard</span></div>
+    <div class="hright">
+      <button class="mode-btn" onclick="document.body.classList.toggle('light');this.textContent=document.body.classList.contains('light')?'◐ Dark mode':'◑ Light mode'">◑ Light mode</button>
+      <div class="client"><b>Dental Arts San Diego</b>Dr. Alena Nawrocki, DDS · Audit: August 2026</div>
+    </div>
+  </div>
+  <nav class="tabs" id="tabs">
+    <div class="tab on" data-v="overview">Overview</div>
+    <div class="tab" data-v="matrix">Query Matrix <span class="cnt">22×5</span></div>
+    <div class="tab" data-v="competitors">Competitors <span class="cnt">8</span></div>
+    <div class="tab" data-v="reputation">Reputation</div>
+    <div class="tab" data-v="website">Website <span class="cnt">9</span></div>
+    <div class="tab" data-v="actions">Action Plan <span class="cnt">12</span></div>
+    <div class="tab" data-v="recheck">Re-Check</div>
+  </nav>
+</div></header>
+
+<!-- ================= OVERVIEW ================= -->
+<div class="view on" id="v-overview"><div class="wrap">
+  <div class="section hero">
+    <div class="gauge-big">
+      <svg id="g-main" viewBox="0 0 200 120" width="270"></svg>
+      <div class="num">36</div><div style="color:var(--muted);font-size:.78rem">out of 100</div>
+      <div class="band">Emerging</div>
+      <div class="bandbar">
+        <div>Invisible<br>0–25</div><div class="hit">Emerging<br>26–50</div><div>Competitive<br>51–75</div><div>Leading<br>76+</div>
+      </div>
+    </div>
+    <div class="hero-copy">
+      <span class="kick">Your AI Referral Score</span>
+      <h1>The AIs can see you — but they recommend you far less than they should.</h1>
+      <p>When local patients ask AI assistants for a dentist, you're the answer about one time in four. Your published facts (hours, emergency care) win outright; almost everything else you offer is invisible to the machines. That gap is specific, measurable, and fixable.</p>
+      <div class="bench">
+        <div class="b"><b>36</b>you, today</div>
+        <div class="b"><b>~64</b>most-recommended local rival (est.)</div>
+        <div class="b"><b id="bench-recheck">—</b>days to re-check · Nov 10, 2026</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="counters">
+      <div class="counter"><div class="n">108</div><div class="d">AI answers analyzed (22 questions × 5 platforms)</div></div>
+      <div class="counter g"><div class="n">5</div><div class="d">#1 answers you hold today</div></div>
+      <div class="counter s"><div class="n">8 of 11</div><div class="d">services invisible to AI</div></div>
+      <div class="counter w"><div class="n">12</div><div class="d">fixes in your plan · 0 started</div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <span class="kick">The four pillars</span>
+    <h2>Where the score comes from</h2>
+    <p class="sub">Each pillar is scored 0–100 from measurable checks. Click a pillar to jump to its detail tab.</p>
+    <div class="pillars" id="pillars"></div>
+  </div>
+
+  <div class="section">
+    <span class="kick">Platform by platform</span>
+    <h2>How often each AI recommends you</h2>
+    <p class="sub">Gold ticks mark the estimated rate of the most-recommended competitor on each platform — the visible gap is the opportunity.</p>
+    <div id="bars"></div>
+    <div class="axis-note">Share of discovery questions where you were named · 0–100% · gold tick = top local rival (est.)</div>
+  </div>
+
+  <div class="plain"><span class="tag">The one-paragraph verdict</span>
+    <b>You're strong exactly where your facts are published, and invisible exactly where they aren't.</b> You hold the #1 AI answer for emergencies and evening hours because those facts are on your listings. You lose languages, anxiety, family care, and five whole services because no machine-readable source says you offer them. The plan in the Action tab publishes what's already true — nothing more exotic than that.
+  </div>
+</div></div>
+
+<!-- ================= MATRIX ================= -->
+<div class="view" id="v-matrix"><div class="wrap">
+  <span class="kick">Every question, every platform</span>
+  <h2>The query matrix</h2>
+  <p class="sub">22 real patient questions × 5 AI platforms = 110 answers. Green = you were recommended. Red = a competitor took the answer. Amber = you appeared only in a side panel, not the written answer patients read. Grey = testing in progress. At the re-check, this grid is where you'll watch red turn green.</p>
+  <div class="legend">
+    <span><span class="cell-demo" style="background:var(--good-bg)"></span> Recommended</span>
+    <span><span class="cell-demo" style="background:var(--serious-bg)"></span> Missed</span>
+    <span><span class="cell-demo" style="background:var(--warn-bg)"></span> Map/side-panel only</span>
+    <span><span class="cell-demo" style="background:var(--cellw)"></span> Pending / platform error</span>
+  </div>
+  <table class="mtable"><thead><tr><th>Patient question</th><th>Perplexity</th><th>ChatGPT</th><th>Gemini</th><th>Grok</th><th>Claude</th></tr></thead><tbody id="mrows"></tbody></table>
+</div></div>
+
+<!-- ================= COMPETITORS ================= -->
+<div class="view" id="v-competitors"><div class="wrap">
+  <span class="kick">Who's taking the answers</span>
+  <h2>Competitor leaderboard</h2>
+  <p class="sub">How many of the 75 recorded AI answers recommended each competitor, what the AIs cite about them — and what they publish that you don't.</p>
+  <table class="ctable"><thead><tr><th></th><th>Practice</th><th>Recommended</th><th>Rating</th><th>Why they win</th></tr></thead><tbody id="crows"></tbody></table>
+  <div class="plain"><span class="tag">Read this the right way</span>
+    Every practice above wins on <b>published facts</b>, not better dentistry: a $39 offer stated on a page, the word "sedation" on a homepage, three languages in one sentence. Your 679 Google reviews outweigh most of these practices — the machines just can't connect them to the questions being asked.
+  </div>
+  <h3 style="margin-top:26px">Competitors are paying to appear in AI answers</h3>
+  <p class="sub">On ChatGPT, 12 of your 22 test questions carried a paid advertisement from a competing practice. None were yours.</p>
+  <div class="adgrid" id="ads"></div>
+</div></div>
+
+<!-- ================= REPUTATION ================= -->
+<div class="view" id="v-reputation"><div class="wrap">
+  <span class="kick">What the AIs verify about you</span>
+  <h2>Your ratings, platform by platform</h2>
+  <p class="sub">88% of people double-check an AI recommendation against reviews before booking — and the AIs do the same. They keep reaching your thinnest profiles instead of your strongest.</p>
+  <div id="ratings"></div>
+  <div class="plain"><span class="tag">Two flags the AIs already caught</span>
+    <b>1.</b> Your website displays a 4.9 Google rating; Google shows 4.6. Perplexity quoted the mismatch out loud and hedged its recommendation. <b>2.</b> ChatGPT summarized your reviews as "mixed," citing billing and upselling complaints from Vitals and WebMD — profiles with a dozen reviews outweighing your 679.
+  </div>
+  <h3 style="margin-top:26px">Your business identity, as the internet sees it</h3>
+  <p class="sub">One address, several identities. The specialist listings are winning their niches — the fix is linking them as one practice, not deleting them.</p>
+  <div class="entity" id="entity"></div>
+</div></div>
+
+<!-- ================= WEBSITE ================= -->
+<div class="view" id="v-website"><div class="wrap">
+  <span class="kick">Your website, read by a machine</span>
+  <h2>Site readiness checks</h2>
+  <p class="sub">A patient reads your site for reassurance; an AI reads it for facts it can quote. Nine checks, grouped by severity.</p>
+  <div id="issues"></div>
+  <h3 style="margin-top:26px">AI crawler access — already good</h3>
+  <p class="sub">Your site's settings welcome every major AI system. Nothing is blocked — which means every fix takes effect.</p>
+  <div class="crawlers" id="crawlers"></div>
+</div></div>
+
+<!-- ================= ACTIONS ================= -->
+<div class="view" id="v-actions"><div class="wrap">
+  <span class="kick">The fix, tracked</span>
+  <h2>Your action plan</h2>
+  <p class="sub">Twelve fixes in priority order, each tagged with the pillar it moves and its expected impact. Status updates as work lands — this page regenerates at every milestone.</p>
+  <div class="counters">
+    <div class="counter s"><div class="n" id="cnt-todo">12</div><div class="d">not started</div></div>
+    <div class="counter w"><div class="n" id="cnt-doing">0</div><div class="d">in progress</div></div>
+    <div class="counter g"><div class="n" id="cnt-done">0</div><div class="d">completed</div></div>
+  </div>
+  <div id="actlist"></div>
+</div></div>
+
+<!-- ================= RECHECK ================= -->
+<div class="view" id="v-recheck"><div class="wrap">
+  <span class="kick">Proof, not promises</span>
+  <h2>Baseline vs. re-check</h2>
+  <p class="sub">Seventy-five days after your fixes are complete, we re-run the identical 110-answer test and fill in every second number below — same questions, same platforms, new answers.</p>
+  <div style="background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:26px;text-align:center;margin-bottom:22px">
+    <div style="color:var(--muted);font-size:.72rem;text-transform:uppercase;letter-spacing:.14em;margin-bottom:6px">Re-check in</div>
+    <div id="cd-days" style="font-size:3rem;font-weight:800;line-height:1">—</div>
+    <div style="color:var(--muted);font-size:.78rem">days</div>
+    <div id="cd-hms" style="color:var(--gold);font-size:1rem;font-variant-numeric:tabular-nums;margin-top:6px">—</div>
+    <div style="max-width:420px;margin:18px auto 0">
+      <div style="background:var(--track);height:8px;border-radius:4px;overflow:hidden"><div id="cd-prog" style="background:var(--gold);height:100%;width:0%"></div></div>
+      <div id="cd-progtext" style="color:var(--muted);font-size:.74rem;margin-top:6px"></div>
+    </div>
+  </div>
+  <div class="ba" id="ba"></div>
+  <div class="plain"><span class="tag">Our honest note</span>
+    No one can guarantee a specific AI answer — the platforms don't publish their reasoning and they change constantly. What we guarantee is the work: every trust signal these systems are known to check, made complete, consistent, and machine-readable — and this exact test re-run so you can judge the result yourself.
+  </div>
+</div></div>
+
+<footer><div class="wrap">
+  <b style="color:var(--ink2)">Methodology.</b> Queries run in the consumer versions of ChatGPT, Gemini, Grok, Perplexity, and Claude — the same apps patients use — in fresh sessions with personalization off. "Discovery rate" excludes questions naming the business directly. Competitor counts are appearances in recorded answers; "top rival" benchmarks are estimates from the same data. Full query log available on request. · Prepared by AvatarAgency.ai · 310.980.9378 · michael@avataragency.ai
+</div></footer>
+
+<script>
+/* ---------- tabs ---------- */
+const tabs=document.querySelectorAll(".tab"), views=document.querySelectorAll(".view");
+function go(v){tabs.forEach(t=>t.classList.toggle("on",t.dataset.v===v));views.forEach(x=>x.classList.toggle("on",x.id==="v-"+v));window.scrollTo(0,0);}
+tabs.forEach(t=>t.onclick=()=>go(t.dataset.v));
+if(location.hash.startsWith("#tab=")) go(location.hash.slice(5));
+
+/* ---------- gauges ---------- */
+function arc(el,pct,color){
+  const r=80,cx=100,cy=100,a0=Math.PI,a1=Math.PI*(1-pct/100);
+  const x1=cx+r*Math.cos(a0),y1=cy-r*Math.sin(a0),x2=cx+r*Math.cos(a1),y2=cy-r*Math.sin(a1);
+  el.innerHTML=`<path d="M ${x1} ${y1} A ${r} ${r} 0 0 1 ${cx+r} ${cy}" fill="none" stroke="var(--track)" stroke-width="14" stroke-linecap="round"/>`+
+  (pct>0?`<path d="M ${x1} ${y1} A ${r} ${r} 0 0 1 ${x2} ${y2}" fill="none" stroke="${color}" stroke-width="14" stroke-linecap="round"/>`:"");
+}
+arc(document.getElementById("g-main"),36,"var(--gold)");
+
+/* ---------- pillars ---------- */
+const PILLARS=[
+ {n:"AI Discovery",w:"40% of score",s:23,tab:"matrix",go:"See the full query matrix →",t:"How often the five AIs recommend you when patients ask. ~1 answer in 4 — strong for emergencies and hours, absent for most services."},
+ {n:"Reputation Signals",w:"25% of score",s:55,tab:"reputation",go:"See ratings & listings →",t:"What the AIs find when they verify you. 4.6★ × 679 on Google is excellent; the AIs keep reaching your weaker profiles instead."},
+ {n:"Website Readiness",w:"20% of score",s:35,tab:"website",go:"See the site checks →",t:"Whether machines can read facts off your site. Crawlers welcomed; FAQs, five service pages, and key technical files missing."},
+ {n:"Listing Consistency",w:"15% of score",s:40,tab:"reputation",go:"See your identity map →",t:"Whether the internet agrees on who you are. One address, three names, two phone numbers — the AIs are visibly unsure."}
+];
+PILLARS.forEach((p,i)=>{
+ const d=document.createElement("div");d.className="pillar";d.onclick=()=>go(p.tab);
+ d.innerHTML=`<svg id="gp${i}" viewBox="0 0 200 120" width="160"></svg><div class="num">${p.s}</div><h4>${p.n}</h4><div class="w">${p.w}</div><p>${p.t}</p><span class="go">${p.go}</span>`;
+ document.getElementById("pillars").appendChild(d);
+ arc(document.getElementById("gp"+i),p.s,"var(--gold)");
+});
+
+/* ---------- platform bars ---------- */
+const PLATFORMS=[
+ {n:"Perplexity",r:40,b:36,note:"named in 40% of discovery searches"},
+ {n:"Claude",r:30,b:34,note:"strong on published differentiators — but flagged your satellite listing as 'a marketing front'"},
+ {n:"ChatGPT",r:20,b:32,note:"competitors ran ads on 12 of 22 answers"},
+ {n:"Grok",r:17,b:40,note:"#1 for evening hours; 2 queries pending a daily limit"},
+ {n:"Gemini",r:10,b:29,note:"your weakest — inside Google itself"}
+];
+PLATFORMS.forEach(p=>{
+ const d=document.createElement("div");d.className="bar-row"+(p.r===null?" pending":"");
+ d.innerHTML=`<div class="lbl">${p.n}</div><div class="track">${p.r!==null?`<div class="fill" style="width:${p.r}%"></div>`:""}${p.b?`<div class="tick" style="left:${p.b}%"><i>top rival</i></div>`:""}</div><div class="val">${p.r===null?"testing…":p.r+"% — "+p.note}</div>`;
+ document.getElementById("bars").appendChild(d);
+});
+
+/* ---------- matrix ---------- */
+/* y=won n=missed m=map-only p=pending e=platform error */
+const M=[
+ ["General searches"],
+ ["Best dentist near El Cajon","",["y","n","n","n","n"],"Perplexity ranks you 3rd; every other platform recommends Avocado, Zak, Singing Hills"],
+ ["Best dentist in East County","",["n","n","n","n","n"],"No platform names you at county scope"],
+ ["Family dentist recommendations","",["n","n","n","n","n"],"Zak, Avocado, El Cajon Family Dental take this everywhere"],
+ ["Practical needs"],
+ ["Open on Saturday","#1 on Claude",["y","n","n","y","y"],"Claude's top pick (Sat 8–2 + emergency); published hours win on 3 platforms"],
+ ["Emergency, same-day","#1 on three platforms",["y","y","y","n","y"],"“Call Dental Arts San Diego first” — your strongest result across the board"],
+ ["Evening appointments","#1 on Perplexity & Grok",["y","y","n","y","y"],"“The clearest match — Tuesday to 7 PM”; Grok also lists you first"],
+ ["Accepting new patients","",["n","y","n","n","n"],"A published $39 offer beats your unpublished $125 offer"],
+ ["Services"],
+ ["Dental implants","",["y","n","y","n","y"],"Your All-on-4 listing ranks; website absence costs the rest"],
+ ["All-on-4 / full arch","#1 on Perplexity",["y","n","n","n","m"],"⚠ Claude mentioned you NEGATIVELY — called the listing “a marketing front… more specialization than the review record supports”"],
+ ["Invisalign","",["m","n","n","n","n"],"No Invisalign page exists — map sidebar only"],
+ ["Porcelain veneers","",["y","n","n","n","n"],"4th on Perplexity; your site appeared in Claude's search results but not its answer"],
+ ["Root canal","",["y","n","n","n","n"],"Recommended for urgent access via your emergency listing"],
+ ["Wisdom teeth removal","",["m","n","n","n","n"],"Oral surgery centers take the answer"],
+ ["Periodontal / bone grafting","",["m","n","n","n","n"],"Periodontists with dedicated pages win"],
+ ["Sleep apnea appliances","",["n","n","n","n","p"],"Zero presence — sleep clinics take it (Claude run invalid; clean re-test at re-check)"],
+ ["Implants+Invisalign+veneers in one place","",["m","n","n","p","n"],"Practices listing all three on one page win (Grok pending quota)"],
+ ["Personal circumstances"],
+ ["Speaks Russian","#1 on THREE platforms",["n","y","n","y","y"],"ChatGPT: the ONLY answer; Grok #1; Claude: “the only El Cajon practice advertising Russian staff.” Directories carry you — your own site says nothing"],
+ ["Speaks Tagalog","",["n","n","n","n","n"],"Five competitors publish it; you don't"],
+ ["Multilingual staff","",["n","n","n","p","n"],"A 3-language competitor beats your 5 unpublished languages (Grok pending quota)"],
+ ["Good with nervous patients","",["n","n","n","n","n"],"Competitors saying “sedation” win on every platform"],
+ ["About you directly"],
+ ["Is Dental Arts San Diego good?","",["y","y","y","y","y"],"Positive-but-hedged everywhere: the 4.9-vs-4.6 mismatch, Yelp ~3.8, and billing-complaint themes get quoted"],
+ ["Dr. Nawrocki reviews","",["y","y","y","y","y"],"Answered from thin personal profiles; two matching upsell complaints surface on multiple platforms"]
+];
+const SYM={y:"✓",n:"✕",m:"◐",p:"…",e:"!"};
+const mb=document.getElementById("mrows");
+M.forEach(row=>{
+ if(row.length===1){const tr=document.createElement("tr");tr.className="cat";tr.innerHTML=`<td colspan="6">${row[0]}</td>`;mb.appendChild(tr);return;}
+ const [q,badge,cells,note]=row;
+ const tr=document.createElement("tr");
+ tr.innerHTML=`<td class="q">${q}${badge?`<small style="color:var(--good)">${badge}</small>`:""}</td>`+
+  cells.map(c=>`<td class="c ${c==="e"?"p":c}" title="${note}">${SYM[c]}</td>`).join("");
+ mb.appendChild(tr);
+ const td=document.createElement("tr");td.className="detail";td.innerHTML=`<td colspan="6">${note}</td>`;
+ mb.appendChild(td);
+});
+
+/* ---------- competitors ---------- */
+const COMP=[
+ ["El Cajon Dental & Orthodontics",10,"4.1★ · 217","Publishes Saturday 8–5, a $39 new-patient offer, and Invisalign + implants + veneers on one page"],
+ ["El Cajon Dentistry",9,"4.9★ · 124","Says “sedation” plainly — owns the nervous-patient answer; root canals + emergency"],
+ ["Zak Dental – El Cajon",8,"4.9★ · 419","Multi-specialty coverage stated in full; wins veneers, family, evening"],
+ ["Singing Hills Dentistry",8,"—","ChatGPT & Grok favorite for general “best dentist” lists"],
+ ["Rancho San Diego Dental",7,"4.8★","Gemini's go-to; wins sleep apnea and perio by having pages for them"],
+ ["Fletcher Hills (2 practices)",7,"4.9★ / 4.8★","Implant & oral-surgery niche + cosmetic 'boutique' positioning"],
+ ["Dr. Ana Mora",6,"5.0★","Publishes English/Spanish/Tagalog — owns the language answers you should own"],
+ ["Avocado Family Dentistry",5,"5.0★ · 404","Perfect rating × volume — tops “best dentist near El Cajon” everywhere"]
+];
+const cb=document.getElementById("crows");const maxc=COMP[0][1];
+COMP.forEach((c,i)=>{
+ const tr=document.createElement("tr");
+ tr.innerHTML=`<td class="rk">${i+1}</td><td><b>${c[0]}</b></td>
+ <td style="min-width:170px"><div class="freq"><div class="fbar" style="width:${c[1]/maxc*120}px"></div><span style="color:var(--muted);font-size:.8rem">${c[1]}× </span></div></td>
+ <td style="white-space:nowrap">${c[2]}</td><td style="color:var(--ink2);font-size:.83rem">${c[3]}</td>`;
+ cb.appendChild(tr);
+});
+[["UrgentSmile","3 ad placements"],["Elite Dental Group","2 ad placements"],["Alex Antipov Dental","2 ad placements"],["SayCheeseClub","2 ad placements"],["Golpa NexGen Smiles","1 ad placement"],["Salathe Dental","1 ad placement"]].forEach(a=>{
+ const d=document.createElement("div");d.className="ad";d.innerHTML=`<b>${a[0]}</b><span>${a[1]} on your queries</span>`;document.getElementById("ads").appendChild(d);
+});
+
+/* ---------- reputation ---------- */
+const RATINGS=[
+ ["Google","679 reviews",4.6,"your strongest asset"],
+ ["US News","385 reviews",5.0,"strong but rarely cited"],
+ ["Yelp","249 reviews",3.8,"⚠ the profile AIs quote"],
+ ["Healthgrades","12 reviews",4.3,"thin — claim & build"],
+ ["Vitals","7 reviews",4.3,"⚠ old billing complaint visible"],
+ ["WebMD","11 ratings",4.0,"⚠ wrong phone number listed"]
+];
+RATINGS.forEach(r=>{
+ const d=document.createElement("div");d.className="rrow";
+ d.innerHTML=`<div class="lbl">${r[0]}<small>${r[1]}</small></div><div class="track"><div class="fill" style="width:${r[2]/5*100}%"></div></div><div class="val">${r[2].toFixed(1)} ★ · ${r[3]}</div>`;
+ document.getElementById("ratings").appendChild(d);
+});
+const ENTITY=[
+ ["Dental Arts San Diego","Google · flagship · 4.6★/679","ok","Your main identity — but it inherits nothing from the winners below"],
+ ["Emergency Dentist San Diego","Google · same address · 5.0★/65","ok","#1 answer for emergency queries — keep, and link to flagship"],
+ ["All-on-4 Implant Clinic","Google · same address · 5.0★/30","ok","#1 answer for All-on-4 — keep, and link to flagship"],
+ ["Dr. Alena Nawrocki, DDS","Google · same address · 4.9★","wn","Personal listing — appears in map results only"],
+ ["ALENA NAWROCKI DDS INC","WebMD & Vitals","iss","Different name + a New York phone number — actively harmful"],
+ ["Andrzej Lubczuk Dental Corp","DentalPlans","iss","Third name in circulation — splits your identity further"]
+];
+ENTITY.forEach(e=>{
+ const d=document.createElement("div");d.className="ecard";
+ const lbl={ok:"KEEP & LINK",wn:"REVIEW",iss:"FIX NAME/PHONE"}[e[2]];
+ d.innerHTML=`<b>${e[0]}</b><span style="color:var(--muted);font-size:.76rem">${e[1]}</span><p>${e[3]}</p><span class="st ${e[2]}">${lbl}</span>`;
+ document.getElementById("entity").appendChild(d);
+});
+
+/* ---------- website ---------- */
+const ISSUES=[
+ ["crit","No pages for 5 services","Invisalign, sleep apnea, periodontal surgery, wisdom teeth have no page; the All-on-4 page is a dead link still listed on Google.","We build one plain-language page per service and redirect the dead link."],
+ ["crit","No FAQ content anywhere","Your cosmetic page ships an empty FAQ box reading “No items found” — the template supports FAQs; nobody filled them.","We write 5–8 real patient Q&As per service page — content only, no rebuild."],
+ ["crit","Site map broken","The index that tells search systems which pages exist is unreadable; outdated page versions are still indexed.","We regenerate it and retire the duplicates."],
+ ["warn2","Languages absent","English, Russian, Spanish, Tagalog, Japanese — stated nowhere on the site.","One sentence on the home and contact pages, plus every listing."],
+ ["warn2","Rating claim mismatch","Site displays 4.9; Google shows 4.6. The AIs caught it and hedge because of it.","We correct the figure — trust flag removed."],
+ ["warn2","No machine labels (schema)","The invisible labelling that states your business type, hours, services and languages appears missing.","We install it in the site's code — machines stop guessing."],
+ ["warn2","No llms.txt","The new AI-summary file most competitors haven't heard of.","We write and publish it — an early-adopter edge."],
+ ["good2","AI crawlers welcomed","Your site's settings allow every major AI system to read it.","Nothing to do — this is why every fix will take effect."],
+ ["good2","Home & contact pages solid","Real factual sentences, full address and hours — the reason you win the hours queries.","Keep — this is the model for the new service pages."]
+];
+ISSUES.forEach(i=>{
+ const d=document.createElement("div");d.className="issue";
+ const lbl={crit:"CRITICAL",warn2:"IMPORTANT",good2:"GOOD"}[i[0]];
+ d.innerHTML=`<span class="sev ${i[0]}">${lbl}</span><div><b>${i[1]}</b><small>${i[2]}</small><span class="fix">The fix: ${i[3]}</span></div>`;
+ document.getElementById("issues").appendChild(d);
+});
+["GPTBot (ChatGPT)","ClaudeBot (Claude)","PerplexityBot","Google-Extended (Gemini)","Googlebot"].forEach(c=>{
+ const d=document.createElement("div");d.className="crawler";d.innerHTML=`<span>${c}</span><span class="ok">✓ Allowed</span>`;
+ document.getElementById("crawlers").appendChild(d);
+});
+
+/* ---------- actions ---------- */
+const ACTS=[
+ ["Quick wins — days",[
+  ["hi","todo","Publish your five languages everywhere","Website, Google profile, Yelp, Healthgrades, directories — proven worth a #1 answer","Discovery"],
+  ["hi","todo","Correct the rating figure on your website","Site says 4.9, Google says 4.6 — removes a live trust flag","Reputation"],
+  ["hi","todo","Fix the wrong phone on WebMD & Vitals","Currently a New York number a patient could call","Consistency"],
+  ["md","todo","Fill or remove the empty FAQ box","“No items found” is what every machine reads today","Website"],
+  ["md","todo","Publish llms.txt","AI-summary file most competitors don't have","Website"]]],
+ ["Core work — weeks",[
+  ["hi","todo","Build pages for the five invisible services","Invisalign, sleep apnea, perio, wisdom teeth + working All-on-4 page","Discovery"],
+  ["hi","todo","Add a comfort & anxiety page","You lose this question on every platform despite it being a real strength","Discovery"],
+  ["md","todo","Publish new-patient & family offers","Your $125 first visit has never appeared in an AI answer","Discovery"],
+  ["hi","todo","Add FAQ + machine labels sitewide","Schema for your business, services, hours, languages","Website"],
+  ["hi","todo","Link your listings as one practice","Keep the winning specialist listings; connect them to the flagship","Consistency"],
+  ["md","todo","Repair site map & rewrite service copy","Retire duplicates; replace promotion with quotable facts","Website"]]],
+ ["Ongoing",[
+  ["md","todo","Strengthen weaker review profiles","Respond to old complaints; route new reviews where you're thinnest","Reputation"]]]
+];
+const al=document.getElementById("actlist");
+ACTS.forEach(g=>{
+ const h=document.createElement("div");h.className="gh";h.textContent=g[0];al.appendChild(h);
+ g[1].forEach(a=>{
+  const d=document.createElement("div");d.className="act";
+  const sl={todo:"Not started",doing:"In progress",done:"Done"}[a[1]];
+  d.innerHTML=`<span class="st2 ${a[1]}">${sl}</span><span class="imp ${a[0]}">${a[0]==="hi"?"HIGH IMPACT":"MEDIUM"}</span><div class="t">${a[2]}<small>${a[3]} · moves: ${a[4]}</small></div>`;
+  al.appendChild(d);
+ });
+});
+
+/* ---------- countdown ---------- */
+const RECHECK = { baseline:"2026-08-14T12:00:00-07:00", date:"2026-11-10T09:00:00-08:00" }; // edit per client
+function tick(){
+  const now=new Date(), end=new Date(RECHECK.date), start=new Date(RECHECK.baseline);
+  let ms=end-now; if(ms<0)ms=0;
+  const days=Math.floor(ms/86400000);
+  const h=String(Math.floor(ms%86400000/3600000)).padStart(2,"0");
+  const m=String(Math.floor(ms%3600000/60000)).padStart(2,"0");
+  const s=String(Math.floor(ms%60000/1000)).padStart(2,"0");
+  document.getElementById("cd-days").textContent=days;
+  document.getElementById("cd-hms").textContent=h+" : "+m+" : "+s;
+  document.getElementById("bench-recheck").textContent=days;
+  const pct=Math.min(100,Math.max(0,(now-start)/(end-start)*100));
+  document.getElementById("cd-prog").style.width=pct.toFixed(1)+"%";
+  document.getElementById("cd-progtext").textContent=pct.toFixed(0)+"% of the way through your improvement window · re-check November 10, 2026";
+}
+tick(); setInterval(tick,1000);
+
+/* ---------- recheck ---------- */
+[["AI Referral Score","36"],["Discovery rate (all platforms)","~23%"],["#1 answers held","5"],["Services visible to AI","3 of 11"],["Platforms at 30%+","2 of 5"],["Trust flags outstanding","5"]].forEach(b=>{
+ const d=document.createElement("div");d.className="cell";
+ d.innerHTML=`<div class="metric">${b[0]}</div><div class="now">${b[1]}</div><div class="then">re-check · <b style="color:var(--muted)">pending</b></div>`;
+ document.getElementById("ba").appendChild(d);
+});
+</script>
+</body>
+</html>
