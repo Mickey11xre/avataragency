@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Start Your Free AI Referral Audit | AvatarAgency</title>
+<style>
+  :root{
+    --bg:#0c0c0e; --panel:#151518; --panel2:#1c1c21;
+    --ink:#f2ede3; --ink-dim:#b9b3a6; --gold:#c9a227; --gold-soft:#e3c766;
+    --line:#2a2a30; --serious:#c05e5e; --good:#4a9d75;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:640px;margin:0 auto;padding:0 22px}
+  header{border-bottom:1px solid var(--line);padding:16px 0}
+  .logo{font-weight:800}.logo span{color:var(--gold)}
+  .page{padding:44px 0 70px}
+  .conf{display:flex;align-items:center;gap:10px;background:rgba(74,157,117,.12);border:1px solid rgba(74,157,117,.3);border-radius:10px;padding:10px 16px;font-size:.86rem;color:var(--good);margin-bottom:26px;font-weight:700}
+  h1{font-size:1.6rem;font-weight:800;line-height:1.25}
+  .sub{color:var(--ink-dim);font-size:.94rem;margin:10px 0 8px}
+  .progress{color:#6f6a5f;font-size:.78rem;margin-bottom:26px}
+  form{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px}
+  label{display:block;font-size:.74rem;font-weight:700;color:var(--ink-dim);letter-spacing:.06em;text-transform:uppercase;margin:16px 0 5px}
+  label:first-child{margin-top:0}
+  label .why{display:block;text-transform:none;letter-spacing:0;font-weight:400;color:#6f6a5f;font-size:.74rem;margin-top:1px}
+  label .opt{color:#6f6a5f;font-weight:400}
+  input,select,textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:12px 14px;font-size:.95rem;font-family:inherit}
+  input:focus,select:focus,textarea:focus{outline:none;border-color:var(--gold)}
+  .row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:10px}
+  @media(max-width:560px){.row{grid-template-columns:1fr}}
+  .err{color:var(--serious);font-size:.76rem;margin-top:4px;display:none}
+  .btn{display:block;width:100%;background:var(--gold);color:#111;font-weight:800;padding:15px;border:none;border-radius:8px;font-size:1rem;cursor:pointer;margin-top:24px}
+  .btn:hover{background:var(--gold-soft)}
+  .fine{color:#6f6a5f;font-size:.74rem;margin-top:12px;text-align:center}
+  .done{display:none;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:40px 30px;text-align:center}
+  .done .big{font-size:2.2rem}
+  .done h2{margin:12px 0 8px;font-size:1.3rem}
+  .done p{color:var(--ink-dim);font-size:.92rem;max-width:44ch;margin:0 auto 8px}
+  footer{border-top:1px solid var(--line);padding:24px 0 40px;color:#6f6a5f;font-size:.78rem;text-align:center}
+</style>
+</head>
+<body>
+<header><div class="wrap"><div class="logo">Avatar<span>Agency</span>.ai</div></div></header>
+
+<div class="wrap page">
+  <div class="conf">✓ Email confirmed — you're one step from your free audit</div>
+  <h1>Tell us about your business</h1>
+  <p class="sub">This is everything we need to test your business the way your customers actually search. Takes about two minutes.</p>
+  <div class="progress">Step 2 of 2 · your report arrives within 2 business days</div>
+
+  <form id="intake" novalidate>
+    <label for="b-name">Business name <span class="why">Exactly as customers know it — we check that the whole internet agrees on who you are.</span></label>
+    <input id="b-name" type="text" placeholder="Dental Arts San Diego">
+    <div class="err" id="err-name">Please enter your business name.</div>
+
+    <label for="b-street">Business address <span class="why">Your city and neighborhood shape every "near me" question we test.</span></label>
+    <input id="b-street" type="text" placeholder="Street address" autocomplete="street-address" style="margin-bottom:10px">
+    <div class="row">
+      <input id="b-city" type="text" placeholder="City">
+      <input id="b-state" type="text" placeholder="State">
+      <input id="b-zip" type="text" placeholder="ZIP">
+    </div>
+    <div class="err" id="err-addr">Please enter at least your city and state.</div>
+
+    <label for="b-type">Type of business <span class="why">This decides the questions we ask the AIs — a dentist and a roofer get very different tests.</span></label>
+    <select id="b-type">
+      <option value="">Choose one…</option>
+      <option>Dental / Medical / Health practice</option>
+      <option>Restaurant / Food & Beverage</option>
+      <option>Legal services</option>
+      <option>Home services (plumbing, HVAC, roofing…)</option>
+      <option>Beauty / Salon / Spa</option>
+      <option>Fitness / Wellness</option>
+      <option>Auto (repair, sales, detailing)</option>
+      <option>Real estate</option>
+      <option>Retail / Local shop</option>
+      <option>Professional services (accounting, insurance…)</option>
+      <option value="other">Something else</option>
+    </select>
+    <input id="b-type-other" type="text" placeholder="Tell us what you do" style="display:none;margin-top:8px">
+    <div class="err" id="err-type">Please choose your business type.</div>
+
+    <label for="b-services">Your top two services or products <span class="why">The money-makers — we test whether AI sends those customers to you or a competitor.</span></label>
+    <input id="b-services" type="text" placeholder="e.g., dental implants, Invisalign">
+    <div class="err" id="err-services">Please list one or two services.</div>
+
+    <label for="b-diff">One thing you're best known for <span class="why">Languages spoken, weekend hours, 20 years in business, sedation, same-day service — your edge. This is where audits find the biggest surprises.</span></label>
+    <input id="b-diff" type="text" placeholder="e.g., our team speaks five languages">
+    <div class="err" id="err-diff">Give us one thing — it powers the best part of your audit.</div>
+
+    <label for="b-phone">Main business phone <span class="why">We check that every listing on the internet shows the same number — a top trust signal for AI.</span></label>
+    <input id="b-phone" type="tel" placeholder="(619) 555-0100" autocomplete="tel">
+    <div class="err" id="err-phone">Please enter your business phone.</div>
+
+    <label for="b-comp">A competitor you keep losing to <span class="opt">(optional)</span> <span class="why">If you name one, we'll show you how the AIs compare you head-to-head.</span></label>
+    <input id="b-comp" type="text" placeholder="Business name (optional)">
+
+    <label for="b-gbp">Link to your Google Business listing <span class="opt">(optional)</span> <span class="why">Paste it if handy — otherwise we'll find it.</span></label>
+    <input id="b-gbp" type="url" placeholder="https://maps.google.com/… (optional)">
+
+    <button class="btn" type="submit">Start My Free Audit →</button>
+    <div class="fine">Your report will be emailed within 2 business days. We never share your information.</div>
+  </form>
+
+  <div class="done" id="done">
+    <div class="big">🔍</div>
+    <h2>Your audit is underway</h2>
+    <p><b>We're on it.</b> We'll run your business against real customer questions on ChatGPT, Gemini, Grok, Perplexity, and Claude, and email your AI Referral Audit within <b>2 business days</b>.</p>
+    <p style="color:#6f6a5f;font-size:.8rem;margin-top:14px">Questions in the meantime? michael@avataragency.ai · 310.980.9378</p>
+  </div>
+</div>
+
+<footer><div class="wrap">© AvatarAgency.ai — AI Referral Optimization</div></footer>
+
+<script>
+/* Token from confirmation link: /aiso/start/?t=<token> — passed through to the intake POST.
+   Local preview (file:// or ?demo): simulates success without a backend. */
+const typeSel=document.getElementById("b-type");
+typeSel.addEventListener("change",()=>{document.getElementById("b-type-other").style.display=typeSel.value==="other"?"block":"none";});
+document.getElementById("intake").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const v=id=>document.getElementById(id).value.trim();
+  let ok=true;
+  const show=(id,bad)=>{document.getElementById(id).style.display=bad?"block":"none";if(bad)ok=false;};
+  show("err-name",!v("b-name"));
+  show("err-addr",!v("b-city")||!v("b-state"));
+  show("err-type",!typeSel.value||(typeSel.value==="other"&&!v("b-type-other")));
+  show("err-services",!v("b-services"));
+  show("err-diff",!v("b-diff"));
+  show("err-phone",!v("b-phone"));
+  if(!ok){window.scrollTo({top:0,behavior:"smooth"});return;}
+  const payload={
+    token:new URLSearchParams(location.search).get("t")||"",
+    businessName:v("b-name"),
+    address:{street:v("b-street"),city:v("b-city"),state:v("b-state"),zip:v("b-zip")},
+    businessType:typeSel.value==="other"?v("b-type-other"):typeSel.value,
+    topServices:v("b-services"),
+    differentiator:v("b-diff"),
+    phone:v("b-phone"),
+    competitor:v("b-comp"),
+    gbpLink:v("b-gbp")
+  };
+  const demo=location.protocol==="file:"||location.search.includes("demo");
+  try{
+    if(!demo){
+      const r=await fetch("/api/aiso-intake",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+      if(!r.ok)throw new Error("intake failed");
+    }
+    document.getElementById("intake").style.display="none";
+    document.getElementById("done").style.display="block";
+    window.scrollTo({top:0,behavior:"smooth"});
+  }catch(err){
+    alert("Something went wrong. Please try again, or email michael@avataragency.ai.");
+  }
+});
+</script>
+</body>
+</html>
