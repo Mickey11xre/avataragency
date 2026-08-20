@@ -103,6 +103,10 @@
   /* caption block for a full-width video outside the .reels grid.
      NB: h4, .rmeta and .watch's display are all scoped to .reel - they do NOT
      apply here, so this block carries its own rules rather than borrowing them. */
+  /* separates the reserved deliverable slot above from the test footage below */
+  .subhead{margin:30px 0 12px;font-size:12px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--muted-2);display:flex;align-items:center;gap:12px}
+  .subhead::after{content:"";flex:1;height:1px;background:var(--line)}
   .vcap{margin-top:15px}
   .vcap h4{font-size:15px;font-weight:600;margin-bottom:6px}
   .vcap .vmeta{font-size:12px;color:var(--muted);margin-bottom:11px}
@@ -230,6 +234,19 @@
         as your first-round review — so the creative direction is approved before the video is
         built. Optimized for Meta feed placement and equally suited to your practice website.
       </div>
+      <!-- the deliverable slot - the finished 90-second video drops in HERE, above the test -->
+      <div class="frame wide pending">
+        <div class="ph">
+          <div class="big"><span class="dot"></span>Currently in production</div>
+          <div class="small">
+            Your storyboard arrives here first for review and approval. The finished
+            90-second video follows, and will appear in this space with its own notes
+            and approval panel.
+          </div>
+        </div>
+      </div>
+
+      <div class="subhead">Test footage &mdash; not a deliverable</div>
       <div class="frame wide">
         <video id="cine-1" controls preload="metadata" playsinline
                src="/clients/anawrocki/cinematic-test.mp4"></video>
@@ -238,10 +255,10 @@
         <h4>Alena Cinematic Video Test</h4>
         <div class="vmeta">Horizontal 16:9 &middot; 1920&times;1080 &middot; 0:10 &middot; sound on</div>
         <div class="vnote">
-          A first look at the cinematic treatment &mdash; lighting, camera movement and grade &mdash;
-          so you can react to the look before the full piece is built. Your <b>storyboard</b> and the
-          finished <b>~90-second video</b> still follow, and will appear here with their own notes and
-          approval panel.
+          A technical test of your <b>digital clone and voice clone</b> &mdash; we are checking that
+          your likeness, expression and voice hold up on screen before any of the real video is
+          built. This is not part of your 90-second piece and none of it will appear in the finished
+          video. What to look for: does it look like you, and does it sound like you?
         </div>
         <a class="watch" href="/clients/anawrocki/cinematic-test.mp4"
            download="Alena_Nawrocki_Cinematic_Test.mp4">&darr; Download</a>
