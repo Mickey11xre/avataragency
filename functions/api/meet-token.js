@@ -21,7 +21,9 @@
 // The dedicated prospecting agent: partner-mode brain, prepared answers for the
 // scale + CRM questions, temperature 0.6. Created by
 // livebrand-ops/twin-michael-prospecting/build-agent.ps1 — paste its AGENT_ID here.
-const PROSPECTING_AGENT_ID = '951db9c4-cf49-4eb7-a4ff-7d6122faa835'; // created 2026-08-06
+const PROSPECTING_AGENT_ID = '93f77e95-e94b-48ad-8b29-ec36fe94d25c'; // v2, 2026-08-12 — honest scale answer
+// superseded: 951db9c4 (v1, 2026-08-06) — claimed "infrastructure isn't the constraint", which the
+// docs sweep disproved (5 concurrent WebRTC sessions per org). Kept, not deleted.
 
 // Until that exists, fall back to the live site twin so the link is REVIEWABLE.
 // initialSpeech and externalClientProfile are per-CONNECTION, so the personalized
