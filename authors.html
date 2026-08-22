@@ -40,61 +40,7 @@
 <meta name="twitter:image" content="https://avataragency.ai/assets/og-authors.jpg">
 
 <!-- Structured Data: Organization -->
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "AvatarAgency",
-    "url": "https://avataragency.ai",
-    "logo": "https://avataragency.ai/assets/avatar-agency-logo.png",
-    "description": "A full-service AI marketing studio specializing in digital cloning, cinematic AI video production, and content automation for real estate agents, business owners, and authors.",
-    "foundingDate": "2024",
-    "founder": {
-      "@type": "Person",
-      "name": "Michael Rivera",
-      "jobTitle": "Founder",
-      "url": "https://www.linkedin.com/in/michaelrayrivera/"
-    },
-    "areaServed": {"@type": "Country", "name": "United States"},
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Los Angeles",
-      "addressRegion": "CA",
-      "addressCountry": "US"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+1-310-980-9378",
-      "contactType": "customer service",
-      "email": "michael@avataragency.ai"
-    },
-    "sameAs": [
-      "https://www.instagram.com/avataragencyai/",
-      "https://www.facebook.com/profile.php?id=61590037792432",
-      "https://x.com/AvatarAgencyai",
-      "https://www.linkedin.com/in/michaelrayrivera/",
-      "https://www.youtube.com/@AvatarAgencyAI",
-      "https://www.tiktok.com/@avataragencyai",
-      "https://www.threads.com/@avataragencyai"
-    ]
-  }
-</script>
-
 <!-- Structured Data: Service -->
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "AI Book Marketing Videos for Authors and Publishers",
-    "provider": {"@type": "Organization", "name": "AvatarAgency", "url": "https://avataragency.ai"},
-    "description": "AI avatar videos, cinematic book trailers, and author brand content for authors and publishers. Whether your book is published, launching, or still an idea — we give it the presence it deserves.",
-    "serviceType": "AI Author & Book Marketing Video Production",
-    "areaServed": {"@type": "Country", "name": "United States"},
-    "audience": {"@type": "Audience", "audienceType": "Authors and Publishers"},
-    "url": "https://avataragency.ai/authors.html"
-  }
-</script>
-
 <style>
   .faq-list { display: flex; flex-direction: column; gap: 0; }
   .faq-item {
@@ -132,39 +78,145 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
+  "@graph": [
     {
-      "@type": "Question",
-      "name": "How can AI video marketing help sell more books?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "AI avatar videos give your book a visible, professional presence across every platform where readers discover new titles — without requiring you to film content repeatedly. Book trailers, author introduction videos, and social reels all drive discoverability on Amazon, Instagram, TikTok, and YouTube."
+      "@type": "Organization",
+      "@id": "https://avataragency.ai/#organization",
+      "name": "AvatarAgency",
+      "url": "https://avataragency.ai/",
+      "logo": "https://avataragency.ai/assets/avatar-agency-logo.png",
+      "foundingDate": "2024",
+      "email": "michael@avataragency.ai",
+      "telephone": "+1-310-980-9378",
+      "description": "A full-service AI marketing studio specializing in digital cloning, cinematic AI video production, and content automation for real estate agents, business owners, and authors.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Los Angeles",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United States"
+      },
+      "founder": {
+        "@id": "https://avataragency.ai/about#michael-rivera"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-310-980-9378",
+        "contactType": "customer service",
+        "email": "michael@avataragency.ai"
+      },
+      "sameAs": [
+        "https://www.instagram.com/avataragencyai/",
+        "https://www.facebook.com/profile.php?id=61590037792432",
+        "https://x.com/AvatarAgencyai",
+        "https://www.youtube.com/@avataragencyai",
+        "https://www.threads.com/@avataragencyai",
+        "https://www.tiktok.com/@avataragencyai"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://avataragency.ai/about#michael-rivera",
+      "name": "Michael Rivera",
+      "jobTitle": "Founder",
+      "worksFor": {
+        "@id": "https://avataragency.ai/#organization"
+      },
+      "knowsAbout": [
+        "AI video production",
+        "digital twins and interactive avatars",
+        "AI Referral Optimization",
+        "Claude (Anthropic) workflow coaching",
+        "brand marketing"
+      ],
+      "description": "Founder of AvatarAgency. 25+ years leading marketing at the intersection of consumer technology and real estate, including Activision; now operates as a fractional CMO building AI video, digital twins, and AI referral visibility for owner-operated businesses.",
+      "sameAs": [
+        "https://www.linkedin.com/in/michaelrayrivera/"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://avataragency.ai/authors#webpage",
+      "url": "https://avataragency.ai/authors",
+      "name": "AI Book Marketing for Authors & Publishers",
+      "isPartOf": {
+        "@id": "https://avataragency.ai/#organization"
       }
     },
     {
-      "@type": "Question",
-      "name": "What kinds of videos does AvatarAgency create for authors?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "We produce cinematic book trailers, author brand videos, and short-form social reels for Instagram, TikTok, YouTube Shorts, and LinkedIn. Every video features your cloned likeness and voice, branded to your book's aesthetic and ready to post."
-      }
+      "@type": "Service",
+      "@id": "https://avataragency.ai/authors#service",
+      "name": "AI Book Marketing for Authors & Publishers",
+      "serviceType": "Book marketing video production",
+      "provider": {
+        "@id": "https://avataragency.ai/#organization"
+      },
+      "description": "Cinematic book trailers, author brand videos, talking author avatars, illustrated character avatars, and author websites.",
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Authors and publishers"
+      },
+      "offers": [
+        {
+          "@type": "Offer",
+          "name": "Character/author avatar development",
+          "price": "1200",
+          "priceCurrency": "USD"
+        },
+        {
+          "@type": "Offer",
+          "name": "Author website design and build",
+          "price": "2150",
+          "priceCurrency": "USD"
+        },
+        {
+          "@type": "Offer",
+          "name": "Book illustration system",
+          "price": "3500",
+          "priceCurrency": "USD"
+        }
+      ]
     },
     {
-      "@type": "Question",
-      "name": "Do I need to have a published book to work with AvatarAgency?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No — we work with authors at every stage. Whether your book is already published, about to launch, or still in manuscript, we build a video marketing presence that grows alongside your project."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can AvatarAgency post the videos directly to my social channels?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. As part of our delivery service, we can post directly to your YouTube channel and social platforms on your behalf. We can also help you create accounts on all the major social media platforms to increase your reach and schedule your posts consistently so you don't have to. All assets are also delivered to you directly so you maintain full control."
-      }
+      "@type": "FAQPage",
+      "@id": "https://avataragency.ai/authors#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How can AI video marketing help sell more books?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AI avatar videos give your book a visible, professional presence across every platform where readers discover new titles \u2014 without requiring you to film content repeatedly. Book trailers, author introduction videos, and social reels all drive discoverability on Amazon, Instagram, TikTok, and YouTube."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What kinds of videos does AvatarAgency create for authors?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We produce cinematic book trailers, author brand videos, and short-form social reels for Instagram, TikTok, YouTube Shorts, and LinkedIn. Every video features your cloned likeness and voice, branded to your book's aesthetic and ready to post."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do I need to have a published book to work with AvatarAgency?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No \u2014 we work with authors at every stage. Whether your book is already published, about to launch, or still in manuscript, we build a video marketing presence that grows alongside your project."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can AvatarAgency post the videos directly to my social channels?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. As part of our delivery service, we can post directly to your YouTube channel and social platforms on your behalf. We can also help you create accounts on all the major social media platforms to increase your reach and schedule your posts consistently so you don't have to. All assets are also delivered to you directly so you maintain full control."
+          }
+        }
+      ]
     }
   ]
 }

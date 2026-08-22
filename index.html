@@ -42,65 +42,7 @@
 <meta name="twitter:image" content="https://avataragency.ai/assets/og-home.jpg">
 
 <!-- Structured Data: Organization -->
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "AvatarAgency",
-    "url": "https://avataragency.ai",
-    "logo": "https://avataragency.ai/assets/avatar-agency-logo.png",
-    "description": "A full-service AI marketing studio specializing in digital cloning, cinematic AI video production, and content automation for real estate agents, business owners, and authors.",
-    "foundingDate": "2024",
-    "founder": {
-      "@type": "Person",
-      "name": "Michael Rivera",
-      "jobTitle": "Founder",
-      "url": "https://www.linkedin.com/in/michaelrayrivera/"
-    },
-    "areaServed": {"@type": "Country", "name": "United States"},
-    "address": {
-      "@type": "PostalAddress",
-      "addressLocality": "Los Angeles",
-      "addressRegion": "CA",
-      "addressCountry": "US"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "telephone": "+1-310-980-9378",
-      "contactType": "customer service",
-      "email": "michael@avataragency.ai"
-    },
-    "sameAs": [
-      "https://www.instagram.com/avataragencyai/",
-      "https://www.facebook.com/profile.php?id=61590037792432",
-      "https://x.com/AvatarAgencyai",
-      "https://www.linkedin.com/in/michaelrayrivera/",
-      "https://www.youtube.com/@AvatarAgencyAI",
-      "https://www.tiktok.com/@avataragencyai",
-      "https://www.threads.com/@avataragencyai"
-    ]
-  }
-</script>
-
 <!-- Structured Data: Service -->
-<script type="application/ld+json">
-{
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "AI Digital Cloning & Video Production",
-    "provider": {"@type": "Organization", "name": "AvatarAgency", "url": "https://avataragency.ai"},
-    "description": "One AI cloning session produces weeks of professional video content for Facebook, Instagram, TikTok, LinkedIn, YouTube, and X. No camera crew, no studio, no recurring production cost.",
-    "serviceType": "AI Video Production & Digital Cloning",
-    "areaServed": {"@type": "Country", "name": "United States"},
-    "url": "https://avataragency.ai",
-    "offers": {
-      "@type": "Offer",
-      "description": "Complimentary $250 cloning session unlocked via 60-second survey",
-      "url": "https://docs.google.com/forms/d/1j2yGuJDcohUXC0mYg0Aw_DGdtnAGc6tU-rbMZa72dH4"
-    }
-  }
-</script>
-
 <style>
   .faq-list { display: flex; flex-direction: column; gap: 0; }
   .faq-item {
@@ -285,31 +227,119 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
+  "@graph": [
     {
-      "@type": "Question",
-      "name": "How does AI digital cloning work?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "AvatarAgency captures your likeness and voice in a single session, then uses that clone to produce professional video content across every platform — without you showing up again. We use the latest AI video and voice technologies to generate cinematic footage, sync your cloned voice, and deliver finished videos ready to post."
+      "@type": "Organization",
+      "@id": "https://avataragency.ai/#organization",
+      "name": "AvatarAgency",
+      "url": "https://avataragency.ai/",
+      "logo": "https://avataragency.ai/assets/avatar-agency-logo.png",
+      "foundingDate": "2024",
+      "email": "michael@avataragency.ai",
+      "telephone": "+1-310-980-9378",
+      "description": "A full-service AI marketing studio specializing in digital cloning, cinematic AI video production, and content automation for real estate agents, business owners, and authors.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Los Angeles",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "areaServed": {
+        "@type": "Country",
+        "name": "United States"
+      },
+      "founder": {
+        "@id": "https://avataragency.ai/about#michael-rivera"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+1-310-980-9378",
+        "contactType": "customer service",
+        "email": "michael@avataragency.ai"
+      },
+      "sameAs": [
+        "https://www.instagram.com/avataragencyai/",
+        "https://www.facebook.com/profile.php?id=61590037792432",
+        "https://x.com/AvatarAgencyai",
+        "https://www.youtube.com/@avataragencyai",
+        "https://www.threads.com/@avataragencyai",
+        "https://www.tiktok.com/@avataragencyai"
+      ]
+    },
+    {
+      "@type": "Person",
+      "@id": "https://avataragency.ai/about#michael-rivera",
+      "name": "Michael Rivera",
+      "jobTitle": "Founder",
+      "worksFor": {
+        "@id": "https://avataragency.ai/#organization"
+      },
+      "knowsAbout": [
+        "AI video production",
+        "digital twins and interactive avatars",
+        "AI Referral Optimization",
+        "Claude (Anthropic) workflow coaching",
+        "brand marketing"
+      ],
+      "description": "Founder of AvatarAgency. 25+ years leading marketing at the intersection of consumer technology and real estate, including Activision; now operates as a fractional CMO building AI video, digital twins, and AI referral visibility for owner-operated businesses.",
+      "sameAs": [
+        "https://www.linkedin.com/in/michaelrayrivera/"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://avataragency.ai/#webpage",
+      "url": "https://avataragency.ai/",
+      "name": "AvatarAgency \u2014 AI Video & Digital Cloning | Los Angeles, CA",
+      "isPartOf": {
+        "@id": "https://avataragency.ai/#organization"
       }
     },
     {
-      "@type": "Question",
-      "name": "How much content can one cloning session produce?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "One session with AvatarAgency can produce all of your future professional video content — including a hero showcase film and all of your long form video needs and multiple short-form social reels. Content is formatted for Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube, and X. Assets are delivered within a week for each specific video project. Even faster for projects on urgent deadlines."
+      "@type": "Service",
+      "@id": "https://avataragency.ai/#cloning-service",
+      "name": "AI Video Production & Digital Cloning",
+      "serviceType": "AI avatar video production",
+      "provider": {
+        "@id": "https://avataragency.ai/#organization"
+      },
+      "description": "One cloning session (likeness photography and voice recording) produces weeks of professional AI video for every platform \u2014 no crew, no studio, no recurring shoot.",
+      "offers": {
+        "@type": "Offer",
+        "name": "AI Cloning Capture Session",
+        "price": "250",
+        "priceCurrency": "USD"
       }
     },
     {
-      "@type": "Question",
-      "name": "Who is AvatarAgency?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "AvatarAgency is a full-service AI marketing studio founded by Michael Rivera, based in Los Angeles, California. We specialize in digital cloning and cinematic AI video production for real estate agents, business owners, and authors. Consultations are available via a free 30-minute strategy call."
-      }
+      "@type": "FAQPage",
+      "@id": "https://avataragency.ai/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How does AI digital cloning work?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AvatarAgency captures your likeness and voice in a single session, then uses that clone to produce professional video content across every platform \u2014 without you showing up again. We use the latest AI video and voice technologies to generate cinematic footage, sync your cloned voice, and deliver finished videos ready to post."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much content can one cloning session produce?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "One session with AvatarAgency can produce all of your future professional video content \u2014 including a hero showcase film and all of your long form video needs and multiple short-form social reels. Content is formatted for Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube, and X. Assets are delivered within a week for each specific video project. Even faster for projects on urgent deadlines."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who is AvatarAgency?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "AvatarAgency is a full-service AI marketing studio founded by Michael Rivera, based in Los Angeles, California. We specialize in digital cloning and cinematic AI video production for real estate agents, business owners, and authors. Consultations are available via a free 30-minute strategy call."
+          }
+        }
+      ]
     }
   ]
 }
