@@ -47,8 +47,9 @@ projects are quoted as a package. Typical rates:
 
 - Free AI Referral Audit: $0 — five real customer questions across ChatGPT, Gemini, Grok,
   Perplexity, and Claude, with a preliminary AI Referral Score.
-- AI Referral Optimization program: $2,400 (baseline audit, action plan, implementation,
-  60–90 day re-test).
+- AI Referral Optimization program: $1,900–$2,400 depending on the size and complexity of the
+  website (baseline audit, action plan, implementation, 60–90 day re-test). Turnaround on the
+  free audit that precedes it is 24–48 hours.
 - AI-optimized landing page with a 10-email branded drip sequence: $2,400.
 - Claude Coaching: $497 (90-minute private session); Premium $1,997 with done-for-you
   workflow setup and 30-day follow-up.
