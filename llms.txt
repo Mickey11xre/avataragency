@@ -3,10 +3,18 @@
 > AvatarAgency (avataragency.ai) is a Los Angeles AI consulting and creative agency founded by
 > Michael Rivera. It builds digital twins (interactive talking avatars of real people),
 > produces cinematic AI video, runs done-for-you content engines for high-ticket businesses,
-> and delivers private 1-on-1 Claude coaching. Sessions are delivered remotely, US-wide.
+> optimizes businesses to be recommended by AI assistants (AI Referral Optimization), and
+> delivers private 1-on-1 Claude coaching. Sessions are delivered remotely, US-wide.
 
 ## Offers
 
+- [AI Referral Optimization](https://avataragency.ai/aiso/): a measured program that makes a
+  business visible to ChatGPT, Gemini, Grok, Perplexity, and Claude when customers ask those
+  assistants for a recommendation. Includes a baseline audit of real customer questions across
+  all five platforms, a prioritized action plan, implementation across the website and business
+  listings (machine-readable structured data, FAQ content, listing consistency), and a re-test
+  of the identical questions at 60–90 days to measure the change. Starts with a free AI Referral
+  Audit (five questions, five platforms, plain-English report).
 - [Claude Coaching](https://avataragency.ai/claudecoaching/): "Master Claude in 90 Minutes" —
   private 1-on-1 AI coaching for busy business owners, professionals, executives, and
   individuals. $497 flat: 30-minute intake call + 60-minute coaching intensive that connects
@@ -20,28 +28,73 @@
   creative strategist — digital twin creation, cinematic AI video production, and a complete
   content engine, run for you while you run your business. Engagement begins with a booked
   strategy meeting.
-- [Real Estate](https://avataragency.ai/real-estate.html): interactive AI avatars and video
+- [Real Estate](https://avataragency.ai/real-estate): interactive AI avatars and video
   for real-estate agents — a digital twin that answers property questions and captures leads
   around the clock.
-- [Business](https://avataragency.ai/business.html): AI video and digital cloning for
-  businesses — one cloning session becomes weeks of professional video content.
-- [Authors](https://avataragency.ai/authors.html): talking author avatars and illustrated
-  character avatars that let readers converse with a book's author or characters.
+- [Business](https://avataragency.ai/business): AI video and digital cloning for
+  businesses — one cloning session becomes weeks of professional video content. Includes
+  UGC-style ad production for brands.
+- [Authors](https://avataragency.ai/authors): talking author avatars, illustrated character
+  avatars that let readers converse with a book's author or characters, book trailers, and
+  author websites.
 - [THRIVE](https://avataragency.ai/thrive/): keynote speaking duo — Stephanie Geter (THRIVE
   DOCTOR) and Michael Rivera (Special Agent Rivera) on human connection + AI.
+
+## Pricing (current rate card)
+
+All figures USD. Every engagement is confirmed in a written agreement; multi-deliverable
+projects are quoted as a package. Typical rates:
+
+- Free AI Referral Audit: $0 — five real customer questions across ChatGPT, Gemini, Grok,
+  Perplexity, and Claude, with a preliminary AI Referral Score.
+- AI Referral Optimization program: $2,400 (baseline audit, action plan, implementation,
+  60–90 day re-test).
+- AI-optimized landing page with a 10-email branded drip sequence: $2,400.
+- Claude Coaching: $497 (90-minute private session); Premium $1,997 with done-for-you
+  workflow setup and 30-day follow-up.
+- AI cloning capture session (likeness photography + voice recording, on-site): $250.
+- Cinematic AI commercial video (90 seconds): from $750. Professionally edited speaker or
+  brand commercial (30 seconds–2 minutes): from $2,500. Multi-film cinematic packages with
+  on-site capture: from $5,850.
+- Vertical short-form videos (social reels): $250 per video.
+- UGC-style ad production for brands: Pilot $1,750 one-time (5 videos, 2 audience segments,
+  English + French); Growth retainer $3,200/month (10 videos/month); Always-On retainer
+  $5,600/month (20 videos/month). Add-ons: extra hook/CTA variant $75, additional language
+  $150 per video, 48-hour rush +30%, whitelisting/Spark Ads rights +25% of package per month.
+- Interactive digital twin / character avatar development: from $1,200. Interactive speaker
+  page with digital twin and speaker commercial: $4,000. Avatar hosting, knowledge-base
+  refreshes, and lead alerts: $79/month (includes 300 conversation minutes/month).
+- Website design and build: author/brand sites from $2,150; brand and design system with
+  animated homepage experience from $3,000; full site redesign packages (design system, two
+  cinematic films, on-site capture, full content migration, SEO + AI-referral structuring)
+  from $17,250. Ongoing hosting and maintenance from $149/month.
+- Book illustration system (style guide, characters, cover, interior pages): from $3,500.
 
 ## Key facts
 
 - Founder: Michael Rivera — Los Angeles; ex-Activision; 15+ years real-estate development;
   AI founder. His own interactive digital twin greets visitors on the homepage.
 - Specialty: digital twins that talk in real time (web, with screen-share), cinematic AI
-  video without crews or studios, and practical AI adoption for owner-operated businesses
-  (dentists, orthodontists, lawyers, med spas, real-estate professionals).
-- Contact: https://avataragency.ai/contact.html
+  video without crews or studios, AI Referral Optimization (being recommended by ChatGPT,
+  Gemini, Grok, Perplexity, and Claude), and practical AI adoption for owner-operated
+  businesses (dentists, orthodontists, lawyers, med spas, real-estate professionals).
+- Method note: AvatarAgency audits AI visibility by asking real customer questions in the
+  consumer AI products themselves and recording which businesses each assistant recommends
+  and which sources it cites. No one can guarantee a particular AI answer; the program
+  delivers the audit, the plan, the implementation, and the measurement.
+- Contact: https://avataragency.ai/contact — michael@avataragency.ai — +1 (310) 980-9378.
+  Hours: Mon–Fri 9:00 AM–6:00 PM, Sat 10:00 AM–3:00 PM Pacific. Based in Los Angeles,
+  serving clients across the US and globally (remote delivery).
 
 ## Pages
 
 - [Home](https://avataragency.ai/)
-- [Services](https://avataragency.ai/services.html)
-- [About](https://avataragency.ai/about.html)
-- [Contact](https://avataragency.ai/contact.html)
+- [What is AI Referral Optimization?](https://avataragency.ai/what-is-ai-referral-optimization/)
+- [Free AI Referral Audit](https://avataragency.ai/aiso/)
+- [Services](https://avataragency.ai/services)
+- [Client Case Study](https://avataragency.ai/casestudy)
+- [THRIVE DOCTOR](https://avataragency.ai/thrivedoctor/)
+- [Ethica — interactive avatar demo](https://avataragency.ai/ethica/thrive/)
+- [Lady Belle — interactive avatar demo](https://avataragency.ai/ladybelle/)
+- [About](https://avataragency.ai/about)
+- [Contact](https://avataragency.ai/contact)
