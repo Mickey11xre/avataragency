@@ -1,53 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- AvatarAgency sitemap — rebuilt 2026-08-22.
+     RULES FOR THE DEPLOYING AGENT:
+     1. URLs below are the CANONICAL extensionless forms. Each page's <link rel="canonical">
+        must point at the same form listed here, and the .html twin must 301 to it
+        (Cloudflare Pages _redirects: "/real-estate.html /real-estate 301" etc.).
+     2. Replace each <lastmod> with the file's real last-modified date at deploy time.
+     3. /claudecoaching/ is listed because its noindex was removed 2026-08-22.
+        /casestudy KEEPS its noindex (Michael, 2026-08-22) so it is deliberately absent.
+        /ladybelle/ and /ethica/thrive/ are likewise absent: both still carry noindex,
+        and a sitemap must never list a noindexed URL.
+     4. /aiso/client/ and /clients/ paths are intentionally absent (robots-disallowed). -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://avataragency.ai/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://avataragency.ai/real-estate.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://avataragency.ai/business.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://avataragency.ai/authors.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://avataragency.ai/about.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://avataragency.ai/services.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://avataragency.ai/contact.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://avataragency.ai/strategist/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://avataragency.ai/thrive/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://avataragency.ai/claudecoaching/</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
+  <url><loc>https://avataragency.ai/</loc><lastmod>2026-08-21</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://avataragency.ai/what-is-ai-referral-optimization/</loc><lastmod>2026-08-21</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://avataragency.ai/aiso/</loc><lastmod>2026-08-19</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://avataragency.ai/strategist/</loc><lastmod>2026-08-02</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://avataragency.ai/claudecoaching/</loc><lastmod>2026-08-21</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://avataragency.ai/real-estate</loc><lastmod>2026-08-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://avataragency.ai/business</loc><lastmod>2026-08-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://avataragency.ai/authors</loc><lastmod>2026-08-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://avataragency.ai/services</loc><lastmod>2026-08-21</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://avataragency.ai/thrive/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://avataragency.ai/thrivedoctor/</loc><lastmod>2026-08-06</lastmod><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://avataragency.ai/about</loc><lastmod>2026-08-22</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://avataragency.ai/contact</loc><lastmod>2026-08-22</lastmod><changefreq>yearly</changefreq><priority>0.6</priority></url>
 </urlset>
