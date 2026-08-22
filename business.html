@@ -72,6 +72,13 @@
     .faq-q { font-size: 15px; }
     .faq-a { font-size: 14px; }
   }
+  /* F7 fact callout - namespaced so it cannot collide with .statement/.proof-note */
+  .aro-fact{margin:26px auto 0;max-width:66ch;padding:16px 20px;border-radius:12px;
+    border:1px solid rgba(201,162,75,.28);background:rgba(201,162,75,.06);
+    font-size:14.5px;line-height:1.7}
+  .aro-fact b{font-weight:600}
+  .aro-fact + .aro-fact{margin-top:12px}
+  .aro-fact cite{font-style:normal;opacity:.75;font-size:13px}
 </style>
 
 <!-- Structured Data: FAQPage -->
@@ -311,6 +318,7 @@
       <div class="reveal">
         <div class="eyebrow is-gold" style="margin-bottom:22px;"><span style="width:8px;height:8px;border-radius:99px;background:var(--gold);"></span>Services &amp; Pricing</div>
         <h2 class="display-2">Everything you need to<br><span class="gold">scale your brand.</span></h2>
+<p class="aro-fact">A UGC ad pilot delivers 5 creator-style videos across 2 audience segments in English and French within 7 business days, each with a compliance checklist, caption pack, and two revision rounds.</p>
         <p class="body reveal" data-delay="80" style="margin-top:24px;">
           Five services designed for businesses, brands, and influencers ready to build a powerful AI-powered digital presence.
         </p>

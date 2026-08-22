@@ -221,6 +221,13 @@
     transition: color 0.15s;
   }
   .modal-forgot:hover { color: var(--gold); }
+  /* F7 fact callout - namespaced so it cannot collide with .statement/.proof-note */
+  .aro-fact{margin:26px auto 0;max-width:66ch;padding:16px 20px;border-radius:12px;
+    border:1px solid rgba(201,162,75,.28);background:rgba(201,162,75,.06);
+    font-size:14.5px;line-height:1.7}
+  .aro-fact b{font-weight:600}
+  .aro-fact + .aro-fact{margin-top:12px}
+  .aro-fact cite{font-style:normal;opacity:.75;font-size:13px}
 </style>
 
 <!-- Structured Data: FAQPage -->
@@ -479,6 +486,8 @@
       <h2 class="display-2" style="max-width:680px;margin:0 auto;">
         Three audiences.<br><span class="mute">One growth engine.</span>
       </h2>
+<p class="aro-fact"><b>45% of US consumers used AI tools to find a local business in the past year.</b> <cite>(BrightLocal, 2026)</cite></p>
+<p class="aro-fact">One cloning session &#8212; high-resolution multi-angle photography plus a clean voice recording, about <b>90 minutes on site</b> &#8212; produces the source assets for every video AvatarAgency makes for you afterward: hero videos, vertical reels, and your interactive digital twin, with no re-shoots.</p>
     </div>
 
     <div class="path-grid">

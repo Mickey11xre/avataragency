@@ -72,6 +72,13 @@
     .faq-q { font-size: 15px; }
     .faq-a { font-size: 14px; }
   }
+  /* F7 fact callout - namespaced so it cannot collide with .statement/.proof-note */
+  .aro-fact{margin:26px auto 0;max-width:66ch;padding:16px 20px;border-radius:12px;
+    border:1px solid rgba(201,162,75,.28);background:rgba(201,162,75,.06);
+    font-size:14.5px;line-height:1.7}
+  .aro-fact b{font-weight:600}
+  .aro-fact + .aro-fact{margin-top:12px}
+  .aro-fact cite{font-style:normal;opacity:.75;font-size:13px}
 </style>
 
 <!-- Structured Data: FAQPage -->
@@ -290,6 +297,7 @@
     <div class="reveal">
       <div class="eyebrow is-gold flow" style="margin-bottom:18px;">The Reality Every Author Faces</div>
       <h2 class="display-2">A great book alone<br><span class="gold">is no longer enough.</span></h2>
+<p class="aro-fact">An author engagement can include a cinematic book trailer, a talking author or character avatar, an author website, and a book illustration system &#8212; style guide, cover, and interior pages &#8212; built to carry across every book in a series.</p>
     </div>
 
     <p class="lede reveal" data-delay="80" style="margin-top:32px;max-width:none;">
