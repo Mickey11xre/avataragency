@@ -184,7 +184,7 @@
   <div class="hero-top">
     <img class="hero-logo" src="img/aro-logo.png?v=1" alt="AI Referral Optimization" width="942" height="698">
     <h1>Your next customer isn't Googling you.<br>They're asking an AI.</h1>
-    <p class="tag">Watch how it works, then get your <b>free AI Referral Audit</b> — five questions, five AIs, delivered in 24 to 48 hours.</p>
+    <p class="tag">Watch the 90-second explanation, then get your <b>free AI Referral Audit</b> — five questions, five AIs, delivered in 24 to 48 hours.</p>
   </div>
 
   <div class="hero-grid">
@@ -193,13 +193,20 @@
          <video controls playsinline preload="metadata" poster="img/aro-poster.jpg?v=1">
            <source src="video/aro-sales.mp4?v=1" type="video/mp4">
          </video>
-         Keep the file under 25 MiB (Cloudflare Pages cap) or host it on R2. -->
+         Keep the file under 25 MiB (Cloudflare Pages cap) or host it on R2.
+         Then add this VideoObject to the JSON-LD @graph (duration is already 1:28):
+         { "@type":"VideoObject", "name":"AI Referral Optimization — how the five major AIs decide who to recommend",
+           "description":"Why ChatGPT, Gemini, Grok, Perplexity and Claude recommend some businesses and skip others, and how the free AI Referral Audit shows where you stand.",
+           "thumbnailUrl":"https://avataragency.ai/aiso/img/aro-poster.jpg",
+           "contentUrl":"https://avataragency.ai/aiso/video/aro-sales.mp4",
+           "duration":"PT1M28S", "uploadDate":"<YYYY-MM-DD>",
+           "publisher":{"@id":"https://avataragency.ai/#organization"} } -->
     <div class="video-frame" id="sales-video">
       <div class="video-poster">
         <img src="img/aro-logo.png?v=1" alt="">
         <div class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
         <p>See how the five major AIs decide which businesses to recommend</p>
-        <span>Sales video</span>
+        <span>1:28 · Sales video</span>
       </div>
     </div>
     <div class="video-cap">No sign-up needed to watch</div>
