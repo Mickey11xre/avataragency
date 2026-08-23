@@ -4,8 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Referral Optimization — Get Recommended by ChatGPT, Gemini, Grok, Perplexity & Claude | AvatarAgency</title>
-<meta name="description" content="When customers ask AI for a recommendation, is your business the answer? Get a free AI Referral Audit of your website and find out where you stacross all five major AI platforms.">
+<meta name="description" content="When customers ask AI for a recommendation, is your business the answer? Get a free AI Referral Audit and find out where you stand across all five major AI platforms — delivered in 24 to 48 hours.">
 <link rel="canonical" href="https://avataragency.ai/aiso/">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-T8NJ9JVWFV');</script>
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://avataragency.ai/aiso/">
 <meta property="og:title" content="Free AI Referral Audit — see what ChatGPT, Gemini, Grok, Perplexity and Claude say about your business">
@@ -72,26 +75,44 @@
   .header-cta{background:var(--gold);color:#111;font-weight:700;padding:9px 18px;border-radius:6px;font-size:.88rem}
   .header-cta:hover{background:var(--gold-soft)}
 
-  .hero{padding:72px 0 56px}
-  .hero-grid{display:flex;gap:44px;align-items:flex-start;flex-wrap:wrap}
-  .hero-copy{flex:1.2;min-width:300px}
-  .kicker{color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:.14em;font-size:.76rem;margin-bottom:16px}
-  h1{font-size:clamp(1.9rem,4.4vw,2.9rem);line-height:1.14;font-weight:800}
-  .hero p.lead{margin-top:18px;font-size:1.08rem;color:var(--ink-dim);max-width:54ch}
-  .hero p.lead b{color:var(--ink)}
+  .hero{padding-top:22px;padding-bottom:48px}
+  .hero-top{text-align:center;max-width:880px;margin:0 auto 20px}
+  .hero-logo{display:block;width:min(190px,60vw);height:auto;margin:0 auto 14px}
+  h1{font-size:clamp(1.6rem,3.4vw,2.3rem);line-height:1.14;font-weight:800}
+  .hero-top .tag{margin-top:8px;color:var(--ink-dim);font-size:.95rem}
+  .hero-top .tag b{color:var(--gold-soft)}
+  .hero-grid{display:flex;gap:28px;align-items:stretch;flex-wrap:wrap}
+
+  /* sales video frame — swap the placeholder for the <video> once the MP4 lands */
+  .video-col{flex:1.45;min-width:320px;display:flex;flex-direction:column}
+  .video-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;border:1px solid #3a3119;box-shadow:0 0 0 1px rgba(201,162,39,.18),0 30px 70px -30px rgba(201,162,39,.35)}
+  .video-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;background:#000}
+  .video-poster{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;text-align:center;padding:24px;background:radial-gradient(ellipse at 50% 40%,#1d1a12 0%,#0c0c0e 70%)}
+  .video-poster img{width:min(140px,30%);height:auto;opacity:.9}
+  .video-poster .play{width:74px;height:74px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 10px rgba(201,162,39,.14),0 0 40px rgba(201,162,39,.35)}
+  .video-poster .play svg{width:28px;height:28px;margin-left:5px;fill:#111}
+  .video-poster p{color:var(--ink);font-weight:700;font-size:1rem;max-width:30ch;line-height:1.35}
+  .video-poster span{color:var(--ink-dim);font-size:.78rem;letter-spacing:.08em;text-transform:uppercase}
+  .video-cap{color:#6f6a5f;font-size:.78rem;text-align:center;margin-top:10px}
+
+  .hero-copy{max-width:68ch;margin:34px auto 0;text-align:center}
+  .hero-copy p.lead{font-size:1.08rem;color:var(--ink-dim)}
+  .hero-copy p.lead+p.lead{margin-top:14px}
+  .hero-copy p.lead b{color:var(--ink)}
 
   /* opt-in card */
-  .optin{flex:1;min-width:320px;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:28px}
-  .optin h3{font-size:1.15rem;font-weight:800;margin-bottom:4px}
-  .optin .free{display:inline-block;background:var(--gold);color:#111;font-size:.68rem;font-weight:800;letter-spacing:.1em;padding:3px 10px;border-radius:12px;margin-bottom:10px}
-  .optin p{color:var(--ink-dim);font-size:.88rem;margin-bottom:16px}
-  .optin label{display:block;font-size:.74rem;font-weight:700;color:var(--ink-dim);letter-spacing:.06em;text-transform:uppercase;margin:12px 0 5px}
-  .optin input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:12px 14px;font-size:.95rem}
+  .optin{flex:1;min-width:300px;max-width:420px;background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:16px;padding:24px 26px;display:flex;flex-direction:column;justify-content:center}
+  @media(max-width:760px){.optin{max-width:none}.hero{padding-top:18px}.video-frame{border-radius:12px}}
+  .optin h3{font-size:1.1rem;font-weight:800;margin-bottom:2px}
+  .optin .free{display:inline-block;background:var(--gold);color:#111;font-size:.66rem;font-weight:800;letter-spacing:.1em;padding:3px 10px;border-radius:12px;margin-bottom:8px}
+  .optin p{color:var(--ink-dim);font-size:.85rem;margin-bottom:6px}
+  .optin label{display:block;font-size:.72rem;font-weight:700;color:var(--ink-dim);letter-spacing:.06em;text-transform:uppercase;margin:9px 0 4px}
+  .optin input{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--ink);padding:10px 13px;font-size:.95rem}
   .optin input:focus{outline:none;border-color:var(--gold)}
   .optin .err{color:var(--serious);font-size:.76rem;margin-top:4px;display:none}
-  .btn{display:block;width:100%;background:var(--gold);color:#111;font-weight:800;padding:14px;border:none;border-radius:8px;font-size:1rem;cursor:pointer;margin-top:18px}
+  .btn{display:block;width:100%;background:var(--gold);color:#111;font-weight:800;padding:13px;border:none;border-radius:8px;font-size:1rem;cursor:pointer;margin-top:14px}
   .btn:hover{background:var(--gold-soft)}
-  .optin .fine{color:#6f6a5f;font-size:.72rem;margin-top:12px;text-align:center}
+  .optin .fine{color:#6f6a5f;font-size:.7rem;margin-top:9px;text-align:center;line-height:1.4}
   .success{display:none;text-align:center;padding:14px 4px}
   .success .big{font-size:2rem}
   .success h3{margin:10px 0 6px}
@@ -159,12 +180,29 @@
 </div></header>
 
 <!-- ============ HERO + OPT-IN ============ -->
-<div class="wrap hero"><div class="hero-grid">
-  <div class="hero-copy">
-    <div class="kicker">AI Referral Optimization</div>
+<div class="wrap hero">
+  <div class="hero-top">
+    <img class="hero-logo" src="img/aro-logo.png?v=1" alt="AI Referral Optimization" width="942" height="698">
     <h1>Your next customer isn't Googling you.<br>They're asking an AI.</h1>
-    <p class="lead">Every day, people ask ChatGPT, Gemini, Grok, Perplexity, and Claude questions like <b>"who's the best near me?"</b> — and the AI answers with two or three business names. If yours isn't one of them, <b>that customer never knew you existed.</b></p>
-    <p class="lead" style="margin-top:12px">Find out where you stand — free. We'll ask <b>five real customer questions</b> on all five major AIs — ChatGPT, Gemini, Grok, Perplexity and Claude — and send you your <b>AI Referral Audit</b>.</p>
+    <p class="tag">Watch how it works, then get your <b>free AI Referral Audit</b> — five questions, five AIs, delivered in 24 to 48 hours.</p>
+  </div>
+
+  <div class="hero-grid">
+  <div class="video-col">
+    <!-- VIDEO SWAP: when the MP4 is ready, replace the .video-poster div with:
+         <video controls playsinline preload="metadata" poster="img/aro-poster.jpg?v=1">
+           <source src="video/aro-sales.mp4?v=1" type="video/mp4">
+         </video>
+         Keep the file under 25 MiB (Cloudflare Pages cap) or host it on R2. -->
+    <div class="video-frame" id="sales-video">
+      <div class="video-poster">
+        <img src="img/aro-logo.png?v=1" alt="">
+        <div class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
+        <p>See how the five major AIs decide which businesses to recommend</p>
+        <span>Sales video</span>
+      </div>
+    </div>
+    <div class="video-cap">No sign-up needed to watch</div>
   </div>
 
   <div class="optin" id="audit">
@@ -191,7 +229,13 @@
       <p style="margin-top:10px;font-size:.8rem;color:#6f6a5f">Don't see it? Check spam/promotions, or <a href="#" onclick="location.reload();return false">try again</a>.</p>
     </div>
   </div>
-</div></div>
+  </div>
+
+  <div class="hero-copy">
+    <p class="lead">Every day, people ask ChatGPT, Gemini, Grok, Perplexity, and Claude questions like <b>"who's the best near me?"</b> — and the AI answers with two or three business names. If yours isn't one of them, <b>that customer never knew you existed.</b></p>
+    <p class="lead">Find out where you stand — free. We'll ask <b>five real customer questions</b> on all five major AIs — ChatGPT, Gemini, Grok, Perplexity and Claude — and send you your <b>AI Referral Audit</b>.</p>
+  </div>
+</div>
 
 <!-- ============ LLM STRIP ============ -->
 <section><div class="wrap">
@@ -290,6 +334,7 @@ form.addEventListener("submit",async e=>{
       if(!r.ok)throw new Error("signup failed");
     }
     document.getElementById("s-email").textContent=payload.email;
+    if(typeof gtag==="function")gtag("event","generate_lead",{event_category:"aiso",event_label:"free_audit_optin"});
     form.style.display="none";
     document.getElementById("optin-success").style.display="block";
   }catch(err){
