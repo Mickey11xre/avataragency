@@ -39,6 +39,17 @@
       "description": "Find out how ChatGPT, Gemini, Grok, Perplexity and Claude answer when customers ask for a business like yours."
     },
     {
+      "@type": "VideoObject",
+      "@id": "https://avataragency.ai/aiso/#salesvideo",
+      "name": "AI Referral Optimization — how the five major AIs decide who to recommend",
+      "description": "Why ChatGPT, Gemini, Grok, Perplexity and Claude recommend some businesses and skip others, and how the free AI Referral Audit shows where you stand.",
+      "thumbnailUrl": "https://avataragency.ai/aiso/img/aro-poster.jpg",
+      "contentUrl": "https://avataragency.ai/aiso/video/aro-sales.mp4",
+      "duration": "PT1M34S",
+      "uploadDate": "2026-08-23",
+      "publisher": { "@id": "https://avataragency.ai/#organization" }
+    },
+    {
       "@type": "Service",
       "@id": "https://avataragency.ai/aiso/#service",
       "name": "AI Referral Optimization",
@@ -189,27 +200,12 @@
 
   <div class="hero-grid">
   <div class="video-col">
-    <!-- VIDEO SWAP: when the MP4 is ready, replace the .video-poster div with:
-         <video controls playsinline preload="metadata" poster="img/aro-poster.jpg?v=1">
-           <source src="video/aro-sales.mp4?v=1" type="video/mp4">
-         </video>
-         Keep the file under 25 MiB (Cloudflare Pages cap) or host it on R2.
-         Then add this VideoObject to the JSON-LD @graph (duration is already 1:28):
-         { "@type":"VideoObject", "name":"AI Referral Optimization — how the five major AIs decide who to recommend",
-           "description":"Why ChatGPT, Gemini, Grok, Perplexity and Claude recommend some businesses and skip others, and how the free AI Referral Audit shows where you stand.",
-           "thumbnailUrl":"https://avataragency.ai/aiso/img/aro-poster.jpg",
-           "contentUrl":"https://avataragency.ai/aiso/video/aro-sales.mp4",
-           "duration":"PT1M28S", "uploadDate":"<YYYY-MM-DD>",
-           "publisher":{"@id":"https://avataragency.ai/#organization"} } -->
     <div class="video-frame" id="sales-video">
-      <div class="video-poster">
-        <img src="img/aro-wordmark.png?v=1" alt="">
-        <div class="play"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></div>
-        <p>See how the five major AIs decide which businesses to recommend</p>
-        <span>1:28 · Sales video</span>
-      </div>
+      <video controls playsinline preload="metadata" poster="img/aro-poster.jpg?v=1">
+        <source src="video/aro-sales.mp4?v=1" type="video/mp4">
+      </video>
     </div>
-    <div class="video-cap">No sign-up needed to watch</div>
+    <div class="video-cap">1:34 · No sign-up needed to watch</div>
   </div>
 
   <div class="optin" id="audit">
