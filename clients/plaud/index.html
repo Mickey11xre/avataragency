@@ -155,7 +155,10 @@
     radial-gradient(1100px 560px at 78% -12%, rgba(201,162,75,.11), transparent 60%),
     radial-gradient(820px 460px at -8% 12%, rgba(255,255,255,.035), transparent 55%),
     #000}
-  .spot-wrap{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:44px;align-items:start}
+  .spot-wrap{display:grid;grid-template-columns:minmax(0,640px) minmax(0,1fr);gap:44px;align-items:start}
+  .spot-pair{display:flex;gap:20px;flex-wrap:wrap}
+  .spot-pair .vcol{flex:1 1 260px;max-width:300px}
+  .vlab{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-2);margin-bottom:10px}
   @media(max-width:820px){.spot-wrap{grid-template-columns:1fr;gap:30px}}
   .reel-frame{position:relative;width:100%;max-width:300px;aspect-ratio:9/16;border-radius:20px;
     overflow:hidden;background:#000;border:1px solid var(--line);
@@ -209,12 +212,26 @@
 
     <div class="spot-wrap">
       <div>
-        <div class="reel-frame">
-          <video id="spot" controls preload="metadata" playsinline
-                 poster="/clients/plaud/poster.jpg"
-                 src="/clients/plaud/plaud-spot.mp4"></video>
+        <div class="spot-pair">
+          <div class="vcol">
+            <div class="vlab">English</div>
+            <div class="reel-frame">
+              <video id="spot" controls preload="metadata" playsinline
+                     poster="/clients/plaud/poster.jpg"
+                     src="/clients/plaud/plaud-spot.mp4"></video>
+            </div>
+          </div>
+          <div class="vcol">
+            <div class="vlab">Fran&ccedil;ais</div>
+            <div class="reel-frame">
+              <video id="spot-fr" controls preload="metadata" playsinline
+                     poster="/clients/plaud/poster-fr.jpg"
+                     src="/clients/plaud/plaud-spot-fr.mp4"></video>
+            </div>
+          </div>
         </div>
-        <div class="spec-note">
+        <div class="spec-note" style="max-width:none">
+          Same spot, produced in French from the same brief &mdash; one pipeline, any market.
           Concept work produced by AvatarAgency to demonstrate the pipeline.
           Not commissioned by, endorsed by, or affiliated with Plaud.
         </div>
@@ -270,8 +287,15 @@
 </footer>
 
 <script>
-/* opens at half volume so a pitch viewing never starts at full blast */
-(function(){ var v = document.getElementById('spot'); if (v) v.volume = 0.5; })();
+/* opens at half volume so a pitch viewing never starts at full blast;
+   playing one language pauses the other */
+(function(){
+  var vids = ['spot','spot-fr'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+  vids.forEach(function(v){
+    v.volume = 0.5;
+    v.addEventListener('play', function(){ vids.forEach(function(o){ if (o !== v) o.pause(); }); });
+  });
+})();
 </script>
 
 </body>
