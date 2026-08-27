@@ -52,7 +52,7 @@ export default {
       sendEmail(env.RESEND_API_KEY, {
         from:    FROM_ADDRESS,
         to:      [email],
-        subject: "You're registered — Talk to Ethica",
+        subject: "You're in — 5 minutes a day with Ethica, all week",
         html:    confirmationHtml(name, ETHICA_URL),
       }),
       sendEmail(env.RESEND_API_KEY, {
@@ -98,7 +98,7 @@ function confirmationHtml(name, ethicaUrl) {
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>You're registered — Talk to Ethica</title>
+<title>5 minutes a day with Ethica</title>
 </head>
 <body style="margin:0;padding:0;background:#0b0b0b;">
 <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#0b0b0b;padding:48px 16px;">
@@ -128,8 +128,11 @@ function confirmationHtml(name, ethicaUrl) {
         <h1 style="font-family:Georgia,serif;font-size:34px;font-weight:400;color:#0b0b0b;margin:0 0 14px;line-height:1.15;">
           You're in, ${firstName}.
         </h1>
-        <p style="font-family:Arial,sans-serif;font-size:15px;color:#666666;line-height:1.75;margin:0 0 36px;max-width:400px;margin-left:auto;margin-right:auto;">
-          Your first 5&nbsp;minutes with Ethica are completely free &mdash; no credit card needed. Click below to start your live conversation with the fraud fighter.
+        <p style="font-family:Arial,sans-serif;font-size:15px;color:#666666;line-height:1.75;margin:0 0 20px;max-width:420px;margin-left:auto;margin-right:auto;">
+          You've now got <strong style="color:#0b0b0b;">5&nbsp;minutes with Ethica every day for the next 7&nbsp;days</strong> &mdash; free, no credit card. Come back any day this week and pick up where you left off.
+        </p>
+        <p style="font-family:Arial,sans-serif;font-size:13px;color:#999999;line-height:1.7;margin:0 0 34px;max-width:400px;margin-left:auto;margin-right:auto;">
+          Ask her about money laundering, pyramid schemes, or that invoice that didn't look right.
         </p>
 
         <!-- CTA button -->
@@ -137,7 +140,7 @@ function confirmationHtml(name, ethicaUrl) {
           <tr>
             <td align="center" bgcolor="#c9a84c" style="border-radius:999px;">
               <a href="${ethicaUrl}" style="display:inline-block;font-family:Arial,sans-serif;font-size:15px;font-weight:700;color:#0b0b0b;text-decoration:none;padding:15px 40px;border-radius:999px;">
-                Talk to Ethica Now &rarr;
+                Start Today&rsquo;s 5 Minutes &rarr;
               </a>
             </td>
           </tr>

@@ -2,22 +2,26 @@
 <!-- build:v5 — PRIVATE / UNLISTED — do not link publicly -->
 <html lang="en">
 <head>
-<!-- Registration gate: redirect unregistered visitors immediately.
-     ?demo = internal back door: seeds a fresh session (for demos/reviews). -->
+<!-- ────────────────────────────────────────────────────────────────────────
+     THREE-STAGE ACCESS (changed 2026-08-12 — was register-first)
+       1. ANONYMOUS  5 min once, no signup  → proves the product
+       2. REGISTERED 5 min/day for 7 days   → buys us the lead
+       3. SUBSCRIBE  ongoing access
+     No redirect on arrival any more: everyone gets to talk first.
+     ?demo = internal back door (fresh registered session, for demos/reviews).
+     ──────────────────────────────────────────────────────────────────────── -->
 <script>
   (function(){
     try {
       if (new URLSearchParams(window.location.search).has('demo')) {
         localStorage.setItem('ethica_user', JSON.stringify({
           name: 'Demo Viewer', email: 'demo@avataragency.ai',
-          registeredAt: new Date().toISOString(), freeUsed: false, freeSeconds: 300
+          registeredAt: new Date().toISOString(),
+          trialDays: 7, dailySeconds: 300, dayKey: '', daySecondsLeft: 300
         }));
+        localStorage.removeItem('ethica_anon');
       }
-      var u = JSON.parse(localStorage.getItem('ethica_user') || 'null');
-      if (!u || !u.email) { window.location.replace('/ethica/thrive/register.html'); }
-    } catch(_) {
-      window.location.replace('/ethica/thrive/register.html');
-    }
+    } catch(_) {}
   })();
 </script>
 <!-- Google tag (gtag.js) -->
@@ -384,6 +388,54 @@
       function getUser() {
         try { return JSON.parse(localStorage.getItem('ethica_user') || 'null'); } catch (_) { return null; }
       }
+      function saveUser(u) {
+        try { localStorage.setItem('ethica_user', JSON.stringify(u)); } catch (_) {}
+      }
+      function getAnon() {
+        try { return JSON.parse(localStorage.getItem('ethica_anon') || 'null'); } catch (_) { return null; }
+      }
+      function saveAnon(a) {
+        try { localStorage.setItem('ethica_anon', JSON.stringify(a)); } catch (_) {}
+      }
+      function todayKey() { return new Date().toISOString().slice(0, 10); } // YYYY-MM-DD, UTC
+
+      // ── THE ACCESS DECISION ───────────────────────────────────────────────
+      // Returns { stage, seconds, label } or { stage:'blocked', to }.
+      //   anonymous  → 5 min, once ever (per browser)
+      //   registered → 5 min/day, refreshing for 7 days from registration
+      //   expired    → subscribe
+      function grantAccess() {
+        var user = getUser();
+
+        if (user && user.email) {
+          // Day 1..7 of the trial? (registeredAt + trialDays)
+          var days = user.trialDays || 7;
+          var start = Date.parse(user.registeredAt || '') || Date.now();
+          var dayNum = Math.floor((Date.now() - start) / 86400000) + 1;
+          if (dayNum > days) {
+            return { stage: 'blocked', to: '/ethica/thrive/subscribe.html' };
+          }
+          // Refresh the daily allowance when the date rolls over
+          var k = todayKey();
+          if (user.dayKey !== k) {
+            user.dayKey = k;
+            user.daySecondsLeft = user.dailySeconds || 300;
+            saveUser(user);
+          }
+          if ((user.daySecondsLeft || 0) <= 0) {
+            return { stage: 'blocked', to: '/ethica/thrive/subscribe.html?daily=1' };
+          }
+          return { stage: 'registered', seconds: user.daySecondsLeft, day: dayNum, days: days };
+        }
+
+        // Anonymous — one free 5-minute session, ever
+        var anon = getAnon();
+        if (!anon) { anon = { secondsLeft: 300, used: false }; saveAnon(anon); }
+        if (anon.used || anon.secondsLeft <= 0) {
+          return { stage: 'blocked', to: '/ethica/thrive/register.html?free=used' };
+        }
+        return { stage: 'anonymous', seconds: anon.secondsLeft };
+      }
 
       // Idempotent UI reset; does NOT tear down the SDK. Also wired as the SDK's
       // onDestroy so the built-in hang-up button resets our timer + placeholder.
@@ -409,12 +461,9 @@
       }
 
       async function startEthica() {
+        var access = grantAccess();
+        if (access.stage === 'blocked') { window.location.href = access.to; return; }
         var user = getUser();
-        // Free session already used → straight to subscribe
-        if (user && user.freeUsed) {
-          window.location.href = '/ethica/thrive/subscribe.html';
-          return;
-        }
         wrap.style.height = wrap.offsetHeight + 'px';
         placeholder.style.display = 'none';
         hintEl.textContent = 'Connecting…';
@@ -435,33 +484,44 @@
           hintEl.textContent   = 'Click the avatar and allow your microphone to talk with Ethica';
           endBtn.style.display = 'inline-block';
 
-          // ── 5-minute free session gate ────────────────
-          var seconds = (user && user.freeSeconds > 0) ? user.freeSeconds : 300;
+          // ── Session timer — anonymous 5 min once, or 5 min/day on trial ──
+          var seconds = access.seconds;
+          var isAnon  = access.stage === 'anonymous';
           if (timerBadge) timerBadge.classList.add('is-active');
           function pad(n) { return String(n).padStart(2, '0'); }
           function tick() {
             var m = Math.floor(seconds / 60), s = seconds % 60;
-            if (timerText) timerText.textContent = pad(m) + ':' + pad(s) + ' free remaining';
+            if (timerText) {
+              timerText.textContent = pad(m) + ':' + pad(s) +
+                (isAnon ? ' free remaining' : ' left today');
+            }
             if (timerBadge) {
               timerBadge.classList.toggle('warn', seconds <= 60 && seconds > 30);
               timerBadge.classList.toggle('crit', seconds <= 30);
             }
           }
           tick();
+          function persist() {
+            if (isAnon) {
+              saveAnon({ secondsLeft: Math.max(0, seconds), used: seconds <= 0 });
+            } else if (user) {
+              user.daySecondsLeft = Math.max(0, seconds);
+              saveUser(user);
+            }
+          }
           interval = setInterval(function () {
             seconds--;
             tick();
-            // Persist remaining time every 10s
-            if (seconds % 10 === 0 && user) {
-              try { user.freeSeconds = seconds; localStorage.setItem('ethica_user', JSON.stringify(user)); } catch (_) {}
-            }
+            if (seconds % 10 === 0) persist();
             if (seconds <= 0) {
               clearInterval(interval); interval = null;
-              if (user) {
-                try { user.freeUsed = true; user.freeSeconds = 0; localStorage.setItem('ethica_user', JSON.stringify(user)); } catch (_) {}
-              }
+              persist();
               endSession();
-              window.location.href = '/ethica/thrive/subscribe.html';
+              // Anonymous → invite them to register (that's the whole point).
+              // Registered → out of time TODAY; come back tomorrow or subscribe.
+              window.location.href = isAnon
+                ? '/ethica/thrive/register.html?free=used'
+                : '/ethica/thrive/subscribe.html?daily=1';
             }
           }, 1000);
 
