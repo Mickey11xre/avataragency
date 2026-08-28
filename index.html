@@ -437,10 +437,16 @@
 
     <!-- ── RIGHT: MICHAEL PORTRAIT ───────────────────────────── -->
     <div class="hero-portrait reveal" data-delay="80" aria-hidden="true">
-      <img src="assets/michael-rivera.png"
-           alt="Michael Rivera, Fractional CMO — AvatarAgency"
-           class="hero-portrait-img"
-           loading="eager">
+      <picture style="display:contents;">
+        <source type="image/webp"
+                srcset="assets/michael-rivera-v2-480.webp 480w, assets/michael-rivera-v2-720.webp 720w"
+                sizes="(max-width: 760px) 130px, 240px">
+        <img src="assets/michael-rivera-v2-480.png"
+             alt="Michael Rivera, Fractional CMO — AvatarAgency"
+             class="hero-portrait-img"
+             width="480" height="1207"
+             loading="eager" decoding="async" fetchpriority="high">
+      </picture>
     </div>
 
   </div><!-- /hero-split -->
