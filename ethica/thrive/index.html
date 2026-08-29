@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- build:v5 — PRIVATE / UNLISTED — do not link publicly -->
+<!-- build:v6 — PRIVATE / UNLISTED — do not link publicly -->
 <html lang="en">
 <head>
 <!-- ────────────────────────────────────────────────────────────────────────
@@ -13,13 +13,49 @@
 <script>
   (function(){
     try {
-      if (new URLSearchParams(window.location.search).has('demo')) {
+      var qs = new URLSearchParams(window.location.search);
+
+      // ?demo — internal back door. Seeds a throwaway registered session.
+      if (qs.has('demo')) {
         localStorage.setItem('ethica_user', JSON.stringify({
           name: 'Demo Viewer', email: 'demo@avataragency.ai',
           registeredAt: new Date().toISOString(),
           trialDays: 7, dailySeconds: 300, dayKey: '', daySecondsLeft: 300
         }));
         localStorage.removeItem('ethica_anon');
+      }
+
+      // ?welcome=1 — WARM-HANDOFF LINK. Sales-issued, one-to-one, after a meeting.
+      // Restarts an EXISTING registrant's 7 days and keeps their name + email.
+      //
+      // ⚠️ Deliberately does NOTHING when there is no local record: a stranger with
+      // this URL still gets the normal 5-min anonymous run and the register wall, so
+      // we never trade away the lead. Cross-device it simply won't fire — that is
+      // correct, not a gap. We do NOT pass name/email in the URL (no PII in query
+      // strings), which is why it cannot follow someone to another browser.
+      //
+      // NEVER put this link on the site, in a deck, or in the confirmation email —
+      // in the confirmation email it would silently renew every user forever.
+      if (qs.get('welcome') === '1') {
+        var raw = localStorage.getItem('ethica_user');
+        if (raw) {
+          var u = JSON.parse(raw);
+          if (u && u.email) {
+            u.registeredAt   = new Date().toISOString();  // fresh 7 days
+            u.trialDays      = u.trialDays    || 7;
+            u.dailySeconds   = u.dailySeconds || 300;
+            u.dayKey         = '';                        // re-grant today's allowance
+            u.daySecondsLeft = u.dailySeconds;
+            localStorage.setItem('ethica_user', JSON.stringify(u));
+            localStorage.removeItem('ethica_anon');
+          }
+        }
+        // Drop the param so it isn't bookmarked, screenshotted or forwarded onward.
+        if (window.history && history.replaceState) {
+          qs.delete('welcome');
+          var q = qs.toString();
+          history.replaceState({}, '', window.location.pathname + (q ? '?' + q : ''));
+        }
       }
     } catch(_) {}
   })();
