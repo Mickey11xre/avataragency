@@ -80,21 +80,19 @@ Web search expands Claude's knowledge with real-time data, helping you make bett
 
 **To access this feature on a Team or Enterprise plan account:**
 
-An Owner or Primary Owner must first enable web search for the entire workspace. This can be found in **[Admin settings > Capabilities](https://claude.ai/admin-settings/capabilities)**:
-
-
+An Owner or Primary Owner must first enable web search for the entire workspace in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
 
 Once this is enabled at the workspace level, any member of the organization can switch it on while starting a chat by clicking the “+” button in the lower left corner of the chat window and selecting “Web search." Users can toggle this off for chats that don’t require web search capabilities.
 
-## How to enable web search in a chat
+## Enable web search in a chat
 
-1. Click on the slider icon in your chat input interface.
+1. Click on the “+” button in the lower left corner of the chat window.
 
-2. Locate **Web search** in the dropdown.
+2. Find "Web search” in the dropdown and click on it.
 
-3. Switch the toggle on.
+3. A checkmark will appear next to “Web search” when it’s enabled.
 
-You can disable the feature at any time by following the same steps and turning the toggle off.
+You can disable the feature at any time by clicking “Web search” again.
 
 ## How web search works
 
@@ -120,11 +118,11 @@ When Claude searches the web:
 
 When “Web search” is toggled on, Claude can also retrieve content directly from web pages when provided with specific URLs. This feature, called web fetch, allows Claude to access and analyze the full content of articles, blog posts, and other web pages you want to discuss.
 
-**Important note for free Claude accounts:** When you provide Claude with a direct link to a long article or document and ask it to analyze or summarize the contents, the entire article is retrieved into Claude's context window. This can consume a significant portion of your usage capacity, especially for lengthy content. For example, asking Claude to summarize a 10,000-word article will use substantially more of your context window than a regular web search query.
+**Important note for free Claude accounts:** When you provide Claude with a direct link to a long article or document and ask it to analyze or summarize the contents, the entire article is retrieved into Claude's context window. This can consume a significant portion of your usage limit, especially for lengthy content. For example, asking Claude to summarize a 10,000-word article will use substantially more of your context window than a regular web search query.
 
 ## Image results
 
-When web search is enabled, Claude can also search for and display images directly in your conversation. You don't need to enable a separate setting — image results are part of web search.
+When web search is enabled, Claude can also search for and display images directly in your conversation. You don't need to enable a separate setting—image results are part of web search.
 
 For example, you might ask Claude to:
 
@@ -138,11 +136,11 @@ For example, you might ask Claude to:
 
 Claude selects images from web search results, powered by Bing, and displays them alongside its text response. Each image includes a source link so you can visit the original page for more details.
 
-Image search is powered by Bing (<https://www.microsoft.com/en-us/privacy/privacystatement>).
+Image search is powered by Bing (**[Microsoft Privacy Statement](https://www.microsoft.com/en-us/privacy/privacystatement)**).
 
 Claude can also display interactive content in search results. For more detailed information, see here: **[Visual and interactive content](https://support.claude.com/en/articles/13641943-visual-responses-and-interactive-widgets)**.
 
-## Managing usage on free Claude accounts
+## Manage usage on free Claude accounts
 
 As a free user, you have daily usage limits for Claude. Since web search and fetch both contribute to these limits, here are some tips to make the most of your capacity:
 
@@ -154,11 +152,11 @@ As a free user, you have daily usage limits for Claude. Since web search and fet
 
 To disable web search and conserve your capacity:
 
-1. Click on the slider icon in the lower left corner of your chat input.
+1. Click on the “+” button in the lower left corner of the chat window.
 
-2. Find **Web search** in the dropdown.
+2. Find "Web search” in the dropdown and click on it.
 
-3. Toggle it off.
+3. The checkmark next to “Web search” will disappear when it’s disabled.
 
 You can re-enable it anytime you need current information.
 
@@ -196,7 +194,7 @@ You can re-enable it anytime you need current information.
 
 - For web search questions or support, please visit our **[Online Safety Contacts](https://support.claude.com/en/articles/11174660-online-safety-contacts)** page.
 
-- For content removal requests, please visit our **[Blocking and Removing Content from Claude](https://support.claude.com/en/articles/10684638-reporting-blocking-and-removing-content-from-claude)** page.
+- For content removal requests, please visit our **[Report, block, and remove content from Claude](https://support.claude.com/en/articles/10684638)** page.
 ---
 
 SOURCE: https://support.claude.com/en/articles/11088861-use-research-on-claude
@@ -473,7 +471,7 @@ SOURCE: https://support.claude.com/en/articles/15363606-why-claude-switched-mode
 
 # Why Claude switched models in your conversation with Fable 5
 
-This article explains why a request might be blocked, what happens when your conversation switches to a different Claude model, and how to manage automatic switching.
+This article explains why a request might be blocked on Claude Fable 5, what happens when your conversation switches to a different Claude model, and how to manage automatic switching.
 
 ## Why some requests get blocked
 
@@ -481,43 +479,45 @@ Claude Fable 5's capabilities far exceed those of every model we've previously m
 
 Releasing a model this capable comes with risks. Without strong safeguards, Claude Fable 5's advanced capabilities in areas like cybersecurity and biology could be misused by users to create large-scale cyberattacks or bioweapons that could result in catastrophic damage. These capabilities are the reason we’ve previously only released Mythos-class models (like Mythos Preview) to a small number of selected and vetted partners.
 
-Recognizing these risks, to allow general users to access the vast majority of Fable 5's capabilities, we've launched the model with safeguards that block its responses in some specific areas in line with our **[Terms of Service](https://www.anthropic.com/legal/commercial-terms)** and **[Acceptable Use Policy](https://www.anthropic.com/legal/aup)**. We’ve also **[been iterating](https://www.anthropic.com/news/redeploying-fable-5)** on safeguards since our first launch of Claude Fable 5.
+Recognizing these risks, to allow general users to access the vast majority of Fable 5's capabilities, we've launched the model with safeguards that redirect or block its responses in some specific areas in line with our **[Terms of Service](https://www.anthropic.com/legal/commercial-terms)** and **[Acceptable Use Policy](https://www.anthropic.com/legal/aup)**. We’ve also **[been iterating](https://www.anthropic.com/news/redeploying-fable-5)** on safeguards since our first launch of Claude Fable 5.
 
-Most user queries blocked by these safeguards on Fable 5 may instead receive a response from our next-most-capable model, Claude Opus 4.8 (i.e., "fallback"). We're working on making these safeguards more discerning to precisely block uses of the model that directly relate to targeting risks, with fewer false positives than there are today.
+Most user queries blocked by these safeguards on Fable 5 may instead receive a response from our next-most-capable model (i.e., "fallback"). We're working on making these safeguards more precise to help block only genuinely risky requests, with fewer false positives than there are today.
 
 ## What requests may fallback
 
-**Claude Fable 5 runs automated safety checks on every user request. These checks are intended to visibly fallback from Fable 5 to a non-Mythos model (e.g., Opus 4.8) when users submit requests in four areas:**
+**Claude Fable 5 runs automated safety checks, or classifiers, on every user request. These checks are intended to visibly fallback from Fable 5 to Opus models when users submit requests in:**
 
 - Offensive cybersecurity techniques, such as building exploits, malware, or attack tooling. Claude Fable 5 can assist with routine cybersecurity tasks, but users should expect high fallback rates. The safeguards are designed to block access to Mythos-level capabilities.
 
-- Majority of biology, chemistry, and life sciences queries, such as lab methods or molecular mechanisms. In the near-term, this may impact the model’s ability to help with benign biology research and related topics, such as biotech business documentation, medical imaging and diagnostics, clinical and diagnostic healthcare questions, or basic educational content in biology.
+- A large fraction of queries we consider dual-use in biology, such as virology, toxicology, drug design, and molecular design—so Fable 5 is not recommended for professional biology research and drug development at this time. (**[Classifier updated](https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards)**: August 6, 2026 on Claude, Claude apps, and Claude Platform, with Amazon Bedrock, Claude Platform on AWS, Google Cloud Vertex AI, and Microsoft Foundry to follow.)
 
 - Distillation attacks on Fable 5, including attempts to extract the model’s **[summarized thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#summarized-thinking).**
 
 - A narrow set of frontier LLM development tasks, such as distributed training infrastructure, ML accelerator design, and kernel development for certain non-standard chips.
 
-These blocking safeguards are intentionally broad, and we work to continuously improve the safeguards to reduce their user-experience impact. When requests are blocked, they may fallback to a non-Mythos model, currently Opus 4.8.
+These blocking safeguards are intentionally broad, and we work to continuously improve the safeguards to reduce their user-experience impact. When requests are blocked, they may fallback to a non-Mythos model, currently Opus 5 for biology, chemistry, and life sciences requests, and Opus 4.8 for offensive cybersecurity technique requests.
 
 The checks also review everything the model reads, not just your latest message—including memory, content from connectors, web search results, and files, so a block can be triggered by content you didn't type.
 
-## What happens after a block
+## What happens after a fallback
 
-By default, automatic model switching is active in Claude, Claude Cowork, Claude Code, Claude Design, and Claude for Microsoft 365. When automatically switching models, Claude re-runs your blocked Claude Fable 5 request on Claude Opus 4.8 in the same conversation. You’ll see a notice explaining that the model switched, and the response will be labeled with the model that answered. Opus is a highly capable model with strong safeguards of its own, and for most otherwise legitimate requests blocked on Fable 5, Opus should give you a helpful answer.
+Automatic model switching is active by default. When your request falls back, Claude re-runs your blocked Claude Fable 5 request on an Opus model in the same conversation. You’ll see a notice explaining that the model switched, and the response will be labeled with the model that answered. Opus is a highly capable model with strong safeguards of its own, and for most otherwise legitimate requests blocked on Fable 5, Opus should give you a helpful answer.
 
 After the switch, the model picker stays on Opus for the rest of the conversation. You can switch back to Claude Fable 5 anytime from the model picker.
 
-**Note:** If you switch back to Claude Fable 5 after an automatic model switch occurs, note that the same Fable 5 safeguards may block the conversation again because the original request is still part of it. Editing your previous message before retrying often helps.
+**Note:** If you switch back to Claude Fable 5 after an automatic model switch, the same Fable 5 safeguards may cause Claude to fallback again if your original request is still part of the conversation. Editing your previous message before retrying often helps.
 
-### If the request is also blocked on Opus
+## If the fallback request is also blocked
 
-Opus has its own safety systems. If your request is also blocked on Opus, you can edit your message and retry. For cyber specifically, if your use case has a legitimate defensive purpose and is being affected by these safeguards, you can apply for the Cyber Verification Program (CVP) for Opus. Learn more about **[real-time cyber safeguards and the Cyber Verification Program](https://support.claude.com/en/articles/14604842-real-time-cyber-safeguards-on-claude)**.
+Opus has its own safety systems. To learn about fallbacks in Claude Opus 5, see **[Why Claude switched models in your conversation with Opus 5](https://support.claude.com/en/articles/16049681)**.
+
+If your request is also blocked on the less capable model, you can edit your message and retry. For cybersecurity specifically, if your use case has a legitimate defensive purpose and is being affected by these safeguards, you can apply for the Cyber Verification Program (CVP) for Opus. Learn more about **[real-time cyber safeguards on Claude Opus and Sonnet](https://support.claude.com/en/articles/14604842-real-time-cyber-safeguards-on-claude)**.
 
 ## Manage automatic model switching
 
 Automatic switching is enabled by default the first time you select Claude Fable 5. It stays on by default, and you can turn it off anytime:
 
-1. Go to **[Settings > Capabilities](http://claude.ai/settings/capabilities)** (or **Config > MODEL & OUTPUT** in Claude Code).
+1. Go to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (or **Config > MODEL & OUTPUT** in Claude Code).
 
 2. Toggle **Switch models when a message is flagged** off.
 
@@ -525,7 +525,7 @@ With automatic model switching off, a blocked request pauses the conversation in
 
 - Edit your message and retry on  Claude Fable 5
 
-- Send the same message to Opus manually
+- Send the same message to a less capable model manually
 
 ## Usage and billing
 
@@ -563,15 +563,13 @@ Automatic model switching works the same way everywhere you can use Claude Fable
 
 - Claude for Microsoft 365
 
-- Claude for Teams
-
-- Claude in Slack
-
 - Claude Tag
 
-**Important:** If you're using the Claude API, model switching works differently. Automatic switching isn't automatic, and API customers must opt into and configure the switching in the API. See the **[developer documentation](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback)** for details.
+**Important:** If you're using the Claude API, model switching works differently. Automatic switching isn't active by default, and API customers must opt into and configure fallbacks. Until fallbacks are configured, the model will return a 200 response with a stop reason on the API. See the **[developer documentation](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback)** for details.
 
-Read our blog to learn more about Claude Fable 5: **[Claude Fable 5 and Claude Mythos 5](https://www.anthropic.com/news/claude-fable-5-mythos-5)**.
+Read our blog to learn more about **[Claude Fable 5 and Claude Mythos 5](https://www.anthropic.com/news/claude-fable-5-mythos-5)**.
+
+Our safeguards are built to match the capabilities of a model. For how safeguards work on Claude Opus 5, see **[Why Claude switched models in your conversation with Opus 5](https://support.claude.com/en/articles/16049681).**
 ---
 
 SOURCE: https://support.claude.com/en/articles/16049681-why-claude-switched-models-in-your-conversation-with-opus-5
@@ -622,7 +620,7 @@ Opus 4.8 has its own safety systems. If your request is also blocked on Opus 4.8
 
 Automatic switching is enabled by default the first time you select Claude Opus 5. It stays on by default, and you can turn it off anytime:
 
-1. Go to **[Settings > Capabilities](http://claude.ai/settings/capabilities)** (or **Config > MODEL & OUTPUT** in Claude Code).
+1. Go to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (or **Config > MODEL & OUTPUT** in Claude Code).
 
 2. Toggle **Switch models when a message is flagged** off.
 
@@ -660,38 +658,108 @@ Automatic model switching works the same way everywhere you can use Claude Opus 
 
 **Important:** If you're using the Claude API, model switching works differently. Automatic switching isn't active by default, and API customers must opt into and configure the fallbacks. Until fallbacks are configured, the model will return a 200 response with a stop reason on the API. See the **[developer documentation](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback)** for details.
 
-Read our blog to learn more about**[Claude Opus 5](https://www.anthropic.com/news/claude-opus-5)**.
+Read our blog to learn more about **[Claude Opus 5](https://www.anthropic.com/news/claude-opus-5)**.
 
 Our safeguards are built to match the capabilities of a model. For how safeguards work on Claude Fable 5, see **[Why Claude switched models in your conversation with Fable 5](https://support.claude.com/en/articles/15363606-why-claude-switched-models-in-your-conversation-with-fable-5).**
 ---
 
-SOURCE: https://support.claude.com/en/articles/8230524-how-can-i-delete-or-rename-a-conversation
+SOURCE: https://support.claude.com/en/articles/8230524-delete-or-rename-a-conversation
 
-# How can I delete or rename a conversation?
+# Delete or rename a conversation
 
-*This article is about our consumer products (e.g. Claude Free, Claude Pro). For our commercial products (e.g. Claude for Work, Claude API), see [here](https://privacy.claude.com/en/articles/11117329-how-can-i-delete-or-rename-a-conversation).*
+*This article is about our consumer products (e.g. Claude Free, Claude Pro). For our commercial products (e.g. Claude for Work, Claude API), see **[here](https://privacy.claude.com/en/articles/11117329-how-can-i-delete-or-rename-a-conversation)**.*
 
-## Deleting and renaming individual conversations
+You can delete or rename your conversations with Claude at any time. This article shows you how to delete conversations on the web and in the Claude mobile apps, and explains what happens to your data when you do.
 
-To delete or rename an individual conversation:
+## Delete or rename a conversation on the web
 
-1. Navigate to the conversation you want to delete or rename.
+**To delete or rename an individual conversation:**
 
-2. Click on the name of the conversation at the top of the screen.
+1. Open the web version of Claude (**[claude.ai](https://claude.ai)**).
 
-3. Select either "Delete" or "Rename" from the options that appear:
+2. Find the conversation in the left sidebar, or click "Chats and tasks" to see your full chat history.
+
+3. Hover over the conversation and click the "⋮" button on the right side.
+
+4. Select "Rename" or "Delete."
+
+5. If deleting, click "Delete" again in the confirmation prompt.
+
+**To delete multiple conversations at once:**
+
+1. Click "Chats and tasks" in the left sidebar.
+
+2. Hover over the conversation you want to delete and click the "⋮" button on the right side.
+
+3. Click "Select."
+
+4. Click the checkbox on the left side of additional conversations you want to delete, or click "Select all" at the top.
+
+5. Click "Delete," then click "Delete" again in the confirmation prompt.
+
+## Delete or rename a conversation on Claude for iOS
+
+These steps apply to Claude for iOS, listed on the App Store as Claude by Anthropic.
+
+**To delete or rename an individual conversation:**
+
+1. Open your chat list.
+
+2. Touch and hold the conversation.
+
+3. Tap "Rename" or "Delete."
+
+4. If deleting, tap "Delete" again in the confirmation prompt.
 
 
 
-## Deleting conversations in bulk
 
-To delete multiple conversations at once:
 
-1. Navigate to [your chat history](https://claude.ai/recents) by clicking "Chats" on the left sidebar.
+You can also delete the conversation you have open: tap the "⋯" button in the top right corner, tap "Delete," then confirm.
 
-2. Hover over the conversations you want to delete, and check the selection box that appears.
 
-3. Once you've selected the conversations to delete, click on the "Delete Selected" button.
+
+
+
+## Delete or rename a conversation on Claude for Android
+
+These steps apply to the Claude for Android, listed on Google Play as Claude by Anthropic.
+
+**To delete or rename the conversation you have open:**
+
+1. Tap the "⋮" menu in the top right.
+
+2. Tap "Rename" or "Delete."
+
+3. If deleting, tap "Delete" again in the confirmation prompt.
+
+
+
+
+
+**To delete multiple conversations at once:**
+
+1. Open your chat list and tap the checklist icon in the top right corner.
+
+2. Check the box next to each conversation you want to delete.
+
+3. Tap the trash icon, then tap "Delete" in the confirmation prompt.
+
+
+
+
+
+## What happens when you delete a conversation
+
+When you delete a conversation, it's removed from your conversation history immediately and deleted from our back-end systems within 30 days. Other data associated with your account, like your projects and account information, is kept until you delete it or delete your account.
+
+Learn more about **[how Anthropic deletes your data](https://privacy.claude.com/en/articles/7996878-can-you-delete-data-sent-via-claude)**.
+
+## Delete all of your Claude data
+
+To delete all data associated with your Claude account, delete your account. Account deletion is permanent, and you won't be able to recover your account or conversation data.
+
+Learn more about **[deleting your Claude account](https://support.claude.com/en/articles/9028421-how-can-i-delete-my-claude-account)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/8241126-upload-files-to-claude

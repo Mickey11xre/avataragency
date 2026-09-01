@@ -264,7 +264,7 @@ Projects are available to all users, including those with free Claude accounts. 
 
 ## How to create a project
 
-1. Hover over the left side of your account and click “Projects,” or navigate directly to this section: **[claude.ai/projects](http://claude.ai/projects)**.
+1. Hover over the left side of your account and click “Projects,” or navigate directly to this section: **[claude.ai/projects](https://claude.ai/projects)**.
 
 2. Click "+ New Project" in the upper right corner.
 
@@ -334,7 +334,7 @@ If you are a member of a Team or Enterprise plan organization, you can share pro
 
 ### Find shared projects
 
-Projects that others have shared with you will appear in the "Shared with me" tab on your **[Projects page](http://claude.ai/projects)**. You'll also receive an email notification when someone shares a project with you.
+Projects that others have shared with you will appear in the "Shared with me" tab on your **[Projects page](https://claude.ai/projects)**. You'll also receive an email notification when someone shares a project with you.
 
 ---
 
@@ -384,11 +384,11 @@ Select the chats you want to move, then click the icon next to the number of sel
 
 ## Move chats to manage Claude’s memory
 
-Memory from chat history is available for users on Pro, Max, Team, and Enterprise plans on the web, Claude Desktop, and Claude Mobile.
+Memory is on by default for Free, Pro, and Max plans on the web, Claude Desktop, and Claude Mobile. On Team and Enterprise plans, memory is available when an owner has enabled it.
 
 For Team and Enterprise plans using Claude’s memory, the ability to move chats into and out of projects allows you to manage what’s included in Claude’s memory. Each project has its own memory, kept separate from your non-project chats. For example, if you accidentally start an unrelated chat in a project and need to remove it from the project-specific memory summary, you can click “Remove from project” so it will be included in Claude’s non-project memory instead.
 
-Refer to our article on chat search and memory for more information: **[What is Claude’s memory?](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context#h_c1c0b33879)**
+Refer to our article on chat search and memory for more information: **[What is Claude’s memory?](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_82126ebcc9)**
 
 ---
 
@@ -416,7 +416,7 @@ Here's what you need to know about archiving:
 
 ### How to access archived projects
 
-You can access an archived project in the archived projects tab on the **[Projects page](http://claude.ai/projects)**.
+You can access an archived project in the archived projects tab on the **[Projects page](https://claude.ai/projects)**.
 
 ## How to unarchive a project
 
@@ -547,7 +547,7 @@ Sharing a project with a group is currently in beta for Enterprise plans.
 
 On Enterprise plans, you can share a project with a group instead of adding each member individually. Access follows group membership, so members who join the group later get access automatically, and members who leave lose it.
 
-Before you can share with a group, an admin needs to turn on **Share projects with this group** in the group's visibility settings. See **[Manage groups and group spend limits on Enterprise plans](https://support.claude.com/en/articles/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans)**.
+Before you can share with a group, an admin needs to turn on **Share resources with this group** in the group's visibility settings. See **[Manage groups and group spend limits on Enterprise plans](https://support.claude.com/en/articles/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans)**.
 
 1. Click the "Share" button to the right of the project name.
 

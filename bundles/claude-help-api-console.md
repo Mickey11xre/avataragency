@@ -11,7 +11,7 @@ The Claude Console uses a role-based access system with six distinct roles: User
 
 ### User
 
-- Can only use Workbench
+- Can only use the playground
 
 - Can view MCP tunnels
 
@@ -19,7 +19,7 @@ The Claude Console uses a role-based access system with six distinct roles: User
 
 ### Claude Code User
 
-- Can use Workbench and **[Claude Code](https://code.claude.com/docs/en/overview)**
+- Can use the playground and **[Claude Code](https://code.claude.com/docs/en/overview)**
 
 - Can access Claude Code workspace in your org
 
@@ -27,7 +27,7 @@ The Claude Console uses a role-based access system with six distinct roles: User
 
 ### Limited Developer
 
-- Can use Workbench and Claude Code
+- Can use the playground and Claude Code
 
 - Can manage API keys and webhook endpoints
 
@@ -40,7 +40,7 @@ The Claude Console uses a role-based access system with six distinct roles: User
 
 ### Developer
 
-- Can use Workbench and Claude Code
+- Can use the playground and Claude Code
 
 - Can manage API keys and webhook endpoints
 
@@ -56,7 +56,7 @@ The Claude Console uses a role-based access system with six distinct roles: User
 
 ### Billing
 
-- Can use Workbench
+- Can use the playground
 
 - Can manage billing details
 
@@ -108,79 +108,6 @@ To manage feedback for your Console organization:
 
 
 More information on how Anthropic collects, uses, and stores feedback data can be found in our Privacy Center: [How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)
----
-
-SOURCE: https://support.claude.com/en/articles/10722177-sharing-prompts-in-the-claude-console
-
-# Sharing Prompts in the Claude Console
-
-The prompt sharing feature enables teams to collaborate on prompt development within the Claude Console. This feature allows workspace members to share, edit, and iterate on prompts together, maintaining a clear revision history attributed to the specific contributors.
-
-## Sharing a Prompt
-
-1. Create a prompt in the Workbench within your desired workspace.
-
-2. Click on the prompt title at the top of the page.
-
-3. Select "Share" from the dropdown menu:
-
-
-
-4. Change the access settings from "Private" to "Shared."
-
-5. Click the "Copy link" button that appears:
-
-
-
-6. Share the link with members of your workspace.
-
-**Note:**  Shared prompts can be viewed and edited by any workspace member with the direct link.
-
-## Collaborating on Shared Prompts
-
-### Editing
-
-When working on a shared prompt:
-
-1. Any workspace member can make edits to the prompt.
-
-2. Each edit is saved as a new revision.
-
-3. Authorship is tracked for each revision.
-
-4. All revisions remain accessible through the version history.
-
-**Note:** If a collaborator saves changes to the prompt while you are viewing it, you will be prompted with a message to “Go to the Latest Version,” where all their changes will be reflected.
-
-
-
-## Viewing Version History
-
-To see previous versions of a prompt:
-
-1. Click on the prompt title.
-
-2. Select "Version history" from the dropdown:
-
-
-
-3. Choose the specific version you want to view from the list.
-
-**Note:**  Past versions cannot be edited. To restore the prompt to a previous version, select the version from the version history list, and click the “Restore” button in the pop up.
-
-
-
-## Unsharing a Prompt
-
-1. Click on the prompt title at the top of the page.
-
-2. Select "Share" from the dropdown menu.
-
-3. Change the access settings from "Shared" to "Private":
-
-
-
-**Note:** Unsharing immediately disables access via the direct link. Anyone that the link was previously shared with will no longer be able to view the prompt.
 ---
 
 SOURCE: https://support.claude.com/en/articles/13346458-customizing-your-console-appearance-settings
@@ -242,155 +169,6 @@ SOURCE: https://support.claude.com/en/articles/8384961-what-should-i-do-if-i-sus
 If you suspect that your API key may be compromised, we recommend revoking the key immediately. You can do so by logging into your Claude Console account, going to the [API keys page](https://platform.claude.com/settings/keys) from your profile, clicking the meatball menu (i.e. the three horizontal dots) next to the key in question, and selecting ‘Delete API Key.’
 
 You can generate a new API key by clicking on the ‘Create Key’ button on the same page; make sure to save this key somewhere secure, such as a secrets management system and avoid keeping the key in version control. If you continue to see any suspicious API activity or have other concerns, please [contact our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support).
----
-
-SOURCE: https://support.claude.com/en/articles/8606378-how-do-i-use-the-workbench
-
-# How do I use the Workbench?
-
-We’ve recently updated Workbench. The new Workbench enables developers to try out Claude models and API features directly in the Claude Console, but no longer supports saving prompt history or evaluating prompts.
-
-**Workbench (legacy) is no longer available to new users and will be retired for all users on August 17, 2026**. If you're still using the legacy version, see the section below, **[How do I use Workbench (legacy)?](#h_b659fc7faa)**, and if there are prompts, completions, or evals you wish to retain, **consider exporting your data before August 17, 2026.**
-
-## What is Workbench?
-
-Workbench is built directly on the public **[Messages API](https://platform.claude.com/docs/en/build-with-claude/working-with-messages)**, so the request you build in Workbench is the same request you'll send in your code.
-
-Use it to:
-
-- Try a model or a new API feature before you write any code
-
-- Iterate on a prompt and inspect the full response
-
-- Learn how API requests and responses are structured
-
-- Export your work as a code snippet you can run in your own application
-
-Workbench doesn't store your prompts or conversations on Anthropic's servers. Your current draft stays in your browser, and you can go to the "code" tab to keep a copy of any request.
-
-## Open Workbench
-
-1. Log in to the **[Claude Console](https://platform.claude.com/)**.
-
-2. Select "Workbench" in the navigation.
-
-3. If your organization uses workspaces, choose the workspace you want to work in.
-
-## Write and run a request
-
-1. Enter a user message in the prompt area. You can also add a system prompt to set instructions or context.
-
-2. Click "Run" to send the request.
-
-3. Review Claude's response, along with the token counts and usage shown for the request.
-
-4. Edit your prompt and run it again to keep iterating.
-
-Workbench also includes example templates you can load and modify.
-
-## Choose a model and adjust settings
-
-Use the model selector to switch between Claude models, and open the model settings to adjust parameters like temperature and maximum output tokens.
-
-Running the same prompt with different models or settings is a quick way to see how the response changes. As you think about building your application with the Messages API, use the workbench to understand the power of the models.
-
-## Use tools and structured outputs
-
-Add tool definitions to your request to test tool use, and use structured outputs to have Claude return data in a shape you define. Workbench shows tool calls and tool results in the response, so you can see exactly how they're represented in the API.
-
-## View the raw request and response
-
-Workbench can show the raw API request and response, including the full message structure, stop reason, and usage. This is the same shape your application sends and receives and is a practical way to try out the features of the Messages API.
-
-## Turn your work into code
-
-Click the "code" toggle to export your current request as a code snippet. The snippet reflects exactly what you've tested in the Workbench, so you can paste it into your project and run it with your own API key.
-
-Code examples in our documentation include an "Open in Workbench" option, which loads the example into Workbench so you can run and modify it.
-
----
-
-## How do I use Workbench (legacy)?
-
-**Note: Workbench (legacy) is no longer available to new users and will be retired for all users on August 17, 2026.** After this date, Workbench (legacy) and any saved prompts, prompt versions, and evals stored in it will no longer be accessible. Use the Export option to download your data before then.
-
-Workbench (legacy) allows you to create and test prompts within your Claude Console account. You can enter your prompt into the "Human" dialogue box and click "Run" to test Claude's output. Click on the + icon in the upper left to create a new prompt, or click on the bulleted list icon to see prompts you've tested in the past:
-
-
-
-Workbench (legacy) also allows you to configure several settings when prompting Claude. You can click on the slider icon to review your model settings. This allows you to select the model, temperature, and max tokens to sample:
-
-
-
-After crafting your prompt, click on the "Get code" button to generate a sample using our Python and Typescript SDKs:
-
-
-
-## How can I access my previous work and prompt history in Workbench (legacy)?
-
-You can access your previous Workbench prompts on your Console account by following these steps:
-
-1. Log in at platform.claude.com.
-
-2. Navigate to your [Workbench](https://platform.claude.com/workbench).
-
-3. Click the "List prompts" button on the upper left corner of the page, next to the "+" button to create a new prompt:
-
-
-
-4. A list of your previously-saved prompts will appear.
-
-5. You can use the search bar at the top of the prompt list if you're looking for something specific.
-
-**Important:** When you run a prompt on Workbench (legacy), Claude's response is not saved by default. You need to manually add responses from Claude to your current prompt on the Workbench by clicking "Add to Conversation" at the bottom of the output. If you aren't seeing something in your history that you were expecting, it's possible that it wasn't added to the conversation.
-
-## How do I export my data from Workbench (legacy)?
-
-1. Open **[Workbench (legacy)](https://platform.claude.com/workbench)** in the Claude Console.
-
-2. In the banner at the top of the page, select "Export data."
-
-3. In the **Export Workbench data** dialog, choose what to include alongside your prompts:
-
-  - **Model completions** — saved responses from past runs
-
-  - **Uploaded files** — images and PDFs attached to your prompts
-​
-​**Note:** Including either may significantly increase the export size.
-
-4. Select "Export." Your data is packaged as JSON, and we'll email you a download link when it's ready.
-
-Export your data before **August 17, 2026**. It will not be accessible after Workbench (legacy) is retired.
-
----
-
-## Frequently asked questions
-
-### What’s changing in Workbench?
-
-We’re refreshing Workbench to be a simpler, stateless way to try Claude models and API features in the Console. The main differences are that it now:
-
-- It doesn't store your work on Anthropic's servers. Your current draft stays in your browser, and you can export any request as code. With Workbench (legacy) you were able to save prompts, prompt history, and run evals.
-
-- It is built directly on the public Messages API and shows the full request and response, so what you see matches what your code sends and receives.
-
-- Saved prompts, prompt versions, evals, and prompt sharing aren't part of the refreshed Workbench. Use the export function in the legacy version to download your data.
-
-### Will Workbench (legacy) keep working for me right now?
-
-**Workbench (legacy) is no longer available to new users and will be retired for all users on August 17, 2026.** If you used Workbench (legacy) prior to **June 16, 2026**, you'll continue to have access until the retirement date and will see a banner in Workbench linking to the legacy version so you can export your data. Accounts that started using Workbench on or after June 16, 2026 do not have access to Workbench (legacy). After August 17, 2026, Workbench (legacy) will no longer be available to anyone.
-
-### What happens to my saved prompts and evals?
-
-They remain in Workbench (legacy) until it is retired on August 17, 2026. Use the Export option in Workbench (legacy) to download them before that date. The refreshed Workbench doesn't include saved prompts or evals, so keep your exported copies in your own tools, such as the repository where your application code lives.
-
-### How do I get access to my existing data from Workbench (legacy)?
-
-Your saved prompts and completions are available in Workbench (legacy) until August 17, 2026. You'll see an Export option in Workbench (legacy) that lets you download your saved prompts, prompt revisions, and completions. Export your data before the retirement date, as it will not be accessible afterward.
-
-### Can I import my Workbench (legacy) data into refreshed Workbench?
-
-No. The refreshed version of Workbench doesn't save prompts or conversations, so there's nothing to import into. The export gives you a copy of your Workbench data so you can keep it or move it into your own tools.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9767949-api-key-best-practices-keeping-your-keys-safe-and-secure

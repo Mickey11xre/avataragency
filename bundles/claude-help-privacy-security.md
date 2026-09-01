@@ -243,11 +243,15 @@ The claude.ai/security page runs a per-user check against your own connected Git
 
 - **Product price and cost** — Scans are charged at direct token cost only. There is no additional platform fee for Claude Security.
 
+- **Models** — Claude Security runs scans on Claude Mythos 5. Users receive findings without direct model access. Suggested patches open in Claude Code on the Web and can be implemented with whichever models are available in your account.
+
+- **Claude Security plugin for Claude Code** — The plugin uses whichever models you have access to in Claude Code. Only the Claude Security product at **[claude.ai/security](https://claude.ai/security)** runs scans on Claude Mythos 5.
+
 - **Scan length** — Scan time varies based on the repository and the agent's actions.
 
 - **Severity configuration** — as of today, severity is not configurable.
 
-- **Non-GitHub repositories** — Only repositories hosted on GitHub can be scanned today.
+- **Non-GitHub repositories** — Repositories hosted on **[GitHub.com](https://github.com)** and GitHub Enterprise Server can be scanned. Other hosting providers are not supported today.
 
 - **No Zero Data Retention (No ZDR)** — Anthropic may retain data where required by law or to address Usage Policy violations.
 
@@ -257,7 +261,7 @@ The claude.ai/security page runs a per-user check against your own connected Git
 
 - **Feedback** — Please share your feedback using the in-product feedback icon on the right.
 
-- **IP addresses for Github** — Use the following Anthropic guide for IP addresses allowlisting: **[IP addresses](https://platform.claude.com/docs/en/api/ip-addresses)**.
+- **IP addresses for Github** — Use the following Anthropic guide for IP addresses allowlisting: **[IP addresses](https://platform.claude.com/docs/en/api/ip-addresses)**. If you use GitHub Enterprise Server, your instance must allow inbound traffic from these IP addresses so Claude Security can reach your repositories.
 
 **Scope of use:** You will only use Claude Security to scan code that you or your company owns and to which you or your company holds all necessary rights to scan. You will not use Claude Security to scan code owned by or licensed from third parties, including but not limited to open source projects or repositories other than those included in your company's codebase(s).
 ---
@@ -286,7 +290,7 @@ Claude Mythos 5 represents a substantial increase in model capabilities, some of
 
 By default, no Anthropic personnel can read your retained conversations. Human review can occur only through a controlled access path—for example, when content is flagged by our automated trust and safety systems for potential harm. These reviews can only be performed by a small set of approved reviewers. Every instance of access is recorded in a tamper-proof log that reviewers cannot suppress or modify. After 30 days, the data is deleted automatically, except in the rare cases where it's been flagged by our automated trust and safety systems or we're legally required to keep it. Eligible organizations also have the option to add customer-managed encryption keys and access transparency audit logs.
 
-Anthropic maintains a documented information security program with technical and organizational measures that are designed to protect the security, confidentiality, and integrity of customer data. Our risk-based program is built for and evolves to defend against known and anticipated threat models and is tested regularly. For more information, see the **[technical white paper](https://trust.anthropic.com/resources?s=7ksqkied5hn0pocsj206m&name=[anthropic]-security-and-privacy-design-of-anthropic-data-retention-and-review)** in our Trust Center.
+Anthropic maintains a documented information security program with technical and organizational measures that are designed to protect the security, confidentiality, and integrity of customer data. Our risk-based program is built for and evolves to defend against known and anticipated threat models and is tested regularly.
 
 ## What, if anything, do I need to configure?
 
@@ -343,7 +347,7 @@ This is an area of law that's moving quickly. None of these are appellate decisi
 
 There are two questions worth separating: *what does Anthropic see*, and *what protections survive even when a vendor sees something*.
 
-On the first—our **[published security and privacy design](https://trust.anthropic.com)** describes the architecture in detail, but in short:
+On the first—our **[Trust Center](https://trust.anthropic.com/)** and our **[data retention practices article](https://support.claude.com/en/articles/15425996)** cover the details, but in short:
 
 - **We do not train on your content by default.** Under our commercial terms, **[by default](https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training)**, customer content from Claude for Work, the Claude Platform, and the API is not used to train our models.
 
@@ -353,7 +357,7 @@ On the first—our **[published security and privacy design](https://trust.anthr
 
 - **You can verify this.** Every human read is logged to a tamper-proof entry that customers with **[Access Transparency](https://platform.claude.com/docs/en/manage-claude/access-transparency)** can retrieve.
 
-- **Customer-managed encryption** is available for **[qualifying customers](https://trust.anthropic.com/resources?s=7ksqkied5hn0pocsj206m&name=%5Banthropic%5D-security-and-privacy-design-of-anthropic-data-retention-and-review)**, putting the encryption keys for the retention store in your own key management system (KMS)—though this controls key custody, not the narrow safety review above.
+- **Customer-managed encryption** is available for **[qualifying customers](https://platform.claude.com/docs/en/manage-claude/cmek)**, putting the encryption keys for the retention store in your own key management system (KMS)—though this controls key custody, not the narrow safety review above.
 
 - **In-tenancy options.** Claude is also available via AWS Bedrock and Google Cloud Vertex AI for organizations whose policy is that data stay within their own cloud environment. This changes where your data resides and whom you contract with; it does not by itself switch off the safety monitoring described above.
 
@@ -384,25 +388,23 @@ SOURCE: https://support.claude.com/en/articles/15926041-claude-for-teachers-your
 
 ## Overview
 
-**[Claude for Teachers](https://claude.com/solutions/teachers)** is designed for verified US K-12 educators. This offering includes free access to Claude Pro features, teaching skills built for lesson planning and differentiation, a connection to curriculum mapped to academic standards in all 50 states, and terms written for K-12: we don't train on your conversations, and student information is handled under a data processing agreement built around FERPA.
+**[Claude for Teachers](https://claude.com/solutions/teachers)** is free for verified US K-12 educators, whether you sign up as an individual teacher or your school or district sets up an organization for everyone. Qualifying teachers or organizations that sign up by June 30, 2027 get a full year of free access. This offering includes free access to Claude Pro features, teaching skills built for lesson planning and differentiation, a connection to curriculum mapped to academic standards in all 50 states, and terms written for K-12.
 
-This page explains the **[U.S. K-12 Terms of Service](https://www.anthropic.com/legal/k12-terms)** and the **[U.S. K-12 Data Processing Agreement](https://www.anthropic.com/legal/k12-dpa)**, which is part of those terms.
+This page explains the **[U.S. K-12 Terms of Service](https://www.anthropic.com/legal/k12-terms)**, **[US K-12 Public Sector Addendum](https://anthropic.com/legal/k12-addendum)**, and the **[U.S. K-12 Data Processing Agreement](https://www.anthropic.com/legal/k12-dpa)**.
 
 ## Who is this for?
 
-Claude for Teachers is for individual educators working in US K-12 schools:
+Claude for Teachers is for educators working in US K-12 schools and districts: classroom teachers, instructional coaches, specialists, interventionists, librarians, counselors, and other certificated staff.
 
-- Classroom teachers, in any subject and any grade from kindergarten through 12th
+It's available two ways:
 
-- Instructional coaches, specialists, and interventionists
+- **Individual educators** verify with a school email for free access, and accept the K-12 terms themselves.
 
-- Librarians, counselors, and other certificated staff
-
-You verify with a school email, and you **[use Claude for educational purposes](https://claude.com/solutions/teachers)**.
+- **Schools and districts** have an authorized administrator set up a free Claude Enterprise organization. Teachers join through district single sign-on, and the school or district accepts the K-12 terms once for everyone, including the DPA and, for public schools and districts, the Public Sector Addendum.
 
 ## What you get
 
-Claude for Teachers includes Claude Pro-level features, with Claude Code and Cowork. It also includes:
+Claude for Teachers includes Pro-level features, with Claude Code and Claude Cowork. It also includes:
 
 - **The Learning Commons connector**, which gives Claude academic standards in all 50 states, the prerequisite skills beneath them, and curriculum context
 
@@ -412,39 +414,69 @@ Claude for Teachers includes Claude Pro-level features, with Claude Code and Cow
 
 - **FERPA-aligned protections**
 
-**Important:** Claude for Teachers is not for students. It's an educator-only offering. If you're a student over 18 or using Claude outside your work as an educator, Claude.ai is governed by our Consumer Terms of Service instead.
+**Important:** Claude for Teachers is not for students. It's an educator-only offering. If you're a student over 18 or using Claude outside your work as an educator, Claude is governed by our Consumer Terms of Service instead.
 
-**Important:** If your school or district has a separate written agreement with Anthropic, that agreement governs your use of Claude, not these terms.
+**Important:** If your district has set up a Claude for Teachers organization, the K-12 terms your district accepted govern your use of Claude within that organization.
 
 ## K-12 privacy and terms
 
 ### We don't train on your conversations
 
-Anthropic will not train models on your Inputs or Outputs — anything you type, upload, or connect, and anything Claude sends back. You keep all rights to your Inputs. You own your Outputs.
+Anthropic will not use your inputs or outputs to train our models. You keep all rights to your Inputs. You own your Outputs.
 
-### Protecting your data
+### Protect your data
 
-When you create a Claude for Teachers account, you [or your organization] are the “Controller” of the data submitted. You control how the data is used, and may access or delete that data at any time. Anthropic acts as a “Processor” of the data on your behalf. We only process the data as instructed by you in order to provide the Claude service. See more information in our **[Privacy Center](https://privacy.claude.com/en/collections/10663361-commercial-customers)**.
+When you create a Claude for Teachers account, you are the “Controller” of the data submitted. You control how the data is used, and may access or delete that data at any time. Anthropic acts as a “Processor” of the data on your behalf. We only process the data as instructed by you in order to provide the Claude service. This means:
+
+- Student data stays under your (or your district's) control, and Anthropic uses it only to provide the service.
+
+- Anthropic doesn't sell or share student data, and doesn't use it for advertising, marketing, or to build a profile of a student.
+
+- Anthropic doesn't collect student data directly from students. Student accounts aren't part of Claude for Teachers.
+
+- Requests from students or parents about their information are forwarded to you or your district to handle, and Anthropic helps you respond.
+
+**Note:** Claude for Teachers provides a FERPA-configured setting to process student data. Whether and how identifiable student information may be used in Claude for Teachers is determined by your school or district's policies, not by Anthropic. If you're on an individual teacher account and have not received school or district authorization to make that decision, don't include identifiable student information in Claude for Teachers.
 
 ### Security
 
-AES-256 encryption at rest. TLS 1.2 or better in transit. Multi-factor authentication on every system holding your data, with access limited to staff who need it. Annual third-party audits and penetration testing. Certifications, including SOC 2, at our **[Trust Center](https://trust.anthropic.com/)**.
+AES-256 encryption at rest. TLS 1.2 or better in transit. Multi-factor authentication on every system holding your data, with access limited to staff who need it. Annual third-party audits and penetration testing. Certifications, including SOC 2, at our **[Trust Center](https://trust.anthropic.com/)**. Anthropic gives advance notice before adding a new subprocessor, with 15 days to object, and districts can audit Anthropic's controls once a year.
 
-### Deleting your data
+### Delete your data
 
 You control your conversations and can delete your chats anytime from your dashboard. More information on data deletion can be found here: **[Can you delete data that I sent via Team and Enterprise plans?](https://support.claude.com/en/articles/9796617-can-you-delete-data-that-i-sent-via-team-and-enterprise-plans)**
 
+Your district's admins can also delete any member's data through the Compliance API when district policy requires it. If your district leaves Claude, Anthropic returns your district's data on request and deletes its copies within 30 days, except where the law requires retention.
+
 ## About your Claude for Teachers account
 
-When you verify, your account moves onto a Claude for Teachers plan — a free Claude for Teams plan for verified educators. It comes with educator-specific terms and a data processing agreement, your chats and files aren't used to train our models, and student-data protections are built in. Your usage limits are higher than a standard free account — enough for everyday classroom work like lesson planning, quizzes, and parent communication.
+### Individual teacher accounts
 
-Some Team plan features are turned off for Claude for Teachers, because they assume an organization with more than one person in it and a bill to pay. You won't see billing and seat purchasing, **[member invitations and management](https://support.claude.com/en/articles/13133750-manage-members-on-team-and-enterprise-plans)**, roles and permissions, SSO and domain capture, spend controls, usage credits, or premium seats. For questions, **[reach out to our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+When you verify, your account moves onto a Claude for Teachers plan—a free Claude for Teams plan for verified educators. It comes with educator-specific terms and a data processing agreement, your chats and files aren't used to train our models, and student-data protections are built in. Your usage limits are higher than a standard free account—enough for everyday classroom work like lesson planning, quizzes, and parent communication.
+
+Some Team plan features are turned off for Claude for Teachers. You won't see billing and seat purchasing, **[member invitations and management](https://support.claude.com/en/articles/13133750-manage-members-on-team-and-enterprise-plans)**, roles and permissions, SSO and domain capture, spend controls, usage credits, or premium seats. For questions, **[reach out to our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+
+### School and district organizations
+
+When your school or district sets up Claude for Teachers, teachers are members of a **[Claude Enterprise organization](https://support.claude.com/en/articles/16559896)** that the district owns and manages.
+
+What's different from an individual Claude for K-12 Teachers account:
+
+- **One set of terms.** Your district accepts the K-12 terms and DPA once for everyone.
+
+- **District sign-in.** You sign in with your district login (single sign-on) rather than creating your own account. Once your district verifies its email domain, new personal Claude accounts can't be created with a district email address.
+
+- **Admin controls.** Your district's admins decide which features, models, and connectors you can use, and can manage members and roles.
+
+- **Admin access to content.** Your district's primary owner can turn on the Compliance API and use it to read or delete any member's chats, files, and projects.
+
+- **Same usage allowance.** You get the same rolling five-hour and weekly limits as an individual Claude for Teachers account.
+
+**Note:** Public schools, districts, and charter schools also accept the **[US K-12 Public Sector Addendum](https://anthropic.com/legal/k12-addendum)**, which adapts the terms for public entities—for example, your state's law governs, and arbitration and indemnification will not apply when prohibited by state law. It doesn't change how student data is handled, and it doesn’t apply to individual teacher accounts.
 
 ## Get started
 
-Teachers can verify and access **[Claude for Teachers](https://claude.com/solutions/teachers)** entirely for free. Sign up by June 30, 2027 for your full year of free access.
-
-**Note:** Claude for Teachers is for individual educators. Districts and schools that want to purchase Claude can continue doing so with **[Claude for Nonprofits program](https://claude.com/solutions/nonprofits)**.
+Teachers, schools, and districts can all get started for free at **[Claude for Teachers](https://claude.com/solutions/teachers)**. Sign up by June 30, 2027 for your full year of free access.
 ---
 
 SOURCE: https://support.claude.com/en/articles/7996862-how-do-i-view-and-sign-your-data-processing-addendum-dpa

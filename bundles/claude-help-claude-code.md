@@ -75,7 +75,7 @@ When you reach your usage limits, you can select from a few options based on you
 
 - **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to continue using Claude with your Pro plan after hitting the included usage limit.
 
-- You will have the flexibility to switch to **[pay-as-you-go usage](https://support.claude.com/en/articles/8114526-how-will-i-be-billed-for-claude-api-use)** with a Claude Console account for intensive coding sprints.
+- Switch to a Claude Console account and **[purchase API usage credits](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage)** for intensive coding sprints.
 
 - Wait until your usage limits reset.
 
@@ -85,7 +85,7 @@ When you reach your usage limits, you can select from a few options based on you
 
 - **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to continue using Claude with your Max plan after hitting the included usage limit.
 
-- You will have the flexibility to switch to **[pay-as-you-go usage](https://support.claude.com/en/articles/8114526-how-will-i-be-billed-for-claude-api-use)** with a Claude Console account for intensive coding sprints.
+- Switch to a Claude Console account and **[purchase API usage credits](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage)** for intensive coding sprints.
 
 - Wait until your usage limits reset.
 
@@ -1051,8 +1051,8 @@ Claude Enterprise adds rich analytics and audit logs (including contribution met
 | Disable --dangerously-skip-permissions   | ❌ No native UI\*                                                                                                                                                       | ✅ permissions.disableBypassPermissionsMode: disable                                                                                                                                                                                                                                                                                                          |
 | Disable auto mode                        | ❌ No native UI\*                                                                                                                                                       | ✅ disableAutoMode: disable                                                                                                                                                                                                                                                                                                                                   |
 | Custom roles (RBAC)                      | ❌                                                                                                                                                                      | ✅ Scope feature access by group and delegate specific admin areas like billing, user management, and identity without granting the Owner role. **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**                                                                        |
-| Model governance                         | ❌ No native UI\*                                                                                                                                                       | ✅ Set an organization default model for chat and Cowork (beta) from the admin console, and restrict Claude Code model selection with `availableModels` in managed settings. **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**                                       |
-| Audit logs                               | ❌ No audit log support<br>🟡 Claude Code does have support for **[OpenTelemetry](https://code.claude.com/docs/en/monitoring-usage)**                                    | 🟡 Audit logs and the **[Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**, which includes audit log events. Transcripts of local CLI sessions stay on the developer's machine and aren't available via the Compliance API.                                                                                        |
+| Model governance                         | ❌ No native UI\*                                                                                                                                                       | ✅ Set an organization default model for chat and Cowork from the admin console, and restrict Claude Code model selection with `availableModels` in managed settings. **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**                                              |
+| Audit logs                               | ❌ No audit log support<br>🟡 Claude Code does have support for **[OpenTelemetry](https://code.claude.com/docs/en/monitoring-usage)**                                    | 🟡 Audit logs and the **[Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**, which includes audit log events. Transcripts of local CLI and Desktop sessions are available through the Compliance API for Enterprise plans.                                                                                          |
 | Usage analytics                          | ✅ Lines of code written, acceptance rate, daily active users, daily spend.<br>**[Docs](https://code.claude.com/docs/en/analytics#access-analytics-for-api-customers)** | ✅ Lines of code written, acceptance rate, daily active users, and month-to-date spend per member in **Organization settings** → **Usage.**<br>**[Docs](https://code.claude.com/docs/en/analytics#access-analytics-for-teams-and-enterprise)**                                                                                                                |
 | Programmatic usage and cost reporting    | ✅ **[Claude Code Analytics API](https://platform.claude.com/docs/en/manage-claude/claude-code-analytics-api)**                                                         | ✅ The **[Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api)** returns per-user engagement and Claude Code metrics (commits, pull requests, lines of code) plus usage and cost endpoints. The **[Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api)** covers programmatic org management. |
 | Contribution metrics                     | ✅ Via the Claude Code Analytics API                                                                                                                                    | ✅ PRs created and lines of code committed with Claude Code assistance.                                                                                                                                                                                                                                                                                       |
@@ -1170,16 +1170,16 @@ Remove migrated developers from the Console org (or rotate their keys). Removal 
 
 Moving from Console API to Claude Enterprise unlocks richer analytics for Claude Code usage:
 
-| **Metric**                                          | **Console API**                                       | **Claude Enterprise**                                                                                                                                                                                                                           |
-| --------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Token consumption                                   | ✅                                                     | ✅                                                                                                                                                                                                                                               |
-| Lines of code accepted                              | ✅                                                     | ✅                                                                                                                                                                                                                                               |
-| Suggestion acceptance rate                          | ✅                                                     | ✅                                                                                                                                                                                                                                               |
-| PRs created with Claude Code assistance             | ✅ Via the Claude Code Analytics API                   | ✅                                                                                                                                                                                                                                               |
-| Lines of code committed with Claude Code assistance | ✅ Via the Claude Code Analytics API                   | ✅                                                                                                                                                                                                                                               |
-| Spend limit notifications                           | ✅ Notify-at-limit emails with configurable recipients | ✅<br>Threshold alerts                                                                                                                                                                                                                           |
-| Month-to-date spend per member                      | ❌                                                     | ✅<br>Admin settings → Usage                                                                                                                                                                                                                     |
-| Compliance audit trail                              | ❌                                                     | ✅ The **[Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)** includes audit log events. Transcripts of local CLI sessions stay on the developer's machine and aren't available via the Compliance API. |
+| **Metric**                                          | **Console API**                                       | **Claude Enterprise**                                                                                                                                                                                                                         |
+| --------------------------------------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Token consumption                                   | ✅                                                     | ✅                                                                                                                                                                                                                                             |
+| Lines of code accepted                              | ✅                                                     | ✅                                                                                                                                                                                                                                             |
+| Suggestion acceptance rate                          | ✅                                                     | ✅                                                                                                                                                                                                                                             |
+| PRs created with Claude Code assistance             | ✅ Via the Claude Code Analytics API                   | ✅                                                                                                                                                                                                                                             |
+| Lines of code committed with Claude Code assistance | ✅ Via the Claude Code Analytics API                   | ✅                                                                                                                                                                                                                                             |
+| Spend limit notifications                           | ✅ Notify-at-limit emails with configurable recipients | ✅<br>Threshold alerts                                                                                                                                                                                                                         |
+| Month-to-date spend per member                      | ❌                                                     | ✅<br>Admin settings → Usage                                                                                                                                                                                                                   |
+| Compliance audit trail                              | ❌                                                     | ✅ The **[Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)** includes audit log events. Transcripts of local CLI and Desktop sessions are available through the Compliance API for Enterprise plans. |
 
 All reporting is accessible from **[Analytics](https://claude.ai/analytics/activity)** in the Claude admin panel. For programmatic access, the **[Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api)** returns per-user engagement metrics, Claude Code activity (commits, pull requests, lines of code), and usage and cost data. Analytics do not migrate: the Enterprise organization starts with fresh reporting history, and its Analytics/Admin API requires a new API key created in the Enterprise organization — Console keys don't carry over. Export any Console analytics you need for historical dashboards before cutover. Traffic that remains on Console API keys (for example CI) continues to appear only in Console reporting.
 
@@ -1291,7 +1291,7 @@ The steps below cover setup for repositories on github.com. If your repositories
 
 Owners and Primary Owners of Team and Enterprise plans can enable Code Review once for the organization and select which repositories to include. In addition to an owner role within your Claude organization, you’ll need permission to install GitHub Apps in your GitHub organization.
 
-1. Go to **[Organization settings > Claude Code](http://claude.ai/admin-settings/claude-code)** and find the **Code Review** section.
+1. Go to **[Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code)** and find the **Code Review** section.
 
 2. Click “Configure” to begin the GitHub App installation flow.
 
@@ -1832,18 +1832,18 @@ Type `/` on an empty prompt to see every command available in your setup, includ
 
 ## Keyboard shortcuts
 
-| **Key**         | **Action**                                                                                                                                                              |
-| --------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Shift + Tab** | Cycle permission mode: `default → acceptEdits → plan`. Also includes auto after running `claude --enable-auto-mode`, and `bypassPermissions` when that mode is enabled. |
-| **Esc**         | Interrupt Claude mid-response so you can type again.                                                                                                                    |
-| **Esc, Esc**    | Open the rewind/checkpoint menu to roll back to an earlier point in the session.                                                                                        |
-| **Ctrl + C**    | Cancel the current input, or exit on an empty prompt.                                                                                                                   |
-| **Ctrl + R**    | Reverse search through your prompt history.                                                                                                                             |
-| **Ctrl + O**    | Expand to the verbose, full transcript view.                                                                                                                            |
-| **↑ / ↓**       | Scroll through your prompt history.                                                                                                                                     |
-| **`@` + path**  | Reference a file or directory in your prompt.                                                                                                                           |
-| **`/`**         | Open the command menu.                                                                                                                                                  |
-| **`?`**         | Show shortcuts for your current terminal or IDE.                                                                                                                        |
+| **Key**         | **Action**                                                                                                                |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------- |
+| **Shift + Tab** | Cycle permission mode: `auto → manual → acceptEdits → plan`. Also includes `bypassPermissions` when that mode is enabled. |
+| **Esc**         | Interrupt Claude mid-response so you can type again.                                                                      |
+| **Esc, Esc**    | Open the rewind/checkpoint menu to roll back to an earlier point in the session.                                          |
+| **Ctrl + C**    | Cancel the current input, or exit on an empty prompt.                                                                     |
+| **Ctrl + R**    | Reverse search through your prompt history.                                                                               |
+| **Ctrl + O**    | Expand to the verbose, full transcript view.                                                                              |
+| **↑ / ↓**       | Scroll through your prompt history.                                                                                       |
+| **`@` + path**  | Reference a file or directory in your prompt.                                                                             |
+| **`/`**         | Open the command menu.                                                                                                    |
+| **`?`**         | Show shortcuts for your current terminal or IDE.                                                                          |
 
 Shortcuts vary slightly by terminal and IDE. Press **`?`** inside a session for the exact list in your environment.
 ---
@@ -2063,7 +2063,7 @@ These are power-user patterns collected from individual engineers on the Claude 
 
 - The iMessage plugin ships in the official claude-plugins-official marketplace. Community plugins (for example the “ralph-wiggum” plugin) are not reviewed or sanctioned by Anthropic — check with your administrator before installing third-party plugins in a managed environment.
 
-- Some capabilities—auto mode, sandboxing, remote control, scheduled cloud jobs, voice—are **off by default** and may be disabled by your organization's policy. If a command or flag here returns "not available," your admin has likely not enabled it for your workspace.
+- Some capabilities—sandboxing, remote control, scheduled cloud jobs, voice—are **off by default** and may be disabled by your organization's policy. If a command or flag here returns "not available," your admin has likely not enabled it for your workspace.
 
 Everything else in this guide works on a stock Claude Code install. When in doubt, run `/help` to see what is actually available in your session.
 
@@ -2122,7 +2122,7 @@ Then prompt naturally: *“Migrate all sync IO to async. Batch the changes and l
 The `/batch` command interviews you about a migration, then fans the work out to as many worktree agents as needed — dozens, hundreds, or more. Each agent works in isolation, tests its own changes, and creates a PR independently.
 
 ```
-> /batch migrate src/ from Solid to React
+> /batch migrate src/ from JavaScript to TypeScript
 ```
 
 ---
@@ -2331,7 +2331,7 @@ Claude Code’s permission system layers prompt-injection detection, static anal
 
 ### Auto mode
 
-Auto mode lets Claude make permission decisions on your behalf. Classifiers evaluate each action before it runs — safe operations get auto-approved, risky ones still get flagged. Enable it with `claude --enable-auto-mode`; once enabled, **Shift+Tab** cycles `default → acceptEdits → plan → auto` during a session. Without that flag, the cycle is `default → acceptEdits → plan`.
+Auto mode lets Claude make permission decisions on your behalf. Classifiers evaluate each action before it runs — safe operations get auto-approved, risky ones still get flagged. You can switch permission modes at any time during a session using **Shift+Tab**.
 
 ### Sandboxing
 
@@ -2573,34 +2573,34 @@ Reference: **[Setup: updates](https://code.claude.com/docs/en/setup)**          
 
 ## 2. Day-to-day use
 
-| **Question**                                             | **Answer**                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Question**                                             | **Answer**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **2.1 It keeps asking permission for the same commands** | Approvals last for the current session by default. To make them persist:
 • Pick “always allow” at the prompt
 • Add the pattern to `permissions.allow` in `.claude/settings.json`
 • Or run `/permissions` to manage interactively<br>
-Reference: **[Permissions](https://code.claude.com/docs/en/permissions)**                                                                                                                                                                |
-| **2.2 Permission modes and how to switch**               | Press **Shift+Tab** to cycle modes:<br>     **default** · asks before risky edits or commands<br>**acceptEdits** · file edits go through; still asks before running commands<br>**plan** · read-only; proposes a plan and waits for approval<br>**auto** · auto-approves with a background safety check. Requires your org to enable it *and* you to opt in with claude --enable-auto-mode.<br>
+Reference: **[Permissions](https://code.claude.com/docs/en/permissions)**                                                                                                                                                                           |
+| **2.2 Permission modes and how to switch**               | Press **Shift+Tab** to cycle modes:<br>     **auto** · auto-approves with a background safety check. Available unless your organization has turned it off in managed settings, on supported models.<br>**manual** · asks before risky edits or commands<br>**acceptEdits** · file edits go through; still asks before running commands<br>**plan** · read-only; proposes a plan and waits for approval<br>
 Reference: **[Permission modes](https://code.claude.com/docs/en/permission-modes)** |
 | **2.3 What is /init and when do I run it?**              | Run it once, early, in any repo you’ll work in more than once. It scans the project and writes `CLAUDE.md` with build commands, architecture, and conventions. Every future session loads it automatically, so Claude starts with context.<br>
-Reference: **[Memory and CLAUDE.md](https://code.claude.com/docs/en/memory)**                                                                                                                                                        |
+Reference: **[Memory and CLAUDE.md](https://code.claude.com/docs/en/memory)**                                                                                                                                                                   |
 | **2.4 What goes in CLAUDE.md?**                          | Things tooling can’t enforce that a new teammate would get wrong on day one: “deploy from `release`, not `main`”, “all IDs are strings”, “never call the DB directly from a route handler.” Keep it under two screens; longer gets skimmed.<br>
-Reference: **[Memory and CLAUDE.md](https://code.claude.com/docs/en/memory)**                                                                                                                                                       |
+Reference: **[Memory and CLAUDE.md](https://code.claude.com/docs/en/memory)**                                                                                                                                                                  |
 | **2.5 Claude isn’t following my CLAUDE.md**              | • Too long or too vague: trim to the rules that actually matter
 • Buried in prose: put hard rules near the top, use imperative language (“Never X. Always Y.”)<br>
-Reference: **[Best practices](https://code.claude.com/docs/en/best-practices)**                                                                                                                                                                                                                                |
+Reference: **[Best practices](https://code.claude.com/docs/en/best-practices)**                                                                                                                                                                                                                                           |
 | **2.6 Point it at a specific file without pasting it**   | Type `@` then the path (tab-completes). The mentioned file is read before Claude responds.<br>
-Reference: **[Common workflows](https://code.claude.com/docs/en/common-workflows)**                                                                                                                                                                                                                                                                                                  |
+Reference: **[Common workflows](https://code.claude.com/docs/en/common-workflows)**                                                                                                                                                                                                                                                                                                             |
 | **2.7 Paste a screenshot into the prompt**               | Drag the image into the terminal, or press **Ctrl+V**. On Mac that’s Ctrl, not Cmd (Cmd+V pastes text). Works for error dialogs, UI mockups, whiteboard photos.<br>
-Reference: **[Working with images](https://code.claude.com/docs/en/common-workflows#work-with-images)**                                                                                                                                                                                                         |
-| **2.8 Copy Claude’s response out of the terminal**       | `/copy` puts the last response on your clipboard. `/export` writes the whole conversation to a file.                                                                                                                                                                                                                                                                                                                                                                                  |
+Reference: **[Working with images](https://code.claude.com/docs/en/common-workflows#work-with-images)**                                                                                                                                                                                                                    |
+| **2.8 Copy Claude’s response out of the terminal**       | `/copy` puts the last response on your clipboard. `/export` writes the whole conversation to a file.                                                                                                                                                                                                                                                                                                                                                                                             |
 | **2.9 Get a previous session back**                      | `claude --continue` resumes the most recent one. `claude --resume` opens a list to pick from. Sessions are stored locally per project directory.<br>
-Reference: **[Common workflows: resume](https://code.claude.com/docs/en/common-workflows#resume-previous-conversations)**                                                                                                                                                                                                      |
+Reference: **[Common workflows: resume](https://code.claude.com/docs/en/common-workflows#resume-previous-conversations)**                                                                                                                                                                                                                 |
 | **2.10 Switch models**                                   | `/model` opens the picker. Set a default in `.claude/settings.json` if you want the same model every session.<br>
-Reference: **[Model configuration](https://code.claude.com/docs/en/model-config)**                                                                                                                                                                                                                                                                                |
+Reference: **[Model configuration](https://code.claude.com/docs/en/model-config)**                                                                                                                                                                                                                                                                                           |
 | **2.11 Extended thinking**                               | On by default. The reasoning itself is hidden in the normal view; press **Ctrl+O** to switch to the verbose transcript if you want to read it. Use `/effort` to dial depth up or down. Worth the extra latency for tricky debugging or architecture calls.<br>
-Reference: **[Extended thinking](https://code.claude.com/docs/en/common-workflows#use-extended-thinking-thinking-mode)**                                                                                             |
-| **2.12 Stop it mid-task**                                | Press **Ctrl+C** to cancel the current generation, then tell it what to do instead. No need to start the conversation over.                                                                                                                                                                                                                                                                                                                                                           |
+Reference: **[Extended thinking](https://code.claude.com/docs/en/common-workflows#use-extended-thinking-thinking-mode)**                                                                                                        |
+| **2.12 Stop it mid-task**                                | Press **Ctrl+C** to cancel the current generation, then tell it what to do instead. No need to start the conversation over.                                                                                                                                                                                                                                                                                                                                                                      |
 
 ---
 
@@ -3241,7 +3241,7 @@ Once a credit is issued:
 
 ## Track activations in your organization
 
-Admins can see who’s eligible by going to the **[usage page in organization settings](http://claude.ai/admin-settings/usage)** or:
+Admins can see who’s eligible by going to the **[usage page in organization settings](https://claude.ai/admin-settings/usage)** or:
 
 - For Claude Code, go to **[Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code)**
 

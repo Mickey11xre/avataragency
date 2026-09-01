@@ -27,7 +27,7 @@ Claude Desktop is available on macOS, Windows, and Linux (beta). What you can do
 
 ## Installation steps for mac OS and Windows
 
-1. Visit the **[Claude downloads page](http://claude.ai/download)**.
+1. Visit the **[Claude downloads page](https://claude.ai/download)**.
 
 2. Select the appropriate version for your operating system:
 
@@ -70,7 +70,7 @@ The app doesn't update itself. Updates arrive with your system's regular package
 
 If you can’t install Claude Desktop using apt, you can install it by downloading a .deb file instead:
 
-1. Visit the **[Claude downloads page](http://claude.ai/download)**.
+1. Visit the **[Claude downloads page](https://claude.ai/download)**.
 
 2. Find the .deb for your architecture (x64 or arm64) and click "Download."
 
@@ -657,7 +657,7 @@ With your permission, Claude can read the following types of data from Apple Hea
 
 - **Nutrition:** Calories consumed, macronutrients, water intake, and micronutrients (if tracked).
 
-**Note:** Our **[memory feature](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context#h_c1c0b33879)** is designed to prevent Claude from using sensitive health information in future conversations.
+**Note:** By default, Claude doesn't save health information to memory. If you turn on **Include sensitive topics in memory**, Claude may remember health-related context from your conversations. Learn more about **[sensitive topics in memory](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_6fe1d0e66f)**.
 
 ### How to use health features
 
@@ -940,7 +940,7 @@ With your permission, Claude can read the following types of data from Health Co
 
 - **Nutrition:** Calories consumed, macronutrients, hydration, and micronutrients (if tracked)
 
-**Note:** Our **[memory feature](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context#h_c1c0b33879)** is designed to prevent Claude from using sensitive health information in future conversations.
+**Note:** By default, Claude doesn't save health information to memory. If you turn on **Include sensitive topics in memory**, Claude may remember health-related context from your conversations. Learn more about **[sensitive topics in memory](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_6fe1d0e66f)**.
 
 ### How to use health features
 
@@ -1270,17 +1270,18 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Claude" -Name "isClaudeCodeForDe
 
 ## Enterprise policy options
 
-| **Key**                              | **Type**        | **Default**  | **Description**                                                                                                                                                                                                                                                                                                   |
-| ------------------------------------ | --------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `allowedWorkspaceFolders`            | string[] (JSON) | Unrestricted | Filepath or filepaths the user can mount to Cowork                                                                                                                                                                                                                                                                |
-| `autoUpdaterEnforcementHours`        | Integer (1-72)  | 72           | Hours before forcefully restarting Claude to apply a prepared update                                                                                                                                                                                                                                              |
-| `disableAutoUpdates`                 | Boolean         | false        | Disable automatic updates. Set this when your MDM manages Claude Desktop versions; leave unset to let the app self-update after a one-time provisioned install. See **[Deploy Claude Desktop for Windows](https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows)**.                   |
-| `forceLoginOrgUUID`                  | string / array  | null         | Require login to belong to a specific organization. Accepts a single UUID string, which also pre-selects that organization during login, or an array of UUIDs where any listed organization is accepted without pre-selection. Login fails if the authenticated account does not belong to a listed organization. |
-| `isClaudeCodeForDesktopEnabled`      | Boolean         | true         | Enable Claude code access in desktop                                                                                                                                                                                                                                                                              |
-| `isDesktopExtensionEnabled`          | Boolean         | true         | Enable/disable extensions                                                                                                                                                                                                                                                                                         |
-| `isDesktopExtensionDirectoryEnabled` | Boolean         | true         | Enable extension directory access                                                                                                                                                                                                                                                                                 |
-| `isLocalDevMcpEnabled`               | Boolean         | true         | Enable local MCP servers                                                                                                                                                                                                                                                                                          |
-| `secureVmFeaturesEnabled`            | Boolean         | true         | Enable **[Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)** access in desktop                                                                                                                                                                                                |
+| **Key**                              | **Type**        | **Default**  | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ------------------------------------ | --------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `allowedWorkspaceFolders`            | string[] (JSON) | Unrestricted | Filepath or filepaths the user can mount to Cowork                                                                                                                                                                                                                                                                                                                                                                               |
+| `autoUpdaterEnforcementHours`        | Integer (1-72)  | 72           | Hours before forcefully restarting Claude to apply a prepared update                                                                                                                                                                                                                                                                                                                                                             |
+| `disableAutoUpdates`                 | Boolean         | false        | Disable automatic updates. Set this when your MDM manages Claude Desktop versions; leave unset to let the app self-update after a one-time provisioned install. See **[Deploy Claude Desktop for Windows](https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows)**.                                                                                                                                  |
+| `effortLevel`                        | string          | null         | Sets the default effort level (`low`, `medium`, `high`, `xhigh`, or `max`) for Claude Code sessions in Claude Desktop. The managed value applies fresh at the start of every session, even if someone changed the effort level from the picker in an earlier session. Requires Claude Desktop version 1.25927.0 or later. Doesn't apply to Cowork sessions in Claude Desktop, which don't read Claude Code managed settings.<br> |
+| `forceLoginOrgUUID`                  | string / array  | null         | Require login to belong to a specific organization. Accepts a single UUID string, which also pre-selects that organization during login, or an array of UUIDs where any listed organization is accepted without pre-selection. Login fails if the authenticated account does not belong to a listed organization.                                                                                                                |
+| `isClaudeCodeForDesktopEnabled`      | Boolean         | true         | Enable Claude code access in desktop                                                                                                                                                                                                                                                                                                                                                                                             |
+| `isDesktopExtensionEnabled`          | Boolean         | true         | Enable/disable extensions                                                                                                                                                                                                                                                                                                                                                                                                        |
+| `isDesktopExtensionDirectoryEnabled` | Boolean         | true         | Enable extension directory access                                                                                                                                                                                                                                                                                                                                                                                                |
+| `isLocalDevMcpEnabled`               | Boolean         | true         | Enable local MCP servers                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `secureVmFeaturesEnabled`            | Boolean         | true         | Enable **[Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)** access in desktop                                                                                                                                                                                                                                                                                                               |
 ---
 
 SOURCE: https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows

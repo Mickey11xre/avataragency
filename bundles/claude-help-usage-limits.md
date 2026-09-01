@@ -416,6 +416,89 @@ Check the date shown on the result. The underlying data typically lags by one to
 Confirm your organization is on the Enterprise plan and that your account has access to the analytics dashboard. If you’re an admin and still don’t see it, contact your Anthropic account team.
 ---
 
+SOURCE: https://support.claude.com/en/articles/16266773-how-claude-marks-ai-generated-content
+
+# How Claude marks AI-generated content
+
+Anthropic has signed the EU AI Act's Article 50(2) Code of Practice on Transparency of AI-Generated Content, as a provider of both generative AI models and generative AI systems. This article describes how we’re planning to put those commitments into practice, how marking works, and what its limitations are. We’ll update this article and publish more detailed technical guidance as it becomes available.
+
+**Anthropic’s commitments under the EU AI Act’s Code of Practice on Transparency of AI-Generated Content**
+
+What our marking commitments mean for Claude:
+
+- **New models will mark AI-generated content from day one.** Claude models launched in the EU on or after August 2, 2026 will support machine-readable marking at launch. Generated text will carry embedded watermarks, and generated files will include digitally signed provenance metadata where supported.
+
+- **Marking works everywhere you use Claude.** Marks will apply to output from supported Claude models across Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag, and wherever Claude is offered, worldwide. Some platforms or features may not support certain marking types.
+
+- **We'll help you detect Claude's marks.** We'll support users and other third parties to detect Claude’s marks, as the Code requires, and we’ll share details in forthcoming documentation.
+
+- **Existing models are in progress.** The law includes a transition period for Anthropic models launched before August 2, 2026, and we’re working to add marking support for those models as well.
+
+More details about our marking plans are below.
+
+---
+
+## Machine-readable marks in Claude-generated content
+
+As AI-generated content becomes commonplace, greater transparency and signals about where content comes from can give people useful context about the information they consume. To support transparency and comply with our legal obligations, Anthropic is working to include machine-readable marks in content that Claude generates.
+
+### What’s covered
+
+- **Models.** Claude models launched on or after August 2, 2026 support marking at launch. We’re also working to add marking support to Claude models released before that date, and we’ll update this article as that becomes available.
+
+- **Products.** Claude markings cover output from supported models everywhere you use Claude, including Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag. Embedded watermarks will apply to all generated text. Provenance metadata will apply where Claude supports processing files.
+
+- **Cloud partners.** Embedded watermarks will apply when supported Claude models are accessed through AWS, Google Cloud, or Microsoft Foundry. Signed provenance metadata may not be supported on every platform, depending on the features each platform offers.
+
+- **Regions.** Marking will apply to output from supported models wherever Claude is offered, worldwide.
+
+## How Claude marks content
+
+Claude uses two complementary techniques to mark content generated and processed by Claude: (1) watermarks embedded in text, and (2) signed provenance metadata attached to files.
+
+### 1. Embedded watermarks in text
+
+When a supported Claude model generates text, it weaves an imperceptible watermark directly into the text itself. You won’t see it, and it doesn’t change the meaning, quality, or readability of Claude’s response.
+
+Because the watermark is part of the text, it will travel with the text when it’s copied and pasted elsewhere, and may persist through some editing. Watermarking will be applied at the model level, which means it will be present no matter which Claude product or surface the text comes from.
+
+### 2. Signed provenance metadata
+
+When Claude generates a supported file type, such as a .svg, .png, or .jpg, it will attach signed provenance metadata. This metadata follows the Coalition for Content Provenance and Authenticity (C2PA) open standard, which is used across the industry to record information about content provenance. If a signed metadata label is present, it signals that a file was processed by Claude and lets you detect whether the file has been tampered with.
+
+## Detecting Claude’s marks
+
+We’re also working to enable users and other third parties to detect Claude’s embedded watermarks and provenance metadata. Detection checks whether a piece of text or a file carries a supported Claude mark. If a supported mark is found, it indicates that the content may have been processed by Claude.
+
+We’ll share details on detection mechanisms in forthcoming technical documentation.
+
+## Limitations
+
+Machine-readable marks provide important signals about content, but it’s worth understanding their limitations across all content types.
+
+- **A detected mark provides a signal that content was processed by Claude, but is not fully conclusive.** Detecting a Claude mark tells you that the content may have been processed by Claude. It does not, on its own, confirm the full provenance of the content. For example:
+
+  - Claude may not be the original author. People often use Claude to proofread, translate, summarize, or convert files. The output can carry a Claude mark even if the underlying ideas, text, or data originated from another source;
+
+  - The content may have changed after Claude processed it. Marked content may be modified, excerpted, or combined with other material after Claude processed it.
+
+- **Lack of a detected mark doesn’t mean the content wasn’t AI-generated or processed.** Content generated by Claude may not carry a detectable mark if, for example:
+
+  - It was generated by a model released before marking was supported;
+
+  - The text has been heavily edited, paraphrased, translated, or mixed into other writing;
+
+  - The passage is very short, leaving too little text for a reliable signal;
+
+  - A file’s metadata was stripped through format conversion, re-saving, screenshots, or other means;
+
+  - It was produced through a platform, feature, or file type where a particular marking type wasn’t supported.
+
+## If you build with Claude
+
+If you deploy Claude in your own product, you should independently assess what Article 50 requires of your products and services. Consistent with our commitments under the EU Code, our goal is to support you in meeting your own transparency obligations, and we'll share technical guidance on our marking and detection approach as it becomes available.
+---
+
 SOURCE: https://support.claude.com/en/articles/8114527-i-m-encountering-429-errors-and-i-m-worried-my-rate-limit-is-too-low-what-should-i-do
 
 # I’m encountering 429 errors, and I’m worried my rate limit is too low. What should I do?
@@ -452,27 +535,63 @@ SOURCE: https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claud
 
 # How do I pay for my Claude API usage?
 
-Claude API and Workbench usage is billed via prepaid "usage credits." Credits must be purchased prior to using the API, and your credits will be applied to your usage according to our current **[pricing](https://claude.com/pricing#api)**. These credits can be used for API access, Workbench usage, and Claude Code. Failed requests are not charged, and you will only be billed for successful API calls and completed tasks.
+This article explains how billing works for the Claude API, the playground, and Claude Code when you use them through a Claude Console account. Most organizations pay with prepaid usage credits. Organizations with an invoicing arrangement are billed monthly instead.
 
-You can track credit usage in your **[Claude Console settings on the Billing page](https://platform.claude.com/settings/billing)**. If you run out of credits, you will no longer be able to call the API or use Workbench. You can choose to set up an auto-reload that purchases additional credits when your balance falls below a set limit.
+## Prepaid usage credits
 
-To add usage credits and adjust your auto-reload settings, navigate to your Billing page. Click on the “Buy credits” button, and enter in the amount of credits you would like to purchase. After you’ve purchased your credits, they will be immediately available to you.
+Claude API and playground usage is billed through prepaid usage credits. Buy credits before you use the API, and they're applied to your usage according to our current **[pricing](https://claude.com/pricing#api)**. Credits cover API access, playground usage, and Claude Code.
 
-You can also view your organization's available credit balance in your **[Claude Console settings on the Billing page](https://platform.claude.com/settings/billing)**.
+You're billed only for successful API calls and completed tasks. Failed requests aren't charged.
 
-To adjust your auto-reload options, click on “Edit” in the auto-reload section. You can toggle auto-reload on or off here. If choosing to use auto-reload, you can set the minimum account balance, and the amount to reload to if your account reaches that minimum balance.
+**Note:** If your client disconnects or times out in the middle of a request that was on track to succeed, that request is still charged.
 
-Please note that purchased credits are subject to our **[Credit Terms](https://www.anthropic.com/legal/credit-terms)**. Credits expire one year from the purchase date, and this expiration date cannot be extended. Expired credits will appear in your **[Console billing settings](https://platform.claude.com/settings/billing)** under **Invoice history**. All credit purchases are non-refundable.
+If you run out of credits, you can no longer call the API or use the playground until you add more.
 
-Learn more about credit usage and how it relates to usage limits in our **[Claude API docs](https://platform.claude.com/docs/en/api/rate-limits)**.
+## Buy credits
 
-## How to update your Console payment method
-
-1. Log in to your Console account with an Admin or Billing role.
+1. Log in to the Console with an Admin or Billing role.
 
 2. Navigate to **[Settings > Billing](https://platform.claude.com/settings/billing)**.
 
-3. Click the pencil icon next to your current payment method to update your card information.
+3. Click "Buy credits."
+
+4. Enter the amount of credits you want to purchase and confirm.
+
+Purchased credits are available immediately. Your organization's available credit balance and credit usage are shown on the same **Billing** page.
+
+## Set up auto-reload
+
+Auto-reload purchases additional credits automatically when your balance falls below a threshold you set.
+
+1. On the **Billing** page, click "Edit" in the **Auto-reload** section.
+
+2. Toggle auto-reload on or off.
+
+3. If auto-reload is on, set the minimum balance that triggers a purchase and the amount to reload to.
+
+## Credit expiration and refunds
+
+Purchased credits are subject to our **[Credit Terms](https://www.anthropic.com/legal/credit-terms)**. Credits expire one year from the purchase date, and the expiration date can't be extended. Expired credits appear in your **Invoice history** on the Billing page. All credit purchases are non-refundable.
+
+Learn more about how credit usage relates to rate limits in the **[Claude API docs](https://platform.claude.com/docs/en/api/rate-limits)**.
+
+## Monthly invoicing
+
+Some organizations are billed monthly in arrears instead of buying credits upfront. This applies to Console organizations with an invoicing arrangement set up through our Sales team.
+
+On monthly invoicing, we aggregate your usage across API calls, Console usage, and any other services associated with your account, and bill it at our standard **[pay-as-you-go pricing](https://claude.com/pricing#api)**. At the end of each calendar month, you'll receive an invoice from Stripe. Enter your payment details in Stripe to pay it.
+
+You can view charges for the current billing period on the **[Billing](https://platform.claude.com/settings/billing)** page in your Console settings.
+
+If you need custom rate limits, monthly invoicing, or hands-on support, **[contact our Sales team](https://claude.com/contact-sales)**.
+
+## Update your Console payment method
+
+1. Log in to the Console with an Admin or Billing role.
+
+2. Navigate to **[Settings > Billing](https://platform.claude.com/settings/billing)**.
+
+3. Click the pencil icon next to your current payment method.
 
 4. Enter your new card details in the **Update payment method** modal, then click "Update."
 ---

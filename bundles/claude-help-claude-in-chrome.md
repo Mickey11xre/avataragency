@@ -5,17 +5,19 @@ SOURCE: https://support.claude.com/en/articles/12012173-get-started-with-claude-
 
 # Get started with Claude in Chrome
 
-Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's generally available in Claude Cowork and Claude Code, and in beta in the Chrome browser.
-
 Claude in Chrome is a browser extension that allows Claude to read, click, and navigate websites alongside you. You can launch Claude in Chrome tasks from the side panel in your Chrome browser, or through Claude Cowork or Claude Code.
 
-**Important:** Claude in Chrome allows Claude to interact directly with websites on your behalf. Claude in Chrome is now enhanced with our safety classifiers but is still risky. Please review **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely)** before use.
+Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's available in Claude Cowork and Claude Code, and in beta in the Chrome side panel. On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans. On Enterprise plans, the side panel runs as a Cowork session once your admin has enabled Cowork in the cloud; until then, it uses the classic experience.
+
+**Important:** Claude in Chrome allows Claude to interact directly with websites on your behalf. Claude in Chrome is enhanced with our safety classifiers but is still risky. Please review **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely)** before use.
+
+---
 
 ## Where you can use Claude in Chrome
 
 ### Claude Code integration
 
-Claude Code and the Chrome extension now work together for a build-test-verify workflow:
+Claude Code and the Chrome extension work together for a build-test-verify workflow:
 
 - Build with Claude Code in your terminal, then deploy to a URL Claude can reach.
 
@@ -29,7 +31,9 @@ This integration is especially useful for design verification (comparing Figma m
 
 When you start a chat, task, or session in Claude Cowork that touches a website, Claude can open the browser directly in Chrome and do the work, clicking, typing, and filling out forms the way a person would. You can let Claude handle work in the browser without switching windows.
 
-Follow these steps to enable the Claude in Chrome connector in your desktop app:
+**Note:** Claude Cowork also has a browser built into the Claude Desktop app, with nothing to install. It's rolling out gradually this week. If you already use Claude in Chrome, it stays your preferred browser for Cowork; otherwise Cowork uses the built-in browser by default. Choose either one in **Settings > Cowork > Preferred browser**. Learn more in **[Use the built-in browser in Claude Cowork](https://support.claude.com/en/articles/16607400)**.
+
+Follow these steps to connect Claude in Chrome in your desktop app:
 
 1. Click your initials in the lower left corner, then select “Settings.”
 
@@ -45,7 +49,15 @@ Completing these steps will add Claude in Chrome to the “Connectors” drop-do
 
 ### Chat with Claude in the browser side panel
 
-Open the Claude side panel to work with Claude right next to the page you're on. Claude sees what's on the page and can act on it—reading, clicking, typing, navigating, and filling forms—so you can get help without leaving your browser window.
+Open the Claude side panel to work with Claude right next to the page you're on. Claude sees what's on the page and can act on it, reading, clicking, typing, navigating, and filling forms, so you can get help without leaving your browser window.
+
+On Max and Team plans, on Pro plans as the rollout reaches you, and on Enterprise plans where your admin has enabled it, the side panel runs as a Claude Cowork session, which means:
+
+- **Your conversations are saved.** Every side panel session appears in your history like any other Cowork session.
+
+- **Sessions move with you.** Start a session in the side panel and pick it up on the web, in Claude Desktop, or on Claude Mobile. Sessions live with your Claude account rather than with the machine you started on.
+
+- **Your skills, plugins, and connectors work here.** They behave the same way they do in Cowork on desktop. Save a skill in the side panel and run it from any surface.
 
 The side panel is a good fit for in-the-moment browsing tasks:
 
@@ -55,7 +67,25 @@ The side panel is a good fit for in-the-moment browsing tasks:
 
 - Walk through a task on a site step by step while you watch.
 
-To open the side panel, click the Claude icon in your Chrome toolbar. It stays visible while you browse. If you haven't installed the extension yet, see **[Installing Claude in Chrome](#h_e0aabae2db)** below.
+The side panel starts in "Automatically approve" mode: Claude works continuously, reviews each action for safety, and pauses to ask you when something needs your approval. If you switch to a different mode, **the side panel keeps your choice for future sessions**. Learn more in the[**Claude in Chrome permissions guide**](https://support.claude.com/en/articles/12902446).
+
+**Note:** On Enterprise plans, the Cowork side panel requires your admin to enable Cowork in the cloud and Claude in Chrome for your organization. If you see the classic side panel, contact your admin. Learn more in **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-controls#h_bdb63199e1)**.
+
+To open the side panel, click the Claude icon in your Chrome toolbar. It stays visible while you browse. If you haven't installed the extension yet, see **[Install Claude in Chrome](https://support.claude.com/en/articles/12012173-get-started-with-claude-in-chrome#h_e0aabae2db)** below.
+
+**Note:** The side panel reads the tab you're on with no extra setup. Tasks that need your local files, your computer, or Claude driving Chrome from another surface still need the Claude Desktop app open and connected, even though your session runs in the cloud.
+
+**To switch back to the classic side panel:**
+
+If you'd rather use the previous side panel, you can switch back at any time:
+
+1. Open the side panel in Chrome.
+
+2. Click the three dots in the upper right corner.
+
+3. Select "Switch back to classic."
+
+**Note:** Recorded workflows are available in the classic side panel only.
 
 ## Model selection
 
@@ -63,7 +93,7 @@ Claude in Chrome is available on all public models.
 
 ---
 
-## Installing Claude in Chrome
+## Install Claude in Chrome
 
 1. Open a Google Chrome browser window.
 
@@ -87,7 +117,7 @@ The Claude icon will appear in your Chrome toolbar. Click it to open Claude in a
 
 You will need to grant Claude in Chrome the following permissions to install and use the extension:
 
-| **Permission**                      | **Why Claude Needs This**                                                                                                                                              |
+| **Permission**                      | **Why Claude needs this**                                                                                                                                              |
 | ----------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | sidePanel                           | This lets Claude appear as a panel on the side of your browser, so you can chat with Claude while browsing any website.                                                |
 | storage                             | This lets Claude save your preferences so they're still there when you close and reopen your browser.                                                                  |
@@ -109,9 +139,9 @@ Refer to the **[Google Chrome Permissions documentation](https://developer.chrom
 
 ## Core capabilities
 
-### Record a workflow
+### Record a workflow (classic side panel)
 
-Teach Claude a workflow by recording the steps yourself, and Claude learns to repeat them. This is useful for repetitive browser tasks that follow the same pattern each time. To record a workflow:
+In the classic side panel, you can teach Claude a workflow by recording the steps yourself, and Claude learns to repeat them. This is useful for repetitive browser tasks that follow the same pattern each time. Recording isn't available when the side panel runs as a Cowork session. To record a workflow in the classic side panel:
 
 1. Click the record icon in the extension panel.
 
@@ -182,27 +212,27 @@ If you're using Claude in Chrome on a Team or Enterprise plan, your admin may ha
 - **Site access:** Your admin can restrict which websites Claude is allowed to access using allowlists and blocklists.
 
 If you're unable to install or use the extension, contact your organization's admin. For admin documentation, see **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-for-chrome-admin-controls)**.
-
----
-
-## Next steps
-
-- **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide)**: Learn how to control what Claude can access and do within the extension.
-
-- **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-in-chrome-safely)**: Understand risks and best practices.
-
-- **[Claude in Chrome troubleshooting](https://support.claude.com/en/articles/12902405-claude-in-chrome-troubleshooting)**: Get help with common issues.
-
-- **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128-claude-for-chrome-admin-controls)**: For Team and Enterprise admins managing the extension for their organization.
 ---
 
 SOURCE: https://support.claude.com/en/articles/12902405-claude-in-chrome-troubleshooting
 
 # Claude in Chrome troubleshooting
 
-Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's generally available in Claude Cowork and Claude Code, and in beta in the Chrome browser.
-
 This article helps you resolve common issues with Claude in Chrome and explains how to provide feedback.
+
+Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's generally available in Claude Cowork and Claude Code, and in beta in the Chrome browser. On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans in the coming weeks. On Enterprise plans, the side panel runs as a Cowork session once your admin has enabled Cowork in the cloud; until then, it uses the classic experience.
+
+## The side panel looks different than it used to
+
+On Max and Team plans, on Pro plans as the rollout reaches you, and on Enterprise plans where an admin has enabled it, the side panel now runs as a Claude Cowork session, so it uses the same interface as Cowork on the web and desktop. Your conversations are saved to your history and can be reopened on your other devices. The Cowork side panel also defaults to "Automatically approve" mode, so Claude works continuously and pauses only when an action needs your approval.
+
+If you'd rather use the previous side panel, click the three dots in the upper right corner and select "Switch back to classic." For details, see **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173)**.
+
+## I don't see the Cowork side panel
+
+- If you're on an Enterprise plan, the Cowork side panel requires your admin to enable Cowork in the cloud and Claude in Chrome for your organization. Contact your admin, or see **[Claude in Chrome admin controls](https://support.claude.com/en/articles/13065128)**.
+
+- If you're on a Pro plan, the Cowork side panel may not have reached your account yet. The rollout is in progress.
 
 ## Claude can't see the webpage
 
@@ -252,17 +282,15 @@ This article helps you resolve common issues with Claude in Chrome and explains 
 
 - Restart or update Claude Code if the extension won’t connect to it.
 
--
+---
+
+## Usage limits
+
+Usage limits apply across different interfaces, so using Claude in Chrome will count against the same plan limits that apply to Claude or Claude Code. Browser interactions are more compute-intensive than regular chats with Claude, so you can expect the extension to use more of your limit. With the long-running workflow capabilities, tasks can continue for extended periods, which may use more of your usage allocation. The Cowork side panel defaults to "Automatically approve" mode, which runs extra safety checks on each action and uses more of your usage limit than the other modes.
 
 ---
 
-## Usage Limits
-
-Usage limits apply across different interfaces, so using Claude in Chrome will count against the same plan limits that apply to Claude or Claude Code. Browser interactions are more compute-intensive than regular chats with Claude, so you can expect the extension to use more of your limit. With the long-running workflow capabilities, tasks can continue for extended periods, which may use more of your usage allocation.
-
----
-
-## Giving Feedback
+## Give feedback
 
 Your feedback directly shapes how we improve Claude's browser capabilities and safety measures.
 
@@ -297,7 +325,7 @@ SOURCE: https://support.claude.com/en/articles/12902428-use-claude-in-chrome-saf
 
 This article explains the risks of using Claude in Chrome and provides best practices for protecting yourself and your data.
 
-Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's generally available in Claude Cowork and Claude Code, and in beta in the Chrome browser.
+Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's available in Claude Cowork and Claude Code, and in beta in the Chrome browser. On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans in the coming weeks. On Enterprise plans, the side panel runs as a Cowork session once your admin has enabled Cowork in the cloud; until then, it uses the classic experience.
 
 Claude in Chrome allows Claude to interact directly with websites on your behalf, which is guarded by our safety classifiers but still carries inherent risks. Understanding these risks helps you use the extension safely.
 
@@ -337,7 +365,7 @@ We've implemented multiple layers of protection:
 
 - **Action confirmations** for certain high-risk actions such as downloading a file or entering sensitive information.
 
-- **Automatic action screening:** When Claude works on its own, it checks each action for risk and for hidden malicious instructions before running it. Claude does the actions it assesses as lower-risk and blocks or stops for anything that looks unsafe.
+- **Automatic action screening:** When Claude works on its own, it checks each action for risk and for hidden malicious instructions before running it. Claude does the actions it assesses as lower-risk and blocks or stops for anything that looks unsafe. This screening runs in "Automatically approve,” the default for the Cowork side panel. Learn more in the **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446)**.
 
 - **Ongoing red teaming:** Human security researchers continuously probe for vulnerabilities. We participate in external challenges that benchmark robustness across the industry.
 
@@ -363,13 +391,13 @@ It’s unlikely that we’ve captured all sites in these categories, so please r
 
 1. **Start with trusted sites:** Begin with websites you trust. Avoid unfamiliar websites or those containing user-generated content from unknown sources.
 
-2. **Understand permissions:** Always confirm before Claude handles sensitive or high-risk tasks. Refer to our **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446-claude-for-chrome-permissions-guide)** to learn more.
+2. **Understand permissions:** The Cowork side panel defaults to "Automatically approve" mode, where Claude screens its own actions and pauses only when something needs your approval. Switch to "Manually approve" if you want to review every action, and always confirm before Claude handles sensitive or high-risk tasks. Refer to our **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446-claude-for-chrome-permissions-guide)** to learn more.
 
 3. **Stay alert for suspicious behavior:** If Claude suddenly starts discussing unrelated topics, accessing unexpected websites, or requesting sensitive information, stop the task immediately. This could indicate a prompt injection attempt.
 
 4. **Report issues immediately:** Help us improve by flagging any concerning behavior through the in-chat feedback options.
 
-## Safeguarding personal data
+## Safeguard personal data
 
 When you open the Claude side panel, Claude takes screenshots of your active browser tab to understand webpage content. This means Claude can see any information visible on your screen, including personal data, sensitive documents, or private information belonging to you or others.
 
@@ -396,6 +424,8 @@ When you open the Claude side panel, Claude takes screenshots of your active bro
 - Start with simple tasks like research or form-filling rather than complex multi-step workflows.
 
 - Make sure your prompts are specific and carefully tailored to avoid Claude doing things you didn't intend.
+
+- Side panel sessions are saved to your history and can be reopened on your other devices. Avoid opening the side panel on pages showing information you don't want stored with the session.
 
 ## What to avoid
 
@@ -448,11 +478,11 @@ SOURCE: https://support.claude.com/en/articles/12902446-claude-in-chrome-permiss
 
 # Claude in Chrome permissions guide
 
-Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's generally available in Claude Cowork and Claude Code, and in beta in the Chrome browser.
-
 This guide explains how to control what Claude can access and do when using Claude in Chrome. Understanding permissions helps you balance productivity with security.
 
-**Important:** Before using Claude in Chrome, review **[Using Claude in Chrome Safely](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely)** to understand the risks of browser-based AI.
+Claude in Chrome is available for all paid plans (Pro, Max, Team, and Enterprise). It's available in Claude Cowork and Claude Code, and in beta in the Chrome browser. On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans in the coming weeks. On Enterprise plans, the side panel runs as a Cowork session once your admin has enabled Cowork in the cloud; until then, it uses the classic experience.
+
+**Important:** Before using Claude in Chrome, review **[Use Claude in Chrome Safely](https://support.claude.com/en/articles/12902428)** to understand the risks of browser-based AI.
 
 ## Permission modes
 
@@ -464,23 +494,35 @@ Claude in Chrome uses a multi-layered permission system to give you control over
 
 - **Skip all approvals (Skip)**, formerly "Act without asking**.”** Claude doesn't pause to ask and nothing checks its actions automatically. Only use this when you completely trust every action, connector, file, app, etc. involved in the task.
 
+**Note:** In the Cowork side panel, "Automatically approve" is the default mode.
+
 ---
 
 ## Manually approve
 
-Choose "Manually approve" to have Claude create a plan from your prompt, which you can approve and allow Claude to execute. The plan will specify which websites you’re allowing Claude to access, as well as the approach it will follow:
+In "Manually approve," Claude checks with you before it acts. What that looks like depends on which side panel you're using.
+
+### In the classic side panel
+
+Claude creates a plan from your prompt, which you can approve before Claude starts. The plan specifies which websites you're allowing Claude to access, as well as the approach it will follow:
 
 
 
 Note that Claude will only use the websites listed in the plan, so you’ll need to manually approve any additional access requests.
 
-Claude clarifies which sites it’s planning to access and the actions it will take upfront, allowing you to review the proposed plan and ensure it’s correct before starting. You can also click "Make changes" to reject the current proposal, then prompt Claude again to make any necessary changes. Once you click "Approve plan," Claude will be able to act independently within the outlined parameters, but will still check with you before other sensitive actions, like downloading a file or entering sensitive information into a page. Claude will not deviate from the stated plan without requesting your permission first. There are certain actions that Claude cannot take for your security, such as making purchases, creating accounts, bypassing bot authorizations, executing trades, permanently deleting files, or taking certain actions that may indicate a prompt injection risk (see **[Prohibited actions](#h_e199f8f523)**).
+Claude clarifies which sites it’s planning to access and the actions it will take upfront, allowing you to review the proposed plan and ensure it’s correct before starting. You can also click "Make changes" to reject the current proposal, then prompt Claude again to make any necessary changes. Once you click "Approve plan," Claude will be able to act independently within the outlined parameters, but will still check with you before other sensitive actions, like downloading a file or entering sensitive information into a page. Claude will not deviate from the stated plan without requesting your permission first. There are certain actions that Claude cannot take for your security, such as making purchases, creating accounts, bypassing bot authorizations, executing trades, permanently deleting files, or taking certain actions that may indicate a prompt injection risk (see **[Prohibited actions](https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide#h_e199f8f523)**).
+
+### In the Cowork side panel
+
+Claude doesn't create a plan for you to approve before starting. Claude may ask you a question or two to clarify what you want, then begins work and asks for your approval before each action. You review each request and choose Allow all for this website, Allow this time only, or Deny.
+
+Claude still checks with you before sensitive actions like downloading a file or entering sensitive information into a page, and some actions are blocked regardless of mode. See **[Actions requiring explicit permission](https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide#h_b209fa12fc)** and **[Prohibited actions](https://support.claude.com/en/articles/12902446-claude-in-chrome-permissions-guide#h_e199f8f523)** below.
 
 ---
 
 ## Automatically approve
 
-When you choose "Automatically approve," Claude keeps working without stopping to ask about every step. Instead, Claude reviews each action for safety (such as checking for data exfiltration or prompt injection) and automatically blocks anything it determines to be unsafe. When an action is blocked, Claude looks for a safer way to finish the task or pauses and asks you directly. If Claude keeps running into blocks, it switches back to asking for your permission for each step.
+When you choose "Automatically approve," Claude keeps working without stopping to ask about every step. Instead, Claude reviews each action for safety (such as checking for data exfiltration or prompt injection) and automatically blocks anything it determines to be unsafe. When an action is blocked, Claude looks for a safer way to finish the task or pauses and asks you directly. If Claude keeps running into blocks, it switches back to asking for your permission for each step. "Automatically approve" is the default mode in the Cowork side panel. If you switch to a different mode, the side panel keeps your choice for future sessions.
 
 We tested Claude's safety check extensively before releasing it, including working with outside security experts who tried to sneak dangerous actions past it. It gives you the speed of letting Claude work without interruptions, with a layer of protection that "Skip all approvals" doesn't have: every action still gets reviewed before it happens. *Of course, no defense is perfect and no mode replaces your judgment. For work with real consequences—money, messages sent as you, important files—stay close and review what Claude does or consider switching back to "Manually approve."*
 
@@ -496,7 +538,7 @@ When you choose "Skip all approvals," Claude doesn't pause to ask, and nothing c
 
 ## When does Claude need to request additional permissions?
 
-There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **Permission required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
+There are some websites on which Claude requires approval for every action. If you navigate to one of these sites, a **New permissions required** prompt will appear in the extension side panel, Claude Cowork, or Claude Code where Claude will ask for permission before accessing the page or taking any action.
 
 
 
@@ -520,7 +562,7 @@ When you choose "Always allow actions on this site," Claude still asks for your 
 
 ### Managing site permissions
 
-You can manage Claude's access to specific sites in the extension settings. Click the Claude extension icon, then the three dots in the upper right corner of the side panel. Select "Settings" → "Permissions" to:
+You can manage Claude's access to specific sites in the extension settings. Click the Claude extension icon, then the three dots in the upper right corner of the side panel. Select "Extension settings" to land on the Permissions page and:
 
 - Review which sites have "always allow" status under **Your approved sites**
 
@@ -581,13 +623,13 @@ SOURCE: https://support.claude.com/en/articles/13065128-claude-in-chrome-admin-c
 
 # Claude in Chrome admin controls
 
-Claude in Chrome admin controls are available for Team and Enterprise plans.
-
 This article explains how Team and Enterprise owners can manage Claude in Chrome for their organization.
+
+Claude in Chrome admin controls are available for Team and Enterprise plans.
 
 Claude in Chrome is a browser extension that allows Claude to read, click, and navigate websites on behalf of your users. As an owner, you control whether the extension is available for users to install and which sites they can access.
 
-**Important:** Before enabling Claude in Chrome for your organization, review **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely)** to understand the risks of browser-based AI, including the prompt injection classifiers, the safeguards in place, and remaining risks.
+**Note:** On Max and Team plans, the side panel runs as a Claude Cowork session, and this is rolling out to Pro plans in the coming weeks. On Enterprise plans, the side panel runs as a Cowork session once you've enabled it for your organization—see **[Enable the Cowork side panel](#h_bdb63199e1)** below. Where the Cowork side panel isn't enabled, users have the classic side panel, and your existing organization settings apply to it unchanged.
 
 ## Access Claude in Chrome settings
 
@@ -595,17 +637,19 @@ To manage Claude in Chrome settings for your organization:
 
 1. Sign in to Claude with your Owner or Primary Owner account.
 
-2. Navigate to **[Organization settings > Claude in Chrome](http://claude.ai/admin-settings/browser-extension)**.
+2. Navigate to **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**.
 
 ## Enable or disable the extension
 
-Use the toggle to enable or disable Claude in Chrome for your entire organization.
+**Important:** Before enabling Claude in Chrome for your organization, review **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428)** to understand the risks of browser-based AI, including the prompt injection classifiers, the safeguards in place, and remaining risks.
+
+Use the **Enable for your team** toggle to enable or disable Claude in Chrome for your entire organization.
 
 - **Team plans:** The extension is enabled by default. Disable it if you prefer users not to have access.
 
-- **Enterprise plans:** The extension is disabled by default. Enable it when you're ready for users to access the feature.
+- **Enterprise plans:** The extension is disabled by default. Starting September 10, 2026, it turns on by default unless you've already disabled it.
 
-Claude in Chrome and Claude Cowork are managed separately. Enabling Claude in Chrome for your organization lets users use the extension. Whether Claude can use it within Cowork is a separate capability setting, and users' browsers still need the extension deployed or installed. For Cowork admin settings, see **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879-use-claude-cowork-on-team-and-enterprise-plans)**.
+Claude in Chrome and Claude Cowork are managed separately. Enabling Claude in Chrome for your organization lets users use the extension. Whether Claude can use it within Cowork is a separate capability setting, and users' browsers still need the extension deployed or installed. Cowork also has a browser built into the Claude Desktop app (rolling out this week) that doesn't require the extension; it's off by default on Enterprise plans and managed from **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**. You can enable Claude in Chrome, the built-in browser, both, or neither. For Cowork admin settings, see **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879-use-claude-cowork-on-team-and-enterprise-plans)**.
 
 **Note:** When you enable the extension for an Enterprise organization, users are not automatically notified. You may want to communicate availability through your internal channels.
 
@@ -618,6 +662,20 @@ Use allowlists and blocklists to control which websites Claude can access when u
 **Blocklist:** Specify sites Claude should never access, regardless of other settings, by adding them to the blocklist. This adds an extra layer of protection beyond **[Claude's default blocked categories](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely#h_34f8d5ca87)**.
 
 **Recommendation:** Start with a more restrictive allowlist for the security of your organization's data, then expand access over time as you become comfortable with the extension's behavior.
+
+## Enable the Cowork side panel
+
+On Enterprise plans, the Claude in Chrome side panel can run as a Claude Cowork session once it’s enabled for your organization. Side panel sessions are saved to users' history, move with them across surfaces, and support their skills, plugins, and connectors. Until you enable it, users see the classic side panel.
+
+**To turn on the Cowork side panel for your organization:**
+
+1. Enable Cowork in the cloud for your organization in **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**. See **[Use Claude Cowork on Team and Enterprise plans](https://support.claude.com/en/articles/13455879)**.
+
+2. Navigate to **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)** and toggle **Enable for your team** on.
+
+3. Deploy the extension through your Chrome management tools, or have users install it from the **Chrome Web Store**.
+
+If your organization already uses Claude in Chrome, users will see the Cowork side panel automatically once you enable Cowork in the cloud. Users don’t need to reinstall anything.
 
 ## Control password manager access
 
@@ -635,7 +693,7 @@ If you want to disable this for members of your organization, you can toggle the
 
 1. Sign in to Claude with your Owner account.
 
-2. Navigate to **[Organization settings > Claude in Chrome](http://claude.ai/admin-settings/browser-extension)**.
+2. Navigate to **[Organization settings > Claude in Chrome](https://claude.ai/admin-settings/browser-extension)**.
 
 3. Toggle the extension off.
 
@@ -661,7 +719,7 @@ To test Claude in Chrome with a subset of users before broader rollout:
 
 3. Use your IT controls to limit which employees can install the extension.
 
-4. Share **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely)** with pilot users.
+4. Share **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428)** with pilot users.
 
 5. Gather feedback and expand access over time.
 
@@ -679,6 +737,6 @@ We recommend sharing these resources with users before they start using Claude i
 
 - **[Get started with Claude in Chrome](https://support.claude.com/en/articles/12012173-getting-started-with-claude-for-chrome)**: Installation and core capabilities
 
-- **[Using Claude in Chrome safely](https://support.claude.com/en/articles/12902428-using-claude-for-chrome-safely)**: Risks and best practices
+- **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428)**: Risks and best practices
 
 - **[Claude in Chrome permissions guide](https://support.claude.com/en/articles/12902446-claude-for-chrome-permissions-guide)**: How users control what Claude can access

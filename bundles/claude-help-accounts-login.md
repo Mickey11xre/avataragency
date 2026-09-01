@@ -66,8 +66,6 @@ To help you identify legitimate marketing communications from Anthropic, all our
 
 - <notice@email.anthropic.com>
 
-- <support@mail.anthropic.com>
-
 - <anthropic-team@mail.anthropic.com>
 
 - <sales@mail.anthropic.com>
@@ -78,7 +76,7 @@ To help you identify legitimate marketing communications from Anthropic, all our
 
 Please note that these addresses are outbound only with unmonitored inboxes.
 
-Concerned about an email you received? Visit our [How to Get Support](https://support.claude.com/en/articles/9015913-how-to-get-support) guide to understand your options for further assistance.
+Concerned about an email you received? Visit our **[How to get support](https://support.claude.com/en/articles/9015913-how-to-get-support)** guide to understand your options for further assistance.
 ---
 
 SOURCE: https://support.claude.com/en/articles/11107691-why-is-a-coupon-or-promotion-not-available-for-my-account
@@ -272,7 +270,7 @@ It's not possible to change another user's name on their behalf, but a user can 
 
 1. Log in to your Claude account.
 
-2. Navigate to **[Settings > General](http://claude.ai/settings/general)**.
+2. Navigate to **[Settings > General](https://claude.ai/settings/general)**.
 
 3. Make edits to the "Full name" field and click "Save changes."
 
@@ -294,7 +292,7 @@ Admins and Owners can view a list of all members on a team by navigating to **[O
 
 The email domain that was used to create your Team or Enterprise plan organization is the allowed email domain for your team members. After the account is created, Owners of organizations that are not using domain capture can add additional domains by following these steps:
 
-1. Navigate to **[Organization](https://claude.ai/admin-settings/organization)****[settings > Identity and access](https://claude.ai/admin-settings/identity).**
+1. Navigate to **[Organization](https://claude.ai/admin-settings/organization)[settings > Identity and access](https://claude.ai/admin-settings/identity).**
 
 2. Click "Add or edit domains" under **Domains**.
 
@@ -311,11 +309,11 @@ Owners can remove domains by opening up the same modal and clicking the trash ca
 While the account creator must use a business email address, you can add public domains like @gmail.com, @yahoo.com, and @hotmail.com as allowed domains for other members of your organization.
 ---
 
-SOURCE: https://support.claude.com/en/articles/13371040-logging-in-to-your-console-account
+SOURCE: https://support.claude.com/en/articles/13371040-log-in-to-your-console-account
 
-# Logging in to your Console account
+# Log in to your Console account
 
-When you navigate to the [Claude Console](https://platform.claude.com), you will see two different options for logging in to your Console account.
+When you navigate to the **[Claude Console](https://platform.claude.com)**, you will see two different options for logging in to your Console account.
 
 
 
@@ -363,7 +361,7 @@ It's not possible to create a dedicated password for your Console account at thi
 
 ### Does my organization use Single Sign-On (SSO)?
 
-If you're a member of an organization that has configured single sign-on for the Console, you'll be redirected to your SSO provider when you attempt to log in. For information about setting up SSO for your organization, see [Set up single sign-on (SSO)](https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso).
+If you're a member of an organization that has configured single sign-on for the Console, you'll be redirected to your SSO provider when you attempt to log in. For information about setting up SSO for your organization, see **[Set up single sign-on (SSO)](https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso)**.
 
 ### I have multiple Console accounts – how can I switch between them?
 
@@ -379,7 +377,7 @@ If you're a member of multiple Console organizations tied to the same email addr
 
 If you've previously authenticated using Google, you can follow these steps to unlink your Google account from the Console and use only the emailed login link moving forward:
 
-1. Visit <https://myaccount.google.com/connections>.
+1. Visit **<https://myaccount.google.com/connections>**.
 
 2. Locate "Claude by Anthropic" in the list and click on it.
 
@@ -389,7 +387,7 @@ If you've previously authenticated using Google, you can follow these steps to u
 
 ### Can I have both a Claude account and a Console account?
 
-Yes, you can have both a Claude account (for using Claude at claude.ai) and a Console account (for accessing the Workbench and Claude API). These are separate accounts, though you can use the same email address for both. Learn more in [Can I have a Claude account and a Console account?](https://support.claude.com/en/articles/8987223-can-i-have-a-claude-account-and-a-console-account)
+Yes, you can have both a Claude account (for using Claude at claude.ai) and a Console account (for accessing the playground and Claude API). These are separate accounts, though you can use the same email address for both. Learn more in **[Can I have a Claude account and a Console account?](https://support.claude.com/en/articles/8987223-can-i-have-a-claude-account-and-a-console-account)**
 ---
 
 SOURCE: https://support.claude.com/en/articles/14328960-identity-verification-on-claude
@@ -398,27 +396,33 @@ SOURCE: https://support.claude.com/en/articles/14328960-identity-verification-on
 
 Being responsible with powerful technology starts with knowing who is using it. Identity verification helps us prevent abuse, enforce our usage policies, and comply with legal obligations.
 
-We are rolling out identity verification for a few use cases, and you might see a verification prompt when accessing certain capabilities, as part of our routine platform integrity checks, or other safety and compliance measures.
+We are rolling out identity and business verification for a few use cases, and you might see a verification prompt when accessing certain capabilities, as part of our routine platform integrity checks, or other safety and compliance measures.
 
 We only use your verification data to confirm who you are and not for any other purposes.
 
 ## How are we verifying?
 
-We selected Persona Identities as our verification partner based on the strength of their technology, privacy controls, and security safeguards. Follow the steps below to complete your identity verification process.
+We selected Persona Identities as our verification partner based on the strength of their technology, privacy controls, and security safeguards. Follow the steps below to complete your identity or business verification process.
 
 ## What you'll need
 
-Before you start, have these ready:
+If you are verifying as an individual, have these ready:
 
 - **A valid government-issued photo ID**: the physical document, in hand
 
-- **A phone or a computer with a camera**: you may be asked to take a live selfie with your phone, or your webcam
+- **A phone with a camera**: you may be asked to take a live selfie with your phone
 
-- **A few minutes**: verification typically takes under five minutes
+If you are verifying on behalf of an organization, have these ready:
+
+- **Identifying information about your organization:** legal name, address, and business registration number
+
+- **A valid government-issued photo ID**: the physical document, in hand
+
+- **A phone with a camera**: you may be asked to take a live selfie with your phone
 
 ## Accepted ID types
 
-We accept original, physical **government-issued** photo IDs from most countries. Common examples include:
+Original, physical **government-issued** photo IDs from most countries are acceptable. Common examples include:
 
 - Passport
 
@@ -426,9 +430,9 @@ We accept original, physical **government-issued** photo IDs from most countries
 
 - National identity card
 
-Your ID must be issued by a government, clearly legible, undamaged, and include a photo of you.
+Your ID must be issued by a government, clearly legible, undamaged, not expired, and include a photo of you.
 
-**We do not accept:**
+**The following are not acceptable:**
 
 - Photocopies, screenshots, scans, or photos of a photo
 
@@ -440,15 +444,13 @@ Your ID must be issued by a government, clearly legible, undamaged, and include 
 
 ## How your data is protected
 
-We know that handing over an ID is a meaningful ask, and we've designed this process to protect your information at every step.
+We know that identity verification can be a meaningful ask, and we've designed this process to protect your information at every step.
 
-- Anthropic is the data controller for your verification data. That means we set the rules for how it's used and how long it's kept. Persona processes it on our behalf, under our instructions.
+- Anthropic is the data controller for your verification data. That means we set the rules for how it's used and how long it's kept.
 
-- Your ID and selfie are collected and held by Persona, not on Anthropic's systems. Anthropic can access verification records through Persona's platform when needed—for example, to review an appeal—but we don't copy or store those images ourselves.
+- Our fraud prevention partners are contractually limited in how they can use your data—only to provide and support verification and fraud prevention—and to protect it with industry-standard security controls.
 
-- Persona is contractually limited in how they can use your data: only to provide and support verification and to improve their ability to prevent fraud. They're bound to protect it with industry-standard security controls and delete it in line with the retention limits we've set and applicable law.
-
-- All data passing through and to Persona is encrypted in transit and at rest.
+- Your ID and selfie are collected and held by Persona, not on Anthropic's systems. Anthropic can access verification records through Persona’s platform when needed—for example, to review an appeal—but we don't copy or store those images ourselves. All data passing through and to Persona is encrypted in transit and at rest.
 
 For full details on how we handle personal data, see our **[Privacy Policy](https://www.anthropic.com/legal/privacy)**.
 
@@ -458,41 +460,29 @@ For full details on how we handle personal data, see our **[Privacy Policy](http
 
 - **We are not collecting more than we need.** We ask for the minimum information required to verify your identity.
 
-- **We are not sharing your identity data with anyone else.** Verification data stays between you, Persona, and Anthropic, except where we're legally required to respond to valid legal processes. Your verification data is never shared with third parties for marketing, advertising, or any purpose unrelated to verification and compliance.
+- **We are not sharing your identity data with anyone else.** Verification data stays between you, Anthropic, and our fraud prevention partners, except where legally required to respond to valid legal processes. Your verification data is never shared with third parties for marketing, advertising, or any purpose unrelated to verification and compliance.
 
 ## What if my verification fails?
 
-Verification can fail for a number of reasons: a blurry photo, an unreadable document, an expired ID, or a technical issue.
+Verification can fail for a number of reasons: a blurry photo, an unreadable document, an expired ID, an incorrect registration number, or a technical issue.
 
 If your verification is unsuccessful:
 
-1. **Try again.** You'll have multiple attempts within the verification flow—most failures are resolved by retaking the photo in better lighting or using a different government-issued photo ID.
+1. **Try again.** You'll have multiple attempts within the verification flow—most failures are resolved by retaking the photo in better lighting, removing or using a different government-issued photo ID.
 
 2. **Check your document.** Make sure your ID is undamaged and clearly legible.
 
-3. **Contact us.** If you've used your attempts and still can't verify, reach out to us via this **[form](http://claude.com/form/identity-verification-help)** and we'll take a look.
+3. **Contact us.** If you've used your attempts and still can't verify, reach out to us via this **[help form](https://claude.com/form/identity-verification-help)** and we'll take a look.
 
-## Why did my account get banned after verification?
+**Why did my account get banned after verification?**
 
-As part of our safety process, we may ban an account for a variety of reasons:
+As part of our safety processes, we may ban an account for a variety of reasons, including repeated violations of our Usage Policy or Terms of Service.
 
-- Repeated violations of our Usage Policy
-
-- Account creation from an unsupported location
-
-- Terms of Service violations
-
-- Under-18 usage
-
-If you feel your account has been wrongly suspended or terminated, please go to **[claude.ai](http://claude.ai)**, log in with your banned account, and fill out the appeal form linked below. Our Safeguards team can further investigate why your account was disabled.
-
-[Submit an appeal](https://claude.ai/restricted)
-
-**Important:** You must be logged in to access the appeal form.
+If you feel your account has been wrongly banned, please **[fill out the appeal form](https://docs.google.com/forms/d/e/1FAIpQLSdcTocgFJXSJzFJzVc47nxKmjeVhXDfgRaifH3DUZhYarA8vA/viewform?usp=dialog)** with your account information so our Safeguards team can further investigate why your account was disabled.
 
 ## Questions?
 
-If you have questions about identity verification, your data, or the verification process, reach out to us via this **[form](http://claude.com/form/identity-verification-help)**.
+If you have questions about identity verification, your data, or the verification process, reach out to us via this **[help form](https://claude.com/form/identity-verification-help)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/14625619-claim-and-migrate-accounts-on-your-domain
@@ -533,7 +523,7 @@ Use this view to understand the scope of migration before initiating a claim. Ch
 
 ### Enable domain capture
 
-Navigate to **[Organization settings > Organization and access](http://claude.ai/admin-settings/organization)**, scroll down to **Security** and toggle **Migrate accounts using your domain** on to enable domain capture. This is an organization-level setting that enforces a policy: no non-Enterprise accounts can exist on your verified domain.
+Navigate to **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**, scroll down to **Security** and toggle **Migrate accounts using your domain** on to enable domain capture. This is an organization-level setting that enforces a policy: no non-Enterprise accounts can exist on your verified domain.
 
 **Warning:** Domain capture is a one-way door. Once enabled, it can’t be reversed. The admin UI will display a prominent confirmation before you proceed. Make sure your prerequisites are fully in place and you’ve reviewed the affected accounts before enabling.
 
@@ -572,6 +562,8 @@ During this window, each person on the domain can sign in and choose how to migr
 New accounts created on the domain after domain capture is enabled go directly through SSO and your Enterprise workspace—no personal account is created.
 
 ## What’s not supported
+
+- Migrating data into organizations with HIPAA readiness or customer-managed encryption keys (CMEK) turned on. You can still claim your domain, and people on it are notified as usual, but they can only join fresh. Nothing from their personal accounts moves over. Learn more about **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973)** and **[customer-managed encryption keys](https://support.claude.com/en/articles/15505325)**.
 
 - Claiming Team plan accounts. Only individual accounts (Free, Pro, Max) can be claimed.
 
@@ -712,11 +704,7 @@ SOURCE: https://support.claude.com/en/articles/8287232-verify-your-phone-number
 
 # Verify your phone number
 
-When you first create a Claude account, you’ll be asked to enter your phone number from a **[supported location](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)** to receive a verification code via text message:
-
-
-
-Once you receive the text message with the code, type it into the box and click “Verify code.” This will complete the verification and account creation process and allow you to start chatting with Claude.
+When you first create a Claude account, you’ll be asked to enter your phone number from a **[supported location](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)** to receive a verification code via text message. Once you receive the text message with the code, type it into the box and click "Verify code." This will complete the verification and account creation process and allow you to start chatting with Claude.
 
 ## Why do I need to verify my phone number?
 
@@ -730,7 +718,7 @@ We’ll send a six-digit verification code to your phone number via text message
 
 We only accept phone numbers from our supported locations at this time. Additionally, you cannot use VoIP numbers, Google Voice, phone numbers created using apps, landlines, or other numbers that can’t receive texts to verify your account.
 
-## Frequently Asked Questions
+## Frequently asked questions
 
 ### What if I don't have a phone number from a supported location?
 
@@ -742,19 +730,19 @@ You must have a phone number that can receive a verification code via text messa
 
 ### I didn't receive my phone verification code. What should I do?
 
-The code may take a few minutes to arrive via text, but if it has been more than five minutes, click “Try again” to reset the modal and reenter your phone number, ensuring that you’re entering the correct one.
+The code may take a few minutes to arrive via text, but if it has been more than five minutes, click "Try again" to reset the modal and reenter your phone number, ensuring that you’re entering the correct one.
 
-### I’m still not receiving the code, or I’m seeing “Error sending code. Double check your phone number.”
+### I’m still not receiving the code, or I’m seeing "Error sending code. Double check your phone number."
 
-If you aren’t receiving a verification code via text after reentering your phone number, or you’re seeing an error message (“Error sending code. Double check your phone number.”), you’ll need to try using a different phone number to verify your account.
+If you aren’t receiving a verification code via text after reentering your phone number, or you’re seeing an error message ("Error sending code. Double check your phone number."), you’ll need to try using a different phone number to verify your account.
 
 ### I received the text message with the verification code, but the code isn’t working.
 
-The texted verification codes are temporary, so ensure you’re entering the most recent code you received. You can use “Try again” to restart the verification and receive a new code, so you should request one and enter it as soon as you receive it
+The texted verification codes are temporary, so ensure you’re entering the most recent code you received. You can use "Try again" to restart the verification and receive a new code, so you should request one and enter it as soon as you receive it
 
 ### Why am I seeing a message stating that my phone number was used too many times?
 
-If you see an error stating that your phone number is already in use, this means there’s another Claude account in our system that was verified using that number. If you know which email address is associated with this verified account, you should log in to that account and contact our Support team to ask for help unlinking your phone number from it. Once we unlink the number, you’ll be able to use it to verify a different account.
+If you see an error stating that your phone number is already in use, this means there are already three other Claude accounts in our system that were verified using that number. We only allow a maximum of three Claude accounts to be verified with the same phone number. If you know which email addresses are associated with these verified accounts, you should log in to one of those accounts and contact our Support team to ask for help unlinking your phone number from it. Once we unlink the number, you’ll be able to use it to verify a different account.
 
 Alternatively, you can enter a different phone number that hasn’t been used for verification yet.
 
@@ -770,31 +758,69 @@ SOURCE: https://support.claude.com/en/articles/8987223-can-i-have-a-claude-accou
 Yes. You can have a Claude account (free, Pro, Max, Team, or Enterprise) and a Console account (to access the Claude API) with the same email address. These two accounts will operate independently.
 ---
 
-SOURCE: https://support.claude.com/en/articles/9028421-how-can-i-delete-my-claude-account
+SOURCE: https://support.claude.com/en/articles/9028421-delete-your-claude-account
 
-# How can I delete my Claude account?
+# Delete your Claude account
 
-Once you are logged in, click your initials or name in the lower left corner and select "Settings." Navigate to **[Settings > Account](https://claude.ai/settings/account)** and click the "Delete account" button:
+This article shows you how to permanently delete your account on the web and in the Claude mobile apps, and explains what happens to your data when you do.
 
+**Important:** Deleting your account is permanent. You'll lose access to your conversations, projects, and other saved data, and you can't recover the account afterward. If you want to keep your data, export it on web or desktop before you delete. Learn more about **[exporting your Claude data](https://support.claude.com/en/articles/9450526-how-can-i-export-my-claude-data)**.
 
+## Before you delete a paid account
 
-## Considerations for paid Claude accounts
-
-Before deleting Claude accounts with paid subscriptions (Pro or Max plans):
+If you're on a Pro or Max plan:
 
 1. Cancel your subscription from your **[Billing settings](https://claude.ai/settings/billing)**.
 
 2. Wait until the end of your current subscription period.
 
-3. Once the subscription lapses, proceed with account deletion.
+3. Once the subscription lapses, delete your account using the steps below.
 
-Click "Delete account" and follow the prompts. **Please note that deleting your account is permanent** and you will no longer have access to saved chats. If you wish to keep your data, we recommend exporting it before deletion by following the steps listed here: **[How can I export my Claude data?](https://support.claude.com/en/articles/9450526-how-can-i-export-my-claude-data)**
+For detailed cancellation instructions, including for Claude for iOS and Android, see **[Cancel your Pro or Max subscription](https://support.claude.com/en/articles/8325617)**.
 
-If you have multiple accounts associated with the same email address, you'll need to specify which accounts you want to delete when making your request.
+## Delete your account on the web
 
-There are some scenarios where you will need to **[contact our team](https://support.claude.com/en/articles/9015913-how-to-get-support)** to delete your account. If this is the case, it will be noted in your account:
+1. Go to **[claude.ai](https://claude.ai/)** and click your initials or name in the lower left corner.
 
+2. Select "Settings," or navigate directly to **[Settings > Account](https://claude.ai/settings/account)**.
 
+3. Click "Delete account" and follow the prompts.
+
+## Delete your account on Claude for iOS
+
+These steps apply to Claude for iOS, listed on the App Store as Claude by Anthropic.
+
+1. Open the Claude app and tap "Settings."
+
+2. Find the **Account** section and tap "Profile."
+
+3. Tap "Delete account."
+
+4. Tap "Delete" to confirm.
+
+## Delete your account on Claude for Android
+
+These steps apply to Claude for Android, listed on Google Play as Claude by Anthropic.
+
+1. Open the Claude app and tap the menu button in the upper left corner.
+
+2. Tap your initials in the lower left corner.
+
+3. Tap "Profile."
+
+4. Under **Account Actions**, tap "Delete Account."
+
+5. Tap "I Understand" to confirm.
+
+## What happens when you delete your account
+
+When you delete your account, you’ll no longer have access to your conversations, projects, and account information. Learn more about **[how long Anthropic stores your data](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**.
+
+## When you need to contact support
+
+In some scenarios you'll need to contact our team to delete your account. If this applies to you, it'll be noted in your account settings. Learn more about **[how to get support](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+
+If you have multiple accounts associated with the same email address, you'll need to specify which accounts you want to delete when you contact us.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9267387-how-can-i-access-the-personal-information-that-anthropic-has-on-my-account
@@ -820,7 +846,7 @@ When you sign up for a Pro or Max subscription, you may have the option to enter
 
 4. If the ID is entered correctly, you'll be able to proceed with your signup.
 
-**Important:** If you're signing up for an individual paid account as a business, and want to use a name other than the one tied to your payment method, check the "Use a different name on invoices" box when adding or updating your payment method in [Settings > Billing](http://claude.ai/settings/billing). Then, enter your company name in the "Bill to" field to ensure it is reflected correctly on your invoice.
+**Important:** If you're signing up for an individual paid account as a business, and want to use a name other than the one tied to your payment method, check the "Use a different name on invoices" box when adding or updating your payment method in **[Settings > Billing](https://claude.ai/settings/billing)**. Then, enter your company name in the "Bill to" field to ensure it is reflected correctly on your invoice.
 
 ## Update your tax or VAT ID after signup
 
@@ -832,7 +858,7 @@ If you need to add or update your Tax or VAT ID after you've already signed up, 
 
 2. Click on your initials or name in the lower left corner and select “Settings” from the menu.
 
-3. Navigate to [Settings > Billing](http://claude.ai/settings/billing).
+3. Navigate to **[Settings > Billing](https://claude.ai/settings/billing)**.
 
 4. Click the "Update" button next to your payment method.
 
@@ -842,4 +868,4 @@ If you need to add or update your Tax or VAT ID after you've already signed up, 
 
 7. Save your changes.
 
-**Note:** Your billing address determines your tax jurisdiction. See [Understanding your billing address and tax calculation](https://support.claude.com/en/articles/12997130-understanding-your-billing-address-and-tax-calculation) for details on how to view or update your billing address.
+**Note:** Your billing address determines your tax jurisdiction. See **[Understanding your billing address and tax calculation](https://support.claude.com/en/articles/12997130-understanding-your-billing-address-and-tax-calculation)** for details on how to view or update your billing address.

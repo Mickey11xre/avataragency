@@ -1,31 +1,6 @@
 
 ---
 
-SOURCE: https://support.claude.com/en/articles/10366473-where-can-i-find-full-receipts-and-invoices-for-my-claude-api-and-console-payments
-
-# Where can I find full receipts and invoices for my Claude API and Console payments?
-
-Invoices are visible to Console Billing and Admin roles.
-
-Follow these steps to view your Console invoices:
-
-1. Log in to the Console with an Admin or Billing role.
-
-2. Navigate to **[Console Settings > Billing](https://platform.claude.com/settings/billing)**.
-
-3. Find the **Invoice history** section.
-
-4. Click the "View" or "Download" button next to the invoice you want to open.
-
-5. Clicking "Download" will automatically start the file download.
-
-6. Clicking "View" opens a new Stripe tab where you can click "Download invoice."
-
-Additionally, after each purchase, we automatically send them to your registered billing email address.
-
-Expired credit grants will appear in the **Invoice history** section. For help accessing older receipts and invoices not available in the Claude Console, please **[contact our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
----
-
 SOURCE: https://support.claude.com/en/articles/11101966-use-voice-mode
 
 # Use voice mode
@@ -221,3 +196,216 @@ No. While dictation is available in Claude Cowork and Code, voice mode is not. T
 ### Can Enterprise Admins disable voice mode for their organizations?
 
 If you are an Enterprise owner and would like to disable voice mode for your organization, please **[reach out to Support](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+---
+
+SOURCE: https://support.claude.com/en/articles/16607638-understanding-your-pro-or-max-plan-invoices
+
+# Understanding your Pro or Max plan invoices
+
+This article explains the invoices you'll receive for a Pro or Max plan, where to find them, and how to read the charges on them.
+
+This article covers Pro and Max plans purchased on the web. If you subscribed through Claude for iOS or Claude for Android, Anthropic doesn't issue your invoices. The Apple App Store or Google Play bills you directly, and your receipts are available in your app store account.
+
+## Types of invoices you may receive
+
+**Subscription invoices.** You'll receive an invoice each time your plan renews: every month on a monthly plan, or once a year on an annual plan. Your subscription renews automatically until you cancel it.
+
+**Plan change invoices.** If you upgrade your plan in the middle of a billing cycle, you'll reset your billing cycle and receive an immediate invoice for the change rather than waiting for your next renewal. For example, upgrading from Pro to Max charges you one full month of Max, less the unused value in your current billing cycle on your old plan.
+
+Learn more about **[signing up for the Max plan](https://support.claude.com/en/articles/11049752)**.
+
+**Usage credit receipts.** If you've enabled usage credits, each purchase of funds is charged separately from your subscription and has its own receipt. This includes purchases made automatically by auto-reload and any usage bundles you buy.
+
+Learn more about **[managing usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409)**.
+
+## Find your invoices
+
+After each charge, we automatically email the invoice to your billing email address. To find a past invoice in your inbox, search for the subject line "Your receipt from Anthropic."
+
+You can also open any invoice from your account:
+
+1. Go to **[Settings > Billing](https://claude.ai/settings/billing)**.
+
+2. Find the **Invoices** section.
+
+3. Click "View" next to the invoice you want to open.
+
+## Read your invoice
+
+**Prorated charges.** When you upgrade in the middle of a billing cycle, you are charged for one full billing cycle of the new plan, less a prorated amount for value remaining in your old plan. Your next renewal invoice charges the full price.
+
+**Credits.** For some mid-cycle plan changes, the cost of one cycle of the new plan is less than the remaining value of the current cycle of the old plan. In this case, any excess value from your old plan will be stored as a credit on your account, and will be used automatically to pay towards future invoices.
+
+**Tax.** Tax is calculated from your billing address, which is taken from your payment method’s address. Learn more about **[your billing address and tax calculation](https://support.claude.com/en/articles/12997130)**.
+
+**Applied balance.** An "Applied balance" line means a credit already on your account was used to pay part or all of the invoice. It's not a new charge and not a discount on that invoice.
+
+**Amount due.** The invoice total minus any applied balance. This is what your payment method was charged.
+
+
+
+## Billing details on your invoice
+
+The name and address on an invoice come from your payment method at the time the invoice was issued. To show a different name, such as a company name, check "Use a different name on invoices" when you add or update your payment method in **[Settings > Billing](https://claude.ai/settings/billing)**.
+
+You can also add a tax or VAT ID. Learn more about **[adding a tax or VAT ID to your paid Claude account](https://support.claude.com/en/articles/9889408)**.
+
+For help updating your payment method or other billing details, see **[Paid plan billing FAQs](https://support.claude.com/en/articles/8325618)**.
+
+Changes to your billing details apply to future invoices only. Once an invoice has been issued, we can't edit or reissue it.
+
+## Frequently asked questions
+
+### Why doesn't my invoice match my plan price?
+
+The most common reasons are a plan change in the middle of a billing cycle, which is charged at a prorated amount, or a credit or applied balance that reduced the amount due. Both are shown as their own lines on the invoice.
+
+### Why did I get two receipts in the same month?
+
+If you use usage credits, those purchases are billed separately from your subscription. One receipt is for your plan and the other is for the usage credits you added, whether you added them yourself or auto-reload did.
+
+### Can you correct the details on an invoice I already received?
+
+No. Issued invoices can't be changed. Update your billing details in **[Settings > Billing](https://claude.ai/settings/billing)** and the changes will appear on your next invoice.
+
+### Can I be invoiced in a different currency?
+
+Some subscribers pay their subscriptions using a different currency than the currency (or currencies) new subscribers would be offered in their region. To change your subscription currency, you must first mark your plan to cancel at the end of the current term, and wait for the end of term. Then when you re-purchase a new Pro or Max plan, you will use the same currency (or currency options) as new subscribers would in your region.
+---
+
+SOURCE: https://support.claude.com/en/articles/16607668-understanding-your-team-plan-invoices
+
+# Understanding your Team plan invoices
+
+This article explains the invoices your organization receives for a Team plan, where to find them, and how to read the charges on them.
+
+This article covers Team plans purchased directly on the web.
+
+## Types of invoices your organization may receive
+
+**Subscription invoices.** Your organization is invoiced at the start of each billing cycle, every month or once a year depending on your billing interval, for the seats on your plan at that time.
+
+**Seat change invoices.** When an owner adds members or upgrades seats in the middle of a billing cycle, your organization is invoiced right away for the prorated cost of those seats for the rest of the cycle. Upgrading a seat from Standard to Premium works the same way and charges the prorated price difference. Removing members doesn't generate an invoice or a credit; the seat stays available to assign to someone else.
+
+Learn more about **[how your Team plan bill is calculated](https://support.claude.com/en/articles/9267289)**.
+
+**Usage credit receipts.** If your organization has enabled usage credits, each purchase of funds is charged separately from your subscription and has its own receipt. This includes purchases made automatically by auto-reload and any usage bundles an owner buys.
+
+Learn more about **[managing usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970)**.
+
+**Credit notes.** If we refund part of an invoice after it's been issued, for example the tax on an invoice after your organization is marked tax-exempt, you'll receive a credit note that references the original invoice.
+
+## Find your invoices
+
+After each charge, we automatically email the invoice to your organization's billing email address(es). To find a past invoice in that inbox, search for the subject line "Your receipt from Anthropic."
+
+An organization owner can also open and download any invoice from your organization's account:
+
+1. Go to **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**.
+
+2. Find the **Invoices** section.
+
+3. Click “View” next to the invoice you want to open. A new Stripe tab opens.
+
+4. Click “Download invoice.”
+
+To change the billing email address or add more recipients, contact our Support team. Learn more in **[Team plan billing FAQs](https://support.claude.com/en/articles/12997503)**.
+
+## Read your invoice
+
+**Seat charges.** A renewal invoice charges the full seat price for each seat on your plan at the start of the cycle. On a monthly plan, that's the monthly seat price times the number of seats. On an annual plan, it's the monthly seat price times 12, times the number of seats.
+
+**Prorated charges.** A seat change invoice charges only for the part of the billing cycle that's left when the seats were added or upgraded, so the amount is less than the full seat price. For a worked example, see **[How is my Team plan bill calculated?](https://support.claude.com/en/articles/9267289)**
+
+**Applied balance.** An "Applied balance" line means a credit already on your organization's account was used to pay part or all of the invoice. It's not a new charge and not a discount on that invoice. Credits come from a credit note or an overpayment on an earlier invoice, and they're applied to your next invoices automatically.
+
+**Tax.** Tax is calculated from your organization's billing address. Learn more about **[your billing address and tax calculation](https://support.claude.com/en/articles/12997130)**. If your organization is tax-exempt, see **[Team plan billing FAQs](https://support.claude.com/en/articles/12997503)** for how to have tax removed.
+
+**Amount due.** The invoice total minus any applied balance. This is what your organization's payment method was charged.
+
+**Note:** The **Projected total** shown in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)** doesn't include tax, so it will be lower than the total on your invoice.
+
+## Billing details on your invoice
+
+The name and address on an invoice come from your organization's payment method at the time the invoice was issued. To show a different name on invoices, an owner can check "Use a different name on invoices" when adding or updating the payment method in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**.
+
+Changes to your billing details apply to future invoices only. Once an invoice has been issued, we can't edit or reissue it.
+
+## Frequently asked questions
+
+### Why did we receive an invoice in the middle of our billing cycle?
+
+An owner added members or upgraded seats. Those changes are invoiced immediately at a prorated amount rather than being added to your next renewal invoice.
+
+### We removed members. Why didn't our invoice go down?
+
+Removing a member frees up the seat but doesn't reduce your bill or generate a credit. You're charged for the seats on your plan at the start of each billing cycle, so to lower your next invoice, an owner needs to reduce your plan's total seat allocation before it renews.
+
+Learn more about **[purchasing and managing seats on Team plans](https://support.claude.com/en/articles/12004354)**.
+
+### Why did we get two receipts in the same month?
+
+If your organization uses usage credits, those purchases are billed separately from your subscription. One receipt is for your seats and the other is for the usage credits that were added, whether an owner added them or auto-reload did.
+
+### Can you correct the details on an invoice we already received?
+
+No. Issued invoices can't be changed. An owner can update your billing details in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**, and the changes will appear on your next invoice.
+---
+
+SOURCE: https://support.claude.com/en/articles/16608069-understanding-your-claude-api-invoices
+
+# Understanding your Claude API invoices
+
+This article explains the invoices and receipts you'll receive for Claude API and Console usage, where to find them, and how to read the line items on them.
+
+## Types of invoices you may receive
+
+**Usage invoices.** If your organization is on a paid usage contract, we aggregate your usage across API calls, playground chats, and other services on your account, and you'll receive an invoice from Stripe at the end of every calendar month.
+
+**Credit purchase receipts.** If your organization uses prepaid billing, you'll receive a receipt for each usage credit purchase, including purchases made automatically by auto-reload.
+
+For details on how billing works, see **[How do I pay for my Claude API usage?](https://support.claude.com/en/articles/8977456)**
+
+## Find your invoices
+
+After each charge, we automatically email the invoice to your registered billing email address. To find a past invoice in your inbox, search for the subject line "Your receipt from Anthropic."
+
+Invoices are also available in the Console to users with the Admin or Billing role:
+
+1. Log in to the Console with an Admin or Billing role.
+
+2. Go to **[Console Settings > Billing](https://platform.claude.com/settings/billing)**.
+
+3. Find the **Invoice history** section.
+
+4. Click "Download" to save the invoice directly, or click "View" to open it in a new Stripe tab and download it from there.
+
+Expired credit grants also appear in **Invoice history**, even though they aren't charges. For help accessing older receipts and invoices that aren't available in the Console, **[contact our Support team](https://support.claude.com/en/articles/9015913)**.
+
+## Read your invoice
+
+**Applied balance.** An "Applied balance" line means an existing balance on your account was automatically applied to the invoice, reducing the amount due. A negative applied balance is credit being used, not a new charge or a discount. It comes from one of two places:
+
+- A previous invoice totaled less than the minimum amount our billing system can charge ($0.50), so it rolled into this invoice.
+
+- Your account carried a credit—for example, from a credit note or an overpayment—and it was applied automatically.
+
+**Amount due.** The invoice total minus any applied balance. This is what your payment method is charged, or what you pay if your organization pays by bank transfer.
+
+## Billing details on your invoice
+
+The name, address, and tax information on an invoice come from your billing details at the time the invoice was issued. If you update your billing details, the changes apply to future invoices—issued invoices can't be modified. To update your details, go to **[Console Settings > Billing](https://platform.claude.com/settings/billing)**.
+
+## Frequently asked questions
+
+### Why is my invoice still past due after I paid?
+
+If you pay by bank transfer, the payment must match the invoice amount exactly. A payment that's short by even a few cents won't be applied, and the invoice stays past due until the remaining amount arrives. Once the full amount is received, the invoice is marked paid automatically—this can take around five business days to process.
+
+### Why didn't I receive an invoice for a small amount of usage?
+
+Invoices below $0.50 aren't charged on their own. The amount rolls forward and appears as an applied balance on your next invoice.
+
+### Can you correct the details on an invoice I already received?
+
+No. Issued invoices can't be changed. Update your billing details in **[Console Settings > Billing](https://platform.claude.com/settings/billing)** and the changes will appear on future invoices.
