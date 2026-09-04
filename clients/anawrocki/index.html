@@ -131,11 +131,16 @@
   .rb-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
   .rb-saved{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s}
   .rb-saved.show{opacity:1}
-  #rb-comments,#rb1-comments,#rb3-comments{width:100%;min-height:110px;resize:vertical;background:#0c0c10;border:1px solid var(--line);border-radius:12px;color:var(--txt);font-family:inherit;font-size:14px;line-height:1.6;padding:14px 16px}
-  #rb-comments:focus,#rb1-comments:focus,#rb3-comments:focus{outline:none;border-color:rgba(201,162,75,.55);box-shadow:0 0 0 3px rgba(201,162,75,.12)}
-  #rb-comments::placeholder,#rb1-comments::placeholder,#rb3-comments::placeholder{color:var(--muted-2)}
+  /* Scoped to the element, not to ids — the textareas are #rb1/#rb3, so the old
+     #rb1-comments selectors never matched and the boxes rendered browser-white. */
+  .review-box textarea{width:100%;min-height:110px;resize:vertical;background:#0c0c10;border:1px solid var(--line);border-radius:12px;color:var(--txt);font-family:inherit;font-size:14px;line-height:1.6;padding:14px 16px}
+  .review-box textarea:focus{outline:none;border-color:rgba(201,162,75,.55);box-shadow:0 0 0 3px rgba(201,162,75,.12)}
+  .review-box textarea::placeholder{color:var(--muted-2)}
   .rb-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
   .rb-actions .btn{cursor:pointer;border:none;font-family:inherit}
+  /* <button class="btn ghost"> otherwise keeps the UA's white button face */
+  .rb-actions .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+  .rb-actions .btn.ghost:hover{border-color:var(--gold)}
   .btn.approve{background:linear-gradient(90deg,#3da874,var(--green));color:#07130c;padding:13px 24px;border-radius:999px;font-weight:700;font-size:15px}
   .btn.approve:hover{filter:brightness(1.08)}
   .rb-hint{margin-top:12px;font-size:12px;color:var(--muted-2)}
@@ -191,6 +196,17 @@
     background:var(--gold);margin-right:8px;vertical-align:middle;
     box-shadow:0 0 0 4px rgba(201,162,75,.14)}
 
+  /* ---- Portrait pair (Ron Portrait block) ----
+     Square 1:1 frames shown two-up so the matched pair reads side by side.
+     The on-page image is a light preview; .watch links the full 5464px master. */
+  .portraits{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:760px}
+  .frame.square{aspect-ratio:1/1;background:var(--bg-2)}
+  .frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .portrait h4{font-size:15px;font-weight:600;margin-top:12px}
+  .portrait .rmeta{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .portrait .watch{display:inline-block;margin-top:4px}
+  @media(max-width:600px){.portraits{grid-template-columns:1fr;max-width:380px}}
+
 </style>
 </head>
 <body>
@@ -212,6 +228,7 @@
       <div class="item">Engagement<span>Service Agreement · Jul 21, 2026</span></div>
       <div class="item">Ready to review<span>2 vertical shorts</span></div>
       <div class="item">Ready to review<span>Service video (16:9)</span></div>
+      <div class="item">Ready to review<span>Ron portrait (print)</span></div>
     </div>
   </div>
 </div>
@@ -386,6 +403,68 @@
         the same five platforms and show you the before-and-after, side by side.
       </div>
     </div>
+
+<!-- ============ 04 — RON PORTRAIT ============ -->
+    <div class="video-block" style="margin-top:44px">
+      <div class="deliv-no">04 — Ron Portrait</div>
+      <div class="block-head">
+        <h3>Formal Portrait — Matched Pair</h3>
+        <span class="stage live">Ready for your review</span>
+      </div>
+      <div class="lede">
+        Ron's formal portrait, built to match yours exactly &mdash; the same background and depth
+        of field, the same lighting, the same square crop and head position. Both files are
+        <b>5464 &times; 5464</b>, so they print at identical size when hung side by side. Your own
+        portrait is included here purely so you can see the two together and download them from
+        one place.
+      </div>
+
+      <div class="portraits">
+        <div class="portrait">
+          <div class="frame square">
+            <img src="/clients/anawrocki/ron-portrait-preview.jpg"
+                 alt="Formal portrait of Ron Nawrocki" loading="lazy">
+          </div>
+          <h4>Ron Nawrocki</h4>
+          <div class="rmeta">Square 1:1 &middot; 5464&times;5464 &middot; print quality</div>
+          <a class="watch" href="/clients/anawrocki/ron-portrait.jpg"
+             download="Ron_Nawrocki_Portrait.jpg">&darr; Download High-Res</a>
+        </div>
+        <div class="portrait">
+          <div class="frame square">
+            <img src="/clients/anawrocki/alena-portrait-preview.jpg"
+                 alt="Formal portrait of Alena Nawrocki" loading="lazy">
+          </div>
+          <h4>Alena Nawrocki</h4>
+          <div class="rmeta">Square 1:1 &middot; 5464&times;5464 &middot; your original</div>
+          <a class="watch" href="/clients/anawrocki/alena-portrait.jpg"
+             download="Alena_Nawrocki_Portrait.jpg">&darr; Download High-Res</a>
+        </div>
+      </div>
+
+      <div class="review-note">
+        <b>What we're asking:</b> look at the two side by side as they would hang on the wall
+        &mdash; the background, the lighting, and how Ron is scaled in frame against you. Tell us
+        if anything should be adjusted before you send them to print.
+      </div>
+
+      <div class="review-box">
+        <div class="rb-head">
+          <span class="rb-title">Your Notes &amp; Approval — Ron Portrait</span>
+          <span class="rb-saved" id="rb3-saved">Saved &check;</span>
+        </div>
+        <textarea id="rb3" rows="5"
+          placeholder="Anything you'd like adjusted on Ron's portrait before printing — the framing, the expression, the background, or how the two match?"></textarea>
+        <div class="rb-actions">
+          <button class="btn approve" id="rb3-approve">Approve Portrait</button>
+          <button class="btn ghost" id="rb3-send">Send Notes</button>
+        </div>
+        <div class="rb-hint">
+          Your notes save to this browser as you type, so you can come back and finish later.
+          Either button opens an email to Michael with your notes attached.
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -445,6 +524,35 @@
   document.getElementById('rb1-send').addEventListener('click',function(){
     mail('Notes — Alena Nawrocki — Vertical Short-Form Tests',
          'Here are my notes on the two vertical tests:');
+  });
+})();
+
+/* Same pattern for the Ron Portrait block. Kept as its own IIFE with its own
+   storage key so the two review boxes never overwrite each other's notes. */
+(function(){
+  var KEY='anawrocki-ron-portrait';
+  var ta=document.getElementById('rb3'), saved=document.getElementById('rb3-saved');
+  if(!ta) return;
+  try{ var prev=localStorage.getItem(KEY); if(prev) ta.value=prev; }catch(e){}
+  var t=null;
+  ta.addEventListener('input',function(){
+    try{ localStorage.setItem(KEY, ta.value); }catch(e){}
+    saved.classList.add('show');
+    clearTimeout(t); t=setTimeout(function(){ saved.classList.remove('show'); },1400);
+  });
+  function mail(subject, lead){
+    var body = lead + '\n\n' + (ta.value.trim() || '(no notes added)') + '\n\n— Alena Nawrocki';
+    location.href = 'mailto:michael@avataragency.ai'
+      + '?subject=' + encodeURIComponent(subject)
+      + '&body=' + encodeURIComponent(body);
+  }
+  document.getElementById('rb3-approve').addEventListener('click',function(){
+    mail('APPROVED — Alena Nawrocki — Ron Portrait',
+         "Ron's portrait is approved. Please treat this as final for print.");
+  });
+  document.getElementById('rb3-send').addEventListener('click',function(){
+    mail('Notes — Alena Nawrocki — Ron Portrait',
+         "Here are my notes on Ron's portrait:");
   });
 })();
 </script>

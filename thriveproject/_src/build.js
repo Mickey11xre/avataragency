@@ -47,9 +47,12 @@ const hiFiles = fs.readdirSync(path.join(SRC, 'assets', 'hires'))
 put('__HIRES__', '[' + hiFiles.map(f => '"' + uri('hires/' + f, 'image/webp') + '"').join(', ') + ']');
 
 // ---- standalone assets ----
-put('__LOGOVIDEO_MP4__',  uri('logo.mp4',        'video/mp4'));
-put('__LOGOVIDEO_WEBM__', uri('logo.webm',       'video/webm'));
-put('__LOGOPOSTER__',     uri('logo-poster.webp','image/webp'));
+// The hero brand film is the ONE asset not inlined. At 16.4MB it would base64 to ~22MB and
+// push index.html to ~29MB - past Cloudflare Pages' 25MB per-file cap, which fails the whole
+// site deploy silently. It ships as a sibling file and streams; the poster stays inlined so
+// the card renders instantly with no second request.
+put('__LOGOVIDEO_MP4__',  'hero.mp4');
+put('__LOGOPOSTER__',     uri('hero-poster.jpg', 'image/jpeg'));
 put('__PORTRAIT__',       uri('portrait.webp',   'image/webp'));
 put('__TWIN__',           uri('twin.webp',       'image/webp'));
 put('__SPEAKING__',       uri('speaking.webp',   'image/webp'));
