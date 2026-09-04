@@ -266,11 +266,11 @@ body{background:#0B0F0C;color:var(--paper);overflow-x:hidden;
   .ly-ring{--ang:360deg}
   .lg-seed{transform:translate(-50%,-50%) scale(1)!important}
 }
-/* No scrim. The white gradient read as a band across the frame, so legibility is carried
-   by the controls themselves instead: a tight white glow behind the dark-green marks and a
-   light progress track. Measured on the hero poster, the strip under the controls runs
-   rgb(65,58,70) at the left and rgb(122,113,124) mid-frame - 1.3:1 and 1.8:1 against
-   #2E5540, well under the 3:1 a UI control needs. The glow is what restores it. */
+/* No scrim, no glow - solid green marks straight on the frame, by client decision.
+   Worth knowing if this is ever revisited: on the hero poster the strip under the
+   transport runs rgb(65,58,70) at the left and rgb(122,113,124) mid-frame, which is
+   1.3:1 and 1.8:1 against #2E5540 where a UI control wants 3:1. The controls are
+   therefore low-contrast over the left of the poster until playback starts. */
 .vbar{position:absolute;left:0;right:0;bottom:0;padding:0 3.4% 3.2%;
   transition:opacity .28s ease}
 /* The film runs ten seconds and the frame is the whole point, so the transport gets out
@@ -282,11 +282,9 @@ body{background:#0B0F0C;color:var(--paper);overflow-x:hidden;
    the click that pauses. With it, clicking anywhere on the film pauses and the controls
    come straight back. */
 .vid.rolling .vbar{opacity:0;pointer-events:none}
-.vprog{height:3px;border-radius:2px;background:rgba(255,255,255,.55);overflow:hidden;margin-bottom:3.2%;
-  box-shadow:0 0 3px rgba(255,255,255,.5)}
+.vprog{height:3px;border-radius:2px;background:rgba(28,51,39,.15);overflow:hidden;margin-bottom:3.2%}
 .vprog i{display:block;height:100%;width:0;background:#2E5540}
-.vctl{display:flex;align-items:center;gap:3.4%;color:#2E5540;
-  filter:drop-shadow(0 0 2px rgba(255,255,255,.95)) drop-shadow(0 0 5px rgba(255,255,255,.7))}
+.vctl{display:flex;align-items:center;gap:3.4%;color:#2E5540}
 .vctl svg{display:block;flex:0 0 auto}
 .vtime{font-size:clamp(8px,.72vw,11px);letter-spacing:.06em;font-variant-numeric:tabular-nums;
   color:rgba(46,85,64,.82)}
