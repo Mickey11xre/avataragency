@@ -246,6 +246,8 @@
   .shorts-grid .reel .frame.wide{aspect-ratio:16/9}
   @media(max-width:900px){.shorts-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media(max-width:600px){.shorts-grid{grid-template-columns:1fr}}
+  /* keep hash-linked sections clear of the sticky topbar */
+  .video-block[id]{scroll-margin-top:88px}
 </style>
 </head>
 <body>
@@ -349,7 +351,7 @@
     </div>
 
 
-    <div class="video-block" style="margin-top:44px">
+    <div class="video-block" id="shorts" style="margin-top:44px">
         <div class="deliv-no">02 — Horizontal Social Shorts (16:9)</div>
         <div class="block-head">
           <h3>Short-Form Concepts, Horizontal</h3>
@@ -824,12 +826,34 @@
       if(n){e.preventDefault();n.focus();show(n.getAttribute("href").slice(1),true);}
     });
   });
-  function fromHash(){
-    var k=(location.hash||"").replace("#","");
-    return tabs.some(function(t){return t.getAttribute("href")==="#"+k;})?k:"video";
+  /* A hash can name a tab (#video) or any section inside one (#shorts).
+     For a section, find which panel holds it, open that panel, then scroll —
+     the element is display:none until its panel is shown, so the browser's
+     own hash scroll cannot find it and has to be redone here. */
+  function resolve(k){
+    if(!k) return {tab:"video"};
+    if(tabs.some(function(t){return t.getAttribute("href")==="#"+k;})) return {tab:k};
+    var el=document.getElementById(k);
+    if(el){
+      var p=el.closest(".panel");
+      if(p){
+        var owner=tabs.filter(function(t){return t.getAttribute("aria-controls")===p.id;})[0];
+        if(owner) return {tab:owner.getAttribute("href").slice(1), el:el};
+      }
+    }
+    return {tab:"video"};
   }
-  show(fromHash(),false);
-  window.addEventListener("hashchange",function(){show(fromHash(),false);});
+  function apply(k,scroll){
+    var r=resolve(k);
+    show(r.tab,false);
+    if(r.el&&scroll){
+      requestAnimationFrame(function(){
+        window.scrollTo({top:r.el.getBoundingClientRect().top+window.pageYOffset-80,behavior:"smooth"});
+      });
+    }
+  }
+  apply((location.hash||"").replace("#",""),true);
+  window.addEventListener("hashchange",function(){apply((location.hash||"").replace("#",""),true);});
 })();
 </script>
 </body>
