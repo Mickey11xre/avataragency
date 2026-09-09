@@ -207,6 +207,39 @@
   .portrait .watch{display:inline-block;margin-top:4px}
   @media(max-width:600px){.portraits{grid-template-columns:1fr;max-width:380px}}
 
+
+  /* ---- Agreement tabs ----
+     Real <a href="#panel"> links wrapping real panels. Every panel is in the
+     served HTML; the script only toggles which is visible and keeps the hash
+     in the address bar so one agreement can be linked directly. */
+  .tabs{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;border-bottom:1px solid var(--line)}
+  .tab{display:flex;flex-direction:column;gap:2px;min-height:56px;justify-content:center;
+    padding:12px 20px;border:1px solid var(--line);border-bottom:none;border-radius:12px 12px 0 0;
+    background:var(--bg-2);color:var(--muted);font-size:14px;font-weight:600;
+    transition:.15s;position:relative;top:1px}
+  .tab span{display:block;font-size:11.5px;font-weight:400;color:var(--muted-2)}
+  .tab:hover{color:var(--txt);background:var(--card)}
+  .tab[aria-selected="true"]{background:var(--card-2);color:var(--txt);border-bottom:1px solid var(--card-2)}
+  .tab[aria-selected="true"]::after{content:"";position:absolute;left:0;right:0;top:-1px;height:2px;
+    background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:2px 2px 0 0}
+  @media(max-width:640px){.tabs{gap:6px;border-bottom:none}
+    .tab{flex:1 1 100%;border-radius:12px;border-bottom:1px solid var(--line);top:0}
+    .tab[aria-selected="true"]{border-bottom:1px solid var(--line)}}
+
+  /* per-tab status chips - replaces the mixed row that used to sit in the hero */
+  .chips{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:28px}
+  .chip{font-size:13px;color:var(--txt);background:var(--bg-2);border:1px solid var(--line);
+    border-radius:12px;padding:10px 14px;line-height:1.35}
+  .chip b{display:block;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;
+    color:var(--muted);font-weight:600;margin-bottom:3px}
+
+  /* document + external tool cards */
+  .linkcards{display:grid;gap:12px;margin-top:18px;max-width:720px}
+  .linkcard{display:block;min-height:44px;padding:18px 20px;border:1px solid var(--line);
+    border-radius:14px;background:linear-gradient(180deg,var(--card),var(--card-2));transition:.15s}
+  .linkcard:hover{border-color:rgba(201,162,75,.45);background:var(--card)}
+  .linkcard b{display:block;font-size:15px;color:var(--gold-2);margin-bottom:5px}
+  .linkcard span{display:block;font-size:13px;color:var(--muted);line-height:1.6}
 </style>
 </head>
 <body>
@@ -225,21 +258,43 @@
       <span class="sub">Your creative, your review notes, and everything in production — in one place.</span>
     </h1>
     <div class="meta-row">
-      <div class="item">Engagement<span>Service Agreement · Jul 21, 2026</span></div>
-      <div class="item">Ready to review<span>2 vertical shorts</span></div>
-      <div class="item">Ready to review<span>Service video (16:9)</span></div>
-      <div class="item">Ready to review<span>Ron portrait (print)</span></div>
+      <div class="item">Practice<span>Dental Arts San Diego</span></div>
+      <div class="item">Engagements<span>Two signed agreements</span></div>
+      <div class="item">Where to look<span>Choose an agreement below</span></div>
     </div>
   </div>
 </div>
 
-<!-- ============ 01 — SERVICE VIDEO PRODUCTION ============ -->
+<!-- ============ AGREEMENT TABS ============
+     Creative is grouped the way the client experiences it, not the way it was
+     billed: the two vertical edits and Ron's portrait were Section B extras on
+     invoice AA-2026-0904-01 rather than July 21 scope selections, but they are
+     video and photo work and sit with it. The paperwork tab holds the documents. -->
 <section>
   <div class="wrap">
     <div class="sec-head">
       <h2>Your Creative</h2>
       <div class="note">Newest work appears here as it is delivered</div>
     </div>
+
+    <div class="tabs" role="tablist" aria-label="Your engagements">
+      <a class="tab" id="tab-video" href="#video" role="tab" aria-controls="panel-video" aria-selected="true">
+        Service Agreement 7-21-26<span>Video &amp; photography</span>
+      </a>
+      <a class="tab" id="tab-aro" href="#aro" role="tab" aria-controls="panel-aro" aria-selected="false">
+        Service Agreement 8-17-26<span>AI Referral Optimization</span>
+      </a>
+      <a class="tab" id="tab-docs" href="#docs" role="tab" aria-controls="panel-docs" aria-selected="false">
+        Agreements &amp; Invoices<span>Your paperwork</span>
+      </a>
+    </div>
+
+    <div class="panel" id="panel-video" role="tabpanel" aria-labelledby="tab-video">
+      <div class="chips">
+        <div class="chip"><b>Ready to review</b>Service video &middot; 4 cuts</div>
+        <div class="chip"><b>Ready to review</b>Vertical shorts &middot; 7 cuts</div>
+        <div class="chip"><b>Ready to review</b>Ron portrait (print)</div>
+      </div>
 
     <div class="video-block">
       <div class="deliv-no">01 — Service Video Production</div>
@@ -319,7 +374,7 @@
       </div>
     </div>
 
-<!-- ============ 02 — VERTICAL SHORT-FORM ============ -->
+
     <div class="video-block" style="margin-top:44px">
       <div class="deliv-no">02 — Vertical Short-Form Edit</div>
       <div class="block-head">
@@ -436,33 +491,7 @@
       </div>
     </div>
 
-<!-- ============ 03 — AI REFERRAL OPTIMIZATION ============ -->
-    <div class="video-block" style="margin-top:44px">
-      <div class="deliv-no">03 — AI Referral Optimization</div>
-      <div class="block-head">
-        <h3>ChatGPT, Gemini, Grok, Perplexity &amp; Claude</h3>
-        <span class="stage active">Active</span>
-      </div>
-      <div class="lede">
-        Your baseline audit is complete. We asked <b>22 real patient questions</b> across all five
-        major AI platforms — ChatGPT, Gemini, Grok, Perplexity and Claude — and recorded
-        <b>110 answers</b> to establish exactly where your practice stands today.
-      </div>
-      <div class="lede" style="margin-top:-6px">
-        Your live dashboard shows the full picture: your score and the four pillars behind it,
-        every question and which competitor took the answers you missed, your reputation signals,
-        the technical checks on your website, and the twelve-point action plan we're working
-        through — updated as items are completed.
-      </div>
-      <a class="dashlink" href="https://avataragency.ai/aiso/client/dentalarts-tyqezp/"
-         target="_blank" rel="noopener">Open your dashboard &rarr;</a>
-      <div class="recheck">
-        Re-check scheduled for <b>November 10, 2026</b> — we re-run the identical 22 questions on
-        the same five platforms and show you the before-and-after, side by side.
-      </div>
-    </div>
 
-<!-- ============ 04 — RON PORTRAIT ============ -->
     <div class="video-block" style="margin-top:44px">
       <div class="deliv-no">04 — Ron Portrait</div>
       <div class="block-head">
@@ -523,6 +552,93 @@
         </div>
       </div>
     </div>
+    </div>
+
+    <div class="panel" id="panel-aro" role="tabpanel" aria-labelledby="tab-aro" hidden>
+      <div class="chips">
+        <div class="chip"><b>Delivered</b>Phase 1 &middot; baseline audit</div>
+        <div class="chip"><b>Your baseline</b>36 of 100</div>
+        <div class="chip"><b>Scheduled</b>Phase 4 &middot; 60-day re-check</div>
+      </div>
+
+    <div class="video-block" style="margin-top:44px">
+      <div class="deliv-no">03 — AI Referral Optimization</div>
+      <div class="block-head">
+        <h3>ChatGPT, Gemini, Grok, Perplexity &amp; Claude</h3>
+        <span class="stage active">Active</span>
+      </div>
+      <div class="lede">
+        Your baseline audit is complete. We asked <b>22 real patient questions</b> across all five
+        major AI platforms — ChatGPT, Gemini, Grok, Perplexity and Claude — and recorded
+        <b>110 answers</b> to establish exactly where your practice stands today.
+      </div>
+      <div class="lede" style="margin-top:-6px">
+        Your live dashboard shows the full picture: your score and the four pillars behind it,
+        every question and which competitor took the answers you missed, your reputation signals,
+        the technical checks on your website, and the twelve-point action plan we're working
+        through — updated as items are completed.
+      </div>
+      <a class="dashlink" href="https://avataragency.ai/aiso/client/dentalarts-tyqezp/"
+         target="_blank" rel="noopener">Open your dashboard &rarr;</a>
+      <div class="recheck">
+        Re-check scheduled for <b>November 10, 2026</b> — we re-run the identical 22 questions on
+        the same five platforms and show you the before-and-after, side by side.
+      </div>
+    </div>
+
+
+    <div class="video-block" style="margin-top:44px">
+      <div class="deliv-no">Your program links</div>
+      <div class="block-head">
+        <h3>Everything for this program, in one place</h3>
+      </div>
+      <div class="lede">
+        Your findings report, what we still need from you, and the live dashboard
+        where the twelve-point action plan is tracked.
+      </div>
+      <div class="linkcards">
+        <a class="linkcard" href="/clients/anawrocki/docs/ai-referral-audit-findings.pdf" target="_blank" rel="noopener">
+          <b>AI Referral Audit &mdash; Findings Report</b>
+          <span>Your baseline: 22 real patient questions asked on 5 AI platforms, 110 recorded answers. PDF.</span>
+        </a>
+        <a class="linkcard" href="https://avataragency.ai/aiso/onboarding/" target="_blank" rel="noopener">
+          <b>Onboarding &mdash; what we need from you</b>
+          <span>The access items from Section 4 of your agreement, in the order we need them.</span>
+        </a>
+        <a class="linkcard" href="https://avataragency.ai/aiso/client/dentalarts-tyqezp/" target="_blank" rel="noopener">
+          <b>Your optimization dashboard</b>
+          <span>Live progress against the twelve-point action plan.</span>
+        </a>
+      </div>
+    </div>
+    </div>
+
+    <div class="panel" id="panel-docs" role="tabpanel" aria-labelledby="tab-docs" hidden>
+      <div class="video-block">
+        <div class="deliv-no">Agreements &amp; Invoices</div>
+        <div class="block-head">
+          <h3>Your signed paperwork</h3>
+        </div>
+        <div class="lede">
+          Every document for this engagement, kept here so you always have a copy.
+        </div>
+        <div class="linkcards">
+          <a class="linkcard" href="/clients/anawrocki/docs/service-agreement-2026-07-21.pdf" target="_blank" rel="noopener">
+            <b>Service Agreement &mdash; July 21, 2026</b>
+            <span>Signed. Video production, the on-site photo and cloning session, and the consulting session.</span>
+          </a>
+          <a class="linkcard" href="/clients/anawrocki/docs/service-agreement-aro-2026-08-17.pdf" target="_blank" rel="noopener">
+            <b>Service Agreement &mdash; August 17, 2026</b>
+            <span>Signed. The AI Referral Optimization Program, a standalone engagement.</span>
+          </a>
+          <a class="linkcard" href="/clients/anawrocki/docs/invoice-AA2026090401.pdf" target="_blank" rel="noopener">
+            <b>Invoice AA-2026-0904-01</b>
+            <span>September 4, 2026. The balance on delivery, plus the two vertical edits and Ron's portrait.</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
   </div>
 </section>
 
@@ -615,5 +731,45 @@
 })();
 </script>
 
+<script>
+/* Tab switching. Panels exist in the DOM either way; this toggles visibility
+   and mirrors the choice into the address bar so a tab can be linked. */
+(function(){
+  var tabs=[].slice.call(document.querySelectorAll(".tab"));
+  if(!tabs.length) return;
+  var panels=tabs.map(function(t){return document.getElementById(t.getAttribute("aria-controls"));});
+  function show(id,push){
+    var found=false;
+    tabs.forEach(function(t,i){
+      var on=t.getAttribute("href")==="#"+id;
+      if(on) found=true;
+      t.setAttribute("aria-selected",on?"true":"false");
+      t.setAttribute("tabindex",on?"0":"-1");
+      if(panels[i]) panels[i].hidden=!on;
+    });
+    if(found&&push&&history.replaceState) history.replaceState(null,"","#"+id);
+  }
+  tabs.forEach(function(t){
+    t.addEventListener("click",function(e){
+      e.preventDefault();
+      show(t.getAttribute("href").slice(1),true);
+      var bar=document.querySelector(".tabs");
+      if(bar) window.scrollTo({top:bar.getBoundingClientRect().top+window.pageYOffset-80,behavior:"smooth"});
+    });
+    t.addEventListener("keydown",function(e){
+      var i=tabs.indexOf(t),n=null;
+      if(e.key==="ArrowRight") n=tabs[(i+1)%tabs.length];
+      if(e.key==="ArrowLeft")  n=tabs[(i-1+tabs.length)%tabs.length];
+      if(n){e.preventDefault();n.focus();show(n.getAttribute("href").slice(1),true);}
+    });
+  });
+  function fromHash(){
+    var k=(location.hash||"").replace("#","");
+    return tabs.some(function(t){return t.getAttribute("href")==="#"+k;})?k:"video";
+  }
+  show(fromHash(),false);
+  window.addEventListener("hashchange",function(){show(fromHash(),false);});
+})();
+</script>
 </body>
 </html>
