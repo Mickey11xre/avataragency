@@ -240,6 +240,12 @@
   .linkcard:hover{border-color:rgba(201,162,75,.45);background:var(--card)}
   .linkcard b{display:block;font-size:15px;color:var(--gold-2);margin-bottom:5px}
   .linkcard span{display:block;font-size:13px;color:var(--muted);line-height:1.6}
+
+  /* horizontal shorts - same idiom as .reels but 16:9 plates */
+  .shorts-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+  .shorts-grid .reel .frame.wide{aspect-ratio:16/9}
+  @media(max-width:900px){.shorts-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:600px){.shorts-grid{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -291,7 +297,8 @@
 
     <div class="panel" id="panel-video" role="tabpanel" aria-labelledby="tab-video">
       <div class="chips">
-        <div class="chip"><b>Ready to review</b>Service video &middot; 4 cuts</div>
+        <div class="chip"><b>Ready to review</b>Service video &middot; 2 cuts</div>
+        <div class="chip"><b>Ready to review</b>Horizontal shorts &middot; 6</div>
         <div class="chip"><b>Ready to review</b>Vertical shorts &middot; 7 cuts</div>
         <div class="chip"><b>Ready to review</b>Ron portrait (print)</div>
       </div>
@@ -306,39 +313,6 @@
         Your scripted, clone-driven service video, built from your own photographs and recorded
         voice. Optimized for Meta feed placement and equally suited to your practice website.
       </div>
-      <div class="frame wide">
-        <video id="scared-h" controls preload="metadata" playsinline
-               poster="/clients/anawrocki/scared-horizontal-poster.jpg"
-               src="/clients/anawrocki/scared-horizontal.mp4"></video>
-      </div>
-      <div class="vcap">
-        <h4>Scared of the Dentist Horizontal Format (16:9)</h4>
-        <div class="vmeta">Horizontal 16:9 &middot; 1920&times;1080 &middot; 0:23 &middot; sound on</div>
-        <div class="vnote">
-          The Scared of the Dentist concept cut for horizontal placement &mdash; the same
-          script as the vertical, reframed for your website, YouTube and in-feed placements
-          that run wide.
-        </div>
-        <a class="watch" href="/clients/anawrocki/scared-horizontal.mp4"
-           download="Alena_Nawrocki_Scared_Of_The_Dentist_Horizontal.mp4">&darr; Download</a>
-      </div>
-
-      <div class="frame wide" style="margin-top:26px">
-        <video id="invis-h" controls preload="metadata" playsinline
-               poster="/clients/anawrocki/invisalign-horizontal-poster.jpg"
-               src="/clients/anawrocki/invisalign-horizontal.mp4"></video>
-      </div>
-      <div class="vcap">
-        <h4>Invisalign Horizontal Format (16:9)</h4>
-        <div class="vmeta">Horizontal 16:9 &middot; 1920&times;1080 &middot; 0:21 &middot; sound on</div>
-        <div class="vnote">
-          The Invisalign concept cut for horizontal placement &mdash; the same script as the
-          vertical, reframed for your website, YouTube and in-feed placements that run wide.
-        </div>
-        <a class="watch" href="/clients/anawrocki/invisalign-horizontal.mp4"
-           download="Alena_Nawrocki_Invisalign_Horizontal.mp4">&darr; Download</a>
-      </div>
-
       <div class="frame wide" style="margin-top:26px">
         <video id="service-2" controls preload="metadata" playsinline
                poster="/clients/anawrocki/service-video-02-poster.jpg"
@@ -376,7 +350,94 @@
 
 
     <div class="video-block" style="margin-top:44px">
-      <div class="deliv-no">02 — Vertical Short-Form Edit</div>
+        <div class="deliv-no">02 — Horizontal Social Shorts (16:9)</div>
+        <div class="block-head">
+          <h3>Short-Form Concepts, Horizontal</h3>
+          <span class="stage live">Ready for your review</span>
+        </div>
+        <div class="lede">
+          Roughly twenty seconds each, framed wide for your website, YouTube, and the in-feed
+          placements that run horizontal. Each one takes a single question a patient actually
+          asks and answers it. Grouped by who presents.
+        </div>
+
+        <div class="subhead">Alena Shorts</div>
+        <div class="shorts-grid">
+          <div class="reel">
+            <div class="frame wide">
+              <video id="short-invis-h" controls preload="metadata" playsinline
+                     poster="/clients/anawrocki/invisalign-horizontal-poster.jpg"
+                     src="/clients/anawrocki/invisalign-horizontal.mp4"></video>
+            </div>
+            <h4>Invisalign</h4>
+            <div class="rmeta">16:9 &middot; 1920&times;1080 &middot; 0:21 &middot; sound on</div>
+            <a class="watch" href="/clients/anawrocki/invisalign-horizontal.mp4" download="Alena_Nawrocki_Invisalign_Horizontal.mp4">&darr; Download</a>
+          </div>
+          <div class="reel">
+            <div class="frame wide">
+              <video id="short-implants" controls preload="metadata" playsinline
+                     poster="/clients/anawrocki/short-too-old-implants-poster.jpg"
+                     src="/clients/anawrocki/short-too-old-implants.mp4"></video>
+            </div>
+            <h4>Too Old for Implants</h4>
+            <div class="rmeta">16:9 &middot; 1920&times;1080 &middot; 0:20 &middot; sound on</div>
+            <a class="watch" href="/clients/anawrocki/short-too-old-implants.mp4" download="Alena_Nawrocki_Too_Old_For_Implants.mp4">&darr; Download</a>
+          </div>
+          <div class="reel">
+            <div class="frame wide">
+              <video id="short-dentures" controls preload="metadata" playsinline
+                     poster="/clients/anawrocki/short-need-dentures-poster.jpg"
+                     src="/clients/anawrocki/short-need-dentures.mp4"></video>
+            </div>
+            <h4>Told You Need Dentures</h4>
+            <div class="rmeta">16:9 &middot; 1920&times;1080 &middot; 0:22 &middot; sound on</div>
+            <a class="watch" href="/clients/anawrocki/short-need-dentures.mp4" download="Alena_Nawrocki_Told_You_Need_Dentures.mp4">&darr; Download</a>
+          </div>
+        </div>
+
+        <div class="subhead">Ron Shorts</div>
+        <div class="shorts-grid">
+          <div class="reel">
+            <div class="frame wide">
+              <video id="short-scared-h" controls preload="metadata" playsinline
+                     poster="/clients/anawrocki/scared-horizontal-poster.jpg"
+                     src="/clients/anawrocki/scared-horizontal.mp4"></video>
+            </div>
+            <h4>Scared of the Dentist</h4>
+            <div class="rmeta">16:9 &middot; 1920&times;1080 &middot; 0:23 &middot; sound on</div>
+            <a class="watch" href="/clients/anawrocki/scared-horizontal.mp4" download="Alena_Nawrocki_Scared_Of_The_Dentist_Horizontal.mp4">&darr; Download</a>
+          </div>
+          <div class="reel">
+            <div class="frame wide">
+              <video id="short-busy" controls preload="metadata" playsinline
+                     poster="/clients/anawrocki/short-busy-people-poster.jpg"
+                     src="/clients/anawrocki/short-busy-people.mp4"></video>
+            </div>
+            <h4>Built for Busy People</h4>
+            <div class="rmeta">16:9 &middot; 1920&times;1080 &middot; 0:21 &middot; sound on</div>
+            <a class="watch" href="/clients/anawrocki/short-busy-people.mp4" download="Alena_Nawrocki_Built_For_Busy_People.mp4">&darr; Download</a>
+          </div>
+          <div class="reel">
+            <div class="frame wide">
+              <video id="short-generations" controls preload="metadata" playsinline
+                     poster="/clients/anawrocki/short-four-generations-poster.jpg"
+                     src="/clients/anawrocki/short-four-generations.mp4"></video>
+            </div>
+            <h4>Four Generations</h4>
+            <div class="rmeta">16:9 &middot; 1920&times;1080 &middot; 0:19 &middot; sound on</div>
+            <a class="watch" href="/clients/anawrocki/short-four-generations.mp4" download="Alena_Nawrocki_Four_Generations.mp4">&darr; Download</a>
+          </div>
+        </div>
+
+        <div class="review-note">
+          <b>What we are asking:</b> these six are a direction test. Tell us which land and
+          which fall flat, and we produce more along the lines that work. Watch with sound on
+          &mdash; each is written to answer one question inside the first three seconds.
+        </div>
+      </div>
+
+    <div class="video-block" style="margin-top:44px">
+      <div class="deliv-no">03 — Vertical Short-Form Edit</div>
       <div class="block-head">
         <h3>~30-Second Version (9:16)</h3>
         <span class="stage live">Ready for your review</span>
@@ -562,7 +623,7 @@
       </div>
 
     <div class="video-block" style="margin-top:44px">
-      <div class="deliv-no">03 — AI Referral Optimization</div>
+      <div class="deliv-no">01 — AI Referral Optimization Program</div>
       <div class="block-head">
         <h3>ChatGPT, Gemini, Grok, Perplexity &amp; Claude</h3>
         <span class="stage active">Active</span>
