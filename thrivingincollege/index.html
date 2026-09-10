@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Thriving Project — staging</title>
+<link rel="stylesheet" href="/thrivingincollege/css/tokens.css">
+<style>
+  .shell { padding-block: var(--sp-xl); }
+  .status { display: grid; gap: var(--sp-2xs); list-style: none; padding: 0; margin-block-start: var(--sp-m); }
+  .status li { display: grid; grid-template-columns: 7rem 1fr; gap: var(--sp-s); padding: var(--sp-xs) var(--sp-s);
+               background: var(--surface); border: 1px solid var(--rule-soft); border-radius: var(--radius); align-items: baseline; }
+  .status b { font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+  .status .live b { color: var(--action); }
+  .note { color: var(--text-2); margin-block-start: var(--sp-m); max-width: var(--measure); }
+</style>
+</head>
+<body>
+<main class="shell">
+  <p class="eyebrow" style="font-size:var(--step--1);letter-spacing:.12em;text-transform:uppercase;color:var(--gold-text);font-weight:600">Staging · not the live site</p>
+  <h1>The Thriving Project</h1>
+  <p class="note">
+    This is the working build of the thrivingincollege.org rebuild. It updates automatically with
+    every change. Nothing here is public, and prices shown are the confirmed 2026–27 figures.
+  </p>
+
+  <ul class="status">
+    <li class="live"><b>Live</b><span><a href="/thrivingincollege/instruments/undergraduate/">Instrument page — Undergraduate</a> · the template that repeats seven times</span></li>
+    <li><b>Next</b><span>Packages &amp; Pricing — the store, with Stripe Checkout</span></li>
+    <li><b>Queued</b><span>Instruments hub · the other six instrument pages · Knowledge Center · About · Legal</span></li>
+  </ul>
+
+  <p class="note">Launch target: 15 September 2026.</p>
+</main>
+</body>
+</html>

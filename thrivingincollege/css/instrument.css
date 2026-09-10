@@ -1,0 +1,225 @@
+/* =========================================================================
+   Instrument page — brief §7.2 / v6 §07 template table
+   The spine: capsule → what it measures → scales → administration →
+   sample items → purchase → citation → FAQ. Identical on all seven.
+   ========================================================================= */
+
+/* ---- Skip link ------------------------------------------------------- */
+.skip {
+  position: absolute; left: var(--sp-s); top: -100px; z-index: 100;
+  background: var(--action); color: var(--paper);
+  padding: var(--sp-2xs) var(--sp-s); border-radius: var(--radius-s);
+}
+.skip:focus { top: var(--sp-s); color: var(--paper); }
+
+/* ---- Masthead -------------------------------------------------------- */
+.masthead {
+  border-block-end: 1px solid var(--rule);
+  padding-block: var(--sp-2xs);
+  background: var(--paper);
+}
+.masthead__in { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-s); }
+.wordmark {
+  font-family: var(--font-display); font-size: var(--step-1);
+  color: var(--ink); text-decoration: none; letter-spacing: .01em;
+}
+.wordmark:hover { color: var(--ink); }
+
+/* The hamburger is a real control at 44px. The drawer it opens is
+   progressive enhancement over the footer nav — nav spec §7.            */
+.hamburger {
+  background: var(--paper-3); border: 1px solid var(--rule);
+  border-radius: var(--radius-s); color: var(--ink);
+  justify-content: center;
+}
+@media (min-width: 64rem) { .hamburger { display: none; } }
+
+/* Desktop inline nav — hidden on phones, where the drawer serves.       */
+.nav { display: none; }
+@media (min-width: 64rem) {
+  .nav { display: flex; align-items: center; }
+  /* :not(.btn) matters — a bare `.nav a` rule is specificity 0,2,0 and
+     silently beats `.btn--primary` at 0,1,0, which paints the button's
+     label in the nav link colour. Measured at 1.11:1 before this. */
+  .nav a:not(.btn) {
+    text-decoration: none; color: var(--ink-soft);
+    font-size: var(--step--1); padding-inline: var(--sp-2xs);
+  }
+  .nav a:not(.btn):hover { color: var(--action); }
+  .nav a[data-store] { color: var(--gold-text); font-weight: 600; }
+}
+
+/* ---- Breadcrumb ------------------------------------------------------ */
+.crumbs { padding-block: var(--sp-s); font-size: var(--step--1); color: var(--text-3); }
+.crumbs ol { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-3xs) var(--sp-2xs); }
+.crumbs li::after { content: "›"; margin-inline-start: var(--sp-2xs); color: var(--rule); }
+.crumbs li:last-child::after { content: none; }
+.crumbs a { color: var(--text-3); }
+
+/* ---- Page head + answer capsule -------------------------------------
+   v6 §11: the capsule is the quotable unit. It sits directly under the
+   single H1 as literal text — no accordion, no tab, no JS.             */
+.page-head { padding-block-end: var(--sp-m); }
+.eyebrow {
+  font-size: var(--step--1); letter-spacing: .12em; text-transform: uppercase;
+  color: var(--gold-text); font-weight: 600;
+}
+.capsule {
+  margin-block-start: var(--sp-s);
+  padding: var(--sp-s) var(--sp-m);
+  border-inline-start: 3px solid var(--gold);
+  background: var(--paper-3);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  font-size: var(--step-1);
+  line-height: 1.5;
+  max-width: var(--measure);
+}
+
+/* ---- Section rhythm -------------------------------------------------- */
+.section { padding-block: var(--sp-l); border-block-start: 1px solid var(--rule-soft); }
+.section:first-of-type { border-block-start: 0; }
+.section__lead { color: var(--text-2); max-width: var(--measure); }
+
+/* ---- Scales & coefficients ------------------------------------------
+   Brief §4.3: tabular data on a small screen gets a definition-list or
+   stacked-row treatment, NOT a squeezed grid. Below 48rem each scale is
+   a self-contained block; above it, a two-column definition layout.
+   Selectable text throughout — never an image of a table.             */
+.scales { list-style: none; padding: 0; display: grid; gap: var(--sp-xs); }
+.scale {
+  background: var(--surface);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  padding: var(--sp-s) var(--sp-m);
+}
+.scale__name { font-family: var(--font-display); font-size: var(--step-1); }
+.scale__def  { color: var(--text-2); margin-block-start: var(--sp-3xs); }
+.scale__meta {
+  margin-block-start: var(--sp-2xs);
+  display: flex; flex-wrap: wrap; gap: var(--sp-2xs) var(--sp-m);
+  font-size: var(--step-sm); color: var(--text-3);
+}
+.scale__meta b { color: var(--text); font-variant-numeric: tabular-nums; }
+@media (min-width: 48rem) {
+  .scale { display: grid; grid-template-columns: 14rem 1fr; gap: var(--sp-s) var(--sp-m); align-items: baseline; }
+  .scale__meta { grid-column: 2; }
+}
+
+/* ---- Pending block — brief §10, never invent a number ---------------- */
+.pending {
+  border: 1px dashed var(--gold);
+  background: color-mix(in srgb, var(--gold) 7%, transparent);
+  border-radius: var(--radius);
+  padding: var(--sp-s) var(--sp-m);
+  color: var(--text-2);
+  font-size: var(--step-sm);
+}
+.pending b { color: var(--gold-text); text-transform: uppercase; letter-spacing: .08em; font-size: var(--step--1); }
+
+/* ---- Administration -------------------------------------------------- */
+.spec { display: grid; gap: 0; margin: 0; }
+.spec > div {
+  display: grid; gap: var(--sp-3xs);
+  padding-block: var(--sp-s);
+  border-block-end: 1px solid var(--rule-soft);
+}
+.spec > div:last-child { border-block-end: 0; }
+.spec dt { font-weight: 600; font-size: var(--step--1); letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); }
+.spec dd { margin: 0; max-width: var(--measure); }
+@media (min-width: 48rem) {
+  .spec > div { grid-template-columns: 15rem 1fr; gap: var(--sp-m); align-items: baseline; }
+}
+
+/* ---- Sample items ---------------------------------------------------- */
+.samples { list-style: none; padding: 0; display: grid; gap: var(--sp-2xs); }
+.samples li {
+  background: var(--paper-3); border-radius: var(--radius-s);
+  padding: var(--sp-xs) var(--sp-s);
+  font-style: italic; color: var(--text);
+  max-width: var(--measure);
+}
+
+/* ---- Purchase panel --------------------------------------------------
+   v6 §07: "a visible purchase path", and the brief requires it in a
+   FIXED POSITION on every instrument page. It sits here, after
+   administration, on all seven — never floated to a different slot.
+   Container-queried so the same component is correct inline on a phone
+   and in the sidebar at desktop without a second ruleset.              */
+.buy { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: var(--sp-m); }
+.buy__price {
+  font-family: var(--font-display);
+  font-size: var(--step-3);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+.buy__unit { font-size: var(--step--1); color: var(--text-3); font-family: var(--font-ui); }
+.buy__note { font-size: var(--step-sm); color: var(--text-2); margin-block-start: var(--sp-2xs); }
+.buy__actions { display: grid; gap: var(--tap-gap); margin-block-start: var(--sp-s); }
+@container (min-width: 30rem) {
+  .buy__actions { grid-template-columns: 1fr 1fr; }
+}
+
+/* ---- FAQ -------------------------------------------------------------
+   <details> is deliberate. Brief §4.3: the answers must be present in
+   the DOM whether or not the accordion is open. <details> collapses
+   without removing — an accordion that injects on click is invisible to
+   exactly the crawlers this project exists to satisfy. It also needs no
+   JavaScript, which is the no-JS requirement met for free.            */
+.faq { display: grid; gap: var(--sp-2xs); }
+.faq details {
+  background: var(--surface);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+}
+.faq summary {
+  padding: var(--sp-xs) var(--sp-s);
+  font-family: var(--font-display);
+  font-size: var(--step-1);
+  cursor: pointer;
+  list-style: none;
+  justify-content: space-between;
+  gap: var(--sp-s);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary::after {
+  content: "+"; font-family: var(--font-ui); font-size: var(--step-2);
+  color: var(--gold-text); line-height: 1; flex: 0 0 auto;
+}
+.faq details[open] summary::after { content: "–"; }
+.faq__a { padding: 0 var(--sp-s) var(--sp-s); color: var(--text-2); max-width: var(--measure); }
+
+/* ---- Citation -------------------------------------------------------- */
+.cite {
+  background: var(--paper-3); border-radius: var(--radius);
+  padding: var(--sp-s) var(--sp-m); font-size: var(--step-sm);
+}
+.cite p { max-width: var(--measure); }
+.cite__ref { font-family: var(--font-display); color: var(--text); }
+
+/* ---- Footer — restates the full navigation as plain links on every
+   page. Nav spec §7: this is the crawler path and the no-JS path.     */
+.site-footer {
+  margin-block-start: var(--sp-2xl);
+  border-block-start: 1px solid var(--rule);
+  background: var(--paper-2);
+  padding-block: var(--sp-l);
+}
+.site-footer nav ul { list-style: none; padding: 0; display: grid; gap: var(--sp-3xs); }
+.site-footer a { color: var(--text-2); text-decoration: none; }
+.site-footer a:hover { color: var(--action); }
+.site-footer h2 {
+  font-size: var(--step--1); text-transform: uppercase; letter-spacing: .1em;
+  color: var(--text-3); font-family: var(--font-ui); font-weight: 600;
+  margin-block-end: var(--sp-2xs);
+}
+.footer-grid { display: grid; gap: var(--sp-m); }
+@media (min-width: 48rem) { .footer-grid { grid-template-columns: repeat(4, 1fr); } }
+.colophon { margin-block-start: var(--sp-m); padding-block-start: var(--sp-s); border-block-start: 1px solid var(--rule-soft); font-size: var(--step--1); color: var(--text-3); }
+
+/* ---- Desktop two-column ---------------------------------------------
+   Brief §3: the first point at which two columns can be justified is
+   768px. Below that this is one column, in spine order.                */
+@media (min-width: 64rem) {
+  .layout { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; gap: var(--sp-xl); align-items: start; }
+  .layout__aside { position: sticky; top: var(--sp-s); }
+}

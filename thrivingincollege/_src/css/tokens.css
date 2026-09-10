@@ -1,0 +1,231 @@
+/* =========================================================================
+   The Thriving Project — design system layer
+   Brief §7.1 · mobile-first, 390px reference viewport
+
+   Palette and register are carried from the approved concept
+   (/thriveproject/), not reinvented: paper grounds, rooted greens, gold
+   accent, serif display. Everything else here exists to make the brief's
+   non-negotiables (§3) inheritable rather than remembered per page.
+   ========================================================================= */
+
+:root {
+  /* ---- Colour — from the approved concept ---------------------------- */
+  --paper:        #F5F0E4;   /* page ground                              */
+  --paper-2:      #EDE6D6;   /* raised card                              */
+  --paper-3:      #F1EADA;   /* subtle fill                              */
+  --ink:          #1C3327;   /* body + headings                          */
+  --ink-soft:     #3F5A49;   /* secondary copy                           */
+  /* #5C7F63 came from the concept, where it sits on darker grounds. On
+     paper it measures 3.95:1 — under WCAG AA. Darkened to 5.24:1; the
+     hue is unchanged, so the concept's register is preserved.          */
+  --ink-mute:     #4A6B54;   /* meta, captions — 5.24:1 on --paper       */
+  --green:        #2E5540;   /* primary action, rules                    */
+  --green-deep:   #244334;   /* hover/pressed                            */
+  /* Two golds, deliberately. The concept's #9A7B3F is correct as an
+     accent — rules, borders, the capsule edge — but measures 3.5:1 as
+     TEXT on paper, under AA. --gold-text is the same hue darkened to
+     4.78:1 and is what the Store link and eyebrows use. The nav spec
+     requires Store to read as gold; this is how it does that legibly. */
+  --gold:         #9A7B3F;   /* accent only: rules, borders, markers     */
+  --gold-text:    #806630;   /* gold as text — 4.78:1 on --paper         */
+  --rule:         rgba(28, 51, 39, .22);
+  --rule-soft:    rgba(28, 51, 39, .10);
+
+  /* Semantic aliases — templates use these, not the raw names above.
+     Re-theming happens here and nowhere else.                           */
+  --bg:           var(--paper);
+  --surface:      var(--paper-2);
+  --text:         var(--ink);
+  --text-2:       var(--ink-soft);
+  --text-3:       var(--ink-mute);
+  --action:       var(--green);
+  --action-hover: var(--green-deep);
+  --focus:        #6B4E16;
+
+  /* ---- Type ----------------------------------------------------------
+     Two families maximum (brief §6). Production self-hosts a subset with
+     font-display:swap; the stacks below are the fallbacks that ship with
+     them, so the prototype has zero network font cost and no FOIT.      */
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --font-ui:      system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+
+  /* Fluid scale, 390px → 1200px. One scale, not four fixed designs.
+     Body starts at 17px — the brief's floor is 16 and says 17–18 is
+     better and costs nothing. Our readers are senior academics.         */
+  /* --step--1 is for MICRO-LABELS ONLY — eyebrows, breadcrumbs, field
+     labels, colophon. Never for anything a buyer reads as content.     */
+  --step--1: clamp(0.875rem, 0.85rem + 0.12vw, 0.9375rem);  /* 14 → 15  */
+  /* --step-sm is the floor for secondary READING text — pricing notes,
+     pending blocks, citations. Brief §3: body copy >= 16px and never
+     below. Secondary is still body copy.                              */
+  --step-sm: clamp(1rem, 0.98rem + 0.1vw, 1.0625rem);       /* 16 → 17  */
+  --step-0:  clamp(1.0625rem, 1.03rem + 0.16vw, 1.125rem);  /* 17 → 18  */
+  --step-1:  clamp(1.1875rem, 1.13rem + 0.28vw, 1.375rem);  /* 19 → 22  */
+  --step-2:  clamp(1.375rem, 1.27rem + 0.52vw, 1.75rem);    /* 22 → 28  */
+  --step-3:  clamp(1.625rem, 1.44rem + 0.92vw, 2.25rem);    /* 26 → 36  */
+  --step-4:  clamp(1.875rem, 1.55rem + 1.6vw, 3rem);        /* 30 → 48  */
+
+  --lh-tight: 1.15;
+  --lh-head:  1.25;
+  --lh-body:  1.6;
+
+  /* ---- Space — fluid, same principle as type ------------------------- */
+  --sp-3xs: clamp(0.25rem, 0.24rem + 0.05vw, 0.3125rem);
+  --sp-2xs: clamp(0.5rem, 0.48rem + 0.1vw, 0.625rem);
+  --sp-xs:  clamp(0.75rem, 0.72rem + 0.15vw, 0.9375rem);
+  --sp-s:   clamp(1rem, 0.96rem + 0.2vw, 1.25rem);
+  --sp-m:   clamp(1.5rem, 1.44rem + 0.3vw, 1.875rem);
+  --sp-l:   clamp(2rem, 1.8rem + 1vw, 3rem);
+  --sp-xl:  clamp(3rem, 2.6rem + 2vw, 4.5rem);
+  --sp-2xl: clamp(4rem, 3.2rem + 4vw, 7rem);
+
+  /* ---- Measure — brief §3, 45–75 characters at every breakpoint ------ */
+  --measure:       68ch;
+  --measure-tight: 56ch;
+
+  /* ---- Touch — brief §3, the rule templates inherit ------------------ */
+  --tap:     44px;   /* minimum target, both dimensions                  */
+  --tap-gap: 8px;    /* minimum space between adjacent targets           */
+
+  --radius:  10px;
+  --radius-s: 6px;
+  --shell:   min(100% - (var(--sp-s) * 2), 72rem);
+}
+
+/* ---- Reset ---------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; }
+
+html {
+  -webkit-text-size-adjust: 100%;   /* stop iOS inflating type on rotate */
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  line-height: var(--lh-body);
+  -webkit-font-smoothing: antialiased;
+  /* Brief §3: no horizontal page scroll at any width. Wide content
+     scrolls inside its own container — see .scroll-x — never the body. */
+  overflow-x: hidden;
+}
+
+img, picture, video, canvas, svg { display: block; max-width: 100%; }
+img, video { height: auto; }          /* with width/height in the markup
+                                         this is what holds CLS at 0     */
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: var(--lh-head);
+  text-wrap: balance;
+  color: var(--text);
+}
+h1 { font-size: var(--step-4); line-height: var(--lh-tight); }
+h2 { font-size: var(--step-3); }
+h3 { font-size: var(--step-2); }
+h4 { font-size: var(--step-1); }
+
+p, li, dd, dt { text-wrap: pretty; }
+p { max-width: var(--measure); }
+
+/* ---- Touch targets — inherited, not remembered ----------------------
+   Applied to controls, not to links inside running prose: a 44px-tall
+   box around an inline citation link would wreck the line rhythm. Prose
+   links get their reach from line-height instead. Everything the brief
+   names explicitly — nav, footer links, chips, table controls, accordion
+   headers, form fields — is a control and is covered here.
+   :where() keeps specificity at 0 so components override freely.       */
+:where(button, summary, [role="button"], input, select, textarea,
+       .nav a, .drawer a, .site-footer a, .chip, .btn, .tap) {
+  min-block-size: var(--tap);
+  min-inline-size: var(--tap);
+}
+:where(button, summary, [role="button"], .nav a, .site-footer a, .chip, .btn, .tap) {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2xs);
+}
+/* Adjacent targets keep their distance without each component saying so */
+:where(.nav, .site-footer nav, .chips, .btn-row) { gap: max(var(--tap-gap), var(--sp-2xs)); }
+
+:where(a) { color: var(--action); text-underline-offset: 0.18em; }
+:where(a):hover { color: var(--action-hover); }
+
+/* Visible focus everywhere — brief §3 designs for touch, but the
+   keyboard path is an accessibility requirement of the nav spec §6.    */
+:where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-s);
+}
+
+/* ---- Layout --------------------------------------------------------- */
+.shell { width: var(--shell); margin-inline: auto; }
+.stack > * + * { margin-block-start: var(--flow, var(--sp-s)); }
+.prose > * + * { margin-block-start: var(--sp-s); }
+.prose h2 { margin-block-start: var(--sp-l); }
+.prose h3 { margin-block-start: var(--sp-m); }
+
+/* The only sanctioned horizontal scroll. Wide content scrolls in here,
+   never the page. Keyboard-reachable, and it announces itself.         */
+.scroll-x {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+}
+.scroll-x:focus-visible { outline: 3px solid var(--focus); }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip-path: inset(50%); white-space: nowrap;
+}
+
+/* ---- Buttons -------------------------------------------------------- */
+.btn {
+  font-family: var(--font-ui);
+  font-size: var(--step-0);
+  font-weight: 600;
+  padding: var(--sp-2xs) var(--sp-s);
+  border-radius: var(--radius-s);
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+  justify-content: center;
+}
+.btn--primary { background: var(--action); color: var(--paper); }
+.btn--primary:hover { background: var(--action-hover); color: var(--paper); }
+.btn--secondary {
+  background: transparent; color: var(--action);
+  border-color: var(--rule);
+}
+.btn--secondary:hover { background: var(--paper-3); color: var(--action-hover); }
+.btn--block { display: flex; width: 100%; }
+
+/* ---- Card ----------------------------------------------------------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  padding: var(--sp-m);
+}
+
+/* ---- Container queries ---------------------------------------------
+   Brief §3: container queries where a component appears in more than one
+   context. The purchase panel sits inline on an instrument page and in a
+   sidebar on desktop — it responds to its own width, not the viewport's,
+   so it is correct in both without a second ruleset.                   */
+.cq { container-type: inline-size; }
