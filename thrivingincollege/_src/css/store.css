@@ -1,0 +1,84 @@
+/* =========================================================================
+   Packages & Pricing + /welcome/ — the store layer
+   Brief §3: stacked cards at 390px, no squeezed grids, targets ≥ 44px.
+   Brief §4.5: labels above fields, inline errors, correct inputmode.
+   Builds on instrument.css for the page chrome (masthead, footer, crumbs).
+   ========================================================================= */
+
+/* ---- Price table, stacked ------------------------------------------- */
+.tiers { list-style: none; padding: 0; display: grid; gap: var(--sp-s); }
+.tier {
+  background: var(--surface);
+  border: 1px solid var(--rule-soft);
+  border-radius: var(--radius);
+  padding: var(--sp-m);
+  display: grid; gap: var(--sp-xs);
+}
+.tier--featured { border-color: var(--gold); box-shadow: inset 0 0 0 1px var(--gold); }
+.tier__head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--sp-2xs) var(--sp-s); }
+.tier__name { font-family: var(--font-display); font-size: var(--step-1); font-weight: 600; }
+.tier__price {
+  font-family: var(--font-display); font-size: var(--step-2);
+  font-variant-numeric: tabular-nums; line-height: 1; white-space: nowrap;
+}
+.tier__unit { font-family: var(--font-ui); font-size: var(--step--1); color: var(--text-3); }
+.tier__desc { color: var(--text-2); max-width: var(--measure); }
+.tier__flag {
+  font-size: var(--step--1); letter-spacing: .1em; text-transform: uppercase;
+  color: var(--gold-text); font-weight: 600;
+}
+
+/* Quantity control: a labelled number field, 44px tall, thumb-reachable.
+   Labels above fields — never placeholder-as-label (brief §4.5).        */
+.qty { display: grid; gap: var(--sp-3xs); justify-items: start; }
+.qty label { font-size: var(--step--1); letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); font-weight: 600; }
+.qty input {
+  font: inherit; font-size: var(--step-0); font-variant-numeric: tabular-nums;
+  width: 6rem; padding: var(--sp-2xs) var(--sp-xs);
+  border: 1px solid var(--rule); border-radius: var(--radius-s);
+  background: var(--paper); color: var(--text);
+}
+
+@media (min-width: 48rem) {
+  .tier { grid-template-columns: minmax(0, 1fr) auto; align-items: start; column-gap: var(--sp-m); }
+  .tier__head, .tier__desc { grid-column: 1; }
+  .qty { grid-column: 2; grid-row: 1 / span 2; align-self: center; }
+}
+
+/* ---- Order summary — the discount line has a permanent slot so it can
+   appear without a re-layout (brief §10). ------------------------------ */
+.summary {
+  position: sticky; bottom: 0; z-index: 5;
+  background: var(--paper);
+  border-block-start: 1px solid var(--rule);
+  padding-block: var(--sp-s);
+  margin-block-start: var(--sp-m);
+}
+.summary__rows { display: grid; gap: var(--sp-3xs); max-width: 28rem; }
+.summary__rows > div { display: flex; justify-content: space-between; gap: var(--sp-s); font-variant-numeric: tabular-nums; }
+.summary__rows .is-discount { color: var(--gold-text); }
+.summary__rows .is-total { font-family: var(--font-display); font-size: var(--step-1); font-weight: 600; border-block-start: 1px solid var(--rule-soft); padding-block-start: var(--sp-3xs); }
+.summary__rows [hidden] { display: none; }
+.summary__actions { display: grid; gap: var(--tap-gap); margin-block-start: var(--sp-s); max-width: 28rem; }
+.summary__note { font-size: var(--step-sm); color: var(--text-2); margin-block-start: var(--sp-2xs); max-width: var(--measure); }
+.form-error {
+  color: #7A2E1F; background: color-mix(in srgb, #7A2E1F 8%, transparent);
+  border: 1px solid color-mix(in srgb, #7A2E1F 40%, transparent);
+  border-radius: var(--radius-s); padding: var(--sp-2xs) var(--sp-s);
+  font-size: var(--step-sm); margin-block-start: var(--sp-2xs); max-width: 28rem;
+}
+
+/* ---- Two rails, side by side at desktop ------------------------------ */
+.rails { display: grid; gap: var(--sp-s); }
+@media (min-width: 48rem) { .rails { grid-template-columns: 1fr 1fr; } }
+
+/* ---- /welcome/ -------------------------------------------------------- */
+.receipt { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: var(--sp-m); display: grid; gap: var(--sp-s); }
+.receipt__state { font-family: var(--font-display); font-size: var(--step-2); }
+.receipt__state.is-pending { color: var(--gold-text); }
+.receipt dl { display: grid; gap: var(--sp-3xs); margin: 0; }
+.receipt dl > div { display: grid; grid-template-columns: 9rem 1fr; gap: var(--sp-s); }
+.receipt dt { font-size: var(--step--1); letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); font-weight: 600; }
+.receipt dd { margin: 0; }
+.receipt ul { list-style: none; padding: 0; display: grid; gap: var(--sp-3xs); }
+.receipt li { display: flex; justify-content: space-between; gap: var(--sp-s); font-variant-numeric: tabular-nums; }

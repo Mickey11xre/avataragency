@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Post-purchase page: never indexed, on staging or in production. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Thank you — The Thriving Project</title>
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/instrument.css">
+<link rel="stylesheet" href="/css/store.css">
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="shell masthead__in">
+    <a class="wordmark" href="/">The Thriving Project</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/instruments/">Instruments</a>
+      <a href="/packages/">Packages &amp; Pricing</a>
+      <a href="/research/">Thriving Knowledge Center</a>
+      <a href="/store/" data-store>Store</a>
+      <a href="/about/laurie-schreiner/">About</a>
+    </nav>
+    <button class="hamburger" type="button" aria-expanded="false" aria-controls="drawer">
+      <span aria-hidden="true">☰</span><span class="visually-hidden">Open menu</span>
+    </button>
+  </div>
+</header>
+
+<main id="main" class="shell" data-api="/api/checkout" style="padding-block: var(--sp-l)">
+  <div class="page-head">
+    <p class="eyebrow">Your order</p>
+    <h1 id="welcome-h">Thank you</h1>
+    <!-- No-JS and pre-fetch state. Deliberately true in every case: Stripe
+         emails the receipt whether or not this page can read the session. -->
+    <p class="capsule" id="welcome-lead">
+      Your order has been received. Stripe will email a receipt to the address you gave at checkout,
+      and Dr. Schreiner's office will be in touch to schedule your survey administration.
+    </p>
+  </div>
+
+  <section class="section" aria-live="polite">
+    <div class="receipt" id="receipt" hidden>
+      <p class="receipt__state" id="receipt-state"></p>
+      <p id="receipt-note" style="color:var(--text-2);max-width:var(--measure)"></p>
+      <dl id="receipt-meta"></dl>
+      <ul id="receipt-items"></ul>
+      <p style="border-block-start:1px solid var(--rule-soft);padding-block-start:var(--sp-2xs);display:flex;justify-content:space-between;font-family:var(--font-display);font-size:var(--step-1);font-weight:600"><span>Total</span><span id="receipt-total"></span></p>
+    </div>
+
+    <!-- Phase 2 hook: the post-purchase intake mounts here. Brief §4.5 —
+         reserve the hook, build nothing. -->
+    <div id="intake-hook" hidden></div>
+
+    <p style="margin-block-start:var(--sp-m)"><a class="btn btn--secondary" href="/">Back to the site</a></p>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <nav aria-label="Instruments">
+        <h2>Instruments</h2>
+        <ul>
+          <li><a href="/instruments/">All instruments</a></li>
+          <li><a href="/instruments/undergraduate/">Undergraduate</a></li>
+          <li><a href="/instruments/sophomore/">Sophomore</a></li>
+          <li><a href="/instruments/adult-learner/">Adult Learner</a></li>
+          <li><a href="/instruments/graduate/">Graduate</a></li>
+          <li><a href="/instruments/community-college/">Community College</a></li>
+          <li><a href="/instruments/faculty/">Faculty</a></li>
+          <li><a href="/instruments/staff/">Staff</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Packages and store">
+        <h2>Packages &amp; Store</h2>
+        <ul>
+          <li><a href="/packages/">Packages &amp; Pricing</a></li>
+          <li><a href="/store/">Store</a></li>
+          <li><a href="/packages/request-invoice/">Request an invoice</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="Knowledge Center">
+        <h2>Thriving Knowledge Center</h2>
+        <ul>
+          <li><a href="/research/">Overview</a></li>
+          <li><a href="/research/publications/">Publications</a></li>
+          <li><a href="/research/presentations/">Presentations</a></li>
+          <li><a href="/research/dissertations/">Dissertations</a></li>
+          <li><a href="/research/webinars/">Webinars</a></li>
+          <li><a href="/research/articles/">Articles</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="About and legal">
+        <h2>About</h2>
+        <ul>
+          <li><a href="/about/laurie-schreiner/">Dr. Laurie Schreiner</a></li>
+          <li><a href="/for-researchers/">For Researchers</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/legal/privacy/">Privacy</a></li>
+          <li><a href="/legal/terms/">Terms</a></li>
+          <li><a href="/legal/refund/">Refund policy</a></li>
+        </ul>
+      </nav>
+    </div>
+    <p class="colophon">© 2026 The Thriving Project · Dr. Laurie A. Schreiner</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var id = new URLSearchParams(location.search).get('session_id');
+  if (!id || !/^cs_(live|test)_[A-Za-z0-9]{10,}$/.test(id)) return;
+  var api = document.getElementById('main').getAttribute('data-api');
+  var INSTR = {
+    'undergraduate': 'Undergraduate Thriving Quotient', 'adult': 'Adult Thriving Quotient',
+    'graduate': 'Graduate Student Thriving Quotient', 'sophomore': 'Sophomore Experiences Survey',
+    'faculty': 'Faculty Thriving Quotient', 'adjunct-faculty': 'Adjunct Faculty Thriving Quotient',
+    'staff': 'Staff Thriving Quotient', 'community-college': 'Community College Thriving Quotient'
+  };
+  function money(c, cur) {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: (cur || 'usd').toUpperCase() }).format((c || 0) / 100);
+  }
+  function el(tag, text) { var e = document.createElement(tag); if (text != null) e.textContent = text; return e; }
+
+  fetch(api + '?session_id=' + encodeURIComponent(id), { headers: { Accept: 'application/json' } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (s) {
+      if (!s || !s.id) return;
+      var h = document.getElementById('welcome-h');
+      var lead = document.getElementById('welcome-lead');
+      var state = document.getElementById('receipt-state');
+      var note = document.getElementById('receipt-note');
+
+      if (s.status !== 'complete') {
+        h.textContent = 'This checkout was not completed';
+        lead.innerHTML = 'No payment was taken. You can <a href="' + document.querySelector('.nav a[href$="/packages/"]').getAttribute('href') + '">return to Packages &amp; Pricing</a> and start again.';
+        return;
+      }
+      if (s.payment_status === 'paid') {
+        h.textContent = 'Thank you — payment received';
+        state.textContent = 'Paid';
+        note.textContent = 'Your receipt is on its way from Stripe. Dr. Schreiner’s office will be in touch to schedule your survey administration.';
+      } else {
+        h.textContent = 'Thank you — bank payment initiated';
+        state.textContent = 'Bank debit initiated';
+        state.classList.add('is-pending');
+        note.textContent = 'ACH bank debits take four to five business days to clear. Your order is confirmed once the funds settle; Stripe will email you when that happens, and again if the debit is returned.';
+      }
+
+      var meta = document.getElementById('receipt-meta');
+      var rows = [
+        ['Order', s.id],
+        ['Institution', s.fields && s.fields.institution],
+        ['Instrument', s.fields && INSTR[s.fields.instrument]],
+        ['PO number', s.fields && s.fields.po_number],
+        ['Receipt to', s.email],
+        ['Discount', s.discount && s.discount !== 'none' ? '15% multi-survey discount applied' : null]
+      ];
+      rows.forEach(function (r) {
+        if (!r[1]) return;
+        var d = el('div'); d.appendChild(el('dt', r[0])); d.appendChild(el('dd', r[1])); meta.appendChild(d);
+      });
+      var list = document.getElementById('receipt-items');
+      (s.items || []).forEach(function (i) {
+        var li = el('li');
+        li.appendChild(el('span', i.quantity + ' × ' + i.description));
+        li.appendChild(el('span', money(i.amount_total, s.currency)));
+        list.appendChild(li);
+      });
+      document.getElementById('receipt-total').textContent = money(s.amount_total, s.currency);
+      document.getElementById('receipt').hidden = false;
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>
