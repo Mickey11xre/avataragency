@@ -1,0 +1,16 @@
+{
+  "_source": "Stripe account acct_1UCsilLYND5YEVl6, live mode. Seeded from the 2026-09-08 dashboard readback; run sync-prices.js to confirm against the API and fill price_id.",
+  "_synced_at": null,
+  "currency": "usd",
+  "coupon": { "id": "THRIVE15", "percent_off": 15, "min_qualifying_surveys": 3, "applies_to": ["survey", "basic-report", "expanded-report"] },
+  "products": [
+    { "key": "survey",          "name": "Survey Package",                                   "amount": 750,   "product_id": "prod_VDgA0DxAuY3Nmw", "price_id": null, "public": true,  "counts_as_survey": true },
+    { "key": "basic-report",    "name": "Basic Report Package",                             "amount": 1500,  "product_id": "prod_VDgBBWN3Iw5fyq", "price_id": null, "public": true,  "counts_as_survey": true },
+    { "key": "expanded-report", "name": "Expanded Report Package",                          "amount": 2500,  "product_id": "prod_VDgBL9XqRVgBXf", "price_id": null, "public": true,  "counts_as_survey": true, "featured": true },
+    { "key": "thriving-campus", "name": "Thriving Campus Package w/ One-Hour Webinar",      "amount": 10000, "product_id": "prod_VDgCDrzjWI1JnW", "price_id": null, "public": true,  "counts_as_survey": false },
+    { "key": "addon-questions", "name": "Additional Institution-Specific Questions (5 items)","amount": 300,  "product_id": "prod_VDgCLMxyEAt5Ne", "price_id": null, "public": true,  "counts_as_survey": false, "unit": "per group of 5" },
+    { "key": "addon-demographic","name": "Additional Demographic Variable (Dashboard)",      "amount": 300,   "product_id": "prod_VDgD5zTV7kbA24", "price_id": null, "public": true,  "counts_as_survey": false, "unit": "per variable" },
+    { "key": "webinar",         "name": "One-Hour Webinar with Dr. Laurie Schreiner",       "amount": 2000,  "product_id": "prod_VDgDkm4wGRZGFS", "price_id": null, "public": true,  "counts_as_survey": false },
+    { "key": "researcher",      "name": "Researcher Option",                                "amount": 250,   "product_id": "prod_VDgEKPVVVJv6eX", "price_id": null, "public": false, "counts_as_survey": false, "note": "proposal-first; payment link sent after the signed proposal is returned" }
+  ]
+}
