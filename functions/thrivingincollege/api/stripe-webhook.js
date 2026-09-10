@@ -106,7 +106,8 @@ async function notify(env, rec) {
 
 export async function onRequestPost(context) {
   const { request, env } = context;
-  if (!env.STRIPE_WEBHOOK_SECRET) return json({ error: 'webhook not configured' }, 503);
+  // 500, not 503: Cloudflare replaces 502/503 bodies with its own page.
+  if (!env.STRIPE_WEBHOOK_SECRET) return json({ error: 'webhook not configured' }, 500);
 
   const raw = await request.text();
   if (!(await verify(env.STRIPE_WEBHOOK_SECRET, request.headers.get('Stripe-Signature'), raw))) {

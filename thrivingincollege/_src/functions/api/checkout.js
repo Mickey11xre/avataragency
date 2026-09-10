@@ -140,7 +140,7 @@ async function readCart(request) {
 
 export async function onRequestPost(context) {
   const { request, env } = context;
-  if (!env.STRIPE_SECRET_KEY) return json({ error: 'checkout not configured' }, 503);
+  if (!env.STRIPE_SECRET_KEY) return json({ error: 'checkout not configured' }, 500);
   if (!sameOrigin(request)) return json({ error: 'forbidden' }, 403);
 
   const wantsJson = (request.headers.get('Content-Type') || '').includes('application/json');
@@ -192,8 +192,12 @@ export async function onRequestPost(context) {
   try {
     session = await stripe(env, 'POST', 'checkout/sessions', params);
   } catch (e) {
+    // Stripe's message names the rejected parameter or permission and never
+    // the key. Surfacing it is what makes a misconfigured key diagnosable
+    // from outside. 500, not 502: Cloudflare replaces 502/503 bodies with
+    // its own error page and the JSON never reaches the caller.
     console.log('checkout session error:', e.message);
-    return json({ error: 'could not start checkout' }, 502);
+    return json({ error: 'could not start checkout', detail: e.message }, 500);
   }
 
   if (wantsJson) return json({ id: session.id, url: session.url, discount });
@@ -204,7 +208,7 @@ export async function onRequestPost(context) {
 // unguessable and the response carries no card or bank detail.
 export async function onRequestGet(context) {
   const { request, env } = context;
-  if (!env.STRIPE_SECRET_KEY) return json({ error: 'checkout not configured' }, 503);
+  if (!env.STRIPE_SECRET_KEY) return json({ error: 'checkout not configured' }, 500);
   const id = new URL(request.url).searchParams.get('session_id') || '';
   if (!CS_ID.test(id)) return json({ error: 'invalid session' }, 400);
 
@@ -212,7 +216,7 @@ export async function onRequestGet(context) {
   try {
     s = await stripe(env, 'GET', `checkout/sessions/${id}?expand[]=line_items`);
   } catch (e) {
-    return json({ error: 'session not found' }, e.status === 404 ? 404 : 502);
+    return json({ error: 'session not found' }, e.status === 404 ? 404 : 500);
   }
   if ((s.metadata || {}).store !== 'thrivingincollege') return json({ error: 'session not found' }, 404);
 
