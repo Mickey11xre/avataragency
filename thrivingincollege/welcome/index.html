@@ -118,8 +118,8 @@
   var INSTR = {
     'undergraduate': 'Undergraduate Thriving Quotient', 'adult': 'Adult Thriving Quotient',
     'graduate': 'Graduate Student Thriving Quotient', 'sophomore': 'Sophomore Experiences Survey',
-    'faculty': 'Faculty Thriving Quotient', 'adjunct-faculty': 'Adjunct Faculty Thriving Quotient',
-    'staff': 'Staff Thriving Quotient', 'community-college': 'Community College Thriving Quotient'
+    'faculty': 'Faculty Thriving Quotient', 'adjunctfaculty': 'Adjunct Faculty Thriving Quotient',
+    'staff': 'Staff Thriving Quotient', 'communitycollege': 'Community College Thriving Quotient'
   };
   function money(c, cur) {
     return new Intl.NumberFormat('en-US', { style: 'currency', currency: (cur || 'usd').toUpperCase() }).format((c || 0) / 100);

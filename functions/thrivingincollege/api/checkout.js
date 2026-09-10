@@ -128,15 +128,17 @@ const CS_ID = /^cs_(live|test)_[A-Za-z0-9]{10,}$/;
 // One product per package, not per package × instrument: the instrument is
 // captured at checkout as a required dropdown. Adjunct Faculty is an option
 // here and has no page — her ruling of 8 Sept 2026.
+// Option values must be alphanumeric only (Stripe rejects hyphens); the
+// same keys are mapped back to labels on /welcome/.
 const INSTRUMENTS = [
-  ['undergraduate',     'Undergraduate Thriving Quotient'],
-  ['adult',             'Adult Thriving Quotient'],
-  ['graduate',          'Graduate Student Thriving Quotient'],
-  ['sophomore',         'Sophomore Experiences Survey'],
-  ['faculty',           'Faculty Thriving Quotient'],
-  ['adjunct-faculty',   'Adjunct Faculty Thriving Quotient'],
-  ['staff',             'Staff Thriving Quotient'],
-  ['community-college', 'Community College Thriving Quotient'],
+  ['undergraduate',    'Undergraduate Thriving Quotient'],
+  ['adult',            'Adult Thriving Quotient'],
+  ['graduate',         'Graduate Student Thriving Quotient'],
+  ['sophomore',        'Sophomore Experiences Survey'],
+  ['faculty',          'Faculty Thriving Quotient'],
+  ['adjunctfaculty',   'Adjunct Faculty Thriving Quotient'],
+  ['staff',            'Staff Thriving Quotient'],
+  ['communitycollege', 'Community College Thriving Quotient'],
 ];
 
 const ACH_NOTE = 'Bank debit (ACH) payments take four to five business days to clear. ' +
