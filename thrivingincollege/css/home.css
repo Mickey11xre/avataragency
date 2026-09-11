@@ -246,8 +246,14 @@ html.home, .home body { background: #0B0F0C; }
    The six movements stack as a plain page (v6 §11.1). The film is replaced
    by the finished-tree still as a page background. --------------------- */
 html.static #loader, html.static #hint, html.static #rail, html.static #scrim, html.static #film, html.static #fly { display: none !important; }
+/* ⛔ `url(var(--tree))` is NOT valid CSS — var() cannot be nested inside
+   url(). The whole shorthand was dropped, so reduced-motion visitors got a
+   bare #0B0F0C page instead of the finished-tree still. That is the black
+   background on Michael's iPhone, 2026-09-11. `--tree` is already a complete
+   url(...) value, declared on this selector in index.html, so it goes in
+   directly. If the still ever needs swapping, change the variable, not this. */
 html.static #stage { position: relative; inset: auto; overflow: visible; min-height: 0; padding: 96px 0 40px;
-  background: #0B0F0C url(var(--tree)) center top / cover no-repeat; }
+  background: #0B0F0C var(--tree) center top / 100% auto no-repeat; }
 html.static #vignette { position: absolute; }
 html.static #mast { position: absolute; }
 html.static #mast .nav { opacity: 1; pointer-events: auto; }

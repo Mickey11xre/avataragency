@@ -24,8 +24,18 @@
   var FRAME_ZOOM = 1.18, FRAME_DROP = 0.85, FRAMING_HOLD_TO = 150, FRAMING_OUT_BY = 253;
 
   var html = document.documentElement;
-  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  if (reduce) { html.classList.add("static"); return; }   // stacked page; no engine
+  /* ⛔ Reduced motion turns OFF the scroll-scrubbed film, the rail and the
+     butterfly — and nothing else. It must NEVER return out of this IIFE.
+     It used to, and that one `return` also killed the hero video's play
+     button and the package carousel, neither of which is an animation the
+     setting is about. On Michael's iPhone (Reduce Motion on, as it is for a
+     great many people) the page therefore came up with a black backdrop and
+     a video that did nothing when tapped, in every iOS browser — they are
+     all WebKit, so "Chrome and Firefox both fail" is one engine, not two.
+     Found 2026-09-11. Anything added below that is not literally motion
+     must stay outside the STATIC guards. */
+  var STATIC = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (STATIC) html.classList.add("static");
   /* iOS Safari holds DECODED bitmaps, not files, and caps what a tab may
      hold. 472 frames at 1280x720 is 1.66 GB decoded; every 2nd frame is
      still 830 MB and Safari simply refuses — the canvas then never paints
@@ -49,6 +59,11 @@
   window.CAR = (function () {
     var car = document.getElementById("pkgcar"), stage = document.getElementById("pkgstage");
     if (!car || !stage) return null;
+    /* Under reduced motion the CSS lays the five cards out as a plain grid,
+       all visible, transforms forced off. They are ordinary anchors, so they
+       still open their package page — the cylinder is what is skipped, not
+       the content. */
+    if (STATIC) return null;
     var cards = [].slice.call(stage.querySelectorAll(".pkg")), M = cards.length;
     var S = { p: 1, target: null, drag: false, moved: 0, lastX: 0, resume: 0, mx: 0, my: 0, tx: 0, ty: 0, cw: 232, v: 0, lastT: 0, hx: null, lastSpin: 0 };
     function sizes() {
@@ -208,9 +223,9 @@
     icon(); paint();
   })();
 
-  /* ---- section rail ---- */
+  /* ---- section rail (film navigation — skipped when there is no film) ---- */
   var rail = document.getElementById("rail");
-  LABELS.forEach(function (l) { var d = document.createElement("div"); d.className = "d"; d.innerHTML = '<span class="lbl">' + l + '</span><span class="dot"></span>'; rail.appendChild(d); });
+  if (!STATIC) LABELS.forEach(function (l) { var d = document.createElement("div"); d.className = "d"; d.innerHTML = '<span class="lbl">' + l + '</span><span class="dot"></span>'; rail.appendChild(d); });
   var dots = [].slice.call(rail.children);
   var tweening = null;
   function scrollToP(target) {
@@ -226,7 +241,10 @@
   });
   ["wheel", "touchstart"].forEach(function (ev) { window.addEventListener(ev, function () { if (tweening) { cancelAnimationFrame(tweening); tweening = null; } }, { passive: true }); });
   // in-page "#start"-style links from the mast scroll the film rather than jumping
-  [].slice.call(document.querySelectorAll('a[data-go]')).forEach(function (a) {
+  /* Guarded: with no film there is no scroll position to tween to, and
+     cancelling the click would leave the link dead rather than merely
+     unanimated. Let it navigate normally instead. */
+  if (!STATIC) [].slice.call(document.querySelectorAll('a[data-go]')).forEach(function (a) {
     a.addEventListener("click", function (e) { e.preventDefault(); scrollToP(ANCHORS_P[+a.getAttribute("data-go")]); });
   });
 
@@ -332,11 +350,12 @@
     if (mast) mast.classList.toggle("past", p > ANCHORS_P[0] + 0.04);
   }
   var ticking = false;
-  window.addEventListener("scroll", function () { dirty = true; if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; if (dirty) { dirty = false; draw(false); } }); } }, { passive: true });
-  window.addEventListener("resize", function () { if (Math.abs(window.innerWidth - VW) < 2 && Math.abs(window.innerHeight - VH) < 140) return; layout(); }, { passive: true });
+  window.addEventListener("scroll", function () { if (STATIC) return; dirty = true; if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; if (dirty) { dirty = false; draw(false); } }); } }, { passive: true });
+  window.addEventListener("resize", function () { if (STATIC) return; if (Math.abs(window.innerWidth - VW) < 2 && Math.abs(window.innerHeight - VH) < 140) return; layout(); }, { passive: true });
 
   /* ---- cursor butterfly: desktop pointers only (Michael, 2026-08-10 and 09-11) ---- */
   window.FLY = (function () {
+    if (STATIC) return null;
     if (!matchMedia("(hover:hover) and (pointer:fine)").matches) return null;
     var el = document.getElementById("fly"); if (!el) return null;
     var tx = innerWidth * .5, ty = innerHeight * .4, x = tx, y = ty, px = x, py = y, t = 0, seen = false;
@@ -354,6 +373,13 @@
     } };
   })();
 
-  (function poll() { if (dirty) { dirty = false; draw(false); } if (window.CAR) window.CAR.tick(); if (window.FLY) window.FLY.tick(); requestAnimationFrame(poll); })();
-  layout(); loadAll();
+  /* The single rAF loop and the frame loader belong to the film. Under
+     reduced motion CAR and FLY are both null and nothing needs ticking, so
+     the loop is never started — no frames are fetched and no canvas work
+     happens at all. The hero video and the package links, wired above, are
+     unaffected. */
+  if (!STATIC) {
+    (function poll() { if (dirty) { dirty = false; draw(false); } if (window.CAR) window.CAR.tick(); if (window.FLY) window.FLY.tick(); requestAnimationFrame(poll); })();
+    layout(); loadAll();
+  }
 })();
