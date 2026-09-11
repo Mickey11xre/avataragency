@@ -272,7 +272,11 @@ export async function onRequestPost(context) {
         text: { maximum_length: 60 }
       }
     ],
-    custom_text: { submit: { message: ACH_NOTE } },
+    // Cal. Bus. & Prof. Code §17538: an online seller of goods or services
+    // must disclose its refund policy, legal name and street address before
+    // accepting payment. The policy link rides on the pay button; name and
+    // address are on the policy page and every footer.
+    custom_text: { submit: { message: ACH_NOTE + ' Refund and cancellation policy: ' + root + '/legal/refunds/' } },
     metadata: {
       store: 'thrivingincollege',
       items: items.map(i => `${i.product.key}x${i.quantity}`).join(','),
