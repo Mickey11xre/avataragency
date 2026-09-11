@@ -1,0 +1,40 @@
+/* =========================================================================
+   Generic content pages — Knowledge Center, About, Contact, Legal
+   Reading pages: measure held, lists as lists, references selectable.
+   ========================================================================= */
+
+.prose { max-width: var(--measure); }
+.prose p, .prose li { color: var(--text); }
+.prose h2 { font-size: var(--step-2); margin-block-start: var(--sp-l); }
+.prose h3 { font-size: var(--step-1); margin-block-start: var(--sp-m); }
+.prose ul, .prose ol { padding-inline-start: 1.25em; }
+.prose blockquote {
+  margin-block: var(--sp-s); padding: var(--sp-xs) var(--sp-m);
+  border-inline-start: 3px solid var(--gold); background: var(--paper-3);
+  border-radius: 0 var(--radius) var(--radius) 0; color: var(--text-2);
+}
+.prose .meta { color: var(--text-3); font-size: var(--step-sm); }
+
+/* Reference lists — one entry per item, hanging so the author is the
+   scannable column. Links are the real citation links, never a widget. */
+.refs { list-style: none; padding: 0; display: grid; gap: var(--sp-s); max-width: var(--measure); }
+.refs li { padding-inline-start: 1.5em; text-indent: -1.5em; text-wrap: pretty; }
+.refs li a { word-break: break-word; }
+.refs__year { font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-text); font-weight: 600; margin-block-start: var(--sp-m); }
+
+/* Hub cards (Knowledge Center) share .hub from the instruments hub */
+.hub { list-style: none; padding: 0; display: grid; gap: var(--sp-s); }
+@media (min-width: 48rem) { .hub { grid-template-columns: 1fr 1fr; } }
+.hub__item { background: var(--surface); border: 1px solid var(--rule-soft); border-radius: var(--radius); padding: var(--sp-m); display: grid; gap: var(--sp-2xs); align-content: start; }
+.hub__item h3 { font-size: var(--step-1); }
+.hub__item p { color: var(--text-2); }
+.hub__item a.btn { justify-self: start; margin-block-start: var(--sp-2xs); }
+
+/* Contact block */
+.contact { display: grid; gap: var(--sp-s); }
+@media (min-width: 48rem) { .contact { grid-template-columns: 1fr 1fr; } }
+.contact address { font-style: normal; line-height: var(--lh-body); }
+
+/* Legal pages: dense text, dated */
+.legal .prose h2 { font-size: var(--step-1); }
+.legal .dated { color: var(--text-3); font-size: var(--step-sm); margin-block-end: var(--sp-m); }

@@ -121,6 +121,49 @@ if (fs.existsSync(tplPath)) {
   }
 }
 
+// Generic pages: _src/templates/page.html × _src/content/<path>/index.html.
+// A fragment's first line is `<!--meta {…}-->` with title, description,
+// eyebrow, h1, nav (which primary item is current), crumbs, optional
+// capsule and jsonld_extra; the rest is the <main> body.
+const pageTpl = path.join(SRC, 'templates', 'page.html');
+const contentDir = path.join(SRC, 'content');
+if (fs.existsSync(pageTpl) && fs.existsSync(contentDir)) {
+  const tpl = fs.readFileSync(pageTpl, 'utf8');
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  for (const f of walk(contentDir)) {
+    if (!f.endsWith('.html')) continue;
+    const raw = fs.readFileSync(f, 'utf8');
+    const m = raw.match(/^<!--meta\s*(\{[\s\S]*?\})\s*-->\s*/);
+    if (!m) throw new Error(`content fragment without meta: ${f}`);
+    const meta = JSON.parse(m[1]);
+    const body = raw.slice(m[0].length);
+    const relPath = '/' + path.relative(contentDir, path.dirname(f)).split(path.sep).join('/') + '/';
+    const crumbs = [{ name: 'Home', path: '/' }, ...(meta.crumbs || []), { name: meta.crumb || meta.h1, path: relPath }];
+    const crumbsHtml = crumbs.map((c, i) => i === crumbs.length - 1
+      ? `<li aria-current="page">${esc(c.name)}</li>`
+      : `<li><a href="${c.path}">${esc(c.name)}</a></li>`).join('\n    ');
+    const crumbsLd = crumbs.map((c, i) =>
+      `{ "@type": "ListItem", "position": ${i + 1}, "name": ${JSON.stringify(c.name)}, "item": "https://thrivingincollege.org${c.path}" }`).join(',\n        ');
+    const vals = {
+      title: esc(meta.title), description: esc(meta.description), path: relPath,
+      eyebrow: meta.eyebrow || '', h1: meta.h1,
+      capsule_html: meta.capsule ? `<p class="capsule">${meta.capsule}</p>` : '',
+      crumbs_html: crumbsHtml, crumbs_ld: crumbsLd,
+      jsonld_extra: meta.jsonld_extra ? ',\n    ' + meta.jsonld_extra : '',
+      body
+    };
+    for (const n of ['instruments', 'packages', 'research', 'store', 'about']) {
+      vals['cur_' + n] = meta.nav === n ? ' aria-current="page"' : '';
+    }
+    const html = tpl.replace(/\{\{(\w+)\}\}/g, (mm, k) => {
+      if (k in vals) return vals[k];
+      throw new Error(`page template: unknown token {{${k}}} in ${f}`);
+    });
+    const rel = path.join(relPath.slice(1), 'index.html');
+    jobs.push({ rel, dest: path.join(OUT, rel), out: transform(html, f) });
+  }
+}
+
 const fnSrc = path.join(SRC, 'functions');
 if (fs.existsSync(fnSrc)) {
   for (const f of walk(fnSrc)) {

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="https://thrivingincollege.org{{path}}">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/instrument.css">
+<link rel="stylesheet" href="/css/store.css">
+<link rel="stylesheet" href="/css/page.css">
+
+<!-- GENERIC PAGE. Rendered by build.js from _src/templates/page.html and a
+     content fragment in _src/content/<path>.html whose first line is a
+     JSON meta comment. Edit the fragment, never the built page. JSON-LD is
+     in the served source, never injected by a tag manager (v6 §11.2). -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://thrivingincollege.org/#organization",
+      "name": "The Thriving Project",
+      "url": "https://thrivingincollege.org/",
+      "contactPoint": [{ "@type": "ContactPoint", "contactType": "research permissions", "email": "lschreiner@thrivingincollege.org" }]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {{crumbs_ld}}
+      ]
+    }{{jsonld_extra}}
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="shell masthead__in">
+    <a class="wordmark" href="/">The Thriving Project</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/instruments/"{{cur_instruments}}>Instruments</a>
+      <a href="/packages/"{{cur_packages}}>Packages &amp; Pricing</a>
+      <a href="/research/"{{cur_research}}>Thriving Knowledge Center</a>
+      <a href="/store/" data-store{{cur_store}}>Store</a>
+      <a href="/about/laurie-schreiner/"{{cur_about}}>About</a>
+      <a class="btn btn--primary" href="/packages/#order">Register Your Campus</a>
+    </nav>
+    <button class="hamburger" type="button" aria-expanded="false" aria-controls="drawer">
+      <span aria-hidden="true">☰</span><span class="visually-hidden">Open menu</span>
+    </button>
+  </div>
+</header>
+
+<nav class="crumbs shell" aria-label="Breadcrumb">
+  <ol>
+    {{crumbs_html}}
+  </ol>
+</nav>
+
+<main id="main" class="shell">
+  <div class="page-head">
+    <p class="eyebrow">{{eyebrow}}</p>
+    <h1>{{h1}}</h1>
+    {{capsule_html}}
+  </div>
+
+{{body}}
+</main>
+
+<!-- The footer restates the full navigation as plain links on every
+     page. Nav spec §7 — the crawler path and the no-JS path. -->
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <nav aria-label="Instruments"><h2>Instruments</h2><ul>
+        <li><a href="/instruments/">All instruments</a></li><li><a href="/instruments/undergraduate/">Undergraduate</a></li><li><a href="/instruments/sophomore/">Sophomore</a></li><li><a href="/instruments/adult-learner/">Adult Learner</a></li><li><a href="/instruments/graduate/">Graduate</a></li><li><a href="/instruments/community-college/">Community College</a></li><li><a href="/instruments/faculty/">Faculty</a></li><li><a href="/instruments/staff/">Staff</a></li></ul></nav>
+      <nav aria-label="Packages and store"><h2>Packages &amp; Store</h2><ul>
+        <li><a href="/packages/">Packages &amp; Pricing</a></li><li><a href="/store/">Store</a></li><li><a href="/packages/request-invoice/">Request an invoice</a></li></ul></nav>
+      <nav aria-label="Knowledge Center"><h2>Thriving Knowledge Center</h2><ul>
+        <li><a href="/research/">Overview</a></li><li><a href="/research/publications/">Publications</a></li><li><a href="/research/presentations/">Presentations</a></li><li><a href="/research/dissertations/">Dissertations</a></li><li><a href="/research/webinars/">Webinars</a></li><li><a href="/research/articles/">Articles</a></li></ul></nav>
+      <nav aria-label="About and legal"><h2>About</h2><ul>
+        <li><a href="/about/laurie-schreiner/">Dr. Laurie Schreiner</a></li><li><a href="/for-researchers/">For Researchers</a></li><li><a href="/contact/">Contact</a></li><li><a href="/legal/privacy/">Privacy</a></li><li><a href="/legal/terms/">Terms</a></li><li><a href="/legal/refunds/">Refund policy</a></li><li><a href="/legal/disclaimer/">Disclaimer</a></li><li><a href="/legal/protection-of-subjects/">Protection of subjects</a></li></ul></nav>
+    </div>
+    <p class="colophon">© 2026 The Thriving Project · Dr. Laurie A. Schreiner</p>
+  </div>
+</footer>
+</body>
+</html>
