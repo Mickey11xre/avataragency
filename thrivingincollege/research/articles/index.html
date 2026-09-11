@@ -38,6 +38,7 @@
   ]
 }
 </script>
+<link rel="stylesheet" href="/thrivingincollege/css/drawer.css">
 </head>
 <body>
 
@@ -109,5 +110,25 @@
     <p class="colophon">© 2026 The Thriving Project · Dr. Laurie A. Schreiner</p>
   </div>
 </footer>
+<!-- Mobile navigation drawer (nav spec 2026-09-03 §3, corrected 09-04).
+     Injected by build.js before </body> on every page that has a .hamburger.
+     Progressive enhancement: the same links exist in the page nav + footer. -->
+<div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Site navigation" hidden>
+  <div class="drawer__head">
+    <a class="drawer__word" href="/thrivingincollege/">The Thriving Project</a>
+    <button class="drawer__close" type="button" aria-label="Close menu">&times;</button>
+  </div>
+  <nav class="drawer__nav" aria-label="Primary, menu">
+    <a href="/thrivingincollege/instruments/">Instruments</a>
+    <a href="/thrivingincollege/packages/">Packages &amp; Pricing</a>
+    <a href="/thrivingincollege/research/">Thriving Knowledge Center</a>
+    <a href="/thrivingincollege/store/" data-store>Store</a>
+    <a href="/thrivingincollege/about/laurie-schreiner/">About</a>
+  </nav>
+  <p class="drawer__sec"><a href="/thrivingincollege/contact/">Contact</a></p>
+  <a class="btn btn--primary drawer__cta" href="/thrivingincollege/packages/#order">Register Your Campus</a>
+</div>
+<script src="/thrivingincollege/js/drawer.js" defer></script>
+
 </body>
 </html>

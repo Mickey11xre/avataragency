@@ -1,0 +1,57 @@
+/* =========================================================================
+   Mobile navigation drawer — nav spec 2026-09-03 (corrected 09-04)
+   Full-screen overlay opened from the hamburger tab. Progressive
+   enhancement: every link here also exists in the served HTML nav + footer.
+   ========================================================================= */
+.drawer {
+  position: fixed; inset: 0; z-index: 90;
+  background: var(--ink, #1C3327);
+  color: var(--paper, #F5F0E4);
+  display: flex; flex-direction: column;
+  padding: max(env(safe-area-inset-top), var(--sp-s)) var(--sp-m) max(env(safe-area-inset-bottom), var(--sp-m));
+  overflow-y: auto; overscroll-behavior: contain;
+  opacity: 0; transition: opacity .22s ease;
+}
+.drawer[hidden] { display: none; }
+.drawer.is-open { opacity: 1; }
+.drawer__head { display: flex; align-items: center; justify-content: space-between; gap: var(--sp-s); }
+.drawer__word { font-family: var(--font-display); font-size: var(--step-1); color: var(--paper); text-decoration: none; }
+.drawer__word:hover { color: var(--paper); }
+.drawer__close {
+  background: rgba(245,240,228,.08); border: 1px solid rgba(245,240,228,.35); color: var(--paper);
+  border-radius: var(--radius-s); font-size: 1.6rem; line-height: 1; justify-content: center; cursor: pointer;
+}
+.drawer__nav { display: grid; gap: var(--sp-2xs); margin-block-start: var(--sp-xl); }
+.drawer__nav a {
+  font-family: var(--font-display); font-size: var(--step-3); line-height: 1.15;
+  color: var(--paper); text-decoration: none; padding-block: var(--sp-2xs);
+  display: flex; align-items: center; min-block-size: var(--tap);
+}
+.drawer__nav a:hover, .drawer__nav a:focus-visible { color: #F0DCA8; }
+.drawer__nav a[data-store] { color: #F0DCA8; }            /* gold, a peer item */
+.drawer__nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: .2em; text-decoration-color: rgba(240,220,168,.6); }
+.drawer__sec { margin-block-start: var(--sp-m); font-size: var(--step-sm); }
+.drawer__sec a { color: rgba(245,240,228,.8); display: inline-flex; align-items: center; min-block-size: var(--tap); }
+.drawer__cta { margin-block-start: auto; padding-block: var(--sp-xs); }
+.drawer .btn--primary { background: #2E5540; color: var(--paper); }
+.drawer .btn--primary:hover { background: #3D7157; color: var(--paper); }
+.drawer :focus-visible { outline: 3px solid #F0DCA8; outline-offset: 3px; }
+
+/* Staggered reveal: ~80 ms cascade. The only animation this surface gets. */
+.drawer.is-open .drawer__nav a, .drawer.is-open .drawer__sec, .drawer.is-open .drawer__cta {
+  animation: drawer-in .32s ease both;
+}
+.drawer.is-open .drawer__nav a:nth-child(1) { animation-delay: 0ms }
+.drawer.is-open .drawer__nav a:nth-child(2) { animation-delay: 80ms }
+.drawer.is-open .drawer__nav a:nth-child(3) { animation-delay: 160ms }
+.drawer.is-open .drawer__nav a:nth-child(4) { animation-delay: 240ms }
+.drawer.is-open .drawer__nav a:nth-child(5) { animation-delay: 320ms }
+.drawer.is-open .drawer__sec { animation-delay: 400ms }
+.drawer.is-open .drawer__cta { animation-delay: 480ms }
+@keyframes drawer-in { from { opacity: 0; transform: translateY(10px) } to { opacity: 1; transform: none } }
+@media (prefers-reduced-motion: reduce) {
+  .drawer { transition: none; }
+  .drawer.is-open .drawer__nav a, .drawer.is-open .drawer__sec, .drawer.is-open .drawer__cta { animation: none; }
+}
+body.drawer-open { overflow: hidden; }
+@media (min-width: 64rem) { .drawer { display: none !important; } }

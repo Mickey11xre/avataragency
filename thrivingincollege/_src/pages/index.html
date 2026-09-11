@@ -1,54 +1,274 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="home static">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Thriving Project — staging</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Thriving Project — the Thriving Quotient, by Dr. Laurie A. Schreiner</title>
+<meta name="description" content="What it means to thrive in college, and how to measure it. The Thriving Quotient family of validated campus survey instruments from Dr. Laurie A. Schreiner: undergraduate, sophomore, adult learner, graduate, community college, faculty and staff. Survey administration from {{price:survey}}.">
+<link rel="canonical" href="https://thrivingincollege.org/">
 <link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/instrument.css">
+<link rel="stylesheet" href="/css/home.css">
+<link rel="preload" as="image" href="/assets/frames/0000.webp">
+<link rel="preload" as="image" href="/assets/hero-poster.jpg">
 <style>
-  .shell { padding-block: var(--sp-xl); }
-  .status { display: grid; gap: var(--sp-2xs); list-style: none; padding: 0; margin-block-start: var(--sp-m); }
-  .status li { display: grid; grid-template-columns: 7rem 1fr; gap: var(--sp-s); padding: var(--sp-xs) var(--sp-s);
-               background: var(--surface); border: 1px solid var(--rule-soft); border-radius: var(--radius); align-items: baseline; }
-  .status b { font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
-  .status .live b { color: var(--action); }
-  .note { color: var(--text-2); margin-block-start: var(--sp-m); max-width: var(--measure); }
+  /* the two image assets the CSS needs, given as custom properties so build
+     prefixing applies (build only rewrites attributes, not url() in CSS) */
+  #fly { --fly: url("/assets/butterfly.webp"); }
+  html.static #stage { --tree: url("/assets/hires/hi5.webp"); }
 </style>
+<!-- The engine removes .static the moment it starts; without JavaScript, or
+     with reduced motion, the page stays stacked and complete (v6 §11.1). -->
+<script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.remove("static");</script>
+
+<!-- JSON-LD in the served source, never through a tag manager (v6 §11.2). -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://thrivingincollege.org/#organization",
+      "name": "The Thriving Project",
+      "legalName": "Dr. Laurie Schreiner, doing business as The Thriving Project",
+      "url": "https://thrivingincollege.org/",
+      "founder": { "@id": "https://thrivingincollege.org/about/laurie-schreiner/#person" },
+      "address": { "@type": "PostalAddress", "streetAddress": "1368 Upland Hills Drive S", "addressLocality": "Upland", "addressRegion": "CA", "postalCode": "91786", "addressCountry": "US" },
+      "telephone": "+1-626-826-6376",
+      "contactPoint": [{ "@type": "ContactPoint", "contactType": "research permissions", "email": "lschreiner@thrivingincollege.org" }]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://thrivingincollege.org/#website",
+      "url": "https://thrivingincollege.org/",
+      "name": "The Thriving Project",
+      "publisher": { "@id": "https://thrivingincollege.org/#organization" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://thrivingincollege.org/about/laurie-schreiner/#person",
+      "name": "Dr. Laurie A. Schreiner",
+      "jobTitle": "Professor Emerita of Higher Education",
+      "affiliation": { "@type": "CollegeOrUniversity", "name": "Azusa Pacific University" },
+      "knowsAbout": ["student thriving", "student success", "higher education assessment", "sophomore-year transition"],
+      "url": "https://thrivingincollege.org/about/laurie-schreiner/"
+    },
+    {
+      "@type": "ItemList",
+      "@id": "https://thrivingincollege.org/#instruments",
+      "name": "Thriving Quotient instruments",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Undergraduate Thriving Quotient", "url": "https://thrivingincollege.org/instruments/undergraduate/" },
+        { "@type": "ListItem", "position": 2, "name": "Sophomore Experiences Survey", "url": "https://thrivingincollege.org/instruments/sophomore/" },
+        { "@type": "ListItem", "position": 3, "name": "Adult Thriving Quotient", "url": "https://thrivingincollege.org/instruments/adult-learner/" },
+        { "@type": "ListItem", "position": 4, "name": "Graduate Student Thriving Quotient", "url": "https://thrivingincollege.org/instruments/graduate/" },
+        { "@type": "ListItem", "position": 5, "name": "Community College Thriving Quotient", "url": "https://thrivingincollege.org/instruments/community-college/" },
+        { "@type": "ListItem", "position": 6, "name": "Faculty Thriving Quotient", "url": "https://thrivingincollege.org/instruments/faculty/" },
+        { "@type": "ListItem", "position": 7, "name": "Staff Thriving Quotient", "url": "https://thrivingincollege.org/instruments/staff/" }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://thrivingincollege.org/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "What does it mean to thrive in college?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Thriving is a fuller measure of student success than persistence or grades alone: a student who is engaged academically, connected interpersonally, and psychologically well. Every factor the Thriving Quotient measures is malleable, so an institution can act on the results." } },
+        { "@type": "Question", "name": "Who created the Thriving Quotient?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Dr. Laurie A. Schreiner, Professor Emerita of Higher Education at Azusa Pacific University and principal investigator of The Thriving Project. She introduced the Thriving Quotient in a 2010 series in About Campus." } },
+        { "@type": "Question", "name": "What does a campus survey cost?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Survey administration is {{price:survey}} per survey. A basic report is {{price:basic-report}}, the expanded report is {{price:expanded-report}}, and the Thriving Campus package with a one-hour webinar is {{price:thriving-campus}}. Three or more survey packages in one order earn 15% off those packages." } }
+      ]
+    }
+  ]
+}
+</script>
 </head>
 <body>
-<main class="shell">
-  <p class="eyebrow" style="font-size:var(--step--1);letter-spacing:.12em;text-transform:uppercase;color:var(--gold-text);font-weight:600">Staging · not the live site</p>
-  <h1>The Thriving Project</h1>
-  <p class="note">
-    This is the working build of the thrivingincollege.org rebuild. It updates automatically with
-    every change. Nothing here is public, and prices shown are the confirmed 2026–27 figures.
-  </p>
 
-  <ul class="status">
-    <li class="live"><b>Live</b><span><a href="/instruments/">Instruments hub</a> + all seven instrument pages (<a href="/instruments/undergraduate/">Undergraduate</a> · <a href="/instruments/sophomore/">Sophomore</a> · <a href="/instruments/adult-learner/">Adult Learner</a> · <a href="/instruments/graduate/">Graduate</a> · <a href="/instruments/community-college/">Community College</a> · <a href="/instruments/faculty/">Faculty</a> · <a href="/instruments/staff/">Staff</a>) — one template, client facts pending</span></li>
-    <li class="live"><b>Live</b><span><a href="/packages/">Packages &amp; Pricing</a> · order form → Stripe Checkout (live account — a real card would be charged) → <a href="/welcome/">/welcome/</a></span></li>
-    <li class="live"><b>Live</b><span>Stripe webhook for ACH settlement · <code>/api/stripe-webhook</code>, three <code>checkout.session.*</code> events</span></li>
-    <li class="live"><b>Live</b><span><a href="/store/">Store</a> · every product, buy-now per item, deep-link ids for instrument pages</span></li>
-    <li class="live"><b>Live</b><span><a href="/packages/request-invoice/">Request an invoice</a> · PO / Net 30 / W-9 rail → one complete request by email</span></li>
-    <li class="live"><b>Live</b><span><a href="/research/">Thriving Knowledge Center</a> · <a href="/research/publications/">Publications</a> (16, to 2019) · <a href="/research/presentations/">Presentations</a> (21) · <a href="/research/dissertations/">Dissertations</a> (20) · <a href="/research/webinars/">Webinars</a> · <a href="/research/articles/">Articles</a> (the 2019 post) — migrated verbatim from the current site</span></li>
-    <li class="live"><b>Live</b><span><a href="/about/laurie-schreiner/">About</a> · <a href="/for-researchers/">For Researchers</a> · <a href="/contact/">Contact</a> · Legal ×5 (<a href="/legal/terms/">Terms</a>, <a href="/legal/privacy/">Privacy</a>, <a href="/legal/disclaimer/">Disclaimer</a>, <a href="/legal/refunds/">Refunds</a>, <a href="/legal/protection-of-subjects/">Protection of subjects</a>) — 2022 texts carried over as published</span></li>
-    <li><b>Next</b><span>Homepage (six movements + hero film) · mobile navigation drawer · 301 map · sitemap</span></li>
-  </ul>
+<a class="skip" href="#main">Skip to content</a>
+<div id="loader" aria-hidden="true"><div class="lw">The Thriving Project</div><div class="bar"><i id="lbar"></i></div></div>
 
-  <h2 style="font-size:var(--step-1);margin-block-start:var(--sp-l)">Still needed from Dr. Schreiner before launch</h2>
-  <p class="note" style="margin-block-start:var(--sp-2xs)">
-    The instrument pages are complete in structure and marked <b>Awaiting Dr. Schreiner</b>
-    wherever a fact must come from her. Nothing is invented; each block is replaced the day the
-    material arrives.
-  </p>
-  <ul class="status" aria-label="Outstanding client items">
-    <li><b>Per instrument</b><span>Scales with item counts and one confirmed reliability coefficient per scale — the live site publishes two conflicting sets · a few sample items · the academic citation · sampling minimums by institution size. Seven instruments; the Undergraduate scale names are in.</span></li>
-    <li><b>Packages</b><span>Full package descriptions to replace the one-line placeholders on Packages &amp; Pricing and the Store.</span></li>
-    <li><b>Business</b><span>One business email address for the site · refund policy · Terms and Privacy text · adoption figures if any are to be published.</span></li>
-    <li><b>Store</b><span>Her review of Checkout and the request-an-invoice flow on this staging site.</span></li>
-  </ul>
+<div id="stage" data-assets="/assets/">
+  <canvas id="film" aria-hidden="true"></canvas>
+  <div id="scrim"></div>
+  <div id="vignette"></div>
 
-  <p class="note">Launch target: 15 September 2026.</p>
-</main>
+  <header id="mast">
+    <a class="word" href="/"><b>THE THRIVING PROJECT</b></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/instruments/">Instruments</a>
+      <a href="/packages/">Packages &amp; Pricing</a>
+      <a href="/research/">Thriving Knowledge Center</a>
+      <a href="/store/" data-store>Store</a>
+      <a href="/about/laurie-schreiner/">About</a>
+      <a class="btn btn--primary" href="/packages/#order">Register Your Campus</a>
+    </nav>
+    <button class="hamburger" type="button" aria-expanded="false" aria-controls="drawer">
+      <span aria-hidden="true">☰</span><span class="visually-hidden">Open menu</span>
+    </button>
+  </header>
+  <div id="rail" aria-label="Sections"></div>
+  <div id="hint" aria-hidden="true"><div class="t">Scroll to grow</div><div class="c">&#8595;</div></div>
+
+  <main id="main">
+
+  <!-- Movement 1 · The Reframe — seed & soil -->
+  <section class="leaf l wide hero" data-i="0" aria-labelledby="m1">
+    <div class="split">
+      <div class="col">
+        <p class="eyebrow">01 &mdash; The Reframe</p>
+        <h2 id="m1">What does it mean to <em>thrive</em> in college?</h2>
+        <div class="hr"></div>
+        <p>Colleges have always measured success. Thriving is bigger: students fully engaged intellectually, socially, and psychologically.</p>
+        <p>And unlike the things campuses can't change, every factor of thriving is <em>malleable</em>. Institutions can teach students to thrive.</p>
+        <p class="cta-row"><a class="cta" href="/research/">The research behind it</a> <a class="cta" href="/packages/#order">Register your campus</a></p>
+      </div>
+      <figure class="vid col" id="vid">
+        <video id="lgvid" playsinline preload="metadata">
+          <source src="/assets/hero.mp4" type="video/mp4">
+        </video>
+        <img class="vposter" src="/assets/hero-poster.jpg" alt="The Thriving Project — a tree grown from a seed, roots visible below the soil" width="1920" height="1080">
+        <button class="vplay" type="button" aria-label="Play the film"></button>
+        <div class="vbar">
+          <div class="vprog" role="slider" aria-label="Seek" tabindex="0"><i></i></div>
+          <div class="vctl">
+            <button class="vpp" type="button" aria-label="Play"><svg width="13" height="15" viewBox="0 0 14 16" fill="currentColor"><path d="M2 1.4v13.2L13 8z"/></svg></button>
+            <span class="vtime">0:00 / 0:00</span>
+            <span class="vgap"></span>
+            <button class="vmute" type="button" aria-label="Mute"><svg width="16" height="14" viewBox="0 0 20 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor" stroke="none"/><path class="wv" d="M13.5 6a4 4 0 0 1 0 6M16 3.6a7.5 7.5 0 0 1 0 10.8"/><path class="xm" d="M13.5 6l5 6M18.5 6l-5 6" style="display:none"/></svg></button>
+            <button class="vfs" type="button" aria-label="Full screen"><svg width="15" height="15" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 6.5V2h4.5M16 6.5V2h-4.5M2 11.5V16h4.5M16 11.5V16h-4.5"/></svg></button>
+          </div>
+        </div>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Movement 2 · The Researcher — roots take hold -->
+  <section class="leaf r wide" data-i="1" aria-labelledby="m2">
+    <div class="split rev">
+      <figure class="bigpf col"><img src="/assets/portrait.webp" alt="Dr. Laurie A. Schreiner" width="640" height="800"></figure>
+      <div class="col">
+        <p class="eyebrow">02 &mdash; The Researcher</p>
+        <h2 id="m2">Who created the Thriving Quotient?</h2>
+        <div class="hr"></div>
+        <p>Dr. Laurie A. Schreiner, Professor Emerita of Higher Education at Azusa Pacific University, co-editor-in-chief of <em>Christian Higher Education</em> and co-editor of <em>Thriving in Transitions</em>. She introduced the Thriving Quotient in 2010 and has spent forty-five years asking a better question about student success.</p>
+        <div class="stat">
+          <div><b>45</b><span>Years in higher education</span></div>
+          <div><b>7</b><span>Instruments</span></div>
+        </div>
+        <p class="cta-row"><a class="cta" href="/about/laurie-schreiner/">About Dr. Schreiner</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Movement 3 · The Instruments — the sprout breaks ground -->
+  <section class="leaf l wide" data-i="2" aria-labelledby="m3">
+    <p class="eyebrow">03 &mdash; The Instruments</p>
+    <h2 id="m3">Which Thriving instrument fits my campus?</h2>
+    <div class="hr"></div>
+    <p>One validated instrument for every population on campus, all administered the same way and priced the same. Choose by who you are surveying.</p>
+    <ul class="strip">
+      <li><a href="/instruments/undergraduate/">Undergraduate</a></li>
+      <li><a href="/instruments/sophomore/">Sophomore</a></li>
+      <li><a href="/instruments/adult-learner/">Adult Learner</a></li>
+      <li><a href="/instruments/graduate/">Graduate</a></li>
+      <li><a href="/instruments/community-college/">Community College</a></li>
+      <li><a href="/instruments/faculty/">Faculty</a></li>
+      <li><a href="/instruments/staff/">Staff</a></li>
+      <li><a href="/instruments/">All seven, compared</a></li>
+    </ul>
+  </section>
+
+  <!-- Movement 4 · The Evidence — trunk & branches -->
+  <section class="leaf r wide" data-i="3" aria-labelledby="m4">
+    <p class="eyebrow">04 &mdash; The Evidence</p>
+    <h2 id="m4">What has fifteen years of research shown?</h2>
+    <div class="hr"></div>
+    <p>The Thriving Quotient rests on peer-reviewed publications, conference papers and doctoral dissertations that tested the model with specific populations. It is all in the Thriving Knowledge Center, so a research office can check the instrument before a campus buys it.</p>
+    <div class="kc">
+      <a href="/research/publications/"><b>16</b><span>Publications</span></a>
+      <a href="/research/presentations/"><b>21</b><span>Presentations</span></a>
+      <a href="/research/dissertations/"><b>20</b><span>Dissertations</span></a>
+    </div>
+    <p class="note">Counts are the entries published on this site to 2019; later work is being added.</p>
+    <p class="cta-row"><a class="cta" href="/research/">Thriving Knowledge Center</a></p>
+  </section>
+
+  <!-- Movement 5 · The Engagements — full tree -->
+  <section class="leaf l wide5" data-i="4" aria-labelledby="m5">
+    <p class="eyebrow">05 &mdash; The Packages</p>
+    <h2 id="m5">What does a campus survey cost?</h2>
+    <div class="hr"></div>
+    <p>Survey administration is {{price:survey}} per survey; report packages from {{price:basic-report}}; the Thriving Campus package with a one-hour webinar is {{price:thriving-campus}}. Three or more survey packages in one order earn 15% off those packages. Each card opens the full description before anything is bought.</p>
+    <!-- Five package cards, real links in the served HTML; the cylinder is
+         presentation. Front card opens its detail page; flanking cards come
+         forward first. Swipe = one card; arrows for pointers; ← → keys. -->
+    <div class="carousel" id="pkgcar" tabindex="0" aria-roledescription="carousel" aria-label="Packages">
+      <button class="carr prev" type="button" aria-label="Previous package">&#8592;</button>
+      <div class="cstage" id="pkgstage">
+        <a class="pkg" href="/packages/researcher/" data-href="/packages/researcher/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <span class="num">01</span><h3>Researcher Option</h3><span class="price">{{price:researcher}} · proposal first</span><span class="grule"></span>
+          <p>Use of an instrument in a dissertation or study, released once your proposal is approved.</p>
+          <span class="pbtn pbtn-ghost">Read more</span></div></a>
+        <a class="pkg" href="/packages/survey/" data-href="/packages/survey/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <span class="num">02</span><h3>Survey Package</h3><span class="price">{{price:survey}} per survey</span><span class="grule"></span>
+          <p>We set up the survey and send the link; the raw data comes back when it closes.</p>
+          <span class="pbtn pbtn-ghost">Read more</span></div></a>
+        <a class="pkg" href="/packages/basic-report/" data-href="/packages/basic-report/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <span class="num">03</span><h3>Basic Report Package</h3><span class="price">{{price:basic-report}} per survey</span><span class="grule"></span>
+          <p>Adds a national-norms comparison report and an interactive dashboard.</p>
+          <span class="pbtn pbtn-ghost">Read more</span></div></a>
+        <a class="pkg" href="/packages/expanded-report/" data-href="/packages/expanded-report/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <span class="num">04</span><h3>Expanded Report Package</h3><span class="price">{{price:expanded-report}} per survey</span><span class="grule"></span>
+          <p>Adds ten institution-specific questions and a predictive model for your campus.</p>
+          <span class="pbtn pbtn-ghost">Read more</span></div></a>
+        <a class="pkg" href="/packages/thriving-campus/" data-href="/packages/thriving-campus/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <span class="num">05</span><h3>Thriving Campus Package</h3><span class="price">{{price:thriving-campus}}</span><span class="grule"></span>
+          <p>Any five instruments in a year, plus a one-hour webinar with Dr. Schreiner.</p>
+          <span class="pbtn pbtn-ghost">Read more</span></div></a>
+      </div>
+      <button class="carr next" type="button" aria-label="Next package">&#8594;</button>
+      <div class="chint">Swipe or use the arrows · tap a card to read more</div>
+    </div>
+    <div class="regwrap"><a class="pbtn pbtn-solid" href="/packages/">Compare all packages</a></div>
+  </section>
+
+  <!-- Movement 6 · Choose Your Path — the router -->
+  <section class="leaf r wide" data-i="5" aria-labelledby="m6">
+    <p class="eyebrow">06 &mdash; Start Here</p>
+    <h2 id="m6">Where should I begin?</h2>
+    <div class="hr"></div>
+    <p>Three doors, one tree. Pick the one that matches your role.</p>
+    <ul class="paths">
+      <li><a href="/packages/"><b>Campus leaders</b><span>Compare packages, then register your campus by card, bank debit or purchase order.</span></a></li>
+      <li><a href="/for-researchers/"><b>Researchers</b><span>Permission to use a Thriving Quotient instrument in your dissertation or study.</span></a></li>
+      <li><a href="/instruments/faculty/"><b>Faculty and staff leaders</b><span>Thriving isn't only a student question. The Faculty and Staff Thriving Quotients.</span></a></li>
+    </ul>
+    <p class="note">Questions? <a href="/contact/">Contact Dr. Schreiner's office</a>.</p>
+  </section>
+
+  </main>
+</div>
+
+<div id="track"></div>
+<div id="fly" aria-hidden="true"></div>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <nav aria-label="Instruments"><h2>Instruments</h2><ul>
+        <li><a href="/instruments/">All instruments</a></li><li><a href="/instruments/undergraduate/">Undergraduate</a></li><li><a href="/instruments/sophomore/">Sophomore</a></li><li><a href="/instruments/adult-learner/">Adult Learner</a></li><li><a href="/instruments/graduate/">Graduate</a></li><li><a href="/instruments/community-college/">Community College</a></li><li><a href="/instruments/faculty/">Faculty</a></li><li><a href="/instruments/staff/">Staff</a></li></ul></nav>
+      <nav aria-label="Packages and store"><h2>Packages &amp; Store</h2><ul>
+        <li><a href="/packages/">Packages &amp; Pricing</a></li><li><a href="/store/">Store</a></li><li><a href="/packages/request-invoice/">Request an invoice</a></li></ul></nav>
+      <nav aria-label="Knowledge Center"><h2>Thriving Knowledge Center</h2><ul>
+        <li><a href="/research/">Overview</a></li><li><a href="/research/publications/">Publications</a></li><li><a href="/research/presentations/">Presentations</a></li><li><a href="/research/dissertations/">Dissertations</a></li><li><a href="/research/webinars/">Webinars</a></li><li><a href="/research/articles/">Articles</a></li></ul></nav>
+      <nav aria-label="About and legal"><h2>About</h2><ul>
+        <li><a href="/about/laurie-schreiner/">Dr. Laurie Schreiner</a></li><li><a href="/for-researchers/">For Researchers</a></li><li><a href="/contact/">Contact</a></li><li><a href="/legal/privacy/">Privacy</a></li><li><a href="/legal/terms/">Terms</a></li><li><a href="/legal/refunds/">Refund policy</a></li><li><a href="/legal/disclaimer/">Disclaimer</a></li><li><a href="/legal/protection-of-subjects/">Protection of subjects</a></li></ul></nav>
+    </div>
+    <p class="colophon">© 2026 The Thriving Project · Dr. Laurie A. Schreiner · 1368 Upland Hills Drive S, Upland, CA 91786</p>
+  </div>
+</footer>
+
+<script src="/js/home.js" defer></script>
 </body>
 </html>

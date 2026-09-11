@@ -59,10 +59,37 @@ function prices(html, file) {
   });
 }
 
+const site = JSON.parse(fs.readFileSync(path.join(SRC, 'data', 'site.json'), 'utf8'));
+const drawerTpl = fs.existsSync(path.join(SRC, 'templates', 'drawer.html'))
+  ? fs.readFileSync(path.join(SRC, 'templates', 'drawer.html'), 'utf8') : '';
+
+// GA4 (when site.json carries the Measurement ID) + an ai_referral event for
+// visits arriving from AI assistants, so the monthly report can show them.
+function ga4Snippet() {
+  if (!site.ga4) return '';
+  const hosts = JSON.stringify(site.ai_referrers || []);
+  return `<script async src="https://www.googletagmanager.com/gtag/js?id=${site.ga4}"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());
+gtag('config','${site.ga4}');
+(function(){try{var r=document.referrer;if(!r)return;var h=new URL(r).hostname;var L=${hosts};
+for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('event','ai_referral',{ai_source:L[i],page_location:location.href});break;}}}catch(e){}})();
+</script>`;
+}
+
 function transform(html, file) {
   let s = prices(html, file);
-  // prefix root-relative href/src/poster/action/data-api — but never protocol, hash, mailto or //
-  s = s.replace(/\b(href|src|poster|action|data-api)="\/(?!\/)/g, (m, a) => `${a}="${BASE}/`);
+  // shared mobile drawer on every page that carries the hamburger control
+  if (drawerTpl && /class="hamburger"/.test(s)) {
+    s = s.replace(/<\/head>/, `<link rel="stylesheet" href="/css/drawer.css">\n</head>`);
+    s = s.replace(/<\/body>/, drawerTpl + '\n</body>');
+  }
+  const ga = ga4Snippet();
+  if (ga) s = s.replace(/<\/head>/, ga + '\n</head>');
+  // prefix root-relative href/src/poster/action/data-* — but never protocol, hash, mailto or //
+  s = s.replace(/\b(href|src|poster|action|data-api|data-assets|data-href)="\/(?!\/)/g, (m, a) => `${a}="${BASE}/`);
+  // url("/assets/…") inside inline <style> blocks (the homepage's two image custom properties)
+  s = s.replace(/url\("\/(?!\/)/g, `url("${BASE}/`);
   if (STAGING && !/name="robots"/.test(s)) {
     s = s.replace(/(<meta name="viewport"[^>]*>)/, `$1\n<meta name="robots" content="noindex, nofollow">`);
   }
@@ -77,6 +104,15 @@ for (const f of walk(path.join(SRC, 'pages'))) {
 }
 for (const f of walk(path.join(SRC, 'css'))) {
   jobs.push({ rel: path.relative(SRC, f), dest: path.join(OUT, path.relative(SRC, f)), out: fs.readFileSync(f, 'utf8') });
+}
+// scripts and binary assets (film frames, hi-res anchors, hero film, portrait,
+// butterfly) copy through untouched; compared as bytes so --check covers them
+for (const dir of ['js', 'assets']) {
+  const d = path.join(SRC, dir);
+  if (!fs.existsSync(d)) continue;
+  for (const f of walk(d)) {
+    jobs.push({ rel: path.relative(SRC, f), dest: path.join(OUT, path.relative(SRC, f)), out: fs.readFileSync(f), binary: true });
+  }
 }
 // Instrument pages: one template × _src/data/instruments.json. Client-
 // supplied facts that are still null render as a pending block that names
@@ -183,8 +219,12 @@ if (fs.existsSync(fnSrc)) {
 
 let changed = 0, same = 0;
 for (const j of jobs) {
-  const cur = fs.existsSync(j.dest) ? fs.readFileSync(j.dest, 'utf8') : null;
-  if (cur === j.out) { same++; continue; }
+  let identical = false;
+  if (fs.existsSync(j.dest)) {
+    if (j.binary) identical = fs.readFileSync(j.dest).equals(j.out);
+    else identical = fs.readFileSync(j.dest, 'utf8') === j.out;
+  }
+  if (identical) { same++; continue; }
   changed++;
   if (CHECK) { console.log('DIFFERS: ' + j.rel); continue; }
   fs.mkdirSync(path.dirname(j.dest), { recursive: true });

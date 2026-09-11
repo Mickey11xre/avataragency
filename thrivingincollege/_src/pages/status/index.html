@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build status — The Thriving Project staging</title>
+<link rel="stylesheet" href="/css/tokens.css">
+<style>
+  .shell { padding-block: var(--sp-xl); }
+  .status { display: grid; gap: var(--sp-2xs); list-style: none; padding: 0; margin-block-start: var(--sp-m); }
+  .status li { display: grid; grid-template-columns: 7rem 1fr; gap: var(--sp-s); padding: var(--sp-xs) var(--sp-s);
+               background: var(--surface); border: 1px solid var(--rule-soft); border-radius: var(--radius); align-items: baseline; }
+  .status b { font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase; color: var(--text-3); }
+  .status .live b { color: var(--action); }
+  .note { color: var(--text-2); margin-block-start: var(--sp-m); max-width: var(--measure); }
+</style>
+</head>
+<body>
+<main class="shell">
+  <p class="eyebrow" style="font-size:var(--step--1);letter-spacing:.12em;text-transform:uppercase;color:var(--gold-text);font-weight:600">Staging · not the live site</p>
+  <h1>Build status</h1>
+  <p class="note">
+    This is the working build of the thrivingincollege.org rebuild. It updates automatically with
+    every change. Nothing here is public, and prices shown are the confirmed 2026–27 figures.
+  </p>
+
+  <ul class="status">
+    <li class="live"><b>Live</b><span><a href="/instruments/">Instruments hub</a> + all seven instrument pages (<a href="/instruments/undergraduate/">Undergraduate</a> · <a href="/instruments/sophomore/">Sophomore</a> · <a href="/instruments/adult-learner/">Adult Learner</a> · <a href="/instruments/graduate/">Graduate</a> · <a href="/instruments/community-college/">Community College</a> · <a href="/instruments/faculty/">Faculty</a> · <a href="/instruments/staff/">Staff</a>) — one template, client facts pending</span></li>
+    <li class="live"><b>Live</b><span><a href="/packages/">Packages &amp; Pricing</a> · order form → Stripe Checkout (live account — a real card would be charged) → <a href="/welcome/">/welcome/</a></span></li>
+    <li class="live"><b>Live</b><span>Stripe webhook for ACH settlement · <code>/api/stripe-webhook</code>, three <code>checkout.session.*</code> events</span></li>
+    <li class="live"><b>Live</b><span><a href="/store/">Store</a> · every product, buy-now per item, deep-link ids for instrument pages</span></li>
+    <li class="live"><b>Live</b><span><a href="/packages/request-invoice/">Request an invoice</a> · PO / Net 30 / W-9 rail → one complete request by email</span></li>
+    <li class="live"><b>Live</b><span><a href="/research/">Thriving Knowledge Center</a> · <a href="/research/publications/">Publications</a> (16, to 2019) · <a href="/research/presentations/">Presentations</a> (21) · <a href="/research/dissertations/">Dissertations</a> (20) · <a href="/research/webinars/">Webinars</a> · <a href="/research/articles/">Articles</a> (the 2019 post) — migrated verbatim from the current site</span></li>
+    <li class="live"><b>Live</b><span><a href="/about/laurie-schreiner/">About</a> · <a href="/for-researchers/">For Researchers</a> · <a href="/contact/">Contact</a> · Legal ×5 (<a href="/legal/terms/">Terms</a>, <a href="/legal/privacy/">Privacy</a>, <a href="/legal/disclaimer/">Disclaimer</a>, <a href="/legal/refunds/">Refunds</a>, <a href="/legal/protection-of-subjects/">Protection of subjects</a>) — 2022 texts carried over as published</span></li>
+    <li><b>Next</b><span>Homepage (six movements + hero film) · mobile navigation drawer · 301 map · sitemap</span></li>
+  </ul>
+
+  <h2 style="font-size:var(--step-1);margin-block-start:var(--sp-l)">Still needed from Dr. Schreiner before launch</h2>
+  <p class="note" style="margin-block-start:var(--sp-2xs)">
+    The instrument pages are complete in structure and marked <b>Awaiting Dr. Schreiner</b>
+    wherever a fact must come from her. Nothing is invented; each block is replaced the day the
+    material arrives.
+  </p>
+  <ul class="status" aria-label="Outstanding client items">
+    <li><b>Per instrument</b><span>Scales with item counts and one confirmed reliability coefficient per scale — the live site publishes two conflicting sets · a few sample items · the academic citation · sampling minimums by institution size. Seven instruments; the Undergraduate scale names are in.</span></li>
+    <li><b>Packages</b><span>Full package descriptions to replace the one-line placeholders on Packages &amp; Pricing and the Store.</span></li>
+    <li><b>Business</b><span>One business email address for the site · refund policy · Terms and Privacy text · adoption figures if any are to be published.</span></li>
+    <li><b>Store</b><span>Her review of Checkout and the request-an-invoice flow on this staging site.</span></li>
+  </ul>
+
+  <p class="note">Launch target: 15 September 2026.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!--meta {
+  "title": "Survey Package — {{price:survey}} per survey",
+  "description": "The Thriving Quotient Survey Package: survey setup, the link for your campus, and the raw data returned when the survey closes. {{price:survey}} per survey. No report or dashboard; add one with a report package.",
+  "eyebrow": "Package · 02",
+  "h1": "Survey Package",
+  "crumb": "Survey Package",
+  "nav": "packages",
+  "crumbs": [{ "name": "Packages & Pricing", "path": "/packages/" }],
+  "capsule": "<b>{{price:survey}}</b> per survey. {{blurb:survey}}",
+  "jsonld_extra": "{ \"@type\": \"Product\", \"@id\": \"https://thrivingincollege.org/packages/survey/#product\", \"name\": \"Survey Package\", \"description\": \"{{blurb:survey}}\", \"brand\": { \"@id\": \"https://thrivingincollege.org/#organization\" }, \"offers\": { \"@type\": \"Offer\", \"price\": \"{{amount:survey}}\", \"priceCurrency\": \"USD\", \"availability\": \"https://schema.org/InStock\", \"url\": \"https://thrivingincollege.org/store/#survey\" } }, { \"@type\": \"FAQPage\", \"@id\": \"https://thrivingincollege.org/packages/survey/#faq\", \"mainEntity\": [ { \"@type\": \"Question\", \"name\": \"What do we receive with the Survey Package?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"Survey setup, a survey link to distribute to your sampled population, and the raw data returned when the survey closes. It does not include a national-norms report or an interactive dashboard; those come with the Basic Report and Expanded Report packages.\" } }, { \"@type\": \"Question\", \"name\": \"Can we add our own questions to the Survey Package?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"Yes. Additional institution-specific questions are {{price:addon-questions}} per group of five.\" } }, { \"@type\": \"Question\", \"name\": \"Does the Survey Package count toward the 15% discount?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"Yes. Any three or more survey packages in one order, in any combination of Survey, Basic Report and Expanded Report, receive 15% off those packages at checkout.\" } } ] }"
+}-->
+  <section class="section" aria-labelledby="inc">
+    <h2 id="inc">What is included</h2>
+    <ul class="prose" style="margin-block-start: var(--sp-s); display:grid; gap: var(--sp-2xs)">
+      <li>Survey setup for one instrument and one population, by The Thriving Project team.</li>
+      <li>A survey link for your campus to distribute to the sampled population.</li>
+      <li>The raw data, returned when the survey closes.</li>
+    </ul>
+    <p class="prose" style="margin-block-start: var(--sp-s); color: var(--text-2)">Not included: a national-norms comparison report or an interactive dashboard. If you want either, choose the <a href="/packages/basic-report/">Basic Report Package</a> or the <a href="/packages/expanded-report/">Expanded Report Package</a>.</p>
+  </section>
+
+  <section class="section" aria-labelledby="who">
+    <h2 id="who">Who it is for</h2>
+    <p class="prose" style="margin-block-start: var(--sp-s)">Institutions with their own research capacity that want the validated instrument administered cleanly and the data returned to analyse in-house.</p>
+  </section>
+
+  <section class="section" aria-labelledby="addons">
+    <h2 id="addons">Add-ons and discount</h2>
+    <dl class="spec" style="margin-block-start: var(--sp-s)">
+      <div><dt>Institution-specific questions</dt><dd>{{price:addon-questions}} per group of five, added to your survey.</dd></div>
+      <div><dt>Multi-survey discount</dt><dd>Order three or more survey packages in any combination and 15% comes off those packages automatically at checkout.</dd></div>
+      <div><dt>Instrument</dt><dd>Chosen at checkout: undergraduate, sophomore, adult learner, graduate, community college, faculty, adjunct faculty or staff.</dd></div>
+    </dl>
+  </section>
+
+  <section class="section cq" aria-labelledby="buy">
+    <h2 id="buy">Order</h2>
+    <div class="buy" style="margin-block-start: var(--sp-s)">
+      <p class="buy__price">{{price:survey}} <span class="buy__unit">per survey</span></p>
+      <div class="buy__actions">
+        <a class="btn btn--primary" href="/store/#survey">Buy the Survey Package</a>
+        <a class="btn btn--secondary" href="/packages/request-invoice/">Request an invoice</a>
+      </div>
+      <p class="buy__note" style="margin-block-start:var(--sp-s)">Card or US bank debit on Stripe's secure page. Institutions can pay by purchase order on a Net-30 invoice.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="faq">
+    <h2 id="faq">Questions about this package</h2>
+    <div class="faq" style="margin-block-start: var(--sp-s)">
+      <details><summary>What do we receive with the Survey Package?</summary><div class="faq__a"><p>Survey setup, a survey link to distribute to your sampled population, and the raw data returned when the survey closes. It does not include a national-norms report or an interactive dashboard; those come with the Basic Report and Expanded Report packages.</p></div></details>
+      <details><summary>Can we add our own questions to the Survey Package?</summary><div class="faq__a"><p>Yes. Additional institution-specific questions are {{price:addon-questions}} per group of five.</p></div></details>
+      <details><summary>Does the Survey Package count toward the 15% discount?</summary><div class="faq__a"><p>Yes. Any three or more survey packages in one order, in any combination of Survey, Basic Report and Expanded Report, receive 15% off those packages at checkout.</p></div></details>
+    </div>
+  </section>
