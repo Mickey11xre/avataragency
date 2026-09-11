@@ -26,11 +26,18 @@
   var html = document.documentElement;
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce) { html.classList.add("static"); return; }   // stacked page; no engine
-  /* Phones and tablets take every 2nd frame (iOS Safari memory ceiling).
-     A short desktop window is not a phone — width and pointer decide, not
-     height, so a 1280x640 laptop keeps the full-resolution sequence. */
+  /* iOS Safari holds DECODED bitmaps, not files, and caps what a tab may
+     hold. 472 frames at 1280x720 is 1.66 GB decoded; every 2nd frame is
+     still 830 MB and Safari simply refuses — the canvas then never paints
+     and the page sits black (found on Michael's iPhone, 2026-09-11).
+     Phones therefore get their own set: every 4th frame at 960x540 =
+     118 frames = 233 MB, the same profile the approved concept ran and was
+     verified working on that phone. Hi-res anchors are skipped there too
+     (6 x 2560x1440 = another 84 MB, and pointless at 390 px wide).
+     A short desktop window is not a phone — width and pointer decide. */
   var isSmall = window.innerWidth < 760 || window.matchMedia("(pointer: coarse)").matches;
-  var STEP = isSmall ? 2 : 1;
+  var STEP = isSmall ? 4 : 1;
+  var FRAME_DIR = isSmall ? "frames-m/" : "frames/";
 
   var cv = document.getElementById("film"), ctx = cv.getContext("2d", { alpha: false });
   var track = document.getElementById("track"), scrim = document.getElementById("scrim");
@@ -169,7 +176,21 @@
       vid.classList.add("playing");
       if (pz) requestAnimationFrame(function () { requestAnimationFrame(function () { pz.style.transition = ""; }); });
     }
-    function toggle() { if (v.paused) { var pr = v.play(); if (pr && pr.then) pr.then(showFilm).catch(function () {}); else showFilm(); } else v.pause(); }
+    /* iOS: with preload="none" the element has no media yet when the first
+       tap arrives, and play() can reject before it has fetched anything.
+       Retry once inside the SAME gesture after an explicit load() — a second
+       attempt from the original tap is still user-activated, so it is allowed.
+       Failures used to be swallowed silently, which is why a tap looked like
+       it did nothing at all on Michael's iPhone (2026-09-11). */
+    function attempt(retry) {
+      var pr = v.play();
+      if (!pr || !pr.then) { showFilm(); return; }
+      pr.then(showFilm).catch(function (err) {
+        if (retry) { try { v.load(); } catch (e) {} attempt(false); return; }
+        console.warn("hero film could not start:", err && err.name, err && err.message);
+      });
+    }
+    function toggle() { if (v.paused) attempt(true); else v.pause(); }
     vid.querySelector(".vplay").addEventListener("click", toggle);
     pp.addEventListener("click", function (e) { e.stopPropagation(); toggle(); });
     v.addEventListener("play", function () { showFilm(); vid.classList.add("rolling"); icon(); });
@@ -179,9 +200,11 @@
     mu.addEventListener("click", function (e) { e.stopPropagation(); v.muted = !v.muted; mu.querySelector(".wv").style.display = v.muted ? "none" : ""; mu.querySelector(".xm").style.display = v.muted ? "" : "none"; mu.setAttribute("aria-label", v.muted ? "Unmute" : "Mute"); });
     fs.addEventListener("click", function (e) { e.stopPropagation(); if (document.fullscreenElement) document.exitFullscreen(); else if (vid.requestFullscreen) vid.requestFullscreen(); else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen(); });
     prog.addEventListener("click", function (e) { e.stopPropagation(); var d = v.duration; if (!d) return; var r = prog.getBoundingClientRect(); v.currentTime = Math.min(d, Math.max(0, (e.clientX - r.left) / r.width * d)); paint(); });
+    /* Only a real error event retires the transport. The old version also
+       gave up after a 4 s readyState probe, which on a phone just means
+       "still downloading" — it hid the play button on a perfectly good file. */
     function dead() { vid.classList.remove("playing"); var b = vid.querySelector(".vbar"); if (b) b.style.display = "none"; var pl = vid.querySelector(".vplay"); if (pl) pl.style.display = "none"; }
     v.addEventListener("error", dead);
-    setTimeout(function () { if (v.readyState === 0 && v.networkState === 3) dead(); }, 4000);
     icon(); paint();
   })();
 
@@ -220,8 +243,8 @@
   }
   var imgs = new Array(FRAME_COUNT), ready = new Uint8Array(FRAME_COUNT);
   var hi = new Array(N), hiReady = new Uint8Array(N);
-  var firstPass = 0, firstPassTarget = 0, dirty = true;
-  function src(i) { return ASSETS + "frames/" + String(i).padStart(4, "0") + ".webp"; }
+  var firstPass = 0, firstPassTarget = 0, dirty = true, painted = false;
+  function src(i) { return ASSETS + FRAME_DIR + String(i).padStart(4, "0") + ".webp"; }
   function request(i, isFirst) {
     if (imgs[i]) return;
     var im = new Image(); im.decoding = "async";
@@ -229,7 +252,10 @@
     im.onerror = function () { if (isFirst) { firstPass++; if (firstPass >= firstPassTarget) revealSite(); } };
     im.src = src(i); imgs[i] = im;
   }
-  function loadHires() { for (var k = 0; k < N; k++) (function (k) { var im = new Image(); im.decoding = "async"; im.onload = function () { hiReady[k] = 1; dirty = true; }; im.src = HIRES[k]; hi[k] = im; })(k); }
+  function loadHires() {
+    if (isSmall) return;                      // 84 MB of 2560x1440 a phone cannot hold
+    for (var k = 0; k < N; k++) (function (k) { var im = new Image(); im.decoding = "async"; im.onload = function () { hiReady[k] = 1; dirty = true; }; im.src = HIRES[k]; hi[k] = im; })(k);
+  }
   function loadAll() {
     var sparse = []; for (var i = 0; i < FRAME_COUNT; i += STEP * 8) sparse.push(i);
     var last = FRAME_COUNT - 1; last -= (last % STEP); if (sparse[sparse.length - 1] !== last) sparse.push(last);
@@ -238,6 +264,15 @@
     var k = 0; (function pump() { var b = 6; while (b-- > 0 && k < rest.length) request(rest[k++], false); if (k < rest.length) setTimeout(pump, 90); })();
     loadHires();
     setTimeout(revealSite, 9000);                        // never hold a slow connection hostage
+    /* Last-resort safety net. If not one frame has painted — decode refused,
+       frames 404, memory denied — hide the canvas (which is opaque black
+       under alpha:false) and show the finished-tree still behind the panels.
+       A still backdrop is a a legible page; a black rectangle is a broken one. */
+    setTimeout(function () {
+      if (painted) return;
+      cv.style.display = "none";
+      root.style.background = "#0B0F0C url(" + ASSETS + "hires/hi5.webp) center/cover no-repeat";
+    }, 7000);
   }
   var revealed = false;
   function revealSite() { if (revealed) return; revealed = true; loader.style.opacity = "0"; setTimeout(function () { loader.style.display = "none"; }, 750); }
@@ -262,7 +297,7 @@
     var a = clamp01(STEP === 1 ? (f - i0) : (f - i0) / STEP);
     var r0 = nearestReady(i0); if (r0 < 0) return false;
     var im0 = imgs[r0], amt = framingAmt(f), box = boxFor(im0.naturalWidth, im0.naturalHeight, amt);
-    ctx.globalAlpha = 1; ctx.drawImage(im0, box[0], box[1], box[2], box[3]);
+    ctx.globalAlpha = 1; ctx.drawImage(im0, box[0], box[1], box[2], box[3]); painted = true;
     if (a > 0.01 && ready[i1] && i1 !== r0) { ctx.globalAlpha = a; ctx.drawImage(imgs[i1], box[0], box[1], box[2], box[3]); ctx.globalAlpha = 1; }
     for (var k = 0; k < N; k++) {
       if (!hiReady[k]) continue;

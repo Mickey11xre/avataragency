@@ -9,7 +9,9 @@
 <link rel="stylesheet" href="/css/tokens.css">
 <link rel="stylesheet" href="/css/instrument.css">
 <link rel="stylesheet" href="/css/home.css">
-<link rel="preload" as="image" href="/assets/frames/0000.webp">
+<!-- No frame preload: the engine picks the right set (desktop or frames-m)
+     and requests frame 0 in its first sparse pass milliseconds later. A
+     static preload would fetch the desktop frame on a phone and waste it. -->
 <link rel="preload" as="image" href="/assets/hero-poster.jpg">
 <style>
   /* the two image assets the CSS needs, given as custom properties so build
@@ -112,7 +114,9 @@
         <p class="cta-row"><a class="cta" href="/research/">The research behind it</a> <a class="cta" href="/packages/#order">Register your campus</a></p>
       </div>
       <figure class="vid col" id="vid">
-        <video id="lgvid" playsinline preload="metadata">
+        <!-- preload="none": the film is 17 MB and would contend with the frame
+             sequence for bandwidth on a phone. It loads on the first tap. -->
+        <video id="lgvid" playsinline webkit-playsinline preload="none">
           <source src="/assets/hero.mp4" type="video/mp4">
         </video>
         <img class="vposter" src="/assets/hero-poster.jpg" alt="The Thriving Project — a tree grown from a seed, roots visible below the soil" width="1920" height="1080">
