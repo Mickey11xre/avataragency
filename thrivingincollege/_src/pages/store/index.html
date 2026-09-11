@@ -18,9 +18,9 @@
       { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thrivingincollege.org/" },
       { "@type": "ListItem", "position": 2, "name": "Store", "item": "https://thrivingincollege.org/store/" } ] },
     { "@type": "ItemList", "@id": "https://thrivingincollege.org/store/#products", "name": "The Thriving Project store", "itemListElement": [
-      { "@type": "ListItem", "position": 1, "item": { "@type": "Product", "@id": "https://thrivingincollege.org/store/#survey", "name": "Survey Package", "description": "Survey administration only; results returned without a report.", "brand": { "@id": "https://thrivingincollege.org/#organization" }, "offers": { "@type": "Offer", "price": "{{amount:survey}}", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thrivingincollege.org/store/#survey" } } },
-      { "@type": "ListItem", "position": 2, "item": { "@type": "Product", "@id": "https://thrivingincollege.org/store/#basic-report", "name": "Basic Report Package", "description": "Survey administration plus a report of your own institution's results.", "brand": { "@id": "https://thrivingincollege.org/#organization" }, "offers": { "@type": "Offer", "price": "{{amount:basic-report}}", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thrivingincollege.org/store/#basic-report" } } },
-      { "@type": "ListItem", "position": 3, "item": { "@type": "Product", "@id": "https://thrivingincollege.org/store/#expanded-report", "name": "Expanded Report Package", "description": "Survey administration plus comparative reporting; the predictive model is included when more than 300 responses are returned.", "brand": { "@id": "https://thrivingincollege.org/#organization" }, "offers": { "@type": "Offer", "price": "{{amount:expanded-report}}", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thrivingincollege.org/store/#expanded-report" } } },
+      { "@type": "ListItem", "position": 1, "item": { "@type": "Product", "@id": "https://thrivingincollege.org/store/#survey", "name": "Survey Package", "description": "{{blurb:survey}}", "brand": { "@id": "https://thrivingincollege.org/#organization" }, "offers": { "@type": "Offer", "price": "{{amount:survey}}", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thrivingincollege.org/store/#survey" } } },
+      { "@type": "ListItem", "position": 2, "item": { "@type": "Product", "@id": "https://thrivingincollege.org/store/#basic-report", "name": "Basic Report Package", "description": "{{blurb:basic-report}}", "brand": { "@id": "https://thrivingincollege.org/#organization" }, "offers": { "@type": "Offer", "price": "{{amount:basic-report}}", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thrivingincollege.org/store/#basic-report" } } },
+      { "@type": "ListItem", "position": 3, "item": { "@type": "Product", "@id": "https://thrivingincollege.org/store/#expanded-report", "name": "Expanded Report Package", "description": "{{blurb:expanded-report}}", "brand": { "@id": "https://thrivingincollege.org/#organization" }, "offers": { "@type": "Offer", "price": "{{amount:expanded-report}}", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thrivingincollege.org/store/#expanded-report" } } },
       { "@type": "ListItem", "position": 4, "item": { "@type": "Product", "@id": "https://thrivingincollege.org/store/#thriving-campus", "name": "Thriving Campus Package with One-Hour Webinar", "brand": { "@id": "https://thrivingincollege.org/#organization" }, "offers": { "@type": "Offer", "price": "{{amount:thriving-campus}}", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thrivingincollege.org/store/#thriving-campus" } } },
       { "@type": "ListItem", "position": 5, "item": { "@type": "Product", "@id": "https://thrivingincollege.org/store/#addon-questions", "name": "Additional Institution-Specific Questions (5 items)", "brand": { "@id": "https://thrivingincollege.org/#organization" }, "offers": { "@type": "Offer", "price": "{{amount:addon-questions}}", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thrivingincollege.org/store/#addon-questions" } } },
       { "@type": "ListItem", "position": 6, "item": { "@type": "Product", "@id": "https://thrivingincollege.org/store/#addon-demographic", "name": "Additional Demographic Variable (Interactive Dashboard)", "brand": { "@id": "https://thrivingincollege.org/#organization" }, "offers": { "@type": "Offer", "price": "{{amount:addon-demographic}}", "priceCurrency": "USD", "availability": "https://schema.org/InStock", "url": "https://thrivingincollege.org/store/#addon-demographic" } } },
@@ -81,7 +81,7 @@
     <ul class="tiers" style="margin-block-start: var(--sp-s)">
       <li class="tier" id="survey">
         <div class="tier__head"><p class="tier__name">Survey Package</p><p class="tier__price">{{price:survey}} <span class="tier__unit">per survey</span></p></div>
-        <p class="tier__desc">Survey administration only. The instrument is administered to your campus and the results are returned without a report.</p>
+        <p class="tier__desc">{{blurb:survey}}</p>
         <form class="buy-form" method="post" action="/api/checkout">
           <div class="qty"><label for="qty_survey">Quantity</label><input id="qty_survey" name="qty_survey" type="number" inputmode="numeric" min="1" max="10" step="1" value="1"></div>
           <button class="btn btn--primary" type="submit">Buy now</button>
@@ -89,7 +89,7 @@
       </li>
       <li class="tier" id="basic-report">
         <div class="tier__head"><p class="tier__name">Basic Report Package</p><p class="tier__price">{{price:basic-report}} <span class="tier__unit">per survey</span></p></div>
-        <p class="tier__desc">Survey administration plus a report of your own institution's results.</p>
+        <p class="tier__desc">{{blurb:basic-report}}</p>
         <form class="buy-form" method="post" action="/api/checkout">
           <div class="qty"><label for="qty_basic-report">Quantity</label><input id="qty_basic-report" name="qty_basic-report" type="number" inputmode="numeric" min="1" max="10" step="1" value="1"></div>
           <button class="btn btn--primary" type="submit">Buy now</button>
@@ -97,7 +97,7 @@
       </li>
       <li class="tier tier--featured" id="expanded-report">
         <div class="tier__head"><p class="tier__name">Expanded Report Package <span class="tier__flag">Most complete</span></p><p class="tier__price">{{price:expanded-report}} <span class="tier__unit">per survey</span></p></div>
-        <p class="tier__desc">Survey administration plus comparative reporting against other institutions. The predictive model is included when your campus returns more than 300 responses.</p>
+        <p class="tier__desc">{{blurb:expanded-report}}</p>
         <form class="buy-form" method="post" action="/api/checkout">
           <div class="qty"><label for="qty_expanded-report">Quantity</label><input id="qty_expanded-report" name="qty_expanded-report" type="number" inputmode="numeric" min="1" max="10" step="1" value="1"></div>
           <button class="btn btn--primary" type="submit">Buy now</button>
@@ -111,7 +111,7 @@
     <ul class="tiers" style="margin-block-start: var(--sp-s)">
       <li class="tier" id="thriving-campus">
         <div class="tier__head"><p class="tier__name">Thriving Campus Package with One-Hour Webinar</p><p class="tier__price">{{price:thriving-campus}}</p></div>
-        <p class="tier__desc">The full campus package, including a one-hour webinar with Dr. Schreiner. Priced as a whole; the multi-survey discount does not apply. Business offices can also <a href="/packages/request-invoice/">request a Net-30 invoice</a>.</p>
+        <p class="tier__desc">{{blurb:thriving-campus}}</p>
         <form class="buy-form" method="post" action="/api/checkout">
           <div class="qty"><label for="qty_thriving-campus">Quantity</label><input id="qty_thriving-campus" name="qty_thriving-campus" type="number" inputmode="numeric" min="1" max="10" step="1" value="1"></div>
           <button class="btn btn--primary" type="submit">Buy now</button>
@@ -126,7 +126,7 @@
     <ul class="tiers" style="margin-block-start: var(--sp-s)">
       <li class="tier" id="addon-questions">
         <div class="tier__head"><p class="tier__name">Additional Institution-Specific Questions</p><p class="tier__price">{{price:addon-questions}} <span class="tier__unit">per group of five</span></p></div>
-        <p class="tier__desc">Five questions of your own added to the survey. Quantity is the number of groups of five.</p>
+        <p class="tier__desc">{{blurb:addon-questions}}</p>
         <form class="buy-form" method="post" action="/api/checkout">
           <div class="qty"><label for="qty_addon-questions">Groups of five</label><input id="qty_addon-questions" name="qty_addon-questions" type="number" inputmode="numeric" min="1" max="10" step="1" value="1"></div>
           <button class="btn btn--primary" type="submit">Buy now</button>
@@ -134,7 +134,7 @@
       </li>
       <li class="tier" id="addon-demographic">
         <div class="tier__head"><p class="tier__name">Additional Demographic Variable</p><p class="tier__price">{{price:addon-demographic}} <span class="tier__unit">per variable</span></p></div>
-        <p class="tier__desc">An extra demographic variable in the interactive dashboard of a report package.</p>
+        <p class="tier__desc">{{blurb:addon-demographic}}</p>
         <form class="buy-form" method="post" action="/api/checkout">
           <div class="qty"><label for="qty_addon-demographic">Variables</label><input id="qty_addon-demographic" name="qty_addon-demographic" type="number" inputmode="numeric" min="1" max="10" step="1" value="1"></div>
           <button class="btn btn--primary" type="submit">Buy now</button>
@@ -142,7 +142,7 @@
       </li>
       <li class="tier" id="webinar">
         <div class="tier__head"><p class="tier__name">One-Hour Webinar with Dr. Laurie Schreiner</p><p class="tier__price">{{price:webinar}}</p></div>
-        <p class="tier__desc">A standalone one-hour webinar for your campus.</p>
+        <p class="tier__desc">{{blurb:webinar}}</p>
         <form class="buy-form" method="post" action="/api/checkout">
           <div class="qty"><label for="qty_webinar">Quantity</label><input id="qty_webinar" name="qty_webinar" type="number" inputmode="numeric" min="1" max="10" step="1" value="1"></div>
           <button class="btn btn--primary" type="submit">Buy now</button>

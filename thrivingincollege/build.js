@@ -45,10 +45,16 @@ const catalogue = JSON.parse(catalogueText);
 const byKey = Object.fromEntries(catalogue.products.map(p => [p.key, p]));
 const usd = n => '$' + n.toLocaleString('en-US');
 
+// {{price:KEY}} → $1,500 · {{amount:KEY}} → 1500 · {{blurb:KEY}} → the
+// buyer-facing description from her 6 Sept 2026 price sheet (prices.json).
 function prices(html, file) {
-  return html.replace(/\{\{(price|amount):([a-z0-9-]+)\}\}/g, (m, kind, key) => {
+  return html.replace(/\{\{(price|amount|blurb):([a-z0-9-]+)\}\}/g, (m, kind, key) => {
     const p = byKey[key];
     if (!p) throw new Error(`${path.basename(file)}: unknown price key "${key}"`);
+    if (kind === 'blurb') {
+      if (!p.blurb) throw new Error(`${path.basename(file)}: no blurb for "${key}"`);
+      return p.blurb;
+    }
     return kind === 'price' ? usd(p.amount) : String(p.amount);
   });
 }

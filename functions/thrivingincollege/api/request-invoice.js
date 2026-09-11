@@ -41,7 +41,8 @@ const CATALOGUE = {
       "product_id": "prod_VDgA0DxAuY3Nmw",
       "price_id": "price_1UDEoOLYND5YEVl61LTtp1LL",
       "public": true,
-      "counts_as_survey": true
+      "counts_as_survey": true,
+      "blurb": "Survey only. We set up the survey and send you the link; the raw data is returned when the survey closes. No national-norms report and no interactive dashboard."
     },
     {
       "key": "basic-report",
@@ -50,7 +51,8 @@ const CATALOGUE = {
       "product_id": "prod_VDgBBWN3Iw5fyq",
       "price_id": "price_1UDEoyLYND5YEVl6B53BJduj",
       "public": true,
-      "counts_as_survey": true
+      "counts_as_survey": true,
+      "blurb": "Survey setup, the link and the raw data, plus a report comparing your institution’s data to national norms once norms are established for the semester, plus an interactive dashboard for disaggregation by gender and race/ethnicity."
     },
     {
       "key": "expanded-report",
@@ -60,7 +62,8 @@ const CATALOGUE = {
       "price_id": "price_1UDEpPLYND5YEVl6PCNAQYiH",
       "public": true,
       "counts_as_survey": true,
-      "featured": true
+      "featured": true,
+      "blurb": "We administer the survey from an email list you provide, with up to 10 institution-specific questions included. You receive the raw data, the norms-comparison report, the interactive dashboard, and a predictive model specific to your campus — conditional on more than 300 responses."
     },
     {
       "key": "thriving-campus",
@@ -69,7 +72,8 @@ const CATALOGUE = {
       "product_id": "prod_VDgCDrzjWI1JnW",
       "price_id": "price_1UDEpqLYND5YEVl6majcGkkt",
       "public": true,
-      "counts_as_survey": false
+      "counts_as_survey": false,
+      "blurb": "Any five instruments administered within a one-year period, with up to 10 institution-specific questions per survey. Raw data, a norms-comparison report for each of the five, a predictive model per survey (with more than 300 responses) and interactive dashboards. Plus a one-hour webinar with Dr. Schreiner: results, recommended actions and national trends, synthesised across all five surveys with a thematic analysis of comments. Unlimited stakeholders, recordable."
     },
     {
       "key": "addon-questions",
@@ -79,7 +83,8 @@ const CATALOGUE = {
       "price_id": "price_1UDEqGLYND5YEVl6c8VGv42K",
       "public": true,
       "counts_as_survey": false,
-      "unit": "per group of 5"
+      "unit": "per group of 5",
+      "blurb": "Additional institution-specific questions, in groups of five, added to your survey."
     },
     {
       "key": "addon-demographic",
@@ -89,7 +94,8 @@ const CATALOGUE = {
       "price_id": "price_1UDEqhLYND5YEVl6ckdNdzgL",
       "public": true,
       "counts_as_survey": false,
-      "unit": "per variable"
+      "unit": "per variable",
+      "blurb": "An additional demographic variable in the interactive dashboard of a report package."
     },
     {
       "key": "webinar",
@@ -98,7 +104,8 @@ const CATALOGUE = {
       "product_id": "prod_VDgDkm4wGRZGFS",
       "price_id": "price_1UDEr9LYND5YEVl6hbglYW21",
       "public": true,
-      "counts_as_survey": false
+      "counts_as_survey": false,
+      "blurb": "A standalone one-hour webinar with Dr. Schreiner for the leaders of your institution."
     },
     {
       "key": "researcher",
@@ -108,9 +115,11 @@ const CATALOGUE = {
       "price_id": "price_1UDErcLYND5YEVl6y8x81aPo",
       "public": false,
       "counts_as_survey": false,
-      "note": "proposal-first; payment link sent after the signed proposal is returned"
+      "note": "proposal-first; payment link sent after the signed proposal is returned",
+      "blurb": "Use of the instrument for research, and/or use of a dataset (dataset access is for dissertation students only). Requires a submitted proposal."
     }
-  ]
+  ],
+  "_blurbs_source": "Product blurbs: her price sheet of 2026-09-06 (canonical-price-list §1), second person; webinar line is from the 4 Sept meeting, not the sheet."
 };
 
 const INSTRUMENTS = {
