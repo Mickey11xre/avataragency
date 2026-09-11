@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Request an invoice or quote — purchase orders and Net 30</title>
+<meta name="description" content="Request a quote or Net-30 invoice for Thriving Quotient packages. Purchase orders accepted, W-9 available, payment by ACH or card on the hosted invoice.">
+<link rel="canonical" href="https://thrivingincollege.org/packages/request-invoice/">
+<link rel="stylesheet" href="/thrivingincollege/css/tokens.css">
+<link rel="stylesheet" href="/thrivingincollege/css/instrument.css">
+<link rel="stylesheet" href="/thrivingincollege/css/store.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    { "@type": "Organization", "@id": "https://thrivingincollege.org/#organization", "name": "The Thriving Project", "url": "https://thrivingincollege.org/" },
+    { "@type": "BreadcrumbList", "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thrivingincollege.org/" },
+      { "@type": "ListItem", "position": 2, "name": "Packages & Pricing", "item": "https://thrivingincollege.org/packages/" },
+      { "@type": "ListItem", "position": 3, "name": "Request an invoice", "item": "https://thrivingincollege.org/packages/request-invoice/" } ] },
+    { "@type": "FAQPage", "@id": "https://thrivingincollege.org/packages/request-invoice/#faq", "mainEntity": [
+      { "@type": "Question", "name": "Can our institution pay by purchase order?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Request a quote or invoice with this form, add your purchase order number now or later, and pay the hosted invoice by ACH bank transfer or card on Net-30 terms." } },
+      { "@type": "Question", "name": "Is a W-9 available?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. Tick the W-9 box on the request form and it is sent with the quote." } },
+      { "@type": "Question", "name": "Does the multi-survey discount apply to invoiced orders?",
+        "acceptedAnswer": { "@type": "Answer", "text": "Yes. An order of three or more survey packages — Survey, Basic Report or Expanded Report in any combination — receives 15% off those packages whether it is paid at checkout or by invoice. The discount never applies to the Thriving Campus package, add-ons or the standalone webinar." } } ] }
+  ]
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="shell masthead__in">
+    <a class="wordmark" href="/thrivingincollege/">The Thriving Project</a>
+    <nav class="nav" aria-label="Primary">
+      <a href="/thrivingincollege/instruments/">Instruments</a>
+      <a href="/thrivingincollege/packages/">Packages &amp; Pricing</a>
+      <a href="/thrivingincollege/research/">Thriving Knowledge Center</a>
+      <a href="/thrivingincollege/store/" data-store>Store</a>
+      <a href="/thrivingincollege/about/laurie-schreiner/">About</a>
+      <a class="btn btn--primary" href="/thrivingincollege/packages/#order">Register Your Campus</a>
+    </nav>
+    <button class="hamburger" type="button" aria-expanded="false" aria-controls="drawer">
+      <span aria-hidden="true">☰</span><span class="visually-hidden">Open menu</span>
+    </button>
+  </div>
+</header>
+
+<nav class="crumbs shell" aria-label="Breadcrumb">
+  <ol>
+    <li><a href="/thrivingincollege/">Home</a></li>
+    <li><a href="/thrivingincollege/packages/">Packages &amp; Pricing</a></li>
+    <li aria-current="page">Request an invoice</li>
+  </ol>
+</nav>
+
+<main id="main" class="shell">
+  <div class="page-head">
+    <p class="eyebrow">Institutional purchasing</p>
+    <h1>Request an invoice or quote</h1>
+    <p class="capsule">
+      For business offices that buy on a purchase order. Tell us what your campus needs and you
+      receive a quote with a reference number for your budget packet, then a Net-30 invoice payable
+      by ACH bank transfer or card. A W-9 is available on request.
+    </p>
+  </div>
+
+  <!-- The whole request in one form, so Dr. Schreiner receives one complete
+       brief rather than an email thread (v6 §09, Rail 2). Labels above
+       fields, errors inline and announced, inputmode + autocomplete set —
+       brief §4.5. Posts without JavaScript; JavaScript only adds inline
+       validation and keeps the page in place on success. -->
+  <form id="invoice-form" class="section" method="post" action="/thrivingincollege/api/request-invoice" novalidate>
+    <h2>Your institution</h2>
+    <div class="fields" style="margin-block-start: var(--sp-s)">
+      <div class="field">
+        <label for="institution">Institution <span class="req">required</span></label>
+        <input id="institution" name="institution" type="text" autocomplete="organization" required maxlength="160" aria-describedby="err-institution">
+        <p class="field__error" id="err-institution" hidden></p>
+      </div>
+      <div class="field">
+        <label for="contact">Your name <span class="req">required</span></label>
+        <input id="contact" name="contact" type="text" autocomplete="name" required maxlength="120" aria-describedby="err-contact">
+        <p class="field__error" id="err-contact" hidden></p>
+      </div>
+      <div class="field">
+        <label for="email">Work email <span class="req">required</span></label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="160" aria-describedby="err-email">
+        <p class="field__error" id="err-email" hidden></p>
+      </div>
+      <div class="field">
+        <label for="phone">Phone <span class="opt">optional</span></label>
+        <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="40">
+      </div>
+      <div class="field field--wide">
+        <label for="address">Billing address <span class="opt">optional now — needed on the invoice</span></label>
+        <textarea id="address" name="address" rows="3" autocomplete="street-address" maxlength="400"></textarea>
+      </div>
+      <div class="field">
+        <label for="po_number">Purchase order number <span class="opt">optional — add it later if you don't have one yet</span></label>
+        <input id="po_number" name="po_number" type="text" inputmode="text" autocomplete="off" maxlength="60">
+      </div>
+      <!-- Honeypot. Hidden from people; bots fill it. -->
+      <div class="field" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
+        <label for="website">Website</label>
+        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+    </div>
+
+    <h2 style="margin-block-start: var(--sp-l)">What your campus needs</h2>
+    <p class="section__lead">Quantities are per population surveyed. Three or more survey packages earn the 15% discount on the invoice too.</p>
+    <p class="field__error" id="err-items" role="alert" hidden></p>
+    <ul class="tiers" style="margin-block-start: var(--sp-s)">
+      <li class="tier">
+        <div class="tier__head"><p class="tier__name">Survey Package</p><p class="tier__price">$750 <span class="tier__unit">per survey</span></p></div>
+        <p class="tier__desc">Survey administration only; results returned without a report.</p>
+        <div class="qty"><label for="qty_survey">Quantity</label><input id="qty_survey" name="qty_survey" type="number" inputmode="numeric" min="0" max="10" step="1" value="0"></div>
+      </li>
+      <li class="tier">
+        <div class="tier__head"><p class="tier__name">Basic Report Package</p><p class="tier__price">$1,500 <span class="tier__unit">per survey</span></p></div>
+        <p class="tier__desc">Survey administration plus a report of your own institution's results.</p>
+        <div class="qty"><label for="qty_basic-report">Quantity</label><input id="qty_basic-report" name="qty_basic-report" type="number" inputmode="numeric" min="0" max="10" step="1" value="0"></div>
+      </li>
+      <li class="tier tier--featured">
+        <div class="tier__head"><p class="tier__name">Expanded Report Package</p><p class="tier__price">$2,500 <span class="tier__unit">per survey</span></p></div>
+        <p class="tier__desc">Comparative reporting against other institutions; the predictive model is included when more than 300 responses are returned.</p>
+        <div class="qty"><label for="qty_expanded-report">Quantity</label><input id="qty_expanded-report" name="qty_expanded-report" type="number" inputmode="numeric" min="0" max="10" step="1" value="0"></div>
+      </li>
+      <li class="tier">
+        <div class="tier__head"><p class="tier__name">Thriving Campus Package with One-Hour Webinar</p><p class="tier__price">$10,000</p></div>
+        <p class="tier__desc">The full campus package, including a one-hour webinar with Dr. Schreiner.</p>
+        <div class="qty"><label for="qty_thriving-campus">Quantity</label><input id="qty_thriving-campus" name="qty_thriving-campus" type="number" inputmode="numeric" min="0" max="10" step="1" value="0"></div>
+      </li>
+      <li class="tier">
+        <div class="tier__head"><p class="tier__name">Additional Institution-Specific Questions</p><p class="tier__price">$300 <span class="tier__unit">per group of five</span></p></div>
+        <p class="tier__desc">Five questions of your own added to the survey.</p>
+        <div class="qty"><label for="qty_addon-questions">Groups of five</label><input id="qty_addon-questions" name="qty_addon-questions" type="number" inputmode="numeric" min="0" max="10" step="1" value="0"></div>
+      </li>
+      <li class="tier">
+        <div class="tier__head"><p class="tier__name">Additional Demographic Variable</p><p class="tier__price">$300 <span class="tier__unit">per variable</span></p></div>
+        <p class="tier__desc">An extra demographic variable in the interactive dashboard of a report package.</p>
+        <div class="qty"><label for="qty_addon-demographic">Variables</label><input id="qty_addon-demographic" name="qty_addon-demographic" type="number" inputmode="numeric" min="0" max="10" step="1" value="0"></div>
+      </li>
+      <li class="tier">
+        <div class="tier__head"><p class="tier__name">One-Hour Webinar with Dr. Laurie Schreiner</p><p class="tier__price">$2,000</p></div>
+        <p class="tier__desc">A standalone one-hour webinar for your campus.</p>
+        <div class="qty"><label for="qty_webinar">Quantity</label><input id="qty_webinar" name="qty_webinar" type="number" inputmode="numeric" min="0" max="10" step="1" value="0"></div>
+      </li>
+    </ul>
+
+    <fieldset class="fieldset" style="margin-block-start: var(--sp-m)">
+      <legend>Which instruments? <span class="opt">optional — tick all that apply</span></legend>
+      <div class="checks">
+        <label><input type="checkbox" name="instruments" value="undergraduate"> Undergraduate Thriving Quotient</label>
+        <label><input type="checkbox" name="instruments" value="sophomore"> Sophomore Experiences Survey</label>
+        <label><input type="checkbox" name="instruments" value="adult"> Adult Thriving Quotient</label>
+        <label><input type="checkbox" name="instruments" value="graduate"> Graduate Student Thriving Quotient</label>
+        <label><input type="checkbox" name="instruments" value="communitycollege"> Community College Thriving Quotient</label>
+        <label><input type="checkbox" name="instruments" value="faculty"> Faculty Thriving Quotient</label>
+        <label><input type="checkbox" name="instruments" value="adjunctfaculty"> Adjunct Faculty Thriving Quotient</label>
+        <label><input type="checkbox" name="instruments" value="staff"> Staff Thriving Quotient</label>
+      </div>
+    </fieldset>
+
+    <h2 style="margin-block-start: var(--sp-l)">Terms</h2>
+    <div class="fields" style="margin-block-start: var(--sp-s)">
+      <fieldset class="fieldset">
+        <legend>Payment terms</legend>
+        <div class="checks">
+          <label><input type="radio" name="terms" value="net30" checked> Net 30 from invoice date</label>
+          <label><input type="radio" name="terms" value="receipt"> Due on receipt</label>
+        </div>
+      </fieldset>
+      <fieldset class="fieldset">
+        <legend>Tax paperwork</legend>
+        <div class="checks">
+          <label><input type="checkbox" name="w9" value="yes"> Please send a W-9 with the quote</label>
+        </div>
+      </fieldset>
+      <div class="field field--wide">
+        <label for="notes">Anything else <span class="opt">optional — survey window, vendor-registration steps, questions</span></label>
+        <textarea id="notes" name="notes" rows="4" maxlength="2000"></textarea>
+      </div>
+    </div>
+
+    <div class="summary__actions" style="margin-block-start: var(--sp-m)">
+      <button class="btn btn--primary btn--block" type="submit" id="invoice-submit">Send the request</button>
+    </div>
+    <p class="form-error" id="invoice-error" role="alert" hidden></p>
+    <p class="summary__note">You will hear back from Dr. Schreiner's office with a quote and reference number. Nothing is charged by sending this form.</p>
+  </form>
+
+  <section class="section" aria-labelledby="faq">
+    <h2 id="faq">Questions about invoicing</h2>
+    <div class="faq" style="margin-block-start: var(--sp-s)">
+      <details><summary>Can our institution pay by purchase order?</summary><div class="faq__a"><p>Yes. Request a quote or invoice with this form, add your purchase order number now or later, and pay the hosted invoice by ACH bank transfer or card on Net-30 terms.</p></div></details>
+      <details><summary>Is a W-9 available?</summary><div class="faq__a"><p>Yes. Tick the W-9 box on the request form and it is sent with the quote.</p></div></details>
+      <details><summary>Does the multi-survey discount apply to invoiced orders?</summary><div class="faq__a"><p>Yes. An order of three or more survey packages — Survey, Basic Report or Expanded Report in any combination — receives 15% off those packages whether it is paid at checkout or by invoice. The discount never applies to the Thriving Campus package, add-ons or the standalone webinar.</p></div></details>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-grid">
+      <nav aria-label="Instruments"><h2>Instruments</h2><ul>
+        <li><a href="/thrivingincollege/instruments/">All instruments</a></li><li><a href="/thrivingincollege/instruments/undergraduate/">Undergraduate</a></li><li><a href="/thrivingincollege/instruments/sophomore/">Sophomore</a></li><li><a href="/thrivingincollege/instruments/adult-learner/">Adult Learner</a></li><li><a href="/thrivingincollege/instruments/graduate/">Graduate</a></li><li><a href="/thrivingincollege/instruments/community-college/">Community College</a></li><li><a href="/thrivingincollege/instruments/faculty/">Faculty</a></li><li><a href="/thrivingincollege/instruments/staff/">Staff</a></li></ul></nav>
+      <nav aria-label="Packages and store"><h2>Packages &amp; Store</h2><ul>
+        <li><a href="/thrivingincollege/packages/">Packages &amp; Pricing</a></li><li><a href="/thrivingincollege/store/">Store</a></li><li><a href="/thrivingincollege/packages/request-invoice/">Request an invoice</a></li></ul></nav>
+      <nav aria-label="Knowledge Center"><h2>Thriving Knowledge Center</h2><ul>
+        <li><a href="/thrivingincollege/research/">Overview</a></li><li><a href="/thrivingincollege/research/publications/">Publications</a></li><li><a href="/thrivingincollege/research/presentations/">Presentations</a></li><li><a href="/thrivingincollege/research/dissertations/">Dissertations</a></li><li><a href="/thrivingincollege/research/webinars/">Webinars</a></li><li><a href="/thrivingincollege/research/articles/">Articles</a></li></ul></nav>
+      <nav aria-label="About and legal"><h2>About</h2><ul>
+        <li><a href="/thrivingincollege/about/laurie-schreiner/">Dr. Laurie Schreiner</a></li><li><a href="/thrivingincollege/for-researchers/">For Researchers</a></li><li><a href="/thrivingincollege/contact/">Contact</a></li><li><a href="/thrivingincollege/legal/privacy/">Privacy</a></li><li><a href="/thrivingincollege/legal/terms/">Terms</a></li><li><a href="/thrivingincollege/legal/refund/">Refund policy</a></li></ul></nav>
+    </div>
+    <p class="colophon">© 2026 The Thriving Project · Dr. Laurie A. Schreiner</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var form = document.getElementById('invoice-form');
+  var btn = document.getElementById('invoice-submit');
+  var errBox = document.getElementById('invoice-error');
+  var sentUrl = form.action.replace(/\/api\/request-invoice$/, '/packages/request-invoice/sent/');
+
+  function setErr(name, msg) {
+    var el = document.getElementById('err-' + name);
+    var input = document.getElementById(name);
+    if (el) { el.textContent = msg || ''; el.hidden = !msg; }
+    if (input) { input.setAttribute('aria-invalid', msg ? 'true' : 'false'); }
+  }
+  function clearErrs() {
+    ['institution', 'contact', 'email', 'items'].forEach(function (n) { setErr(n, ''); });
+    errBox.hidden = true;
+  }
+  function fail(msg) {
+    errBox.textContent = msg; errBox.hidden = false;
+    btn.disabled = false; btn.textContent = 'Send the request';
+  }
+
+  form.addEventListener('submit', function (ev) {
+    ev.preventDefault();
+    clearErrs();
+    var data = {}, first = null, anyQty = false;
+    Array.prototype.forEach.call(form.elements, function (el) {
+      if (!el.name || el.disabled) return;
+      if (el.type === 'checkbox') {
+        if (el.name === 'instruments') { if (el.checked) (data.instruments = data.instruments || []).push(el.value); }
+        else data[el.name] = el.checked ? el.value : '';
+      } else if (el.type === 'radio') { if (el.checked) data[el.name] = el.value; }
+      else data[el.name] = el.value;
+      if (/^qty_/.test(el.name) && Number(el.value) > 0) anyQty = true;
+    });
+    if (data.institution.trim().length < 2) { setErr('institution', 'Enter the institution name.'); first = first || 'institution'; }
+    if (data.contact.trim().length < 2) { setErr('contact', 'Enter your name.'); first = first || 'contact'; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) { setErr('email', 'Enter a valid email address.'); first = first || 'email'; }
+    if (!anyQty) { setErr('items', 'Choose at least one package.'); first = first || 'qty_survey'; }
+    if (first) { document.getElementById(first).focus(); return; }
+
+    btn.disabled = true; btn.textContent = 'Sending…';
+    fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+      .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
+      .then(function (res) {
+        if (res.ok && res.body.ok) { window.location.href = sentUrl; return; }
+        if (res.body && res.body.fields) {
+          Object.keys(res.body.fields).forEach(function (k) { setErr(k, res.body.fields[k]); });
+          return fail('Please check the highlighted fields.');
+        }
+        fail('We could not send your request. Please try again, or use the Contact page.');
+      })
+      .catch(function () { fail('We could not reach the server. Please try again.'); });
+  });
+})();
+</script>
+</body>
+</html>
