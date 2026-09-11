@@ -67,7 +67,10 @@
     var cards = [].slice.call(stage.querySelectorAll(".pkg")), M = cards.length;
     var S = { p: 1, target: null, drag: false, moved: 0, lastX: 0, resume: 0, mx: 0, my: 0, tx: 0, ty: 0, cw: 232, v: 0, lastT: 0, hx: null, lastSpin: 0 };
     function sizes() {
+      /* Never let a gear reach zero: touchGear() divides a finger delta by
+         S.cw, and 0 / 0 is NaN, which blanks the cylinder (see tick). */
       S.cw = cards[0].offsetWidth || 232; S.rw = car.clientWidth || S.cw * 3;
+      if (!(S.cw > 0)) S.cw = 232;
       var narrow = S.rw < 560;
       S.x1 = Math.min(S.cw * 1.02 + 38, S.rw * (narrow ? 0.335 : 0.375));
       S.x2 = Math.min(S.cw * 1.86, S.rw * (narrow ? 0.60 : 0.68));
@@ -150,9 +153,19 @@
     function lerp(a, b, t) { return a + (b - a) * t; }
     /* The idle drift runs only while the packages panel is actually on screen,
        so the reader always arrives with the Survey Package in front. */
-    var visible = false;
+    var visible = false, ticks = 0;
     function setVisible(v) { if (v && !visible) S.resume = Date.now() + 5000; visible = v; }
     function tick() {
+      ticks++;
+      /* NaN trap. Every card's opacity is derived from S.p, and the `a <= 1`
+         / `a <= 2` tests below are both FALSE for NaN, so a single NaN drops
+         every card into the else branch at op = 0 and the whole carousel
+         vanishes permanently — exactly the "carousel is not displaying"
+         failure, with no error in the console. It only takes one gesture
+         that divides by a zero-width card (0/0) to get there. Recover to the
+         front card rather than staying blank. */
+      if (!isFinite(S.p)) { S.p = 1; S.target = null; S.v = 0; }
+      if (S.target !== null && !isFinite(S.target)) S.target = null;
       if (S.target !== null) { S.p += (S.target - S.p) * 0.13; if (Math.abs(S.target - S.p) < 0.002) { S.p = S.target; S.target = null; } }
       else if (visible && !S.drag && Date.now() > S.resume) { S.p += 0.0026; }
       S.mx += (S.tx - S.mx) * 0.08; S.my += (S.ty - S.my) * 0.08;
@@ -173,7 +186,7 @@
         c.tabIndex = i === f ? 0 : -1;
       }
     }
-    return { tick: tick, setVisible: setVisible };
+    return { tick: tick, setVisible: setVisible, ticks: function () { return ticks; }, state: function () { return S; } };
   })();
 
   /* ---- hero brand film: rests on the poster, plays only on the button ---- */
@@ -382,4 +395,50 @@
     (function poll() { if (dirty) { dirty = false; draw(false); } if (window.CAR) window.CAR.tick(); if (window.FLY) window.FLY.tick(); requestAnimationFrame(poll); })();
     layout(); loadAll();
   }
+
+  /* ---- on-device readout: add #diag to the URL -----------------------------
+   * Phone-only faults cannot be reproduced in a desktop browser and iOS has
+   * no console worth the name, so three rounds went into guessing at one.
+   * This panel reports what the page actually did, on the actual device.
+   * Inert without the hash, so it ships harmlessly. Tap COPY, paste it back. */
+  if (/(^|[#&?])diag\b/.test(location.hash) || /[?&]diag=1/.test(location.search)) setTimeout(function () {
+    function css(el, p) { return el ? getComputedStyle(el)[p] : "-"; }
+    function box(el) { if (!el) return "-"; var r = el.getBoundingClientRect(); return Math.round(r.width) + "x" + Math.round(r.height) + " @" + Math.round(r.left) + "," + Math.round(r.top); }
+    var car = document.getElementById("pkgcar"), stg = document.getElementById("pkgstage");
+    var cards = [].slice.call(document.querySelectorAll(".pkg"));
+    var L = [];
+    L.push("UA " + navigator.userAgent);
+    L.push("viewport " + window.innerWidth + "x" + window.innerHeight + " dpr" + (window.devicePixelRatio || 1));
+    L.push("STATIC(reduce-motion) " + STATIC + " | isSmall " + isSmall + " | STEP " + STEP + " | dir " + FRAME_DIR);
+    L.push("html.class '" + html.className + "'");
+    L.push("-- film --");
+    L.push("canvas " + box(cv) + " display " + css(cv, "display"));
+    try { var d = ctx.getImageData(Math.round(cv.width / 2), Math.round(cv.height / 4), 1, 1).data; L.push("canvas pixel " + d[0] + "," + d[1] + "," + d[2]); } catch (e) { L.push("canvas pixel ERR " + e.name); }
+    L.push("-- carousel --");
+    L.push("CAR " + (window.CAR ? "alive, ticks " + window.CAR.ticks() : "NULL (never initialised)"));
+    if (window.CAR) { var S = window.CAR.state(); L.push("p " + (isFinite(S.p) ? S.p.toFixed(3) : "NaN!") + " cw " + S.cw + " rw " + S.rw + " x1 " + Math.round(S.x1) + " x2 " + Math.round(S.x2) + " target " + S.target); }
+    L.push(".carousel " + box(car) + " opacity " + css(car, "opacity") + " persp " + css(car, "perspective") + " overflow " + css(car, "overflowX") + "/" + css(car, "overflowY"));
+    L.push(".cstage " + box(stg) + " style " + css(stg, "transformStyle") + " transform " + String(css(stg, "transform")).slice(0, 42));
+    L.push("cards " + cards.length);
+    cards.forEach(function (c, i) {
+      L.push("  #" + i + " " + box(c) + " vis " + css(c, "visibility") + " op " + css(c, "opacity") + " z " + css(c, "zIndex") + " tf " + String(css(c, "transform")).slice(0, 46));
+    });
+    var leaf = car && car.closest ? car.closest(".leaf") : null;
+    L.push("leaf " + box(leaf) + " --c2 '" + (leaf ? leaf.style.getPropertyValue("--c2") : "-") + "' backdrop " + css(leaf, "backdropFilter") + "/" + css(leaf, "webkitBackdropFilter"));
+    var p = document.createElement("div");
+    p.setAttribute("style", "position:fixed;inset:0;z-index:99999;background:#0b0f0c;color:#d7e6d9;font:11px/1.45 ui-monospace,Menlo,monospace;padding:12px;overflow:auto;-webkit-overflow-scrolling:touch;white-space:pre-wrap;word-break:break-word");
+    var txt = L.join("\n");
+    p.textContent = txt;
+    var b = document.createElement("button");
+    b.textContent = "COPY";
+    b.setAttribute("style", "position:sticky;top:0;float:right;margin:0 0 8px 8px;padding:9px 16px;border:0;border-radius:999px;background:#F0DCA8;color:#1a2a1f;font:600 12px/1 ui-monospace,monospace");
+    b.onclick = function () { try { navigator.clipboard.writeText(txt); b.textContent = "COPIED"; } catch (e) { b.textContent = "select the text"; } };
+    var x = document.createElement("button");
+    x.textContent = "CLOSE";
+    x.setAttribute("style", "position:sticky;top:0;float:right;margin:0 0 8px 8px;padding:9px 16px;border:1px solid #3D7157;border-radius:999px;background:transparent;color:#d7e6d9;font:600 12px/1 ui-monospace,monospace");
+    x.onclick = function () { p.parentNode.removeChild(p); };
+    p.insertBefore(x, p.firstChild);
+    p.insertBefore(b, p.firstChild);
+    document.body.appendChild(p);
+  }, 2500);
 })();
