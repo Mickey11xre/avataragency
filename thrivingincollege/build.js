@@ -28,7 +28,10 @@ const fs = require('fs');
 const path = require('path');
 
 const SRC   = path.join(__dirname, '_src');
-const OUT   = __dirname;
+// OUT_DIR lets a launch build (BASE="") land somewhere other than this
+// directory — this directory IS the staging deploy, so a launch build here
+// would overwrite it with un-prefixed, indexable output.
+const OUT   = process.env.OUT_DIR ? path.resolve(process.env.OUT_DIR) : __dirname;
 const CHECK = process.argv.includes('--check');
 const BASE  = process.env.BASE === undefined ? '/thrivingincollege' : process.env.BASE;
 const STAGING = BASE !== '';
@@ -98,16 +101,18 @@ function transform(html, file) {
 
 const jobs = [];
 for (const f of walk(path.join(SRC, 'pages'))) {
+  if (!STAGING && /[\\/]status[\\/]index\.html$/.test(f)) continue;   // staging-only status page
   const raw = fs.readFileSync(f, 'utf8');
+  // .html gets the full transform; .txt (llms.txt) gets price tokens only
   jobs.push({ rel: path.relative(path.join(SRC, 'pages'), f), dest: path.join(OUT, path.relative(path.join(SRC, 'pages'), f)),
-              out: f.endsWith('.html') ? transform(raw, f) : raw });
+              out: f.endsWith('.html') ? transform(raw, f) : f.endsWith('.txt') ? prices(raw, f) : raw });
 }
 for (const f of walk(path.join(SRC, 'css'))) {
   jobs.push({ rel: path.relative(SRC, f), dest: path.join(OUT, path.relative(SRC, f)), out: fs.readFileSync(f, 'utf8') });
 }
 // scripts and binary assets (film frames, hi-res anchors, hero film, portrait,
 // butterfly) copy through untouched; compared as bytes so --check covers them
-for (const dir of ['js', 'assets']) {
+for (const dir of ['js', 'assets', 'files']) {
   const d = path.join(SRC, dir);
   if (!fs.existsSync(d)) continue;
   for (const f of walk(d)) {
@@ -215,6 +220,25 @@ if (fs.existsSync(fnSrc)) {
                 // the assignment only — the header comment mentions the token too
                 out: raw.replace(/= __CATALOGUE__;/, () => '= ' + catalogueText.trim() + ';') });
   }
+}
+
+// LAUNCH ONLY: the 301 ledger, an accurate sitemap and a permissive robots.txt
+// at the site root. Staging carries none of these — it is noindex and lives
+// under a prefix on another domain.
+if (!STAGING) {
+  const HOST = 'https://thrivingincollege.org';
+  const redirects = fs.readFileSync(path.join(SRC, 'redirects.txt'), 'utf8');
+  jobs.push({ rel: '_redirects', dest: path.join(OUT, '_redirects'), out: redirects });
+  // post-purchase, form-sent and staging-status pages never enter the sitemap
+  const skip = /^(welcome|status)\/index\.html$|\/sent\/index\.html$/;
+  const urls = jobs.filter(j => j.rel.endsWith('index.html') && !skip.test(j.rel.replace(/\\/g, '/')))
+    .map(j => { const p = j.rel.replace(/\\/g, '/').replace(/index\.html$/, ''); return HOST + '/' + p; });
+  const today = new Date().toISOString().slice(0, 10);
+  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
+    urls.sort().map(u => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n') + '\n</urlset>\n';
+  jobs.push({ rel: 'sitemap.xml', dest: path.join(OUT, 'sitemap.xml'), out: sitemap });
+  jobs.push({ rel: 'robots.txt', dest: path.join(OUT, 'robots.txt'),
+    out: `# The Thriving Project — all crawlers welcome, training bots included (v6 §11.5)\nUser-agent: *\nAllow: /\nDisallow: /welcome/\nDisallow: /packages/request-invoice/sent/\n\nSitemap: ${HOST}/sitemap.xml\n` });
 }
 
 let changed = 0, same = 0;

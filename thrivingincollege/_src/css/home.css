@@ -79,7 +79,10 @@ html.home, .home body { background: #0B0F0C; }
 .leaf.wide5 { width: min(58vw,860px); padding-top: clamp(20px,2vw,29px); padding-bottom: clamp(20px,2vw,28px); }
 
 /* two-beat content reveal, both scroll-driven — never a one-shot transition */
-.leaf .eyebrow, .leaf h2, .leaf .hr, .leaf .who { opacity: var(--c1,1); }
+.leaf .eyebrow, .leaf h1, .leaf h2, .leaf .hr, .leaf .who { opacity: var(--c1,1); }
+/* the hero question is the page's single h1 — styled as its sibling h2s */
+.leaf h1 { font-size: clamp(24px,2.5vw,38px); line-height: 1.12; font-weight: 400; letter-spacing: -.01em; margin-bottom: 16px; color: var(--ink); }
+.leaf h1 em { font-style: italic; color: var(--ink-soft); }
 .leaf p, .leaf .facts, .leaf .stat, .leaf .cta, .leaf .note, .leaf .strip, .leaf .carousel, .leaf .regwrap, .leaf .paths, .leaf .kc { opacity: var(--c2,1); }
 
 .leaf .eyebrow { font-size: 10px; letter-spacing: .34em; text-transform: uppercase; color: var(--gold-text); margin-bottom: 14px; font-family: var(--font-ui); font-weight: 600; }

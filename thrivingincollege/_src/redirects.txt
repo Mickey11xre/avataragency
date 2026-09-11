@@ -1,0 +1,43 @@
+# The Thriving Project — 301 ledger (architecture v6 §06, corrected 4 Sept 2026)
+# Emitted as /_redirects by build.js at LAUNCH ONLY (BASE=""). Every legacy Wix
+# URL returns a true 301 to its permanent home; no chains. /cccu goes to the
+# store by her 09-04 decision (the page comes off the site; the intent is
+# commercial). Verify each with `curl -sI` after cutover.
+
+/about-us                        /about/laurie-schreiner/                                    301
+/contact-8                       /contact/                                                   301
+/studentsurveys                  /instruments/                                               301
+/surveys                         /instruments/                                               301
+/undergradtq                     /instruments/undergraduate/                                 301
+/sophmoreexperiences             /instruments/sophomore/                                     301
+/ses-2020                        /instruments/sophomore/                                     301
+/adultlearnertq                  /instruments/adult-learner/                                 301
+/graduatetq                      /instruments/graduate/                                      301
+/ccstudenttq                     /instruments/community-college/                             301
+/copy-of-faculty-staff-tq        /instruments/faculty/                                       301
+/copy-of-faculty-tq/staff-tq     /instruments/faculty/                                       301
+/copy-of-faculty-tq              /instruments/staff/                                         301
+/packages-prices                 /packages/                                                  301
+/packages                        /packages/                                                  301
+/tq-store                        /store/                                                     301
+/shop                            /store/                                                     301
+/thriving-literature             /research/                                                  301
+/publications                    /research/publications/                                     301
+/presentations                   /research/presentations/                                    301
+/dissertations                   /research/dissertations/                                    301
+/recordings                      /research/webinars/                                         301
+/blog                            /research/articles/                                         301
+/post/meaning-making-as-a-pathway-to-thriving   /research/articles/meaning-making-as-a-pathway-to-thriving/   301
+/thriving-foundations            /research/                                                  301
+/researcher-request-form         /for-researchers/                                           301
+/protection-of-subjects          /legal/protection-of-subjects/                              301
+/cccu                            /store/                                                     301
+/privacypolicy                   /legal/privacy/                                             301
+/terms                           /legal/terms/                                               301
+/disclaimer                      /legal/disclaimer/                                          301
+/refundpolicy                    /legal/refunds/                                             301
+# the permissions PDF — identical file, re-hosted (v6 §06 assets)
+/_files/ugd/27a499_f96296c813f7422889952e9995c3e161.pdf   /files/permissions-request.pdf   301
+# AISO comparison alias (audit A1): one canonical comparison page
+/compare/nsse-alternative/       /compare/thriving-quotient-vs-nsse/                         301
+/compare/nsse-alternative        /compare/thriving-quotient-vs-nsse/                         301

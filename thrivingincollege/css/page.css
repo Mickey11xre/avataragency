@@ -30,6 +30,13 @@
 .hub__item p { color: var(--text-2); }
 .hub__item a.btn { justify-self: start; margin-block-start: var(--sp-2xs); }
 
+/* Comparison table — scrolls inside .scroll-x on a phone, never the page */
+.cmp { border-collapse: collapse; min-width: 40rem; width: 100%; font-size: var(--step-sm); }
+.cmp th, .cmp td { text-align: left; vertical-align: top; padding: var(--sp-xs) var(--sp-s); border-block-end: 1px solid var(--rule-soft); }
+.cmp thead th { font-family: var(--font-display); font-size: var(--step-0); color: var(--text); }
+.cmp tbody th { font-family: var(--font-ui); font-size: var(--step--1); letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
+.cmp td { color: var(--text); }
+
 /* Contact block */
 .contact { display: grid; gap: var(--sp-s); }
 @media (min-width: 48rem) { .contact { grid-template-columns: 1fr 1fr; } }
