@@ -26,6 +26,7 @@
  */
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const SRC   = path.join(__dirname, '_src');
 // OUT_DIR lets a launch build (BASE="") land somewhere other than this
@@ -239,6 +240,42 @@ if (!STAGING) {
   jobs.push({ rel: 'sitemap.xml', dest: path.join(OUT, 'sitemap.xml'), out: sitemap });
   jobs.push({ rel: 'robots.txt', dest: path.join(OUT, 'robots.txt'),
     out: `# The Thriving Project — all crawlers welcome, training bots included (v6 §11.5)\nUser-agent: *\nAllow: /\nDisallow: /welcome/\nDisallow: /packages/request-invoice/sent/\n\nSitemap: ${HOST}/sitemap.xml\n` });
+}
+
+/* ---- cache busting -------------------------------------------------------
+ * Cloudflare Pages serves /css/*.css and /js/*.js with
+ * `Cache-Control: public, max-age=14400, must-revalidate`. `must-revalidate`
+ * does NOT mean "always ask" — it only applies once the four hours are up, so
+ * for four hours after a deploy a returning browser keeps running the OLD
+ * script and stylesheet without so much as a conditional request. That is how
+ * two correct fixes could be live on the server and still absent on Michael's
+ * phone (2026-09-11), which cost an entire debugging round.
+ *
+ * The HTML itself is `max-age=0, must-revalidate` and always revalidates, so
+ * stamping each reference with a hash of the file's own bytes is enough: new
+ * content means a new URL, and the browser cannot serve the old one against
+ * it. Unchanged files keep their hash and stay cached, so this costs nothing
+ * on a deploy that did not touch them.
+ *
+ * Safe against the Pages catch-all foot-gun documented in _headers: a query
+ * string is a new CACHE key but the same FILE, which exists, so there is no
+ * chance of caching an HTML fallback under it. */
+const hashes = new Map();                       // "/css/home.css" -> "a1b2c3d4"
+for (const j of jobs) {
+  if (!/\.(css|js)$/.test(j.rel)) continue;
+  const web = '/' + j.rel.split(path.sep).join('/');
+  hashes.set(web, crypto.createHash('sha256').update(j.out).digest('hex').slice(0, 8));
+}
+const bust = html => html.replace(
+  /\b(href|src)="([^"?#]+\.(?:css|js))"/g,
+  (m, attr, url) => {
+    // only our own built files; leave third-party (GA4) and absolute URLs alone
+    const web = BASE && url.startsWith(BASE + '/') ? url.slice(BASE.length) : url;
+    const h = hashes.get(web);
+    return h ? `${attr}="${url}?v=${h}"` : m;
+  });
+for (const j of jobs) {
+  if (typeof j.out === 'string' && /\.html$/.test(j.rel)) j.out = bust(j.out);
 }
 
 let changed = 0, same = 0;
