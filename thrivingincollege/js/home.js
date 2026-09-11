@@ -37,7 +37,7 @@
      A short desktop window is not a phone — width and pointer decide. */
   var isSmall = window.innerWidth < 760 || window.matchMedia("(pointer: coarse)").matches;
   var STEP = isSmall ? 4 : 1;
-  var FRAME_DIR = isSmall ? "frames-m/" : "frames/";
+  var FRAME_DIR = isSmall ? "frames-mobile/" : "frames/";
 
   var cv = document.getElementById("film"), ctx = cv.getContext("2d", { alpha: false });
   var track = document.getElementById("track"), scrim = document.getElementById("scrim");
@@ -272,6 +272,7 @@
       if (painted) return;
       cv.style.display = "none";
       root.style.background = "#0B0F0C url(" + ASSETS + "hires/hi5.webp) center/cover no-repeat";
+      console.warn("film: no frame painted in 7s — showing the still instead");
     }, 7000);
   }
   var revealed = false;

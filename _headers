@@ -1,11 +1,23 @@
 # Cloudflare Pages headers for avataragency.ai
-# Rules are applied in order and later rules win for the same header, so the
-# broad /assets/* rule comes FIRST and the immutable film rules override it.
-# The Thriving Project staging film: 472 numbered frames + hi-res anchors are
-# content-stable (a re-cut goes in a new folder), so they cache for a year.
+#
+# Rules apply in order and later rules win for the same header, so the broad
+# /assets/* rule comes FIRST and the immutable film rules override it.
+#
+# ⚠️ FOOT-GUN, learned the hard way 2026-09-11. Cloudflare Pages answers a
+# MISSING path with the catch-all HTML page at HTTP 200 — and these rules
+# cache it under whatever TTL matches the path. Requesting an asset URL
+# before its deploy has landed therefore caches an HTML page at that URL for
+# the full TTL. Verify assets by CONTENT-TYPE, never by status, and never
+# probe an asset URL until the deploy is live (or probe with ?bust=N, which
+# uses a different cache key).
+#
+# The frame sequences are content-stable — a re-cut goes in a NEW directory —
+# so they are safe to pin for a year.
 /thrivingincollege/assets/*
   Cache-Control: public, max-age=604800
 /thrivingincollege/assets/frames/*
+  Cache-Control: public, max-age=31536000, immutable
+/thrivingincollege/assets/frames-mobile/*
   Cache-Control: public, max-age=31536000, immutable
 /thrivingincollege/assets/hires/*
   Cache-Control: public, max-age=31536000, immutable
