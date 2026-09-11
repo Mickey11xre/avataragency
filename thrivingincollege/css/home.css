@@ -194,10 +194,13 @@ html.home, .home body { background: #0B0F0C; }
 @media (max-width: 860px) {
   #mast { padding: 14px 16px; }
   #mast .word { font-size: 10.5px; letter-spacing: .22em; }
-  .leaf { width: min(88vw,460px); left: 50% !important; right: auto !important; border-radius: 3px 18px 3px 18px; padding: 20px 20px 24px;
-    /* safety net for short viewports: a panel taller than the screen scrolls
-       inside itself rather than pushing its top under the masthead */
-    max-height: calc(100vh - 88px); overflow-y: auto; overscroll-behavior: contain; }
+  /* ⛔ Do NOT put max-height + overflow on .leaf. It looks like a safe net for
+     short viewports and it breaks the carousel: `overflow-y:auto` forces
+     `overflow-x:auto` too, so the flanking cards (which sit up to 270 px from
+     the carousel centre, well outside the 330 px panel) get clipped, and any
+     overflow other than `visible` flattens the `preserve-3d` cylinder.
+     Cost us the mobile carousel on 2026-09-11. */
+  .leaf { width: min(88vw,460px); left: 50% !important; right: auto !important; border-radius: 3px 18px 3px 18px; padding: 20px 20px 24px; }
   .leaf.l, .leaf.r { top: 50%; bottom: auto; }       /* JS pairs this with translate(-50%,-50%) */
   .leaf.wide, .leaf.hero, .leaf.wide5 { width: min(88vw,460px); }
   #rail { display: none; }

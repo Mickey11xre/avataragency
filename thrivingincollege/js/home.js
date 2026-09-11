@@ -72,11 +72,6 @@
     }
     function vel(dp) { var now = performance.now(), dt = Math.max(1, now - S.lastT); S.lastT = now; S.v = S.v * 0.55 + (dp / dt) * 0.45; }
     function front() { var i = ((Math.round(S.p) % M) + M) % M; return i; }
-    function openPackage(i) {
-      var href = cards[i].getAttribute("data-href");
-      if (i !== front()) { S.target = nearest(i); S.resume = Date.now() + 6000; return; }   // flank tap: bring forward
-      if (href) location.href = href;
-    }
     function step(d) { S.target = Math.round(S.p) + d; S.resume = Date.now() + 8000; }
     car.querySelector(".carr.prev").addEventListener("click", function () { step(-1); });
     car.querySelector(".carr.next").addEventListener("click", function () { step(1); });
@@ -122,12 +117,17 @@
     function endTouch() { if (!T) return; T = null; if (S.drag) { S.drag = false; settle(); } }
     car.addEventListener("touchend", endTouch); car.addEventListener("touchcancel", endTouch);
 
-    cards.forEach(function (c, i) {
+    /* Every card IS an <a href> to its own /packages/<tier>/ page, and the
+       whole card is the link — not just the "Read more" label. So the default
+       browser navigation is left alone and we only CANCEL it when the gesture
+       was really a drag. The previous version called preventDefault() on every
+       click and then re-implemented navigation, guarded by a 220 ms
+       "still being steered" timer — but the cylinder turns on hover, so simply
+       moving the mouse toward a card kept that timer fresh and the click never
+       fired. Reported as "clicking a card does nothing", 2026-09-11. */
+    cards.forEach(function (c) {
       c.addEventListener("click", function (e) {
-        e.preventDefault();
-        if (S.moved > 6) return;                         // that was a drag
-        if (Date.now() - S.lastSpin < 220) return;       // still being steered
-        openPackage(i);
+        if (S.moved > 6) e.preventDefault();             // a drag, not a click
       });
     });
 
