@@ -1,0 +1,95 @@
+{
+  "_note": "Seven instrument pages from one template (_src/templates/instrument.html). Names are Dr. Schreiner's own product names (price-list page §5), labels are the navigation labels from architecture v6. Scales, coefficients, sample items, citations and sampling minimums are CLIENT-SUPPLIED facts: null here means 'awaiting Dr. Schreiner' and the page renders a pending block, never a placeholder number. Adjunct Faculty has no page by her ruling of 8 Sept 2026.",
+  "instruments": [
+    {
+      "slug": "undergraduate",
+      "label": "Undergraduate",
+      "name": "Undergraduate Thriving Quotient",
+      "short": "Thriving Quotient — Undergraduate",
+      "population": "undergraduate students",
+      "capsule": "The Undergraduate Thriving Quotient is a validated survey instrument that measures how far undergraduate students are thriving — engaged academically, connected interpersonally, and psychologically well. Every factor it measures is <em>malleable</em>: an institution can act on the results.",
+      "measures": "the undergraduate Thriving Quotient measures student thriving across academic engagement, interpersonal connection and psychological wellbeing, on scales that institutions can move through their own practice.",
+      "description": "The Thriving Quotient undergraduate instrument: what it measures, its scales, how administration works, sample items, and what a campus survey costs.",
+      "scales": [
+        { "name": "Engaged Learning", "def": "The degree to which a student is energised by, and invested in, the act of learning itself." },
+        { "name": "Academic Determination", "def": "Goal-directed effort, self-regulation and persistence toward academic aims." },
+        { "name": "Positive Perspective", "def": "An optimistic explanatory style and the capacity to take a longer view of setbacks." },
+        { "name": "Diverse Citizenship", "def": "Openness to difference and a sense of responsibility toward the wider community." },
+        { "name": "Social Connectedness", "def": "The presence of meaningful relationships and a felt sense of belonging on campus." }
+      ],
+      "notes": ""
+    },
+    {
+      "slug": "sophomore",
+      "label": "Sophomore",
+      "name": "Sophomore Experiences Survey",
+      "short": "Sophomore Experiences Survey",
+      "population": "second-year students",
+      "capsule": "The Sophomore Experiences Survey is a validated survey instrument that measures how far second-year students are thriving — engaged academically, connected interpersonally, and psychologically well — at the point in the degree where institutions most often lose them. Every factor it measures is <em>malleable</em>.",
+      "measures": "the Sophomore Experiences Survey measures second-year student thriving across academic engagement, interpersonal connection and psychological wellbeing, on scales that institutions can move through their own practice.",
+      "description": "The Sophomore Experiences Survey: what it measures in second-year students, its scales, how administration works, and what a campus survey costs.",
+      "scales": null,
+      "notes": ""
+    },
+    {
+      "slug": "adult-learner",
+      "label": "Adult Learner",
+      "name": "Adult Thriving Quotient",
+      "short": "Adult Thriving Quotient",
+      "population": "adult learners",
+      "capsule": "The Adult Thriving Quotient is a validated survey instrument that measures how far adult learners are thriving — engaged academically, connected interpersonally, and psychologically well — in programmes built for students who are also working, parenting, or returning to study. Every factor it measures is <em>malleable</em>.",
+      "measures": "the Adult Thriving Quotient measures adult-learner thriving across academic engagement, interpersonal connection and psychological wellbeing, on scales that institutions can move through their own practice.",
+      "description": "The Adult Thriving Quotient: what it measures in adult learners, its scales, how administration works, and what a campus survey costs.",
+      "scales": null,
+      "notes": ""
+    },
+    {
+      "slug": "graduate",
+      "label": "Graduate",
+      "name": "Graduate Student Thriving Quotient",
+      "short": "Graduate Student Thriving Quotient",
+      "population": "graduate students",
+      "capsule": "The Graduate Student Thriving Quotient is a validated survey instrument that measures how far graduate students are thriving — engaged academically, connected interpersonally, and psychologically well — across master's and doctoral programmes. Every factor it measures is <em>malleable</em>.",
+      "measures": "the Graduate Student Thriving Quotient measures graduate-student thriving across academic engagement, interpersonal connection and psychological wellbeing, on scales that institutions can move through their own practice.",
+      "description": "The Graduate Student Thriving Quotient: what it measures in graduate students, its scales, how administration works, and what a campus survey costs.",
+      "scales": null,
+      "notes": ""
+    },
+    {
+      "slug": "community-college",
+      "label": "Community College",
+      "name": "Community College Thriving Quotient",
+      "short": "Community College Thriving Quotient",
+      "population": "community college students",
+      "capsule": "The Community College Thriving Quotient is a validated survey instrument that measures how far community college students are thriving — engaged academically, connected interpersonally, and psychologically well — in the two-year setting, where the student body and its pressures differ from a four-year campus. Every factor it measures is <em>malleable</em>.",
+      "measures": "the Community College Thriving Quotient measures community college student thriving across academic engagement, interpersonal connection and psychological wellbeing, on scales that institutions can move through their own practice.",
+      "description": "The Community College Thriving Quotient: what it measures in two-year college students, its scales, how administration works, and what a campus survey costs.",
+      "scales": null,
+      "notes": ""
+    },
+    {
+      "slug": "faculty",
+      "label": "Faculty",
+      "name": "Faculty Thriving Quotient",
+      "short": "Faculty Thriving Quotient",
+      "population": "faculty members",
+      "capsule": "The Faculty Thriving Quotient is a validated survey instrument that measures thriving among faculty members — the people whose own engagement and wellbeing shape every student outcome the other instruments measure. Its scales are stated by Dr. Schreiner and appear here once confirmed.",
+      "measures": "the Faculty Thriving Quotient measures faculty thriving on validated scales that institutions can act on through their own practice.",
+      "description": "The Faculty Thriving Quotient: what it measures among faculty members, its scales, how administration works, and what a campus survey costs. Adjunct faculty option available.",
+      "scales": null,
+      "notes": "<div class=\"pending\" style=\"margin-block-start: var(--sp-s)\"><p><b>Adjunct faculty</b></p><p style=\"margin-block-start:var(--sp-2xs)\">An adjunct faculty version is administered as a variant of this instrument. It is not a separate page or product: choose <em>Adjunct Faculty Thriving Quotient</em> as the instrument at checkout.</p></div>"
+    },
+    {
+      "slug": "staff",
+      "label": "Staff",
+      "name": "Staff Thriving Quotient",
+      "short": "Staff Thriving Quotient",
+      "population": "staff members",
+      "capsule": "The Staff Thriving Quotient is a validated survey instrument that measures thriving among staff members — the professional and administrative colleagues whose work carries the institution day to day. Its scales are stated by Dr. Schreiner and appear here once confirmed.",
+      "measures": "the Staff Thriving Quotient measures staff thriving on validated scales that institutions can act on through their own practice.",
+      "description": "The Staff Thriving Quotient: what it measures among staff members, its scales, how administration works, and what a campus survey costs.",
+      "scales": null,
+      "notes": ""
+    }
+  ]
+}

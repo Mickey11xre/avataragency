@@ -72,6 +72,55 @@ for (const f of walk(path.join(SRC, 'pages'))) {
 for (const f of walk(path.join(SRC, 'css'))) {
   jobs.push({ rel: path.relative(SRC, f), dest: path.join(OUT, path.relative(SRC, f)), out: fs.readFileSync(f, 'utf8') });
 }
+// Instrument pages: one template × _src/data/instruments.json. Client-
+// supplied facts that are still null render as a pending block that names
+// what is owed — never a placeholder number (brief §10).
+const tplPath = path.join(SRC, 'templates', 'instrument.html');
+if (fs.existsSync(tplPath)) {
+  const tpl = fs.readFileSync(tplPath, 'utf8');
+  const { instruments } = JSON.parse(fs.readFileSync(path.join(SRC, 'data', 'instruments.json'), 'utf8'));
+  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  const scalesHtml = inst => inst.scales
+    ? `<ul class="scales" style="margin-block-start: var(--sp-s)">\n` +
+      inst.scales.map(s => `          <li class="scale">
+            <div><p class="scale__name">${esc(s.name)}</p></div>
+            <div>
+              <p class="scale__def">${esc(s.def)}</p>
+              <p class="scale__meta"><span>Items <b>PENDING</b></span> <span>α <b>PENDING</b></span></p>
+            </div>
+          </li>`).join('\n') + `\n        </ul>
+        <div class="pending" style="margin-block-start: var(--sp-s)">
+          <p><b>Awaiting Dr. Schreiner</b></p>
+          <p style="margin-block-start:var(--sp-2xs)">
+            Item counts and reliability coefficients for the ${esc(inst.name)} are supplied by
+            Dr. Schreiner and are not published until confirmed. Two conflicting sets of α values
+            are currently published on the live site, and institutional research offices check
+            these figures. Scale names and definitions above are structural and are not affected.
+          </p>
+        </div>`
+    : `<div class="pending" style="margin-block-start: var(--sp-s)">
+          <p><b>Awaiting Dr. Schreiner</b></p>
+          <p style="margin-block-start:var(--sp-2xs)">
+            The scales, item counts and reliability coefficients for the ${esc(inst.name)} are
+            supplied by Dr. Schreiner and are not published until confirmed. They legitimately
+            differ by instrument and population, so nothing here is copied from another
+            instrument. This block is replaced by the scale list when her figures arrive.
+          </p>
+        </div>`;
+  const asideHtml = cur => instruments.map(i =>
+    `<li><a href="/instruments/${i.slug}/"${i.slug === cur ? ' aria-current="page"' : ''}>${esc(i.label)}</a></li>`).join('\n          ');
+  for (const inst of instruments) {
+    const html = tpl.replace(/\{\{(\w+)\}\}/g, (m, k) => {
+      if (k === 'scales_html') return scalesHtml(inst);
+      if (k === 'aside_html')  return asideHtml(inst.slug);
+      if (k in inst && typeof inst[k] === 'string') return inst[k];
+      throw new Error(`instrument template: unknown token {{${k}}} for ${inst.slug}`);
+    });
+    const rel = path.join('instruments', inst.slug, 'index.html');
+    jobs.push({ rel, dest: path.join(OUT, rel), out: transform(html, tplPath) });
+  }
+}
+
 const fnSrc = path.join(SRC, 'functions');
 if (fs.existsSync(fnSrc)) {
   for (const f of walk(fnSrc)) {

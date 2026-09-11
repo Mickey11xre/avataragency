@@ -3,12 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Undergraduate Thriving Quotient — cost, scales and how to administer it</title>
-<meta name="description" content="The Thriving Quotient undergraduate instrument: what it measures, its scales, how administration works, sample items, and what a campus survey costs. From $750.">
-<link rel="canonical" href="https://thrivingincollege.org/instruments/undergraduate/">
-<link rel="stylesheet" href="/thrivingincollege/css/tokens.css">
-<link rel="stylesheet" href="/thrivingincollege/css/instrument.css">
+<title>{{name}} — cost, scales and how to administer it</title>
+<meta name="description" content="{{description}} From {{price:survey}}.">
+<link rel="canonical" href="https://thrivingincollege.org/instruments/{{slug}}/">
+<link rel="stylesheet" href="/css/tokens.css">
+<link rel="stylesheet" href="/css/instrument.css">
 
 <!-- ONE TEMPLATE, SEVEN PAGES. Rendered by build.js from
      _src/templates/instrument.html × _src/data/instruments.json.
@@ -41,14 +40,14 @@
     },
     {
       "@type": "Product",
-      "@id": "https://thrivingincollege.org/instruments/undergraduate/#product",
-      "name": "Thriving Quotient — Undergraduate",
-      "description": "A validated campus survey instrument measuring thriving among undergraduate students.",
+      "@id": "https://thrivingincollege.org/instruments/{{slug}}/#product",
+      "name": "{{short}}",
+      "description": "A validated campus survey instrument measuring thriving among {{population}}.",
       "brand": { "@id": "https://thrivingincollege.org/#organization" },
-      "url": "https://thrivingincollege.org/instruments/undergraduate/",
+      "url": "https://thrivingincollege.org/instruments/{{slug}}/",
       "offers": {
         "@type": "Offer",
-        "price": "750",
+        "price": "{{amount:survey}}",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
         "url": "https://thrivingincollege.org/store/#survey"
@@ -59,25 +58,25 @@
       "itemListElement": [
         { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thrivingincollege.org/" },
         { "@type": "ListItem", "position": 2, "name": "Instruments", "item": "https://thrivingincollege.org/instruments/" },
-        { "@type": "ListItem", "position": 3, "name": "Undergraduate", "item": "https://thrivingincollege.org/instruments/undergraduate/" }
+        { "@type": "ListItem", "position": 3, "name": "{{label}}", "item": "https://thrivingincollege.org/instruments/{{slug}}/" }
       ]
     },
     {
       "@type": "FAQPage",
-      "@id": "https://thrivingincollege.org/instruments/undergraduate/#faq",
+      "@id": "https://thrivingincollege.org/instruments/{{slug}}/#faq",
       "mainEntity": [
-        { "@type": "Question", "name": "What does the Undergraduate Thriving Quotient measure?",
-          "acceptedAnswer": { "@type": "Answer", "text": "It measures thriving among undergraduate students across a set of validated scales, each of which is independently malleable by institutional action." } },
+        { "@type": "Question", "name": "What does the {{name}} measure?",
+          "acceptedAnswer": { "@type": "Answer", "text": "It measures thriving among {{population}} across a set of validated scales, each of which is independently malleable by institutional action." } },
         { "@type": "Question", "name": "What does it cost to survey our campus?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Survey administration is $750. A basic report is $1,500, the expanded report is $2,500, and the full Thriving Campus package is $10,000. Researcher access for a single dissertation or study is $250." } },
+          "acceptedAnswer": { "@type": "Answer", "text": "Survey administration is {{price:survey}}. A basic report is {{price:basic-report}}, the expanded report is {{price:expanded-report}}, and the full Thriving Campus package is {{price:thriving-campus}}. Researcher access for a single dissertation or study is {{price:researcher}}." } },
         { "@type": "Question", "name": "How many respondents do we need for valid results?",
           "acceptedAnswer": { "@type": "Answer", "text": "Sampling minimums depend on institution size and the comparisons you intend to make. The administration guidance issued with your survey states the minimum for your campus." } },
         { "@type": "Question", "name": "How long does administration take?",
           "acceptedAnswer": { "@type": "Answer", "text": "The survey is typically open for a defined window during the academic term, with reporting following once the window closes. Your administration timeline is confirmed when the survey is scheduled." } },
         { "@type": "Question", "name": "Do we need IRB or human-subjects approval?",
           "acceptedAnswer": { "@type": "Answer", "text": "Institutional review requirements vary by campus and by how you intend to use the results. Human-subjects guidance is issued with the instrument, and permission for research use is granted in writing." } },
-        { "@type": "Question", "name": "How do I get permission to use the Undergraduate Thriving Quotient in my dissertation?",
-          "acceptedAnswer": { "@type": "Answer", "text": "Researcher access is a $250 licence that includes written permission to use the instrument in a dissertation or study. Submit your proposal first; payment is taken once Dr. Schreiner returns the signed proposal." } },
+        { "@type": "Question", "name": "How do I get permission to use the {{name}} in my dissertation?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Researcher access is a {{price:researcher}} licence that includes written permission to use the instrument in a dissertation or study. Submit your proposal first; payment is taken once Dr. Schreiner returns the signed proposal." } },
         { "@type": "Question", "name": "Can we compare our results with other institutions?",
           "acceptedAnswer": { "@type": "Answer", "text": "Comparative reporting is included in the expanded report and the Thriving Campus package. The basic report covers your own institution's results." } },
         { "@type": "Question", "name": "How should the instrument be cited?",
@@ -94,16 +93,16 @@
 
 <header class="masthead">
   <div class="shell masthead__in">
-    <a class="wordmark" href="/thrivingincollege/">The Thriving Project</a>
+    <a class="wordmark" href="/">The Thriving Project</a>
     <!-- Nav spec §7: real <a href> in the served HTML, inside the
          document, never assembled by script. The drawer enhances this. -->
     <nav class="nav" aria-label="Primary">
-      <a href="/thrivingincollege/instruments/">Instruments</a>
-      <a href="/thrivingincollege/packages/">Packages &amp; Pricing</a>
-      <a href="/thrivingincollege/research/">Thriving Knowledge Center</a>
-      <a href="/thrivingincollege/store/" data-store>Store</a>
-      <a href="/thrivingincollege/about/laurie-schreiner/">About</a>
-      <a class="btn btn--primary" href="/thrivingincollege/packages/#order">Register Your Campus</a>
+      <a href="/instruments/">Instruments</a>
+      <a href="/packages/">Packages &amp; Pricing</a>
+      <a href="/research/">Thriving Knowledge Center</a>
+      <a href="/store/" data-store>Store</a>
+      <a href="/about/laurie-schreiner/">About</a>
+      <a class="btn btn--primary" href="/packages/#order">Register Your Campus</a>
     </nav>
     <button class="hamburger" type="button" aria-expanded="false" aria-controls="drawer">
       <span aria-hidden="true">☰</span><span class="visually-hidden">Open menu</span>
@@ -113,9 +112,9 @@
 
 <nav class="crumbs shell" aria-label="Breadcrumb">
   <ol>
-    <li><a href="/thrivingincollege/">Home</a></li>
-    <li><a href="/thrivingincollege/instruments/">Instruments</a></li>
-    <li aria-current="page">Undergraduate</li>
+    <li><a href="/">Home</a></li>
+    <li><a href="/instruments/">Instruments</a></li>
+    <li aria-current="page">{{label}}</li>
   </ol>
 </nav>
 
@@ -125,12 +124,12 @@
 
       <!-- Exactly one H1 per page, sitewide. v6 §11 / brief §8.3. -->
       <div class="page-head">
-        <p class="eyebrow">Instrument · Undergraduate</p>
-        <h1>The Undergraduate Thriving Quotient</h1>
+        <p class="eyebrow">Instrument · {{label}}</p>
+        <h1>The {{name}}</h1>
 
         <!-- The answer capsule. Literal, quotable, above everything. -->
         <p class="capsule">
-          The Undergraduate Thriving Quotient is a validated survey instrument that measures how far undergraduate students are thriving — engaged academically, connected interpersonally, and psychologically well. Every factor it measures is <em>malleable</em>: an institution can act on the results. Campus survey administration starts at <b>$750</b>.
+          {{capsule}} Campus survey administration starts at <b>{{price:survey}}</b>.
         </p>
       </div>
 
@@ -138,7 +137,7 @@
         <h2 id="measures">What it measures</h2>
         <p class="section__lead">
           One sentence, stated literally, because this is the sentence an assistant quotes:
-          the undergraduate Thriving Quotient measures student thriving across academic engagement, interpersonal connection and psychological wellbeing, on scales that institutions can move through their own practice.
+          {{measures}}
         </p>
       </section>
 
@@ -147,53 +146,8 @@
         <p class="section__lead">
           Each scale is reported separately, and each is independently actionable.
         </p>
-        <ul class="scales" style="margin-block-start: var(--sp-s)">
-          <li class="scale">
-            <div><p class="scale__name">Engaged Learning</p></div>
-            <div>
-              <p class="scale__def">The degree to which a student is energised by, and invested in, the act of learning itself.</p>
-              <p class="scale__meta"><span>Items <b>PENDING</b></span> <span>α <b>PENDING</b></span></p>
-            </div>
-          </li>
-          <li class="scale">
-            <div><p class="scale__name">Academic Determination</p></div>
-            <div>
-              <p class="scale__def">Goal-directed effort, self-regulation and persistence toward academic aims.</p>
-              <p class="scale__meta"><span>Items <b>PENDING</b></span> <span>α <b>PENDING</b></span></p>
-            </div>
-          </li>
-          <li class="scale">
-            <div><p class="scale__name">Positive Perspective</p></div>
-            <div>
-              <p class="scale__def">An optimistic explanatory style and the capacity to take a longer view of setbacks.</p>
-              <p class="scale__meta"><span>Items <b>PENDING</b></span> <span>α <b>PENDING</b></span></p>
-            </div>
-          </li>
-          <li class="scale">
-            <div><p class="scale__name">Diverse Citizenship</p></div>
-            <div>
-              <p class="scale__def">Openness to difference and a sense of responsibility toward the wider community.</p>
-              <p class="scale__meta"><span>Items <b>PENDING</b></span> <span>α <b>PENDING</b></span></p>
-            </div>
-          </li>
-          <li class="scale">
-            <div><p class="scale__name">Social Connectedness</p></div>
-            <div>
-              <p class="scale__def">The presence of meaningful relationships and a felt sense of belonging on campus.</p>
-              <p class="scale__meta"><span>Items <b>PENDING</b></span> <span>α <b>PENDING</b></span></p>
-            </div>
-          </li>
-        </ul>
-        <div class="pending" style="margin-block-start: var(--sp-s)">
-          <p><b>Awaiting Dr. Schreiner</b></p>
-          <p style="margin-block-start:var(--sp-2xs)">
-            Item counts and reliability coefficients for the Undergraduate Thriving Quotient are supplied by
-            Dr. Schreiner and are not published until confirmed. Two conflicting sets of α values
-            are currently published on the live site, and institutional research offices check
-            these figures. Scale names and definitions above are structural and are not affected.
-          </p>
-        </div>
-        
+        {{scales_html}}
+        {{notes}}
       </section>
 
       <section class="section" aria-labelledby="admin">
@@ -224,7 +178,7 @@
         <div class="pending" style="margin-block-start: var(--sp-s)">
           <p><b>Awaiting Dr. Schreiner</b></p>
           <p style="margin-block-start:var(--sp-2xs)">
-            Sample items for the Undergraduate Thriving Quotient come from the published instrument and are supplied by
+            Sample items for the {{name}} come from the published instrument and are supplied by
             Dr. Schreiner. Items are not drafted here — a plausible invention would misrepresent a
             validated instrument to a research audience that will check it against the literature.
           </p>
@@ -239,17 +193,17 @@
       <section class="section cq" aria-labelledby="buy" id="purchase">
         <h2 id="buy">What a campus survey costs</h2>
         <div class="buy" style="margin-block-start: var(--sp-s)">
-          <p class="buy__price">$750 <span class="buy__unit">survey administration</span></p>
+          <p class="buy__price">{{price:survey}} <span class="buy__unit">survey administration</span></p>
           <p class="buy__note">
-            Basic report $1,500 · Expanded report $2,500 · Thriving Campus $10,000 ·
-            Researcher access for a single study $250. Additional items $300 per five.
+            Basic report {{price:basic-report}} · Expanded report {{price:expanded-report}} · Thriving Campus {{price:thriving-campus}} ·
+            Researcher access for a single study {{price:researcher}}. Additional items {{price:addon-questions}} per five.
           </p>
           <div class="buy__actions">
-            <a class="btn btn--primary" href="/thrivingincollege/store/#survey">Buy a survey package</a>
-            <a class="btn btn--secondary" href="/thrivingincollege/packages/request-invoice/">Request an invoice</a>
+            <a class="btn btn--primary" href="/store/#survey">Buy a survey package</a>
+            <a class="btn btn--secondary" href="/packages/request-invoice/">Request an invoice</a>
           </div>
           <p class="buy__note" style="margin-block-start:var(--sp-s)">
-            <a href="/thrivingincollege/packages/">Compare packages</a> — three or more survey packages earn 15% off.
+            <a href="/packages/">Compare packages</a> — three or more survey packages earn 15% off.
             Purchase orders and Net-30 invoicing are available for institutional buyers.
           </p>
         </div>
@@ -258,14 +212,14 @@
       <section class="section" aria-labelledby="cite">
         <h2 id="cite">Citation and permissions</h2>
         <div class="cite" style="margin-block-start: var(--sp-s)">
-          <p class="cite__ref"><b style="color:var(--gold-text);text-transform:uppercase;letter-spacing:.08em;font-size:var(--step--1)">Awaiting Dr. Schreiner</b> — the correct academic citation for the Undergraduate Thriving Quotient.</p>
+          <p class="cite__ref"><b style="color:var(--gold-text);text-transform:uppercase;letter-spacing:.08em;font-size:var(--step--1)">Awaiting Dr. Schreiner</b> — the correct academic citation for the {{name}}.</p>
           <p style="margin-block-start:var(--sp-2xs)">
-            Permission to use the Undergraduate Thriving Quotient in a dissertation or study is granted in
+            Permission to use the {{name}} in a dissertation or study is granted in
             writing with Researcher access. Write to the research permissions address rather
             than the general enquiry address.
           </p>
           <p style="margin-block-start:var(--sp-2xs)">
-            <a href="/thrivingincollege/for-researchers/">Researcher permissions and access →</a>
+            <a href="/for-researchers/">Researcher permissions and access →</a>
           </p>
         </div>
       </section>
@@ -276,12 +230,12 @@
              Brief §4.3. It is also the no-JS accordion. -->
         <div class="faq" style="margin-block-start: var(--sp-s)">
           <details>
-            <summary>What does the Undergraduate Thriving Quotient measure?</summary>
-            <div class="faq__a"><p>It measures thriving among undergraduate students across a set of validated scales, each of which is independently malleable by institutional action.</p></div>
+            <summary>What does the {{name}} measure?</summary>
+            <div class="faq__a"><p>It measures thriving among {{population}} across a set of validated scales, each of which is independently malleable by institutional action.</p></div>
           </details>
           <details>
             <summary>What does it cost to survey our campus?</summary>
-            <div class="faq__a"><p>Survey administration is $750. A basic report is $1,500, the expanded report is $2,500, and the full Thriving Campus package is $10,000. Researcher access for a single dissertation or study is $250.</p></div>
+            <div class="faq__a"><p>Survey administration is {{price:survey}}. A basic report is {{price:basic-report}}, the expanded report is {{price:expanded-report}}, and the full Thriving Campus package is {{price:thriving-campus}}. Researcher access for a single dissertation or study is {{price:researcher}}.</p></div>
           </details>
           <details>
             <summary>How many respondents do we need for valid results?</summary>
@@ -296,8 +250,8 @@
             <div class="faq__a"><p>Institutional review requirements vary by campus and by how you intend to use the results. Human-subjects guidance is issued with the instrument, and permission for research use is granted in writing.</p></div>
           </details>
           <details>
-            <summary>How do I get permission to use the Undergraduate Thriving Quotient in my dissertation?</summary>
-            <div class="faq__a"><p>Researcher access is a $250 licence that includes written permission to use the instrument in a dissertation or study. Submit your proposal first; payment is taken once Dr. Schreiner returns the signed proposal.</p></div>
+            <summary>How do I get permission to use the {{name}} in my dissertation?</summary>
+            <div class="faq__a"><p>Researcher access is a {{price:researcher}} licence that includes written permission to use the instrument in a dissertation or study. Submit your proposal first; payment is taken once Dr. Schreiner returns the signed proposal.</p></div>
           </details>
           <details>
             <summary>Can we compare our results with other institutions?</summary>
@@ -316,13 +270,7 @@
       <div class="card">
         <h2 style="font-size:var(--step-1)">The seven instruments</h2>
         <ul style="list-style:none;padding:0;display:grid;gap:var(--sp-3xs);margin-block-start:var(--sp-s)">
-          <li><a href="/thrivingincollege/instruments/undergraduate/" aria-current="page">Undergraduate</a></li>
-          <li><a href="/thrivingincollege/instruments/sophomore/">Sophomore</a></li>
-          <li><a href="/thrivingincollege/instruments/adult-learner/">Adult Learner</a></li>
-          <li><a href="/thrivingincollege/instruments/graduate/">Graduate</a></li>
-          <li><a href="/thrivingincollege/instruments/community-college/">Community College</a></li>
-          <li><a href="/thrivingincollege/instruments/faculty/">Faculty</a></li>
-          <li><a href="/thrivingincollege/instruments/staff/">Staff</a></li>
+          {{aside_html}}
         </ul>
       </div>
     </aside>
@@ -337,44 +285,44 @@
       <nav aria-label="Instruments">
         <h2>Instruments</h2>
         <ul>
-          <li><a href="/thrivingincollege/instruments/">All instruments</a></li>
-          <li><a href="/thrivingincollege/instruments/undergraduate/">Undergraduate</a></li>
-          <li><a href="/thrivingincollege/instruments/sophomore/">Sophomore</a></li>
-          <li><a href="/thrivingincollege/instruments/adult-learner/">Adult Learner</a></li>
-          <li><a href="/thrivingincollege/instruments/graduate/">Graduate</a></li>
-          <li><a href="/thrivingincollege/instruments/community-college/">Community College</a></li>
-          <li><a href="/thrivingincollege/instruments/faculty/">Faculty</a></li>
-          <li><a href="/thrivingincollege/instruments/staff/">Staff</a></li>
+          <li><a href="/instruments/">All instruments</a></li>
+          <li><a href="/instruments/undergraduate/">Undergraduate</a></li>
+          <li><a href="/instruments/sophomore/">Sophomore</a></li>
+          <li><a href="/instruments/adult-learner/">Adult Learner</a></li>
+          <li><a href="/instruments/graduate/">Graduate</a></li>
+          <li><a href="/instruments/community-college/">Community College</a></li>
+          <li><a href="/instruments/faculty/">Faculty</a></li>
+          <li><a href="/instruments/staff/">Staff</a></li>
         </ul>
       </nav>
       <nav aria-label="Packages and store">
         <h2>Packages &amp; Store</h2>
         <ul>
-          <li><a href="/thrivingincollege/packages/">Packages &amp; Pricing</a></li>
-          <li><a href="/thrivingincollege/store/">Store</a></li>
-          <li><a href="/thrivingincollege/packages/request-invoice/">Request an invoice</a></li>
+          <li><a href="/packages/">Packages &amp; Pricing</a></li>
+          <li><a href="/store/">Store</a></li>
+          <li><a href="/packages/request-invoice/">Request an invoice</a></li>
         </ul>
       </nav>
       <nav aria-label="Knowledge Center">
         <h2>Thriving Knowledge Center</h2>
         <ul>
-          <li><a href="/thrivingincollege/research/">Overview</a></li>
-          <li><a href="/thrivingincollege/research/publications/">Publications</a></li>
-          <li><a href="/thrivingincollege/research/presentations/">Presentations</a></li>
-          <li><a href="/thrivingincollege/research/dissertations/">Dissertations</a></li>
-          <li><a href="/thrivingincollege/research/webinars/">Webinars</a></li>
-          <li><a href="/thrivingincollege/research/articles/">Articles</a></li>
+          <li><a href="/research/">Overview</a></li>
+          <li><a href="/research/publications/">Publications</a></li>
+          <li><a href="/research/presentations/">Presentations</a></li>
+          <li><a href="/research/dissertations/">Dissertations</a></li>
+          <li><a href="/research/webinars/">Webinars</a></li>
+          <li><a href="/research/articles/">Articles</a></li>
         </ul>
       </nav>
       <nav aria-label="About and legal">
         <h2>About</h2>
         <ul>
-          <li><a href="/thrivingincollege/about/laurie-schreiner/">Dr. Laurie Schreiner</a></li>
-          <li><a href="/thrivingincollege/for-researchers/">For Researchers</a></li>
-          <li><a href="/thrivingincollege/contact/">Contact</a></li>
-          <li><a href="/thrivingincollege/legal/privacy/">Privacy</a></li>
-          <li><a href="/thrivingincollege/legal/terms/">Terms</a></li>
-          <li><a href="/thrivingincollege/legal/refund/">Refund policy</a></li>
+          <li><a href="/about/laurie-schreiner/">Dr. Laurie Schreiner</a></li>
+          <li><a href="/for-researchers/">For Researchers</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><a href="/legal/privacy/">Privacy</a></li>
+          <li><a href="/legal/terms/">Terms</a></li>
+          <li><a href="/legal/refund/">Refund policy</a></li>
         </ul>
       </nav>
     </div>
