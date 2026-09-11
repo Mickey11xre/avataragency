@@ -1,5 +1,5 @@
 {
   "_note": "Site-wide build settings. ga4: the GA4 Measurement ID (G-XXXXXXXXXX) — null until Michael supplies it; when set, build.js injects gtag on every page plus an ai_referral event for visits arriving from AI assistants.",
-  "ga4": null,
+  "ga4": "G-HC7T5LCR6L",
   "ai_referrers": ["chatgpt.com", "chat.openai.com", "perplexity.ai", "claude.ai", "gemini.google.com", "copilot.microsoft.com", "bing.com/chat", "you.com", "phind.com"]
 }
