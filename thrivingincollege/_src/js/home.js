@@ -219,6 +219,21 @@
   (function () {
     var vid = document.getElementById("vid"); if (!vid) return;
     var v = vid.querySelector("video"); if (!v) return;
+    /* The markup ships the 720p file so that the no-JS and small-screen paths
+       are correct by default. On a pointer device, swap in the 1080p master
+       for the sake of the fullscreen button. This is free: preload="none"
+       means nothing has been fetched yet, so load() only re-points the
+       element. Respect Data Saver and stay on the smaller file if it is on. */
+    (function () {
+      var hd = v.getAttribute("data-hd");
+      if (!hd || isSmall) return;
+      var c = navigator.connection || {};
+      if (c.saveData) return;
+      var src = v.querySelector("source");
+      if (!src) return;
+      src.setAttribute("src", hd);
+      try { v.load(); } catch (e) {}
+    })();
     var prog = vid.querySelector(".vprog"), bar = prog.querySelector("i"), tm = vid.querySelector(".vtime");
     var pp = vid.querySelector(".vpp"), mu = vid.querySelector(".vmute"), fs = vid.querySelector(".vfs"), ppPath = pp.querySelector("path");
     var PLAY = "M2 1.4v13.2L13 8z", PAUSE = "M2.5 1.5h3.6v13H2.5zM8.9 1.5h3.6v13H8.9z";

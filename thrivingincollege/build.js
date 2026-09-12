@@ -102,7 +102,7 @@ function transform(html, file) {
   const ga = ga4Snippet();
   if (ga) s = s.replace(/<\/head>/, ga + '\n</head>');
   // prefix root-relative href/src/poster/action/data-* — but never protocol, hash, mailto or //
-  s = s.replace(/\b(href|src|poster|action|data-api|data-assets|data-href)="\/(?!\/)/g, (m, a) => `${a}="${BASE}/`);
+  s = s.replace(/\b(href|src|poster|action|data-api|data-assets|data-href|data-hd)="\/(?!\/)/g, (m, a) => `${a}="${BASE}/`);
   // url("/assets/…") inside inline <style> blocks (the homepage's two image custom properties)
   s = s.replace(/url\("\/(?!\/)/g, `url("${BASE}/`);
   if (STAGING && !/name="robots"/.test(s)) {
@@ -309,11 +309,16 @@ for (const j of jobs) {
   // attribute so they would never be rewritten anyway, and they are immutable
   // by design (a re-cut goes in a new directory). Hashing them would cost a
   // slow build for nothing.
-  if (!/\.(css|js)$/.test(web) && !/^\/assets\/(icon|favicon)/.test(web)) continue;
+  // Stylesheets, scripts, the favicons, and the hero film. The film matters
+  // because round 2 REPLACED hero.mp4 in place: same name, different film, and
+  // /assets/* is cached for seven days, so a returning visitor would have kept
+  // playing round 1 for a week. Hashing the reference is what makes replacing
+  // a file in place safe.
+  if (!/\.(css|js)$/.test(web) && !/^\/assets\/(icon|favicon|hero)/.test(web)) continue;
   hashes.set(web, crypto.createHash('sha256').update(j.out).digest('hex').slice(0, 8));
 }
 const bust = html => html.replace(
-  /\b(href|src)="([^"?#]+\.(?:css|js|png|ico))"/g,
+  /\b(href|src|data-hd)="([^"?#]+\.(?:css|js|png|ico|jpg|mp4))"/g,
   (m, attr, url) => {
     // only our own built files; leave third-party (GA4) and absolute URLs alone
     const web = BASE && url.startsWith(BASE + '/') ? url.slice(BASE.length) : url;

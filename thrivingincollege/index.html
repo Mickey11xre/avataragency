@@ -13,7 +13,7 @@
 <!-- No frame preload: the engine picks the right set (desktop or frames-m)
      and requests frame 0 in its first sparse pass milliseconds later. A
      static preload would fetch the desktop frame on a phone and waste it. -->
-<link rel="preload" as="image" href="/thrivingincollege/assets/hero-poster.jpg">
+<link rel="preload" as="image" href="/thrivingincollege/assets/hero-poster.jpg?v=34f0e5ab">
 <style>
   /* the two image assets the CSS needs, given as custom properties so build
      prefixing applies (build only rewrites attributes, not url() in CSS) */
@@ -130,12 +130,20 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
         <p class="cta-row"><a class="cta" href="/thrivingincollege/research/">The research behind it</a> <a class="cta" href="/thrivingincollege/packages/#order">Register your campus</a></p>
       </div>
       <figure class="vid col" id="vid">
-        <!-- preload="none": the film is 17 MB and would contend with the frame
-             sequence for bandwidth on a phone. It loads on the first tap. -->
-        <video id="lgvid" playsinline webkit-playsinline preload="none">
-          <source src="/thrivingincollege/assets/hero.mp4" type="video/mp4">
+        <!-- preload="none": nothing is fetched until the first tap, so the film
+             never contends with the frame sequence for bandwidth.
+             The SOURCE HERE IS THE 720p FILE ON PURPOSE. It is the safe
+             default: 25 MB, right for a phone, and correct with no JavaScript.
+             home.js upgrades it to the 1080p master on pointer devices before
+             the first play, which costs nothing because preload="none" means
+             nothing has been fetched yet. The card renders about 600px wide,
+             so 720p is already generous there; 1080p exists for the fullscreen
+             button. -->
+        <video id="lgvid" playsinline webkit-playsinline preload="none"
+               data-hd="/thrivingincollege/assets/hero.mp4?v=5d17f875" width="1920" height="1080">
+          <source src="/thrivingincollege/assets/hero-mobile.mp4?v=1c7f8e96" type="video/mp4">
         </video>
-        <img class="vposter" src="/thrivingincollege/assets/hero-poster.jpg" alt="The Thriving Project — a tree grown from a seed, roots visible below the soil" width="1920" height="1080">
+        <img class="vposter" src="/thrivingincollege/assets/hero-poster.jpg?v=34f0e5ab" alt="The Thriving Project — the tree logo, roots visible below the soil" width="1280" height="720">
         <button class="vplay" type="button" aria-label="Play the film"></button>
         <div class="vbar">
           <div class="vprog" role="slider" aria-label="Seek" tabindex="0"><i></i></div>
@@ -280,7 +288,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   </div>
 </footer>
 
-<script src="/thrivingincollege/js/home.js?v=08707165" defer></script>
+<script src="/thrivingincollege/js/home.js?v=701de1d4" defer></script>
 <!-- Mobile navigation drawer (nav spec 2026-09-03 §3, corrected 09-04).
      Injected by build.js before </body> on every page that has a .hamburger.
      Progressive enhancement: the same links exist in the page nav + footer. -->

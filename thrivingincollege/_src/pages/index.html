@@ -117,12 +117,20 @@
         <p class="cta-row"><a class="cta" href="/research/">The research behind it</a> <a class="cta" href="/packages/#order">Register your campus</a></p>
       </div>
       <figure class="vid col" id="vid">
-        <!-- preload="none": the film is 17 MB and would contend with the frame
-             sequence for bandwidth on a phone. It loads on the first tap. -->
-        <video id="lgvid" playsinline webkit-playsinline preload="none">
-          <source src="/assets/hero.mp4" type="video/mp4">
+        <!-- preload="none": nothing is fetched until the first tap, so the film
+             never contends with the frame sequence for bandwidth.
+             The SOURCE HERE IS THE 720p FILE ON PURPOSE. It is the safe
+             default: 25 MB, right for a phone, and correct with no JavaScript.
+             home.js upgrades it to the 1080p master on pointer devices before
+             the first play, which costs nothing because preload="none" means
+             nothing has been fetched yet. The card renders about 600px wide,
+             so 720p is already generous there; 1080p exists for the fullscreen
+             button. -->
+        <video id="lgvid" playsinline webkit-playsinline preload="none"
+               data-hd="/assets/hero.mp4" width="1920" height="1080">
+          <source src="/assets/hero-mobile.mp4" type="video/mp4">
         </video>
-        <img class="vposter" src="/assets/hero-poster.jpg" alt="The Thriving Project — a tree grown from a seed, roots visible below the soil" width="1920" height="1080">
+        <img class="vposter" src="/assets/hero-poster.jpg" alt="The Thriving Project — the tree logo, roots visible below the soil" width="1280" height="720">
         <button class="vplay" type="button" aria-label="Play the film"></button>
         <div class="vbar">
           <div class="vprog" role="slider" aria-label="Seek" tabindex="0"><i></i></div>
