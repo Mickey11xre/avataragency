@@ -132,16 +132,16 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
       <figure class="vid col" id="vid">
         <!-- preload="none": nothing is fetched until the first tap, so the film
              never contends with the frame sequence for bandwidth.
-             The SOURCE HERE IS THE 720p FILE ON PURPOSE. It is the safe
-             default: 25 MB, right for a phone, and correct with no JavaScript.
-             home.js upgrades it to the 1080p master on pointer devices before
-             the first play, which costs nothing because preload="none" means
-             nothing has been fetched yet. The card renders about 600px wide,
-             so 720p is already generous there; 1080p exists for the fullscreen
-             button. -->
+             ⛔ 720p, and it cannot be 1080p: Cloudflare Pages refuses any
+             single file over 25 MiB, and this film at 1080p is 46 MiB. A
+             1080p rendition was built, pushed, and silently failed to deploy
+             — the commit reached the remote and the site never updated.
+             Moving the film to R2 or Stream is the only way to ship 1080p
+             from here. The card renders about 600px wide, so 720p is already
+             generous; it is the fullscreen button that gives anything up. -->
         <video id="lgvid" playsinline webkit-playsinline preload="none"
-               data-hd="/thrivingincollege/assets/hero.mp4?v=5d17f875" width="1920" height="1080">
-          <source src="/thrivingincollege/assets/hero-mobile.mp4?v=1c7f8e96" type="video/mp4">
+               width="1280" height="720">
+          <source src="/thrivingincollege/assets/hero.mp4?v=7c665943" type="video/mp4">
         </video>
         <img class="vposter" src="/thrivingincollege/assets/hero-poster.jpg?v=34f0e5ab" alt="The Thriving Project — the tree logo, roots visible below the soil" width="1280" height="720">
         <button class="vplay" type="button" aria-label="Play the film"></button>
@@ -288,7 +288,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   </div>
 </footer>
 
-<script src="/thrivingincollege/js/home.js?v=701de1d4" defer></script>
+<script src="/thrivingincollege/js/home.js?v=7f2899cc" defer></script>
 <!-- Mobile navigation drawer (nav spec 2026-09-03 §3, corrected 09-04).
      Injected by build.js before </body> on every page that has a .hamburger.
      Progressive enhancement: the same links exist in the page nav + footer. -->
