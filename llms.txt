@@ -53,7 +53,8 @@ projects are quoted as a package. Typical rates:
 - AI-optimized landing page with a 10-email branded drip sequence: $2,400.
 - Claude Coaching: $497 (90-minute private session); Premium $1,997 with done-for-you
   workflow setup and 30-day follow-up.
-- AI cloning capture session (likeness photography + voice recording, on-site): $250.
+- AI cloning capture session (likeness photography + voice recording, on-site): priced on
+  request. Completing the 60-second onboarding survey unlocks a 50% discount on the session.
 - Cinematic AI commercial video (90 seconds): from $750. Professionally edited speaker or
   brand commercial (30 seconds–2 minutes): from $2,500. Multi-film cinematic packages with
   on-site capture: from $5,850.
