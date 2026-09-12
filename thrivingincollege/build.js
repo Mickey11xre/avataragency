@@ -158,7 +158,7 @@ if (fs.existsSync(tplPath)) {
      mode that got the instrument copy rewritten in the first place. */
   const citeHtml = inst => (inst.citations || []).length
     ? (inst.citations || []).map(c => `<p class="cite__ref">${esc(c)}</p>`).join('\n          ')
-    : `<p class="cite__ref"><b style="color:var(--gold-text);text-transform:uppercase;letter-spacing:.08em;font-size:var(--step--1)">Awaiting Dr. Schreiner</b> — no published citation for the ${esc(inst.name)} appears in the Thriving Project publications list.</p>`;
+    : '';
   const pathwaysHtml = inst => {
     if (!inst.pathways_intro && !(inst.pathways || []).length) return '';
     const intro = inst.pathways_intro ? `<p class="section__lead">${esc(inst.pathways_intro)}</p>` : '';
