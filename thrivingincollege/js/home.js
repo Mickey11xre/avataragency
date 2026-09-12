@@ -98,15 +98,43 @@
       if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
     });
 
+    /* ⛔ Do NOT call car.setPointerCapture() here. It looks like the right way
+       to keep a drag alive when the cursor leaves the carousel, and it silently
+       breaks every card link on desktop: with the pointer captured, BOTH
+       pointerdown and pointerup retarget to the capturing element, so the
+       browser computes the click target as #pkgcar rather than the <a> under
+       the cursor. The anchor never sees a click and nothing navigates. Touch
+       was unaffected because the handler returns early for it — which is why
+       this read as "works on the phone, dead on the laptop".
+       Reported twice; the first fix missed it because I verified with a
+       dispatched MouseEvent, and a synthetic event bypasses the whole pointer
+       path that causes the bug. Verify card links with a REAL click.
+       The drag follows the pointer on `window` instead, which keeps a drag
+       alive outside the element and leaves click targeting alone. */
+    function onWinMove(e) {
+      if (e.pointerType === "touch" || !S.drag) return;
+      var dx = e.clientX - S.lastX; S.lastX = e.clientX; S.moved += Math.abs(dx);
+      var dp = -dx / mouseGear(); S.p += dp; vel(dp);
+    }
+    function onWinUp(e) {
+      if (e.pointerType === "touch") return;
+      window.removeEventListener("pointermove", onWinMove);
+      window.removeEventListener("pointerup", onWinUp);
+      window.removeEventListener("pointercancel", onWinUp);
+      endDrag();
+    }
     car.addEventListener("pointerdown", function (e) {
       if (e.pointerType === "touch") return;
       S.drag = true; S.moved = 0; S.lastX = e.clientX; S.target = null; S.v = 0; S.lastT = performance.now();
-      car.classList.add("grabbing"); car.setPointerCapture(e.pointerId);
+      car.classList.add("grabbing");
+      window.addEventListener("pointermove", onWinMove);
+      window.addEventListener("pointerup", onWinUp);
+      window.addEventListener("pointercancel", onWinUp);
     });
     car.addEventListener("pointermove", function (e) {
       if (e.pointerType === "touch") return;
-      if (S.drag) { var dx = e.clientX - S.lastX; S.lastX = e.clientX; S.moved += Math.abs(dx); var dp = -dx / mouseGear(); S.p += dp; vel(dp); }
-      else if (S.hx !== null) {
+      // dragging is handled on window; this is hover-spin and the parallax tilt
+      if (!S.drag && S.hx !== null) {
         var hdx = e.clientX - S.hx; S.hx = e.clientX;
         if (hdx) { S.p -= hdx / hoverGear(); S.target = null; if (Math.abs(hdx) > 1.5) S.lastSpin = Date.now(); S.resume = Date.now() + 900; }
       }
@@ -115,8 +143,6 @@
       S.ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height / 2)));
     });
     function endDrag() { if (!S.drag) return; S.drag = false; car.classList.remove("grabbing"); settle(); }
-    car.addEventListener("pointerup", function (e) { if (e.pointerType !== "touch") endDrag(); });
-    car.addEventListener("pointercancel", function (e) { if (e.pointerType !== "touch") endDrag(); });
     car.addEventListener("pointerenter", function (e) { if (e.pointerType !== "touch") S.hx = e.clientX; });
     car.addEventListener("pointerleave", function () { S.tx = 0; S.ty = 0; S.hx = null; if (!S.drag && S.target === null) S.target = Math.round(S.p); });
 
