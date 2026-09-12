@@ -88,6 +88,17 @@ function transform(html, file) {
     s = s.replace(/<\/head>/, `<link rel="stylesheet" href="/css/drawer.css">\n</head>`);
     s = s.replace(/<\/body>/, drawerTpl + '\n</body>');
   }
+  // Favicon — the tree from her logo, on every page. Declared explicitly
+  // rather than relying on the browser's /favicon.ico probe, because on
+  // staging the site lives under /thrivingincollege/ and that probe would hit
+  // avataragency.ai's own root instead.
+  if (!/rel="icon"/.test(s)) {
+    s = s.replace(/<\/head>/, `<link rel="icon" href="/assets/favicon.ico" sizes="32x32">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/icon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/icon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png">
+</head>`);
+  }
   const ga = ga4Snippet();
   if (ga) s = s.replace(/<\/head>/, ga + '\n</head>');
   // prefix root-relative href/src/poster/action/data-* — but never protocol, hash, mailto or //
@@ -255,6 +266,11 @@ if (!STAGING) {
   const HOST = 'https://thrivingincollege.org';
   const redirects = fs.readFileSync(path.join(SRC, 'redirects.txt'), 'utf8');
   jobs.push({ rel: '_redirects', dest: path.join(OUT, '_redirects'), out: redirects });
+  // Browsers, crawlers and link unfurlers probe /favicon.ico at the site root
+  // whatever the page declares, so at launch it is served from there as well.
+  // Staging cannot: its root is avataragency.ai, whose own icon is not ours.
+  jobs.push({ rel: 'favicon.ico', dest: path.join(OUT, 'favicon.ico'),
+              out: fs.readFileSync(path.join(SRC, 'assets', 'favicon.ico')), binary: true });
   // post-purchase, form-sent and staging-status pages never enter the sitemap
   const skip = /^(welcome|status)\/index\.html$|\/sent\/index\.html$/;
   const urls = jobs.filter(j => j.rel.endsWith('index.html') && !skip.test(j.rel.replace(/\\/g, '/')))
@@ -287,12 +303,17 @@ if (!STAGING) {
  * chance of caching an HTML fallback under it. */
 const hashes = new Map();                       // "/css/home.css" -> "a1b2c3d4"
 for (const j of jobs) {
-  if (!/\.(css|js)$/.test(j.rel)) continue;
   const web = '/' + j.rel.split(path.sep).join('/');
+  // Stylesheets, scripts and the favicons. NOT the frame sequences — they are
+  // 590 files and ~37 MB, they are referenced from JS rather than from an
+  // attribute so they would never be rewritten anyway, and they are immutable
+  // by design (a re-cut goes in a new directory). Hashing them would cost a
+  // slow build for nothing.
+  if (!/\.(css|js)$/.test(web) && !/^\/assets\/(icon|favicon)/.test(web)) continue;
   hashes.set(web, crypto.createHash('sha256').update(j.out).digest('hex').slice(0, 8));
 }
 const bust = html => html.replace(
-  /\b(href|src)="([^"?#]+\.(?:css|js))"/g,
+  /\b(href|src)="([^"?#]+\.(?:css|js|png|ico))"/g,
   (m, attr, url) => {
     // only our own built files; leave third-party (GA4) and absolute URLs alone
     const web = BASE && url.startsWith(BASE + '/') ? url.slice(BASE.length) : url;
