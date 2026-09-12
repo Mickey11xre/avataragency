@@ -127,40 +127,65 @@ const tplPath = path.join(SRC, 'templates', 'instrument.html');
 if (fs.existsSync(tplPath)) {
   const tpl = fs.readFileSync(tplPath, 'utf8');
   const { instruments } = JSON.parse(fs.readFileSync(path.join(SRC, 'data', 'instruments.json'), 'utf8'));
-  const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
-  const scalesHtml = inst => inst.scales
-    ? `<ul class="scales" style="margin-block-start: var(--sp-s)">\n` +
-      inst.scales.map(s => `          <li class="scale">
+  const esc = s => String(s == null ? '' : s).replace(/&/g, '&amp;').replace(/</g, '&lt;');
+  /* Scale and pathway copy is VERBATIM from the live site (see the _source note
+     in instruments.json). α and the sample item are part of the published
+     description of a validated instrument — a research office checks them
+     against the literature — so they render exactly as written, and a value we
+     do not have renders as nothing rather than as a guess. */
+  const rowsHtml = (rows, cls) => `<ul class="scales ${cls}" style="margin-block-start: var(--sp-s)">\n` +
+    rows.map(s => {
+      const meta = s.alpha ? `\n              <p class="scale__meta"><span>α <b>${esc(s.alpha)}</b></span></p>` : '';
+      const sample = s.sample
+        ? `\n              <p class="scale__sample"><span class="scale__samplelab">Sample item</span> “${esc(s.sample)}”</p>` : '';
+      return `          <li class="scale">
             <div><p class="scale__name">${esc(s.name)}</p></div>
             <div>
-              <p class="scale__def">${esc(s.def)}</p>
-              <p class="scale__meta"><span>Items <b>PENDING</b></span> <span>α <b>PENDING</b></span></p>
+              <p class="scale__def">${esc(s.def)}</p>${meta}${sample}
             </div>
-          </li>`).join('\n') + `\n        </ul>
-        <div class="pending" style="margin-block-start: var(--sp-s)">
-          <p><b>Awaiting Dr. Schreiner</b></p>
-          <p style="margin-block-start:var(--sp-2xs)">
-            Item counts and reliability coefficients for the ${esc(inst.name)} are supplied by
-            Dr. Schreiner and are not published until confirmed. Two conflicting sets of α values
-            are currently published on the live site, and institutional research offices check
-            these figures. Scale names and definitions above are structural and are not affected.
-          </p>
-        </div>`
-    : `<div class="pending" style="margin-block-start: var(--sp-s)">
-          <p><b>Awaiting Dr. Schreiner</b></p>
-          <p style="margin-block-start:var(--sp-2xs)">
-            The scales, item counts and reliability coefficients for the ${esc(inst.name)} are
-            supplied by Dr. Schreiner and are not published until confirmed. They legitimately
-            differ by instrument and population, so nothing here is copied from another
-            instrument. This block is replaced by the scale list when her figures arrive.
-          </p>
-        </div>`;
+          </li>`;
+    }).join('\n') + `\n        </ul>`;
+  const scalesHtml = inst => {
+    const intro = inst.scales_intro ? `<p class="section__lead">${esc(inst.scales_intro)}</p>` : '';
+    // no scales is a real state (community college publishes none) — render
+    // nothing rather than an empty list
+    if (!(inst.scales || []).length) return intro;
+    return (intro ? intro + '\n        ' : '') + rowsHtml(inst.scales, 'scales--main');
+  };
+  /* The citation comes from her own publications page, not from us. Where she
+     has published none — the faculty and staff instruments — we say so rather
+     than assembling a plausible-looking reference, which is the exact failure
+     mode that got the instrument copy rewritten in the first place. */
+  const citeHtml = inst => (inst.citations || []).length
+    ? (inst.citations || []).map(c => `<p class="cite__ref">${esc(c)}</p>`).join('\n          ')
+    : `<p class="cite__ref"><b style="color:var(--gold-text);text-transform:uppercase;letter-spacing:.08em;font-size:var(--step--1)">Awaiting Dr. Schreiner</b> — no published citation for the ${esc(inst.name)} appears in the Thriving Project publications list.</p>`;
+  const pathwaysHtml = inst => {
+    if (!inst.pathways_intro && !(inst.pathways || []).length) return '';
+    const intro = inst.pathways_intro ? `<p class="section__lead">${esc(inst.pathways_intro)}</p>` : '';
+    const rows = (inst.pathways || []).length ? '\n        ' + rowsHtml(inst.pathways, 'scales--paths') : '';
+    return `<section class="section" aria-labelledby="paths">
+        <h2 id="paths">Pathways to thriving</h2>
+        ${intro}${rows}
+      </section>`;
+  };
+  const adminHtml = inst => inst.admin
+    ? `<dd>${esc(inst.admin)}</dd>`
+    : `<dd><span class="pending" style="display:inline-block;padding:var(--sp-3xs) var(--sp-2xs)"><b>Pending</b> — stated per institution size in the administration guidance.</span></dd>`;
+  const closingHtml = inst => inst.closing
+    ? `<section class="section" aria-labelledby="alsomeasures">
+        <h2 id="alsomeasures">What else the survey assesses</h2>
+        <p class="section__lead">${esc(inst.closing)}</p>
+      </section>` : '';
   const asideHtml = cur => instruments.map(i =>
     `<li><a href="/instruments/${i.slug}/"${i.slug === cur ? ' aria-current="page"' : ''}>${esc(i.label)}</a></li>`).join('\n          ');
   for (const inst of instruments) {
     const html = tpl.replace(/\{\{(\w+)\}\}/g, (m, k) => {
-      if (k === 'scales_html') return scalesHtml(inst);
-      if (k === 'aside_html')  return asideHtml(inst.slug);
+      if (k === 'scales_html')   return scalesHtml(inst);
+      if (k === 'pathways_html') return pathwaysHtml(inst);
+      if (k === 'closing_html')  return closingHtml(inst);
+      if (k === 'admin_html')    return adminHtml(inst);
+      if (k === 'cite_html')     return citeHtml(inst);
+      if (k === 'aside_html')    return asideHtml(inst.slug);
       if (k in inst && typeof inst[k] === 'string') return inst[k];
       throw new Error(`instrument template: unknown token {{${k}}} for ${inst.slug}`);
     });

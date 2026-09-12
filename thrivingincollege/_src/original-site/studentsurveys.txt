@@ -1,0 +1,22 @@
+The Thriving Quotient
+The Thriving Quotient&trade;(TQ) is an instrument that was developed to measure the academic, social, and psychological aspects of a student’s college experience that are most predictive of academic success, institutional fit, satisfaction with college, and ultimately graduation. The 24 items on the TQ cluster onto 5 scales:
+Engaged Learning– a measure of the degree to which students are meaningfully processing what happens in class, energized by what they are learning, and continuing to think about it outside of class
+Academic Determination– a measure of students’ goal-directedness, investment of effort, and regulation of their own learning and use of time
+Positive Perspective– a measure of students’ optimism and explanatory style
+Social Connectedness– a measure of students’ involvement in healthy relationships, whether on or off campus
+Diverse Citizenship– a measure of students’ desire to make a difference in the community around them, as well as their openness to differences in others
+The TQ was developed in 2005 by Dr. Laurie Schreiner, Professor Emerita of Higher Education at Azusa Pacific University. Working with her research team of doctoral students, the instrument has been refined to its current state. The TQ began as 198 items adapted from multiple existing research measures of what the research team had determined were “malleable student psychosocial characteristics.” These items were tested on undergraduates at five 4-year institutions, using student focus groups for feedback on item wording and meaning. Once the items were reworded for clarity to undergraduate students, they were tested on 20,636 students across 92 institutions. An exploratory factor analysis resulted in the five scales; reliability analysis and hierarchical multiple regression analysis reduced the items to the most internally consistent best predictors of four student success outcomes: GPA, learning gains, intent to graduate, and institutional fit. The hierarchical multiple regression analysis indicated that the Thriving Quotient explained an additional 8-24% of the variation in the student success outcomes, after controlling for institutional features and students’ demographic characteristics and high school GPA.
+Psychometric Properties
+The revised TQ, consisting of these 24 items on 5 scales, is highly reliable, with internal consistency estimated as Cronbach’s alpha = .89. Each scale also meets national standards of reliability: Engaged Learning (&alpha; = .85), Diverse Citizenship (&alpha; = .80), Academic Determination (&alpha; = .83), Positive Perspective (&alpha; = .83), and Social Connectedness (&alpha; = 81). A confirmatory factor analysis indicated that Thriving was a second-order factor comprised of the 5 latent variables represented by the scales of the instrum ent. This model was an excellent fit for the sample data: &chi;2(260) = 2,781.32 (p < .001), CFI = .955, and RMSEA = .042 with 90% confidence intervals of .040 to .043.
+In addition to the 24 items that comprise the Thriving Quotient&trade;, the online instrument contains other scales that are predictive of student success: psychological sense of community, family support, spirituality, institutional integrity, level of campus involvement, and student satisfaction with faculty, peers, learning, advising, and many other campus experiences. Outcome variables, such as intent to graduate, perception of tuition as a worthwhile investment, and institutional fit are also included, as are student demographic variables.
+TQ for Undergraduate Students
+Learn More
+TQ for Adult Learners
+Learn More
+TQ for Graduate Students
+Learn More
+Sophomore Experiences Survey
+Learn More
+We have several package options to best fit the needs of your institution. Read more about them on our Package Pricing page .
+CONTACT
+ADDRESS

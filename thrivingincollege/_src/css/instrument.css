@@ -100,9 +100,26 @@
   font-size: var(--step-sm); color: var(--text-3);
 }
 .scale__meta b { color: var(--text); font-variant-numeric: tabular-nums; }
+/* The sample item is a quotation from the instrument itself, so it is set as
+   one: quoted, italic, and ruled off from the definition above it. It is the
+   line a research office reads most closely, so it must never look like our
+   own prose. */
+.scale__sample {
+  margin-block-start: var(--sp-2xs);
+  padding-inline-start: var(--sp-s);
+  border-inline-start: 2px solid var(--rule-soft);
+  color: var(--text-2); font-style: italic;
+}
+.scale__samplelab {
+  display: block; font-style: normal;
+  font-family: var(--font-ui); font-size: var(--step-xs);
+  letter-spacing: .08em; text-transform: uppercase; color: var(--text-3);
+}
+/* Pathways read as a continuation of the scales, one step quieter. */
+.scales--paths .scale { background: transparent; }
 @media (min-width: 48rem) {
   .scale { display: grid; grid-template-columns: 14rem 1fr; gap: var(--sp-s) var(--sp-m); align-items: baseline; }
-  .scale__meta { grid-column: 2; }
+  .scale__meta, .scale__sample { grid-column: 2; }
 }
 
 /* ---- Pending block — brief §10, never invent a number ---------------- */

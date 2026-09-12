@@ -133,29 +133,22 @@
         </p>
       </div>
 
-      <section class="section" aria-labelledby="measures">
-        <h2 id="measures">What it measures</h2>
-        <p class="section__lead">
-          One sentence, stated literally, because this is the sentence an assistant quotes:
-          {{measures}}
-        </p>
-      </section>
-
       <section class="section" aria-labelledby="scales">
         <h2 id="scales">Scales and coefficients</h2>
-        <p class="section__lead">
-          Each scale is reported separately, and each is independently actionable.
-        </p>
         {{scales_html}}
         {{notes}}
       </section>
+
+      {{pathways_html}}
+
+      {{closing_html}}
 
       <section class="section" aria-labelledby="admin">
         <h2 id="admin">How administration works</h2>
         <dl class="spec">
           <div>
-            <dt>Sampling minimum</dt>
-            <dd><span class="pending" style="display:inline-block;padding:var(--sp-3xs) var(--sp-2xs)"><b>Pending</b> — stated per institution size in the administration guidance.</span></dd>
+            <dt>Participation and norms</dt>
+            {{admin_html}}
           </div>
           <div>
             <dt>Process</dt>
@@ -172,18 +165,9 @@
         </dl>
       </section>
 
-      <section class="section" aria-labelledby="samples">
-        <h2 id="samples">Sample items</h2>
-        <p class="section__lead">Representative of the instrument; not the full item set.</p>
-        <div class="pending" style="margin-block-start: var(--sp-s)">
-          <p><b>Awaiting Dr. Schreiner</b></p>
-          <p style="margin-block-start:var(--sp-2xs)">
-            Sample items for the {{name}} come from the published instrument and are supplied by
-            Dr. Schreiner. Items are not drafted here — a plausible invention would misrepresent a
-            validated instrument to a research audience that will check it against the literature.
-          </p>
-        </div>
-      </section>
+      <!-- Sample items are no longer a pending block. They are published on the
+           instrument's own page, one per scale, and now render inline with each
+           scale above exactly as Dr. Schreiner publishes them. -->
 
       <!-- Purchase path — same position on all seven instrument pages.
            v6 §09: one Buy button per product page, deep-linking to the
@@ -212,7 +196,7 @@
       <section class="section" aria-labelledby="cite">
         <h2 id="cite">Citation and permissions</h2>
         <div class="cite" style="margin-block-start: var(--sp-s)">
-          <p class="cite__ref"><b style="color:var(--gold-text);text-transform:uppercase;letter-spacing:.08em;font-size:var(--step--1)">Awaiting Dr. Schreiner</b> — the correct academic citation for the {{name}}.</p>
+          {{cite_html}}
           <!-- AISO review B4: the permissions contact in DOM text on every
                instrument page — a researcher-intent crawl lands here, not on
                /for-researchers/. -->
