@@ -402,12 +402,24 @@
    * This panel reports what the page actually did, on the actual device.
    * Inert without the hash, so it ships harmlessly. Tap COPY, paste it back. */
   if (/(^|[#&?])diag\b/.test(location.hash) || /[?&]diag=1/.test(location.search)) setTimeout(function () {
+    /* Captured on demand, not on a timer. Half of what matters here —
+       the leaf's --c2, the carousel's opacity, whether the cards have been
+       placed — is scroll-driven, so a panel that covers the page before the
+       reader reaches the packages section would report the wrong moment.
+       Scroll to the failing section first, then tap DIAG. */
+    var fab = document.createElement("button");
+    fab.textContent = "DIAG";
+    fab.setAttribute("style", "position:fixed;right:14px;bottom:14px;z-index:99998;padding:13px 20px;border:0;border-radius:999px;background:#F0DCA8;color:#1a2a1f;font:700 13px/1 ui-monospace,monospace;box-shadow:0 6px 20px rgba(0,0,0,.5)");
+    document.body.appendChild(fab);
+    fab.onclick = capture;
     function css(el, p) { return el ? getComputedStyle(el)[p] : "-"; }
     function box(el) { if (!el) return "-"; var r = el.getBoundingClientRect(); return Math.round(r.width) + "x" + Math.round(r.height) + " @" + Math.round(r.left) + "," + Math.round(r.top); }
+    function capture() {
     var car = document.getElementById("pkgcar"), stg = document.getElementById("pkgstage");
     var cards = [].slice.call(document.querySelectorAll(".pkg"));
     var L = [];
     L.push("UA " + navigator.userAgent);
+    L.push("scrollY " + Math.round(window.pageYOffset) + " of " + Math.round(document.body.scrollHeight));
     L.push("viewport " + window.innerWidth + "x" + window.innerHeight + " dpr" + (window.devicePixelRatio || 1));
     L.push("STATIC(reduce-motion) " + STATIC + " | isSmall " + isSmall + " | STEP " + STEP + " | dir " + FRAME_DIR);
     L.push("html.class '" + html.className + "'");
@@ -440,5 +452,6 @@
     p.insertBefore(x, p.firstChild);
     p.insertBefore(b, p.firstChild);
     document.body.appendChild(p);
-  }, 2500);
+    }
+  }, 1200);
 })();
