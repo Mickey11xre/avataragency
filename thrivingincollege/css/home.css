@@ -176,17 +176,16 @@ html.home, .home body { background: #0B0F0C; }
 .vplay__glyph { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
   width: clamp(52px, 13%, 82px); aspect-ratio: 1 / 1; pointer-events: none;
   transition: opacity .25s ease, transform .25s ease; }
-/* ⚠️ The centre is transparent (Michael, 12 Sept — the white disc read as
-   heavy), which puts the whole burden of legibility on these two shadows.
-   Measured: the glyph sits ENTIRELY over the dark half of the poster, whose
-   average is rgb(67,50,41), and #2E5540 against that is 1.44:1 — invisible
-   unaided. The light halo lifts the ring off the wood; the dark shadow keeps
-   it from dissolving when it passes over the white logo panel. Remove either
-   and the button disappears on one half or the other. */
+/* Transparent centre, plain shadow, no halo — Michael's call twice over
+   (12 Sept): the white disc read as heavy and the glow that replaced it read
+   worse. He has the contrast figure and chose the cleaner mark.
+   For whoever revisits this: the glyph sits ENTIRELY over the dark half of
+   the poster (the split is at 58% of the width, the glyph spans 43.5-56.5%),
+   backdrop averages rgb(67,50,41), and #2E5540 on that is 1.44:1. If it ever
+   needs to read harder, change the STROKE to var(--paper) — about 8:1 on the
+   same backdrop — rather than putting a disc or a glow back behind it. */
 .vplay__glyph svg { display: block; width: 100%; height: 100%;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,.85))
-          drop-shadow(0 0 14px rgba(255,255,255,.5))
-          drop-shadow(0 3px 9px rgba(0,0,0,.35)); }
+  filter: drop-shadow(0 2px 8px rgba(0,0,0,.38)); }
 .vplay__glyph circle { fill: none; stroke: var(--green); stroke-width: 7; }
 .vplay__glyph path { fill: var(--green); }
 .vplay:hover .vplay__glyph, .vplay:focus-visible .vplay__glyph { transform: translate(-50%,-50%) scale(1.06); }
