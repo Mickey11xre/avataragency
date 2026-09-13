@@ -217,7 +217,13 @@ html.home, .home body { background: #0B0F0C; }
 .strip a:hover { border-color: var(--gold); background: #fff; }
 
 /* research counts (movement 4) */
-.kc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+/* ⛔ minmax(0,1fr), NOT 1fr. A grid track defaults to min-width:auto, so
+   `1fr` refuses to shrink below its content's min-content width — and the
+   content here is "PRESENTATIONS" and "DISSERTATIONS", 13-character words
+   that cannot break. On a phone the three tracks added up wider than the
+   card and the tiles ran out through its right edge. Reported on iOS,
+   12 Sept. minmax(0,…) is what actually lets a track shrink. */
+.kc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
 .kc a { display: block; padding: 12px 12px 10px; background: rgba(252,250,244,.72); border: 1px solid rgba(28,51,39,.14);
   border-radius: 3px 12px 3px 12px; text-decoration: none; color: var(--ink); }
 .kc b { display: block; font-size: clamp(22px,2vw,30px); font-weight: 400; line-height: 1; }
@@ -308,8 +314,16 @@ html.home, .home body { background: #0B0F0C; }
   .bigpf { min-height: 0; height: 170px; }
   .strip { grid-template-columns: 1fr 1fr; gap: 6px; }
   .strip a { min-block-size: 40px; padding: 7px 10px; font-size: 12.5px; }
-  .kc { gap: 8px; }
-  .kc b { font-size: 20px; }
+  /* One tile per row on a phone, laid out horizontally. Three columns cannot
+     hold "PRESENTATIONS" at a readable size inside a 330px card — squeezing
+     the track just moves the overflow inside the tile instead of outside it.
+     As rows each tile gets the full card width and the label has room. */
+  .kc { grid-template-columns: 1fr; gap: 6px; }
+  .kc a { display: flex; align-items: center; gap: 11px; padding: 9px 12px; }
+  .kc .kci { margin-bottom: 0; flex: 0 0 auto; width: 26px; height: 26px; }
+  .kc .kci svg { width: 15px; height: 15px; }
+  .kc b { font-size: 19px; flex: 0 0 auto; }
+  .kc span { margin-top: 0; }
   .carousel { height: 214px; margin: 10px 0 2px; perspective: 820px; }
   .pkg { left: -98px; top: -96px; width: 196px; height: 192px; }
   .leaf .pface { padding: 13px 13px 12px; }
