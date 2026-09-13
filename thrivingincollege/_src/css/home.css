@@ -336,6 +336,20 @@ html.home, .home body { background: #0B0F0C; }
 @media (hover: none), (pointer: coarse) { #fly { display: none; } }
 
 /* ---- footer sits after the track, above the fixed stage --------------- */
+/* The reader scrolls out of the dark film into a light document foot: this
+   section, then the footer links. Both sit OUTSIDE #stage, after #track, so
+   they are ordinary page flow — the one place on this page where plain prose
+   can live without competing with the film. */
+.home .home-faq { position: relative; z-index: 7; background: var(--paper); color: var(--ink);
+  padding-block: clamp(38px, 5vw, 68px); border-block-start: 1px solid var(--rule); }
+.home .home-faq h2 { font-family: var(--font-display); font-weight: 400; color: var(--ink);
+  font-size: clamp(24px, 2.5vw, 34px); line-height: 1.15; margin: 0 0 clamp(18px, 2vw, 26px); }
+/* Scoped: the shared .faq details sit on --surface, which is BELOW the paper
+   ground and measures 1.09:1 against it — the same near-invisible card the
+   instruments hub had. Raised here only. The other 20 FAQ pages have the same
+   issue and are on the punch list; not fixed in passing. */
+.home .home-faq .faq details { background: var(--surface-raised); border-color: var(--rule); }
+.home .home-faq .faq summary { color: var(--ink); }
 .home .site-footer { position: relative; z-index: 7; margin-block-start: 0; }
 
 /* ---- STATIC MODE: no JavaScript, or prefers-reduced-motion -------------

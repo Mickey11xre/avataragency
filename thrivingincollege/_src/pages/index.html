@@ -68,6 +68,22 @@
         { "@type": "ListItem", "position": 6, "name": "Faculty Thriving Quotient", "url": "https://thrivingincollege.org/instruments/faculty/" },
         { "@type": "ListItem", "position": 7, "name": "Staff Thriving Quotient", "url": "https://thrivingincollege.org/instruments/staff/" }
       ]
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://thrivingincollege.org/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "What is the Thriving Quotient?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A family of survey instruments that measure student thriving, which Dr. Schreiner defines as \"an expanded vision for student success that incorporates students' intellectual, interpersonal, and psychological engagement and well-being while in college.\" There are seven instruments, one for each campus population: undergraduates, second-year students, adult learners, graduate students, community college students, faculty and staff." } },
+        { "@type": "Question", "name": "What is The Thriving Project?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The Thriving Project is the research programme through which the Thriving Quotient instruments are published and administered to campuses. Dr. Laurie A. Schreiner is its principal investigator and the author of the instruments." } },
+        { "@type": "Question", "name": "Who created the Thriving Quotient?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Dr. Laurie A. Schreiner, Professor Emerita of Higher Education at Azusa Pacific University, who spent 45 years in higher education as a psychology professor and associate academic dean after receiving her PhD in Psychology from the University of Tennessee. She is co-author of The Student Satisfaction Inventory, used on over 1,600 campuses across the US and Canada." } },
+        { "@type": "Question", "name": "What evidence is there that the Thriving Quotient works?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The model has been tested with specific campus populations in peer-reviewed publications, conference papers and doctoral dissertations. Each instrument publishes its own reliability coefficients on its page, and the full body of work is listed in the Thriving Knowledge Center, so a research office can check the instrument before a campus buys it." } },
+        { "@type": "Question", "name": "How does a campus get started?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Choose the instrument that matches the population you want to survey, then order a survey package for it. A campus surveying more than one population orders one package per population." } }
+      ]
     }
   ]
 }
@@ -288,6 +304,48 @@
 
 <div id="track"></div>
 <div id="fly" aria-hidden="true"></div>
+
+<!-- ORIENTATION questions only, and deliberately NOT the ones the sub-pages
+     own. Retrieval happens per page: a pricing question should land on
+     /packages/ and an instrument-choice question on /instruments/, both of
+     which already carry FAQPage schema. Repeating them here would split the
+     signal and answer them on a page that is not about them. These five are
+     what someone asks who does not yet have the vocabulary — and nothing
+     else on the site answers them.
+     ⭐ The second reason this section exists has nothing to do with AI: the
+     homepage is a scroll film and offered a crawler about 4,600 characters of
+     static text. This is the cheapest real prose we can give it.
+     ⛔ Every factual claim below is sourced from her own material — her
+     definition of thriving verbatim from the hero, her biography verbatim
+     from /about/. Nothing here is invented. That is the whole lesson of the
+     11 Sept copy restore. -->
+<section class="home-faq" aria-labelledby="faq-h">
+  <div class="shell">
+    <h2 id="faq-h">Common questions</h2>
+    <div class="faq">
+      <details>
+        <summary>What is the Thriving Quotient?</summary>
+        <div class="faq__a"><p>A family of survey instruments that measure student thriving, which Dr. Schreiner defines as &ldquo;an expanded vision for student success that incorporates students&rsquo; intellectual, interpersonal, and psychological engagement and well-being while in college.&rdquo; There are seven instruments, one for each campus population: undergraduates, second-year students, adult learners, graduate students, community college students, faculty and staff.</p></div>
+      </details>
+      <details>
+        <summary>What is The Thriving Project?</summary>
+        <div class="faq__a"><p>The Thriving Project is the research programme through which the Thriving Quotient instruments are published and administered to campuses. Dr. Laurie A. Schreiner is its principal investigator and the author of the instruments.</p></div>
+      </details>
+      <details>
+        <summary>Who created the Thriving Quotient?</summary>
+        <div class="faq__a"><p>Dr. Laurie A. Schreiner, Professor Emerita of Higher Education at Azusa Pacific University, who spent 45 years in higher education as a psychology professor and associate academic dean after receiving her PhD in Psychology from the University of Tennessee. She is co-author of The Student Satisfaction Inventory, used on over 1,600 campuses across the US and Canada.</p></div>
+      </details>
+      <details>
+        <summary>What evidence is there that the Thriving Quotient works?</summary>
+        <div class="faq__a"><p>The model has been tested with specific campus populations in peer-reviewed publications, conference papers and doctoral dissertations. Each instrument publishes its own reliability coefficients on its page, and the full body of work is listed in the <a href="/research/">Thriving Knowledge Center</a>, so a research office can check the instrument before a campus buys it.</p></div>
+      </details>
+      <details>
+        <summary>How does a campus get started?</summary>
+        <div class="faq__a"><p>Choose the instrument that matches the population you want to survey, then order a survey package for it. A campus surveying more than one population orders one package per population. <a href="/instruments/">Compare the instruments</a> or <a href="/packages/">see packages and pricing</a>.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
 
 <footer class="site-footer">
   <div class="shell">
