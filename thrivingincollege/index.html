@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://thrivingincollege.org/">
 <link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=ddde7eb1">
 <link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=5a369207">
-<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=9979e7a9">
+<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=56a10d37">
 <!-- No frame preload: the engine picks the right set (desktop or frames-m)
      and requests frame 0 in its first sparse pass milliseconds later. A
      static preload would fetch the desktop frame on a phone and waste it. -->
@@ -252,29 +252,32 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     <div class="carousel" id="pkgcar" tabindex="0" aria-roledescription="carousel" aria-label="Packages">
       <button class="carr prev" type="button" aria-label="Previous package">&#8592;</button>
       <div class="cstage" id="pkgstage">
-        <a class="pkg" href="/thrivingincollege/packages/researcher/" data-href="/thrivingincollege/packages/researcher/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+        <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
           <span class="num">01</span><h3>Researcher Option</h3><span class="price">$250 · proposal first</span><span class="grule"></span>
           <p>Use of an instrument in a dissertation or study, released once your proposal is approved.</p>
-          <span class="pbtn pbtn-ghost">Read more</span></div></a>
-        <a class="pkg" href="/thrivingincollege/packages/survey/" data-href="/thrivingincollege/packages/survey/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <a class="pbtn pbtn-ghost" href="/thrivingincollege/packages/researcher/">Read more</a></div></div>
+        <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
           <span class="num">02</span><h3>Survey Package</h3><span class="price">$750 per survey</span><span class="grule"></span>
           <p>We set up the survey and send the link; the raw data comes back when it closes.</p>
-          <span class="pbtn pbtn-ghost">Read more</span></div></a>
-        <a class="pkg" href="/thrivingincollege/packages/basic-report/" data-href="/thrivingincollege/packages/basic-report/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <a class="pbtn pbtn-ghost" href="/thrivingincollege/packages/survey/">Read more</a></div></div>
+        <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
           <span class="num">03</span><h3>Basic Report Package</h3><span class="price">$1,500 per survey</span><span class="grule"></span>
           <p>Adds a national-norms comparison report and an interactive dashboard.</p>
-          <span class="pbtn pbtn-ghost">Read more</span></div></a>
-        <a class="pkg" href="/thrivingincollege/packages/expanded-report/" data-href="/thrivingincollege/packages/expanded-report/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <a class="pbtn pbtn-ghost" href="/thrivingincollege/packages/basic-report/">Read more</a></div></div>
+        <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
           <span class="num">04</span><h3>Expanded Report Package</h3><span class="price">$2,500 per survey</span><span class="grule"></span>
           <p>Adds ten institution-specific questions and a predictive model for your campus.</p>
-          <span class="pbtn pbtn-ghost">Read more</span></div></a>
-        <a class="pkg" href="/thrivingincollege/packages/thriving-campus/" data-href="/thrivingincollege/packages/thriving-campus/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <a class="pbtn pbtn-ghost" href="/thrivingincollege/packages/expanded-report/">Read more</a></div></div>
+        <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
           <span class="num">05</span><h3>Thriving Campus Package</h3><span class="price">$10,000</span><span class="grule"></span>
           <p>Any five instruments in a year, plus a one-hour webinar with Dr. Schreiner.</p>
-          <span class="pbtn pbtn-ghost">Read more</span></div></a>
+          <a class="pbtn pbtn-ghost" href="/thrivingincollege/packages/thriving-campus/">Read more</a></div></div>
       </div>
       <button class="carr next" type="button" aria-label="Next package">&#8594;</button>
-      <div class="chint">Swipe or use the arrows · tap a card to read more</div>
+      <!-- Copy has to match the ergonomics: tapping a card no longer opens
+           it, only "Read more" does, and the wheel is now thrown rather than
+           nudged one card at a time. -->
+      <div class="chint">Drag to spin · or use the arrows · Read more opens a package</div>
     </div>
     <div class="regwrap"><a class="pbtn pbtn-solid" href="/thrivingincollege/packages/">Compare all packages</a></div>
   </section>
@@ -315,7 +318,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   </div>
 </footer>
 
-<script src="/thrivingincollege/js/home.js?v=6d0cf784" defer></script>
+<script src="/thrivingincollege/js/home.js?v=faae7baa" defer></script>
 <!-- Mobile navigation drawer (nav spec 2026-09-03 §3, corrected 09-04).
      Injected by build.js before </body> on every page that has a .hamburger.
      Progressive enhancement: the same links exist in the page nav + footer. -->

@@ -239,29 +239,32 @@
     <div class="carousel" id="pkgcar" tabindex="0" aria-roledescription="carousel" aria-label="Packages">
       <button class="carr prev" type="button" aria-label="Previous package">&#8592;</button>
       <div class="cstage" id="pkgstage">
-        <a class="pkg" href="/packages/researcher/" data-href="/packages/researcher/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+        <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
           <span class="num">01</span><h3>Researcher Option</h3><span class="price">{{price:researcher}} · proposal first</span><span class="grule"></span>
           <p>Use of an instrument in a dissertation or study, released once your proposal is approved.</p>
-          <span class="pbtn pbtn-ghost">Read more</span></div></a>
-        <a class="pkg" href="/packages/survey/" data-href="/packages/survey/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <a class="pbtn pbtn-ghost" href="/packages/researcher/">Read more</a></div></div>
+        <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
           <span class="num">02</span><h3>Survey Package</h3><span class="price">{{price:survey}} per survey</span><span class="grule"></span>
           <p>We set up the survey and send the link; the raw data comes back when it closes.</p>
-          <span class="pbtn pbtn-ghost">Read more</span></div></a>
-        <a class="pkg" href="/packages/basic-report/" data-href="/packages/basic-report/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <a class="pbtn pbtn-ghost" href="/packages/survey/">Read more</a></div></div>
+        <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
           <span class="num">03</span><h3>Basic Report Package</h3><span class="price">{{price:basic-report}} per survey</span><span class="grule"></span>
           <p>Adds a national-norms comparison report and an interactive dashboard.</p>
-          <span class="pbtn pbtn-ghost">Read more</span></div></a>
-        <a class="pkg" href="/packages/expanded-report/" data-href="/packages/expanded-report/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <a class="pbtn pbtn-ghost" href="/packages/basic-report/">Read more</a></div></div>
+        <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
           <span class="num">04</span><h3>Expanded Report Package</h3><span class="price">{{price:expanded-report}} per survey</span><span class="grule"></span>
           <p>Adds ten institution-specific questions and a predictive model for your campus.</p>
-          <span class="pbtn pbtn-ghost">Read more</span></div></a>
-        <a class="pkg" href="/packages/thriving-campus/" data-href="/packages/thriving-campus/"><span class="edge e2"></span><span class="edge"></span><div class="pface">
+          <a class="pbtn pbtn-ghost" href="/packages/expanded-report/">Read more</a></div></div>
+        <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
           <span class="num">05</span><h3>Thriving Campus Package</h3><span class="price">{{price:thriving-campus}}</span><span class="grule"></span>
           <p>Any five instruments in a year, plus a one-hour webinar with Dr. Schreiner.</p>
-          <span class="pbtn pbtn-ghost">Read more</span></div></a>
+          <a class="pbtn pbtn-ghost" href="/packages/thriving-campus/">Read more</a></div></div>
       </div>
       <button class="carr next" type="button" aria-label="Next package">&#8594;</button>
-      <div class="chint">Swipe or use the arrows · tap a card to read more</div>
+      <!-- Copy has to match the ergonomics: tapping a card no longer opens
+           it, only "Read more" does, and the wheel is now thrown rather than
+           nudged one card at a time. -->
+      <div class="chint">Drag to spin · or use the arrows · Read more opens a package</div>
     </div>
     <div class="regwrap"><a class="pbtn pbtn-solid" href="/packages/">Compare all packages</a></div>
   </section>

@@ -65,7 +65,11 @@
        the content. */
     if (STATIC) return null;
     var cards = [].slice.call(stage.querySelectorAll(".pkg")), M = cards.length;
-    var S = { p: 1, target: null, drag: false, moved: 0, lastX: 0, resume: 0, mx: 0, my: 0, tx: 0, ty: 0, cw: 232, v: 0, lastT: 0, hx: null, lastSpin: 0 };
+    /* `spin` is the roulette state: cards-per-frame, decayed by FRICTION each
+       tick until it is slow enough to click into a slot. `hx` is gone — the
+       cylinder no longer follows the cursor (Michael, 12 Sept). */
+    var S = { p: 1, target: null, drag: false, moved: 0, lastX: 0, resume: 0, mx: 0, my: 0, tx: 0, ty: 0, cw: 232, v: 0, lastT: 0, spin: 0 };
+    var FRICTION = 0.962, SPIN_MAX = 0.34, SPIN_MIN = 0.013, SPIN_STOP = 0.0017;
     function sizes() {
       /* Never let a gear reach zero: touchGear() divides a finger delta by
          S.cw, and 0 / 0 is NaN, which blanks the cylinder (see tick). */
@@ -79,14 +83,19 @@
     function nearest(i) { return i + M * Math.round((S.p - i) / M); }
     function mouseGear() { return S.cw * 0.92; }
     function touchGear() { return S.cw * 0.72; }
-    function hoverGear() { return S.cw * 1.50; }
-    /* One card per gesture: a flick carries at most one card past where the
-       finger left it, so a swipe reads as "next" rather than a spin. */
+    /* Roulette release. The old rule was "one card per gesture" — the fling
+       was clamped to ±1 so a swipe read as "next". Michael asked for a wheel
+       you can actually throw, so a release now hands its velocity to the free
+       spin and friction decides where it stops. A gentle drag-and-let-go is
+       still below SPIN_MIN and just clicks into the nearest slot, so short
+       nudges have not become unpredictable. */
     function settle() {
       var paused = performance.now() - S.lastT > 90;
-      var fling = paused ? 0 : S.v * 150;
-      fling = Math.max(-1, Math.min(1, fling));
-      S.target = Math.round(S.p + fling); S.v = 0; S.resume = Date.now() + 6000;
+      var perFrame = paused ? 0 : S.v * 16.7;          // cards/ms -> cards/frame
+      perFrame = Math.max(-SPIN_MAX, Math.min(SPIN_MAX, perFrame));
+      S.v = 0; S.resume = Date.now() + 6000;
+      if (Math.abs(perFrame) > SPIN_MIN) { S.spin = perFrame; S.target = null; }
+      else { S.spin = 0; S.target = Math.round(S.p); }
     }
     function vel(dp) { var now = performance.now(), dt = Math.max(1, now - S.lastT); S.lastT = now; S.v = S.v * 0.55 + (dp / dt) * 0.45; }
     function front() { var i = ((Math.round(S.p) % M) + M) % M; return i; }
@@ -125,7 +134,9 @@
     }
     car.addEventListener("pointerdown", function (e) {
       if (e.pointerType === "touch") return;
-      S.drag = true; S.moved = 0; S.lastX = e.clientX; S.target = null; S.v = 0; S.lastT = performance.now();
+      // grabbing a spinning wheel stops it dead, the way a hand on a roulette
+      // wheel does — otherwise the drag fights the leftover momentum
+      S.drag = true; S.moved = 0; S.lastX = e.clientX; S.target = null; S.v = 0; S.spin = 0; S.lastT = performance.now();
       car.classList.add("grabbing");
       window.addEventListener("pointermove", onWinMove);
       window.addEventListener("pointerup", onWinUp);
@@ -133,18 +144,20 @@
     });
     car.addEventListener("pointermove", function (e) {
       if (e.pointerType === "touch") return;
-      // dragging is handled on window; this is hover-spin and the parallax tilt
-      if (!S.drag && S.hx !== null) {
-        var hdx = e.clientX - S.hx; S.hx = e.clientX;
-        if (hdx) { S.p -= hdx / hoverGear(); S.target = null; if (Math.abs(hdx) > 1.5) S.lastSpin = Date.now(); S.resume = Date.now() + 900; }
-      }
+      /* ⛔ The cylinder used to turn on hover — moving the mouse across the
+         carousel spun it. It looked alive and it made the thing unusable:
+         the card you were reaching for slid out from under the cursor, and
+         it kept a "still being steered" timer fresh so clicks never landed.
+         Removed 12 Sept. Hover now only drives the parallax tilt below;
+         nothing moves the cylinder but a press-and-drag or the arrows. */
       var r = car.getBoundingClientRect();
       S.tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width / 2)));
       S.ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height / 2)));
     });
     function endDrag() { if (!S.drag) return; S.drag = false; car.classList.remove("grabbing"); settle(); }
-    car.addEventListener("pointerenter", function (e) { if (e.pointerType !== "touch") S.hx = e.clientX; });
-    car.addEventListener("pointerleave", function () { S.tx = 0; S.ty = 0; S.hx = null; if (!S.drag && S.target === null) S.target = Math.round(S.p); });
+    /* Only resets the tilt. It must NOT snap the cylinder any more: a throw
+       whose cursor leaves the carousel has to keep spinning. */
+    car.addEventListener("pointerleave", function () { S.tx = 0; S.ty = 0; });
 
     var T = null;
     car.addEventListener("touchstart", function (e) {
@@ -161,14 +174,16 @@
     function endTouch() { if (!T) return; T = null; if (S.drag) { S.drag = false; settle(); } }
     car.addEventListener("touchend", endTouch); car.addEventListener("touchcancel", endTouch);
 
-    /* Every card IS an <a href> to its own /packages/<tier>/ page, and the
-       whole card is the link — not just the "Read more" label. So the default
-       browser navigation is left alone and we only CANCEL it when the gesture
-       was really a drag. The previous version called preventDefault() on every
-       click and then re-implemented navigation, guarded by a 220 ms
-       "still being steered" timer — but the cylinder turns on hover, so simply
-       moving the mouse toward a card kept that timer fresh and the click never
-       fired. Reported as "clicking a card does nothing", 2026-09-11. */
+    /* ⛔ ONLY "Read more" navigates now (Michael, 12 Sept). The whole card
+       used to be the <a>, which with a cylinder turning under the cursor made
+       hitting the card you meant a coin toss. The card is a plain drag handle
+       and the link sits inside it, so this listener still sees the click by
+       bubbling and cancels it when the gesture was really a drag.
+       Default navigation is left alone otherwise. An earlier version called
+       preventDefault() on EVERY click and re-implemented navigation behind a
+       220 ms "still being steered" timer; hover-spin kept that timer fresh
+       and the click never fired at all — "clicking a card does nothing",
+       2026-09-11. Do not reintroduce that pattern. */
     cards.forEach(function (c) {
       c.addEventListener("click", function (e) {
         if (S.moved > 6) e.preventDefault();             // a drag, not a click
@@ -190,9 +205,18 @@
          failure, with no error in the console. It only takes one gesture
          that divides by a zero-width card (0/0) to get there. Recover to the
          front card rather than staying blank. */
-      if (!isFinite(S.p)) { S.p = 1; S.target = null; S.v = 0; }
+      if (!isFinite(S.p)) { S.p = 1; S.target = null; S.v = 0; S.spin = 0; }
       if (S.target !== null && !isFinite(S.target)) S.target = null;
-      if (S.target !== null) { S.p += (S.target - S.p) * 0.13; if (Math.abs(S.target - S.p) < 0.002) { S.p = S.target; S.target = null; } }
+      if (!isFinite(S.spin)) S.spin = 0;                 // same NaN trap as S.p
+      /* Free spin first: it outranks both the lerp and the idle drift. When
+         friction brings it under SPIN_STOP the wheel hands over to the normal
+         snap, which is what produces the click into a slot at the end. */
+      if (S.spin) {
+        S.p += S.spin; S.spin *= FRICTION;
+        S.resume = Date.now() + 6000;                    // idle drift must not shove a coasting wheel
+        if (Math.abs(S.spin) < SPIN_STOP) { S.spin = 0; S.target = Math.round(S.p); }
+      }
+      else if (S.target !== null) { S.p += (S.target - S.p) * 0.13; if (Math.abs(S.target - S.p) < 0.002) { S.p = S.target; S.target = null; } }
       else if (visible && !S.drag && Date.now() > S.resume) { S.p += 0.0026; }
       S.mx += (S.tx - S.mx) * 0.08; S.my += (S.ty - S.my) * 0.08;
       stage.style.transform = "rotateY(" + (S.mx * 5).toFixed(2) + "deg) rotateX(" + (-S.my * 3).toFixed(2) + "deg)";
@@ -209,7 +233,11 @@
         c.style.opacity = op.toFixed(3); c.style.zIndex = Math.round(1000 + z);
         c.style.transform = "translateX(" + x.toFixed(1) + "px) translateZ(" + z.toFixed(1) + "px) rotateY(" + ry.toFixed(2) + "deg)";
         c.setAttribute("aria-hidden", i === f ? "false" : "true");
-        c.tabIndex = i === f ? 0 : -1;
+        /* The card is a div now, so the tab stop belongs to its "Read more"
+           link. Taking the back cards out of the tab order also keeps a
+           focusable element from sitting inside aria-hidden="true". */
+        var lnk = c.querySelector("a.pbtn");
+        if (lnk) lnk.tabIndex = i === f ? 0 : -1;
       }
     }
     return { tick: tick, setVisible: setVisible, ticks: function () { return ticks; }, state: function () { return S; } };
