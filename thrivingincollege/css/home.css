@@ -133,9 +133,14 @@ html.home, .home body { background: #0B0F0C; }
 .split.rev { grid-template-columns: .82fr 1fr; }
 .hero .split { grid-template-columns: .82fr 1.28fr; align-items: center; }
 .col { min-width: 0; }
-/* The order CTA, centred beneath the whole hero card. */
-.heroreg { display: flex; justify-content: center; margin-top: clamp(14px,1.7vw,24px); }
-.heroreg .btn { white-space: nowrap; }
+/* The order CTA sits under the VIDEO, not under the card. Centring it on the
+   card put it at x=590 when the video's centre is x=775, so it landed under
+   the gutter between the two columns and read as misplaced. This mirrors
+   .hero .split's own track sizes and gap so the two stay aligned by
+   construction — change one, change both. */
+.heroreg { display: grid; grid-template-columns: .82fr 1.28fr;
+  gap: clamp(20px,2.2vw,34px); margin-top: clamp(14px,1.7vw,24px); }
+.heroreg .btn { grid-column: 2; justify-self: center; white-space: nowrap; }
 
 /* portrait */
 .bigpf { border-radius: 2px 18px 2px 18px; overflow: hidden; height: 100%; min-height: 260px;
@@ -145,8 +150,23 @@ html.home, .home body { background: #0B0F0C; }
 /* hero film player — rests on the poster, plays only on the button, audio kept */
 .vid { position: relative; aspect-ratio: 16/9; border-radius: 2px 16px 2px 16px; overflow: hidden; background: #FFF;
   box-shadow: 0 20px 46px rgba(0,0,0,.40), 0 0 0 1px rgba(28,51,39,.20); }
-.vid video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; background: #FFF; }
-.vposter { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; background: #FFF;
+/* ⛔ inset:-1px and +2px, NOT inset:0 and 100%. The figure lays out at a
+   FRACTIONAL width (528.39px at 1440), so the rounded clip falls on a
+   sub-pixel boundary while the video rasterises to whole pixels. The strip
+   left over showed the white background through — a pale seam down the right
+   edge and into the 16px bottom-left curve. Every gap measured 0.00, so this
+   is rasterisation, not a layout gap, and no amount of width:100% fixes it.
+   Overshooting by a pixel means the clip always cuts into the video itself
+   and nothing behind can ever show. With object-fit:cover the 0.4% is
+   invisible. Reported by Michael 12 Sept.
+   ⚠️ max-width:none is REQUIRED — tokens.css has a global
+   `img, picture, video, canvas, svg { max-width: 100% }` that silently
+   clamped calc(100%+2px) straight back to the container width. The height
+   grew, the width did not, and the seam stayed. */
+.vid video { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px);
+  max-width: none; object-fit: cover; display: block; background: #FFF; }
+.vposter { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px);
+  max-width: none; object-fit: cover; display: block; background: #FFF;
   z-index: 2; opacity: 1; transition: opacity .30s ease; }
 .vid.playing .vposter { opacity: 0; pointer-events: none; }
 .vplay { position: absolute; inset: 0; z-index: 3; background: transparent; border: 0; cursor: pointer; min-block-size: 0; }
@@ -248,6 +268,9 @@ html.home, .home body { background: #0B0F0C; }
   .leaf .stat div { min-width: 0; }
   .leaf .stat b { font-size: 19px; }
   .split, .split.rev, .hero .split { grid-template-columns: 1fr; gap: 14px; }
+  /* .heroreg mirrors .split's tracks, so it has to collapse with it. */
+  .heroreg { grid-template-columns: 1fr; gap: 14px; }
+  .heroreg .btn { grid-column: 1; }
   .vid { order: -1; }
   .bigpf { min-height: 0; height: 170px; }
   .strip { grid-template-columns: 1fr 1fr; gap: 6px; }
