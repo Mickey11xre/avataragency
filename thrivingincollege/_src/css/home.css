@@ -294,7 +294,15 @@ html.home, .home body { background: #0B0F0C; }
    as part of the object rather than a sticker on it. Natural colour was
    Michael's call; the melt is what keeps five colour photos from fighting
    the green. Reviewed and approved from the standalone preview, 13 Sept. */
-.pimg { position: relative; flex: 0 0 auto; margin: 2px -15px 12px; aspect-ratio: 7 / 6; overflow: hidden; background: #14251D; }
+/* ⛔ max-height is NOT optional — it is the only thing tying the image to the
+   VIEWPORT rather than to the card's width. aspect-ratio alone derives height
+   from width, so any layout that widens the card makes the picture grow with
+   no ceiling: on a landscape phone in reduced motion the card filled a 707px
+   leaf and the band rendered 705x604 on a 375px-tall screen. The img is
+   object-fit:cover, so when this binds the photo crops instead of
+   letterboxing. Reported on iPhone, 13 Sept. */
+.pimg { position: relative; flex: 0 0 auto; margin: 2px -15px 12px; aspect-ratio: 7 / 6;
+  max-height: 30vh; overflow: hidden; background: #14251D; }
 .pimg img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
 .pimg::before, .pimg::after { content: ""; position: absolute; left: 0; right: 0; pointer-events: none; }
 .pimg::before { top: 0; height: 24%; background: linear-gradient(to bottom, var(--f1) 0%, rgba(0,0,0,0) 100%); }
@@ -366,8 +374,11 @@ html.home, .home body { background: #0B0F0C; }
   .kc .kci svg { width: 15px; height: 15px; }
   .kc b { font-size: 19px; flex: 0 0 auto; }
   .kc span { margin-top: 0; }
-  .carousel { height: 368px; margin: 10px 0 2px; perspective: 820px; }
-  .pkg { left: -98px; top: -169px; width: 196px; height: 338px; }
+  /* Phones get the SAME viewport-driven sizing as the desktop, not a fixed
+     card. Hard-coded 196x338 here meant a landscape phone — 375px of height
+     — still tried to draw a 338px card under an 85px nav band. The .pkg rule
+     above already reads --ch/--cw, so only the clamp changes. */
+  .carousel { --ch: clamp(228px, 42vh, 338px); --cw: calc(var(--ch) * .58); }
   .pimg { margin: 2px -13px 10px; }             /* face padding is 13px on a phone */
   .leaf .pface { padding: 13px 13px 12px; }
   .leaf .pface h3 { font-size: 13px; }
@@ -435,7 +446,13 @@ html.static .leaf, html.static .leaf.l, html.static .leaf.r { position: relative
 html.static .leaf.hero { width: min(92vw, 1000px); }
 html.static #track { display: none; }
 html.static .carousel { height: auto; perspective: none; }
-html.static .cstage { position: static; width: auto; height: auto; transform: none !important; display: grid; gap: 10px; }
+/* auto-fit, not one column. A single stretched column gave each card the full
+   leaf width, which on a landscape phone is 707px — and the photograph grew
+   with it. Columns cap the card instead: one on a portrait phone (unchanged),
+   two or three on anything wider, which also reads better than a tall stack
+   of five. */
+html.static .cstage { position: static; width: auto; height: auto; transform: none !important;
+  display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items: start; }
 html.static .pkg { position: static; width: auto; height: auto; transform: none !important; opacity: 1 !important; visibility: visible !important; }
 html.static .pface { position: relative; }
 html.static .carr, html.static .chint { display: none; }
