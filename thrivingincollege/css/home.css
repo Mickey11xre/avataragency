@@ -268,7 +268,18 @@ html.home, .home body { background: #0B0F0C; }
 .carousel { --ch: clamp(262px, 44vh, 396px); --cw: calc(var(--ch) * .586);
   position: relative; height: calc(var(--ch) + 30px); margin: 12px 0 2px; perspective: 1000px; touch-action: pan-y; user-select: none; }
 .carousel.grabbing { cursor: grabbing; }
-.cstage { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+/* ⛔ transform-style is FLAT here, and the perspective sits on the stage, on
+   purpose. Under preserve-3d the browser does true 3D depth: mid-spin two
+   neighbouring cards physically intersect (at the crossing both sit at the
+   same z and their tilted planes cross near x=0), and it renders the
+   intersection as a vertical strip of the back card cutting through the
+   front one. On a phone the cards are only ~100px apart so it showed on
+   every turn. Michael's screenshot, 13 Sept. With flat, each card is
+   projected on its own through this element's perspective and painted in
+   the z-index CAR already assigns from depth — same look, no intersection.
+   The .carousel perspective above still drives the stage's own parallax
+   tilt. */
+.cstage { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: flat; perspective: 1000px; }
 /* grab, not pointer: the card is a drag handle now and only its "Read more"
    link navigates, so the cursor has to stop promising a click. */
 .pkg { position: absolute; left: calc(var(--cw) / -2); top: calc(var(--ch) / -2); width: var(--cw); height: var(--ch);
@@ -307,14 +318,18 @@ html.home, .home body { background: #0B0F0C; }
    is always 100% of the band, and the height follows the viewport through
    the card. The img is object-fit:cover, so the photo crops rather than
    distorting. */
-.pimg { position: relative; flex: 0 0 auto; margin: 2px -15px 12px;
+.pimg { position: relative; flex: 0 1 auto; min-height: 96px; margin: 2px -15px 12px;
   height: calc(var(--ch) * .48); overflow: hidden; background: #14251D; }
+/* If a card is ever short of room again, the PHOTO gives way — never the
+   description and never Read more. On 13 Sept every phone card overflowed
+   its face by 27px and the face's overflow:hidden clipped the button on all
+   five. flex: 0 1 auto above lets the band shrink; these two refuse to. */
+.leaf .pface p, .pface .pbtn { flex-shrink: 0; }
 .pimg img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
 .pimg::before, .pimg::after { content: ""; position: absolute; left: 0; right: 0; pointer-events: none; }
 .pimg::before { top: 0; height: 24%; background: linear-gradient(to bottom, var(--f1) 0%, rgba(0,0,0,0) 100%); }
 .pimg::after { bottom: 0; height: 30%; background: linear-gradient(to top, var(--f2) 0%, rgba(0,0,0,0) 100%); }
 /* .leaf-scoped so the card type wins over the panel's own paragraph sizes */
-.leaf .pface .num { display: block; font-size: 8.5px; letter-spacing: .26em; color: #F0DCA8; margin-bottom: 8px; font-family: var(--font-ui); }
 .leaf .pface h3 { font-size: 14.5px; font-weight: 400; line-height: 1.2; color: var(--paper); margin: 0 0 6px; }
 .leaf .pface .price { display: block; font-size: 12px; color: #F0DCA8; margin-bottom: 7px; font-family: var(--font-ui); }
 .leaf .pface .grule { display: block; width: 30px; height: 1px; background: rgba(240,220,168,.5); margin-bottom: 9px; }
@@ -333,6 +348,7 @@ html.home, .home body { background: #0B0F0C; }
 .carr.prev { left: -6px; } .carr.next { right: -6px; }
 .chint { position: absolute; left: 0; right: 0; bottom: -6px; text-align: center; font-size: 8.5px; letter-spacing: .24em;
   text-transform: uppercase; color: rgba(63,90,73,.7); font-family: var(--font-ui); }
+.chint .hm { display: none; }                    /* the phone wording; swapped in below */
 .regwrap { margin-top: 12px; text-align: center; }
 .pbtn-solid { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); padding: 11px 24px; font-size: 10px; letter-spacing: .21em; text-decoration: none; }
 .pbtn-solid:hover { background: #2E5540; border-color: #2E5540; color: var(--paper); }
@@ -384,8 +400,13 @@ html.home, .home body { background: #0B0F0C; }
      card. Hard-coded 196x338 here meant a landscape phone — 375px of height
      — still tried to draw a 338px card under an 85px nav band. The .pkg rule
      above already reads --ch/--cw, so only the clamp changes. */
-  .carousel { --ch: clamp(228px, 42vh, 338px); --cw: calc(var(--ch) * .58); }
+  /* 46vh / 372px, up from 42vh / 338px: the shorter lede (Michael, 13 Sept)
+     gave the panel ~110px back and the card spends a third of it, so Read
+     more clears the face with margin instead of by a pixel. */
+  .carousel { --ch: clamp(228px, 46vh, 372px); --cw: calc(var(--ch) * .58); }
+  .cstage { perspective: 820px; }
   .pimg { margin: 2px -13px 10px; }             /* face padding is 13px on a phone */
+  .chint .hd { display: none; } .chint .hm { display: inline; }   /* no arrows on a phone */
   .leaf .pface { padding: 13px 13px 12px; }
   .leaf .pface h3 { font-size: 13px; }
   .leaf .pface p { font-size: 11px; line-height: 1.4; margin-bottom: 8px; }

@@ -248,7 +248,7 @@
     <p class="eyebrow">05 &mdash; The Packages</p>
     <h2 id="m5">What does a campus survey cost?</h2>
     <div class="hr"></div>
-    <p>Survey administration is {{price:survey}} per survey; report packages from {{price:basic-report}}; the Thriving Campus package with a one-hour webinar is {{price:thriving-campus}}. Three or more survey packages in one order earn 15% off those packages. Each card opens the full description before anything is bought.</p>
+    <p>Tap Read more on any package for the full description. Three or more survey packages in one order earn 15% off.</p>
     <!-- Five package cards, real links in the served HTML; the cylinder is
          presentation. Front card opens its detail page; flanking cards come
          forward first. Swipe = one card; arrows for pointers; ← → keys. -->
@@ -256,27 +256,27 @@
       <button class="carr prev" type="button" aria-label="Previous package">&#8592;</button>
       <div class="cstage" id="pkgstage">
         <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
-          <span class="num">01</span><h3>Researcher Option</h3><span class="price">{{price:researcher}} · proposal first</span><span class="grule"></span>
+          <h3>Researcher Option</h3><span class="price">{{price:researcher}} · proposal first</span><span class="grule"></span>
           <div class="pimg"><img src="/assets/packages/pkg-01.jpg" alt="" width="1000" height="747" decoding="async"></div>
           <p>Use of an instrument in a dissertation or study, released once your proposal is approved.</p>
           <a class="pbtn pbtn-ghost" href="/packages/researcher/">Read more</a></div></div>
         <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
-          <span class="num">02</span><h3>Survey Package</h3><span class="price">{{price:survey}} per survey</span><span class="grule"></span>
+          <h3>Survey Package</h3><span class="price">{{price:survey}} per survey</span><span class="grule"></span>
           <div class="pimg"><img src="/assets/packages/pkg-02.jpg" alt="" width="1000" height="747" decoding="async"></div>
           <p>We set up the survey and send the link; the raw data comes back when it closes.</p>
           <a class="pbtn pbtn-ghost" href="/packages/survey/">Read more</a></div></div>
         <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
-          <span class="num">03</span><h3>Basic Report Package</h3><span class="price">{{price:basic-report}} per survey</span><span class="grule"></span>
+          <h3>Basic Report Package</h3><span class="price">{{price:basic-report}} per survey</span><span class="grule"></span>
           <div class="pimg"><img src="/assets/packages/pkg-03.jpg" alt="" width="1000" height="747" decoding="async"></div>
           <p>Adds a national-norms comparison report and an interactive dashboard.</p>
           <a class="pbtn pbtn-ghost" href="/packages/basic-report/">Read more</a></div></div>
         <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
-          <span class="num">04</span><h3>Expanded Report Package</h3><span class="price">{{price:expanded-report}} per survey</span><span class="grule"></span>
+          <h3>Expanded Report Package</h3><span class="price">{{price:expanded-report}} per survey</span><span class="grule"></span>
           <div class="pimg"><img src="/assets/packages/pkg-04.jpg" alt="" width="1000" height="747" decoding="async"></div>
           <p>Adds ten institution-specific questions and a predictive model for your campus.</p>
           <a class="pbtn pbtn-ghost" href="/packages/expanded-report/">Read more</a></div></div>
         <div class="pkg"><span class="edge e2"></span><span class="edge"></span><div class="pface">
-          <span class="num">05</span><h3>Thriving Campus Package</h3><span class="price">{{price:thriving-campus}}</span><span class="grule"></span>
+          <h3>Thriving Campus Package</h3><span class="price">{{price:thriving-campus}}</span><span class="grule"></span>
           <div class="pimg"><img src="/assets/packages/pkg-05.jpg" alt="" width="1000" height="747" decoding="async"></div>
           <p>Any five instruments in a year, plus a one-hour webinar with Dr. Schreiner.</p>
           <a class="pbtn pbtn-ghost" href="/packages/thriving-campus/">Read more</a></div></div>
@@ -285,7 +285,7 @@
       <!-- Copy has to match the ergonomics: tapping a card no longer opens
            it, only "Read more" does, and the wheel is now thrown rather than
            nudged one card at a time. -->
-      <div class="chint">Drag to spin · or use the arrows · Read more opens a package</div>
+      <div class="chint"><span class="hd">Drag to spin · or use the arrows</span><span class="hm">Swipe to spin</span> · Read more opens a package</div>
     </div>
     <div class="regwrap"><a class="pbtn pbtn-solid" href="/packages/">Compare all packages</a></div>
   </section>
