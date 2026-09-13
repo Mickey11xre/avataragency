@@ -112,7 +112,7 @@ html.home, .home body { background: #0B0F0C; }
 /* the hero question is the page's single h1 — styled as its sibling h2s */
 .leaf h1 { font-size: clamp(24px,2.5vw,38px); line-height: 1.12; font-weight: 400; letter-spacing: -.01em; margin-bottom: 16px; color: var(--ink); }
 .leaf h1 em { font-style: italic; color: var(--ink-soft); }
-.leaf p, .leaf .facts, .leaf .stat, .leaf .cta, .leaf .note, .leaf .strip, .leaf .carousel, .leaf .regwrap, .leaf .paths, .leaf .kc { opacity: var(--c2,1); }
+.leaf p, .leaf .facts, .leaf .stat, .leaf .cta, .leaf .note, .leaf .strip, .leaf .carousel, .leaf .regwrap, .leaf .paths, .leaf .kc, .leaf .heroreg { opacity: var(--c2,1); }
 
 .leaf .eyebrow { font-size: 10px; letter-spacing: .34em; text-transform: uppercase; color: var(--gold-text); margin-bottom: 14px; font-family: var(--font-ui); font-weight: 600; }
 .leaf h2 { font-size: clamp(24px,2.5vw,38px); line-height: 1.12; font-weight: 400; letter-spacing: -.01em; margin-bottom: 16px; color: var(--ink); }
@@ -133,6 +133,9 @@ html.home, .home body { background: #0B0F0C; }
 .split.rev { grid-template-columns: .82fr 1fr; }
 .hero .split { grid-template-columns: .82fr 1.28fr; align-items: center; }
 .col { min-width: 0; }
+/* The order CTA, centred beneath the whole hero card. */
+.heroreg { display: flex; justify-content: center; margin-top: clamp(14px,1.7vw,24px); }
+.heroreg .btn { white-space: nowrap; }
 
 /* portrait */
 .bigpf { border-radius: 2px 18px 2px 18px; overflow: hidden; height: 100%; min-height: 260px;
@@ -174,6 +177,14 @@ html.home, .home body { background: #0B0F0C; }
 .kc b { display: block; font-size: clamp(22px,2vw,30px); font-weight: 400; line-height: 1; }
 .kc span { display: block; font-size: 9.5px; letter-spacing: .17em; text-transform: uppercase; color: var(--gold-text); margin-top: 6px; font-family: var(--font-ui); }
 .kc a:hover { border-color: var(--gold); background: #fff; }
+/* Icon in a soft rounded container ABOVE the number — the count alone was
+   doing all the work and the label was the faintest text in the block. */
+.kc .kci { display: flex; align-items: center; justify-content: center;
+  width: 30px; height: 30px; border-radius: 8px; background: rgba(46,85,64,.10);
+  margin-bottom: 9px; }
+.kc .kci svg { width: 17px; height: 17px; display: block; fill: none;
+  stroke: var(--green); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.kc a:hover .kci { background: rgba(46,85,64,.17); }
 
 /* 3D cylinder carousel (movement 5) — ergonomics: one card per swipe, snap,
    visible arrows, front card opens its detail page */

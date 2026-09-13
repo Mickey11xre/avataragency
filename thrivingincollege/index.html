@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://thrivingincollege.org/">
 <link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=ddde7eb1">
 <link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=5a369207">
-<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=c9d44b94">
+<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=b2842ca8">
 <!-- No frame preload: the engine picks the right set (desktop or frames-m)
      and requests frame 0 in its first sparse pass milliseconds later. A
      static preload would fetch the desktop frame on a phone and waste it. -->
@@ -117,17 +117,21 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
 
   <!-- Movement 1 · The Reframe — seed & soil -->
   <section class="leaf l wide hero" data-i="0" aria-labelledby="m1">
+    <!-- Heading sits OUTSIDE .split so it spans the whole card. Inside the
+         left column it wrapped at .82fr and left dead space above the video.
+         Safe on mobile: .hero .split already collapses to one column below
+         860px, so the heading is full-width there either way. -->
+    <p class="eyebrow">01 &mdash; The Reframe</p>
+    <h1 id="m1">What does it mean to <em>thrive</em> in college?</h1>
+    <div class="hr"></div>
     <div class="split">
       <div class="col">
-        <p class="eyebrow">01 &mdash; The Reframe</p>
-        <h1 id="m1">What does it mean to <em>thrive</em> in college?</h1>
-        <div class="hr"></div>
         <!-- Her definition, verbatim from the live site. This is a research
              definition with citations attached, not marketing copy, and the
              rebuild had paraphrased it. Do not tighten it. -->
         <p>Thriving is an expanded vision for student success that incorporates students' intellectual, interpersonal, and psychological engagement and well-being while in college. Emerging from the intersection of research in positive psychology on flourishing (Keyes &amp; Haidt, 2003) and Bean and Eaton's (2000) psychological model of student retention, thriving takes a holistic view of students and their college experience.</p>
         <p>Each of these aspects of thriving are amenable to change through campus interventions.</p>
-        <p class="cta-row"><a class="cta" href="/thrivingincollege/research/">The research behind it</a> <a class="cta" href="/thrivingincollege/packages/#order">Register your campus</a></p>
+        <p class="cta-row"><a class="cta" href="/thrivingincollege/research/">The research behind it</a></p>
       </div>
       <figure class="vid col" id="vid">
         <!-- preload="none": nothing is fetched until the first tap, so the film
@@ -157,6 +161,11 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
         </div>
       </figure>
     </div>
+    <!-- The order CTA, centred under the whole card and styled as the nav's
+         button. It used to be a faint underlined text link beside "The
+         research behind it", which left the opening movement trailing off
+         rather than ending on an action. -->
+    <div class="heroreg"><a class="btn btn--primary" href="/thrivingincollege/packages/#order">Register your campus</a></div>
   </section>
 
   <!-- Movement 2 · The Researcher — roots take hold -->
@@ -204,10 +213,20 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     <h2 id="m4">What has fifteen years of research shown?</h2>
     <div class="hr"></div>
     <p>The Thriving Quotient rests on peer-reviewed publications, conference papers and doctoral dissertations that tested the model with specific populations. It is all in the Thriving Knowledge Center, so a research office can check the instrument before a campus buys it.</p>
+    <!-- Monoline marks drawn inline, not sourced as images: three tiles do not
+         justify a network request, and these have to sit on the green at any
+         size. Deliberately NOT illustrated or 3D — this is a research
+         instrument and a playful icon set would read as a startup. -->
     <div class="kc">
-      <a href="/thrivingincollege/research/publications/"><b>16</b><span>Publications</span></a>
-      <a href="/thrivingincollege/research/presentations/"><b>21</b><span>Presentations</span></a>
-      <a href="/thrivingincollege/research/dissertations/"><b>20</b><span>Dissertations</span></a>
+      <a href="/thrivingincollege/research/publications/">
+        <span class="kci" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 16.5h4"/></svg></span>
+        <b>16</b><span>Publications</span></a>
+      <a href="/thrivingincollege/research/presentations/">
+        <span class="kci" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="11.5" rx="1.5"/><path d="M12 15.5V19"/><path d="M8.5 21.5 12 19l3.5 2.5"/><path d="M7.5 11.5 10.5 8.5l2.5 2.5 3.5-4"/></svg></span>
+        <b>21</b><span>Presentations</span></a>
+      <a href="/thrivingincollege/research/dissertations/">
+        <span class="kci" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v16H6.5A1.5 1.5 0 0 0 5 20.5z"/><path d="M5 17.5A1.5 1.5 0 0 1 6.5 16H19"/><path d="M9 7.5h6"/></svg></span>
+        <b>20</b><span>Dissertations</span></a>
     </div>
     <p class="note">Counts are the entries published on this site to 2019; later work is being added.</p>
     <p class="cta-row"><a class="cta" href="/thrivingincollege/research/">Thriving Knowledge Center</a></p>
