@@ -340,7 +340,13 @@ html.home, .home body { background: #0B0F0C; }
    section, then the footer links. Both sit OUTSIDE #stage, after #track, so
    they are ordinary page flow — the one place on this page where plain prose
    can live without competing with the film. */
-.home .home-faq { position: relative; z-index: 7; background: var(--paper); color: var(--ink);
+/* Ground drops to --paper-2, the movement cards' own tone, so the near-white
+   question cards separate from it. On --paper they measured 1.08:1 against
+   their own background and read as one flat sheet; against --paper-2 it is
+   1.18:1, which with the 22% border is the difference between "cards" and
+   "lines of text". Two light tones cannot do better than that — same lesson
+   as the instruments hub. */
+.home .home-faq { position: relative; z-index: 7; background: var(--paper-2); color: var(--ink);
   padding-block: clamp(38px, 5vw, 68px); border-block-start: 1px solid var(--rule); }
 .home .home-faq h2 { font-family: var(--font-display); font-weight: 400; color: var(--ink);
   font-size: clamp(24px, 2.5vw, 34px); line-height: 1.15; margin: 0 0 clamp(18px, 2vw, 26px); }
