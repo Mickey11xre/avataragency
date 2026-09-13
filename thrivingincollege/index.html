@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://thrivingincollege.org/">
 <link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=ddde7eb1">
 <link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=5a369207">
-<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=809097ed">
+<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=8c1c9d1f">
 <!-- No frame preload: the engine picks the right set (desktop or frames-m)
      and requests frame 0 in its first sparse pass milliseconds later. A
      static preload would fetch the desktop frame on a phone and waste it. -->
@@ -148,7 +148,15 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
           <source src="/thrivingincollege/assets/hero.mp4?v=7c665943" type="video/mp4">
         </video>
         <img class="vposter" src="/thrivingincollege/assets/hero-poster.jpg?v=34f0e5ab" alt="The Thriving Project — the tree logo, roots visible below the soil" width="1280" height="720">
-        <button class="vplay" type="button" aria-label="Play the film"></button>
+        <!-- The whole frame stays the click target; this is just the visible
+             affordance. The poster is a split — Laurie on dark wood, the logo
+             on white — and dead centre lands on that seam, so the ring carries
+             a near-opaque disc and reads on both halves. -->
+        <button class="vplay" type="button" aria-label="Play the film">
+          <span class="vplay__glyph" aria-hidden="true">
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43"/><path d="M42 33 L70 50 L42 67 Z"/></svg>
+          </span>
+        </button>
         <div class="vbar">
           <div class="vprog" role="slider" aria-label="Seek" tabindex="0"><i></i></div>
           <div class="vctl">
