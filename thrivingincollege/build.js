@@ -314,7 +314,7 @@ for (const j of jobs) {
   // /assets/* is cached for seven days, so a returning visitor would have kept
   // playing round 1 for a week. Hashing the reference is what makes replacing
   // a file in place safe.
-  if (!/\.(css|js)$/.test(web) && !/^\/assets\/(icon|favicon|hero)/.test(web)) continue;
+  if (!/\.(css|js)$/.test(web) && !/^\/assets\/(icon|favicon|hero|packages\/)/.test(web)) continue;
   hashes.set(web, crypto.createHash('sha256').update(j.out).digest('hex').slice(0, 8));
 }
 const bust = html => html.replace(
