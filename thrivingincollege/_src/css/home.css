@@ -23,9 +23,20 @@ html.home, .home body { background: #0B0F0C; }
   color: #F1EADA; text-shadow: 0 1px 14px rgba(0,0,0,.65); text-decoration: none; font-family: var(--font-display); }
 #mast .word b { font-weight: 400; border-bottom: 1px solid rgba(241,234,218,.45); padding-bottom: 3px; }
 #mast .nav { display: none; }
-@media (min-width: 64rem) {
-  #mast .nav { display: flex; align-items: center; gap: var(--sp-xs); opacity: 0; transition: opacity .4s ease; pointer-events: none; }
-  #mast.past .nav { opacity: 1; pointer-events: auto; }     /* the slim nav arrives after Movement 1 (spec §2) */
+/* ⛔ 72rem (1152px), NOT 64rem. Measured 12 Sept: the desktop nav needs
+   1136px to lay out — wordmark 196 + nav 834 + mast padding 82 + gap. At the
+   old 64rem (1024px) breakpoint it was switched on 112px before it fitted, so
+   "Register Your Campus" wrapped to two lines, which made the button 76px
+   tall instead of 46 and the whole nav band 112px instead of 82. That extra
+   30px is what the hero card was colliding with. Below this width the drawer
+   is the better experience anyway. */
+@media (min-width: 72rem) {
+  /* Always visible, from first paint. Previously gated behind a .past class
+     that only landed after Movement 1 (build spec §2) — Michael's call
+     12 Sept: a visitor who cannot see navigation cannot tell the site has an
+     Instruments section. Of 20 comparable marketing sites, none hide it. */
+  #mast .nav { display: flex; align-items: center; gap: var(--sp-xs); }
+  #mast .nav .btn { white-space: nowrap; }   /* belt and braces against the wrap */
   #mast .nav a:not(.btn) { color: #F1EADA; text-decoration: none; font-family: var(--font-ui); font-size: var(--step--1);
     letter-spacing: .04em; padding-inline: var(--sp-2xs); text-shadow: 0 1px 10px rgba(0,0,0,.7); }
   #mast .nav a[data-store] { color: #F0DCA8; font-weight: 600; }
@@ -33,7 +44,9 @@ html.home, .home body { background: #0B0F0C; }
 }
 #mast .hamburger { background: rgba(8,16,11,.55); border: 1px solid rgba(241,234,218,.45); color: #F1EADA;
   border-radius: var(--radius-s); justify-content: center; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-@media (min-width: 64rem) { #mast .hamburger { display: none; } }
+/* Must match the nav breakpoint above exactly, or a window between the two
+   gets both the drawer button and the full nav, or neither. */
+@media (min-width: 72rem) { #mast .hamburger { display: none; } }
 
 /* ---- section rail (desktop) ----------------------------------------- */
 #rail { position: absolute; right: clamp(14px,2.2vw,34px); top: 50%; transform: translateY(-50%);
@@ -72,11 +85,27 @@ html.home, .home body { background: #0B0F0C; }
   will-change: transform, opacity; backface-visibility: hidden; }
 .leaf::after { content: ""; position: absolute; left: 0; top: 14%; bottom: 14%; width: 2px;
   background: linear-gradient(to bottom, rgba(28,51,39,0), rgba(28,51,39,.35), rgba(28,51,39,0)); }
-.leaf.l { left: clamp(20px,7vw,120px); top: 50%; }
-.leaf.r { right: clamp(20px,7vw,120px); top: 50%; }
+/* Cards centre in the space BELOW the masthead, not in the whole viewport.
+   With the JS `translateY(-50%)`, `top:50%` put the hero card's top edge at
+   67px on a 768px-tall window — 45px inside a nav band that starts at 0. It
+   only cleared above 859px of viewport height, so every normal laptop was in
+   violation. `--nav-safe` is the 82px band plus a 12px gap, which also covers
+   the ±2% "pop" the entrance animation applies at full open. */
+:root { --nav-safe: 94px; }
+.leaf.l { left: clamp(20px,7vw,120px); top: calc(50vh + var(--nav-safe) / 2); }
+.leaf.r { right: clamp(20px,7vw,120px); top: calc(50vh + var(--nav-safe) / 2); }
 .leaf.wide { width: min(60vw,820px); }
 .leaf.hero { width: min(68vw,1000px); }
 .leaf.wide5 { width: min(58vw,860px); padding-top: clamp(20px,2vw,29px); padding-bottom: clamp(20px,2vw,28px); }
+/* Short desktop windows: a 1280x640 laptop has 640px of height for an 85px
+   nav band and a 597px hero card — 682px of content. Something has to give,
+   and it is the card's own padding, never Dr. Schreiner's copy. Measured
+   12 Sept; without this the hero re-enters the nav band by 16px below about
+   660px of viewport height. */
+@media (min-width: 72rem) and (max-height: 44rem) {
+  .leaf.hero { padding-top: 18px; padding-bottom: 20px; }
+  .leaf { padding-top: clamp(18px,2vw,28px); padding-bottom: clamp(20px,2vw,30px); }
+}
 
 /* two-beat content reveal, both scroll-driven — never a one-shot transition */
 .leaf .eyebrow, .leaf h1, .leaf h2, .leaf .hr, .leaf .who { opacity: var(--c1,1); }

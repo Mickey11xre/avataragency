@@ -390,7 +390,9 @@
     scrim.style.opacity = activeAmt * 0.95; scrim.style.setProperty("--sx", (VW > 860 ? sx : 50) + "%");
     for (var j = 0; j < dots.length; j++) dots[j].classList.toggle("on", j === activeIdx && activeAmt > 0.25);
     hint.style.opacity = p < 0.012 ? "1" : "0";
-    if (mast) mast.classList.toggle("past", p > ANCHORS_P[0] + 0.04);
+    /* The `.past` class used to reveal the desktop nav after Movement 1. The
+       nav is now visible from first paint (Michael, 12 Sept), so nothing reads
+       this class any more and the toggle is gone rather than left running. */
   }
   var ticking = false;
   window.addEventListener("scroll", function () { if (STATIC) return; dirty = true; if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; if (dirty) { dirty = false; draw(false); } }); } }, { passive: true });
