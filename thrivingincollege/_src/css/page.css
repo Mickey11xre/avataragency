@@ -25,10 +25,23 @@
 /* Hub cards (Knowledge Center) share .hub from the instruments hub */
 .hub { list-style: none; padding: 0; display: grid; gap: var(--sp-s); }
 @media (min-width: 48rem) { .hub { grid-template-columns: 1fr 1fr; } }
-.hub__item { background: var(--surface); border: 1px solid var(--rule-soft); border-radius: var(--radius); padding: var(--sp-m); display: grid; gap: var(--sp-2xs); align-content: start; }
+/* ⚠️ THESE RULES ARE DUPLICATED in _src/pages/instruments/index.html, which
+   does not load this file. Change one, change the other, or the instruments
+   hub silently drifts from the other three hubs. */
+.hub__item { background: var(--surface-raised); border: 1px solid var(--rule);
+  border-inline-start: 4px solid var(--green); border-radius: var(--radius);
+  padding: var(--sp-m); display: grid; gap: var(--sp-2xs); align-content: start;
+  box-shadow: 0 1px 2px rgba(28,51,39,.06), 0 10px 20px -14px rgba(28,51,39,.45); }
 .hub__item h3 { font-size: var(--step-1); }
 .hub__item p { color: var(--text-2); }
 .hub__item a.btn { justify-self: start; margin-block-start: var(--sp-2xs); }
+/* The card's button IS the card's primary action, so it is promoted here
+   rather than in the markup. Scoped deliberately: .btn--secondary is used
+   60+ times site-wide (invoice requests, "Back to the site", webinars) where
+   a quiet button is correct, and changing the component would shout on all
+   of them. */
+.hub__item a.btn--secondary { background: var(--action); color: var(--paper); border-color: var(--action); }
+.hub__item a.btn--secondary:hover { background: var(--action-hover); color: var(--paper); border-color: var(--action-hover); }
 
 /* Comparison table — scrolls inside .scroll-x on a phone, never the page */
 .cmp { border-collapse: collapse; min-width: 40rem; width: 100%; font-size: var(--step-sm); }

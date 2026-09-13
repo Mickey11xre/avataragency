@@ -7,16 +7,23 @@
 <title>Thriving Quotient instruments — seven validated campus surveys</title>
 <meta name="description" content="Seven Thriving Quotient instruments, one per campus population: undergraduate, sophomore, adult learner, graduate, community college, faculty and staff. What each measures, how it is administered, and what a survey costs.">
 <link rel="canonical" href="https://thrivingincollege.org/instruments/">
-<link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=4c3fd175">
+<link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=ddde7eb1">
 <link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=5a369207">
 <link rel="stylesheet" href="/thrivingincollege/css/store.css?v=8702ff65">
 <style>
   .hub { list-style: none; padding: 0; display: grid; gap: var(--sp-s); }
   @media (min-width: 48rem) { .hub { grid-template-columns: 1fr 1fr; } }
-  .hub__item { background: var(--surface); border: 1px solid var(--rule-soft); border-radius: var(--radius); padding: var(--sp-m); display: grid; gap: var(--sp-2xs); align-content: start; }
+  /* ⚠️ DUPLICATED from _src/css/page.css, which this page does not load.
+     Keep the two in step or this hub drifts from the other three. */
+  .hub__item { background: var(--surface-raised); border: 1px solid var(--rule);
+    border-inline-start: 4px solid var(--green); border-radius: var(--radius);
+    padding: var(--sp-m); display: grid; gap: var(--sp-2xs); align-content: start;
+    box-shadow: 0 1px 2px rgba(28,51,39,.06), 0 10px 20px -14px rgba(28,51,39,.45); }
   .hub__item h3 { font-size: var(--step-1); }
   .hub__item p { color: var(--text-2); }
   .hub__item a.btn { justify-self: start; margin-block-start: var(--sp-2xs); }
+  .hub__item a.btn--secondary { background: var(--action); color: var(--paper); border-color: var(--action); }
+  .hub__item a.btn--secondary:hover { background: var(--action-hover); color: var(--paper); border-color: var(--action-hover); }
 </style>
 <script type="application/ld+json">
 {

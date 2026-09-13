@@ -35,6 +35,13 @@
      Re-theming happens here and nowhere else.                           */
   --bg:           var(--paper);
   --surface:      var(--paper-2);
+  /* A card that has to be found rather than merely read. --surface sits
+     BELOW the page ground (#EDE6D6 on #F5F0E4 measures 1.09:1 — all but
+     identical), which is what made the instruments hub unnavigable on
+     11 Sept. This one sits above it. Two light tones can never produce much
+     ratio, so the separation is carried by the edge and the green spine in
+     .hub__item; this only stops the card reading as a dent in the paper.   */
+  --surface-raised: #FCFAF3;
   --text:         var(--ink);
   --text-2:       var(--ink-soft);
   --text-3:       var(--ink-mute);
