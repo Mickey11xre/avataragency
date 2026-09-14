@@ -128,6 +128,44 @@ function transform(html, file) {
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/icon-180.png">
 </head>`);
   }
+  /* Open Graph + Twitter Card. Added 2026-09-14: the site had NONE, so every
+     link anyone shared — an email to a provost, a LinkedIn post, a Slack
+     message — unfurled as a bare URL with no title, blurb or picture. For a
+     site whose whole distribution is colleagues forwarding it to colleagues,
+     that is the cheapest reach on the page.
+     Derived from the page's OWN <title>, description and canonical rather
+     than hand-written per page, so they can never drift out of sync with
+     what the page actually says. Absolute https://thrivingincollege.org URLs
+     on purpose, the same convention the canonicals already use: scrapers
+     will not resolve a root-relative image, and the share card should name
+     her domain wherever it is served from. */
+  if (!/property="og:/.test(s)) {
+    const pick = (re) => { const m = s.match(re); return m ? m[1].trim() : ''; };
+    const attr = (v) => v.replace(/"/g, '&quot;');
+    const title = pick(/<title>([\s\S]*?)<\/title>/);
+    const desc  = pick(/<meta name="description" content="([^"]*)"/);
+    const canon = pick(/<link rel="canonical" href="([^"]*)"/);
+    const img   = 'https://thrivingincollege.org/assets/hero-poster.jpg';
+    if (title && canon) {
+      const og = [
+        `<meta property="og:type" content="website">`,
+        `<meta property="og:site_name" content="The Thriving Project">`,
+        `<meta property="og:locale" content="en_US">`,
+        `<meta property="og:title" content="${attr(title)}">`,
+        desc ? `<meta property="og:description" content="${attr(desc)}">` : '',
+        `<meta property="og:url" content="${attr(canon)}">`,
+        `<meta property="og:image" content="${img}">`,
+        `<meta property="og:image:width" content="1280">`,
+        `<meta property="og:image:height" content="720">`,
+        `<meta property="og:image:alt" content="Dr. Laurie A. Schreiner, creator of the Thriving Quotient">`,
+        `<meta name="twitter:card" content="summary_large_image">`,
+        `<meta name="twitter:title" content="${attr(title)}">`,
+        desc ? `<meta name="twitter:description" content="${attr(desc)}">` : '',
+        `<meta name="twitter:image" content="${img}">`,
+      ].filter(Boolean).join('\n');
+      s = s.replace(/<\/head>/, og + '\n</head>');
+    }
+  }
   const ga = ga4Snippet();
   if (ga) s = s.replace(/<\/head>/, ga + '\n</head>');
   // prefix root-relative href/src/poster/action/data-* — but never protocol, hash, mailto or //
@@ -275,6 +313,46 @@ if (fs.existsSync(pageTpl) && fs.existsSync(contentDir)) {
     const rel = path.join(relPath.slice(1), 'index.html');
     jobs.push({ rel, dest: path.join(OUT, rel), out: transform(html, f) });
   }
+}
+
+/* 404.html at the output root. Cloudflare Pages serves this file, with a real
+   404 status, for any path that matches no asset.
+   ⛔ Without it Pages falls back to index.html AND RETURNS 200. Measured on
+   the live preview 2026-09-14: /about/, /this-page-does-not-exist and
+   /banana/xyz all returned "200 OK" carrying the full homepage. Those are
+   soft-404s — every typo and stale inbound link becomes another URL serving
+   duplicate homepage content, Search Console reports them as indexable
+   pages, and genuinely broken links never surface as errors.
+   Rendered through the same page template as everything else so it carries
+   the real header, nav and footer; emitted as a flat file rather than
+   /404/index.html so it never enters the sitemap or becomes a reachable URL
+   of its own. */
+if (fs.existsSync(pageTpl)) {
+  const esc404 = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const v = {
+    title: esc404('Page not found — The Thriving Project'),
+    description: esc404('That page does not exist on thrivingincollege.org. Links to the instruments, packages, research and contact details.'),
+    path: '/404.html', eyebrow: 'Error 404', h1: 'We could not find that page',
+    capsule_html: '', crumbs_html: '<li aria-current="page">Page not found</li>',
+    crumbs_ld: '{ "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thrivingincollege.org/" }',
+    jsonld_extra: '',
+    body: `<p>The address may be mistyped, or the page may have moved when the site was rebuilt. Everything on the site is one step from here:</p>
+      <ul>
+        <li><a href="/instruments/">The seven Thriving Quotient instruments</a> — one for each campus population</li>
+        <li><a href="/packages/">Packages and pricing</a>, and the <a href="/store/">store</a></li>
+        <li><a href="/research/">Thriving Knowledge Center</a> — publications, presentations, dissertations and webinars</li>
+        <li><a href="/for-researchers/">For researchers</a> — licensing an instrument for a dissertation or study</li>
+        <li><a href="/about/laurie-schreiner/">About Dr. Laurie A. Schreiner</a></li>
+      </ul>
+      <p>If you followed a link from somewhere else and it brought you here, please
+      <a href="/contact/">tell us where it came from</a> so we can fix it.</p>`,
+  };
+  for (const n of ['instruments', 'packages', 'research', 'store', 'about']) v['cur_' + n] = '';
+  const html404 = fs.readFileSync(pageTpl, 'utf8').replace(/\{\{(\w+)\}\}/g, (mm, k) => {
+    if (k in v) return v[k];
+    throw new Error(`404 template: unknown token {{${k}}}`);
+  });
+  jobs.push({ rel: '404.html', dest: path.join(OUT, '404.html'), out: transform(html404, '404.html') });
 }
 
 const fnSrc = path.join(SRC, 'functions');
