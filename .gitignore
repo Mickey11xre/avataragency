@@ -40,5 +40,11 @@ clone-brand-builder.js
 # server-source leak the launch layout was restructured to close (2026-09-14).
 # Cloudflare regenerates both directories on every build.
 dist/
-thrive-launch/
 .wrangler/
+# thrive-launch/ itself IS tracked — Cloudflare needs the Root directory to
+# exist in git to cd into it — but only the placeholder. Note the /* form:
+# "thrive-launch/" would exclude the directory outright and git will not
+# re-include a file inside an excluded directory, so the negation below
+# would silently do nothing.
+thrive-launch/*
+!thrive-launch/.gitkeep
