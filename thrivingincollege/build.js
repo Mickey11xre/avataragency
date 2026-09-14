@@ -22,7 +22,24 @@
  * Functions: _src/functions/ holds the Pages Functions (Stripe Checkout, the
  * webhook). They are emitted with the catalogue injected in place of
  * __CATALOGUE__, to the repo's functions/ tree — under functions/<BASE>/ on
- * staging so the route matches the page prefix, and functions/ at launch.
+ * staging so the route matches the page prefix.
+ *
+ * ⛔ AT LAUNCH THE FUNCTIONS GO BESIDE THE STATIC OUTPUT, NEVER INSIDE IT.
+ * Cloudflare is explicit: "Make sure that the /functions directory is at the
+ * root of your Pages project (and not in the static root, such as /dist)."
+ * They used to be emitted into OUT/functions and it failed two ways at once,
+ * proved locally on 2026-09-14 before any of it reached her domain:
+ *   1. Pages never ran them — it looks in the project root, so every
+ *      /api/* route fell through to the static handler and CHECKOUT WAS DEAD.
+ *   2. Being inside the served directory, each one was published as a static
+ *      asset: GET /functions/api/checkout.js returned 200 application/javascript,
+ *      i.e. the Stripe server-side source readable by anyone who guessed it.
+ * So the launch layout is the one Cloudflare documents — a project root that
+ * holds BOTH, with only `dist` served:
+ *     <root>/functions/api/*.js     <- Pages compiles these
+ *     <root>/dist/**                <- build output directory
+ * Canonical launch build, from the repo root:
+ *     BASE= OUT_DIR=thrive-launch/dist node thrivingincollege/build.js
  */
 const fs = require('fs');
 const path = require('path');
@@ -36,10 +53,22 @@ const OUT   = process.env.OUT_DIR ? path.resolve(process.env.OUT_DIR) : __dirnam
 const CHECK = process.argv.includes('--check');
 const BASE  = process.env.BASE === undefined ? '/thrivingincollege' : process.env.BASE;
 const STAGING = BASE !== '';
-// Staging: <repo>/functions/thrivingincollege/…  Launch: <site>/functions/…
-const FN_OUT = STAGING
-  ? path.join(OUT, '..', 'functions', ...BASE.split('/').filter(Boolean))
-  : path.join(OUT, 'functions');
+// Staging: <repo>/functions/thrivingincollege/…
+// Launch:  a SIBLING of the static output (<root>/functions), never inside it
+//          — see the ⛔ note in the header. FN_DIR overrides if a host ever
+//          wants it somewhere else.
+const FN_OUT = process.env.FN_DIR ? path.resolve(process.env.FN_DIR)
+  : STAGING
+    ? path.join(OUT, '..', 'functions', ...BASE.split('/').filter(Boolean))
+    : path.join(OUT, '..', 'functions');
+// A launch build with no OUT_DIR would resolve FN_OUT to the repo's own
+// functions/ tree and drop her Stripe endpoints on top of avataragency.ai's.
+// Refuse rather than corrupt another site's Functions.
+if (!STAGING && !process.env.OUT_DIR && !process.env.FN_DIR) {
+  console.error('launch build needs OUT_DIR (e.g. OUT_DIR=thrive-launch/dist) so functions\n' +
+                'do not land in the repo root functions/ tree. Refusing to build.');
+  process.exit(1);
+}
 
 const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e =>
   e.isDirectory() ? walk(path.join(d, e.name)) : [path.join(d, e.name)]);

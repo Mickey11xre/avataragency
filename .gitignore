@@ -32,3 +32,13 @@ clone-brand-builder.js
 
 # Raw generator output — rename and place deliberately before committing
 **/Gemini_Generated_Image_*
+
+# Build output for thrivingincollege.org's own Pages project. NEVER commit it.
+# The header rule above is the reason: this repo IS avataragency.ai, so a
+# committed thrive-launch/functions/api/checkout.js would be fetchable at
+# avataragency.ai/thrive-launch/functions/api/checkout.js — the exact
+# server-source leak the launch layout was restructured to close (2026-09-14).
+# Cloudflare regenerates both directories on every build.
+dist/
+thrive-launch/
+.wrangler/
