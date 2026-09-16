@@ -102,26 +102,50 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   </div>
 
 <section class="section legal" aria-label="Refund policy">
-    <!-- Build Directive 01 §2.8: the previous site's 85-word "no refunds"
-         text is NOT carried over — it contradicts how orders are actually
-         handled and is a live trust defect. The body is a marked
-         placeholder until Dr. Schreiner finalises the wording, after
-         Michael reports on the legal requirement. -->
-    <div class="pending">
-      <p><b>Awaiting Dr. Schreiner</b></p>
-      <p style="margin-block-start:var(--sp-2xs)">The refund policy is being rewritten before launch. It will state, in plain terms, what happens if an order is cancelled before survey administration begins, once data collection is under way, and while a bank-debit (ACH) payment is still clearing; and the terms for the webinar and the researcher licence. Until it is published here, questions about a specific order go to the <a href="/thrivingincollege/contact/">contact address</a>.</p>
-    </div>
-    <div class="prose" style="margin-block-start: var(--sp-m)">
-      <h2>What the policy will cover</h2>
-      <ul>
-        <li>Cancellation before a survey administration has been scheduled or begun.</li>
-        <li>Cancellation after data collection has started.</li>
-        <li>Orders paid by ACH bank debit that are cancelled while the payment is still clearing.</li>
-        <li>Rescheduling or cancelling a webinar.</li>
-        <li>The researcher licence once the instrument has been released.</li>
-        <li>How to request a refund and how long it takes.</li>
-      </ul>
-      <p>Related: <a href="/thrivingincollege/legal/terms/">Terms and Conditions</a> · <a href="/thrivingincollege/packages/">Packages &amp; Pricing</a></p>
+    <!-- ⚠️ THIS REVERSES Build Directive 01 §2.8, deliberately, on Michael's
+         instruction of 16 Sept. Read this before changing it back.
+
+         §2.8 said her existing "no refunds" text must NOT be carried over
+         because it "contradicts how orders are actually handled". That
+         judgement still stands on the merits and is recorded below. What
+         changed is the finding behind it: the page was being treated as copy
+         she still owed us, and she does not owe it — SHE HAS ALREADY
+         PUBLISHED ONE. It is live at thrivingincollege.org/refundpolicy,
+         dated 11 September 2022, and it was missed by the site capture
+         because "Refund Policy" is a footer link on all 29 pages, so it
+         appeared in every file while the page itself was never fetched.
+         That made it look like a client dependency when it was a migration
+         gap.
+         It is carried over verbatim for the same reason every other page is:
+         it is her published wording, and the rebuild's one serious failure
+         was rewriting her words. See _src/original-site/ and check-copy.js.
+
+         ⛔ WHY THIS UNBLOCKS LAUNCH. California BPC §17538 requires the
+         refund policy to be DISCLOSED BEFORE payment, not to be generous.
+         Her published policy satisfies that, and checkout is live on real
+         cards. Shipping her domain with a placeholder here meant taking
+         money on a site that did not state its own refund terms.
+
+         ⚠️ STILL OPEN, as a business question and NOT a launch blocker:
+         a flat no-refunds rule reads oddly against a $10,000 package with a
+         live webinar in it, against purchase orders from universities, and
+         against an ACH payment that can still be clearing days after the
+         order. The six cases the old placeholder enumerated are the ones
+         worth putting to her. Raise it with her as a revision; do not hold
+         the launch for it.
+
+         ⚠️ Two flaws are reproduced verbatim from her page and are NOT to be
+         silently tidied: "polices" for "policies", and "read service
+         description" missing "the". Both need her one-line approval to
+         change, like every other word of her copy. -->
+    <div class="prose">
+      <p class="note">Carried over from The Thriving Project's published refund policy. Last updated 11 September 2022; effective immediately.</p>
+
+      <p>Since the Website offers non-tangible, irrevocable goods we do not provide refunds after the product is purchased, which you acknowledge prior to purchasing any product on the Website. Please make sure that you&rsquo;ve carefully read service description before making a purchase.</p>
+
+      <p>If you have any questions, concerns, or complaints regarding this refund policy, we encourage you to <a href="/thrivingincollege/contact/">contact us</a>.</p>
+
+      <p>Related: <a href="/thrivingincollege/legal/terms/">Terms and Conditions</a> &middot; <a href="/thrivingincollege/packages/">Packages &amp; Pricing</a></p>
     </div>
   </section>
 
