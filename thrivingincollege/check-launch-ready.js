@@ -7,13 +7,22 @@
  * ⛔ THE RULE (Michael, 14 Sept 2026): the domain does not go live while any
  * page still carries an "Awaiting Dr. Schreiner" block.
  *
- * Why this is a gate and not a nice-to-have. The two that were outstanding
- * when the rule was set are /legal/refunds/ and /legal/protection-of-subjects/,
- * and the refunds one is a legal exposure rather than a tidiness problem:
- * California Business & Professions Code §17538 requires the refund policy to
- * be DISCLOSED BEFORE payment is taken, and her checkout is live and charging
- * real cards. Shipping the domain with a placeholder there means taking money
- * on a site that does not state its own refund terms.
+ * Why this is a gate and not a nice-to-have. The two outstanding when the rule
+ * was set were /legal/refunds/ and /legal/protection-of-subjects/.
+ *
+ * ⚠️ /legal/refunds/ IS NO LONGER CHECKED HERE BECAUSE THE PAGE NO LONGER
+ * EXISTS. It was REMOVED on 16 Sept, not resolved. Laurie disowned the
+ * published "no refunds" text on the 4 Sept call — "I don't even know that…
+ * I'm happy to write a different policy… we would, we do have, we would make
+ * some" — so the site had been publishing a promise she had already
+ * contradicted. Rather than launch on that, Michael pulled the page.
+ * ⛔ That trades a WRONG disclosure for NO disclosure. Cal. Bus. & Prof. Code
+ * §17538 has an online seller disclose its refund policy before taking
+ * payment, and checkout is live on real cards, so this gate no longer covers
+ * the biggest open legal item on the site. Her policy is the priority.
+ * When it lands, restore all five: the page, the link in
+ * functions/api/checkout.js, the path in check-served.js, the footer <li> in
+ * the templates and standalone pages, and /refundpolicy in redirects.txt.
  *
  * This deliberately does NOT fail the build. The preview must keep deploying
  * with pending blocks on it — that is how they get reviewed. It fails the
@@ -53,7 +62,7 @@ const get = async (u) => {
   }
   console.log(`\n⛔ NOT CLEAR TO LAUNCH — ${blocked.length} page(s) still awaiting her:`);
   for (const p of blocked) {
-    const legal = p === '/legal/refunds/' ? '   ← BPC §17538: must be disclosed before payment, and checkout is LIVE' : '';
+    const legal = '';
     console.log('   ' + p + legal);
   }
   console.log('\nResolve these, or get her one-line approval on the drafted text, before the nameserver change.');

@@ -35,7 +35,6 @@
 /privacypolicy                   /legal/privacy/                                             301
 /terms                           /legal/terms/                                               301
 /disclaimer                      /legal/disclaimer/                                          301
-/refundpolicy                    /legal/refunds/                                             301
 # the permissions PDF — identical file, re-hosted (v6 §06 assets)
 /_files/ugd/27a499_f96296c813f7422889952e9995c3e161.pdf   /files/permissions-request.pdf   301
 # AISO comparison alias (audit A1): one canonical comparison page
