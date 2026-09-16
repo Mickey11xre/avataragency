@@ -152,9 +152,13 @@ html.home, .home body { background: #0B0F0C; }
    the gutter between the two columns and read as misplaced. This mirrors
    .hero .split's own track sizes and gap so the two stay aligned by
    construction — change one, change both. */
-.heroreg { display: grid; grid-template-columns: .82fr 1.28fr;
-  gap: clamp(20px,2.2vw,34px); margin-top: clamp(14px,1.7vw,24px); }
-.heroreg .btn { grid-column: 2; justify-self: center; white-space: nowrap; }
+/* Two matched buttons, centred as a pair (Stephanie, 15 Sept). It used to be
+   a single button parked in the right-hand track to sit under the video; with
+   two it is a centred row, so neither reads as the afterthought the text link
+   had become. */
+.heroreg { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
+  gap: clamp(10px,1.2vw,18px); margin-top: clamp(14px,1.7vw,24px); }
+.heroreg .btn { white-space: nowrap; }
 
 /* portrait */
 .bigpf { border-radius: 2px 18px 2px 18px; overflow: hidden; height: 100%; min-height: 260px;
@@ -318,14 +322,37 @@ html.home, .home body { background: #0B0F0C; }
    is always 100% of the band, and the height follows the viewport through
    the card. The img is object-fit:cover, so the photo crops rather than
    distorting. */
-.pimg { position: relative; flex: 0 1 auto; min-height: 96px; margin: 2px -15px 12px;
+.pimg { position: relative; flex: 1 1 auto; min-height: 0; margin: 2px -15px 12px;
   height: calc(var(--ch) * .48); overflow: hidden; background: #14251D; }
-/* If a card is ever short of room again, the PHOTO gives way — never the
-   description and never Read more. On 13 Sept every phone card overflowed
-   its face by 27px and the face's overflow:hidden clipped the button on all
-   five. flex: 0 1 auto above lets the band shrink; these two refuse to. */
+/* If a card is short of room, the PHOTO gives way — never the description and
+   never Read more. The band is `flex: 1 1 auto; min-height: 0` so it can
+   surrender every pixel it has; these two refuse to shrink at all.
+   ⛔ min-height on .pimg is what broke this the first time. It was 96px, a
+   floor the photo could not go below, so once the card fell under about
+   330px the overflow reappeared and the face's overflow:hidden ate the
+   button. Reported as "Read More is invisible in Microsoft Edge" (Stephanie,
+   15 Sept) and it is NOT a browser bug — it is WINDOW HEIGHT. The card is
+   sized from vh, and Edge's favourites bar and sidebar leave a shorter
+   viewport than Chrome at the same screen size. Reproduced exactly at
+   1366x600: every one of the five cards overflowed by 60px and all five
+   buttons were clipped, in Chromium, with no Edge involved.
+   Verify any change here at 1280x540, not just at 1440x900. */
 .leaf .pface p, .pface .pbtn { flex-shrink: 0; }
-.pimg img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+/* The description is the only elastic text on the card, so it is capped
+   rather than allowed to push the button out on a narrow or short window. */
+.leaf .pface p { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
+/* ⛔ pointer-events AND user-drag both off, and neither is optional.
+   The card is a drag handle, but a photograph is natively draggable: pressing
+   one started the BROWSER's own image drag, so the cursor towed a translucent
+   ghost of the picture around and the cylinder never turned at all. Reported
+   15 Sept with a screenshot of the ghost mid-drag.
+   user-drag kills the ghost; pointer-events: none is what makes the press
+   reach the card underneath so the spin actually starts. The matching
+   draggable="false" in the markup covers engines that ignore user-drag.
+   The image is decorative — every card's meaning is in its text — so it
+   needs no pointer of its own. */
+.pimg img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%;
+  -webkit-user-drag: none; user-drag: none; pointer-events: none; -webkit-touch-callout: none; }
 .pimg::before, .pimg::after { content: ""; position: absolute; left: 0; right: 0; pointer-events: none; }
 .pimg::before { top: 0; height: 24%; background: linear-gradient(to bottom, var(--f1) 0%, rgba(0,0,0,0) 100%); }
 .pimg::after { bottom: 0; height: 30%; background: linear-gradient(to top, var(--f2) 0%, rgba(0,0,0,0) 100%); }
@@ -379,9 +406,10 @@ html.home, .home body { background: #0B0F0C; }
   .leaf .stat div { min-width: 0; }
   .leaf .stat b { font-size: 19px; }
   .split, .split.rev, .hero .split { grid-template-columns: 1fr; gap: 14px; }
-  /* .heroreg mirrors .split's tracks, so it has to collapse with it. */
-  .heroreg { grid-template-columns: 1fr; gap: 14px; }
-  .heroreg .btn { grid-column: 1; }
+  /* Both CTAs stack full-width on a phone rather than sitting side by side —
+     "Order the Thriving Package" does not fit beside anything at 375px. */
+  .heroreg { gap: 10px; }
+  .heroreg .btn { width: 100%; text-align: center; }
   .vid { order: -1; }
   .bigpf { min-height: 0; height: 170px; }
   .strip { grid-template-columns: 1fr 1fr; gap: 6px; }
