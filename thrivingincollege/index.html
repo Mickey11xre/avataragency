@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://thrivingincollege.org/">
 <link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=0274542a">
 <link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=4611b0ac">
-<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=44eb3a2b">
+<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=92e1ba16">
 <!-- No frame preload: the engine picks the right set (desktop or frames-m)
      and requests frame 0 in its first sparse pass milliseconds later. A
      static preload would fetch the desktop frame on a phone and waste it. -->
@@ -399,10 +399,10 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
           <a class="pbtn pbtn-ghost" href="/thrivingincollege/packages/thriving-campus/">Read more</a></div></div>
       </div>
       <button class="carr next" type="button" aria-label="Next package">&#8594;</button>
-      <!-- Copy has to match the ergonomics: tapping a card no longer opens
-           it, only "Read more" does, and the wheel is now thrown rather than
-           nudged one card at a time. -->
-      <div class="chint"><span class="hd">Drag to spin · or use the arrows</span><span class="hm">Swipe to spin</span> · Read more opens a package</div>
+      <!-- ⛔ The .chint hint line ("Swipe to spin · Read more opens a package")
+           was REMOVED 17 Sept on Michael's call: the spinning cards passed over
+           it, and the gesture reads for itself. Do not reinstate it without a
+           place it cannot be covered. -->
     </div>
     <!-- ⛔ "Compare all packages" removed 15 Sept. It went to /packages/, which
          is where the cards already go, so it promised a comparison and

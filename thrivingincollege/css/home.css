@@ -117,7 +117,6 @@ html.home, .home body { background: #0B0F0C; }
   .leaf.wide5 .hr { margin-bottom: 10px; }
   .leaf.wide5 p { font-size: 13px; line-height: 1.5; margin-bottom: 8px; }
   .leaf.wide5 .carousel { margin-top: 6px; }
-  .leaf.wide5 .chint { display: none; }
   .leaf.wide5 .regwrap { margin-top: 8px; }
 }
 
@@ -374,9 +373,6 @@ html.home, .home body { background: #0B0F0C; }
   align-items: center; justify-content: center; font-size: 18px; min-inline-size: 44px; min-block-size: 44px; }
 .carr:hover { background: #fff; }
 .carr.prev { left: -6px; } .carr.next { right: -6px; }
-.chint { position: absolute; left: 0; right: 0; bottom: -6px; text-align: center; font-size: 8.5px; letter-spacing: .24em;
-  text-transform: uppercase; color: rgba(63,90,73,.7); font-family: var(--font-ui); }
-.chint .hm { display: none; }                    /* the phone wording; swapped in below */
 .regwrap { margin-top: 12px; text-align: center; }
 .pbtn-solid { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); padding: 11px 24px; font-size: 10px; letter-spacing: .21em; text-decoration: none; }
 .pbtn-solid:hover { background: #2E5540; border-color: #2E5540; color: var(--paper); }
@@ -435,7 +431,6 @@ html.home, .home body { background: #0B0F0C; }
   .carousel { --ch: clamp(228px, 46vh, 372px); --cw: calc(var(--ch) * .58); }
   .cstage { perspective: 820px; }
   .pimg { margin: 2px -13px 10px; }             /* face padding is 13px on a phone */
-  .chint .hd { display: none; } .chint .hm { display: inline; }   /* no arrows on a phone */
   .leaf .pface { padding: 13px 13px 12px; }
   .leaf .pface h3 { font-size: 13px; }
   .leaf .pface p { font-size: 11px; line-height: 1.4; margin-bottom: 8px; }
@@ -511,7 +506,7 @@ html.static .cstage { position: static; width: auto; height: auto; transform: no
   display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items: start; }
 html.static .pkg { position: static; width: auto; height: auto; transform: none !important; opacity: 1 !important; visibility: visible !important; }
 html.static .pface { position: relative; }
-html.static .carr, html.static .chint { display: none; }
+html.static .carr { display: none; }
 /* Nothing to drag under reduced motion — the cards are a plain grid there and
    the carousel module returns early, so a grab cursor would be a lie. */
 html.static .pkg { cursor: default; }
