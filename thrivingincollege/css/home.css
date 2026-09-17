@@ -514,3 +514,104 @@ html.static .carr, html.static .chint { display: none; }
 /* Nothing to drag under reduced motion — the cards are a plain grid there and
    the carousel module returns early, so a grab cursor would be a lie. */
 html.static .pkg { cursor: default; }
+
+/* ---- "Read more" on phones ----------------------------------------------
+   Movement cards are fixed overlays on a scroll-driven film and cannot grow.
+   On a standard iPhone, movement 1 measured 222px and movement 3 146px taller
+   than the screen (16 Sept), so their long text collapses to a few lines and
+   "Read more" opens the full text in #moredlg. The words are unchanged and
+   verbatim — this only decides how much shows before a tap.
+   Scoped to html:not(.static): under reduced motion the cards stack and
+   scroll normally, so nothing needs collapsing there. Desktop is untouched. */
+.readmore { display: none; }
+@media (max-width: 860px) {
+  /* 14px × 1.55 is the phone paragraph line (see .leaf p above) */
+  html:not(.static) .leaf .more {
+    max-height: calc(var(--lines, 4) * 21.7px); overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+            mask-image: linear-gradient(to bottom, #000 55%, transparent); }
+  html:not(.static) .leaf .more p { margin-bottom: 8px; }
+  html:not(.static) .leaf .readmore {
+    display: inline-flex; align-items: center; gap: 6px; margin: 4px 0 2px; padding: 8px 0;
+    background: none; border: 0; cursor: pointer; font: 600 11px/1 var(--font-ui);
+    letter-spacing: .2em; text-transform: uppercase; color: var(--ink);
+    border-bottom: 1px solid var(--rule); min-block-size: 32px; }
+  html:not(.static) .leaf .readmore::after { content: "\203A"; font-size: 15px; letter-spacing: 0; }
+  /* Tighter CTAs on phones — the second-largest block on movement 1 (114px) */
+  html:not(.static) .heroreg { gap: 8px; margin-top: 10px; }
+  html:not(.static) .heroreg .btn { padding-block: 11px; }
+}
+
+/* The panel. Top layer via showModal(), so the film cannot clip it. It has its
+   own height limit and scrolls INSIDE itself — the whole point: all the text
+   is reachable and no card ever gets taller. */
+/* ⛔ margin:auto is REQUIRED. tokens.css has a global `* { margin: 0 }` reset,
+   and a modal <dialog> centres itself only through the browser's own
+   margin:auto — the reset silently wins, and the panel opened pinned to the
+   top-left corner. Caught on the first real-tap test, 16 Sept. */
+.moredlg { margin: auto; inset: 0; border: 0; padding: 0; width: min(92vw, 560px); max-height: 82vh;
+  border-radius: 3px 18px 3px 18px; background: #F3EEE2; color: var(--ink);
+  box-shadow: 0 30px 80px rgba(0,0,0,.5); overflow: hidden; }
+.moredlg::backdrop { background: rgba(8,14,10,.62); -webkit-backdrop-filter: blur(3px); backdrop-filter: blur(3px); }
+.moredlg__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 10px 8px 10px 20px; border-bottom: 1px solid var(--rule); }
+.moredlg__h { margin: 0; font: 600 10px/1.3 var(--font-ui); letter-spacing: .22em; text-transform: uppercase; color: var(--gold-text); }
+.moredlg__x { flex: 0 0 auto; width: 44px; height: 44px; border: 0; background: none; cursor: pointer;
+  font-size: 26px; line-height: 1; color: var(--ink); border-radius: 50%; }
+.moredlg__x:hover, .moredlg__x:focus-visible { background: rgba(28,51,39,.08); }
+.moredlg__body { padding: 16px 20px 24px; overflow-y: auto; max-height: calc(82vh - 66px);
+  overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+.moredlg__body p { font: 15px/1.62 var(--font-ui); color: var(--ink-soft); margin: 0 0 14px; }
+/* Freeze page scroll while open: the film is driven by window scroll, so a
+   swipe leaking through the backdrop would move the tree behind the panel.
+   overflow:hidden, not position:fixed — see the note in home.js. */
+html.moredlg-open, html.moredlg-open body { overflow: hidden; }
+
+/* ---- Phone height budget ------------------------------------------------
+   Movement cards cannot grow (fixed overlays on a scroll film), so on phones
+   every vertical pixel inside them is spent deliberately. Measured 16 Sept. */
+@media (max-width: 860px) {
+  /* Eyebrows: movement 1's "01 — The Holistic View of Student Success" wrapped
+     to two lines at .34em tracking. Tighter tracking keeps it on one. */
+  html:not(.static) .leaf .eyebrow { letter-spacing: .2em; margin-bottom: 10px; }
+}
+/* SHORT phones — iPhone SE and mini with Safari's bars showing leave roughly
+   530px under the masthead, and five of six cards overflowed there.
+   ⛔ Cutoff is 640px, NOT 700. At 700 it also caught the iPhone 15 (about
+   660px tall in Safari), collapsing movement 2 there although it fits with
+   67px to spare — hiding text behind a tap for no reason. 640 separates the
+   SE/mini (≈550–630) from the standard phones (≈660+). Spacing
+   gives way first; her words never do. */
+@media (max-width: 860px) and (max-height: 640px) {
+  html:not(.static) .leaf { padding-top: 14px; padding-bottom: 16px; }
+  html:not(.static) .leaf h1,
+  html:not(.static) .leaf h2 { font-size: 22px; margin-bottom: 10px; }
+  html:not(.static) .leaf .hr { margin-bottom: 10px; }
+  html:not(.static) .leaf p { margin-bottom: 8px; }
+}
+
+/* Short-phone-only collapse (movement 2) and a tighter collapse on movement 1.
+   .more-short is inert everywhere except here, so standard iPhones and
+   desktops show movement 2 in full. */
+.readmore-short { display: none; }
+@media (max-width: 860px) {
+  html:not(.static) .leaf .readmore.readmore-short { display: none; }
+}
+@media (max-width: 860px) and (max-height: 640px) {
+  html:not(.static) .leaf .more-short {
+    max-height: calc(var(--lines, 5) * 21.7px); overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+            mask-image: linear-gradient(to bottom, #000 55%, transparent); }
+  html:not(.static) .leaf .more-short p { margin-bottom: 8px; }
+  html:not(.static) .leaf .readmore.readmore-short { display: inline-flex; }
+  /* the inline style sets 3 lines; on a short phone movement 1 needs 2 */
+  html:not(.static) #more-def { --lines: 2 !important; }
+}
+
+/* ⛔ The "Scroll to grow" hint is hidden on phones. It is pinned 36px from the
+   bottom of the screen, and on a phone that is exactly where movement 1's
+   "Order the Thriving Package" button sits — so the first thing a visitor saw
+   was the hint's text printed across the primary call to action (Michael's
+   iPhone, 16 Sept). Touch users scroll by reflex, so on a phone the hint
+   cost more than it gave. Desktop keeps it. */
+@media (max-width: 860px) { html:not(.static) #hint { display: none; } }

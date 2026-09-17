@@ -515,3 +515,71 @@
     }
   }, 1200);
 })();
+
+/* ---- "Read more" panel (phones) -----------------------------------------
+ * Movement cards are fixed overlays on a scroll-driven film, so they cannot
+ * grow: on a standard iPhone movement 1 was 222px and movement 3 146px taller
+ * than the screen (Michael, 16 Sept). CSS collapses their long text on phones;
+ * this opens the full text in a modal instead of expanding the card.
+ *
+ * ⛔ Page scroll is LOCKED while the panel is open, and it matters here more
+ * than on a normal page: the tree animation is driven by window scroll, so a
+ * swipe that leaked through the backdrop would move the film behind the panel.
+ * The lock uses overflow:hidden, NOT body position:fixed — position:fixed
+ * zeroes scrollY for the duration, which snaps the film to frame 0 and
+ * flashes it back on close. overflow:hidden keeps scrollY where it is.
+ */
+(function () {
+  var dlg = document.getElementById("moredlg");
+  if (!dlg || typeof dlg.showModal !== "function") return;
+  var body = dlg.querySelector(".moredlg__body");
+  var head = dlg.querySelector(".moredlg__h");
+  var close = dlg.querySelector(".moredlg__x");
+  var html = document.documentElement, opener = null;
+
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest && e.target.closest(".readmore");
+    if (!btn || dlg.open) return;          // showModal() throws on an already-open dialog
+    var src = document.getElementById(btn.getAttribute("aria-controls"));
+    if (!src) return;
+    opener = btn;
+    head.textContent = btn.getAttribute("data-title") || "";
+    body.innerHTML = "";
+    var copy = src.cloneNode(true);
+    copy.removeAttribute("id");            // no duplicate ids in the document
+    copy.classList.remove("more", "more-short"); // never collapsed inside the panel
+    copy.removeAttribute("style");
+    body.appendChild(copy);
+    body.scrollTop = 0;
+    html.classList.add("moredlg-open");
+    dlg.showModal();
+    close.focus();
+  });
+
+  close.addEventListener("click", function () { dlg.close(); });
+  // a tap on the dimmed backdrop (the dialog element itself, outside its box) closes it
+  dlg.addEventListener("click", function (e) {
+    var r = dlg.getBoundingClientRect();
+    if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
+  });
+
+  /* ⛔ THE UNLOCK MUST NOT DEPEND ON THE "close" EVENT.
+     The first version released the scroll lock from dlg's "close" listener.
+     Measured 16 Sept in Chromium: dlg.close() removed the panel correctly but
+     the "close" event never fired — not even for a listener attached moments
+     earlier — so the page stayed at overflow:hidden. On a phone that is the
+     whole site frozen: the tree is driven by scroll, and one tap of "Read
+     more" would have left it unable to move.
+     The dialog's own `open` attribute is the source of truth instead. close(),
+     the Esc key and a backdrop tap all remove it synchronously, and a
+     MutationObserver reports that reliably. The events stay as a fallback;
+     release() is idempotent, so a double call is harmless. */
+  function release() {
+    html.classList.remove("moredlg-open");
+    if (opener) { var o = opener; opener = null; o.focus({ preventScroll: true }); }
+  }
+  new MutationObserver(function () { if (!dlg.open) release(); })
+    .observe(dlg, { attributes: true, attributeFilter: ["open"] });
+  dlg.addEventListener("close", release);
+  dlg.addEventListener("cancel", function () { setTimeout(release, 0); });   // Esc
+})();

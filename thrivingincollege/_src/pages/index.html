@@ -132,6 +132,18 @@
     <div class="hr"></div>
     <div class="split">
       <div class="col">
+        <!-- ⭐ .more = collapsed to a few lines ON PHONES ONLY, with "Read more"
+             opening the full text in a modal panel (#moredlg) rather than
+             growing the card. Added 16 Sept after Michael's iPhone showed this
+             card 222px taller than the screen: its top slid under the
+             masthead and "Order the Thriving Package" fell off the bottom.
+             ⛔ Do not make "Read more" expand the card inline. That was the
+             first idea, and Michael caught it — it puts the card straight back
+             off the screen. Movement cards are fixed overlays on a
+             scroll-driven film; they cannot grow.
+             Desktop and reduced-motion (html.static) are untouched: all words
+             visible, no button. The text itself is unchanged and verbatim. -->
+        <div class="more" id="more-def" style="--lines:3">
         <!-- Her definition, verbatim from the live site. This is a research
              definition with citations attached, not marketing copy, and the
              rebuild had paraphrased it. Do not tighten it. -->
@@ -144,6 +156,8 @@
              "we got nothing that says what the thriving quotient is").
              Placeholder wording for launch; Laurie decides the final phrasing. -->
         <p>Thriving is measured by Dr. Schreiner's Thriving Quotient.</p>
+        </div>
+        <button type="button" class="readmore" aria-controls="more-def" aria-haspopup="dialog" data-title="What does it mean to thrive in college?">Read more</button>
       </div>
       <figure class="vid col" id="vid">
         <!-- preload="none": nothing is fetched until the first tap, so the film
@@ -208,9 +222,16 @@
     <p class="eyebrow">02 &mdash; The Thriving Quotient</p>
     <h2 id="m2b">How is thriving measured?</h2>
     <div class="hr"></div>
+    <!-- .more-short: collapses ONLY on short phones (iPhone SE / mini with
+         Safari bars showing), where this card measured 40px too tall. It fits
+         on every standard iPhone, so there it stays fully open. Our copy,
+         not hers. -->
+    <div class="more-short" id="more-tq" style="--lines:5">
     <p>The Thriving Quotient is the instrument Dr. Schreiner built to put a number on all three parts of that definition. It reports five scales: Engaged Learning and Academic Determination for the intellectual side, Social Connectedness and Diverse Citizenship for the interpersonal, and Positive Perspective for the psychological.</p>
     <p>Students answer twenty-four items. Every scale reports separately, and because each factor it measures is open to change, a score points at something a campus can act on rather than something it can only observe.</p>
     <p>The questionnaire itself is called a Thriving Instrument, and there are seven of them &mdash; one for each population on campus, built on the same scales so results can be read side by side.</p>
+    </div>
+    <button type="button" class="readmore readmore-short" aria-controls="more-tq" aria-haspopup="dialog" data-title="How is thriving measured?">Read more</button>
     <p class="cta-row"><a class="btn btn--secondary" href="/instruments/">See the seven instruments</a></p>
   </section>
 
@@ -230,7 +251,12 @@
         <!-- Her own bio, verbatim from the live site. The rebuild had rewritten
              it, including an editorial flourish about "asking a better question"
              that she has never said about herself. -->
+        <!-- .more on phones only — same mechanism and same reason as movement 1.
+             This card measured 146px taller than a standard iPhone screen. -->
+        <div class="more" id="more-bio" style="--lines:3">
         <p>Dr. Laurie Schreiner is Professor Emerita of Higher Education at Azusa Pacific University in southern California, having spent 45 years in higher education as a psychology professor and associate academic dean after receiving her PhD in Psychology from the University of Tennessee. Co-author of The Student Satisfaction Inventory that is used on over 1,600 campuses across the US and Canada, she has published numerous journal articles and book chapters on thriving, positive psychology, engaged learning, sophomore success, faculty development, and advising.</p>
+        </div>
+        <button type="button" class="readmore" aria-controls="more-bio" aria-haspopup="dialog" data-title="Who created the Thriving Quotient?">Read more</button>
         <div class="stat">
           <div><b>45</b><span>Years in higher education</span></div>
           <div><b>7</b><span>Instruments</span></div>
@@ -434,6 +460,21 @@
     <p class="colophon">© 2026 The Thriving Project · Dr. Laurie A. Schreiner · 1368 Upland Hills Drive S, Upland, CA 91786</p>
   </div>
 </footer>
+
+<!-- The "Read more" panel for phones. One dialog, filled on demand by cloning
+     the collapsed block the button names in aria-controls, so the text lives
+     in the page exactly once. Outside #stage on purpose: showModal() renders
+     in the top layer, so no transform, clip or fixed stacking context in the
+     film can clip it. It carries its own max-height and scrolls inside
+     itself, which is what lets "Read more" show everything without ever
+     making a movement card taller. -->
+<dialog class="moredlg" id="moredlg" aria-labelledby="moredlg-h">
+  <div class="moredlg__bar">
+    <p class="moredlg__h" id="moredlg-h"></p>
+    <button type="button" class="moredlg__x" aria-label="Close">&times;</button>
+  </div>
+  <div class="moredlg__body"></div>
+</dialog>
 
 <script src="/js/home.js" defer></script>
 </body>
