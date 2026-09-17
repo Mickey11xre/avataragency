@@ -63,3 +63,10 @@
 /* Legal pages: dense text, dated */
 .legal .prose h2 { font-size: var(--step-1); }
 .legal .dated { color: var(--text-3); font-size: var(--step-sm); margin-block-end: var(--sp-m); }
+
+/* About page photo (17 Sept): sits under the intro box at the same width (the
+   font-size makes 68ch resolve to the capsule's width, which is set in ch at step-1),
+   with the site's asymmetric card corners. */
+.about-photo { font-size: var(--step-1); max-width: var(--measure); margin: 0 0 var(--sp-m); border-radius: 2px 18px 2px 18px; overflow: hidden;
+  box-shadow: 0 14px 34px rgba(0,0,0,.14), 0 0 0 1px rgba(28,51,39,.10); }
+.about-photo img { display: block; width: 100%; height: auto; }
