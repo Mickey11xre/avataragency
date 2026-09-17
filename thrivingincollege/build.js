@@ -169,7 +169,7 @@ function transform(html, file) {
   const ga = ga4Snippet();
   if (ga) s = s.replace(/<\/head>/, ga + '\n</head>');
   // prefix root-relative href/src/poster/action/data-* — but never protocol, hash, mailto or //
-  s = s.replace(/\b(href|src|poster|action|data-api|data-assets|data-href)="\/(?!\/)/g, (m, a) => `${a}="${BASE}/`);
+  s = s.replace(/\b(href|src|srcset|poster|action|data-api|data-assets|data-href)="\/(?!\/)/g, (m, a) => `${a}="${BASE}/`);
   // url("/assets/…") inside inline <style> blocks (the homepage's two image custom properties)
   s = s.replace(/url\("\/(?!\/)/g, `url("${BASE}/`);
   if (STAGING && !/name="robots"/.test(s)) {

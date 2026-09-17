@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://thrivingincollege.org/">
 <link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=ddde7eb1">
 <link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=cbcda8c4">
-<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=da14bed8">
+<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=7db4cf87">
 <!-- No frame preload: the engine picks the right set (desktop or frames-m)
      and requests frame 0 in its first sparse pass milliseconds later. A
      static preload would fetch the desktop frame on a phone and waste it. -->
@@ -270,7 +270,16 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
        card stays on the homepage. -->
   <section class="leaf l wide" data-i="2" aria-labelledby="m2">
     <div class="split rev">
-      <figure class="bigpf col"><img src="/thrivingincollege/assets/portrait.webp" alt="Dr. Laurie A. Schreiner" width="640" height="800"></figure>
+      <!-- Two crops of one photograph (Michael, 16 Sept). Desktop gives the
+           portrait a tall column beside the text, so it gets a 4:5 crop; phones
+           give it a ~1.8:1 strip across the top of the card, so they get the
+           full landscape frame. One crop for both would be cut to a sliver in
+           one of them by object-fit: cover. The 860px breakpoint is the one
+           home.css uses to turn the column into the strip. -->
+      <figure class="bigpf col"><picture>
+        <source media="(max-width: 860px)" srcset="/thrivingincollege/assets/portrait-office-wide.webp" width="1000" height="568">
+        <img src="/thrivingincollege/assets/portrait-office.webp" alt="Dr. Laurie A. Schreiner" width="800" height="1000">
+      </picture></figure>
       <div class="col">
         <p class="eyebrow">03 &mdash; The Researcher</p>
         <h2 id="m2">Who created the Thriving Quotient?</h2>
