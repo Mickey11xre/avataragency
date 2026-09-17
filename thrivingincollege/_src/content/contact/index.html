@@ -5,10 +5,9 @@
   "h1": "Contact",
   "crumb": "Contact",
   "nav": "about",
-  "capsule": "We look forward to hearing from you. For orders, invoices and researcher permissions there is a direct route below; for anything else, send a message or call."
+  "capsule": "We look forward to hearing from you. For orders, invoices and researcher permissions there is a direct route below; for anything else, you can fill out the form below."
 }-->
-  <section class="section" aria-labelledby="details">
-    <h2 id="details">Reach us</h2>
+  <section class="section" aria-label="Send a message or write to us">
     <!-- 17 Sept 2026 (Michael + Stephanie): the "Email and phone" card became
          this form, and the phone number moved into the address card. Messages
          go through /api/contact to the same inboxes as every other site intake
@@ -16,7 +15,7 @@
          JavaScript the form still posts and lands on /contact/sent/. -->
     <div class="contact contact--form" style="margin-block-start: var(--sp-s)">
       <div class="card">
-        <h3 style="font-size:var(--step-1)">Send a message</h3>
+        <h2 style="font-size:var(--step-1)">Send a message</h2>
         <form id="contact-form" method="post" action="/api/contact" novalidate>
           <div class="fields">
             <div class="field">
@@ -65,7 +64,7 @@
         </form>
       </div>
       <div class="card">
-        <h3 style="font-size:var(--step-1)">Mailing address</h3>
+        <h2 style="font-size:var(--step-1)">Mailing address</h2>
         <address style="margin-block-start:var(--sp-2xs)">
           Dr. Laurie A. Schreiner, Director<br>
           The Thriving Project<br>
