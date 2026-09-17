@@ -2,7 +2,7 @@
    Opens on the hamburger; closes on X, swipe-down, system back and Esc.
    Focus is trapped inside and returned to the trigger; body scroll is
    locked and restored. The links are real <a href> in the served HTML —
-   this file only adds the overlay behaviour. */
+   this file only adds the overlay behavior. */
 (function () {
   'use strict';
   var drawer = document.getElementById('drawer');

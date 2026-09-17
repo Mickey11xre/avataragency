@@ -85,7 +85,7 @@ html.home, .home body { background: #0B0F0C; }
   will-change: transform, opacity; backface-visibility: hidden; }
 .leaf::after { content: ""; position: absolute; left: 0; top: 14%; bottom: 14%; width: 2px;
   background: linear-gradient(to bottom, rgba(28,51,39,0), rgba(28,51,39,.35), rgba(28,51,39,0)); }
-/* Cards centre in the space BELOW the masthead, not in the whole viewport.
+/* Cards center in the space BELOW the masthead, not in the whole viewport.
    With the JS `translateY(-50%)`, `top:50%` put the hero card's top edge at
    67px on a 768px-tall window — 45px inside a nav band that starts at 0. It
    only cleared above 859px of viewport height, so every normal laptop was in
@@ -147,14 +147,14 @@ html.home, .home body { background: #0B0F0C; }
 .split.rev { grid-template-columns: .82fr 1fr; }
 .hero .split { grid-template-columns: .82fr 1.28fr; align-items: center; }
 .col { min-width: 0; }
-/* The order CTA sits under the VIDEO, not under the card. Centring it on the
-   card put it at x=590 when the video's centre is x=775, so it landed under
+/* The order CTA sits under the VIDEO, not under the card. Centering it on the
+   card put it at x=590 when the video's center is x=775, so it landed under
    the gutter between the two columns and read as misplaced. This mirrors
    .hero .split's own track sizes and gap so the two stay aligned by
    construction — change one, change both. */
-/* Two matched buttons, centred as a pair (Stephanie, 15 Sept). It used to be
+/* Two matched buttons, centered as a pair (Stephanie, 15 Sept). It used to be
    a single button parked in the right-hand track to sit under the video; with
-   two it is a centred row, so neither reads as the afterthought the text link
+   two it is a centered row, so neither reads as the afterthought the text link
    had become. */
 .heroreg { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
   gap: clamp(10px,1.2vw,18px); margin-top: clamp(14px,1.7vw,24px); }
@@ -171,10 +171,10 @@ html.home, .home body { background: #0B0F0C; }
   box-shadow: 0 20px 46px rgba(0,0,0,.40), 0 0 0 1px rgba(28,51,39,.20); }
 /* ⛔ inset:-1px and +2px, NOT inset:0 and 100%. The figure lays out at a
    FRACTIONAL width (528.39px at 1440), so the rounded clip falls on a
-   sub-pixel boundary while the video rasterises to whole pixels. The strip
+   sub-pixel boundary while the video rasterizes to whole pixels. The strip
    left over showed the white background through — a pale seam down the right
    edge and into the 16px bottom-left curve. Every gap measured 0.00, so this
-   is rasterisation, not a layout gap, and no amount of width:100% fixes it.
+   is rasterization, not a layout gap, and no amount of width:100% fixes it.
    Overshooting by a pixel means the clip always cuts into the video itself
    and nothing behind can ever show. With object-fit:cover the 0.4% is
    invisible. Reported by Michael 12 Sept.
@@ -195,7 +195,7 @@ html.home, .home body { background: #0B0F0C; }
 .vplay__glyph { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
   width: clamp(52px, 13%, 82px); aspect-ratio: 1 / 1; pointer-events: none;
   transition: opacity .25s ease, transform .25s ease; }
-/* Transparent centre, plain shadow, no halo — Michael's call twice over
+/* Transparent center, plain shadow, no halo — Michael's call twice over
    (12 Sept): the white disc read as heavy and the glow that replaced it read
    worse. He has the contrast figure and chose the cleaner mark.
    For whoever revisits this: the glyph sits ENTIRELY over the dark half of
@@ -307,8 +307,8 @@ html.home, .home body { background: #0B0F0C; }
   box-shadow: 0 18px 34px rgba(0,0,0,.34), 0 1px 0 rgba(255,255,255,.13) inset; border: 1px solid rgba(255,255,255,.10); }
 /* The photograph. Bleeds edge to edge (negative margins cancel the face
    padding) and melts into the card's own gradient top and bottom, so it reads
-   as part of the object rather than a sticker on it. Natural colour was
-   Michael's call; the melt is what keeps five colour photos from fighting
+   as part of the object rather than a sticker on it. Natural color was
+   Michael's call; the melt is what keeps five color photos from fighting
    the green. Reviewed and approved from the standalone preview, 13 Sept. */
 /* ⛔ An explicit HEIGHT, with no aspect-ratio. Two wrong turns are baked into
    this one line, both reported from an iPhone on 13 Sept:
@@ -389,14 +389,14 @@ html.home, .home body { background: #0B0F0C; }
 .paths a span { display: block; font-size: 12.5px; color: var(--ink-soft); font-family: var(--font-ui); margin-top: 3px; }
 .paths a:hover { border-color: var(--gold); background: #fff; }
 
-/* ---- phones: centred single column, smaller cards -------------------- */
+/* ---- phones: centered single column, smaller cards -------------------- */
 @media (max-width: 860px) {
   #mast { padding: 14px 16px; }
   #mast .word { font-size: 10.5px; letter-spacing: .22em; }
   /* ⛔ Do NOT put max-height + overflow on .leaf. It looks like a safe net for
      short viewports and it breaks the carousel: `overflow-y:auto` forces
      `overflow-x:auto` too, so the flanking cards (which sit up to 270 px from
-     the carousel centre, well outside the 330 px panel) get clipped, and any
+     the carousel center, well outside the 330 px panel) get clipped, and any
      overflow other than `visible` flattens the `preserve-3d` cylinder.
      Cost us the mobile carousel on 2026-09-11. */
   .leaf { width: min(88vw,460px); left: 50% !important; right: auto !important; border-radius: 3px 18px 3px 18px; padding: 20px 20px 24px; }
@@ -547,7 +547,7 @@ html.static .pkg { cursor: default; }
    own height limit and scrolls INSIDE itself — the whole point: all the text
    is reachable and no card ever gets taller. */
 /* ⛔ margin:auto is REQUIRED. tokens.css has a global `* { margin: 0 }` reset,
-   and a modal <dialog> centres itself only through the browser's own
+   and a modal <dialog> centers itself only through the browser's own
    margin:auto — the reset silently wins, and the panel opened pinned to the
    top-left corner. Caught on the first real-tap test, 16 Sept. */
 .moredlg { margin: auto; inset: 0; border: 0; padding: 0; width: min(92vw, 560px); max-height: 82vh;
@@ -557,7 +557,7 @@ html.static .pkg { cursor: default; }
 .moredlg__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding: 10px 12px 10px 20px; border-bottom: 1px solid var(--rule); }
 .moredlg__h { margin: 0; font: 600 10px/1.3 var(--font-ui); letter-spacing: .22em; text-transform: uppercase; color: var(--gold-text); }
-/* The × is a drawn SVG, not the &times; glyph: a font's × sits off-centre in
+/* The × is a drawn SVG, not the &times; glyph: a font's × sits off-center in
    its line box, and on iPhone it read visibly high-left inside the circle.
    The focus ring is inset so it stays a true circle and never touches the
    panel edge (the global ring is offset 2px outward with a square radius). */

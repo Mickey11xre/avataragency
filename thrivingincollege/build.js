@@ -463,5 +463,5 @@ console.log(`built ${changed + same} file(s) to ${OUT}  (BASE="${BASE}", ${STAGI
 {
   const r = require('child_process').spawnSync(process.execPath, [path.join(__dirname, 'check-spelling.js'), OUT], { encoding: 'utf8' });
   process.stdout.write(r.stdout || ''); process.stderr.write(r.stderr || '');
-  if (r.status !== 0) { console.error('BUILD FAILED: British spelling in visible text (above).'); process.exit(1); }
+  if (r.status !== 0) { console.error('BUILD FAILED: British spelling in a served file (above).'); process.exit(1); }
 }

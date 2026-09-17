@@ -113,7 +113,7 @@
 
     <!-- Progressive enhancement. Without JavaScript this form posts to the
          Pages Function, which validates the cart against the committed
-         catalogue and redirects to Stripe. With it, the same request goes
+         catalog and redirects to Stripe. With it, the same request goes
          as JSON and the totals below update as quantities change. The
          server never trusts a price from the browser. -->
     <form id="order-form" method="post" action="/api/checkout" novalidate style="margin-block-start: var(--sp-s)">
@@ -342,7 +342,7 @@
   function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
   function qty(i) { var n = parseInt(i.value, 10); return isNaN(n) || n < 0 ? 0 : Math.min(n, 10); }
 
-  // Display only. The server recounts from the catalogue and Stripe
+  // Display only. The server recounts from the catalog and Stripe
   // applies the coupon; these numbers never leave the page.
   function recalc() {
     var sub = 0, qual = 0, qualSub = 0;

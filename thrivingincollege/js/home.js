@@ -1,6 +1,6 @@
 /* The Thriving Project homepage — scroll-scrubbed growth film.
    Ported from the approved concept (thriveproject/_src/template.html) and
-   generalised to N movements. It is a <canvas> frame sequence, NOT a
+   generalized to N movements. It is a <canvas> frame sequence, NOT a
    <video>: scroll position indexes an array of images, so reverse is free
    and pixel-identical. Do not "simplify" it into a video element.
 
@@ -313,7 +313,7 @@
   ["wheel", "touchstart"].forEach(function (ev) { window.addEventListener(ev, function () { if (tweening) { cancelAnimationFrame(tweening); tweening = null; } }, { passive: true }); });
   // in-page "#start"-style links from the mast scroll the film rather than jumping
   /* Guarded: with no film there is no scroll position to tween to, and
-     cancelling the click would leave the link dead rather than merely
+     canceling the click would leave the link dead rather than merely
      unanimated. Let it navigate normally instead. */
   if (!STATIC) [].slice.call(document.querySelectorAll('a[data-go]')).forEach(function (a) {
     a.addEventListener("click", function (e) { e.preventDefault(); scrollToP(ANCHORS_P[+a.getAttribute("data-go")]); });
@@ -487,7 +487,7 @@
     L.push("canvas " + box(cv) + " display " + css(cv, "display"));
     try { var d = ctx.getImageData(Math.round(cv.width / 2), Math.round(cv.height / 4), 1, 1).data; L.push("canvas pixel " + d[0] + "," + d[1] + "," + d[2]); } catch (e) { L.push("canvas pixel ERR " + e.name); }
     L.push("-- carousel --");
-    L.push("CAR " + (window.CAR ? "alive, ticks " + window.CAR.ticks() : "NULL (never initialised)"));
+    L.push("CAR " + (window.CAR ? "alive, ticks " + window.CAR.ticks() : "NULL (never initialized)"));
     if (window.CAR) { var S = window.CAR.state(); L.push("p " + (isFinite(S.p) ? S.p.toFixed(3) : "NaN!") + " cw " + S.cw + " rw " + S.rw + " x1 " + Math.round(S.x1) + " x2 " + Math.round(S.x2) + " target " + S.target); }
     L.push(".carousel " + box(car) + " opacity " + css(car, "opacity") + " persp " + css(car, "perspective") + " overflow " + css(car, "overflowX") + "/" + css(car, "overflowY"));
     L.push(".cstage " + box(stg) + " style " + css(stg, "transformStyle") + " transform " + String(css(stg, "transform")).slice(0, 42));

@@ -40,7 +40,7 @@
   .nav { display: flex; align-items: center; }
   /* :not(.btn) matters — a bare `.nav a` rule is specificity 0,2,0 and
      silently beats `.btn--primary` at 0,1,0, which paints the button's
-     label in the nav link colour. Measured at 1.11:1 before this. */
+     label in the nav link color. Measured at 1.11:1 before this. */
   .nav a:not(.btn) {
     text-decoration: none; color: var(--ink-soft);
     font-size: var(--step--1); padding-inline: var(--sp-2xs);
@@ -217,7 +217,7 @@
    page. Nav spec §7: this is the crawler path and the no-JS path.     */
 /* Dark green foot, site-wide. --green-deep #244334 is the darkest green with
    a name in the palette; --ink #1C3327 is darker still but it is the text
-   colour and reads as near-black rather than as green.
+   color and reads as near-black rather than as green.
    ⚠️ Everything inside had been written for a PAPER ground — link, heading,
    colophon and both rules were all dark-on-light. Each is re-specified below.
    Miss one and it goes invisible rather than merely looking wrong. */

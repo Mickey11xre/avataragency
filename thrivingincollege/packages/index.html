@@ -7,9 +7,9 @@
 <title>Packages &amp; Pricing — Thriving Quotient campus surveys from $750</title>
 <meta name="description" content="What a Thriving Quotient campus survey costs: survey administration $750, basic report $1,500, expanded report $2,500, Thriving Campus package $10,000. Order three or more survey packages and 15% comes off automatically.">
 <link rel="canonical" href="https://thrivingincollege.org/packages/">
-<link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=ddde7eb1">
-<link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=cbcda8c4">
-<link rel="stylesheet" href="/thrivingincollege/css/store.css?v=8702ff65">
+<link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=0274542a">
+<link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=4611b0ac">
+<link rel="stylesheet" href="/thrivingincollege/css/store.css?v=f8cf593c">
 
 <!-- Prices in this file are build-time tokens from _src/data/prices.json,
      which is itself generated from the Stripe account that charges. There
@@ -140,7 +140,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
 
     <!-- Progressive enhancement. Without JavaScript this form posts to the
          Pages Function, which validates the cart against the committed
-         catalogue and redirects to Stripe. With it, the same request goes
+         catalog and redirects to Stripe. With it, the same request goes
          as JSON and the totals below update as quantities change. The
          server never trusts a price from the browser. -->
     <form id="order-form" method="post" action="/thrivingincollege/api/checkout" novalidate style="margin-block-start: var(--sp-s)">
@@ -369,7 +369,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   function money(n) { return '$' + Math.round(n).toLocaleString('en-US'); }
   function qty(i) { var n = parseInt(i.value, 10); return isNaN(n) || n < 0 ? 0 : Math.min(n, 10); }
 
-  // Display only. The server recounts from the catalogue and Stripe
+  // Display only. The server recounts from the catalog and Stripe
   // applies the coupon; these numbers never leave the page.
   function recalc() {
     var sub = 0, qual = 0, qualSub = 0;
@@ -436,7 +436,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   <p class="drawer__sec"><a href="/thrivingincollege/contact/">Contact</a></p>
   <a class="btn btn--primary drawer__cta" href="/thrivingincollege/packages/#order">Order the Thriving Package</a>
 </div>
-<script src="/thrivingincollege/js/drawer.js?v=cd915140" defer></script>
+<script src="/thrivingincollege/js/drawer.js?v=ec590fc0" defer></script>
 
 </body>
 </html>

@@ -8,11 +8,15 @@
  * analyse. Nobody chose it. No spec set a spelling standard, and check-copy.js
  * only guards her verbatim passages, so our own prose had no check at all.
  *
- * This scans what a VISITOR or a SEARCH ENGINE reads in the built output:
- * page text, attribute text people see (alt, title, aria-label, placeholder,
- * content=), JSON-LD, llms.txt. It ignores <style>, non-JSON-LD <script>,
- * HTML comments and attribute NAMES — `aria-labelledby` is the HTML spec's
- * own spelling and must stay.
+ * It scans EVERYTHING A BROWSER CAN DOWNLOAD, raw: every built page's full
+ * source (text, meta tags, attributes, JSON-LD, inline scripts, HTML comments),
+ * llms.txt, and the served css/ and js/ files including their comments.
+ * Widened the same day: the first version read only visible text; Michael
+ * asked about "any type of hidden text", and a raw scan found 27 more in CSS
+ * and JS comments plus a debug-panel string. `aria-labelledby` never matches:
+ * it is one word, and the HTML spec's own spelling.
+ * NOT scanned: Pages Functions (server-side, never sent to a browser) and the
+ * build tooling at this directory's root.
  *
  *   node check-spelling.js [dir]   ->  exit 0 clean, exit 1 naming each hit
  *
@@ -69,26 +73,14 @@ const ISE_RE = /\b[a-z]{3,}(?:is(?:e|es|ed|ing|ation|ations|er|ers)|ys(?:e|es|ed
 const ALLOW = [];
 
 const DIR = path.resolve(process.argv[2] || __dirname);
-const SKIP_DIRS = new Set(['_src', 'assets', 'node_modules', '.git', 'functions', 'css', 'js']);
-
-function visibleText(html) {
-  const ld = [];
-  html.replace(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/gi, (m, j) => { ld.push(j); return m; });
-  const attrs = [];
-  html.replace(/\s(?:alt|title|aria-label|placeholder|content|data-title)="([^"]*)"/gi, (m, v) => { attrs.push(v); return m; });
-  const body = html
-    .replace(/<!--[\s\S]*?-->/g, ' ')
-    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
-    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
-    .replace(/<[^>]+>/g, ' ');
-  return [body, ...attrs, ...ld].join('\n')
-    .replace(/&[a-z]+;|&#\d+;/gi, ' ');
-}
+const SKIP_DIRS = new Set(['_src', 'assets', 'node_modules', '.git', 'functions', 'original-site']);
 
 function walk(dir, out = []) {
   for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
     if (e.isDirectory()) { if (!SKIP_DIRS.has(e.name)) walk(path.join(dir, e.name), out); }
     else if (/\.(html|txt|xml)$/i.test(e.name)) out.push(path.join(dir, e.name));
+    // served stylesheets and scripts only, never the build tooling beside them
+    else if (/\.(css|js)$/i.test(e.name) && /^(css|js)$/i.test(path.basename(dir))) out.push(path.join(dir, e.name));
   }
   return out;
 }
@@ -98,10 +90,9 @@ const words = Object.keys(BRITISH).sort((a, b) => b.length - a.length)
 const WORD_RE = new RegExp('\\b(' + words.join('|') + ')\\b', 'gi');
 
 let hits = 0;
-const files = walk(DIR).filter(f => !/[\\/]original-site[\\/]|robots\.txt$|sitemap\.xml$/i.test(f));
+const files = walk(DIR);   // robots.txt and sitemap.xml included: crawlers download them too
 for (const f of files) {
   let text = fs.readFileSync(f, 'utf8');
-  text = /\.html$/i.test(f) ? visibleText(text) : text;
   for (const a of ALLOW) text = text.split(a).join(' ');
   const found = new Map();
   for (const m of text.matchAll(WORD_RE)) {
@@ -122,7 +113,7 @@ for (const f of files) {
 }
 
 if (hits) {
-  console.log(`\ncheck-spelling: ${hits} British spelling(s) in visible text across ${files.length} files. This is a U.S. site — use American spelling.`);
+  console.log(`\ncheck-spelling: ${hits} British spelling(s) in served files across ${files.length} files. This is a U.S. site — use American spelling.`);
   process.exit(1);
 }
 console.log(`check-spelling: ${files.length} files, 0 British spellings`);
