@@ -1,19 +1,68 @@
 <!--meta {
   "title": "Contact — The Thriving Project",
-  "description": "Contact The Thriving Project and Dr. Laurie A. Schreiner: email, phone and mailing address, plus the direct routes for invoices, researcher permissions and orders.",
+  "description": "Contact The Thriving Project and Dr. Laurie A. Schreiner: send a message, call, or write, plus the direct routes for invoices, researcher permissions and orders.",
   "eyebrow": "Contact",
   "h1": "Contact",
   "crumb": "Contact",
   "nav": "about",
-  "capsule": "We look forward to hearing from you. For orders, invoices and researcher permissions there is a direct route below; for anything else, email or call."
+  "capsule": "We look forward to hearing from you. For orders, invoices and researcher permissions there is a direct route below; for anything else, send a message or call."
 }-->
   <section class="section" aria-labelledby="details">
     <h2 id="details">Reach us</h2>
-    <div class="contact" style="margin-block-start: var(--sp-s)">
+    <!-- 17 Sept 2026 (Michael + Stephanie): the "Email and phone" card became
+         this form, and the phone number moved into the address card. Messages
+         go through /api/contact to the same inboxes as every other site intake
+         (info@thrivingincollege.org + michael@avataragency.ai for now). Without
+         JavaScript the form still posts and lands on /contact/sent/. -->
+    <div class="contact contact--form" style="margin-block-start: var(--sp-s)">
       <div class="card">
-        <h3 style="font-size:var(--step-1)">Email and phone</h3>
-        <p style="margin-block-start:var(--sp-2xs)"><a href="mailto:lschreiner@thrivingincollege.org">lschreiner@thrivingincollege.org</a></p>
-        <p><a href="tel:+16268266376">626-826-6376</a></p>
+        <h3 style="font-size:var(--step-1)">Send a message</h3>
+        <form id="contact-form" method="post" action="/api/contact" novalidate>
+          <div class="fields">
+            <div class="field">
+              <label for="name">Your name <span class="req">required</span></label>
+              <input id="name" name="name" type="text" autocomplete="name" required maxlength="120" aria-describedby="err-name">
+              <p class="field__error" id="err-name" hidden></p>
+            </div>
+            <div class="field">
+              <label for="email">Email <span class="req">required</span></label>
+              <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required maxlength="160" aria-describedby="err-email">
+              <p class="field__error" id="err-email" hidden></p>
+            </div>
+            <div class="field">
+              <label for="organization">Institution or organization <span class="opt">optional</span></label>
+              <input id="organization" name="organization" type="text" autocomplete="organization" maxlength="160">
+            </div>
+            <div class="field">
+              <label for="phone">Phone <span class="opt">optional</span></label>
+              <input id="phone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="40">
+            </div>
+            <div class="field field--wide">
+              <label for="topic">What is it about?</label>
+              <select id="topic" name="topic">
+                <option value="general">General question</option>
+                <option value="research">Research permissions or using an instrument</option>
+                <option value="orders">Orders, packages or invoices</option>
+                <option value="speaking">Speaking, webinars or campus visits</option>
+                <option value="other">Something else</option>
+              </select>
+            </div>
+            <div class="field field--wide">
+              <label for="message">Message <span class="req">required</span></label>
+              <textarea id="message" name="message" rows="6" required maxlength="4000" aria-describedby="err-message"></textarea>
+              <p class="field__error" id="err-message" hidden></p>
+            </div>
+            <!-- Honeypot. Hidden from people; bots fill it. -->
+            <div class="field" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
+              <label for="website">Website</label>
+              <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+          </div>
+          <div style="margin-block-start: var(--sp-s)">
+            <button class="btn btn--primary" type="submit" id="contact-submit">Send message</button>
+          </div>
+          <p class="form-error" id="contact-error" role="alert" hidden></p>
+        </form>
       </div>
       <div class="card">
         <h3 style="font-size:var(--step-1)">Mailing address</h3>
@@ -23,6 +72,7 @@
           1368 Upland Hills Drive S<br>
           Upland, CA 91786
         </address>
+        <p class="contact__phone"><a href="tel:+16268266376">626-826-6376</a></p>
       </div>
     </div>
     <!-- Answered from her own site rather than left pending: the footer of
@@ -33,6 +83,46 @@
       <p class="note">General inquiries reach <a href="mailto:Info@thrivingincollege.org">Info@thrivingincollege.org</a>. Research permissions and instrument inquiries reach Dr. Schreiner directly at <a href="mailto:lschreiner@thrivingincollege.org">lschreiner@thrivingincollege.org</a>.</p>
     </div>
   </section>
+
+  <script>
+  (function () {
+    var form = document.getElementById('contact-form');
+    if (!form || !window.fetch) return;           // no JS or no fetch: the plain post still works
+    var btn = document.getElementById('contact-submit');
+    var errBox = document.getElementById('contact-error');
+    var sentUrl = form.action.replace(/\/api\/contact$/, '/contact/sent/');
+    function setErr(name, msg) {
+      var el = document.getElementById('err-' + name), input = document.getElementById(name);
+      if (el) { el.textContent = msg || ''; el.hidden = !msg; }
+      if (input) input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    }
+    function fail(msg) { errBox.textContent = msg; errBox.hidden = false; btn.disabled = false; btn.textContent = 'Send message'; }
+    form.addEventListener('submit', function (ev) {
+      ev.preventDefault();
+      ['name', 'email', 'message'].forEach(function (n) { setErr(n, ''); });
+      errBox.hidden = true;
+      var data = {};
+      Array.prototype.forEach.call(form.elements, function (el) { if (el.name) data[el.name] = el.value; });
+      var first = null;
+      if (data.name.trim().length < 2) { setErr('name', 'Enter your name.'); first = first || 'name'; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) { setErr('email', 'Enter a valid email address.'); first = first || 'email'; }
+      if (data.message.trim().length < 5) { setErr('message', 'Enter a message.'); first = first || 'message'; }
+      if (first) { document.getElementById(first).focus(); return; }
+      btn.disabled = true; btn.textContent = 'Sending…';
+      fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
+        .then(function (res) {
+          if (res.ok && res.body.ok) { window.location.href = sentUrl; return; }
+          if (res.body && res.body.fields) {
+            Object.keys(res.body.fields).forEach(function (k) { setErr(k, res.body.fields[k]); });
+            return fail('Please check the highlighted fields.');
+          }
+          fail('We could not send your message. Please try again, or call 626-826-6376.');
+        })
+        .catch(function () { fail('We could not reach the server. Please try again.'); });
+    });
+  })();
+  </script>
 
   <section class="section" aria-labelledby="routes">
     <h2 id="routes">Direct routes</h2>

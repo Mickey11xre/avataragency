@@ -54,6 +54,11 @@
 .contact { display: grid; gap: var(--sp-s); }
 @media (min-width: 48rem) { .contact { grid-template-columns: 1fr 1fr; } }
 .contact address { font-style: normal; line-height: var(--lh-body); }
+/* Contact form beside the mailing address (17 Sept). The form needs the room:
+   below 64rem the two stack, form first. */
+@media (min-width: 64rem) { .contact--form { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; } }
+.contact--form .fields { margin-block-start: var(--sp-s); }
+.contact__phone { margin-block-start: var(--sp-xs); }
 
 /* Legal pages: dense text, dated */
 .legal .prose h2 { font-size: var(--step-1); }

@@ -387,7 +387,7 @@ if (!STAGING) {
     urls.sort().map(u => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n') + '\n</urlset>\n';
   jobs.push({ rel: 'sitemap.xml', dest: path.join(OUT, 'sitemap.xml'), out: sitemap });
   jobs.push({ rel: 'robots.txt', dest: path.join(OUT, 'robots.txt'),
-    out: `# The Thriving Project — all crawlers welcome, training bots included (v6 §11.5)\nUser-agent: *\nAllow: /\nDisallow: /welcome/\nDisallow: /packages/request-invoice/sent/\n\nSitemap: ${HOST}/sitemap.xml\n` });
+    out: `# The Thriving Project — all crawlers welcome, training bots included (v6 §11.5)\nUser-agent: *\nAllow: /\nDisallow: /welcome/\nDisallow: /packages/request-invoice/sent/\nDisallow: /contact/sent/\n\nSitemap: ${HOST}/sitemap.xml\n` });
 }
 
 /* ---- cache busting -------------------------------------------------------
