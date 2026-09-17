@@ -553,7 +553,9 @@
     body.scrollTop = 0;
     html.classList.add("moredlg-open");
     dlg.showModal();
-    close.focus();
+    // Land on the text, not the ×: iPhone drew the focus ring round the close
+    // button the moment the panel opened. Esc and Tab still reach it.
+    body.focus({ preventScroll: true });
   });
 
   close.addEventListener("click", function () { dlg.close(); });
