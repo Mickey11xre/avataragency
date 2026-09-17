@@ -455,3 +455,13 @@ if (CHECK) {
   process.exit(changed ? 1 : 0);
 }
 console.log(`built ${changed + same} file(s) to ${OUT}  (BASE="${BASE}", ${STAGING ? 'staging, noindex on' : 'LAUNCH, indexable'}; functions -> ${path.relative(process.cwd(), FN_OUT)})`);
+
+// U.S. English on a U.S. site (17 Sept 2026). The first launch shipped
+// "researcher licence", "research programme" and six other British forms in
+// copy we wrote; her own site is American throughout. Fails the build rather
+// than letting one ship again. See check-spelling.js for the word list.
+{
+  const r = require('child_process').spawnSync(process.execPath, [path.join(__dirname, 'check-spelling.js'), OUT], { encoding: 'utf8' });
+  process.stdout.write(r.stdout || ''); process.stderr.write(r.stderr || '');
+  if (r.status !== 0) { console.error('BUILD FAILED: British spelling in visible text (above).'); process.exit(1); }
+}
