@@ -165,6 +165,12 @@
         <label><input type="checkbox" name="instruments" value="staff"> Staff Thriving Quotient</label>
       </div>
     </fieldset>
+    <!-- A nudge, never a block (Michael, 17 Sept). His own test ticked two
+         instruments against one Survey Package: under-quoted by one package,
+         because each population surveyed needs its own. Survey, Basic Report
+         and Expanded Report cover one instrument each; Thriving Campus covers
+         five. The request still sends — a person reviews every quote. -->
+    <p class="form-note" id="coverage-note" role="status" aria-live="polite" hidden></p>
 
     <h2 style="margin-block-start: var(--sp-l)">Terms</h2>
     <div class="fields" style="margin-block-start: var(--sp-s)">
@@ -241,6 +247,22 @@
     errBox.textContent = msg; errBox.hidden = false;
     btn.disabled = false; btn.textContent = 'Send the request';
   }
+
+  // Instruments ticked vs. instruments the chosen packages cover.
+  var note = document.getElementById('coverage-note');
+  function qty(key) { var el = document.getElementById('qty_' + key); return Math.max(0, parseInt(el && el.value, 10) || 0); }
+  function coverage() {
+    var ticked = form.querySelectorAll('input[name="instruments"]:checked').length;
+    var covered = qty('survey') + qty('basic-report') + qty('expanded-report') + 5 * qty('thriving-campus');
+    if (ticked <= covered) { note.hidden = true; note.textContent = ''; return; }
+    var inst = ticked + (ticked === 1 ? ' instrument' : ' instruments');
+    note.textContent = covered === 0
+      ? 'You’ve ticked ' + inst + ' but haven’t chosen a survey package for them yet. Each population you survey needs its own Survey, Basic Report or Expanded Report package; the Thriving Campus package covers five.'
+      : 'You’ve ticked ' + inst + ' and chosen packages that cover ' + covered + '. Each population you survey needs its own package, so you may want to add ' + (ticked - covered) + ' more. If this is what you intend, send the request as it is.';
+    note.hidden = false;
+  }
+  form.addEventListener('input', coverage);
+  form.addEventListener('change', coverage);
 
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();

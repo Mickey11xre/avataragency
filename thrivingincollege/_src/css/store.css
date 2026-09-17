@@ -119,3 +119,11 @@
 .receipt dd { margin: 0; }
 .receipt ul { list-style: none; padding: 0; display: grid; gap: var(--sp-3xs); }
 .receipt li { display: flex; justify-content: space-between; gap: var(--sp-s); font-variant-numeric: tabular-nums; }
+
+/* Invoice form: instruments ticked outnumber what the packages cover.
+   Advisory, not an error — warm, not red (17 Sept). */
+.form-note { margin-block-start: var(--sp-xs); padding: var(--sp-xs) var(--sp-s);
+  border-left: 3px solid var(--gold); background: rgba(154,123,63,.09);
+  border-radius: 0 var(--radius-s) var(--radius-s) 0; color: var(--text);
+  font-size: var(--step-sm); max-width: var(--measure, 65ch); }
+.form-note[hidden] { display: none; }

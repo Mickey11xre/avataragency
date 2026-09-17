@@ -191,6 +191,18 @@ function validate(b) {
   return { r, errors };
 }
 
+// Same rule as the form's advisory note: Survey, Basic Report and Expanded
+// Report cover one instrument each, Thriving Campus covers five. Flags an
+// under-quote for whoever raises the invoice; never rejects the request.
+function coverageWarning(r) {
+  const q = k => (r.items.find(i => i.key === k) || { quantity: 0 }).quantity;
+  const covered = q('survey') + q('basic-report') + q('expanded-report') + 5 * q('thriving-campus');
+  const ticked = r.instruments.length;
+  return ticked > covered
+    ? [`⚠ CHECK QUANTITIES: ${ticked} instrument(s) ticked, but the packages cover ${covered}. Each population surveyed needs its own package.`]
+    : [];
+}
+
 function summarise(r) {
   const lines = r.items.map(i => `${i.quantity} × ${i.name} — ${usd(i.amount)} each`);
   const listTotal = r.items.reduce((n, i) => n + i.quantity * i.amount, 0);
@@ -234,6 +246,7 @@ export async function onRequestPost(context) {
       `Terms requested: ${TERMS[r.terms]}`,
       `W-9 requested: ${r.w9 ? 'yes' : 'no'}`,
       `Instruments: ${r.instruments.length ? r.instruments.map(k => INSTRUMENTS[k]).join(', ') : '(not specified)'}`,
+      ...coverageWarning(r),
       '',
       'Packages:',
       ...s.lines.map(l => '  ' + l),
