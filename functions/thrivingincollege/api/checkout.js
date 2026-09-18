@@ -281,22 +281,12 @@ export async function onRequestPost(context) {
         text: { maximum_length: 60 }
       }
     ],
-    /* ⛔ THE REFUND POLICY LINK IS DELIBERATELY ABSENT, AND IT IS A KNOWN DEBT.
-       Cal. Bus. & Prof. Code §17538 has an online seller disclose its refund
-       policy, legal name and street address before accepting payment. The
-       link used to ride here on the pay button. It was pulled on 16 Sept,
-       with the whole policy page, on Michael's instruction:
-         Laurie disowned the published "no refunds" text on the 4 Sept call
-         ("I don't even know that" … "I'm happy to write a different policy"
-         … "we would, we do have, we would make some"), so the site was
-         publishing a promise she had already contradicted. Removing it beat
-         keeping something untrue, and she is being asked for the real policy
-         now.
-       ⚠️ RESTORE THIS LINE the moment her policy is published. Legal name and
-       street address are still disclosed in every footer, so the gap is the
-       refund term alone — but a seller taking real card payments with NO
-       stated policy is the weaker position of the two, not the safer one. */
-    custom_text: { submit: { message: ACH_NOTE } },
+    // Cal. Bus. & Prof. Code §17538: an online seller must disclose its
+    // refund policy, legal name and street address before accepting payment.
+    // The policy link rides on the pay button; name and address are on the
+    // policy page and every footer. Restored 18 Sept 2026 with Dr. Schreiner's
+    // own policy (it was pulled 16 Sept, a52dd91, when she disowned the 2022 text).
+    custom_text: { submit: { message: ACH_NOTE + ' Refund and cancellation policy: ' + root + '/legal/refunds/' } },
     metadata: {
       store: 'thrivingincollege',
       items: items.map(i => `${i.product.key}x${i.quantity}`).join(','),

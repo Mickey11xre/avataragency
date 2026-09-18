@@ -40,3 +40,4 @@
 # AISO comparison alias (audit A1): one canonical comparison page
 /compare/nsse-alternative/       /compare/thriving-quotient-vs-nsse/                         301
 /compare/nsse-alternative        /compare/thriving-quotient-vs-nsse/                         301
+/refundpolicy                    /legal/refunds/                                             301

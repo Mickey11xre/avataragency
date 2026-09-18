@@ -23,7 +23,7 @@ const pages = [
   '/research/articles/', '/research/articles/meaning-making-as-a-pathway-to-thriving/',
   '/thriving-vs-engagement-retention-belonging/', '/compare/thriving-quotient-vs-nsse/',
   '/about/laurie-schreiner/', '/for-researchers/', '/contact/',
-  '/legal/terms/', '/legal/privacy/', '/legal/disclaimer/', '/legal/protection-of-subjects/'
+  '/legal/terms/', '/legal/privacy/', '/legal/disclaimer/', '/legal/refunds/', '/legal/protection-of-subjects/'
 ];
 const NAV = ['/instruments/', '/packages/', '/research/', '/store/', '/about/laurie-schreiner/'];
 const prefix = staging ? '/thrivingincollege' : '';
