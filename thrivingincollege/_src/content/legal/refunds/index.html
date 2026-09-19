@@ -1,6 +1,6 @@
 <!--meta {
   "title": "Refund and Cancellation Policy — The Thriving Project",
-  "description": "The Thriving Project refund and cancellation policy for survey and report packages, add-ons, webinars and the researcher license, and how to request a refund.",
+  "description": "The Thriving Project refund and cancellation policy for survey and report packages, the Thriving Campus Package, webinars and the researcher license, and how to request a refund.",
   "eyebrow": "Legal",
   "h1": "Refund and Cancellation Policy",
   "crumb": "Refund policy",
@@ -8,55 +8,69 @@
   "crumbs": [{ "name": "Legal", "path": "/legal/terms/" }]
 }-->
   <section class="section legal" aria-label="Refund and cancellation policy">
-    <!-- SOURCE: Dr. Schreiner's own policy, emailed to Michael 18 Sept 2026
-         ("Here's the refund policy that you can shape into the right legal
-         wording"). Six points, reproduced faithfully and only reworded into
-         policy language. It replaces the 2022 "no refunds" page she disowned
-         on the 4 Sept call; that page was removed 16 Sept (a52dd91).
-         Cal. Bus. & Prof. Code §17538: the policy must be disclosed before
-         payment, so it is linked from every footer and on the Stripe pay
-         button (functions/api/checkout.js).
-         ⚠️ PENDING HER CONFIRMATION before deploy — marked [PENDING] below:
-           A. orders SCHEDULED but not yet collecting data (her policy is
-              silent between "before scheduled" and "after data collection")
-           B. the webinar tier "50% if 15 days" read as 15–29 days
-           C. the $10,000 Thriving Campus package (five surveys over a year,
-              webinar included): how the tiers apply to it
-         LABEL: her email says "5% processing fee". Michael, 18 Sept: publish it
-         as "5% cancellation fee" — actual card/ACH processing costs are well
-         under 5%, so "processing fee" could read as misleading.  -->
+    <!-- SOURCE: Dr. Schreiner's own terms, in two emails to Michael (Gmail
+         thread 1a0b2eb795d06d4a): her six-point policy (18 Sept) and her
+         answers to our three follow-up questions (19 Sept). Laid out as one
+         "when you cancel / your refund" table per product so a business
+         office can find its answer in seconds (Michael, 19 Sept: "very clear
+         and simple to understand").
+         Cal. Bus. & Prof. Code §17538: disclosed before payment — linked from
+         every footer and on the Stripe pay button (functions/api/checkout.js).
+         READINGS of her wording, reported to Michael 19 Sept:
+           · Survey packages: "50% cancellation fee if canceled less than 10
+             business days before their scheduled launch date" = a 50% refund;
+             10 or more business days before launch stays full refund less 5%.
+           · Thriving Campus: "90% refund if more than 10 business days from
+             the scheduled launch of the first survey" — she did not state the
+             other case; published as "no refund" after that point.
+           · "5% cancellation fee": her email said "processing fee"; Michael
+             chose "cancellation fee" 18 Sept (actual card fees are ~3%).
+         Earlier version with placeholders: 0853c4c / dff12df. -->
     <div class="prose">
-      <p class="note">Effective 18 September 2026.</p>
-      <p>This policy covers survey packages, report packages, add-ons, webinars and the researcher license purchased from The Thriving Project, whether paid by card, by ACH bank transfer or against an invoice.</p>
+      <p class="note">Effective 19 September 2026.</p>
+      <p>This policy covers everything purchased from The Thriving Project, whether paid by card, by ACH bank transfer or against an invoice. The survey launch date is the date your survey is scheduled to open to respondents.</p>
 
       <h2>Survey and report packages</h2>
-      <ul>
-        <li><strong>Canceled before survey administration is scheduled:</strong> full refund, less a 5% cancellation fee.</li>
-        <!-- [PENDING A] recommended default: treat like "before scheduled" -->
-        <li><strong>Canceled after administration is scheduled but before data collection begins:</strong> full refund, less a 5% cancellation fee.</li>
-        <li><strong>Canceled after data collection has started:</strong> no refund.</li>
-        <li>Additional institution-specific questions and additional demographic variables follow the policy of the survey they are added to.</li>
-        <!-- [PENDING C] recommended default: apply per survey -->
-        <li>For the Thriving Campus Package, these terms apply to each of its surveys separately; its webinar follows the webinar terms below.</li>
-      </ul>
+      <p>Survey Package, Basic Report Package and Expanded Report Package.</p>
+      <table class="refund-table">
+        <thead><tr><th scope="col">When you cancel</th><th scope="col">Your refund</th></tr></thead>
+        <tbody>
+          <tr><td>Before your survey is scheduled, or 10 or more business days before its launch date</td><td>Full refund, less a 5% cancellation fee</td></tr>
+          <tr><td>Fewer than 10 business days before the launch date</td><td>50% refund</td></tr>
+          <tr><td>After data collection has started</td><td>No refund</td></tr>
+        </tbody>
+      </table>
+      <p>Additional institution-specific questions and additional demographic variables follow the same terms as the survey they are added to.</p>
 
-      <h2>ACH bank payments</h2>
-      <p>An ACH payment canceled while it is still clearing is refunded, less a 5% cancellation fee.</p>
+      <h2>Thriving Campus Package</h2>
+      <table class="refund-table">
+        <thead><tr><th scope="col">When you cancel</th><th scope="col">Your refund</th></tr></thead>
+        <tbody>
+          <tr><td>More than 10 business days before the first survey's launch date</td><td>90% refund</td></tr>
+          <tr><td>Within 10 business days of the first survey's launch date, or later</td><td>No refund</td></tr>
+        </tbody>
+      </table>
+      <p>The webinar included in the package is not refundable, but you are welcome to reschedule it.</p>
 
-      <h2>Webinars</h2>
-      <p>You are welcome to reschedule a webinar. If you cancel instead:</p>
-      <ul>
-        <li><strong>30 days or more before the scheduled date:</strong> 90% refund.</li>
-        <!-- [PENDING B] "50% if 15 days" read as 15 to 29 days -->
-        <li><strong>15 to 29 days before:</strong> 50% refund.</li>
-        <li><strong>Fewer than 15 days before:</strong> no refund.</li>
-      </ul>
+      <h2>Webinars booked on their own</h2>
+      <table class="refund-table">
+        <thead><tr><th scope="col">When you cancel</th><th scope="col">Your refund</th></tr></thead>
+        <tbody>
+          <tr><td>30 or more days before the webinar</td><td>90% refund</td></tr>
+          <tr><td>15 to 29 days before</td><td>50% refund</td></tr>
+          <tr><td>Fewer than 15 days before</td><td>No refund</td></tr>
+        </tbody>
+      </table>
+      <p>You are always welcome to reschedule a webinar instead of canceling it.</p>
 
       <h2>Researcher license</h2>
       <p>The {{price:researcher}} researcher license is non-refundable.</p>
 
+      <h2>ACH bank payments</h2>
+      <p>An ACH payment canceled while it is still clearing is refunded, less a 5% cancellation fee.</p>
+
       <h2>How to request a refund</h2>
-      <p>Refund and cancellation requests must be made in writing, by email to <a href="mailto:info@thrivingincollege.org">info@thrivingincollege.org</a>. Please include your institution, your order or invoice number, and what you are canceling. Approved refunds are returned to the original payment method.</p>
+      <p>Send your request in writing to <a href="mailto:info@thrivingincollege.org">info@thrivingincollege.org</a>. Include your institution, your order or invoice number, and what you are canceling. Approved refunds are returned to the original payment method.</p>
 
       <p>The Thriving Project · Dr. Laurie Schreiner, doing business as The Thriving Project · 1368 Upland Hills Drive S, Upland, CA 91786</p>
       <p>Related: <a href="/legal/terms/">Terms and Conditions</a> &middot; <a href="/packages/">Packages &amp; Pricing</a> &middot; <a href="/contact/">Contact</a></p>

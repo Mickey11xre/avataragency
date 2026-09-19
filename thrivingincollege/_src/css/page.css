@@ -75,3 +75,10 @@
    margin then collapses with the heading's, so this margin sets the gap. */
 .about-photo + .section { padding-block-start: 0; }
 .about-photo { margin-block-end: 60px; }
+
+/* Refund policy tables (19 Sept): two plain columns that fit a phone without
+   sideways scrolling — unlike .cmp, which is built for wide comparisons. */
+.refund-table { border-collapse: collapse; width: 100%; max-width: var(--measure); margin-block: var(--sp-xs) var(--sp-s); font-size: var(--step-sm); }
+.refund-table th, .refund-table td { text-align: left; vertical-align: top; padding: var(--sp-2xs) var(--sp-xs); border-block-end: 1px solid var(--rule-soft); }
+.refund-table thead th { font-family: var(--font-ui); font-size: var(--step--1); letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); border-block-end-color: var(--rule); }
+.refund-table td:last-child { font-weight: 600; width: 42%; }
