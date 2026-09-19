@@ -213,7 +213,7 @@ if (fs.existsSync(tplPath)) {
      do not have renders as nothing rather than as a guess. */
   const rowsHtml = (rows, cls) => `<ul class="scales ${cls}" style="margin-block-start: var(--sp-s)">\n` +
     rows.map(s => {
-      const meta = s.alpha ? `\n              <p class="scale__meta"><span>α <b>${esc(s.alpha)}</b></span></p>` : '';
+      const meta = s.alpha ? `\n              <p class="scale__meta"><span>α = <b>${esc(s.alpha)}</b></span></p>` : '';
       const sample = s.sample
         ? `\n              <p class="scale__sample"><span class="scale__samplelab">Sample item</span> “${esc(s.sample)}”</p>` : '';
       return `          <li class="scale">

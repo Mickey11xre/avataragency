@@ -9,38 +9,38 @@
       "population": "undergraduate students",
       "source_url": "https://www.thrivingincollege.org/undergradtq",
       "description": "The Thriving Quotient undergraduate instrument: what it measures, its scales, how administration works, sample items, and what a campus survey costs.",
-      "capsule": "The Undergraduate Thriving Quotient™ (TQ) is a reliable (α = .89), valid instrument that was developed to measure the academic, social, and psychological aspects of undergraduate students’ college experience that are most predictive of academic success, institutional fit, satisfaction with college, and ultimately graduation.",
+      "capsule": "The Undergraduate Thriving Quotient™ (TQ) is a reliable (α = .91), valid instrument that was developed to measure the academic, social, and psychological aspects of undergraduate students’ college experience that are most predictive of academic success, institutional fit, satisfaction with college, and ultimately graduation.",
       "items": "24",
-      "alpha": ".89",
+      "alpha": ".91",
       "scales_intro": "The 24 items on the TQ cluster onto five scales:",
       "scales": [
         {
           "name": "Engaged Learning",
-          "alpha": ".87",
+          "alpha": ".83",
           "def": "A measure of the degree to which students are meaningfully processing what happens in class and energized by what they are learning.",
           "sample": "I feel energized by the ideas I am learning in most of my classes."
         },
         {
           "name": "Academic Determination",
-          "alpha": ".84",
+          "alpha": ".83",
           "def": "A measure of students’ goal-directedness, investment of effort, and regulation of their own learning and use of time.",
           "sample": "I am confident I will reach my educational goals."
         },
         {
           "name": "Positive Perspective",
-          "alpha": ".78",
+          "alpha": ".75",
           "def": "A measure of students’ optimism and explanatory style.",
           "sample": "I look for the best in situations, even when things seem hopeless."
         },
         {
           "name": "Social Connectedness",
-          "alpha": ".83",
+          "alpha": ".84",
           "def": "A measure of students’ involvement in healthy relationships and social support networks, whether on or off campus.",
           "sample": "I feel like my friends really care about me."
         },
         {
           "name": "Diverse Citizenship",
-          "alpha": ".79",
+          "alpha": ".78",
           "def": "A measure of students’ desire to make a difference in the community around them, as well as their openness to differences in others.",
           "sample": "I value interacting with people whose viewpoints are different from my own."
         }
@@ -62,7 +62,7 @@
         {
           "name": "Spirituality",
           "alpha": ".93",
-          "def": "A measure of the degree to which students have a sense of meaning and purpose in their life that provides strengths during difficult times.",
+          "def": "A measure of the degree to which students have a sense of meaning and purpose in their life that provides strength during difficult times.",
           "sample": "My spiritual or religious beliefs provide me with a sense of strength when life is difficult."
         },
         {
@@ -90,11 +90,12 @@
           "sample": "How often this year have you participated in campus organizations?"
         }
       ],
-      "closing": "In addition to these predictive pathways, the instrument assesses students’ satisfaction with learning, advising, peer interactions, their living situation, mental and physical health, and overall satisfaction with their college experience. The TQ also measures the degree to which students are certain of their major, as well as demographic characteristics such as gender, age, race/ethnicity, household income, generation status, high school GPA, class level, athlete status, whether they live on campus, hours per week they work, and whether the institution was their first choice at enrollment. Target group reports can be requested on any of these demographic characteristics to determine whether thriving levels are significantly different across subpopulations of students.",
+      "closing": "In addition to these predictive pathways, the instrument assesses students’ satisfaction with learning, advising, peer interactions, their living situation, mental and physical health, and overall satisfaction with their college experience. The TQ also measures the degree to which students are certain of their major, as well as demographic characteristics such as gender, age, race/ethnicity, household income, generation status, high school GPA, class level, athlete status, whether they live on campus, hours per week they work, and whether the institution was their first choice at enrollment.",
       "notes": "",
       "citations": [
         "Schreiner, L. A. (2010c). The “Thriving Quotient”: A new vision for student success. About Campus, 15 (2), 2-10."
-      ]
+      ],
+      "admin": "The cost of the instrument varies by the package purchased. Package costs vary by the services and reports included."
     },
     {
       "slug": "sophomore",
@@ -129,7 +130,7 @@
         },
         {
           "name": "Social Connectedness",
-          "alpha": ".83",
+          "alpha": ".86",
           "def": "A measure of students’ involvement in healthy relationships and social support networks, whether on or off campus.",
           "sample": "I feel like my friends really care about me."
         },
@@ -157,7 +158,7 @@
         {
           "name": "Spirituality",
           "alpha": ".93",
-          "def": "A measure of the degree to which students have a sense of meaning and purpose in their life that provides strengths during difficult times.",
+          "def": "A measure of the degree to which students have a sense of meaning and purpose in their life that provides strength during difficult times.",
           "sample": "My spiritual or religious beliefs are a source of meaning and purpose in my life."
         },
         {
@@ -185,12 +186,13 @@
           "sample": "How often this year have you participated in campus organizations?"
         }
       ],
-      "closing": "In addition to these predictive pathways, the online survey assesses sophomore-specific items, such as how often students have participated in any sophomore programming at their university, the extent to which they have participated in service-learning courses or learning communities, and how they have experienced their sophomore classes and entire experience compared to their first year of college. The survey also assesses students’ satisfaction with learning, advising, peer interactions, their living situation, mental and physical health, and overall satisfaction with their sophomore year. Additional items include the degree to which students are certain of their major, as well as demographic characteristics such as gender, age, race/ethnicity, household income, generation status, high school GPA, athlete status, whether they live on campus, hours per week they work, and whether the institution was their first choice at enrollment. Target group reports can be requested on any of these demographic characteristics to determine whether thriving or satisfaction levels are significantly different across subpopulations of sophomores.",
+      "closing": "In addition to these predictive pathways, the online survey assesses sophomore-specific items, such as how often students have participated in any sophomore programming at their university, the extent to which they have participated in service-learning courses or learning communities, and how they have experienced their sophomore classes and entire experience compared to their first year of college. The survey also assesses students’ satisfaction with learning, advising, peer interactions, their living situation, mental and physical health, and overall satisfaction with their sophomore year. Additional items include the degree to which students are certain of their major, as well as demographic characteristics such as gender, age, race/ethnicity, household income, generation status, high school GPA, athlete status, whether they live on campus, hours per week they work, and whether the institution was their first choice at enrollment.",
       "notes": "",
       "citations": [
         "Schreiner, L. A. (2010c). The “Thriving Quotient”: A new vision for student success. About Campus, 15 (2), 2-10.",
         "Young, D. G., Schreiner, L. A., & McIntosh, E. J. (2015). Investigating sophomore student success: The National Survey of Sophomore-Year Initiatives and the Sophomore Experiences Survey – 2014 (Research Report No. 6) . Columbia, SC: University of South Carolina, National Resource Center for The First-Year Experience & Students in Transition."
-      ]
+      ],
+      "admin": "The cost of the instrument varies by the package purchased. Package costs vary by the services and reports included."
     },
     {
       "slug": "adult-learner",
@@ -253,7 +255,7 @@
         {
           "name": "Spirituality",
           "alpha": ".93",
-          "def": "A measure of the degree to which students have a sense of meaning and purpose in their life that provides strengths during difficult times.",
+          "def": "A measure of the degree to which students have a sense of meaning and purpose in their life that provides strength during difficult times.",
           "sample": "My spiritual or religious beliefs provide me with a sense of strength when life is difficult."
         },
         {
@@ -275,11 +277,12 @@
           "sample": "How satisfied are you with the quality of the interactions you have had with your instructors so far this year?"
         }
       ],
-      "closing": "In addition to these predictive pathways, the instrument assesses students’ satisfaction with learning, advising, peer interactions, their living situation, mental and physical health, and overall satisfaction with their college experience. The Adult TQ also measures the degree to which students feel going back to college has impacted the significant people in their lives, and includes such demographic characteristics as gender, age, race/ethnicity, marital status, parental status, household income, generation status, high school GPA, type of program, hours per week they work, and whether the institution was their first choice at enrollment. Target group reports can be requested on any of these demographic characteristics to determine whether thriving levels are significantly different across subpopulations of adult students.",
+      "closing": "In addition to these predictive pathways, the instrument assesses students’ satisfaction with learning, advising, peer interactions, their living situation, mental and physical health, and overall satisfaction with their college experience. The Adult TQ also measures the degree to which students feel going back to college has impacted the significant people in their lives, and includes such demographic characteristics as gender, age, race/ethnicity, marital status, parental status, household income, generation status, high school GPA, type of program, hours per week they work, and whether the institution was their first choice at enrollment.",
       "notes": "",
       "citations": [
         "Schreiner, L. A. (2010c). The “Thriving Quotient”: A new vision for student success. About Campus, 15 (2), 2-10."
-      ]
+      ],
+      "admin": "The cost of the instrument varies by the package purchased. Package costs vary by the services and reports included."
     },
     {
       "slug": "graduate",
@@ -342,7 +345,7 @@
         {
           "name": "Spirituality",
           "alpha": ".93",
-          "def": "A measure of the degree to which students have a sense of meaning and purpose in their life that provides strengths during difficult times.",
+          "def": "A measure of the degree to which students have a sense of meaning and purpose in their life that provides strength during difficult times.",
           "sample": "My spiritual or religious beliefs provide me with a sense of strength when life is difficult."
         },
         {
@@ -358,11 +361,12 @@
           "sample": "How satisfied are you with the quality of the interactions you have had with your instructors so far this year?"
         }
       ],
-      "closing": "In addition to these predictive pathways, the instrument assesses students’ satisfaction with learning, advising, peer interactions, their living situation, mental and physical health, and overall satisfaction with their graduate school experience. The Grad TQ also measures the degree to which students feel their program is a good fit for them, as well as demographic characteristics such as gender, age, race/ethnicity, marital status, parental status, household income, generation status, undergraduate GPA, type of program, hours per week they work, and whether the institution was their first choice at enrollment. Target group reports can be requested on any of these demographic characteristics to determine whether thriving levels are significantly different across subpopulations of students.",
+      "closing": "In addition to these predictive pathways, the instrument assesses students’ satisfaction with learning, advising, peer interactions, their living situation, mental and physical health, and overall satisfaction with their graduate school experience. The Grad TQ also measures the degree to which students feel their program is a good fit for them, as well as demographic characteristics such as gender, age, race/ethnicity, marital status, parental status, household income, generation status, undergraduate GPA, type of program, hours per week they work, and whether the institution was their first choice at enrollment.",
       "notes": "",
       "citations": [
         "Schreiner, L. A. (2010c). The “Thriving Quotient”: A new vision for student success. About Campus, 15 (2), 2-10."
-      ]
+      ],
+      "admin": "The cost of the instrument varies by the package purchased. Package costs vary by the services and reports included."
     },
     {
       "slug": "community-college",
@@ -372,18 +376,50 @@
       "population": "community college students",
       "source_url": "https://www.thrivingincollege.org/ccstudenttq",
       "description": "The Community College Student version of the Thriving Quotient: what it measures, how administration works, and what a campus survey costs.",
-      "capsule": "The Community College Student version of the Thriving Quotient contains the same scales as the original Thriving Quotient, but its items have been adapted to more accurately reflect the experiences of students in the community college setting.",
-      "items": "",
-      "alpha": "",
-      "scales_intro": "",
-      "scales": [],
-      "pathways_intro": "",
+      "capsule": "The Community College Thriving Quotient™ (TQ) is a reliable (α = .92), valid instrument that was developed to measure the academic, social, and psychological aspects of undergraduate students’ experience in the community college environment that are most predictive of academic success, institutional fit, satisfaction with college, and ultimately graduation.",
+      "items": "24",
+      "alpha": ".92",
+      "scales_intro": "The 24 items on the TQ cluster onto five scales:",
+      "scales": [
+        {
+          "name": "Engaged Learning",
+          "alpha": ".87",
+          "def": "A measure of the degree to which students are meaningfully processing what happens in class and energized by what they are learning.",
+          "sample": "I feel energized by the ideas I am learning in most of my classes."
+        },
+        {
+          "name": "Academic Determination",
+          "alpha": ".87",
+          "def": "A measure of students’ goal-directedness, investment of effort, and regulation of their own learning and use of time.",
+          "sample": "I am confident I will reach my educational goals."
+        },
+        {
+          "name": "Positive Perspective",
+          "alpha": ".71",
+          "def": "A measure of students’ optimism and explanatory style.",
+          "sample": "I look for the best in situations, even when things seem hopeless."
+        },
+        {
+          "name": "Social Connectedness",
+          "alpha": ".79",
+          "def": "A measure of students’ involvement in healthy relationships and social support networks, whether on or off campus.",
+          "sample": "I feel like my friends really care about me."
+        },
+        {
+          "name": "Diverse Citizenship",
+          "alpha": ".85",
+          "def": "A measure of students’ desire to make a difference in the community around them, as well as their openness to differences in others.",
+          "sample": "I value interacting with people whose viewpoints are different from my own."
+        }
+      ],
+      "pathways_intro": "Examining thriving among community college students developed out of a desire to understand student success more holistically than previous higher education research that had focused solely on student retention. Dr. Amy Azul revised the Thriving Quotient developed by Dr. Laurie Schreiner to fit the community college student’s experience. The items that measure thriving are the same, but the pathways predictive of thriving in the community college setting are different. The Thriving Quotient™ (TQ) uses concepts from positive psychology (i.e., flourishing) and Bean and Eaton’s (2000) retention model to assess thriving, defined as “the experiences of college students who are fully engaged intellectually, socially, and emotionally” (Schreiner, 2010, p. 4). Thriving is not about personality traits, but rather describes malleable qualities within a student, meaning that institutions can teach students to thrive. Dr. Azul’s research has documented specific experiences that serve as significant pathways to student thriving in the community college environment; these pathways are also measured in the online survey.",
       "pathways": [],
       "closing": "Research by Dr. Amy Azul at Victor Valley Community College in southern California",
-      "notes": "<p class=\"note\">The community college instrument's own page states that it carries the same scales as the original Thriving Quotient with items adapted to the community college setting. It publishes no coefficients, definitions or sample items of its own, and none are reproduced here from another instrument: the adapted item set has not been published, and a campus research office would check any figure shown against the literature. The five scale names and definitions are on the <a href=\"/instruments/undergraduate/\">Undergraduate Thriving Quotient</a> page.</p>",
+      "notes": "",
       "citations": [
         "Schreiner, L. A. (2010c). The “Thriving Quotient”: A new vision for student success. About Campus, 15 (2), 2-10."
-      ]
+      ],
+      "admin": "The cost of the instrument varies by the package purchased. Package costs vary by the services and reports included."
     },
     {
       "slug": "faculty",
@@ -412,13 +448,13 @@
         },
         {
           "name": "Relational Support",
-          "alpha": ".79",
+          "alpha": ".81",
           "def": "An indicator of the positive relationships faculty have with their faculty colleagues and staff coworkers, along with the degree to which they feel supported and valued in those relationships.",
           "sample": "I feel valued by my faculty colleagues."
         },
         {
           "name": "Student Impact",
-          "alpha": ".67",
+          "alpha": ".70",
           "def": "A measure of the degree to which faculty believe they make a difference in students’ lives and enjoy working with students.",
           "sample": "I enjoy my work with students."
         },
@@ -432,7 +468,7 @@
       "pathways_intro": "Faculty play a pivotal role in student learning, success, and thriving. Yet faculty often respond to data on student thriving with questions about how students can thrive if faculty themselves are not thriving. Examining thriving among faculty developed out of a desire to understand the faculty experience beyond productivity and satisfaction, as well as to provide institutions with actionable feedback on how to improve the experiences of their faculty so that students could learn and thrive. Dr. Laurie Schreiner (Azusa Pacific University) and Dr. Tami Martinez (Indiana University-South Bend) developed the Faculty Thriving Quotient (FTQ) using concepts from positive psychology (e.g., flourishing) and positive organizational scholarship. Faculty thriving reflects not only what a faculty member does in their faculty role, but also their relationship to the institution where they work and the ways in which they interact with others in that space that bring joy and a sense of meaning and purpose. Research on faculty thriving has discovered that there are specific experiences that serve as significant pathways to thriving in the faculty role. The online instrument assesses these pathways, as well:",
       "pathways": [
         {
-          "name": "Trusted Leadership",
+          "name": "Culture of Trust",
           "alpha": ".97",
           "def": "The strongest contributor to faculty thriving, this scale assesses trust in leadership, as well as support from leadership, effective communication within the institution, leaders’ commitment to faculty well-being, faculty voice in institutional decision-making, whether faculty perceive leaders to be competent, and optimism about the vision and future of the institution.",
           "sample": "There is a solid sense of trust between the faculty and administrators here."
@@ -444,7 +480,7 @@
           "sample": "Faculty are treated equitably at this institution, regardless of their race, ethnicity, or gender."
         },
         {
-          "name": "Work-Life Integration",
+          "name": "Work-Life Balance",
           "alpha": ".81",
           "def": "A measure of the extent to which faculty feel capable of meeting the demands of their role, are able to handle all they are asked to do, and believe that their workload allows for a healthy work/life balance.",
           "sample": "My faculty workload allows me to maintain a healthy work/life balance."

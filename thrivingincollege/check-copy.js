@@ -32,15 +32,21 @@
 const fs = require('fs'), path = require('path');
 const SC = path.join(__dirname, '_src', 'original-site');
 
-// a slug may legitimately draw on more than one source page
+// A slug may legitimately draw on more than one source page. Every slug also
+// reads Dr. Schreiner's written edits of 19 Sept 2026 (original-site/
+// edits-2026-09-19/<slug>.txt, transcribed from her Word file): her newer
+// reliability figures, the Community College content, the Spirituality
+// correction and the Faculty scale renames. A string passes if it is in her
+// old site OR in her own later edits — never if it is only in ours.
+const E = slug => 'edits-2026-09-19/' + slug;
 const MAP = {
-  undergraduate: ['undergradtq'],
-  sophomore: ['sophmoreexperiences'],
-  'adult-learner': ['adultlearnertq'],
-  graduate: ['graduatetq'],
-  'community-college': ['ccstudenttq'],
-  faculty: ['copy-of-faculty-staff-tq', 'copy-of-faculty-tq_staff-tq'],
-  staff: ['copy-of-faculty-tq'],
+  undergraduate: ['undergradtq', E('undergraduate')],
+  sophomore: ['sophmoreexperiences', E('sophomore')],
+  'adult-learner': ['adultlearnertq', E('adult-learner')],
+  graduate: ['graduatetq', E('graduate')],
+  'community-college': ['ccstudenttq', E('community-college')],
+  faculty: ['copy-of-faculty-staff-tq', 'copy-of-faculty-tq_staff-tq', E('faculty')],
+  staff: ['copy-of-faculty-tq', E('staff')],
 };
 
 const norm = s => String(s)
