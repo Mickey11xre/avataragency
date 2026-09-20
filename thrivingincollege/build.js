@@ -372,6 +372,22 @@ if (fs.existsSync(fnSrc)) {
 if (!STAGING) {
   const HOST = 'https://thrivingincollege.org';
   const redirects = fs.readFileSync(path.join(SRC, 'redirects.txt'), 'utf8');
+  /* Every rule must be exactly: source <space> destination <space> code.
+     20 Sept: column padding for the recovered PDF filenames overran its
+     width, so destination and code ran together ("…pdf301"). Cloudflare took
+     that as the destination and 302'd to a URL that does not exist — 9 of 17
+     old Wix PDF links 404'd on the live site, found by testing them rather
+     than by reading the file. A glued line is still "3 fields" to a careless
+     check, so this asserts the CODE is a bare 3xx of its own. */
+  const badRules = redirects.split('\n')
+    .map((l, i) => ({ n: i + 1, l }))
+    .filter(({ l }) => l.trim() && !l.trim().startsWith('#'))
+    .filter(({ l }) => !/^\S+\s+\S+\s+(30[1278]|404|410)\s*$/.test(l));
+  if (badRules.length) {
+    console.error('redirects.txt: malformed rule(s) — need "source destination code":');
+    for (const { n, l } of badRules) console.error(`  line ${n}: ${l}`);
+    process.exit(1);
+  }
   jobs.push({ rel: '_redirects', dest: path.join(OUT, '_redirects'), out: redirects });
   // Browsers, crawlers and link unfurlers probe /favicon.ico at the site root
   // whatever the page declares, so at launch it is served from there as well.
