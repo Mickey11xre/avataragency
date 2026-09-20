@@ -41,3 +41,20 @@
 /compare/nsse-alternative/       /compare/thriving-quotient-vs-nsse/                         301
 /compare/nsse-alternative        /compare/thriving-quotient-vs-nsse/                         301
 /refundpolicy                    /legal/refunds/                                             301
+/_files/ugd/27a499_eb890bf261214a698b74dbb338aad267.pdf           /files/research/2019-drumm-we-are.pdf                     301
+/_files/ugd/27a499_fddd189663ee4353a26aeefaa06a0ec6.pdf           /files/research/2018-mcintosh-thriving-in-university.pdf  301
+/_files/ugd/27a499_4280319b4dd447c78c9a30961610a609.pdf           /files/research/2018-schreiner-the-role-of-woke-faculty-for-thriving.pdf301
+/_files/ugd/27a499_d3014fb8834a42758b52fd60a45fad3c.pdf           /files/research/2017-dufault-hunter-the-influence-of-diverse-perspectives-on-student.pdf301
+/_files/ugd/27a499_5cf2f2b91e234585a4cdb710219966db.pdf           /files/research/2017-horne-beyond-gpa.pdf                 301
+/_files/ugd/27a499_0f918238db4c4d348d97702f931073b4.pdf           /files/research/2014-mcintosh-spirituality-on-faith-based-campuses.pdf301
+/_files/ugd/27a499_7033adbe328c4149a077e119a3d1c657.pdf           /files/research/2013-schreiner-measuring-the-malleable.pdf301
+/_files/ugd/27a499_c8199f010d38420ca4ba18bc556bcaa9.pdf           /files/research/2013-mcintosh-the-importance-of-getting-it-right.pdf301
+/_files/ugd/27a499_df9e138fd544406a898d4175fc482632.pdf           /files/research/2012-schreiner-thriving-in-college.pdf    301
+/_files/ugd/27a499_8d75f4c27b0a40f1b25410c88354e5b5.pdf           /files/research/2011-schreiner-predictors-of-thriving-in-students-of-color.pdf301
+/_files/ugd/27a499_a31e34a9c2614e39881aa28b0295181d.pdf           /files/research/2011-schreiner-pathways-to-thriving-for-students-of-color.pdf301
+/_files/ugd/27a499_902b45a7918942aab601aa299c88ece6.pdf           /files/research/2011-schreiner-the-thriving-quotient.pdf  301
+/_files/ugd/27a499_659e49c5b65840ad9faa4da1d1ca5089.pdf           /files/research/2009-schreiner-the-thriving-quotient.pdf  301
+/_files/ugd/27a499_8f49638692e84eb78161c4467f438451.pdf           /files/research/2009-schreiner-college-student-thriving.pdf301
+/_files/ugd/27a499_07e31cf9c9cb41818ab047ac056a3744.pdf           /files/research/2019-miller-college-student-thriving.pdf  301
+/_files/ugd/27a499_86036dc5097543e88e3d0d58c223a9cb.pdf           /files/research/2017-horne-emotional-intelligence-as-a-predictor-of-student.pdf301
+/_files/ugd/27a499_d66998799abd4971a9163c7c7d5f6775.pdf           /files/research/2012-mcintosh-thriving-in-college.pdf     301
