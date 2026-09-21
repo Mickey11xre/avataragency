@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- build:v2 — PRIVATE / UNLISTED — do not link publicly.
+<!-- build:v3 — PRIVATE / UNLISTED — do not link publicly.
      First NV2 (v2) digital twin. Companion ce705f38-fe95-43b2-be27-c16ff15a22b8.
      Design tokens carried from thrivingincollege/css/tokens.css (paper/ink/green/gold, serif
      display) so this reads as The Thriving Project, not as AvatarAgency. -->
@@ -66,7 +66,18 @@
      (seen on this page 2026-09-20 before these rules existed). These overrides are what make
      `mountContainer` actually mean "fill this box". Carried from /meet/, which has always had them. */
   #mount>*,#mount video,#mount canvas{
-    width:100%!important; height:100%!important; object-fit:cover; object-position:center 12%;
+    width:100%!important; height:100%!important; object-fit:cover;
+  }
+  /* Framing. The source video and the stage are BOTH 16:9, so there is no overflow and
+     `object-position` does nothing — the only way to raise her is to zoom and shift.
+     scale 1.10 + translateY(-3%) crops ~8% off the top and ~2% off the bottom, which lifts
+     her and makes the shoulders read larger. Applied to the VIDEO only, not to #mount, so the
+     SDK's control bar keeps its own size and position. The poster gets the identical transform
+     so the still and the live avatar stay registered through the cross-fade.
+     ⚠️ This is a DISPLAY crop. The reference video itself is still framed low — fixing that at
+     source needs a re-crop and a NEW twin (AGENT-BUILD-SPEC §9). */
+  #mount video,#mount canvas,.stage__poster{
+    transform:scale(1.10) translateY(-3%); transform-origin:center center;
   }
   #mount>*{
     position:absolute!important; inset:0!important;
