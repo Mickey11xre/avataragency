@@ -1,8 +1,12 @@
 <!doctype html>
-<!-- build:v3 — PRIVATE / UNLISTED — do not link publicly.
+<!-- build:v4 — PRIVATE / UNLISTED — do not link publicly.
      First NV2 (v2) digital twin. Companion ce705f38-fe95-43b2-be27-c16ff15a22b8.
      Design tokens carried from thrivingincollege/css/tokens.css (paper/ink/green/gold, serif
-     display) so this reads as The Thriving Project, not as AvatarAgency. -->
+     display) so this reads as The Thriving Project, not as AvatarAgency.
+     v4 (2026-09-23): live booking panel beside the avatar. The twin drives it through
+     client-side ("implicit") tools exposed on document.modelContext, which SDK 1.5.0's WebMCP
+     bridge registers mid-session; the panel talks back through instance.sendCommand(send_message).
+     DEMO CALENDAR — slots are generated in the page and nothing is booked. -->
 <html lang="en">
 <head>
 <meta charset="utf-8">
@@ -24,8 +28,8 @@
   :root{
     --paper:#F5F0E4; --paper-2:#EDE6D6; --surface-raised:#FCFAF3;
     --ink:#1C3327; --ink-soft:#3F5A49; --ink-mute:#4A6B54;
-    --green:#2E5540; --green-deep:#244334;
-    --gold:#9A7B3F; --gold-text:#806630;
+    --green:#2E5540; --green-deep:#244334; --green-wash:#E2EADF;
+    --gold:#9A7B3F; --gold-text:#806630; --gold-wash:#F3EAD5;
     --rule:rgba(28,51,39,.22); --rule-soft:rgba(28,51,39,.10);
     --font-display:Georgia,"Iowan Old Style","Palatino Linotype",Palatino,serif;
     --font-ui:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
@@ -37,7 +41,8 @@
     font-size:17px; line-height:1.6;
     -webkit-font-smoothing:antialiased;
   }
-  .wrap{max-width:860px; margin:0 auto; padding:32px 16px 64px}
+  .wrap{max-width:1180px; margin:0 auto; padding:32px 16px 64px}
+  .prose{max-width:860px}
 
   .eyebrow{
     font-family:var(--font-ui); font-size:12px; letter-spacing:.14em;
@@ -50,9 +55,15 @@
   .sub{margin:0 0 26px; color:var(--ink-soft); font-size:clamp(16px,2.4vw,18px)}
   .rule{height:1px; background:var(--rule-soft); margin:26px 0}
 
+  /* ---- Stage + panel layout ---- */
+  .duo{display:grid; gap:18px; grid-template-columns:1fr}
+  @media (min-width:960px){
+    .duo{grid-template-columns:minmax(0,1.75fr) minmax(320px,1fr); align-items:stretch}
+  }
+
   /* ---- Avatar stage ---- */
   .stage{
-    position:relative; width:100%; aspect-ratio:16/9; max-height:66dvh;
+    position:relative; width:100%; aspect-ratio:16/9;
     margin:0 auto; border-radius:10px; overflow:hidden;
     background:var(--paper-2); border:1px solid var(--rule);
   }
@@ -117,10 +128,84 @@
     background:var(--green); color:#F7F4EA;
   }
   .btn:hover{background:var(--green-deep)}
+  .btn:focus-visible,.slot:focus-visible,.day:focus-visible,.field input:focus-visible,
+  .field textarea:focus-visible,.link:focus-visible{outline:2px solid var(--gold); outline-offset:2px}
   .btn--ghost{background:rgba(245,240,228,.94); color:var(--ink); border:1px solid var(--rule)}
+  .btn[disabled]{opacity:.45; cursor:not-allowed}
 
   .err{margin-top:14px; color:#7A2E2E; font-size:15px}
   .cap{margin-top:14px; color:var(--ink-soft); font-size:15px}
+
+  /* ---- Booking panel ---- */
+  .panel{
+    background:var(--surface-raised); border:1px solid var(--rule); border-radius:10px;
+    padding:18px 18px 16px; display:flex; flex-direction:column; gap:14px; min-height:0;
+  }
+  .panel__top{display:flex; align-items:center; justify-content:space-between; gap:10px}
+  .panel__tag{font-size:11.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-text); font-weight:600}
+  .panel__live{font-size:12px; color:var(--ink-mute); display:flex; align-items:center; gap:6px}
+  .panel__live i{width:7px; height:7px; border-radius:50%; background:var(--rule); display:inline-block}
+  .panel.driving .panel__live i{background:var(--gold); animation:pulse 1.2s ease-in-out infinite}
+  @keyframes pulse{50%{opacity:.35}}
+  .panel h2{font-family:var(--font-display); font-weight:400; font-size:23px; line-height:1.2; margin:0; text-wrap:balance}
+  .panel .lede{margin:0; color:var(--ink-soft); font-size:14.5px; line-height:1.5}
+  .view{display:flex; flex-direction:column; gap:12px}
+  .view[hidden]{display:none}
+
+  .picks{display:flex; flex-direction:column; gap:8px}
+  .pick{
+    display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+    padding:10px 12px; border-radius:8px; border:1px solid var(--rule-soft);
+    background:var(--paper); color:var(--ink); cursor:pointer; font:inherit;
+  }
+  .pick:hover{border-color:var(--rule)}
+  .pick__date{
+    flex:none; width:44px; text-align:center; border-radius:6px; padding:4px 0;
+    background:var(--paper-2); font-size:11px; line-height:1.2; color:var(--ink-mute);
+    text-transform:uppercase; letter-spacing:.06em;
+  }
+  .pick__date b{display:block; font-size:17px; color:var(--ink); letter-spacing:0}
+  .pick__time{font-weight:600; font-size:15.5px; font-variant-numeric:tabular-nums}
+  .pick__sub{display:block; font-size:12.5px; color:var(--ink-mute); font-weight:400}
+  .link{background:none; border:0; padding:0; font:inherit; font-size:14px; color:var(--green); cursor:pointer; text-decoration:underline; text-underline-offset:3px; align-self:flex-start}
+
+  .days{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:6px}
+  .day{
+    border:1px solid var(--rule-soft); background:var(--paper); border-radius:8px; cursor:pointer;
+    padding:6px 0; font:inherit; color:var(--ink-mute); font-size:10.5px; text-transform:uppercase; letter-spacing:.08em; line-height:1.25;
+  }
+  .day b{display:block; font-size:17px; color:var(--ink); letter-spacing:0}
+  .day.on{background:var(--green); border-color:var(--green); color:#DCE6DD}
+  .day.on b{color:#F7F4EA}
+  .slots{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:6px}
+  .slot{
+    border:1px solid var(--rule-soft); background:var(--paper); border-radius:7px; cursor:pointer;
+    padding:8px 0; font:inherit; font-size:13.5px; color:var(--ink); font-variant-numeric:tabular-nums;
+  }
+  .slot:hover{border-color:var(--rule)}
+  .slot[disabled]{color:rgba(28,51,39,.3); background:transparent; cursor:not-allowed; text-decoration:line-through}
+  .slot.on{border:2px solid var(--gold); background:var(--gold-wash); color:var(--gold-text); font-weight:600; padding:7px 0}
+
+  .chosen{
+    display:flex; align-items:center; gap:10px; padding:10px 12px; border-radius:8px;
+    background:var(--green-wash); color:var(--green-deep); font-weight:600; font-size:15px;
+  }
+  .chosen small{display:block; font-weight:400; font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-mute)}
+  .field{display:flex; flex-direction:column; gap:4px}
+  .field label{font-size:11.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-mute); font-weight:600}
+  .field input,.field textarea{
+    font:inherit; font-size:15px; color:var(--ink); background:var(--paper);
+    border:1px solid var(--rule-soft); border-radius:7px; padding:9px 11px; width:100%;
+    transition:background-color .6s ease, border-color .6s ease;
+  }
+  .field textarea{resize:vertical; min-height:62px}
+  .field.filled input,.field.filled textarea{background:var(--gold-wash); border-color:var(--gold)}
+  .done{
+    display:flex; flex-direction:column; gap:6px; padding:14px; border-radius:8px;
+    background:var(--green-wash); color:var(--green-deep);
+  }
+  .done strong{font-family:var(--font-display); font-weight:400; font-size:21px}
+  .demo{font-size:12px; color:var(--ink-mute); margin:auto 0 0; padding-top:6px; border-top:1px solid var(--rule-soft)}
 
   /* ---- Preview notes ---- */
   .note{
@@ -135,64 +220,379 @@
 
   footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--rule-soft);
          color:var(--ink-mute); font-size:13.5px}
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important; transition:none!important}
+  }
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <p class="eyebrow">The Thriving Project &middot; private preview</p>
-  <h1>Dr. Laurie Schreiner</h1>
-  <p class="sub">Her digital twin, built on Napster&rsquo;s NV2 model. Press start and speak &mdash; she answers in real time.</p>
-
-  <div class="stage" id="stage">
-    <img class="stage__poster" id="poster" src="/thriving-twin/laurie-poster.jpg" alt="Dr. Laurie Schreiner">
-    <div id="mount"></div>
-
-    <div class="hold" id="hold" style="display:none">
-      <span id="pill">Connecting<span class="dots"></span></span>
-    </div>
-
-    <div class="overlay tap">
-      <p style="margin:0;color:var(--ink-soft)">Your browser needs a tap before it will start audio.</p>
-      <button class="btn" id="tapbtn">Start the conversation</button>
-    </div>
-
-    <div class="overlay again">
-      <button class="btn btn--ghost" id="againbtn">Start again</button>
-    </div>
+  <div class="prose">
+    <p class="eyebrow">The Thriving Project &middot; private preview</p>
+    <h1>Dr. Laurie Schreiner</h1>
+    <p class="sub">Her digital twin, built on Napster&rsquo;s NV2 model. Press start and speak &mdash; she answers in real time, and can book a call with the team on the panel beside her.</p>
   </div>
 
-  <div class="cap" id="cap" hidden></div>
-  <div class="err" id="err" hidden></div>
+  <div class="duo">
+    <div>
+      <div class="stage" id="stage">
+        <img class="stage__poster" id="poster" src="/thriving-twin/laurie-poster.jpg" alt="Dr. Laurie Schreiner">
+        <div id="mount"></div>
 
-  <div class="note">
-    <h2>What this is</h2>
-    <p style="margin:6px 0 0;color:var(--ink-soft)">
-      Our first <strong>v2</strong> companion &mdash; built from a three-minute reference video of
-      Laurie, with her own cloned voice. Worth trying: ask what thriving measures, how the Thriving
-      Quotient differs from NSSE, or who the instruments are for.
-    </p>
-    <ul>
-      <li><span class="warn">She will not quote prices.</span> This is a preview build; pricing is
-          deliberately routed to a human.</li>
-      <li>She will not interpret a specific campus&rsquo;s data, or answer IRB and data-handling
-          questions &mdash; both are handed off by design.</li>
-      <li>She states she is an AI twin whenever asked.</li>
-      <li>Sessions are capped at ten minutes.</li>
-    </ul>
+        <div class="hold" id="hold" style="display:none">
+          <span id="pill">Connecting<span class="dots"></span></span>
+        </div>
+
+        <div class="overlay tap">
+          <p style="margin:0;color:var(--ink-soft)">Your browser needs a tap before it will start audio.</p>
+          <button class="btn" id="tapbtn">Start the conversation</button>
+        </div>
+
+        <div class="overlay again">
+          <button class="btn btn--ghost" id="againbtn">Start again</button>
+        </div>
+      </div>
+      <div class="cap" id="cap" hidden></div>
+      <div class="err" id="err" hidden></div>
+    </div>
+
+    <aside class="panel" id="panel" aria-label="Book a call">
+      <div class="panel__top">
+        <span class="panel__tag">Book a call</span>
+        <span class="panel__live" id="liveTag"><i></i><span id="liveText">Waiting</span></span>
+      </div>
+
+      <!-- idle -->
+      <section class="view" id="vIdle">
+        <h2>Talk with the Thriving Project team</h2>
+        <p class="lede">Ask Laurie to set up a call. She&rsquo;ll pull up open times here and fill in your details as you talk &mdash; or pick a time yourself.</p>
+        <button class="link" id="browse" type="button">See open times</button>
+      </section>
+
+      <!-- suggested picks -->
+      <section class="view" id="vPicks" hidden>
+        <h2>When shall we talk?</h2>
+        <p class="lede">Laurie suggests &middot; 30-minute call &middot; <span id="tzLabel"></span></p>
+        <div class="picks" id="picks"></div>
+        <button class="link" id="allTimes" type="button">See all times</button>
+      </section>
+
+      <!-- full grid -->
+      <section class="view" id="vGrid" hidden>
+        <h2>All open times</h2>
+        <div class="days" id="days" role="tablist" aria-label="Day"></div>
+        <div class="slots" id="slots"></div>
+      </section>
+
+      <!-- details -->
+      <section class="view" id="vDetails" hidden>
+        <h2>Just a few details</h2>
+        <div class="chosen" id="chosen"></div>
+        <div class="field" id="fName"><label for="inName">Name</label><input id="inName" autocomplete="name"></div>
+        <div class="field" id="fEmail"><label for="inEmail">Email</label><input id="inEmail" type="email" autocomplete="email"></div>
+        <div class="field" id="fPhone"><label for="inPhone">Mobile number</label><input id="inPhone" type="tel" autocomplete="tel" placeholder="Optional"></div>
+        <div class="field" id="fNotes"><label for="inNotes">Anything we should know?</label><textarea id="inNotes" placeholder="Your campus, role, what you&rsquo;d like to cover"></textarea></div>
+        <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+          <button class="btn" id="confirmBtn" type="button">Confirm call</button>
+          <button class="link" id="changeTime" type="button">Change time</button>
+        </div>
+      </section>
+
+      <!-- confirmed -->
+      <section class="view" id="vDone" hidden>
+        <div class="done"><strong>You&rsquo;re booked.</strong><span id="doneText"></span></div>
+        <p class="lede">A confirmation would be emailed in the live version.</p>
+      </section>
+
+      <p class="demo">Demo calendar &mdash; times are sample data and nothing is actually booked.</p>
+    </aside>
   </div>
 
-  <div class="rule"></div>
-  <footer>
-    AI-generated digital twin of Dr. Laurie A. Schreiner, created with her recorded consent by
-    AvatarAgency. Private preview &mdash; please don&rsquo;t share this link.
-  </footer>
+  <div class="prose">
+    <div class="note">
+      <h2>What this is</h2>
+      <p style="margin:6px 0 0;color:var(--ink-soft)">
+        Our first <strong>v2</strong> companion &mdash; built from a three-minute reference video of
+        Laurie, with her own cloned voice. Worth trying: ask what thriving measures, how the Thriving
+        Quotient differs from NSSE, or who the instruments are for. Then say &ldquo;I&rsquo;d like to
+        book a call with your team.&rdquo;
+      </p>
+      <ul>
+        <li><span class="warn">She will not quote prices.</span> This is a preview build; pricing is
+            deliberately routed to a human.</li>
+        <li>She will not interpret a specific campus&rsquo;s data, or answer IRB and data-handling
+            questions &mdash; both are handed off by design.</li>
+        <li>She states she is an AI twin whenever asked.</li>
+        <li>Sessions are capped at ten minutes.</li>
+      </ul>
+    </div>
+
+    <div class="rule"></div>
+    <footer>
+      AI-generated digital twin of Dr. Laurie A. Schreiner, created with her recorded consent by
+      AvatarAgency. Private preview &mdash; please don&rsquo;t share this link.
+    </footer>
+  </div>
 </div>
 
 <script>
-(function(){
+/* ============================================================================
+   Booking panel + the tools the twin uses to drive it.
+   ----------------------------------------------------------------------------
+   HOW IT CONNECTS (Napster SDK 1.5.0, read from its published source 2026-09-23):
+   - On init the SDK builds a WebMCP bridge that looks for `document.modelContext`
+     (waits ~1.5 s). It calls `getTools()` and registers each tool mid-session as an
+     "implicit" (client-side) function via `set_settings.inline_functions`.
+   - When the model calls one, the bridge runs `executeTool(tool, jsonArgs)` HERE and
+     returns our result on the data channel (`send_function_output`, paired by call_id).
+   - The other direction: when the visitor clicks, we push a `send_message` (role
+     "system") through `instance.sendCommand` so the twin knows what happened.
+   So `document.modelContext` MUST exist before `sdk.init()`. It is a stand-in for the
+   proposed WebMCP browser API, not a browser feature we depend on.
+   ========================================================================== */
+var Booking = (function(){
+  var TZ = (Intl.DateTimeFormat().resolvedOptions().timeZone || 'local time').replace(/_/g,' ');
+  var DAY_N = 5, TIMES = [];
+  for (var h = 9; h <= 16; h++) { TIMES.push(fmtTime(h,0)); if (h < 16) TIMES.push(fmtTime(h,30)); }
+
+  function fmtTime(h,m){ var ap = h < 12 ? 'AM' : 'PM', hh = h % 12 || 12; return hh + ':' + (m ? '30' : '00') + ' ' + ap; }
+  function iso(d){ return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0'); }
+
+  // Next five weekdays, starting tomorrow. Some slots are "taken" so the grid looks real;
+  // the pattern is seeded by date so it is stable for the session.
+  var days = [];
+  (function(){
+    var d = new Date(); d.setHours(12,0,0,0);
+    while (days.length < DAY_N) {
+      d.setDate(d.getDate() + 1);
+      if (d.getDay() === 0 || d.getDay() === 6) continue;
+      var key = iso(d), seed = d.getDate() * 7 + d.getMonth();
+      days.push({
+        date: key,
+        dow: d.toLocaleDateString('en-US', { weekday:'short' }),
+        dom: d.getDate(),
+        label: d.toLocaleDateString('en-US', { weekday:'long', month:'long', day:'numeric' }),
+        short: d.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric' }),
+        open: TIMES.filter(function(t,i){ return (i * 5 + seed) % 7 > 1; })
+      });
+    }
+  })();
+
+  var state = { view:'idle', day: days[0].date, date:null, time:null,
+                name:'', email:'', phone:'', notes:'', confirmed:false };
+
+  var $ = function(id){ return document.getElementById(id); };
+  var panel = $('panel');
+  $('tzLabel').textContent = TZ;
+
+  function dayOf(date){ for (var i = 0; i < days.length; i++) if (days[i].date === date) return days[i]; return null; }
+  function suggested(){
+    var out = [];
+    days.forEach(function(d){ d.open.forEach(function(t){ if (out.length < 3 && /^(9|10|11):/.test(t)) out.push({ date:d.date, time:t }); }); });
+    return out;
+  }
+  function whenLabel(){ var d = dayOf(state.date); return d ? d.label + ' at ' + state.time : ''; }
+
+  // ---- rendering --------------------------------------------------------------
+  function show(view){
+    state.view = view;
+    ['Idle','Picks','Grid','Details','Done'].forEach(function(v){ $('v' + v).hidden = (v.toLowerCase() !== view); });
+    if (view === 'picks') renderPicks();
+    if (view === 'grid') renderGrid();
+    if (view === 'details') renderDetails();
+  }
+  function renderPicks(){
+    var box = $('picks'); box.innerHTML = '';
+    suggested().forEach(function(s){
+      var d = dayOf(s.date), b = document.createElement('button');
+      b.type = 'button'; b.className = 'pick';
+      b.innerHTML = '<span class="pick__date">' + d.dow + '<b>' + d.dom + '</b></span>' +
+                    '<span class="pick__time">' + s.time + '<span class="pick__sub">' + d.short + '</span></span>';
+      b.addEventListener('click', function(){ userPick(s.date, s.time); });
+      box.appendChild(b);
+    });
+  }
+  function renderGrid(){
+    var dbox = $('days'), sbox = $('slots'); dbox.innerHTML = ''; sbox.innerHTML = '';
+    days.forEach(function(d){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'day' + (d.date === state.day ? ' on' : '');
+      b.setAttribute('role','tab'); b.setAttribute('aria-selected', d.date === state.day);
+      b.innerHTML = d.dow + '<b>' + d.dom + '</b>';
+      b.addEventListener('click', function(){ state.day = d.date; renderGrid(); });
+      dbox.appendChild(b);
+    });
+    var d = dayOf(state.day);
+    TIMES.forEach(function(t){
+      var b = document.createElement('button');
+      b.type = 'button'; b.className = 'slot'; b.textContent = t;
+      if (d.open.indexOf(t) < 0) { b.disabled = true; b.setAttribute('aria-label', t + ' unavailable'); }
+      if (state.date === d.date && state.time === t) b.className += ' on';
+      b.addEventListener('click', function(){ userPick(d.date, t); });
+      sbox.appendChild(b);
+    });
+  }
+  function renderDetails(){
+    $('chosen').innerHTML = '<span><small>Your time</small>' + whenLabel() + '</span>';
+    [['inName','name'],['inEmail','email'],['inPhone','phone'],['inNotes','notes']].forEach(function(p){
+      if ($(p[0]) !== document.activeElement) $(p[0]).value = state[p[1]];
+    });
+  }
+  function flash(fieldId){
+    var f = $(fieldId); f.classList.add('filled');
+    setTimeout(function(){ f.classList.remove('filled'); }, 1600);
+  }
+  function driving(){
+    panel.classList.add('driving'); $('liveText').textContent = 'Laurie is updating this';
+    clearTimeout(driving.t);
+    driving.t = setTimeout(function(){ panel.classList.remove('driving'); $('liveText').textContent = Session.live() ? 'Live' : 'Waiting'; }, 2200);
+  }
+
+  // ---- actions shared by the twin and the visitor ------------------------------
+  function select(date, time){
+    var d = dayOf(date);
+    if (!d) return { ok:false, error:'That date is not on the calendar. Offer one of: ' + days.map(function(x){ return x.label; }).join(', ') };
+    var t = normTime(time);
+    if (d.open.indexOf(t) < 0) return { ok:false, error: time + ' on ' + d.label + ' is not available.', open_that_day: d.open };
+    state.date = date; state.time = t; state.day = date;
+    show('grid');
+    setTimeout(function(){ show('details'); }, 900); // let the highlight register first
+    return { ok:true, selected: whenLabel(), still_needed: missing() };
+  }
+  function normTime(t){
+    var m = String(t || '').trim().toUpperCase().match(/^(\d{1,2})(?::(\d{2}))?\s*(AM|PM)?$/);
+    if (!m) return String(t);
+    var h = +m[1], min = m[2] || '00', ap = m[3] || (h >= 9 && h <= 11 ? 'AM' : 'PM');
+    return h + ':' + min + ' ' + ap;
+  }
+  function missing(){
+    var out = [];
+    if (!state.date) out.push('time');
+    if (!state.name) out.push('name');
+    if (!state.email) out.push('email');
+    return out;
+  }
+  function userPick(date, time){
+    var r = select(date, time);
+    if (r.ok) Session.tell('The visitor just picked ' + r.selected + ' on the booking panel. Acknowledge it briefly, then ask for anything still missing: ' + (r.still_needed.join(', ') || 'nothing — offer to confirm') + '.');
+  }
+
+  // Visitor typing → quiet context for the twin (no spoken response).
+  [['inName','name'],['inEmail','email'],['inPhone','phone'],['inNotes','notes']].forEach(function(p){
+    $(p[0]).addEventListener('change', function(){
+      state[p[1]] = $(p[0]).value.trim();
+      Session.tell('The visitor typed their ' + p[1] + ' into the booking form: "' + state[p[1]] + '".', false);
+    });
+  });
+  $('browse').addEventListener('click', function(){ show('picks'); });
+  $('allTimes').addEventListener('click', function(){ show('grid'); });
+  $('changeTime').addEventListener('click', function(){ show('grid'); });
+  $('confirmBtn').addEventListener('click', function(){
+    ['name','email','phone','notes'].forEach(function(k){ state[k] = $('in' + k[0].toUpperCase() + k.slice(1)).value.trim(); });
+    var r = confirm_();
+    if (r.ok) Session.tell('The visitor pressed Confirm on the booking panel. The call is booked for ' + r.booked_for + '. Thank them warmly in one sentence.');
+    else $('confirmBtn').textContent = 'Add ' + r.missing.join(' and ');
+  });
+
+  function confirm_(){
+    var m = missing();
+    if (m.length) return { ok:false, missing:m, error:'Still needed before booking: ' + m.join(', ') };
+    state.confirmed = true;
+    $('doneText').textContent = whenLabel() + ' · ' + state.name + ' · ' + state.email;
+    show('done');
+    if (typeof gtag === 'function') gtag('event', 'laurie_twin_demo_booking', { event_category:'NV2_PREVIEW' });
+    return { ok:true, booked_for: whenLabel(), name: state.name, email: state.email };
+  }
+
+  // ---- tools for the twin --------------------------------------------------------
+  var tools = [
+    {
+      name: 'show_booking_times',
+      description: 'Show open times for a 30-minute call with the Thriving Project team on the booking panel beside you, which the visitor can see. Call this as soon as the visitor wants to book, schedule, or talk with the team. view "suggested" shows three picks; "all" shows the full week. Read back two or three options in natural speech, never the whole list.',
+      inputSchema: { type:'object', properties:{
+        view: { type:'string', enum:['suggested','all'], description:'Which view to show. Default "suggested".' },
+        date: { type:'string', description:'Optional YYYY-MM-DD to open in the full view.' }
+      } },
+      run: function(a){
+        if (a.date && dayOf(a.date)) state.day = a.date;
+        show(a.view === 'all' ? 'grid' : 'picks');
+        return { ok:true, timezone:TZ, suggested: suggested().map(function(s){ return { date:s.date, time:s.time, label: dayOf(s.date).label + ' at ' + s.time }; }),
+                 days: days.map(function(d){ return { date:d.date, label:d.label, open:d.open }; }) };
+      }
+    },
+    {
+      name: 'select_booking_time',
+      description: 'Highlight and select the time the visitor chose on the booking panel. Use the date (YYYY-MM-DD) and time (e.g. "10:00 AM") from show_booking_times. If it is unavailable, offer the returned alternatives.',
+      inputSchema: { type:'object', required:['date','time'], properties:{
+        date: { type:'string', description:'YYYY-MM-DD' },
+        time: { type:'string', description:'e.g. "10:00 AM"' }
+      } },
+      run: function(a){ return select(a.date, a.time); }
+    },
+    {
+      name: 'fill_booking_details',
+      description: 'Fill in the booking form on the panel as the visitor tells you their details. Call it each time you learn one — name, email, mobile number, or notes about their campus and what they want to discuss. Spell back email addresses to confirm them. Only include fields you just learned.',
+      inputSchema: { type:'object', properties:{
+        name: { type:'string' }, email: { type:'string' },
+        phone: { type:'string' }, notes: { type:'string' }
+      } },
+      run: function(a){
+        if (!state.date) show('picks'); else if (state.view !== 'details') show('details');
+        var map = { name:'fName', email:'fEmail', phone:'fPhone', notes:'fNotes' };
+        Object.keys(map).forEach(function(k){
+          if (typeof a[k] === 'string' && a[k].trim()) { state[k] = a[k].trim(); flash(map[k]); }
+        });
+        if (state.view === 'details') renderDetails();
+        return { ok:true, form:{ time: whenLabel() || null, name:state.name, email:state.email, phone:state.phone, notes:state.notes }, still_needed: missing() };
+      }
+    },
+    {
+      name: 'confirm_booking',
+      description: 'Book the call once a time, name and email are all on the panel. Read the time and email back to the visitor first.',
+      annotations: { destructiveHint: true },
+      inputSchema: { type:'object', properties:{} },
+      run: function(){ return confirm_(); }
+    }
+  ];
+
+  var mc = new EventTarget();
+  mc.getTools = function(){
+    return Promise.resolve(tools.map(function(t){ return { name:t.name, description:t.description, inputSchema:t.inputSchema, annotations:t.annotations }; }));
+  };
+  mc.executeTool = function(tool, json){
+    var name = tool && tool.name ? tool.name : tool, args = {};
+    try { args = typeof json === 'string' ? JSON.parse(json || '{}') : (json || {}); } catch(_){}
+    var t = tools.filter(function(x){ return x.name === name; })[0];
+    if (!t) return Promise.resolve({ ok:false, error:'Unknown tool ' + name });
+    driving();
+    try { return Promise.resolve(t.run(args || {})); }
+    catch(e){ return Promise.resolve({ ok:false, error:String(e && e.message || e) }); }
+  };
+  try {
+    if (!document.modelContext) Object.defineProperty(document, 'modelContext', { value: mc, configurable: true });
+  } catch(_){}
+
+  return {
+    reset: function(){
+      state.view = 'idle'; state.date = state.time = null; state.confirmed = false;
+      state.name = state.email = state.phone = state.notes = '';
+      $('confirmBtn').textContent = 'Confirm call';
+      show('idle');
+    },
+    setLive: function(on){ $('liveText').textContent = on ? 'Live' : 'Waiting'; },
+    // Exposed for local testing without a live session (?demo): Booking.run('show_booking_times', {})
+    run: function(name, args){ return mc.executeTool({ name:name }, JSON.stringify(args || {})); }
+  };
+})();
+</script>
+
+<script>
+var Session = (function(){
   var ENDPOINT = '/api/laurie-token';
-  var SDK_URL  = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js';
+  // Pinned: the WebMCP bridge the booking panel relies on ships in 1.5.0.
+  var SDK_URL  = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js';
   var CAP_S = 600; // 10-minute session cap
 
   var stage = document.getElementById('stage');
@@ -263,6 +663,7 @@
     hold.style.transition = 'opacity .45s ease';
     hold.style.opacity = '0';
     setTimeout(function(){ hold.style.display = 'none'; }, 500);
+    Booking.setLive(true);
     pinBg();
   }
 
@@ -277,6 +678,7 @@
     document.getElementById('mount').innerHTML = '';
     var hold = document.getElementById('hold');
     hold.style.display = 'none'; hold.style.opacity = '1';
+    Booking.setLive(false);
     pinBg();
   }
 
@@ -302,6 +704,7 @@
       instance = await sdk.init(data.token, {
         mountContainer: '#mount',
         avatarStyle: { view: 'rectangle' },
+        debug: /[?&]debug\b/.test(location.search),
         features: {
           showSDKLoader: { enabled:false },
           screenShare: { enabled:true },
@@ -338,6 +741,7 @@
     hold.style.display = ''; hold.style.opacity = '1';
     pill.innerHTML = 'Connecting<span class="dots"></span>';
     instance = null;
+    Booking.reset();
     readyTimer = setTimeout(offerTap, 12000);
     stageMessages();
     start();
@@ -350,6 +754,19 @@
   // rather than failing silently.
   pinBg();
   stage.classList.add('needtap');
+
+  return {
+    live: function(){ return !!instance; },
+    // Panel → twin. role "system" keeps it out of the visitor's mouth; trigger=false adds
+    // context without making her speak.
+    tell: function(text, trigger){
+      if (!instance || !instance.sendCommand) return false;
+      try {
+        instance.sendCommand({ type:'send_message', data:{ text:'[Booking panel] ' + text, role:'system', trigger_response: trigger !== false } });
+        return true;
+      } catch(_){ return false; }
+    }
+  };
 })();
 </script>
 </body>
