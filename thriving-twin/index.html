@@ -459,7 +459,9 @@ var Booking = (function(){
     if (d.open.indexOf(t) < 0) return { ok:false, error: time + ' on ' + d.label + ' is not available.', open_that_day: d.open };
     state.date = date; state.time = t; state.day = date;
     show('grid');
-    setTimeout(function(){ show('details'); }, 900); // let the highlight register first
+    // Let the highlight register first — but only if nothing moved on meanwhile (the twin can
+    // select and confirm within a second; the late switch used to hide "You're booked").
+    setTimeout(function(){ if (state.view === 'grid' && !state.confirmed) show('details'); }, 900);
     return { ok:true, selected: whenLabel(), still_needed: missing() };
   }
   function normTime(t){
