@@ -303,7 +303,8 @@
       <!-- confirmed -->
       <section class="view" id="vDone" hidden>
         <div class="done"><strong>You&rsquo;re booked.</strong><span id="doneText"></span></div>
-        <p class="lede">A confirmation would be emailed in the live version.</p>
+        <p class="lede" id="alertText" aria-live="polite"></p>
+        <p class="lede">A confirmation would be emailed to you in the live version.</p>
       </section>
 
       <p class="demo">Demo calendar &mdash; times are sample data and nothing is actually booked.</p>
@@ -491,19 +492,41 @@ var Booking = (function(){
   $('changeTime').addEventListener('click', function(){ show('grid'); });
   $('confirmBtn').addEventListener('click', function(){
     ['name','email','phone','notes'].forEach(function(k){ state[k] = $('in' + k[0].toUpperCase() + k.slice(1)).value.trim(); });
-    var r = confirm_();
-    if (r.ok) Session.tell('The visitor pressed Confirm on the booking panel. The call is booked for ' + r.booked_for + '. Thank them warmly in one sentence.');
-    else $('confirmBtn').textContent = 'Add ' + r.missing.join(' and ');
+    Promise.resolve(confirm_()).then(function(r){
+      if (r.ok) Session.tell('The visitor pressed Confirm on the booking panel. The call is booked for ' + r.booked_for + '. ' + (r.message || '') + ' Thank them warmly in one sentence.');
+      else $('confirmBtn').textContent = 'Add ' + r.missing.join(' and ');
+    });
   });
+
+  // Speed-to-Lead: store the booking and email the alert while the visitor is still here.
+  // Resolves with the endpoint's reply; the twin relays its `message`.
+  function notifyTeam(){
+    $('alertText').textContent = 'Notifying the team…';
+    return fetch('/api/laurie-booking', {
+      method:'POST', headers:{ 'Content-Type':'application/json' },
+      body: JSON.stringify({ date:state.date, time:state.time, when:whenLabel(), name:state.name,
+                             email:state.email, phone:state.phone, notes:state.notes, sessionId:Session.id() })
+    }).then(function(r){ return r.json().catch(function(){ return { ok:false }; }); })
+      .catch(function(){ return { ok:false }; })
+      .then(function(r){
+        $('alertText').textContent = r && r.alerted ? 'The team has been notified.' :
+          (r && r.stored ? 'Saved — the team alert did not send.' : 'Could not reach the team — please try again.');
+        return r || { ok:false };
+      });
+  }
 
   function confirm_(){
     var m = missing();
     if (m.length) return { ok:false, missing:m, error:'Still needed before booking: ' + m.join(', ') };
+    if (state.confirmed) return { ok:true, already_booked:true, booked_for: whenLabel() };
     state.confirmed = true;
     $('doneText').textContent = whenLabel() + ' · ' + state.name + ' · ' + state.email;
     show('done');
     if (typeof gtag === 'function') gtag('event', 'laurie_twin_demo_booking', { event_category:'NV2_PREVIEW' });
-    return { ok:true, booked_for: whenLabel(), name: state.name, email: state.email };
+    return notifyTeam().then(function(r){
+      return { ok:true, booked_for: whenLabel(), name: state.name, email: state.email,
+               team_alerted: !!(r && r.alerted), message: r && r.message };
+    });
   }
 
   // ---- tools for the twin --------------------------------------------------------
@@ -757,6 +780,7 @@ var Session = (function(){
 
   return {
     live: function(){ return !!instance; },
+    id: function(){ try { return instance && instance.sessionId || null; } catch(_){ return null; } },
     // Panel → twin. role "system" keeps it out of the visitor's mouth; trigger=false adds
     // context without making her speak.
     tell: function(text, trigger){
