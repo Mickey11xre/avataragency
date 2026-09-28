@@ -1,0 +1,620 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Private review page: never indexed, never linked, not in the sitemap. -->
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Thriving Order Intake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;1,500&family=Source+Sans+3:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F3F5F0; --surface:#FFFFFF; --surface-2:#EDF1EA; --ink:#17261B; --muted:#56655A; --rule:#D5DDD1;
+  --brand:#1C4A25; --leaf:#427D51; --leaf-soft:#E1ECDF; --on-brand:#F3F7F1;
+  --warn:#8A5A00; --warn-soft:#FBF0D9; --ok:#1F6B3A; --ok-soft:#DDEFE2; --note:#34506B; --note-soft:#E3ECF4;
+  --focus:#2F7A45;
+  --serif:"Lora",Georgia,"Times New Roman",serif;
+  --sans:"Source Sans 3","Segoe UI",system-ui,-apple-system,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--bg:#0F1612;--surface:#16201A;--surface-2:#1B2820;--ink:#E4EBE3;--muted:#9FB0A3;--rule:#2C3A31;
+  --brand:#8CC79A;--leaf:#79B888;--leaf-soft:#20352628;--on-brand:#0F1612;
+  --warn:#F0C46A;--warn-soft:#3A2E14;--ok:#86D19D;--ok-soft:#173222;--note:#9CC0E4;--note-soft:#18283A;--focus:#8CC79A;}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--bg:#0F1612;--surface:#16201A;--surface-2:#1B2820;--ink:#E4EBE3;--muted:#9FB0A3;--rule:#2C3A31;
+  --brand:#8CC79A;--leaf:#79B888;--leaf-soft:#20352628;--on-brand:#0F1612;
+  --warn:#F0C46A;--warn-soft:#3A2E14;--ok:#86D19D;--ok-soft:#173222;--note:#9CC0E4;--note-soft:#18283A;--focus:#8CC79A;}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0}
+[hidden]{display:none!important}
+img{max-width:100%}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:1080px;margin:0 auto}
+h1,h2,h3{font-family:var(--serif);font-weight:600;text-wrap:balance;margin:0}
+p{margin:0}
+a{color:var(--brand)}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+
+/* reviewer strip */
+.review{margin:16px auto 0;max-width:1080px;border:1px dashed var(--note);background:var(--note-soft);border-radius:10px;color:var(--ink)}
+.review summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;padding:12px 16px;font-weight:600}
+.review summary::-webkit-details-marker{display:none}
+.tag{font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:5px 8px;border-radius:4px;background:var(--note);color:var(--bg)}
+.review .body{padding:0 16px 16px;display:grid;gap:16px}
+.review .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.review h3{font-family:var(--sans);font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--note);margin-bottom:6px}
+.review ol,.review ul{margin:0;padding-left:20px;display:grid;gap:4px;font-size:14.5px}
+.demo{display:flex;flex-wrap:wrap;gap:8px}
+.demo button{font:600 14px var(--sans);border:1px solid var(--note);background:var(--surface);color:var(--ink);padding:8px 12px;border-radius:999px;cursor:pointer}
+.demo button[aria-pressed="true"]{background:var(--note);color:var(--bg)}
+
+/* header */
+header.site{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:22px 0 18px;border-bottom:1px solid var(--rule);margin-bottom:28px}
+.wordmark{display:flex;align-items:center;gap:10px;font:600 14px/1.1 var(--sans);letter-spacing:.2em;color:var(--brand)}
+.wordmark svg{width:30px;height:30px;flex:none}
+.secure{font-size:13px;color:var(--muted)}
+
+/* intro + order */
+.intro{display:grid;grid-template-columns:1.25fr 1fr;gap:28px;align-items:start;margin-bottom:28px}
+.eyebrow{font:600 12px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--leaf);margin-bottom:8px}
+.intro h1{font-size:clamp(28px,4vw,38px);line-height:1.15;margin-bottom:12px}
+.intro .lede{color:var(--muted);max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-size:14px;color:var(--muted)}
+.order{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:18px}
+.order h2{font-size:17px;margin-bottom:2px}
+.order .num{font:500 13px var(--mono);color:var(--muted)}
+.lines{list-style:none;padding:0;margin:14px 0;display:grid;gap:8px}
+.lines li{display:flex;justify-content:space-between;gap:12px;font-size:15px}
+.lines .amt{font-variant-numeric:tabular-nums;white-space:nowrap}
+.lines .sub{display:block;font-size:13px;color:var(--muted)}
+.total{display:flex;justify-content:space-between;border-top:1px solid var(--rule);padding-top:10px;font-weight:700;font-variant-numeric:tabular-nums}
+.pill{display:inline-flex;align-items:center;gap:6px;font:600 12.5px var(--sans);padding:4px 10px;border-radius:999px}
+.pill.ok{background:var(--ok-soft);color:var(--ok)} .pill.warn{background:var(--warn-soft);color:var(--warn)}
+.pill::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor}
+.order .who{margin-top:12px;font-size:14px;color:var(--muted);display:grid;gap:2px}
+
+/* layout */
+.layout{display:grid;grid-template-columns:230px 1fr;gap:32px;align-items:start}
+nav.steps{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px)}
+nav.steps ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:s}
+nav.steps a{display:flex;gap:10px;align-items:center;padding:8px 10px;border-radius:8px;text-decoration:none;color:var(--muted);font-size:14.5px}
+nav.steps a:hover{background:var(--surface-2);color:var(--ink)}
+nav.steps a .dot{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--rule);flex:none;display:grid;place-items:center;font:600 11px var(--sans);color:var(--muted)}
+nav.steps a.done .dot{background:var(--leaf);border-color:var(--leaf);color:var(--on-brand)}
+nav.steps a.done{color:var(--ink)}
+.progress{margin-top:14px;font-size:13px;color:var(--muted)}
+.bar{height:6px;border-radius:3px;background:var(--rule);overflow:hidden;margin-top:6px}
+.bar i{display:block;height:100%;background:var(--leaf);width:0;transition:width .3s}
+
+/* sections */
+form{display:grid;gap:22px}
+section.card{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:22px}
+section.card > header{display:grid;gap:4px;margin-bottom:18px}
+section.card h2{font-size:21px}
+section.card .why{color:var(--muted);font-size:14.5px;max-width:64ch}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 16px}
+.full{grid-column:1/-1}
+.field{display:grid;gap:5px;min-width:0}
+label,.lbl{font-weight:600;font-size:14.5px}
+.hint{font-size:13px;color:var(--muted)}
+.req::after{content:" *";color:var(--warn)}
+input[type=text],input[type=email],input[type=tel],input[type=date],input[type=number],select,textarea{
+  font:15px var(--sans);color:var(--ink);background:var(--bg);border:1px solid var(--rule);border-radius:8px;padding:10px 12px;width:100%}
+textarea{min-height:92px;resize:vertical}
+input[readonly],select:disabled{background:var(--surface-2);color:var(--muted)}
+fieldset{border:0;padding:0;margin:0;min-width:0}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices label{font-weight:500;display:flex;gap:8px;align-items:center;border:1px solid var(--rule);border-radius:8px;padding:8px 12px;cursor:pointer;background:var(--bg)}
+.choices label:has(input:checked){border-color:var(--leaf);background:var(--leaf-soft)}
+.checks{display:grid;gap:8px}
+.checks label{font-weight:500;display:flex;gap:10px;align-items:flex-start}
+.checks input{margin-top:4px}
+.callout{border-radius:8px;padding:12px 14px;font-size:14.5px;display:grid;gap:4px}
+.callout.info{background:var(--note-soft);color:var(--ink);border-left:3px solid var(--note)}
+.callout.warn{background:var(--warn-soft);color:var(--ink);border-left:3px solid var(--warn)}
+.callout b{font-weight:700}
+.survey{border:1px solid var(--rule);border-radius:10px;padding:16px;display:grid;gap:14px;background:var(--bg)}
+.survey h3{font-family:var(--sans);font-size:15px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.survey h3 .from{font-weight:500;color:var(--muted);font-size:13px}
+.stack{display:grid;gap:14px}
+.actions{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between}
+.btn{font:700 15.5px var(--sans);border:0;border-radius:8px;padding:12px 20px;cursor:pointer;background:var(--brand);color:var(--on-brand)}
+.btn.ghost{background:transparent;color:var(--brand);border:1px solid var(--brand)}
+.saved{font-size:13px;color:var(--muted)}
+.err{color:var(--warn);font-size:13.5px;font-weight:600}
+
+/* brief */
+.brief{background:var(--surface);border:1px solid var(--rule);border-radius:12px;padding:24px;display:grid;gap:18px}
+.brief .head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:baseline}
+.brief h2{font-size:24px}
+.brief .mail{font:13px var(--mono);color:var(--muted)}
+.bgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.bbox{border:1px solid var(--rule);border-radius:10px;padding:14px;display:grid;gap:6px;align-content:start}
+.bbox h3{font-family:var(--sans);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--leaf)}
+.bbox dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:14px}
+.bbox dt{color:var(--muted)} .bbox dd{margin:0;overflow-wrap:anywhere}
+.flags{display:grid;gap:6px;margin:0;padding:0;list-style:none}
+.flags li{display:flex;gap:8px;font-size:14.5px}
+.flags li.miss::before{content:"!";flex:none;width:18px;height:18px;border-radius:50%;background:var(--warn);color:var(--bg);font:700 12px/18px var(--sans);text-align:center}
+.flags li.good::before{content:"✓";flex:none;width:18px;height:18px;border-radius:50%;background:var(--ok);color:var(--bg);font:700 11px/18px var(--sans);text-align:center}
+
+@media (max-width:860px){
+  .intro{grid-template-columns:1fr}
+  .layout{grid-template-columns:1fr}
+  nav.steps{position:static}
+  nav.steps ol{display:flex;overflow-x:auto;gap:4px;padding-bottom:4px}
+  nav.steps a{white-space:nowrap}
+  nav.steps a .txt{display:none}
+  nav.steps a.cur .txt{display:inline}
+}
+@media (max-width:560px){.grid{grid-template-columns:1fr}section.card{padding:18px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+<link rel="icon" href="/thrivingincollege/assets/favicon.ico?v=a2f64690" sizes="32x32">
+<link rel="icon" type="image/png" sizes="16x16" href="/thrivingincollege/assets/icon-16.png?v=de0018ed">
+<link rel="icon" type="image/png" sizes="32x32" href="/thrivingincollege/assets/icon-32.png?v=5d242731">
+<link rel="apple-touch-icon" sizes="180x180" href="/thrivingincollege/assets/icon-180.png?v=ab9bce94">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HC7T5LCR6L"></script>
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());
+gtag('config','G-HC7T5LCR6L');
+(function(){try{var r=document.referrer;if(!r)return;var h=new URL(r).hostname;var L=["chatgpt.com","chat.openai.com","perplexity.ai","claude.ai","gemini.google.com","copilot.microsoft.com","bing.com/chat","you.com","phind.com"];
+for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('event','ai_referral',{ai_source:L[i],page_location:location.href});break;}}}catch(e){}})();
+</script>
+</head>
+<body>
+
+<details class="review" id="review" open>
+  <summary><span class="tag">Preview for review</span> Laurie, this is a working draft of the order form buyers will see right after they pay. It is private and not linked anywhere on your site. <span style="font-weight:500;color:var(--muted)">Show / hide these notes</span></summary>
+  <div class="body">
+    <div>
+      <h3>Try it with different orders</h3>
+      <p style="font-size:14.5px;margin-bottom:8px">The form changes to match what was bought. These are made-up example orders, not real purchases. Nothing you type here is sent anywhere, so feel free to fill it in and press "Send" at the bottom to see the summary email you would receive.</p>
+      <div class="demo" id="demo"></div>
+    </div>
+    <div class="cols">
+      <div>
+        <h3>How it will work</h3>
+        <ol>
+          <li>A campus pays in the store.</li>
+          <li>Stripe sends them straight to this form, already filled in with their order: package, instrument, institution and PO number.</li>
+          <li>When they press Send, you get one email with everything you need to set up the survey, plus a short list of anything still missing.</li>
+          <li>They get a copy and a private link to come back and finish, so their business office or institutional research office can complete their parts.</li>
+          <li>Campuses that pay by purchase order get the same form once your invoice is paid.</li>
+          <li>If a form isn't finished within three days, one reminder goes out automatically.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>What we need from you</h3>
+        <ol>
+          <li>What else do you ask campuses today that isn't on this form?</li>
+          <li>Student IDs: what consent wording do you use when IDs are collected, and when they are not?</li>
+          <li>For surveys you administer: which columns should the email list have, and how do you want campuses to send it?</li>
+          <li>How much lead time do you need between receiving this form and launching a survey?</li>
+          <li>What is your standard reminder schedule?</li>
+          <li>Which demographic breakdowns are in every dashboard by default? We assumed gender and race/ethnicity.</li>
+          <li>Should the completed form go only to you, or to you and info@thrivingincollege.org?</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</details>
+
+<div class="wrap">
+  <header class="site">
+    <div class="wordmark" aria-label="The Thriving Project">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><circle cx="16" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M16 29V14M16 18l-5-5M16 16l5-5M16 29c-3-1-6-1-8 0M16 29c3-1 6-1 8 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="16" cy="12" r="1.9" fill="currentColor"/></svg>
+      THE THRIVING PROJECT
+    </div>
+    <div class="secure">Private order page · thrivingincollege.org</div>
+  </header>
+
+  <div id="formView">
+    <div class="intro">
+      <div>
+        <div class="eyebrow">Thank you for your order</div>
+        <h1 id="hello">Let's get your survey ready.</h1>
+        <p class="lede">Please answer a few questions so Dr. Schreiner can set up your survey without follow-up emails. Your progress saves as you go, and you can share this page with your billing or institutional research office to finish their parts.</p>
+        <div class="meta"><span>About 8–12 minutes</span><span>Fields marked <b style="color:var(--warn)">*</b> are needed to begin</span></div>
+      </div>
+      <aside class="order" aria-label="Your order">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:start;flex-wrap:wrap">
+          <div><h2>Your order</h2><div class="num" id="oNum"></div></div>
+          <span class="pill" id="oStatus"></span>
+        </div>
+        <ul class="lines" id="oLines"></ul>
+        <div class="total"><span>Total</span><span id="oTotal"></span></div>
+        <div class="who" id="oWho"></div>
+      </aside>
+    </div>
+
+    <div class="layout">
+      <nav class="steps" aria-label="Sections">
+        <ol id="stepList"></ol>
+        <div class="progress"><span id="progTxt">0 of 0 sections complete</span><div class="bar"><i id="progBar"></i></div></div>
+      </nav>
+
+      <form id="intake" novalidate>
+        <!-- 1 CONTACTS -->
+        <section class="card" id="s-contacts" data-title="Contacts">
+          <header><h2>Who we'll work with</h2><p class="why">So questions go to the right person the first time.</p></header>
+          <div class="stack">
+            <div class="grid">
+              <div class="field full"><span class="lbl">Survey coordinator</span><span class="hint">The person who will manage the survey on campus.</span></div>
+              <div class="field"><label class="req" for="c_name">Name</label><input type="text" id="c_name" required autocomplete="name"></div>
+              <div class="field"><label class="req" for="c_title">Title and office</label><input type="text" id="c_title" required placeholder="Director, Student Success"></div>
+              <div class="field"><label class="req" for="c_email">Email</label><input type="email" id="c_email" required autocomplete="email"></div>
+              <div class="field"><label for="c_phone">Phone</label><input type="tel" id="c_phone" autocomplete="tel"></div>
+            </div>
+            <div class="checks"><label><input type="checkbox" id="c_same"> The person who placed the order is the survey coordinator</label></div>
+            <div class="grid">
+              <div class="field full"><span class="lbl">Billing / accounts payable contact</span><span class="hint">Who receives the receipt or invoice.</span></div>
+              <div class="field"><label class="req" for="b_name">Name</label><input type="text" id="b_name" required></div>
+              <div class="field"><label class="req" for="b_email">Email</label><input type="email" id="b_email" required></div>
+            </div>
+            <div class="field" id="recipWrap"><label for="r_list">Who should receive the <span id="recipWhat">results</span>?</label><textarea id="r_list" placeholder="Name, title, email (one per line)"></textarea><span class="hint">Include your institutional research office if they will work with the data.</span></div>
+          </div>
+        </section>
+
+        <!-- 2 BILLING -->
+        <section class="card" id="s-billing" data-title="Billing paperwork">
+          <header><h2>Billing paperwork</h2><p class="why">Anything your business office needs from us, collected once.</p></header>
+          <div class="stack">
+            <div class="callout warn" id="achNote" hidden><b>Bank transfer (ACH) in progress.</b> ACH payments take a few business days to clear. You can finish this form now; setup begins as soon as the payment arrives.</div>
+            <div class="grid">
+              <div class="field"><label for="p_po">PO number</label><input type="text" id="p_po"><span class="hint">Leave blank if you don't use one.</span></div>
+              <div class="field"><label class="req" for="p_legal">Institution's legal name for the invoice</label><input type="text" id="p_legal" required></div>
+              <div class="field full"><label for="p_addr">Billing address</label><textarea id="p_addr" style="min-height:70px"></textarea></div>
+            </div>
+            <fieldset><legend class="lbl" style="margin-bottom:8px">Your business office needs</legend>
+              <div class="checks">
+                <label><input type="checkbox" id="p_invoice"> A paid invoice / receipt addressed to the institution</label>
+                <label><input type="checkbox" id="p_w9"> A W-9</label>
+                <label><input type="checkbox" id="p_vendor"> Vendor or supplier registration in our system</label>
+                <label><input type="checkbox" id="p_tax"> Our tax-exempt certificate on file with you</label>
+              </div>
+            </fieldset>
+            <div class="field" id="vendorWrap" hidden><label for="p_vendor_how">How do we register? (portal link or contact)</label><input type="text" id="p_vendor_how"></div>
+          </div>
+        </section>
+
+        <!-- 3 SURVEYS -->
+        <section class="card" id="s-surveys" data-title="Your surveys">
+          <header><h2>Your surveys</h2><p class="why" id="surveysWhy">Which instrument, who takes it, and when.</p></header>
+          <div class="stack" id="surveyList"></div>
+        </section>
+
+        <!-- 4 ADMINISTRATION -->
+        <section class="card" id="s-admin" data-title="Administration">
+          <header><h2>Sending the survey</h2><p class="why" id="adminWhy"></p></header>
+          <div class="stack">
+            <div class="callout info" id="adminInfo"></div>
+            <div id="adminCampus" class="grid">
+              <div class="field"><label class="req" for="a_needby">Date you need the survey link</label><input type="date" id="a_needby" required></div>
+              <div class="field"><label class="req" for="a_sender">Who will send the invitation?</label><input type="text" id="a_sender" required placeholder="Office of the Dean of Students"></div>
+              <div class="field full"><label for="a_channels">How will you reach respondents?</label>
+                <div class="choices" id="a_channels">
+                  <label><input type="checkbox" value="Email"> Email</label><label><input type="checkbox" value="Learning management system"> Learning management system</label><label><input type="checkbox" value="Student portal"> Student portal</label><label><input type="checkbox" value="In class"> In class</label>
+                </div></div>
+            </div>
+            <div id="adminUs" class="grid">
+              <div class="field"><label class="req" for="a_listdate">Date you'll send the email list</label><input type="date" id="a_listdate" required></div>
+              <div class="field"><label class="req" for="a_signer">Invitation signed by</label><input type="text" id="a_signer" required placeholder="Name, title (e.g. Vice President for Student Affairs)"></div>
+              <div class="field full"><span class="lbl">Your list will include</span>
+                <div class="checks"><label><input type="checkbox" checked disabled> First name and email</label><label><input type="checkbox" id="a_listid"> An ID column (only if you're collecting IDs, below)</label></div>
+                <span class="hint">We'll send a secure upload link. Please don't email the list.</span></div>
+              <div class="field full"><label for="a_remind">Reminders</label><select id="a_remind"><option>Use the standard reminder schedule</option><option>Fewer reminders</option><option>Coordinate reminders with our own campus messages</option></select></div>
+            </div>
+            <div class="field"><label for="a_blackout">Dates to avoid (breaks, exams, other campus surveys)</label><input type="text" id="a_blackout" placeholder="e.g. Thanksgiving break, Dec 8–15 finals"></div>
+          </div>
+        </section>
+
+        <!-- 5 IDS / CONSENT / IRB -->
+        <section class="card" id="s-consent" data-title="IDs, consent & IRB">
+          <header><h2>IDs, consent &amp; IRB</h2><p class="why">Whether you collect IDs changes the consent wording respondents see, so we need to know before setup.</p></header>
+          <div class="stack">
+            <fieldset><legend class="lbl req" style="margin-bottom:8px">Will you collect <span class="idWho">student</span> IDs with responses?</legend>
+              <div class="choices" data-required="ids">
+                <label><input type="radio" name="ids" value="yes"> Yes</label><label><input type="radio" name="ids" value="no"> No</label><label><input type="radio" name="ids" value="unsure"> Not sure yet</label>
+              </div></fieldset>
+            <div id="idsYes" class="stack" hidden>
+              <div class="callout info"><b>With IDs, responses are confidential, not anonymous.</b> Respondents will be told that their answers can be linked to institutional records and how that information is protected.</div>
+              <fieldset><legend class="lbl" style="margin-bottom:8px">What will you link responses to?</legend>
+                <div class="choices" id="i_link"><label><input type="checkbox" value="Retention / persistence"> Retention / persistence</label><label><input type="checkbox" value="GPA"> GPA</label><label><input type="checkbox" value="Demographics from records"> Demographics from records</label><label><input type="checkbox" value="Program participation"> Program participation</label></div></fieldset>
+            </div>
+            <div class="callout warn" id="idsUnsure" hidden>No problem. We'll hold the consent wording until you decide, which can delay launch.</div>
+            <div class="grid">
+              <div class="field"><label class="req" for="irb">IRB status</label>
+                <select id="irb" required><option value="">Choose one</option><option>Our IRB has already reviewed this survey</option><option>Submitted, waiting for a decision</option><option>We will submit</option><option>Our IRB says review isn't needed</option><option>Not sure</option></select></div>
+              <div class="field"><label for="irb_contact">IRB office contact (email)</label><input type="email" id="irb_contact"></div>
+              <div class="field full"><span class="lbl">Documents you need from us for your IRB</span>
+                <div class="choices" id="irb_docs"><label><input type="checkbox" value="Copy of the instrument"> Copy of the instrument</label><label><input type="checkbox" value="Consent language"> Consent language</label><label><input type="checkbox" value="Data handling description"> Data handling description</label></div></div>
+              <div class="field full"><label for="irb_file">IRB letter (optional)</label><input type="file" id="irb_file" accept=".pdf,.doc,.docx"></div>
+            </div>
+            <p class="hint">Your institution's IRB decides whether review is required. We supply the instrument and the documentation it needs.</p>
+          </div>
+        </section>
+
+        <!-- 6 INCENTIVES -->
+        <section class="card" id="s-incent" data-title="Incentives">
+          <header><h2>Incentives</h2><p class="why">So we can describe them correctly in the invitation.</p></header>
+          <div class="stack">
+            <fieldset><legend class="lbl req" style="margin-bottom:8px">Are you offering an incentive?</legend>
+              <div class="choices" data-required="inc"><label><input type="radio" name="inc" value="yes"> Yes</label><label><input type="radio" name="inc" value="no"> No</label><label><input type="radio" name="inc" value="undecided"> Undecided</label></div></fieldset>
+            <div id="incYes" class="grid" hidden>
+              <div class="field"><label for="inc_type">What is it?</label><select id="inc_type"><option>Prize drawing</option><option>Gift card for every respondent</option><option>Campus credit or points</option><option>Other</option></select></div>
+              <div class="field"><label for="inc_value">Value / number of prizes</label><input type="text" id="inc_value" placeholder="e.g. ten $25 bookstore cards"></div>
+              <div class="field full"><label for="inc_text">Sentence to include in the invitation</label><textarea id="inc_text" style="min-height:70px" placeholder="Complete the survey by March 14 to be entered to win…"></textarea></div>
+              <div class="checks full"><label><input type="checkbox" id="inc_sep" checked> Collect contact details for the drawing separately from survey answers</label></div>
+              <p class="hint full">Your campus provides and awards the incentive.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7 CUSTOMIZATION -->
+        <section class="card" id="s-custom" data-title="Your questions & data">
+          <header><h2>Your questions &amp; dashboard</h2><p class="why" id="customWhy"></p></header>
+          <div class="stack">
+            <div id="qWrap" class="stack">
+              <div class="callout info" id="qInfo"></div>
+              <fieldset><legend class="lbl" style="margin-bottom:8px">When will you send your questions?</legend>
+                <div class="choices" data-required="qwhen"><label><input type="radio" name="qwhen" value="now"> Enter them now</label><label><input type="radio" name="qwhen" value="later"> Send them by a date</label><label><input type="radio" name="qwhen" value="none"> We won't use them</label></div></fieldset>
+              <div class="field" id="qNow" hidden><label for="q_text">Your questions, with answer choices</label><textarea id="q_text" style="min-height:130px" placeholder="1. How many hours a week do you work off campus? (0 / 1–10 / 11–20 / 20+)"></textarea></div>
+              <div class="field" id="qLater" hidden><label for="q_date">Send by</label><input type="date" id="q_date"></div>
+            </div>
+            <div id="dWrap" class="stack">
+              <div class="callout info" id="dInfo"></div>
+              <div id="dList" class="grid"></div>
+              <fieldset><legend class="lbl" style="margin-bottom:8px">Where should that information come from?</legend>
+                <div class="choices"><label><input type="radio" name="dsrc" value="survey"> Asked on the survey</label><label><input type="radio" name="dsrc" value="records"> From our records, matched by ID</label></div></fieldset>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8 WEBINAR -->
+        <section class="card" id="s-webinar" data-title="Webinar">
+          <header><h2>Your webinar with Dr. Schreiner</h2><p class="why" id="webWhy">One hour, online. Pick a few windows and we'll confirm one.</p></header>
+          <div class="grid">
+            <div class="field"><label class="req" for="w_1">First choice</label><input type="text" id="w_1" required placeholder="e.g. Tues or Thurs afternoons, late April"></div>
+            <div class="field"><label for="w_2">Second choice</label><input type="text" id="w_2"></div>
+            <div class="field"><label for="w_tz">Time zone</label><select id="w_tz"><option>Eastern</option><option>Central</option><option>Mountain</option><option>Pacific</option><option>Other</option></select></div>
+            <div class="field"><label for="w_n">Expected attendees</label><input type="number" id="w_n" min="1" inputmode="numeric"></div>
+            <div class="field full"><label for="w_aud">Who is the audience?</label><input type="text" id="w_aud" placeholder="Cabinet, student affairs staff, faculty senate…"></div>
+            <div class="field"><label for="w_plat">Platform</label><select id="w_plat"><option>Zoom, hosted by us</option><option>Our campus platform (we'll send a link)</option></select></div>
+            <div class="field"><span class="lbl">Recording</span><div class="checks"><label><input type="checkbox" id="w_rec" checked> We'd like to record it</label></div></div>
+          </div>
+        </section>
+
+        <!-- 9 FINAL -->
+        <section class="card" id="s-final" data-title="Confirm & send">
+          <header><h2>Anything else?</h2></header>
+          <div class="stack">
+            <div class="field"><label for="f_notes">Notes for Dr. Schreiner</label><textarea id="f_notes" placeholder="Timing constraints, special populations, anything we should know"></textarea></div>
+            <div class="checks" id="acks"></div>
+            <div class="actions">
+              <span class="saved" id="savedTxt">Your answers save automatically on this device.</span>
+              <div style="display:flex;gap:10px;flex-wrap:wrap"><span class="err" id="errTxt" hidden></span><button type="submit" class="btn">Send to Dr. Schreiner</button></div>
+            </div>
+          </div>
+        </section>
+      </form>
+    </div>
+  </div>
+
+  <div id="doneView" hidden>
+    <div class="intro" style="grid-template-columns:1fr">
+      <div>
+        <div class="eyebrow">Sent</div>
+        <h1>Thank you. Your answers are with Dr. Schreiner.</h1>
+        <p class="lede">A copy is on its way to <b id="dEmail"></b>. You'll hear from us when your survey is ready. You can come back to this page to change an answer.</p>
+      </div>
+    </div>
+    <div class="callout info" style="margin-bottom:14px"><b>Preview only: this is the email Laurie receives.</b> It's shown here so you can review it; buyers never see it.</div>
+    <div class="brief" id="brief"></div>
+    <div style="margin-top:16px"><button class="btn ghost" id="back" type="button">Back to the form</button></div>
+  </div>
+</div>
+
+<script>
+(function(){
+const INSTR=["Undergraduate TQ","Adult TQ","Graduate Student TQ","Sophomore Experiences Survey","Faculty TQ","Staff TQ","Community College TQ"];
+const DEMOS={
+  survey:{label:"Survey Package · $750",num:"TP-2026-0931",inst:"Lakeview College",buyer:"Dana Ortiz, Assessment Coordinator",email:"dortiz@lakeview.edu",status:"paid",method:"Card",
+    lines:[{n:"Survey Package",d:"Undergraduate TQ",p:750,q:1}],pkg:"survey",surveys:[{i:"Undergraduate TQ",locked:true}],q:0,qExtra:0,dash:false,dExtra:0,webinar:false,disc:0},
+  basic:{label:"Basic Report · $1,500 + add-on",num:"TP-2026-0932",inst:"Mercy Hill University",buyer:"Andre Wallace, Dean of Students",email:"awallace@mercyhill.edu",status:"paid",method:"Card",
+    lines:[{n:"Basic Report Package",d:"Sophomore Experiences Survey",p:1500,q:1},{n:"Additional demographic variable",d:"× 1",p:300,q:1}],pkg:"basic",surveys:[{i:"Sophomore Experiences Survey",locked:true}],q:0,qExtra:0,dash:true,dExtra:1,webinar:false,disc:0},
+  expanded:{label:"3 × Expanded Report · ACH",num:"TP-2026-0933",inst:"Northern Plains State University",buyer:"Priya Raman, Director of Institutional Research",email:"praman@npsu.edu",status:"ach",method:"ACH bank transfer",
+    lines:[{n:"Expanded Report Package",d:"Undergraduate TQ + 2 more",p:2500,q:3},{n:"Additional institution-specific questions",d:"2 groups of 5",p:300,q:2}],pkg:"expanded",surveys:[{i:"Undergraduate TQ",locked:true},{i:""},{i:""}],q:10,qExtra:10,dash:true,dExtra:0,webinar:false,disc:1125,po:"PO-448120"},
+  campus:{label:"Thriving Campus · $10,000",num:"TP-2026-0934",inst:"Cedar Ridge College",buyer:"Marcus Bell, Provost",email:"mbell@cedarridge.edu",status:"ach",method:"ACH bank transfer",
+    lines:[{n:"Thriving Campus Package with One-Hour Webinar",d:"5 surveys within one year",p:10000,q:1}],pkg:"campus",surveys:[{i:"Faculty TQ",locked:true},{i:""},{i:""},{i:""},{i:""}],q:10,qExtra:0,dash:true,dExtra:0,webinar:true,disc:0},
+  webinar:{label:"Webinar only · $2,000",num:"TP-2026-0935",inst:"Bayshore Community College",buyer:"Lena Cho, VP Student Services",email:"lcho@bayshore.edu",status:"paid",method:"Card",
+    lines:[{n:"One-Hour Webinar with Dr. Laurie Schreiner",d:"",p:2000,q:1}],pkg:"webinar",surveys:[],q:0,qExtra:0,dash:false,dExtra:0,webinar:true,disc:0}
+};
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const fmt=n=>"$"+n.toLocaleString("en-US");
+let key="expanded", O=DEMOS[key];
+
+function store(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+function load(k){try{return localStorage.getItem(k)}catch(e){return null}}
+
+// demo buttons
+const demo=$("#demo");
+Object.entries(DEMOS).forEach(([k,d])=>{const b=document.createElement("button");b.type="button";b.textContent=d.label;b.dataset.k=k;b.setAttribute("aria-pressed",k===key);b.onclick=()=>{key=k;store("intake_demo",k);render()};demo.appendChild(b)});
+const savedKey=load("intake_demo"); if(savedKey&&DEMOS[savedKey]) key=savedKey;
+
+function show(id,on){const el=typeof id==="string"?$(id):id; if(el) el.hidden=!on}
+
+function render(){
+  O=DEMOS[key];
+  $$("#demo button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===key));
+  $("#formView").hidden=false; $("#doneView").hidden=true;
+  $("#intake").reset();
+  ["#idsYes","#idsUnsure","#incYes","#qNow","#qLater","#vendorWrap"].forEach(s=>show(s,false));
+  $("#errTxt").hidden=true; $("#savedTxt").textContent="Your answers save automatically on this device.";
+  // order card
+  $("#oNum").textContent="Order "+O.num+" · "+O.method;
+  const st=$("#oStatus"); st.className="pill "+(O.status==="paid"?"ok":"warn"); st.textContent=O.status==="paid"?"Paid":"Payment clearing (ACH)";
+  const L=$("#oLines"); L.innerHTML="";
+  let tot=0;
+  O.lines.forEach(l=>{tot+=l.p*l.q;const li=document.createElement("li");li.innerHTML=`<span>${l.n}${l.q>1?" × "+l.q:""}<span class="sub">${l.d}</span></span><span class="amt">${fmt(l.p*l.q)}</span>`;L.appendChild(li)});
+  if(O.disc){tot-=O.disc;const li=document.createElement("li");li.innerHTML=`<span>Thriving Campus discount<span class="sub">15% for 3+ surveys</span></span><span class="amt">−${fmt(O.disc)}</span>`;L.appendChild(li)}
+  $("#oTotal").textContent=fmt(tot);
+  $("#oWho").innerHTML=`<span><b style="color:var(--ink)">${O.inst}</b></span><span>${O.buyer} · ${O.email}</span>`;
+  $("#hello").textContent=O.pkg==="webinar"?"Let's schedule your webinar.":(O.surveys.length>1?`Let's get your ${O.surveys.length} surveys ready.`:"Let's get your survey ready.");
+  // prefill
+  $("#p_legal").value=O.inst; $("#p_po").value=O.po||"";
+  show("#achNote",O.status==="ach");
+  const hasSurveys=O.surveys.length>0;
+  ["#s-surveys","#s-admin","#s-consent","#s-incent"].forEach(s=>show(s,hasSurveys));
+  show("#s-webinar",O.webinar);
+  // recipients label
+  $("#recipWhat").textContent=O.pkg==="survey"?"raw data file":O.pkg==="webinar"?"webinar invitation":"reports and dashboard access";
+  // surveys
+  const SL=$("#surveyList"); SL.innerHTML="";
+  if(O.pkg==="campus") $("#surveysWhy").textContent="Your package covers any five instruments within one year. Choose what you know now; you can finish the rest later.";
+  else if(O.surveys.length>1) $("#surveysWhy").textContent=`You ordered ${O.surveys.length} surveys. Checkout recorded the first instrument; please choose the others.`;
+  else $("#surveysWhy").textContent="Which instrument, who takes it, and when.";
+  O.surveys.forEach((s,i)=>{
+    const n=i+1, d=document.createElement("div"); d.className="survey";
+    const opts=['<option value="">Choose an instrument</option>'].concat(INSTR.map(x=>`<option ${x===s.i?"selected":""}>${x}</option>`)).join("");
+    const later=O.pkg==="campus"&&i>0?`<label style="font-weight:500;display:flex;gap:8px;align-items:center"><input type="checkbox" class="later" data-n="${n}"> Decide later</label>`:"";
+    d.innerHTML=`<h3><span>Survey ${n}</span><span class="from">${s.locked?"From your checkout":""}</span></h3>
+      <div class="grid">
+        <div class="field"><label class="req" for="s${n}_i">Instrument</label><select id="s${n}_i" ${s.locked?"disabled":""} ${s.locked?"":"required"}>${opts}</select></div>
+        <div class="field adj" hidden><span class="lbl">Faculty version</span><div class="checks"><label><input type="checkbox" id="s${n}_adj"> Include adjunct faculty</label></div></div>
+        <div class="field full"><label class="req" for="s${n}_pop">Who will take it?</label><input type="text" id="s${n}_pop" required placeholder="e.g. all first-year students, main campus"></div>
+        <div class="field"><label class="req" for="s${n}_size">About how many will be invited?</label><input type="number" id="s${n}_size" min="1" inputmode="numeric" required></div>
+        <div class="field"><label for="s${n}_term">Term</label><select id="s${n}_term"><option>Fall 2026</option><option>Spring 2027</option><option>Summer 2027</option><option>Fall 2027</option></select></div>
+        <div class="field"><label class="req" for="s${n}_open">Preferred open date</label><input type="date" id="s${n}_open" required></div>
+        <div class="field"><label for="s${n}_close">Preferred close date</label><input type="date" id="s${n}_close"></div>
+        <div class="callout info full soph" hidden><b>Sophomore Experiences Survey</b> runs February–March, when the national norms are collected.</div>
+        ${later?`<div class="full">${later}</div>`:""}
+      </div>`;
+    SL.appendChild(d);
+    const sel=d.querySelector("select");
+    const upd=()=>{const v=sel.value;d.querySelector(".adj").hidden=v!=="Faculty TQ";d.querySelector(".soph").hidden=v!=="Sophomore Experiences Survey";syncIdWho()};
+    sel.addEventListener("change",upd); upd();
+    const lt=d.querySelector(".later"); if(lt) lt.addEventListener("change",()=>{d.querySelectorAll("input:not(.later),select").forEach(el=>{if(el.id)el.disabled=lt.checked&&!el.closest(".checks")});d.style.opacity=lt.checked?.6:1;progress()});
+  });
+  // admin
+  const administered=O.pkg==="expanded"||O.pkg==="campus";
+  show("#adminCampus",hasSurveys&&!administered); show("#adminUs",hasSurveys&&administered);
+  $$("#adminCampus [required]").forEach(el=>el.required=!administered);
+  $$("#adminUs [required]").forEach(el=>el.required=administered);
+  $("#adminWhy").textContent=administered?"We send the survey for you from a list you provide.":"We set up the survey and send you the link to share.";
+  $("#adminInfo").innerHTML=administered?"<b>We administer your survey.</b> You send us a list of respondents; we send the invitations and reminders from our survey platform.":"<b>You distribute the survey.</b> We set it up and send your coordinator the link. Responses come straight to us.";
+  // custom
+  const hasQ=O.q>0||O.qExtra>0, hasD=O.dash;
+  show("#s-custom",hasSurveys&&(hasQ||hasD)); show("#qWrap",hasQ); show("#dWrap",hasD);
+  const qTotal=O.q+O.qExtra;
+  $("#customWhy").textContent=hasQ&&hasD?"Your own questions, and how your dashboard breaks down results.":hasQ?"Your own questions.":"How your dashboard breaks down results.";
+  $("#qInfo").innerHTML=`<b>You can add up to ${qTotal} questions${O.surveys.length>1?" per survey":""}.</b> ${O.q?O.q+" are included in your package":""}${O.q&&O.qExtra?" and ":""}${O.qExtra?O.qExtra+" you added at checkout":""}.`;
+  $("#dInfo").innerHTML=`<b>Your dashboard shows results by gender and race/ethnicity.</b> ${O.dExtra?`You added ${O.dExtra} more variable${O.dExtra>1?"s":""}. Tell us which below.`:"You can add more variables for $300 each; just mention it in your notes."}`;
+  const DL=$("#dList"); DL.innerHTML="";
+  for(let i=1;i<=O.dExtra;i++){const f=document.createElement("div");f.className="field";f.innerHTML=`<label class="req" for="d${i}">Added variable ${i}</label><input type="text" id="d${i}" required list="dSug" placeholder="e.g. first-generation status">`;DL.appendChild(f)}
+  if(!$("#dSug")){const dl=document.createElement("datalist");dl.id="dSug";dl.innerHTML=["First-generation status","Residential vs. commuter","Student-athlete","Pell eligibility","Transfer status","Major / college","Honors program","Veteran status"].map(x=>`<option value="${x}">`).join("");document.body.appendChild(dl)}
+  // webinar
+  $("#webWhy").textContent=O.pkg==="campus"?"Included with your package. It's usually scheduled after your surveys close so Dr. Schreiner can discuss all five together. Early windows help us plan.":"One hour, online. Pick a few windows and we'll confirm one.";
+  // acks
+  const A=$("#acks"); A.innerHTML="";
+  const ack=(id,t)=>{A.insertAdjacentHTML("beforeend",`<label><input type="checkbox" id="${id}" required> <span>${t}</span></label>`)};
+  if(administered) ack("k_300","I understand the campus-specific predictive model needs more than 300 responses.");
+  if(hasSurveys) ack("k_irb","I understand our institution decides whether IRB review is required.");
+  ack("k_ok","The information above is correct to the best of my knowledge.");
+  // steps
+  buildSteps(); restoreDraft(); wireDynamic(); progress();
+}
+
+function syncIdWho(){const vals=$$("#surveyList select").map(s=>s.value);const staff=vals.length&&vals.every(v=>/Faculty|Staff/.test(v));$$(".idWho").forEach(e=>e.textContent=staff?"employee":"student")}
+
+function visibleSections(){return $$("#intake section.card").filter(s=>!s.hidden)}
+function buildSteps(){
+  const ol=$("#stepList"); ol.innerHTML="";
+  visibleSections().forEach((s,i)=>{const li=document.createElement("li");li.innerHTML=`<a href="#${s.id}" data-for="${s.id}"><span class="dot">${i+1}</span><span class="txt">${s.dataset.title}</span></a>`;ol.appendChild(li)});
+}
+function sectionDone(s){
+  const req=[...s.querySelectorAll("[required]")].filter(el=>!el.disabled&&!el.closest("[hidden]"));
+  const okReq=req.every(el=>el.type==="checkbox"?el.checked:el.value.trim()!=="");
+  const radios=[...s.querySelectorAll("[data-required]")].filter(el=>!el.closest("[hidden]")).every(g=>g.querySelector("input:checked"));
+  return okReq&&radios;
+}
+function progress(){
+  const vs=visibleSections(); let d=0;
+  vs.forEach(s=>{const done=sectionDone(s); if(done)d++; const a=$(`#stepList a[data-for="${s.id}"]`); if(a){a.classList.toggle("done",done); a.querySelector(".dot").textContent=done?"✓":vs.indexOf(s)+1}});
+  $("#progTxt").textContent=`${d} of ${vs.length} sections complete`; $("#progBar").style.width=(vs.length?d/vs.length*100:0)+"%";
+}
+function wireDynamic(){
+  $$("input[name=ids]").forEach(r=>r.onchange=()=>{const v=$("input[name=ids]:checked").value;show("#idsYes",v==="yes");show("#idsUnsure",v==="unsure");$("#a_listid").checked=v==="yes";saveDraft();progress()});
+  $$("input[name=inc]").forEach(r=>r.onchange=()=>{show("#incYes",$("input[name=inc]:checked").value==="yes");saveDraft();progress()});
+  $$("input[name=qwhen]").forEach(r=>r.onchange=()=>{const v=$("input[name=qwhen]:checked").value;show("#qNow",v==="now");show("#qLater",v==="later")});
+  $("#p_vendor").onchange=()=>show("#vendorWrap",$("#p_vendor").checked);
+  $("#c_same").onchange=()=>{if($("#c_same").checked){const[n,t]=O.buyer.split(", ");$("#c_name").value=n;$("#c_title").value=t+", "+O.inst;$("#c_email").value=O.email}progress()};
+}
+// draft save
+let tmr;
+function saveDraft(){clearTimeout(tmr);tmr=setTimeout(()=>{const data={};$$("#intake input,#intake select,#intake textarea").forEach(el=>{if(!el.id||el.type==="file")return;data[el.id]=el.type==="checkbox"?el.checked:el.value});$$("#intake input[type=radio]:checked").forEach(r=>data["radio_"+r.name]=r.value);store("intake_draft_"+key,JSON.stringify(data));$("#savedTxt").textContent="Saved just now on this device."},400)}
+function restoreDraft(){let raw=load("intake_draft_"+key);if(!raw)return;let data;try{data=JSON.parse(raw)}catch(e){return}
+  Object.entries(data).forEach(([id,v])=>{if(id.startsWith("radio_")){const r=$(`input[name="${id.slice(6)}"][value="${v}"]`);if(r){r.checked=true;r.dispatchEvent(new Event("change"))}return}const el=document.getElementById(id);if(!el||el.disabled&&el.tagName==="SELECT")return;if(el.type==="checkbox")el.checked=v;else el.value=v;el.dispatchEvent(new Event("change"))});}
+$("#intake").addEventListener("input",()=>{saveDraft();progress()});
+$("#intake").addEventListener("change",()=>{saveDraft();progress()});
+
+// active step highlight
+const io=("IntersectionObserver" in window)?new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){$$("#stepList a").forEach(a=>a.classList.toggle("cur",a.dataset.for===e.target.id))}})},{rootMargin:"-40% 0px -55% 0px"}):null;
+function observe(){if(io){io.disconnect();$$("#intake section.card").forEach(s=>io.observe(s))}}
+
+// submit
+$("#intake").addEventListener("submit",e=>{
+  e.preventDefault();
+  const vs=visibleSections(), bad=vs.filter(s=>!sectionDone(s));
+  const err=$("#errTxt");
+  if(bad.length){err.hidden=false;err.textContent="Please finish: "+bad.map(s=>s.dataset.title).join(", ");bad[0].scrollIntoView({behavior:"smooth",block:"start"});return}
+  err.hidden=true; buildBrief(); $("#formView").hidden=true; $("#doneView").hidden=false; window.scrollTo({top:0,behavior:"smooth"});
+});
+$("#back").onclick=()=>{$("#formView").hidden=false;$("#doneView").hidden=true};
+
+function v(id){const el=document.getElementById(id);return el?(el.type==="checkbox"?el.checked:String(el.value||"").trim()):""}
+function chk(sel){return $$(sel+" input:checked").map(i=>i.value).join(", ")}
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function dl(rows){return "<dl>"+rows.filter(r=>r[1]!==""&&r[1]!==false).map(r=>`<dt>${r[0]}</dt><dd>${esc(r[1]===true?"Yes":r[1])}</dd>`).join("")+"</dl>"}
+function buildBrief(){
+  const B=$("#brief"), administered=O.pkg==="expanded"||O.pkg==="campus", flags=[];
+  const ids=($("input[name=ids]:checked")||{}).value||"", inc=($("input[name=inc]:checked")||{}).value||"";
+  if(O.status==="ach") flags.push(["miss","ACH payment still clearing. Hold setup until Stripe confirms."]); else flags.push(["good","Payment received."]);
+  if(ids==="unsure") flags.push(["miss","Hasn't decided on collecting IDs. Consent wording is on hold."]);
+  if(ids==="yes") flags.push(["good","Collecting IDs. Use the confidential (not anonymous) consent wording."]);
+  if(/submit|waiting|Not sure/i.test(v("irb"))) flags.push(["miss","IRB not yet cleared: "+v("irb")+"."]);
+  const later=$$(".later:checked").length; if(later) flags.push(["miss",`${later} survey${later>1?"s":""} still to be chosen (Thriving Campus).`]);
+  const qw=($("input[name=qwhen]:checked")||{}).value; if(qw==="later") flags.push(["miss","Custom questions due "+(v("q_date")||"(no date given)")+"."]);
+  if(v("p_w9")) flags.push(["miss","Send a W-9."]); if(v("p_vendor")) flags.push(["miss","Complete vendor registration."]); if(v("p_invoice")) flags.push(["miss","Send a paid invoice to "+v("b_email")+"."]);
+  if(chk("#irb_docs")) flags.push(["miss","IRB documents requested: "+chk("#irb_docs")+"."]);
+  let surveys="";
+  $$("#surveyList .survey").forEach((d,i)=>{const n=i+1;if(d.querySelector(".later:checked")){surveys+=`<div class="bbox"><h3>Survey ${n}</h3><p class="hint">To be chosen later</p></div>`;return}
+    surveys+=`<div class="bbox"><h3>Survey ${n}</h3>${dl([["Instrument",v(`s${n}_i`)+(v(`s${n}_adj`)?" (incl. adjunct)":"")],["Population",v(`s${n}_pop`)],["Invited",v(`s${n}_size`)],["Term",v(`s${n}_term`)],["Open",v(`s${n}_open`)],["Close",v(`s${n}_close`)]])}</div>`});
+  B.innerHTML=`
+   <div class="head"><h2>New intake: ${esc(O.inst)}</h2><span class="mail">To: Dr. Schreiner · Order ${O.num}</span></div>
+   <div><h3 style="font-family:var(--sans);font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--leaf);margin-bottom:8px">Before you start</h3><ul class="flags">${flags.map(f=>`<li class="${f[0]}">${esc(f[1])}</li>`).join("")}</ul></div>
+   <div class="bgrid">
+     <div class="bbox"><h3>Order</h3>${dl([["Items",O.lines.map(l=>l.n+(l.q>1?" × "+l.q:"")).join("; ")],["Payment",O.method+(O.status==="ach"?" (clearing)":" (paid)")],["PO",v("p_po")],["Invoice to",v("p_legal")]])}</div>
+     <div class="bbox"><h3>Contacts</h3>${dl([["Coordinator",[v("c_name"),v("c_title")].filter(Boolean).join(", ")],["Email",v("c_email")],["Phone",v("c_phone")],["Billing",[v("b_name"),v("b_email")].filter(Boolean).join(" · ")],["Recipients",v("r_list")]])}</div>
+     ${surveys}
+     ${O.surveys.length?`<div class="bbox"><h3>Administration</h3>${dl(administered?[["Mode","We administer from their list"],["List arrives",v("a_listdate")],["Signed by",v("a_signer")],["ID column",v("a_listid")],["Reminders",v("a_remind")],["Avoid",v("a_blackout")]]:[["Mode","Campus distributes our link"],["Link needed by",v("a_needby")],["Sent by",v("a_sender")],["Channels",chk("#a_channels")],["Avoid",v("a_blackout")]])}</div>
+     <div class="bbox"><h3>IDs, consent &amp; IRB</h3>${dl([["Collect IDs",ids],["Linking to",chk("#i_link")],["IRB",v("irb")],["IRB contact",v("irb_contact")],["Docs needed",chk("#irb_docs")]])}</div>
+     <div class="bbox"><h3>Incentive</h3>${dl(inc==="yes"?[["Type",v("inc_type")],["Value",v("inc_value")],["Invitation text",v("inc_text")],["Separate contact form",v("inc_sep")]]:[["Offering",inc]])}</div>`:""}
+     ${!$("#s-custom").hidden?`<div class="bbox"><h3>Questions &amp; dashboard</h3>${dl([["Custom questions",qw==="now"?v("q_text"):qw==="later"?"By "+v("q_date"):qw==="none"?"Not using":""],["Added variables",$$("#dList input").map(i=>i.value).join(", ")],["Variable source",(($("input[name=dsrc]:checked")||{}).value||"").replace("records","Institutional records via ID").replace("survey","Survey questions")]])}</div>`:""}
+     ${O.webinar?`<div class="bbox"><h3>Webinar</h3>${dl([["1st choice",v("w_1")],["2nd choice",v("w_2")],["Time zone",v("w_tz")],["Audience",v("w_aud")],["Attendees",v("w_n")],["Platform",v("w_plat")],["Record",v("w_rec")]])}</div>`:""}
+     ${v("f_notes")?`<div class="bbox"><h3>Notes</h3><p style="font-size:14px">${esc(v("f_notes"))}</p></div>`:""}
+   </div>`;
+  $("#dEmail").textContent=v("c_email")||O.email;
+}
+$$("#stepList").forEach(()=>{});
+const _r=render; render=function(){_r();observe()};
+render();
+})();
+</script>
+</body>
+</html>

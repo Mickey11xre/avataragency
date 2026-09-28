@@ -395,7 +395,7 @@ if (!STAGING) {
   jobs.push({ rel: 'favicon.ico', dest: path.join(OUT, 'favicon.ico'),
               out: fs.readFileSync(path.join(SRC, 'assets', 'favicon.ico')), binary: true });
   // post-purchase, form-sent and staging-status pages never enter the sitemap
-  const skip = /^(welcome|status)\/index\.html$|\/sent\/index\.html$/;
+  const skip = /^(welcome|status)\/index\.html$|\/sent\/index\.html$|^review\//;   // review/ = private, unlinked client-review pages
   const urls = jobs.filter(j => j.rel.endsWith('index.html') && !skip.test(j.rel.replace(/\\/g, '/')))
     .map(j => { const p = j.rel.replace(/\\/g, '/').replace(/index\.html$/, ''); return HOST + '/' + p; });
   const today = new Date().toISOString().slice(0, 10);

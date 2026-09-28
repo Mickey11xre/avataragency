@@ -49,7 +49,7 @@ const prefix = staging ? '/thrivingincollege' : '';
       if (/\{\{[a-z]+:/.test(s)) problems.push('unresolved token');
       const noindex = /name="robots" content="noindex/.test(s);
       if (staging && !noindex) problems.push('staging page missing noindex');
-      if (!staging && noindex && !/\/welcome\/|\/sent\/|\/status\//.test(p)) problems.push('launch page carries noindex');
+      if (!staging && noindex && !/\/welcome\/|\/sent\/|\/status\/|\/review\//.test(p)) problems.push('launch page carries noindex');
       if (/<details>/.test(s) && !/"@type":\s*"FAQPage"/.test(s)) problems.push('visible FAQ without FAQPage schema');
       if (/"@type":\s*"FAQPage"/.test(s) && !/<details>/.test(s)) problems.push('FAQPage schema without visible FAQ');
     } catch (e) { problems.push('fetch failed: ' + e.message); }
