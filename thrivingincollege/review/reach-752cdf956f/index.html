@@ -123,6 +123,25 @@ header.site{display:flex;align-items:center;gap:10px;padding:22px 0 18px;border-
 .all .st-item em{font-style:normal;font-size:13.5px;color:var(--ink-mute);margin-left:6px}
 .all .st-item ul{margin:3px 0 0;padding-left:18px;color:var(--ink-soft)}
 .src{margin-top:22px;font-size:14px;color:var(--ink-mute)}
+
+/* phone-only controls: a state picker above the map, and the small eastern states as real buttons */
+.pick,.smallrow{display:none}
+@media (max-width:699px){
+  .pick{display:grid;gap:6px;margin:2px 2px 12px}
+  .pick span{font:600 12.5px/1.2 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--gold-text)}
+  .pick select{font:16px var(--sans);color:var(--ink);background:#fff;border:1px solid var(--rule);border-radius:10px;
+    min-height:48px;padding:10px 40px 10px 14px;appearance:none;-webkit-appearance:none;
+    background-image:linear-gradient(45deg,transparent 50%,var(--green) 50%),linear-gradient(135deg,var(--green) 50%,transparent 50%);
+    background-position:calc(100% - 20px) 21px,calc(100% - 14px) 21px;background-size:6px 6px;background-repeat:no-repeat}
+  .map .chip{display:none}
+  .smallrow{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:8px;margin:12px 2px 4px}
+  .sbtn{min-height:44px;border:1px solid var(--rule-soft);border-radius:10px;font:700 14px var(--sans);letter-spacing:.04em;cursor:pointer;color:var(--ink)}
+  .sbtn[data-tone="both"]{background:var(--t-both);color:#FCFAF3}
+  .sbtn[data-tone="survey"]{background:var(--t-survey)}
+  .sbtn[data-tone="spoke"]{background:var(--t-spoke)}
+  .sbtn[data-tone="none"]{background:var(--t-none)}
+  .sbtn.on{outline:3px solid var(--gold);outline-offset:1px}
+}
 </style>
 <link rel="icon" href="/thrivingincollege/assets/favicon.ico?v=a2f64690" sizes="32x32">
 <link rel="icon" type="image/png" sizes="16x16" href="/thrivingincollege/assets/icon-16.png?v=de0018ed">
@@ -169,7 +188,13 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
 
     <div class="grid">
       <div class="card mapcard" id="mapcard">
+        <!-- Phones: states are too small to hit reliably with a finger, so a picker comes first. -->
+        <label class="pick" for="pick"><span>Choose a state</span>
+          <select id="pick"><option value="">Select a state…</option></select>
+        </label>
         <svg class="map" id="map" viewBox="0 0 975 610" role="group" aria-label="Map of the United States. Select a state for details."></svg>
+        <!-- Phones: the in-map chips shrink to a few pixels, so the small eastern states become real buttons. -->
+        <div class="smallrow" id="smallrow" role="group" aria-label="Smaller eastern states"></div>
         <div class="legend" aria-hidden="true">
           <span><i style="background:var(--t-both)"></i>Thriving Quotient administered &amp; Dr. Schreiner has spoken</span>
           <span><i style="background:var(--t-survey)"></i>Thriving Quotient administered</span>
@@ -237,6 +262,25 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     var t = el('text', { x:944, y:y + 16, 'text-anchor':'middle', fill: s.tone === 'both' ? '#FCFAF3' : '#1C3327' }); t.textContent = ab;
     var ln = el('line', { x1:922, y1:y + 12, x2:s.cx + 4, y2:s.cy, stroke:'rgba(28,51,39,.28)', 'stroke-width':'0.8', 'pointer-events':'none' });
     g.appendChild(ln); g.appendChild(r); g.appendChild(t); map.appendChild(g); nodes['chip-' + ab] = g; activate(g, ab);
+    // phone twin: a full-size button with the same tone and label
+    var b = document.createElement('button');
+    b.type = 'button'; b.className = 'sbtn'; b.textContent = ab; b.dataset.tone = s.tone;
+    b.setAttribute('aria-label', label(ab));
+    document.getElementById('smallrow').appendChild(b); nodes['btn-' + ab] = b; activate(b, ab);
+  });
+
+  // phone picker: every state on the list, alphabetical
+  var pick = document.getElementById('pick');
+  Object.keys(S).sort(function(a, b){ return S[a].name < S[b].name ? -1 : 1; }).forEach(function(ab){
+    var o = document.createElement('option'); o.value = ab;
+    o.textContent = S[ab].name + (S[ab].spoke.length ? '  (' + S[ab].spoke.length + ')' : '');
+    pick.appendChild(o);
+  });
+  pick.addEventListener('click', function(e){ e.stopPropagation(); });
+  pick.addEventListener('change', function(){
+    if (!pick.value) return;
+    open(pick.value, pick);
+    setTimeout(function(){ pop.scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block:'nearest' }); }, 30);
   });
   var top = el('path', { 'class':'sel-top', fill:'none', stroke:'var(--gold)', 'stroke-width':'2.8', d:'' });
   map.appendChild(top);
@@ -249,6 +293,8 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     Object.keys(nodes).forEach(function(k){ nodes[k].classList.remove('on'); });
     if (nodes[ab]) nodes[ab].classList.add('on');
     if (nodes['chip-' + ab]) nodes['chip-' + ab].classList.add('on');
+    if (nodes['btn-' + ab]) nodes['btn-' + ab].classList.add('on');
+    document.getElementById('pick').value = ab;
     top.setAttribute('d', s.d && ab !== 'DC' ? s.d : '');       // redraw the outline on top so neighbours don't hide it
     var html = '<button class="x" type="button" aria-label="Close">&times;</button>' +
       '<h3 id="pop-h">' + esc(s.name) + '</h3>' +
@@ -261,7 +307,8 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     pop.innerHTML = html; pop.hidden = false;
     pop.querySelector('.x').addEventListener('click', close);
     place(from);
-    pop.querySelector('.x').focus({ preventScroll:true });
+    // From the picker, keep focus there so arrow keys keep moving through the list.
+    if (from.id !== 'pick') pop.querySelector('.x').focus({ preventScroll:true });
   }
   // Open BESIDE the selected shape (never on top of it), on whichever side has more room.
   function place(node){
@@ -279,7 +326,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     pop.style.left = left + 'px'; pop.style.top = tp + 'px';
   }
   function close(){
-    pop.hidden = true; top.setAttribute('d', '');
+    pop.hidden = true; top.setAttribute('d', ''); document.getElementById('pick').value = '';
     Object.keys(nodes).forEach(function(k){ nodes[k].classList.remove('on'); });
     if (opener && opener.focus) opener.focus({ preventScroll:true });
     current = opener = null;
