@@ -82,6 +82,10 @@ svg.map{display:block;width:100%;height:auto}
 .countries button[aria-pressed="true"]{background:var(--foot);color:#FCFAF3}
 .hint{margin:6px 4px 0;font-size:14px;color:var(--ink-mute)}
 .wmap{position:relative}
+svg.map.world{aspect-ratio:975/470;overflow:hidden}      /* fixed frame: zooming changes only what is inside it */
+/* Chrome's scroll anchoring can pick a shape inside the map and then scroll the page to follow it as the map
+   zooms, so the buttons slide away under the pointer. Keep the map out of anchor selection. */
+.wmap,.wmap *{overflow-anchor:none}
 .wreset{position:absolute;top:6px;left:6px;font:600 14px var(--sans);color:var(--green-deep);background:rgba(252,250,243,.94);
   border:1px solid var(--rule);border-radius:999px;padding:7px 14px;cursor:pointer;box-shadow:0 4px 14px rgba(28,51,39,.12)}
 .wreset:hover{background:#fff}
@@ -253,8 +257,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     label.textContent = name; label.style.display = '';
     box.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-pressed', b.textContent === name); });
     reset.hidden = false;
-    go(frame(name));
-    W.scrollIntoView({ block:'nearest', behavior: reduce ? 'auto' : 'smooth' });
+    go(frame(name));                                   // never scroll the page: the buttons stay under the pointer
   }
   function whole(){
     cur = null; label.style.display = 'none';
