@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-T8NJ9JVWFV');</script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Private Portfolio — AvatarAgency</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#0a0a0a; --ink-3:#1b1917; --gold:#C9A84C; --gold-light:#E4C97A; --on:#f5f0e8; --mid:rgba(245,240,232,.72); --mute:rgba(245,240,232,.5); --line:rgba(255,255,255,.09);
+    --f:'General Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif; --serif:'Cormorant Garamond',serif; --g:clamp(16px,4.2vw,64px); }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--ink); color: var(--on); font: 16px/1.6 var(--f); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; text-decoration: none; }
+  .logo-lockup { font-family: var(--f); font-weight: 700; font-size: 26px; letter-spacing: -0.012em; line-height: 1; display: inline-flex; align-items: baseline; white-space: nowrap; }
+  .logo-lockup .c { color: #fff; } .logo-lockup .l { color: var(--gold); }
+  header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px var(--g); border-bottom: 1px solid var(--line); }
+  .btn { display: inline-flex; align-items: center; height: 44px; padding: 0 22px; border-radius: 999px; font-weight: 600; font-size: 14px; background: linear-gradient(180deg,var(--gold-light),var(--gold)); color: #120f08; }
+  main { max-width: 1320px; margin: 0 auto; padding: clamp(50px,7vw,100px) var(--g) 100px; }
+  .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; }
+  h1 { font-size: clamp(36px,5.4vw,72px); line-height: 1.02; letter-spacing: -.03em; font-weight: 600; margin: 0; max-width: 16ch; }
+  h1 em { font-family: var(--serif); font-weight: 400; color: var(--gold-light); }
+  .intro { color: var(--mid); max-width: 60ch; margin: 22px 0 0; font-size: 17px; }
+  .note { margin: 14px 0 0; font-size: 13px; color: var(--mute); }
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 46px 0 26px; }
+  .filters button { font: 500 13px var(--f); color: var(--mid); background: transparent; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+  .filters button[aria-pressed="true"] { color: #120f08; background: var(--gold-light); border-color: var(--gold-light); }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 22px; }
+  .item { background: var(--ink-3); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
+  .item video { display: block; width: 100%; aspect-ratio: 16/9; background: #000; object-fit: contain; }
+  .item.vertical video { aspect-ratio: 9/16; max-height: 70vh; }
+  .meta { padding: 18px 20px 22px; }
+  .meta small { display: block; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .meta b { display: block; font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
+  .meta p { margin: 6px 0 0; color: var(--mute); font-size: 14.5px; }
+  .state { color: var(--mid); padding: 40px 0; }
+  footer { border-top: 1px solid var(--line); padding: 26px var(--g); color: var(--mute); font-size: 12.5px; }
+  .cta { margin-top: 70px; padding: clamp(30px,4vw,50px); border-radius: 20px; border: 1px solid rgba(228,201,122,.25); background: radial-gradient(80% 90% at 90% 20%, rgba(201,168,76,.14), transparent 60%), var(--ink-3); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
+  .cta h2 { margin: 0; font-size: clamp(24px,2.6vw,36px); letter-spacing: -.02em; font-weight: 600; }
+  .cta h2 em { font-family: var(--serif); font-weight: 400; color: var(--gold-light); }
+</style>
+</head>
+<body>
+<header>
+  <a href="/" class="logo-lockup"><span class="c">Avatar</span><span class="l">Agency</span></a>
+  <a class="btn" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener" data-cta="portfolio-header">Book a strategy call</a>
+</header>
+<main>
+  <p class="eyebrow">Private portfolio</p>
+  <h1>Client work, <em>shared with you.</em></h1>
+  <p class="intro">These films were made for real clients and stay private by agreement. Please don't share or record them — we're glad to show you more on a call.</p>
+  <div class="filters" role="toolbar" aria-label="Filter by category"></div>
+  <div class="grid" aria-live="polite"><p class="state">Loading the portfolio…</p></div>
+  <section class="cta">
+    <h2>Want this for <em>your brand?</em></h2>
+    <a class="btn" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener" data-cta="portfolio-bottom">Book a strategy call</a>
+  </section>
+</main>
+<footer>Content on this page may contain AI-generated synthetic performers, created and used with the consent of the people they portray. Disclosed per NY law (eff. 6/9/26) &amp; FTC guidelines. © 2026 AvatarAgency.ai · Los Angeles, California</footer>
+<script>
+(function () {
+  var grid = document.querySelector(".grid"), bar = document.querySelector(".filters");
+  function esc(s) { return String(s || "").replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  fetch("/work/media/manifest.json", { credentials: "same-origin" })
+    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+    .then(function (m) {
+      var items = (m && m.items) || [];
+      if (!items.length) { grid.innerHTML = '<p class="state">The portfolio is being updated — check back shortly.</p>'; return; }
+      var cats = ["All"].concat(items.map(function (i) { return i.category; }).filter(function (c, k, a) { return c && a.indexOf(c) === k; }));
+      bar.innerHTML = cats.map(function (c, k) { return '<button type="button" aria-pressed="' + (k === 0) + '">' + esc(c) + "</button>"; }).join("");
+      grid.innerHTML = items.map(function (i) {
+        return '<article class="item' + (i.aspect === "9:16" ? " vertical" : "") + '" data-cat="' + esc(i.category) + '">' +
+          '<video controls playsinline preload="none" controlslist="nodownload" oncontextmenu="return false" poster="/work/media/' + esc(i.poster) + '" src="/work/media/' + esc(i.video) + '" data-title="' + esc(i.title) + '"></video>' +
+          '<div class="meta"><small>' + esc(i.category) + (i.duration ? " · " + esc(i.duration) : "") + "</small><b>" + esc(i.title) + "</b>" + (i.summary ? "<p>" + esc(i.summary) + "</p>" : "") + "</div></article>";
+      }).join("");
+      bar.addEventListener("click", function (e) {
+        var b = e.target.closest("button"); if (!b) return;
+        [].forEach.call(bar.children, function (x) { x.setAttribute("aria-pressed", x === b); });
+        [].forEach.call(grid.children, function (a) { a.hidden = b.textContent !== "All" && a.getAttribute("data-cat") !== b.textContent; });
+      });
+      grid.addEventListener("play", function (e) {
+        [].forEach.call(grid.querySelectorAll("video"), function (v) { if (v !== e.target) v.pause(); });
+        try { gtag("event", "portfolio_play", { video_title: e.target.getAttribute("data-title") }); } catch (x) {}
+      }, true);
+    })
+    .catch(function () { grid.innerHTML = '<p class="state">We couldn\'t load the portfolio just now. Please refresh, or email <a href="mailto:michael@avataragency.ai" style="color:#E4C97A">michael@avataragency.ai</a>.</p>'; });
+})();
+</script>
+</body>
+</html>
