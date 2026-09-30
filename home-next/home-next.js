@@ -46,7 +46,7 @@
 
   /* ── Intro (first visit per session) ── */
   var intro = $("#intro");
-  function ready() { html.classList.add("is-ready"); if (typeof syncHero === "function") syncHero(); fitWordmark(); }
+  function ready() { html.classList.add("is-ready"); if (typeof syncHero === "function") syncHero(); }
   if (html.classList.contains("has-intro") && intro) {
     var tcEl = $("[data-intro-tc]", intro), f0 = performance.now();
     var tcTimer = setInterval(function () { var fr = Math.floor((performance.now() - f0) / 41.67); tcEl.textContent = "00:00:" + pad(Math.floor(fr / 24)) + ":" + pad(fr % 24); }, 42);
@@ -54,16 +54,6 @@
     setTimeout(function () { clearInterval(tcTimer); intro.remove(); html.classList.remove("has-intro"); }, 2500);
   } else { if (intro) intro.remove(); requestAnimationFrame(ready); }
   function pad(n) { return (n < 10 ? "0" : "") + n; }
-
-  /* ── Giant wordmark: sized to fill the width exactly (the lockup itself is unchanged) ── */
-  function fitWordmark() {
-    var w = document.querySelector(".hero-wordmark"); if (!w) return;
-    w.style.fontSize = "100px"; var k = w.scrollWidth || 1;
-    var target = window.innerWidth * (window.innerWidth > 900 ? 0.94 : 0.92);
-    w.style.fontSize = Math.min(340, 100 * target / k).toFixed(2) + "px";
-  }
-  fitWordmark(); window.addEventListener("resize", fitWordmark, { passive: true });
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitWordmark);
 
   /* ── Header state ── */
   var hdr = $("#hdr");
@@ -110,7 +100,6 @@
       onUpdate: function (st) { heroCovered = st.progress > 0.995; syncHero(); } } });
     tl.to(".hero-video", { scale: 1.14, ease: "none" }, 0)
       .to(".hero-content", { y: -90, opacity: 0, ease: "none" }, 0)
-      .to(".hero-wordmark", { y: -140, opacity: 0.15, ease: "none" }, 0)
       .to(".hero-rail", { y: 40, opacity: 0, ease: "none" }, 0)
       .to(".hero .vf", { opacity: 0, ease: "none" }, 0);
   }
