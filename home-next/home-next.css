@@ -93,6 +93,8 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .btn-ghost { border-color: var(--line-dark-strong); color: var(--on-dark); background: rgba(10,10,10,.25); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); }
 .btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
 .btn-ghost:hover svg { transform: translateY(3px); }
+.btn-portfolio svg { color: var(--gold-light); }
+.btn-portfolio:hover svg { transform: none; }
 .btn-ink { background: var(--ink); color: var(--cream); }
 .btn-sm { height: 40px; padding: 0 18px; font-size: 13.5px; }
 .btn-lg { height: 60px; padding: 0 34px; font-size: 16.5px; }
@@ -575,9 +577,12 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
   .hdr .btn-sm { display: none; }
   /* Phones: headline at the top, sentence + buttons parked just above the service strip,
      so the middle of the reel stays clear (Michael, 30 Sept). */
-  .hero-content { flex-direction: column; align-items: flex-start; justify-content: space-between; top: calc(var(--hdr) + 5vh); bottom: calc(var(--rail-h) + 18px); padding: 0 calc(var(--gutter) + 8px); gap: 18px; }
+  .hero-content { flex-direction: column; align-items: flex-start; justify-content: space-between; top: calc(var(--hdr) + 5vh); bottom: calc(var(--rail-h) + 10px); padding: 0 calc(var(--gutter) + 8px); gap: 18px; }
   .hero-side { max-width: 460px; width: 100%; padding-bottom: 0; }
-  .hero-side p { margin-bottom: 16px; }
+  /* Frosted panel: the sentence stays readable over any shot in the reel (Michael, 30 Sept). */
+  .hero-side .hero-lede { margin: 0 0 12px; padding: 14px 16px; border-radius: 14px; font-size: 15.5px; line-height: 1.5; color: var(--on-dark);
+    background: rgba(10,10,10,.46); border: 1px solid rgba(255,255,255,.1);
+    -webkit-backdrop-filter: blur(12px) saturate(120%); backdrop-filter: blur(12px) saturate(120%); }
   .hero-rail { --rail-h: 76px; grid-template-columns: repeat(6, 168px); }
   .hero { --rail-h: 76px; }
   .hero-rail a { height: var(--rail-h); padding-top: 0; padding-bottom: 0; }
