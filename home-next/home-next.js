@@ -26,9 +26,12 @@
     gsap.ticker.add(function (t) { lenis.raf(t * 1000); });
     gsap.ticker.lagSmoothing(0);
   }
+  /* Layout position, ignoring transforms: reveal-on-scroll elements sit 34px low until they
+     animate in, and getBoundingClientRect would bake that offset into the landing spot. */
+  function docTop(el) { var y = 0; while (el) { y += el.offsetTop; el = el.offsetParent; } return y; }
   function scrollToEl(el, off) {
     if (!el) return;
-    var y = el.getBoundingClientRect().top + window.scrollY - (off == null ? HDR() : off);
+    var y = docTop(el) - (off == null ? HDR() : off);
     if (lenis) lenis.scrollTo(y, { duration: 1.4, easing: function (t) { return 1 - Math.pow(1 - t, 4); } });
     else window.scrollTo({ top: y, behavior: RM ? "auto" : "smooth" });
   }
@@ -40,7 +43,12 @@
     var el = document.getElementById(id.slice(1));
     if (!el) return;
     e.preventDefault(); closeMenu();
-    scrollToEl(el, id === "#top" ? 0 : undefined);
+    // Land on the section's label (data-anchor) just under the header, not on the section's
+    // padded top edge — that left a big black gap above "Private portfolio" on phones.
+    var label = el.querySelector("[data-anchor]");
+    if (id === "#top") scrollToEl(el, 0);
+    else if (label) scrollToEl(label, HDR() + 18 + (label.classList.contains("ch-label") && window.innerWidth <= 1180 ? 44 : 0));   // clear the chapter pill on phones/tablets
+    else scrollToEl(el);
     history.replaceState(null, "", id);
   });
 
