@@ -208,6 +208,12 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .hero-title em { font-size: 1.04em; }
 .hero-side { max-width: 360px; padding-bottom: 8px; }
 .hero-side p { margin: 0 0 22px; color: var(--on-dark-mid); font-size: 16.5px; }
+/* Light frosted panel behind the hero sentence — just enough for legibility over any shot;
+   the blur and a soft text shadow do the work, not a dark fill (Michael, 30 Sept). */
+.hero-side .hero-lede { padding: 14px 18px; border-radius: 14px; color: var(--on-dark); line-height: 1.55;
+  background: rgba(10,10,10,.2); border: 1px solid rgba(255,255,255,.07);
+  -webkit-backdrop-filter: blur(9px) saturate(115%); backdrop-filter: blur(9px) saturate(115%);
+  text-shadow: 0 1px 10px rgba(0,0,0,.45); }
 .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
 .hero-rail { position: absolute; left: 0; right: 0; bottom: 0; z-index: 4; display: grid; grid-template-columns: repeat(6, 1fr);
   border-top: 1px solid var(--line-dark); background: linear-gradient(180deg, rgba(10,10,10,.2), rgba(10,10,10,.75)); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
@@ -580,9 +586,7 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
   .hero-content { flex-direction: column; align-items: flex-start; justify-content: space-between; top: calc(var(--hdr) + 5vh); bottom: calc(var(--rail-h) + 10px); padding: 0 calc(var(--gutter) + 8px); gap: 18px; }
   .hero-side { max-width: 460px; width: 100%; padding-bottom: 0; }
   /* Frosted panel: the sentence stays readable over any shot in the reel (Michael, 30 Sept). */
-  .hero-side .hero-lede { margin: 0 0 12px; padding: 14px 16px; border-radius: 14px; font-size: 15.5px; line-height: 1.5; color: var(--on-dark);
-    background: rgba(10,10,10,.46); border: 1px solid rgba(255,255,255,.1);
-    -webkit-backdrop-filter: blur(12px) saturate(120%); backdrop-filter: blur(12px) saturate(120%); }
+  .hero-side .hero-lede { margin: 0 0 12px; padding: 13px 15px; font-size: 15.5px; line-height: 1.5; }
   .hero-rail { --rail-h: 76px; grid-template-columns: repeat(6, 168px); }
   .hero { --rail-h: 76px; }
   .hero-rail a { height: var(--rail-h); padding-top: 0; padding-bottom: 0; }
