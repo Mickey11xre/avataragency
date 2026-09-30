@@ -46,6 +46,10 @@
     // Land on the section's label (data-anchor) just under the header, not on the section's
     // padded top edge — that left a big black gap above "Private portfolio" on phones.
     var label = el.querySelector("[data-anchor]");
+    // Show the destination's content now — never make the reader arrive on a blank section
+    // waiting for a scroll-reveal that iPhone Safari may not fire until they touch the screen.
+    $$(".rv", el).forEach(function (r) { r.classList.add("in"); });
+    setTimeout(function () { revealVisible(); }, 900); setTimeout(function () { revealVisible(); }, 1800);
     if (id === "#top") scrollToEl(el, 0);
     else if (label) scrollToEl(label, HDR() + 18 + (label.classList.contains("ch-label") && window.innerWidth <= 1180 ? 44 : 0));   // clear the chapter pill on phones/tablets
     else scrollToEl(el);
@@ -136,20 +140,36 @@
 
   /* ═════════════ Count-ups + reveals ═════════════ */
   var counters = $$("[data-count]");
+  /* ⛔ iPhone Safari can skip IntersectionObserver callbacks after a long programmatic smooth
+     scroll (an in-page jump) until the reader touches the screen — the destination sat blank
+     (Michael's iPhone, 30 Sept). The observers stay, but revealVisible() is the backstop:
+     it runs whenever scrolling settles and right after every in-page jump. */
+  var revealVisible = function () {};
   if (!RM && "IntersectionObserver" in window) {
     counters.forEach(function (c) { c.textContent = "0"; });
+    var startCount = function (el) {
+      if (el.__counted) return; el.__counted = true;
+      var to = +el.getAttribute("data-count"), t0 = performance.now(), D = 1500;
+      (function step(now) { var k = Math.min(1, (now - t0) / D); k = 1 - Math.pow(1 - k, 4); el.textContent = Math.round(to * k); if (k < 1) requestAnimationFrame(step); })(t0);
+    };
     var cio = new IntersectionObserver(function (es) {
-      es.forEach(function (e) {
-        if (!e.isIntersecting) return; cio.unobserve(e.target);
-        var el = e.target, to = +el.getAttribute("data-count"), t0 = performance.now(), D = 1500;
-        (function step(now) { var k = Math.min(1, (now - t0) / D); k = 1 - Math.pow(1 - k, 4); el.textContent = Math.round(to * k); if (k < 1) requestAnimationFrame(step); })(t0);
-      });
+      es.forEach(function (e) { if (e.isIntersecting) { cio.unobserve(e.target); startCount(e.target); } });
     }, { threshold: 0.6 });
     counters.forEach(function (c) { cio.observe(c); });
 
     var rvSel = ".groups .group, .stats > div, .index-head, .index-list li, .ch-head, .ch-lede, .tiles, .aro-stats, .timeline, .founder-copy > *, .cast-head, .formats-head, .svc-head, .svc-list li, .work-copy, .vault, .steps li, .process .h2, .more-card, .faq-grid > div, .final-inner > *";
     var rio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); rio.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
     $$(rvSel).forEach(function (el, i) { el.classList.add("rv"); el.style.transitionDelay = ((i % 4) * 70) + "ms"; rio.observe(el); });
+
+    revealVisible = function () {
+      var vh = window.innerHeight;
+      $$(".rv:not(.in)").forEach(function (el) { var r = el.getBoundingClientRect(); if (r.top < vh && r.bottom > 0) { el.classList.add("in"); rio.unobserve(el); } });
+      counters.forEach(function (c) { var r = c.getBoundingClientRect(); if (!c.__counted && r.top < vh && r.bottom > 0) { cio.unobserve(c); startCount(c); } });
+    };
+    var settleT = null;
+    window.addEventListener("scroll", function () { clearTimeout(settleT); settleT = setTimeout(revealVisible, 140); }, { passive: true });
+    window.addEventListener("scrollend", revealVisible);
+    document.addEventListener("visibilitychange", revealVisible);
   }
 
   /* ═════════════ Service index hover preview ═════════════ */
