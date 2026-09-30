@@ -15,8 +15,8 @@
  *   - Env var (secret):  STRIPE_SECRET_KEY       same restricted key as checkout.js
  * OPTIONAL:
  *   - KV binding:        THRIVE_ORDERS           order records, order:<session id>
- *   - Env var:           ORDER_NOTIFY_TO         comma-separated addresses to email
- *   - Env var (secret):  RESEND_API_KEY          only if ORDER_NOTIFY_TO is set
+ *   - Env var:           ORDER_NOTIFY_TO         comma-separated addresses to email (else FALLBACK_TO)
+ *   - Env var (secret):  RESEND_API_KEY          required for any order email
  *   - Env var:           ORDER_NOTIFY_FROM       verified Resend sender
  *
  * Nothing here fulfils an order. It records and notifies; delivery is still
@@ -71,8 +71,13 @@ function money(cents, currency) {
   return new Intl.NumberFormat('en-US', { style: 'currency', currency: (currency || 'usd').toUpperCase() }).format((cents || 0) / 100);
 }
 
+// Same fallback as request-invoice.js: a missing ORDER_NOTIFY_TO must not silently drop order emails.
+const FALLBACK_TO = 'michael@avataragency.ai';
+
+// Returns what happened to the email; the handler echoes it to Stripe, so the delivery's
+// Response body in the Dashboard says whether the notification actually went out.
 async function notify(env, rec) {
-  if (!env.ORDER_NOTIFY_TO || !env.RESEND_API_KEY) return;
+  if (!env.RESEND_API_KEY) return 'skipped: no RESEND_API_KEY';
   const subject = {
     paid:    `Paid — ${money(rec.amount_total, rec.currency)} — ${rec.institution || rec.name || rec.email}`,
     pending: `ACH initiated — ${money(rec.amount_total, rec.currency)} — ${rec.institution || rec.name || rec.email}`,
@@ -92,16 +97,25 @@ async function notify(env, rec) {
     `Total: ${money(rec.amount_total, rec.currency)}`,
     `Stripe: https://dashboard.stripe.com/payments?query=${rec.id}`
   ];
-  await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: env.ORDER_NOTIFY_FROM || 'The Thriving Project store <orders@avataragency.ai>',
-      to: env.ORDER_NOTIFY_TO.split(',').map(s => s.trim()).filter(Boolean),
-      subject: 'Thriving Project store: ' + subject,
-      text: lines.join('\n')
-    })
-  }).catch(() => {});
+  try {
+    const r = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        from: env.ORDER_NOTIFY_FROM || 'The Thriving Project store <orders@avataragency.ai>',
+        to: (env.ORDER_NOTIFY_TO || FALLBACK_TO).split(',').map(s => s.trim()).filter(Boolean),
+        subject: 'Thriving Project store: ' + subject,
+        text: lines.join('\n')
+      })
+    });
+    if (r.ok) return 'sent';
+    const why = `failed: ${r.status} ${(await r.text()).slice(0, 200)}`;
+    console.log('stripe-webhook: resend error for ' + rec.id + ' — ' + why);
+    return why;
+  } catch (e) {
+    console.log('stripe-webhook: resend unreachable for ' + rec.id + ' — ' + e);
+    return 'failed: ' + String(e).slice(0, 200);
+  }
 }
 
 export async function onRequestPost(context) {
@@ -152,6 +166,6 @@ export async function onRequestPost(context) {
   if (env.THRIVE_ORDERS) {
     await env.THRIVE_ORDERS.put('order:' + s.id, JSON.stringify(rec));
   }
-  await notify(env, rec);
-  return json({ received: true, state: handled });
+  const email = await notify(env, rec);
+  return json({ received: true, state: handled, email });
 }
