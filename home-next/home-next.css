@@ -573,9 +573,14 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
   body { font-size: 16px; }
   .hdr .btn-login { display: none; }
   .hdr .btn-sm { display: none; }
-  .hero-content { flex-direction: column; align-items: flex-start; top: calc(var(--hdr) + 7vh); padding: 0 calc(var(--gutter) + 8px); gap: 22px; }
-  .hero-side { max-width: 460px; }
-  .hero-rail { grid-template-columns: repeat(6, 168px); }
+  /* Phones: headline at the top, sentence + buttons parked just above the service strip,
+     so the middle of the reel stays clear (Michael, 30 Sept). */
+  .hero-content { flex-direction: column; align-items: flex-start; justify-content: space-between; top: calc(var(--hdr) + 5vh); bottom: calc(var(--rail-h) + 18px); padding: 0 calc(var(--gutter) + 8px); gap: 18px; }
+  .hero-side { max-width: 460px; width: 100%; padding-bottom: 0; }
+  .hero-side p { margin-bottom: 16px; }
+  .hero-rail { --rail-h: 76px; grid-template-columns: repeat(6, 168px); }
+  .hero { --rail-h: 76px; }
+  .hero-rail a { height: var(--rail-h); padding-top: 0; padding-bottom: 0; }
   .hero-rail img { width: 56px; height: 32px; }
   .hero-rail span { font-size: 15px; }
   .vf-meta { display: none; }
