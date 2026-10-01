@@ -152,10 +152,10 @@
       </li>
     </ul>
 
-    <fieldset class="fieldset" style="margin-block-start: var(--sp-m)">
-      <legend>Which instruments? <span class="opt">optional — tick all that apply</span></legend>
+    <fieldset class="fieldset" id="instruments" style="margin-block-start: var(--sp-m)" aria-describedby="err-instruments">
+      <legend>Which instruments? <span class="req">required — tick all that apply</span></legend>
       <div class="checks">
-        <label><input type="checkbox" name="instruments" value="undergraduate"> Undergraduate Thriving Quotient</label>
+        <label><input type="checkbox" id="instrument-first" name="instruments" value="undergraduate"> Undergraduate Thriving Quotient</label>
         <label><input type="checkbox" name="instruments" value="sophomore"> Sophomore Experiences Survey</label>
         <label><input type="checkbox" name="instruments" value="adult"> Adult Thriving Quotient</label>
         <label><input type="checkbox" name="instruments" value="graduate"> Graduate Student Thriving Quotient</label>
@@ -164,6 +164,7 @@
         <label><input type="checkbox" name="instruments" value="adjunctfaculty"> Adjunct Faculty Thriving Quotient</label>
         <label><input type="checkbox" name="instruments" value="staff"> Staff Thriving Quotient</label>
       </div>
+      <p class="field__error" id="err-instruments" role="alert" hidden></p>
     </fieldset>
     <!-- A nudge, never a block (Michael, 17 Sept). His own test ticked two
          instruments against one Survey Package: under-quoted by one package,
@@ -240,7 +241,7 @@
     if (input) { input.setAttribute('aria-invalid', msg ? 'true' : 'false'); }
   }
   function clearErrs() {
-    ['institution', 'contact', 'email', 'items'].forEach(function (n) { setErr(n, ''); });
+    ['institution', 'contact', 'email', 'items', 'instruments'].forEach(function (n) { setErr(n, ''); });
     errBox.hidden = true;
   }
   function fail(msg) {
@@ -281,6 +282,7 @@
     if (data.contact.trim().length < 2) { setErr('contact', 'Enter your name.'); first = first || 'contact'; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) { setErr('email', 'Enter a valid email address.'); first = first || 'email'; }
     if (!anyQty) { setErr('items', 'Choose at least one package.'); first = first || 'qty_survey'; }
+    if (!(data.instruments || []).length) { setErr('instruments', 'Choose at least one instrument.'); first = first || 'instrument-first'; }
     if (first) { document.getElementById(first).focus(); return; }
 
     btn.disabled = true; btn.textContent = 'Sending…';

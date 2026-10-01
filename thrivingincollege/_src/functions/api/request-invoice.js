@@ -87,6 +87,9 @@ function validate(b) {
     if (q > 0) r.items.push({ key: p.key, name: p.name, amount: p.amount, quantity: q });
   }
   if (!r.items.length) errors.items = 'Choose at least one package.';
+  // Required since 1 Oct: George Fox's request (21 Sept) left it blank and the
+  // invoice could not say which survey it covered.
+  if (!r.instruments.length) errors.instruments = 'Choose at least one instrument.';
   return { r, errors };
 }
 

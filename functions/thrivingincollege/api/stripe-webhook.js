@@ -14,15 +14,43 @@
  *   - Env var (secret):  STRIPE_WEBHOOK_SECRET   whsec_… from the endpoint page
  *   - Env var (secret):  STRIPE_SECRET_KEY       same restricted key as checkout.js
  * OPTIONAL:
- *   - KV binding:        THRIVE_ORDERS           order records, order:<session id>
+ *   - KV binding:        THRIVE_ORDERS           order records, order:<session id>;
+ *                        emailed:<session id>:<state> marks a notification as sent
  *   - Env var:           ORDER_NOTIFY_TO         comma-separated addresses to email (else FALLBACK_TO)
  *   - Env var (secret):  RESEND_API_KEY          required for any order email
  *   - Env var:           ORDER_NOTIFY_FROM       verified Resend sender
+ *
+ * ONE EMAIL PER SESSION AND STATE. Stripe redelivers an event when a delivery
+ * fails, and a manual "Resend" in the Dashboard does not cancel the automatic
+ * retries already queued. On 29–30 Sept five orders produced twelve emails
+ * that way. The emailed: marker is written before sending and removed if the
+ * send fails, so a retry can still deliver a notification that never went out.
+ * ACH sends two on purpose: "initiated" (pending), then "paid" or "failed".
  *
  * Nothing here fulfils an order. It records and notifies; delivery is still
  * Dr. Schreiner's hand process until the Phase 2 intake exists.
  */
 const TOLERANCE_S = 300;
+
+// Names come from _src/data/instruments.json (injected by build.js), never
+// typed here. The checkout dropdown (checkout.js) and the invoice form submit
+// these codes; Stripe dropdown values cannot contain hyphens, so two codes
+// differ from the catalog slug. Adjunct faculty is not a separate instrument:
+// the Instruments page calls it "a variant of the Faculty Thriving Quotient".
+const INSTRUMENT_CATALOG = [{"slug":"undergraduate","label":"Undergraduate","name":"Undergraduate Thriving Quotient"},{"slug":"sophomore","label":"Sophomore","name":"Sophomore Experiences Survey"},{"slug":"adult-learner","label":"Adult Learner","name":"Adult Thriving Quotient"},{"slug":"graduate","label":"Graduate","name":"Graduate Thriving Quotient"},{"slug":"community-college","label":"Community College","name":"Community College Student Thriving Quotient"},{"slug":"faculty","label":"Faculty","name":"Faculty Thriving Quotient"},{"slug":"staff","label":"Staff","name":"Staff Thriving Quotient"}];
+const CODE_TO_SLUG = { adult: 'adult-learner', communitycollege: 'community-college', adjunctfaculty: 'faculty' };
+
+function instrument(code) {
+  if (!code) return { full: '(not given)', short: '' };
+  const i = INSTRUMENT_CATALOG.find(x => x.slug === (CODE_TO_SLUG[code] || code));
+  if (!i) return { full: `${code} (unrecognized code — check checkout.js)`, short: code };
+  const adjunct = code === 'adjunctfaculty';
+  const short = /Thriving Quotient$/.test(i.name) ? `${i.label} TQ` : i.name;
+  return {
+    full: adjunct ? `${i.name} (adjunct faculty version)` : i.name,
+    short: adjunct ? `${short} (adjunct)` : short
+  };
+}
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
@@ -78,25 +106,42 @@ const FALLBACK_TO = 'michael@avataragency.ai';
 // Response body in the Dashboard says whether the notification actually went out.
 async function notify(env, rec) {
   if (!env.RESEND_API_KEY) return 'skipped: no RESEND_API_KEY';
-  const subject = {
-    paid:    `Paid — ${money(rec.amount_total, rec.currency)} — ${rec.institution || rec.name || rec.email}`,
-    pending: `ACH initiated — ${money(rec.amount_total, rec.currency)} — ${rec.institution || rec.name || rec.email}`,
-    failed:  `ACH FAILED — ${money(rec.amount_total, rec.currency)} — ${rec.institution || rec.name || rec.email}`
+  // What Dr. Schreiner needs to act on comes first: which instrument, for whom,
+  // what was bought. Order IDs and other technical fields go under Reference.
+  const inst = instrument(rec.instrument);
+  const who = rec.institution || rec.name || rec.email;
+  const amount = money(rec.amount_total, rec.currency).replace(/\.00$/, '');
+  const subject = [{ paid: 'Paid', pending: 'ACH initiated', failed: 'ACH FAILED' }[rec.state], amount, who, inst.short]
+    .filter(Boolean).join(' — ');
+  const status = {
+    paid: 'Paid.',
+    pending: 'Bank payment (ACH) started. Funds usually clear in four to five business days; a "Paid" email follows when they do.',
+    failed: 'The bank payment (ACH) FAILED. The order is not paid. Contact the buyer.'
   }[rec.state];
   const lines = [
-    `Order ${rec.id}`,
-    `State: ${rec.state}`,
-    `Buyer: ${rec.name || ''} <${rec.email || ''}>`,
-    `Institution: ${rec.institution || ''}`,
-    `Instrument: ${rec.instrument || ''}`,
-    `PO number: ${rec.po_number || ''}`,
-    `Discount: ${rec.discount}`,
+    `Instrument: ${inst.full}`,
+    `Institution: ${rec.institution || '(not given)'}`,
+    `Status: ${status}`,
     '',
-    ...rec.items.map(i => `${i.quantity} × ${i.description} — ${money(i.amount_total, rec.currency)}`),
-    '',
+    'Ordered:',
+    ...(rec.items.length
+      ? rec.items.map(i => `  ${i.quantity} × ${i.description} — ${money(i.amount_total, rec.currency)}`)
+      : ['  (item list unavailable — open the order in Stripe, link below)']),
     `Total: ${money(rec.amount_total, rec.currency)}`,
-    `Stripe: https://dashboard.stripe.com/payments?query=${rec.id}`
-  ];
+    '',
+    `Buyer: ${rec.name || '(no name)'} <${rec.email || 'no email'}>`,
+    `PO number: ${rec.po_number || '(none)'}`,
+    '',
+    '',
+    'Reference',
+    '---------',
+    `Order (Checkout session): ${rec.id}`,
+    rec.payment_intent ? `Payment: ${rec.payment_intent}` : null,
+    `Event: ${rec.event}`,
+    `Instrument code: ${rec.instrument || '(none)'}`,
+    `Discount: ${rec.discount}`,
+    `Stripe: https://dashboard.stripe.com/` + (rec.payment_intent ? `payments/${rec.payment_intent}` : `payments?query=${rec.id}`)
+  ].filter(l => l !== null);
   try {
     const r = await fetch('https://api.resend.com/emails', {
       method: 'POST',
@@ -163,9 +208,20 @@ export async function onRequestPost(context) {
     items: await lineItems(env, s.id)
   };
 
-  if (env.THRIVE_ORDERS) {
-    await env.THRIVE_ORDERS.put('order:' + s.id, JSON.stringify(rec));
+  if (!env.THRIVE_ORDERS) {
+    // No KV, no memory of past sends: every delivery emails. Say so in the response.
+    const email = await notify(env, rec);
+    return json({ received: true, state: handled, email, dedupe: 'off: no THRIVE_ORDERS binding' });
   }
+  await env.THRIVE_ORDERS.put('order:' + s.id, JSON.stringify(rec));
+
+  const mark = `emailed:${s.id}:${handled}`;
+  const already = await env.THRIVE_ORDERS.get(mark);
+  if (already) return json({ received: true, state: handled, email: 'skipped: already emailed ' + already });
+
+  await env.THRIVE_ORDERS.put(mark, new Date().toISOString());
   const email = await notify(env, rec);
+  // A send that did not go out must not block the next retry from trying again.
+  if (email !== 'sent') await env.THRIVE_ORDERS.delete(mark);
   return json({ received: true, state: handled, email });
 }

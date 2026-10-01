@@ -75,6 +75,10 @@ const walk = d => fs.readdirSync(d, { withFileTypes: true }).flatMap(e =>
 
 const catalogueText = fs.readFileSync(path.join(SRC, 'data', 'prices.json'), 'utf8');
 const catalogue = JSON.parse(catalogueText);
+// Names only, for functions that label orders (stripe-webhook.js). The pages
+// read the full instruments.json themselves.
+const instrumentsText = JSON.stringify(JSON.parse(fs.readFileSync(path.join(SRC, 'data', 'instruments.json'), 'utf8'))
+  .instruments.map(({ slug, label, name }) => ({ slug, label, name })));
 const byKey = Object.fromEntries(catalogue.products.map(p => [p.key, p]));
 const usd = n => '$' + n.toLocaleString('en-US');
 
@@ -362,7 +366,8 @@ if (fs.existsSync(fnSrc)) {
     const raw = fs.readFileSync(f, 'utf8');
     jobs.push({ rel: 'functions/' + rel, dest: path.join(FN_OUT, rel),
                 // the assignment only — the header comment mentions the token too
-                out: raw.replace(/= __CATALOGUE__;/, () => '= ' + catalogueText.trim() + ';') });
+                out: raw.replace(/= __CATALOGUE__;/, () => '= ' + catalogueText.trim() + ';')
+                        .replace(/= __INSTRUMENTS__;/, () => '= ' + instrumentsText + ';') });
   }
 }
 
