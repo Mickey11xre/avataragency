@@ -734,10 +734,11 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .p-card .row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; margin-top: 4px; }
 
 /* Three ways + capabilities */
-.agent-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: clamp(40px, 5vw, 64px); }
+.types-title { margin: clamp(40px, 5vw, 64px) 0 18px; font-size: clamp(24px, 2.6vw, 34px); letter-spacing: -.025em; font-weight: 600; line-height: 1.1; color: var(--text); }
+.agent-types { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 .agent-types article { background: #fff; border: 1px solid var(--line); border-radius: var(--r); padding: clamp(22px, 2.4vw, 30px); }
 .at-n { font-size: 12px; font-weight: 700; letter-spacing: .1em; color: var(--gold-deep); }
-.agent-types h3 { margin: 12px 0 8px; font-size: clamp(20px, 1.8vw, 24px); letter-spacing: -.015em; font-weight: 600; }
+.agent-types h4 { margin: 12px 0 8px; font-size: clamp(20px, 1.8vw, 24px); letter-spacing: -.015em; font-weight: 600; }
 .agent-types p { margin: 0; color: var(--text-mid); font-size: 15.5px; line-height: 1.55; }
 .agent-caps { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 10px; }
 .agent-caps li { display: inline-flex; align-items: center; gap: 9px; padding: 9px 15px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.6); font-size: 14px; color: var(--text); }
