@@ -23,12 +23,20 @@
   var track = function (n, p) { try { if (window.gtag) gtag("event", n, p || {}); } catch (e) {} };
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
+  /* ── Live-session config. Ava's agent may switch after the HeyGen-vs-Seedance A/B, so the endpoint
+     path lives in ONE place. The SDK is pinned: the tool bridge ships in 1.5.0. ── */
+  var CFG = {
+    TOKEN_ENDPOINT: "/api/ava-nv2-token",
+    SDK_URL: "https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js",
+    CAP_S: 600,   // ten-minute session cap, as on Laurie's page
+  };
   var CAL = "https://calendly.com/michaelrivera007/free-consultation-meeting";
   var TZ = (function () { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles"; } catch (e) { return "America/Los_Angeles"; } })();
   var SESSION = Math.random().toString(36).slice(2) + Date.now().toString(36);
 
   var panel = $("#ava-panel"), body = $(".panel-body", panel), titleEl = $(".panel-title", panel), backBtn = $(".panel-back", panel), flag = $(".panel-flag", panel);
-  var vid = $(".ava-video", stage), capBox = $(".ava-caption", stage), hearBtn = $(".ava-hear", stage), demoBtn = $(".ava-demo", stage);
+  var avStage = $(".stage-av", stage), vid = $(".ava-video", stage), capBox = $(".ava-caption", stage), hearBtn = $(".ava-hear", stage), talkBtn = $(".ava-talk", stage), demoBtn = $(".panel-demo", stage), toast = $(".ava-toast", stage);
+  var instance = null, liveState = "idle";   // idle | connecting | live
 
   var IC = {
     cal: '<svg viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
@@ -48,10 +56,17 @@
   ];
 
   /* ═════════ State + rendering ═════════ */
-  var S = { mode: "home", hist: [], demo: false, slots: null, slotsAt: 0, slotsErr: null, day: null, slot: null,
+  var S = { mode: "home", hist: [], demo: false, slots: null, slotsAt: 0, slotsErr: null, day: null, slot: null, viewAll: false, booked: null,
     book: { name: "", email: "", phone: "", notes: "" }, lead: { name: "", email: "", phone: "", need: "" }, pf: { name: "", email: "" }, svc: null, busy: false };
   var TITLES = { home: "How can I help?", services: "Our services", service: "Service", days: "Book a strategy call", times: "Book a strategy call", details: "Book a strategy call", booked: "You're booked", lead: "Leave your details", leadDone: "Thank you", portfolio: "Private portfolio", portfolioDone: "Check your inbox" };
-  var emit = function (text) { try { if (typeof AvaPanel.onEvent === "function") AvaPanel.onEvent("[Ava panel] " + text); } catch (e) {} };
+  /* Tells the live twin what the visitor just did, so she never re-asks for something they typed.
+     "[Booking panel]" is the prefix her instructions react to; speak=true only for moments she should
+     answer aloud (a confirmed booking). The brand is written as two words — she says exactly what she reads. */
+  var emit = function (text, speak) {
+    if (!instance || !instance.sendCommand) return;
+    try { instance.sendCommand({ type: "send_message", data: { text: "[Booking panel] " + String(text).replace(/AvatarAgency/g, "Avatar Agency"), role: "system", trigger_response: !!speak } }); } catch (e) {}
+  };
+  var TZ_NAME = TZ.replace(/_/g, " ");
 
   function go(mode, opts) {
     opts = opts || {};
@@ -66,6 +81,19 @@
   function fmtWeekday(iso) { return new Date(iso).toLocaleDateString("en-US", { timeZone: TZ, weekday: "long" }); }
   function fmtTime(iso) { return new Date(iso).toLocaleTimeString("en-US", { timeZone: TZ, hour: "numeric", minute: "2-digit" }); }
   function tzShort() { try { return new Date().toLocaleTimeString("en-US", { timeZone: TZ, timeZoneName: "short" }).split(" ").pop(); } catch (e) { return ""; } }
+  function fmtLabel(iso) { return new Date(iso).toLocaleDateString("en-US", { timeZone: TZ, weekday: "long", month: "long", day: "numeric" }) + " at " + fmtTime(iso); }
+  function info(s) { return { date: dayKey(s.start_time), time: fmtTime(s.start_time), label: fmtLabel(s.start_time) }; }
+  // Up to n picks, one per day first (so the visitor sees range), then topped up from the earliest slots.
+  function pickSlots(n) {
+    var d = days(), out = [];
+    d.forEach(function (x) { if (out.length < n) out.push(x.slots[Math.min(1, x.slots.length - 1)]); });
+    (S.slots || []).forEach(function (s) { if (out.length < n && out.indexOf(s) < 0) out.push(s); });
+    return out.sort(function (a, b) { return Date.parse(a.start_time) - Date.parse(b.start_time); });
+  }
+  var normTime = function (t) { return String(t || "").toLowerCase().replace(/\s+/g, "").replace(/^0(\d:)/, "$1"); };
+  function findSlot(date, time) {
+    return (S.slots || []).filter(function (s) { return dayKey(s.start_time) === date && normTime(fmtTime(s.start_time)) === normTime(time); })[0];
+  }
   function days() {
     var map = {}, order = [];
     (S.slots || []).forEach(function (s) { var k = dayKey(s.start_time); if (!map[k]) { map[k] = []; order.push(k); } map[k].push(s); });
@@ -93,7 +121,7 @@
 
   var VIEWS = {
     home: function () {
-      return '<p class="p-greet">Hi, I\'m Ava. What brings you here today?</p><p class="p-sub">Tap an option — or ask me, once my live voice arrives.</p><div class="p-actions">' +
+      return '<p class="p-greet">Hi, I\'m Ava. What brings you here today?</p><p class="p-sub">Tap an option below — or press Talk to Ava to speak with me.</p><div class="p-actions">' +
         act("book", IC.cal, "Book a strategy call", "30 minutes with Michael · free") +
         act("services", IC.compass, "Find the right service", "See what fits your business") +
         act("lead", IC.chat, "Leave my details", "Michael will be in touch") +
@@ -114,6 +142,11 @@
       if (!S.slots) return steps(1) + '<p class="p-sub">Checking Michael\'s calendar…</p>';
       var d = days();
       if (!d.length) return '<p class="p-sub">Michael\'s calendar is full this week.</p><a class="btn btn-gold btn-sm p-go" href="' + CAL + '" target="_blank" rel="noopener">See later dates ' + IC.arrow + "</a>";
+      if (!S.viewAll) {   // three suggested times first — one tap and they are on the details step
+        return steps(1) + '<p class="p-label">Suggested times · ' + esc(tzShort()) + '</p><div class="p-picks">' + pickSlots(3).map(function (s) {
+          return '<button class="p-chip p-pick" type="button" data-slot="' + s.start_time + '">' + esc(fmtDay(s.start_time)) + "<small>" + esc(fmtTime(s.start_time)) + "</small></button>";
+        }).join("") + '</div><button class="link p-week" type="button" data-act="week">See the whole week ' + IC.arrow + '</button><p class="p-sub">A free 30-minute strategy call with Michael Rivera.</p>';
+      }
       return steps(1) + '<p class="p-label">Pick a day · ' + esc(tzShort()) + '</p><div class="p-days">' + d.map(function (x) {
         return '<button class="p-chip' + (S.day === x.key ? " on" : "") + '" type="button" data-day="' + x.key + '">' + esc(x.label) + "<small>" + x.slots.length + (x.slots.length === 1 ? " time" : " times") + "</small></button>";
       }).join("") + '</div><p class="p-sub">A free 30-minute strategy call with Michael Rivera.</p>';
@@ -127,10 +160,10 @@
     },
     details: function () {
       return steps(3) + '<div class="p-summary">' + IC.cal.replace("<svg", '<svg width="18" height="18"') + "<span><b>" + esc(fmtDay(S.slot.start_time, true)) + "</b> at <b>" + esc(fmtTime(S.slot.start_time)) + "</b> " + esc(tzShort()) + '</span></div><form class="p-form" novalidate>' +
-        field("name", "Your name", "text", S.book.name, false, 'autocomplete="name" required') +
-        field("email", "Email", "email", S.book.email, false, 'autocomplete="email" required') +
-        field("phone", "Phone", "tel", S.book.phone, true, 'autocomplete="tel"') +
-        field("notes", "Anything Michael should know?", "textarea", S.book.notes, true, "") + hp +
+        field("name", "Your name", "text", S.book.name, false, 'autocomplete="name" required data-bind="book.name"') +
+        field("email", "Email", "email", S.book.email, false, 'autocomplete="email" required data-bind="book.email"') +
+        field("phone", "Phone", "tel", S.book.phone, true, 'autocomplete="tel" data-bind="book.phone"') +
+        field("notes", "What would you like to talk about?", "textarea", S.book.notes, true, 'data-bind="book.notes"') + hp +
         '<button class="btn btn-gold btn-sm p-go" type="submit">' + (S.demo ? "Confirm (demo)" : "Confirm my call") + " " + IC.arrow + '</button><p class="p-msg" role="status"></p></form>';
     },
     booked: function () {
@@ -139,17 +172,17 @@
     },
     lead: function () {
       return '<p class="p-sub">Tell us a little about what you need. Michael will be in touch.</p><form class="p-form" novalidate>' +
-        field("lname", "Your name", "text", S.lead.name, false, 'autocomplete="name" required') +
-        field("lemail", "Email", "email", S.lead.email, false, 'autocomplete="email" required') +
-        field("lphone", "Phone", "tel", S.lead.phone, true, 'autocomplete="tel"') +
-        field("lneed", "What can we help with?", "textarea", S.lead.need, true, "") + hp +
+        field("lname", "Your name", "text", S.lead.name, false, 'autocomplete="name" required data-bind="lead.name"') +
+        field("lemail", "Email", "email", S.lead.email, false, 'autocomplete="email" required data-bind="lead.email"') +
+        field("lphone", "Phone", "tel", S.lead.phone, true, 'autocomplete="tel" data-bind="lead.phone"') +
+        field("lneed", "What can we help with?", "textarea", S.lead.need, true, 'data-bind="lead.need"') + hp +
         '<button class="btn btn-gold btn-sm p-go" type="submit">Send to Michael ' + IC.arrow + '</button><p class="p-msg" role="status"></p></form>';
     },
     leadDone: function () { return '<div class="p-done"><span class="tick">✓</span><h4>Got it.</h4><p>' + esc(S.doneMsg || "") + '</p><button class="btn btn-ghost btn-sm" type="button" data-act="home">Back to Ava</button></div>'; },
     portfolio: function () {
       return '<p class="p-sub">Our clients\' films stay private by agreement. I\'ll email you a private link to the full portfolio.</p><form class="p-form" novalidate>' +
-        field("pname", "First name", "text", S.pf.name, false, 'autocomplete="given-name" required') +
-        field("pemail", "Email", "email", S.pf.email, false, 'autocomplete="email" required') + hp +
+        field("pname", "First name", "text", S.pf.name, false, 'autocomplete="given-name" required data-bind="pf.name"') +
+        field("pemail", "Email", "email", S.pf.email, false, 'autocomplete="email" required data-bind="pf.email"') + hp +
         '<button class="btn btn-gold btn-sm p-go" type="submit">Email me the link ' + IC.arrow + '</button><p class="p-msg" role="status"></p></form>';
     },
     portfolioDone: function () { return '<div class="p-done"><span class="tick">✓</span><h4>Check your inbox.</h4><p>' + esc(S.doneMsg || "") + '</p><button class="btn btn-ghost btn-sm" type="button" data-act="home">Back to Ava</button></div>'; },
@@ -178,14 +211,26 @@
     var t = e.target.closest("[data-act], [data-svc], [data-day], [data-slot], [data-jump]"); if (!t) return;
     if (t.hasAttribute("data-jump")) return;                         // the page's own anchor handler scrolls
     var a = t.getAttribute("data-act");
-    if (a === "book") { TOOLS_IMPL.show_booking_times({}); emit("Visitor opened booking."); track("ava_panel", { action: "book_open" }); }
-    else if (a === "services") { go("services"); emit("Visitor is browsing services."); track("ava_panel", { action: "services" }); }
-    else if (a === "lead") { go("lead", { focus: true }); emit("Visitor opened the lead form."); track("ava_panel", { action: "lead_open" }); }
-    else if (a === "portfolio") { go("portfolio", { focus: true }); emit("Visitor opened the private portfolio form."); track("ava_panel", { action: "portfolio_open" }); }
+    if (a === "book") { S.viewAll = false; S.booked = null; TOOLS_IMPL.show_booking_times({ view: "suggested" }); emit("The visitor opened the booking panel.", false); track("ava_panel", { action: "book_open" }); }
+    else if (a === "week") { S.viewAll = true; render({}); emit("The visitor is looking at the whole week.", false); }
+    else if (a === "services") { go("services"); emit("The visitor is browsing the services list.", false); track("ava_panel", { action: "services" }); }
+    else if (a === "lead") { go("lead", { focus: true }); emit("The visitor opened the leave-your-details form.", false); track("ava_panel", { action: "lead_open" }); }
+    else if (a === "portfolio") { go("portfolio", { focus: true }); emit("The visitor opened the private portfolio form.", false); track("ava_panel", { action: "portfolio_open" }); }
     else if (a === "home") { S.hist = []; go("home", { replace: true }); }
-    else if (t.hasAttribute("data-svc")) { TOOLS_IMPL.show_service({ service: t.getAttribute("data-svc") }); emit("Visitor is looking at " + S.svc + "."); }
-    else if (t.hasAttribute("data-day")) { S.day = t.getAttribute("data-day"); S.slot = null; go("times"); emit("Visitor picked " + fmtDay(days().filter(function (x) { return x.key === S.day; })[0].slots[0].start_time, true) + "."); }
-    else if (t.hasAttribute("data-slot")) { TOOLS_IMPL.select_booking_time({ start_time: t.getAttribute("data-slot") }); emit("Visitor picked " + fmtDay(S.slot.start_time, true) + " at " + fmtTime(S.slot.start_time) + "."); }
+    else if (t.hasAttribute("data-svc")) { TOOLS_IMPL.show_service({ service: t.getAttribute("data-svc") }); emit("The visitor is looking at the " + SERVICES.filter(function (s) { return s.id === S.svc; })[0].name + " service.", false); }
+    else if (t.hasAttribute("data-day")) { S.day = t.getAttribute("data-day"); S.slot = null; go("times"); emit("The visitor picked " + fmtDay(days().filter(function (x) { return x.key === S.day; })[0].slots[0].start_time, true) + " and is choosing a time.", false); }
+    else if (t.hasAttribute("data-slot")) { var sl = (S.slots || []).filter(function (x) { return x.start_time === t.getAttribute("data-slot"); })[0]; if (sl) { selectSlot(sl, false); emit("The visitor selected " + info(sl).label + ".", false); } }
+  });
+
+  // Keep what the visitor types (so an Ava update never wipes it) and tell the live twin about it.
+  var BIND_LABEL = { "book.name": "name", "book.email": "email", "book.phone": "phone number", "book.notes": "note" };
+  body.addEventListener("input", function (e) {
+    var b = e.target.getAttribute && e.target.getAttribute("data-bind"); if (!b) return;
+    var p = b.split("."); S[p[0]][p[1]] = e.target.value;
+  });
+  body.addEventListener("change", function (e) {
+    var b = e.target.getAttribute && e.target.getAttribute("data-bind"); if (!b || !BIND_LABEL[b] || !e.target.value.trim()) return;
+    emit("The visitor typed their " + BIND_LABEL[b] + ": " + e.target.value.trim() + ".", false);
   });
 
   /* ═════════ Data ═════════ */
@@ -197,8 +242,9 @@
     }
     return out;
   }
-  function loadSlots(force) {
-    if (!force && S.slots && Date.now() - S.slotsAt < 10 * 60e3) return Promise.resolve(S.slots);
+  // Each slot's signed token lasts 30 minutes, so reuse a fetch only while it is fresh (default 2 minutes).
+  function loadSlots(force, maxAgeMs) {
+    if (!force && S.slots && Date.now() - S.slotsAt < (maxAgeMs || 120e3)) return Promise.resolve(S.slots);
     return fetch("/api/ava-availability?days=7", { headers: { Accept: "application/json" } })
       .then(function (r) { return r.json(); })
       .then(function (j) { if (!j || !j.ok) throw new Error((j && j.error) || "unavailable"); S.slots = j.slots || []; S.slotsAt = Date.now(); S.slotsErr = null; return S.slots; })
@@ -212,113 +258,165 @@
   function setMsg(text, err, htmlStr) { var m = $(".p-msg", body); if (!m) return; m.classList.toggle("err", !!err); if (htmlStr) m.innerHTML = htmlStr; else m.textContent = text; }
   function busy(on) { var b = $(".p-go", body); if (b) b.disabled = !!on; S.busy = !!on; }
 
-  /* ═════════ Tools — the one way anything changes the panel ═════════ */
+  /* ═════════ Tools — the one way anything changes the panel ═════════
+     The first four are Ava's CONTRACT (names, argument shapes and return values come from
+     livebrand-ops/ava-nv2/PANEL-INTEGRATION-SPEC.md §4; her instructions call them by name).
+     The rest drive the panel's other modes for the visitor's clicks and the scripted demo. */
+  function selectSlot(s, fromTwin) { S.slot = s; S.day = dayKey(s.start_time); go("details", { focus: !fromTwin && !S.demo }); }
+  function stillNeeded() {
+    var n = []; if (!S.slot) n.push("time"); if (!S.book.name.trim()) n.push("name"); if (!validEmail(S.book.email.trim())) n.push("email"); return n;
+  }
+  function formState() { return { time: S.slot ? info(S.slot).label : null, name: S.book.name, email: S.book.email, phone: S.book.phone, notes: S.book.notes }; }
+  function clean(r) { var o = Object.assign({}, r); delete o.__status; return o; }
+  // What is already on the panel when a session starts, so she never re-asks for what the visitor already did.
+  function panelSummary() {
+    var bits = ["The booking panel is visible beside you"];
+    if (S.booked) bits.push("a call is already booked for " + S.booked.when);
+    else {
+      if (S.slot) bits.push("the visitor has selected " + info(S.slot).label);
+      var have = [S.book.name && "name " + S.book.name, S.book.email && "email " + S.book.email, S.book.phone && "phone " + S.book.phone].filter(Boolean);
+      if (have.length) bits.push("they have typed their " + have.join(", "));
+    }
+    return bits.join("; ") + ".";
+  }
+  function bookingFallback(extra) { return Object.assign({ fallback_email: "michael@avataragency.ai", calendly: CAL }, extra || {}); }
+
   var TOOLS_IMPL = {
-    show_home: function () { S.hist = []; go("home", { replace: true }); return "Panel shows the four options: book a strategy call, find the right service, leave details, private portfolio."; },
     show_booking_times: function (a) {
-      S.day = null; S.slot = null; go("days");
-      return loadSlots().then(function () {
-        var d = days(); if (a && a.day) { var hit = d.filter(function (x) { return x.key === a.day; })[0]; if (hit) S.day = hit.key; }
+      a = a || {}; S.slot = null; S.day = null; S.viewAll = a.view === "all";
+      go("days");
+      return loadSlots(false).then(function () {
+        if (a.date) { var hit = days().filter(function (x) { return x.key === a.date; })[0]; if (hit) { S.day = hit.key; S.viewAll = true; } }
         render({}); if (S.day) go("times");
-        return d.length ? "Open days: " + d.map(function (x) { return x.label + " (" + x.slots.map(function (s) { return fmtTime(s.start_time); }).join(", ") + ")"; }).join("; ") + ". Times are in the visitor's zone, " + tzShort() + "."
-          : "No open times this week. Offer the Calendly link for later dates.";
-      }, function () { render({}); return "The calendar didn't load. Offer the Calendly link instead."; });
+        return { ok: true, timezone: TZ_NAME, suggested: pickSlots(3).map(info), days: days().map(function (x) { return { date: x.key, label: x.label, open: x.slots.length }; }) };
+      }, function () { render({}); return bookingFallback({ ok: false, error: "The calendar didn't load. Offer Michael's email or the Calendly link instead." }); });
     },
     select_booking_time: function (a) {
-      var s = (S.slots || []).filter(function (x) { return x.start_time === (a && a.start_time); })[0];
-      if (!s) return "That time isn't open. Call show_booking_times and offer one of the listed times.";
-      S.slot = s; S.day = dayKey(s.start_time); go("details", { focus: !S.demo && !TOOLS_IMPL.__fromTwin });
-      return "Selected " + fmtDay(s.start_time, true) + " at " + fmtTime(s.start_time) + ". Now collect name, email and (optionally) phone, one at a time with read-back.";
+      a = a || {};
+      if (!S.slots) return { ok: false, error: "Call show_booking_times first." };
+      var s = findSlot(a.date, a.time);
+      if (!s) return { ok: false, error: "That time is no longer available", alternatives: pickSlots(3).map(info) };
+      selectSlot(s, TOOLS_IMPL.__fromTwin); return { ok: true, selected: info(s) };
     },
     fill_booking_details: function (a) {
-      a = a || {}; ["name", "email", "phone", "notes"].forEach(function (k) { if (a[k] != null) { S.book[k] = String(a[k]); var el = $("#ap-" + k, body); if (el) { el.value = S.book[k]; flash(el); } } });
-      return "Details on screen: " + [S.book.name, S.book.email, S.book.phone].filter(Boolean).join(", ") + ". Read them back and ask for a yes before confirm_booking.";
+      a = a || {}; var changed = [];
+      ["name", "email", "phone", "notes"].forEach(function (k) { if (a[k] != null && String(a[k]).trim() !== "") { S.book[k] = String(a[k]).trim(); changed.push(k); } });
+      if (S.slot && S.mode !== "details") go("details");
+      else changed.forEach(function (k) { var el = $("#ap-" + k, body); if (el) el.value = S.book[k]; });
+      changed.forEach(function (k) { var el = $("#ap-" + k, body); if (el) flash(el); });    // visitor sees Ava writing
+      return { ok: true, form: formState(), still_needed: stillNeeded() };
     },
     confirm_booking: function () {
-      if (!S.slot) return Promise.resolve("No time selected yet.");
-      if (!S.book.name || !validEmail(S.book.email)) { setMsg(!S.book.name ? "Please add your name." : "Please enter a valid email.", true); return Promise.resolve("Need a name and a valid email first."); }
-      if (S.demo) { S.doneMsg = "In a real conversation I'd confirm " + fmtDay(S.slot.start_time, true) + " at " + fmtTime(S.slot.start_time) + " — and Calendly would email the invite."; go("booked"); return Promise.resolve("Demo booking shown."); }
+      if (S.booked) return Promise.resolve({ ok: true, already_booked: true, when: S.booked.when });
+      var missing = stillNeeded();
+      if (missing.length) { setMsg("Still needed: " + missing.join(", ") + ".", true); return Promise.resolve({ ok: false, missing: missing, error: "Still needed before booking: " + missing.join(", ") }); }
+      if (S.demo) { S.doneMsg = "In a real conversation I'd confirm " + info(S.slot).label + " — and Calendly would email the invite."; go("booked"); return Promise.resolve({ ok: true, demo: true }); }
+      var fromTwin = TOOLS_IMPL.__fromTwin;
       busy(true); setMsg("Booking your call…");
-      return post("/api/ava-booking", { start_time: S.slot.start_time, token: S.slot.token, name: S.book.name, email: S.book.email, phone: S.book.phone, notes: S.book.notes, timezone: TZ, sessionId: SESSION })
+      // A slot's token lasts 30 minutes: if the list is older than ~25, refetch and re-match the chosen time to its fresh token.
+      return loadSlots(false, 25 * 60e3).then(function () { return null; }, function () { return null; })
+        .then(function () { var f = (S.slots || []).filter(function (x) { return x.start_time === S.slot.start_time; })[0]; if (f) S.slot = f; return !f; })
+        .then(function (gone) {
+          if (gone) return { ok: false, retry: true, __status: 409, message: "That time is no longer held. Call show_booking_times again and offer fresh options." };
+          return post("/api/ava-booking", { start_time: S.slot.start_time, token: S.slot.token, name: S.book.name.trim(), email: S.book.email.trim(), phone: S.book.phone.trim(), notes: S.book.notes.trim(), timezone: TZ, sessionId: (instance && instance.sessionId) || SESSION });
+        })
         .then(function (r) {
           busy(false);
-          if (r.ok && r.booked) { S.doneMsg = "Your strategy call with Michael is confirmed for " + (r.when || fmtDay(S.slot.start_time, true) + " at " + fmtTime(S.slot.start_time)) + ". Calendly has emailed your confirmation and calendar invite."; go("booked"); track("generate_lead", { lead_source: "ava_panel_booking" }); return r.message || "Booked."; }
-          if (r.retry) { setMsg("That time was just taken — here are fresh options."); return wait(900).then(function () { return loadSlots(true).then(function () { S.slot = null; go("days", { replace: true }); return r.message || "Time taken; fresh times shown."; }); }); }
-          if (r.stored) { S.doneMsg = "Michael has your details and will confirm a time with you directly."; go("booked"); return r.message || "Stored; Michael will confirm."; }
-          if (r.__status === 429) { setMsg("", true, 'Too many tries for now. <a href="' + CAL + '" target="_blank" rel="noopener">Pick a time on Calendly</a> instead.'); return "Rate limited; offered Calendly."; }
-          setMsg("", true, 'Something went wrong. <a href="' + CAL + '" target="_blank" rel="noopener">Pick a time on Calendly</a> and we\'ll see you there.'); return "Booking failed; offered Calendly.";
+          if (r.ok && r.booked) {
+            var when = r.when || info(S.slot).label; S.booked = { when: when };
+            S.doneMsg = "Your strategy call with Michael is confirmed for " + when + ". Calendly has emailed your confirmation and calendar invite to " + S.book.email.trim() + ".";
+            go("booked"); track("ava_booking_confirmed", {}); track("generate_lead", { lead_source: "ava_panel_booking" });
+            if (!fromTwin) emit("Booking confirmed for " + when + ". Calendly emailed " + S.book.email.trim() + ".", true);   // she reacts aloud
+            return clean(r);
+          }
+          if (r.retry || r.__status === 409) {
+            setMsg("That time is no longer held — here are fresh options.");
+            return wait(900).then(function () { return loadSlots(true); }).then(function () {
+              S.slot = null; S.day = null; S.viewAll = false; go("days", { replace: true });
+              return Object.assign(clean(r), { alternatives: pickSlots(3).map(info) });
+            }, function () { return clean(r); });
+          }
+          if (r.stored) { S.doneMsg = "Michael has your details and will confirm a time with you directly."; go("booked"); return clean(r); }
+          if (r.__status === 429) { setMsg("", true, 'Too many tries for now. Email <a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a> or <a href="' + CAL + '" target="_blank" rel="noopener">pick a time on Calendly</a>.'); return clean(r); }
+          setMsg("", true, 'Something went wrong. Email <a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a> or <a href="' + CAL + '" target="_blank" rel="noopener">pick a time on Calendly</a>.');
+          return bookingFallback(clean(r));
         });
     },
-    show_service: function (a) { var id = a && a.service; if (!SERVICES.some(function (s) { return s.id === id; })) { go("services"); return "Showing the service list: " + SERVICES.map(function (s) { return s.name; }).join(", ") + "."; } S.svc = id; go("service"); return "Showing " + SERVICES.filter(function (s) { return s.id === id; })[0].name + "."; },
-    show_lead_form: function () { go("lead"); return "Lead form open. Collect name, email, phone (optional) and what they need."; },
-    fill_lead_details: function (a) {
-      a = a || {}; var map = { name: "lname", email: "lemail", phone: "lphone", need: "lneed" };
-      if (S.mode !== "lead") go("lead");
-      Object.keys(map).forEach(function (k) { if (a[k] != null) { S.lead[k] = String(a[k]); var el = $("#ap-" + map[k], body); if (el) { el.value = S.lead[k]; flash(el); } } });
-      return "Lead details on screen. Read back and ask for a yes before submit_lead.";
-    },
+
+    // ── Panel-only tools (not given to the twin until her instructions mention them) ──
+    show_home: function () { S.hist = []; go("home", { replace: true }); return { ok: true }; },
+    show_service: function (a) { var id = a && a.service; if (!SERVICES.some(function (s) { return s.id === id; })) { go("services"); return { ok: true }; } S.svc = id; go("service"); return { ok: true }; },
+    show_lead_form: function () { go("lead"); return { ok: true }; },
     submit_lead: function () {
-      if (!S.lead.name || !validEmail(S.lead.email)) { setMsg(!S.lead.name ? "Please add your name." : "Please enter a valid email.", true); return Promise.resolve("Need a name and a valid email first."); }
-      if (S.demo) { S.doneMsg = "Demo — nothing was sent."; go("leadDone"); return Promise.resolve("Demo."); }
+      if (!S.lead.name.trim() || !validEmail(S.lead.email.trim())) { setMsg(!S.lead.name.trim() ? "Please add your name." : "Please enter a valid email.", true); return Promise.resolve({ ok: false }); }
+      if (S.demo) { S.doneMsg = "Demo — nothing was sent."; go("leadDone"); return Promise.resolve({ ok: true }); }
       busy(true); setMsg("Sending…");
-      return post("/api/agent-lead", { name: S.lead.name, email: S.lead.email, phone: S.lead.phone, need: S.lead.need, source: "ava-panel" }).then(function (r) {
+      return post("/api/agent-lead", { name: S.lead.name.trim(), email: S.lead.email.trim(), phone: S.lead.phone.trim(), need: S.lead.need.trim(), source: "ava-panel" }).then(function (r) {
         busy(false);
-        if (r.ok) { S.doneMsg = r.message || "Michael has your details and will be in touch soon."; go("leadDone"); track("generate_lead", { lead_source: "ava_panel_lead" }); return S.doneMsg; }
-        setMsg("", true, 'That didn\'t go through. Email <a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a> and we\'ll reply directly.'); return "Lead failed.";
+        if (r.ok) { S.doneMsg = r.message || "Michael has your details and will be in touch soon."; go("leadDone"); track("generate_lead", { lead_source: "ava_panel_lead" }); return r; }
+        setMsg("", true, 'That didn\'t go through. Email <a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a> and we\'ll reply directly.'); return r;
       });
     },
-    show_portfolio_form: function () { go("portfolio"); return "Portfolio form open. Collect first name and email."; },
+    show_portfolio_form: function () { go("portfolio"); return { ok: true }; },
     submit_portfolio: function () {
-      if (!S.pf.name || !validEmail(S.pf.email)) { setMsg(!S.pf.name ? "Please add your first name." : "Please enter a valid email.", true); return Promise.resolve("Need a first name and a valid email."); }
-      if (S.demo) { S.doneMsg = "Demo — nothing was sent."; go("portfolioDone"); return Promise.resolve("Demo."); }
+      if (!S.pf.name.trim() || !validEmail(S.pf.email.trim())) { setMsg(!S.pf.name.trim() ? "Please add your first name." : "Please enter a valid email.", true); return Promise.resolve({ ok: false }); }
+      if (S.demo) { S.doneMsg = "Demo — nothing was sent."; go("portfolioDone"); return Promise.resolve({ ok: true }); }
       busy(true); setMsg("Sending your private link…");
-      return post("/api/portfolio-signup", { name: S.pf.name, email: S.pf.email, company: "", hp: "" }).then(function (r) {
+      return post("/api/portfolio-signup", { name: S.pf.name.trim(), email: S.pf.email.trim(), company: "", hp: "" }).then(function (r) {
         busy(false);
-        if (r.ok) { S.doneMsg = "Your private portfolio link is on its way to " + S.pf.email + ". (Not there? Check promotions or spam.)"; go("portfolioDone"); track("generate_lead", { lead_source: "ava_panel_portfolio" }); return "Portfolio link sent."; }
-        setMsg("", true, 'That didn\'t go through. Email <a href="mailto:michael@avataragency.ai?subject=Private%20portfolio">michael@avataragency.ai</a> for the link.'); return "Portfolio signup failed.";
+        if (r.ok) { S.doneMsg = "Your private portfolio link is on its way to " + S.pf.email.trim() + ". (Not there? Check promotions or spam.)"; go("portfolioDone"); track("generate_lead", { lead_source: "ava_panel_portfolio" }); return r; }
+        setMsg("", true, 'That didn\'t go through. Email <a href="mailto:michael@avataragency.ai?subject=Private%20portfolio">michael@avataragency.ai</a> for the link.'); return r;
       });
     },
   };
   function flash(el) { el.classList.add("flash"); setTimeout(function () { el.classList.remove("flash"); }, 1100); }
 
   var str = function (d) { return { type: "string", description: d }; };
+  // Descriptions are verbatim from the spec — Ava's instructions were written against them.
   var TOOLS = [
-    { name: "show_home", description: "Return Ava's panel to its four options.", inputSchema: { type: "object", properties: {} } },
-    { name: "show_booking_times", description: "Show Michael Rivera's real open days and times for the free 30-minute strategy call. Returns the list in the visitor's time zone.", inputSchema: { type: "object", properties: { day: str("Optional day to open, YYYY-MM-DD") } } },
-    { name: "select_booking_time", description: "Select one of the offered times (exact start_time ISO string from show_booking_times).", inputSchema: { type: "object", properties: { start_time: str("ISO start time exactly as offered") }, required: ["start_time"] } },
-    { name: "fill_booking_details", description: "Type the visitor's details into the booking form as you collect them (one at a time, with read-back).", inputSchema: { type: "object", properties: { name: str("Full name"), email: str("Email address"), phone: str("Phone, optional"), notes: str("Anything Michael should know, optional") } } },
-    { name: "confirm_booking", description: "Book the selected time on Michael's calendar. Only after the visitor says yes to the read-back.", inputSchema: { type: "object", properties: {} } },
-    { name: "show_service", description: "Show one AvatarAgency service in the panel.", inputSchema: { type: "object", properties: { service: { type: "string", enum: SERVICES.map(function (s) { return s.id; }) } } } },
-    { name: "show_lead_form", description: "Open the leave-your-details form.", inputSchema: { type: "object", properties: {} } },
-    { name: "fill_lead_details", description: "Type the visitor's details into the lead form.", inputSchema: { type: "object", properties: { name: str("Full name"), email: str("Email"), phone: str("Phone, optional"), need: str("What they need") } } },
-    { name: "submit_lead", description: "Send the lead to Michael. Only after a yes to the read-back.", inputSchema: { type: "object", properties: {} } },
-    { name: "show_portfolio_form", description: "Open the private client portfolio form (emails a private link).", inputSchema: { type: "object", properties: {} } },
-    { name: "submit_portfolio", description: "Email the private portfolio link to the visitor (needs first name + email typed in the form).", inputSchema: { type: "object", properties: {} } },
+    { name: "show_booking_times", description: "Show Michael's real open times for a free 30-minute strategy call on the booking panel beside you, which the visitor can see. Call this as soon as the visitor wants to book, schedule, or talk with Michael. view \"suggested\" shows three picks; \"all\" shows the full week. Read back two or three options in natural speech, never the whole list, and mention the time zone.",
+      inputSchema: { type: "object", properties: { view: { type: "string", enum: ["suggested", "all"] }, date: str("Optional day to open, YYYY-MM-DD") } } },
+    { name: "select_booking_time", description: "Select the time the visitor chose on the booking panel. Use the date (YYYY-MM-DD) and time (e.g. \"10:00 AM\") from show_booking_times. If it is no longer available, offer the returned alternatives.",
+      inputSchema: { type: "object", properties: { date: str("YYYY-MM-DD, exactly as returned"), time: str("e.g. 10:00 AM, exactly as returned") }, required: ["date", "time"] } },
+    { name: "fill_booking_details", description: "Fill in the booking form on the panel each time you learn a detail - name, email, phone number, or a short note about their business and what they want to discuss. Only include the fields you just learned. Read each detail back; spell the email back where it is unclear.",
+      inputSchema: { type: "object", properties: { name: str("Full name"), email: str("Email address"), phone: str("Phone number"), notes: str("A short note about their business and what they want to discuss") } } },
+    { name: "confirm_booking", description: "Book the strategy call once a time, a name and an email are on the panel and the visitor has said yes. Read the time and email back first. Relay the returned message in your own words.",
+      inputSchema: { type: "object", properties: {} }, annotations: { destructiveHint: true } },
   ];
   function execTool(name, args) {
-    var fn = TOOLS_IMPL[name]; if (!fn) return Promise.resolve("Unknown tool " + name);
-    TOOLS_IMPL.__fromTwin = true;
-    try { return Promise.resolve(fn(args || {})).then(function (m) { TOOLS_IMPL.__fromTwin = false; return m; }); } catch (e) { TOOLS_IMPL.__fromTwin = false; return Promise.resolve("Tool error: " + e.message); }
+    var fn = TOOLS.some(function (t) { return t.name === name; }) && TOOLS_IMPL[name];   // the twin can only reach the contract tools
+    if (!fn) return Promise.resolve({ ok: false, error: "Unknown tool " + name });
+    TOOLS_IMPL.__fromTwin = true; track("ava_tool", { tool: name });
+    var done = function (m) { TOOLS_IMPL.__fromTwin = false; return m; };
+    try { return Promise.resolve(fn(args || {})).then(done, function (e) { return done({ ok: false, error: String(e && e.message || e) }); }); }
+    catch (e) { return Promise.resolve(done({ ok: false, error: String(e && e.message || e) })); }
   }
   var AvaPanel = window.AvaPanel = {
-    tools: TOOLS, exec: execTool, onEvent: null, state: function () { return S; },
-    installModelContext: function () {   // call BEFORE the Napster SDK's init()
+    tools: TOOLS, exec: execTool, state: function () { return S; }, config: CFG,
+    // Must run BEFORE sdk.init(): the SDK looks for document.modelContext for ~1.5 s and registers the tools mid-session.
+    installModelContext: function () {
       var mc = document.modelContext || new EventTarget();
-      mc.getTools = function () { return TOOLS; };
-      mc.executeTool = function (tool, jsonArgs) { var args = {}; try { args = typeof jsonArgs === "string" ? JSON.parse(jsonArgs || "{}") : (jsonArgs || {}); } catch (e) {} return execTool(tool && tool.name ? tool.name : tool, args); };
-      document.modelContext = mc; return mc;
+      mc.getTools = function () { return Promise.resolve(TOOLS.map(function (t) { return { name: t.name, description: t.description, inputSchema: t.inputSchema, annotations: t.annotations }; })); };
+      mc.executeTool = function (tool, jsonArgs) {
+        var args = {}; try { args = typeof jsonArgs === "string" ? JSON.parse(jsonArgs || "{}") : (jsonArgs || {}); } catch (e) {}
+        return execTool(tool && tool.name ? tool.name : tool, args);
+      };
+      if (!document.modelContext) { try { Object.defineProperty(document, "modelContext", { value: mc, configurable: true }); } catch (e) { document.modelContext = mc; } }
+      return mc;
     },
   };
+  AvaPanel.installModelContext();   // harmless until a session starts; guarantees it exists before any sdk.init()
 
-  /* ═════════ Ava's clip: muted loop, "Hear Ava" with captions ═════════ */
+  /* ═════════ Ava's clip: muted loop (it's the cue to click), "Hear Ava" with captions ═════════ */
   var LINES = [[0.6, 3.5, "Hey there — I'm Ava, and I'm not real."], [4.0, 7.6, "I'm a digital avatar created by AvatarAgency."], [8.4, 12.9, "When someone lands on this website, I'm the first one to say hello."],
     [13.4, 17.1, "I answer questions, I explain how everything works,"], [17.1, 20.4, "and when you're ready, I can book a call with the team for you."], [21.3, 27.5, "So tell me — what brought you here today?"]];
   var hearing = false, lastT = 0, visible = false, demoRun = 0;
   function caption(lines) { capBox.innerHTML = (lines || []).map(function (l) { return '<span class="cap' + (l.you ? " you" : "") + '"><b>' + (l.you ? "You" : "Ava") + "</b>" + esc(l.text) + "</span>"; }).join(""); }
   function ensureSrc() { if (!vid.getAttribute("src")) { vid.src = vid.getAttribute("data-src"); } }
-  function playQuiet() { if (RM || hearing) return; ensureSrc(); vid.muted = true; var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
+  function playQuiet() { if (RM || hearing || liveState !== "idle") return; ensureSrc(); vid.muted = true; var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
   function stopHearing() { hearing = false; vid.muted = true; hearBtn.setAttribute("aria-pressed", "false"); $("use", hearBtn).setAttribute("href", "#i-vol"); $("span", hearBtn).textContent = "Hear Ava"; if (!demoRun) caption([]); if (RM) vid.pause(); }
   hearBtn.addEventListener("click", function () {
+    if (liveState !== "idle") return;
     if (hearing) { stopHearing(); return; }
     stopDemo(); ensureSrc(); hearing = true; vid.currentTime = 0; vid.muted = false; lastT = 0;
     var p = vid.play(); if (p && p.catch) p.catch(function () { stopHearing(); });
@@ -335,11 +433,85 @@
   });
   function pulseActions() { if (S.mode !== "home") return; $$(".p-act", body).forEach(function (b, i) { setTimeout(function () { flash(b); }, i * 160); }); }
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (visible) playQuiet(); else { vid.pause(); if (hearing) stopHearing(); } }, { threshold: 0.25 }).observe(stage);
+    new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (liveState !== "idle") return; if (visible) playQuiet(); else { vid.pause(); if (hearing) stopHearing(); } }, { threshold: 0.25 }).observe(stage);
   }
 
-  /* ═════════ The scripted demo ("See how it works") ═════════ */
-  function stopDemo() { if (!demoRun) return; demoRun = 0; S.demo = false; demoBtn.classList.remove("is-on"); $("span", demoBtn).textContent = "See how it works"; caption([]); S.hist = []; S.book = { name: "", email: "", phone: "", notes: "" }; go("home", { replace: true }); }
+  /* ═════════ "Talk to Ava" — the live conversation (Napster SDK 1.5.0; pattern proven on /thriving-twin/) ═════════
+     Starts ONLY on this click (a user gesture — mic + autoplay policy, and every session is metered).
+     Until Ava's agent exists, /api/ava-nv2-token answers 503 and the visitor gets a friendly note; the panel keeps working. */
+  var mount = $("#ava-mount"), sdkLoading = null, capTimer = null, readyTimer = null, revealed = false;
+  var htmlBg = getComputedStyle(document.documentElement).backgroundColor, bodyBg = getComputedStyle(document.body).backgroundColor;
+  // The SDK injects `body,html{background:transparent}` the moment its SCRIPT loads — re-assert the real colors at every step.
+  function pinBg() { document.documentElement.style.setProperty("background-color", htmlBg, "important"); document.body.style.setProperty("background-color", bodyBg, "important"); }
+  function say_(text, ms) { toast.textContent = text; toast.hidden = !text; if (text && ms) setTimeout(function () { if (toast.textContent === text) toast.hidden = true; }, ms); }
+  function setTalk(label, on) { $("span", talkBtn).textContent = label; talkBtn.disabled = liveState === "connecting"; talkBtn.classList.toggle("is-on", !!on); }
+  function loadSdk() {
+    if (window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk) return Promise.resolve();
+    if (sdkLoading) return sdkLoading;
+    sdkLoading = new Promise(function (res, rej) { var s = document.createElement("script"); s.src = CFG.SDK_URL; s.onload = res; s.onerror = function () { sdkLoading = null; rej(new Error("sdk load")); }; document.body.appendChild(s); });
+    return sdkLoading;
+  }
+  // onAvatarReady fires BEFORE the first frame paints; reveal only once a frame is really composited, or the visitor sees a black void.
+  function waitForVideo(tries, cb) { var v = $("video", mount); if (v || tries <= 0) return cb(v); setTimeout(function () { waitForVideo(tries - 1, cb); }, 120); }
+  function onFirstFrame(v, cb) {
+    var fired = false, go_ = function () { if (!fired) { fired = true; cb(); } };
+    setTimeout(go_, 6000); if (!v) return go_();
+    if ("requestVideoFrameCallback" in v) { try { v.requestVideoFrameCallback(go_); return; } catch (e) {} }
+    if (v.readyState >= 3) return go_(); v.addEventListener("playing", go_, { once: true }); v.addEventListener("loadeddata", go_, { once: true });
+  }
+  function armReveal() { if (!revealed && instance) waitForVideo(45, function (v) { onFirstFrame(v, reveal); }); }
+  function reveal() {
+    if (revealed || !instance) return; revealed = true; liveState = "live";
+    if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
+    avStage.classList.add("live-ready"); say_("", 0); setTalk("End conversation", true); pinBg();
+    track("ava_live_session", {});
+  }
+  function endedState(msg) {
+    instance = null; revealed = false; liveState = "idle";
+    [capTimer, readyTimer].forEach(function (t) { if (t) clearTimeout(t); }); capTimer = readyTimer = null;
+    avStage.classList.remove("live", "live-ready"); mount.innerHTML = ""; setTalk("Talk to Ava", false);
+    stage.classList.remove("is-live"); say_(msg || "", msg ? 9000 : 0); pinBg();
+    if (visible) playQuiet();
+  }
+  function liveError(e) {
+    var st = e && e.status;
+    if (instance) { try { instance.destroy && instance.destroy(); } catch (x) {} }
+    endedState(st === 503 || st === 404 ? "Ava's live conversation is arriving very soon. In the meantime, the panel beside her books real calls." :
+      st === 429 || (st >= 500) ? "Ava's talking with other visitors right now — you can still book on the panel." :
+      "I couldn't start the live conversation just now. The panel beside me still works.");
+  }
+  async function startLive() {
+    if (liveState !== "idle") return;
+    liveState = "connecting"; stopDemo(); if (hearing) stopHearing(); caption([]);
+    setTalk("Connecting…", false); say_("Connecting to Ava…", 0); avStage.classList.add("live"); stage.classList.add("is-live");
+    vid.pause(); readyTimer = setTimeout(function () { if (liveState === "connecting") say_("Almost there… allow the microphone if your browser asks.", 0); }, 5000);
+    try {
+      AvaPanel.installModelContext();                       // before init — the tools are registered from here
+      await loadSdk(); pinBg();
+      var res = await fetch(CFG.TOKEN_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+      if (!res.ok) { var err = new Error("token " + res.status); err.status = res.status; throw err; }
+      var data = await res.json(); var sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
+      if (!sdk) throw new Error("sdk missing");
+      pinBg();
+      instance = await sdk.init(data.token, {
+        mountContainer: "#ava-mount", avatarStyle: { view: "rectangle" }, debug: /[?&]debug\b/.test(location.search),
+        features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
+        onAvatarReady: armReveal, onDestroy: function () { endedState(""); },
+      });
+      instance.showAvatar(); pinBg();
+      setTimeout(function () { if (instance) armReveal(); }, 3000);       // some browsers never fire onAvatarReady cleanly
+      capTimer = setTimeout(function () { if (instance) { try { instance.destroy && instance.destroy(); } catch (e) {} } endedState("That's the ten-minute limit — press Talk to Ava to keep going."); }, CFG.CAP_S * 1000);
+      emit(panelSummary(), false);
+    } catch (e) { liveError(e); }
+  }
+  talkBtn.addEventListener("click", function () {
+    if (liveState === "live") { if (instance) { try { instance.destroy && instance.destroy(); } catch (e) {} } endedState(""); return; }
+    startLive();
+  });
+
+  /* ═════════ The scripted demo ("Watch a 30-second demo") — never posts anything ═════════ */
+  function demoLabel(on) { demoBtn.textContent = on ? "Stop demo" : "Watch a 30-second demo"; }
+  function stopDemo() { if (!demoRun) return; demoRun = 0; S.demo = false; demoLabel(false); caption([]); S.hist = []; S.slot = null; S.booked = null; S.viewAll = false; S.book = { name: "", email: "", phone: "", notes: "" }; go("home", { replace: true }); }
   function typeInto(id, text, run) {
     var el = $("#ap-" + id, body); if (!el) return Promise.resolve();
     el.classList.add("flash"); var i = 0;
@@ -347,28 +519,25 @@
   }
   demoBtn.addEventListener("click", function () {
     if (demoRun) { stopDemo(); return; }
+    if (liveState !== "idle") return;
     if (hearing) stopHearing();
-    var run = demoRun = Date.now(); S.demo = true; S.hist = []; S.book = { name: "", email: "", phone: "", notes: "" };
-    demoBtn.classList.add("is-on"); $("span", demoBtn).textContent = "Stop demo"; track("ava_demo", {}); playQuiet();
+    var run = demoRun = Date.now(); S.demo = true; S.hist = []; S.booked = null; S.slot = null; S.viewAll = false; S.book = { name: "", email: "", phone: "", notes: "" };
+    demoLabel(true); track("ava_demo", {}); playQuiet();
     var alive = function () { return run === demoRun; };
     var say = function (who, text, ms) { if (!alive()) return Promise.reject("stopped"); caption(who === "you" ? [{ text: text, you: true }] : [{ text: text }]); return wait(ms); };
+    var pick;
     go("home", { replace: true });
     say("ava", "Hi, I'm Ava, AvatarAgency's AI agent. What brings you here today?", 2600)
       .then(function () { return say("you", "I'd like to talk to Michael about a digital twin.", 1500); })
       .then(function () { var b = $('[data-act="book"]', body); if (b) flash(b); return wait(900); })
-      .then(function () { if (!alive()) throw "stopped"; return TOOLS_IMPL.show_booking_times({}); })
-      .then(function () { return say("ava", "Happy to set that up. Here are Michael's next open days.", 2500); })
+      .then(function () { if (!alive()) throw "stopped"; return TOOLS_IMPL.show_booking_times({ view: "suggested" }); })
+      .then(function () { return say("ava", "Happy to set that up. Here are three times Michael has open.", 2700); })
       .then(function () {
-        var d = days(); var pick = d[Math.min(1, d.length - 1)]; if (!pick) throw "stopped";
-        S.__demoDay = pick; var chip = $('[data-day="' + pick.key + '"]', body); if (chip) flash(chip);
-        return say("you", fmtWeekday(pick.slots[0].start_time) + " works for me.", 1500).then(function () { S.day = pick.key; go("times"); });
+        pick = pickSlots(3); pick = pick[Math.min(1, pick.length - 1)]; if (!pick) throw "stopped";
+        var chip = $('[data-slot="' + pick.start_time + '"]', body); if (chip) flash(chip);
+        return say("you", fmtWeekday(pick.start_time) + " at " + fmtTime(pick.start_time) + " works.", 1700);
       })
-      .then(function () { return say("ava", "These times are open on " + fmtWeekday(S.__demoDay.slots[0].start_time) + ". Which suits you?", 2400); })
-      .then(function () {
-        var sl = S.__demoDay.slots, s = sl[Math.min(1, sl.length - 1)]; var chip = $('[data-slot="' + s.start_time + '"]', body); if (chip) flash(chip);
-        return say("you", fmtTime(s.start_time) + ", please.", 1400).then(function () { TOOLS_IMPL.select_booking_time({ start_time: s.start_time }); });
-      })
-      .then(function () { return say("ava", "Perfect. What's your name and the best email for the invite?", 2300); })
+      .then(function () { if (!alive()) throw "stopped"; selectSlot(pick, true); return say("ava", "Perfect. What's your name and the best email for the invite?", 2400); })
       .then(function () { caption([{ text: "Jordan Lee — jordan@example.com", you: true }]); return typeInto("name", "Jordan Lee", run); })
       .then(function () { return typeInto("email", "jordan@example.com", run); })
       .then(function () { S.book.name = "Jordan Lee"; S.book.email = "jordan@example.com"; return say("ava", "Thanks, Jordan. Booking you in now.", 1500); })

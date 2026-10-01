@@ -34,7 +34,7 @@
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="media/poster-hero.jpg?v=2" media="(min-aspect-ratio: 4/5)">
 <link rel="preload" as="image" href="media/poster-hero-portrait.jpg?v=2" media="(max-aspect-ratio: 4/5)">
-<link rel="stylesheet" href="home-next.css?v=7">
+<link rel="stylesheet" href="home-next.css?v=8">
 <script>
   /* Runs before paint: flags JS, reduced motion, and whether the intro plays (once per session). */
   (function (d) {
@@ -118,6 +118,7 @@
   <symbol id="i-vol" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
   <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M16 9.5l5 5m0-5l-5 5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
   <symbol id="i-full" viewBox="0 0 24 24"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
   <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
   <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13m-5-5.5L18.5 12 13 17.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v13m-5.5-5L12 18.5 17.5 13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
@@ -246,7 +247,7 @@
     <div class="wrap">
       <div class="agents-head">
         <p class="eyebrow gold-deep" data-anchor>Talking AI Agents</p>
-        <h2 class="h2 dark" id="agents-title">Every customer gets <em>a consultant.</em></h2>
+        <h2 class="h2 dark" id="agents-title">A talking AI agent <em>for your customers.</em></h2>
         <p class="agents-lede">Your website stops being a brochure and starts having conversations. A talking AI agent greets every visitor face to face, answers their questions in a natural voice, books the appointment and captures the lead — at 2 p.m. or 2 a.m., in whatever language your customer speaks.</p>
       </div>
 
@@ -255,12 +256,14 @@
            confirm_booking, show_service, fill_lead_details / submit_lead, show_portfolio). -->
       <div class="stage" id="ava-stage">
         <div class="stage-av">
+          <div id="ava-mount" class="ava-mount"></div>
           <video class="ava-video" muted loop playsinline preload="none" poster="media/ava-poster.jpg?v=1" data-src="media/ava-intro.mp4?v=1" aria-label="Ava, AvatarAgency's AI agent, introducing herself"></video>
           <div class="ava-badge"><span class="ava-dot"></span>Ava · AI agent</div>
           <div class="ava-caption" aria-live="polite"></div>
+          <div class="ava-toast" role="status" hidden></div>
           <div class="ava-ctrls">
             <button class="ava-btn ava-hear" type="button" aria-pressed="false"><svg><use href="#i-vol"/></svg><span>Hear Ava</span></button>
-            <button class="ava-btn ava-demo" type="button"><svg><use href="#i-play"/></svg><span>See how it works</span></button>
+            <button class="ava-btn ava-talk" type="button"><svg><use href="#i-mic"/></svg><span>Talk to Ava</span></button>
           </div>
         </div>
         <aside class="panel" id="ava-panel" aria-label="Ava's panel">
@@ -270,7 +273,7 @@
             <span class="panel-flag" hidden>Demo</span>
           </div>
           <div class="panel-body" aria-live="polite"></div>
-          <p class="panel-note">Ava's live voice is arriving soon. This panel already books real calls on Michael's calendar.</p>
+          <p class="panel-note">Prefer to type? This panel books real calls on Michael's calendar. <button class="panel-demo" type="button">Watch a 30-second demo</button></p>
         </aside>
       </div>
 
@@ -772,6 +775,6 @@
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
 <script src="home-next.js?v=5"></script>
-<script src="ava-panel.js?v=1"></script>
+<script src="ava-panel.js?v=2"></script>
 </body>
 </html>

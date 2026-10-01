@@ -644,9 +644,9 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .rm .hero-in { opacity: 1 !important; transform: none !important; }
 
 /* ═════════════ TALKING AI AGENTS (replaces "The Shift", 1 Oct) ═════════════ */
-.agents { background: var(--cream); color: var(--text); padding: clamp(90px, 12vw, 160px) 0 clamp(80px, 10vw, 130px); }
+.agents { background: var(--cream); color: var(--text); padding: clamp(40px, 4.4vw, 64px) 0 clamp(80px, 10vw, 130px); }
 .agents-head { display: grid; gap: 0; max-width: 980px; }
-.agents-head .h2 { max-width: 15ch; }
+.agents-head .h2 { max-width: 18ch; }
 .agents-lede { margin: 26px 0 0; font-size: clamp(17px, 1.45vw, 20.5px); line-height: 1.6; color: var(--text-mid); max-width: 62ch; }
 
 /* The stage: Ava on the left, her panel on the right */
@@ -779,3 +779,35 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
   .cyl-wide { --ch: 168px; }
 }
 @media (max-width: 420px) { .p-times { grid-template-columns: repeat(2, 1fr); } }
+
+/* ═════════ Talk to Ava (live session) + suggested times (1 Oct, round 2) ═════════ */
+.ava-btn.ava-talk { background: linear-gradient(180deg, var(--gold-light), var(--gold)); color: #120f08; border-color: transparent; }
+.ava-btn.ava-talk:hover { color: #120f08; filter: brightness(1.06); }
+.ava-btn.ava-talk[disabled] { opacity: .7; pointer-events: none; }
+.ava-btn.ava-talk.is-on { background: rgba(10,10,10,.55); color: var(--on-dark); border-color: rgba(255,255,255,.2); }
+/* The SDK mounts its own wrapper — without these rules it floats as a small panel in a corner of the viewport (spec gotcha #2). */
+.ava-mount { position: absolute; inset: 0; z-index: 1; overflow: hidden; opacity: 0; transition: opacity .45s ease; background: #050505; }
+.ava-mount > *, .ava-mount video, .ava-mount canvas { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; margin: 0 !important; border-radius: 0 !important; object-fit: cover; }
+.ava-mount, .ava-mount * { overflow: hidden !important; scrollbar-width: none; }
+.stage-av.live-ready .ava-mount { opacity: 1; }
+.stage-av.live .ava-video { opacity: .35; transition: opacity .4s; }          /* the still loop dims while connecting */
+.stage-av.live-ready .ava-video { opacity: 0; }
+.stage-av.live::after { display: none; }
+.stage-av.live-ready .ava-ctrls, .stage-av.live-ready .ava-caption { display: none; }   /* the SDK's own control bar takes over */
+.stage-av.live .ava-ctrls .ava-hear { display: none; }
+.stage-av .ava-badge, .stage-av .ava-toast { z-index: 4; }
+.stage-av .ava-ctrls { z-index: 5; }
+.ava-toast { position: absolute; left: 50%; top: 62px; transform: translateX(-50%); width: min(88%, 520px); text-align: center; padding: 10px 16px; border-radius: 12px; font-size: 14.5px; line-height: 1.45;
+  background: rgba(10,10,10,.72); border: 1px solid rgba(228,201,122,.35); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+.ava-toast[hidden] { display: none; }
+.stage.is-live .panel-flag { display: none; }
+/* Suggested times + the demo link */
+.p-picks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.p-pick { padding: 14px 8px; }
+.p-pick small { font-size: 13px; color: var(--gold-light); font-weight: 600; margin-top: 3px; }
+.p-pick:hover small { color: var(--gold-light); }
+.p-week { background: none; border: 0; border-bottom: 1px solid rgba(228,201,122,.35); justify-self: start; padding: 0 0 2px; font: inherit; font-weight: 600; font-size: 14.5px; color: var(--gold-light); display: inline-flex; gap: 7px; align-items: center; cursor: pointer; }
+.p-week svg { width: 15px; height: 15px; }
+.panel-demo { background: none; border: 0; padding: 0; margin-left: 4px; font: inherit; color: var(--gold-light); border-bottom: 1px solid rgba(228,201,122,.4); cursor: pointer; }
+.panel-demo:hover { border-color: var(--gold-light); }
+@media (max-width: 420px) { .p-picks { grid-template-columns: 1fr; } .p-pick { display: flex; justify-content: space-between; align-items: center; text-align: left; padding: 12px 14px; } }
