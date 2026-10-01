@@ -34,7 +34,7 @@
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="media/poster-hero.jpg?v=2" media="(min-aspect-ratio: 4/5)">
 <link rel="preload" as="image" href="media/poster-hero-portrait.jpg?v=2" media="(max-aspect-ratio: 4/5)">
-<link rel="stylesheet" href="home-next.css?v=6">
+<link rel="stylesheet" href="home-next.css?v=7">
 <script>
   /* Runs before paint: flags JS, reduced motion, and whether the intro plays (once per session). */
   (function (d) {
@@ -81,7 +81,8 @@
         { "@type": "ListItem", "position": 3, "item": { "@type": "Service", "name": "AI Video & Digital Cloning for Business and Influencers", "url": "https://avataragency.ai/business", "provider": { "@id": "https://avataragency.ai/#org" } } },
         { "@type": "ListItem", "position": 4, "item": { "@type": "Service", "name": "Cinematic Book Marketing for Authors & Publishers", "url": "https://avataragency.ai/authors", "provider": { "@id": "https://avataragency.ai/#org" } } },
         { "@type": "ListItem", "position": 5, "item": { "@type": "Service", "name": "AI Referral Optimization", "url": "https://avataragency.ai/aiso/", "provider": { "@id": "https://avataragency.ai/#org" } } },
-        { "@type": "ListItem", "position": 6, "item": { "@type": "Service", "name": "Claude Coaching", "url": "https://avataragency.ai/claudecoaching/", "provider": { "@id": "https://avataragency.ai/#org" } } }
+        { "@type": "ListItem", "position": 6, "item": { "@type": "Service", "name": "Claude Coaching", "url": "https://avataragency.ai/claudecoaching/", "provider": { "@id": "https://avataragency.ai/#org" } } },
+        { "@type": "ListItem", "position": 7, "item": { "@type": "Service", "name": "Talking AI Agents", "description": "Real-time talking AI agents for business websites: digital twins of real people, custom brand avatars, or ready-to-go presenters that answer questions, book appointments and capture leads.", "url": "https://avataragency.ai/#agents", "provider": { "@id": "https://avataragency.ai/#org" } } }
       ]
     },
     {
@@ -91,6 +92,7 @@
         { "@type": "Question", "name": "Do I have to be on camera all the time?", "acceptedAnswer": { "@type": "Answer", "text": "Once. One guided capture session builds your digital twin. After that, we produce new video of you without you re-shooting anything." } },
         { "@type": "Question", "name": "Will it look like AI content?", "acceptedAnswer": { "@type": "Answer", "text": "No. Every piece is storyboarded, generated on the best engine for the shot, and hand-finished in a professional edit. If it looks fake, it doesn't ship." } },
         { "@type": "Question", "name": "What platforms are the videos made for?", "acceptedAnswer": { "@type": "Answer", "text": "Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube and X — widescreen for your website and YouTube, vertical for social." } },
+        { "@type": "Question", "name": "What is a talking AI agent?", "acceptedAnswer": { "@type": "Answer", "text": "A talking AI agent is a lifelike avatar on your website that speaks with visitors face to face in real time. It answers questions in a natural voice, follows the visitor's language, remembers returning visitors, books appointments on your calendar and captures every lead. AvatarAgency builds three kinds: a digital twin of you, a custom avatar designed for your brand, or a ready-to-go presenter from our Signature Collection." } },
         { "@type": "Question", "name": "What is AI Referral Optimization?", "acceptedAnswer": { "@type": "Answer", "text": "People now ask ChatGPT, Gemini, Grok, Perplexity and Claude for recommendations, and the AI answers with two or three business names. AI Referral Optimization makes your business one of those names. It starts with a free AI Referral Audit that tests five real customer questions on all five AIs." } },
         { "@type": "Question", "name": "What does it cost?", "acceptedAnswer": { "@type": "Answer", "text": "Every engagement is scoped to your market and goals on a free 30-minute strategy call. You leave knowing the number and the plan, with no obligation." } },
         { "@type": "Question", "name": "How fast will I see something?", "acceptedAnswer": { "@type": "Answer", "text": "Your first production is typically in your hands within weeks of your capture session, not months. Urgent projects can move faster." } },
@@ -138,6 +140,7 @@
   <div class="hdr-inner">
     <a href="#top" class="logo-lockup" aria-label="AvatarAgency — home"><span class="c">Avatar</span><span class="l">Agency</span></a>
     <nav class="hdr-nav" aria-label="Primary">
+      <a href="#agents">AI Agents</a>
       <a href="#services">Services</a>
       <a href="#work">Work</a>
       <a href="#founder">About</a>
@@ -167,6 +170,7 @@
     </div>
     <div class="menu-col">
       <div class="eyebrow">Agency</div>
+      <a href="#agents">Talking AI Agents</a>
       <a href="#work">Private portfolio</a>
       <a href="#founder">About Michael</a>
       <a href="/thrive/">THRIVE speaking</a>
@@ -238,31 +242,82 @@
     </nav>
   </section>
 
-  <section class="manifesto curtain" aria-labelledby="shift-title">
+  <section class="agents curtain" id="agents" aria-labelledby="agents-title">
     <div class="wrap">
-      <p class="eyebrow gold">The shift</p>
-      <h2 class="sr-only" id="shift-title">AI just split business owners into two groups</h2>
-      <p class="manifesto-text" data-words>AI just split business owners into two groups. Group one moved early — their face, their voice and their story now show up everywhere their customers look. Group two is still “looking into it.” <span class="accent">AvatarAgency is how you join group one — without learning ten new tools.</span></p>
-
-      <div class="groups">
-        <article class="group">
-          <span class="group-tag">Group one</span>
-          <h3>Moved early.</h3>
-          <p>They show up in polished video every week. Their face, their voice, their story — everywhere their customers look. They look bigger than they are, and they win the trust before the first phone call.</p>
-        </article>
-        <article class="group group-dim">
-          <span class="group-tag">Group two</span>
-          <h3>Still “looking into it.”</h3>
-          <p>They know AI matters. They've watched a few demos. But between running the business and figuring out ten new tools, nothing ever ships. Every month, the gap gets wider.</p>
-        </article>
+      <div class="agents-head">
+        <p class="eyebrow gold-deep" data-anchor>Talking AI Agents</p>
+        <h2 class="h2 dark" id="agents-title">Every customer gets <em>a consultant.</em></h2>
+        <p class="agents-lede">Your website stops being a brochure and starts having conversations. A talking AI agent greets every visitor face to face, answers their questions in a natural voice, books the appointment and captures the lead — at 2 p.m. or 2 a.m., in whatever language your customer speaks.</p>
       </div>
 
-      <dl class="stats">
-        <div><dt><span data-count="1">1</span></dt><dd>capture session builds your digital twin — you never re-shoot</dd></div>
-        <div><dt><span data-count="7">7</span></dt><dd>platforms, every format — widescreen for your site, vertical for social</dd></div>
-        <div><dt><span data-count="5">5</span></dt><dd>AI assistants we optimize you for: ChatGPT, Gemini, Grok, Perplexity, Claude</dd></div>
-        <div><dt><span data-count="45">45</span>%</dt><dd>of US consumers used AI tools to find a local business last year <cite>BrightLocal, 2026</cite></dd></div>
-      </dl>
+      <!-- Ava's stage: video left, live panel right. The panel exposes the same page tools the live
+           Ava will drive (show_booking_times / select_booking_time / fill_booking_details /
+           confirm_booking, show_service, fill_lead_details / submit_lead, show_portfolio). -->
+      <div class="stage" id="ava-stage">
+        <div class="stage-av">
+          <video class="ava-video" muted loop playsinline preload="none" poster="media/ava-poster.jpg?v=1" data-src="media/ava-intro.mp4?v=1" aria-label="Ava, AvatarAgency's AI agent, introducing herself"></video>
+          <div class="ava-badge"><span class="ava-dot"></span>Ava · AI agent</div>
+          <div class="ava-caption" aria-live="polite"></div>
+          <div class="ava-ctrls">
+            <button class="ava-btn ava-hear" type="button" aria-pressed="false"><svg><use href="#i-vol"/></svg><span>Hear Ava</span></button>
+            <button class="ava-btn ava-demo" type="button"><svg><use href="#i-play"/></svg><span>See how it works</span></button>
+          </div>
+        </div>
+        <aside class="panel" id="ava-panel" aria-label="Ava's panel">
+          <div class="panel-top">
+            <button class="panel-back" type="button" hidden aria-label="Back"><svg><use href="#i-arrow"/></svg></button>
+            <span class="panel-title">How can I help?</span>
+            <span class="panel-flag" hidden>Demo</span>
+          </div>
+          <div class="panel-body" aria-live="polite"></div>
+          <p class="panel-note">Ava's live voice is arriving soon. This panel already books real calls on Michael's calendar.</p>
+        </aside>
+      </div>
+
+      <div class="agent-types">
+        <article><span class="at-n">01</span><h3>Your digital twin</h3><p>A lifelike you — your face, your voice, your expertise — answering customers while you get on with the work.</p></article>
+        <article><span class="at-n">02</span><h3>A custom brand avatar</h3><p>An original character designed around your brand, your audience and your tone. Not your face, and entirely yours.</p></article>
+        <article><span class="at-n">03</span><h3>A ready-to-go avatar</h3><p>Choose a professional presenter from our Signature Collection — the fastest way to put a face on your front desk.</p></article>
+      </div>
+
+      <ul class="agent-caps" aria-label="What every agent does">
+        <li>Talks face to face, in real time</li>
+        <li>Speaks your customer's language</li>
+        <li>Remembers returning visitors</li>
+        <li>Books straight onto your calendar</li>
+        <li>Captures every lead and alerts you</li>
+        <li>Trained on your own website and offers</li>
+      </ul>
+    </div>
+
+    <div class="roster">
+      <div class="wrap roster-head">
+        <h3 class="roster-title">One for every role <em>in your business.</em></h3>
+        <p class="roster-role" aria-live="polite"><b data-role>Customer service</b><span data-role-desc>Answers every question, any hour, in your customer's language.</span></p>
+      </div>
+      <div class="cyl cyl-wide" id="agents-cyl" tabindex="0" aria-roledescription="carousel" aria-label="Signature Collection avatars and the roles they can play">
+        <button class="cyl-arrow prev" type="button" aria-label="Previous avatar"><svg><use href="#i-arrow"/></svg></button>
+        <div class="cyl-stage">
+          <figure class="cyl-card" data-role="Customer service" data-desc="Answers every question, any hour, in your customer's language."><img src="media/agents/angela-collins.jpg" alt="Angela, an AI customer service agent" draggable="false" loading="lazy"><figcaption><b>Angela</b>Customer service</figcaption></figure>
+          <figure class="cyl-card" data-role="Sales representative" data-desc="Qualifies every lead and books the demo while you sleep."><img src="media/agents/emir.jpg" alt="Emir, an AI sales representative" draggable="false" loading="lazy"><figcaption><b>Emir</b>Sales representative</figcaption></figure>
+          <figure class="cyl-card" data-role="Technical support" data-desc="Walks customers through setup and troubleshooting, step by step."><img src="media/agents/tesek.jpg" alt="Tesek, an AI technical support agent" draggable="false" loading="lazy"><figcaption><b>Tesek</b>Technical support</figcaption></figure>
+          <figure class="cyl-card" data-role="Concierge" data-desc="Recommends, reserves, and remembers every guest's preferences."><img src="media/agents/grace.jpg" alt="Grace, an AI concierge" draggable="false" loading="lazy"><figcaption><b>Grace</b>Concierge</figcaption></figure>
+          <figure class="cyl-card" data-role="Coach" data-desc="Checks in, motivates and keeps every client on track between sessions."><img src="media/agents/farid.jpg" alt="Farid, an AI coach" draggable="false" loading="lazy"><figcaption><b>Farid</b>Coach</figcaption></figure>
+          <figure class="cyl-card" data-role="Real estate assistant" data-desc="Answers listing questions, pre-qualifies buyers and schedules showings."><img src="media/agents/adriana.jpg" alt="Adriana, an AI real estate assistant" draggable="false" loading="lazy"><figcaption><b>Adriana</b>Real estate assistant</figcaption></figure>
+          <figure class="cyl-card" data-role="Patient coordinator" data-desc="Books appointments and answers the questions patients ask most."><img src="media/agents/sophia.jpg" alt="Sophia, an AI patient coordinator" draggable="false" loading="lazy"><figcaption><b>Sophia</b>Patient coordinator</figcaption></figure>
+          <figure class="cyl-card" data-role="Legal intake" data-desc="Gathers the facts of each case and books the consultation."><img src="media/agents/angela-mabena.jpg" alt="Angela, an AI legal intake agent" draggable="false" loading="lazy"><figcaption><b>Angela</b>Legal intake</figcaption></figure>
+          <figure class="cyl-card" data-role="Wealth advisor's assistant" data-desc="Explains your services with discretion and books the first meeting."><img src="media/agents/thierry.jpg" alt="Thierry, an AI wealth advisor's assistant" draggable="false" loading="lazy"><figcaption><b>Thierry</b>Wealth advisor's assistant</figcaption></figure>
+          <figure class="cyl-card" data-role="Front desk" data-desc="Greets every visitor and routes them to the right person."><img src="media/agents/alexis.jpg" alt="Alexis, an AI front desk receptionist" draggable="false" loading="lazy"><figcaption><b>Alexis</b>Front desk</figcaption></figure>
+          <figure class="cyl-card" data-role="Onboarding specialist" data-desc="Guides every new customer through their first week."><img src="media/agents/david.jpg" alt="David, an AI onboarding specialist" draggable="false" loading="lazy"><figcaption><b>David</b>Onboarding specialist</figcaption></figure>
+          <figure class="cyl-card" data-role="Account manager" data-desc="Checks in with clients, answers account questions and spots the next opportunity."><img src="media/agents/luc.jpg" alt="Luc, an AI account manager" draggable="false" loading="lazy"><figcaption><b>Luc</b>Account manager</figcaption></figure>
+        </div>
+        <button class="cyl-arrow next" type="button" aria-label="Next avatar"><svg><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+
+    <div class="wrap agents-cta">
+      <a class="btn btn-gold" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener" data-cta="agents">Book a strategy call <svg><use href="#i-arrow"/></svg></a>
+      <a class="link dark" href="#ava-stage" data-talk-ava>Try Ava's panel <svg><use href="#i-arrow"/></svg></a>
     </div>
   </section>
 </div>
@@ -524,30 +579,6 @@
   </div>
 </section>
 
-<!-- ═════════════ CAST — cylinder carousel ═════════════ -->
-<section class="cast" aria-labelledby="cast-title">
-  <div class="wrap cast-head">
-    <p class="eyebrow gold">Digital twins &amp; custom AI personas</p>
-    <h2 class="h2" id="cast-title">One session. <em>Every face of your brand.</em></h2>
-    <p class="sub">Your own digital twin — or a completely original AI spokesperson built only for you. Drag to spin.</p>
-  </div>
-  <div class="cyl" id="cast" tabindex="0" aria-roledescription="carousel" aria-label="AI personas">
-    <button class="cyl-arrow prev" type="button" aria-label="Previous persona"><svg><use href="#i-arrow"/></svg></button>
-    <div class="cyl-stage">
-      <figure class="cyl-card"><img src="media/cast-01.jpg" alt="AI brand hero persona" draggable="false" loading="lazy"><figcaption><b>Brand hero</b>Campaign persona</figcaption></figure>
-      <figure class="cyl-card"><img src="media/cast-02.jpg" alt="AI attorney spokesperson" draggable="false" loading="lazy"><figcaption><b>Attorney</b>Legal spokesperson</figcaption></figure>
-      <figure class="cyl-card"><img src="media/cast-03.jpg" alt="AI consultant presenter" draggable="false" loading="lazy"><figcaption><b>Consultant</b>Founder-style presenter</figcaption></figure>
-      <figure class="cyl-card"><img src="media/cast-04.jpg" alt="Animated children's story character" draggable="false" loading="lazy"><figcaption><b>Story character</b>Children's books</figcaption></figure>
-      <figure class="cyl-card"><img src="media/cast-05.jpg" alt="AI creator persona" draggable="false" loading="lazy"><figcaption><b>Creator</b>Social-first host</figcaption></figure>
-      <figure class="cyl-card"><img src="media/cast-06.jpg" alt="AI author persona holding her novel" draggable="false" loading="lazy"><figcaption><b>Author</b>Book launch host</figcaption></figure>
-      <figure class="cyl-card"><img src="media/cast-07.jpg" alt="AI lifestyle persona" draggable="false" loading="lazy"><figcaption><b>Lifestyle</b>UGC-style ads</figcaption></figure>
-      <figure class="cyl-card"><img src="media/cast-08.jpg" alt="AI doctor spokesperson" draggable="false" loading="lazy"><figcaption><b>Doctor</b>Medical &amp; dental</figcaption></figure>
-      <figure class="cyl-card"><img src="media/cast-09.jpg" alt="AI chef persona" draggable="false" loading="lazy"><figcaption><b>Chef</b>Restaurants &amp; local</figcaption></figure>
-    </div>
-    <button class="cyl-arrow next" type="button" aria-label="Next persona"><svg><use href="#i-arrow"/></svg></button>
-  </div>
-</section>
-
 <!-- ═════════════ FORMATS — horizontal track ═════════════ -->
 <section class="formats" aria-labelledby="formats-title">
   <div class="formats-pin">
@@ -578,7 +609,7 @@
       <li><a href="/services.html#video"><span class="svc-t">AI Video <em>Production</em></span><span class="svc-d">Reels and TikToks, YouTube long-form, course videos, UGC ads, brand films and spokesperson content.</span><svg><use href="#i-arrow"/></svg></a></li>
       <li><a href="/services.html"><span class="svc-t">Social Media <em>Marketing</em></span><span class="svc-d">YouTube channel growth, Instagram DM funnels, LinkedIn authority and outreach — followers that book.</span><svg><use href="#i-arrow"/></svg></a></li>
       <li><a href="/services.html#automation"><span class="svc-t">Marketing <em>Automation</em></span><span class="svc-d">AI chatbots, comment-to-booked-call pipelines, AI voice that answers your phone, automated onboarding.</span><svg><use href="#i-arrow"/></svg></a></li>
-      <li><a href="/services.html#websites"><span class="svc-t">Websites That <em>Have a Conversation</em></span><span class="svc-d">An interactive avatar that greets every visitor, answers questions in your voice and captures the lead.</span><svg><use href="#i-arrow"/></svg></a></li>
+      <li><a href="#agents"><span class="svc-t">Websites That <em>Have a Conversation</em></span><span class="svc-d">An interactive avatar that greets every visitor, answers questions in your voice and captures the lead.</span><svg><use href="#i-arrow"/></svg></a></li>
       <li><a href="/services.html"><span class="svc-t">AI Voice <em>&amp; Audio</em></span><span class="svc-d">A custom voice model trained on your recordings — across video, voiceovers, SMS and AI phone systems.</span><svg><use href="#i-arrow"/></svg></a></li>
     </ul>
   </div>
@@ -662,6 +693,7 @@
       <details><summary>Do I have to be on camera all the time?</summary><p>Once. One guided capture session builds your digital twin. After that, we produce new video of you without you re-shooting anything.</p></details>
       <details><summary>Will it look like “AI content”?</summary><p>No — and that's the point of having a strategist. Every piece is storyboarded, generated on the best engine for the shot, and hand-finished in a professional edit. If it looks fake, it doesn't ship.</p></details>
       <details><summary>What platforms are the videos made for?</summary><p>Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube and X — widescreen for your website and YouTube, vertical for social.</p></details>
+      <details><summary>What is a talking AI agent?</summary><p>A lifelike avatar on your website that speaks with visitors face to face, in real time. It answers questions in a natural voice, follows your customer's language, remembers returning visitors, books appointments on your calendar and captures every lead. We build three kinds: a digital twin of you, a custom avatar designed for your brand, or a ready-to-go presenter from our Signature Collection. <a href="#agents">Meet Ava</a>.</p></details>
       <details><summary>What is AI Referral Optimization?</summary><p>People now ask ChatGPT, Gemini, Grok, Perplexity and Claude for recommendations, and the AI answers with two or three names. We make your business one of them — starting with a <a href="/aiso/">free AI Referral Audit</a> that tests five real customer questions on all five AIs.</p></details>
       <details><summary>What does it cost?</summary><p>Every engagement is scoped to your market and goals on a free 30-minute strategy call. You leave knowing the number and the plan, with no obligation.</p></details>
       <details><summary>How fast will I see something?</summary><p>Your first production is typically in your hands within weeks of your capture session — not months. Urgent projects can move faster.</p></details>
@@ -739,6 +771,7 @@
 <script src="vendor/gsap.min.js"></script>
 <script src="vendor/ScrollTrigger.min.js"></script>
 <script src="vendor/lenis.min.js"></script>
-<script src="home-next.js?v=4"></script>
+<script src="home-next.js?v=5"></script>
+<script src="ava-panel.js?v=1"></script>
 </body>
 </html>

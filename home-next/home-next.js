@@ -108,7 +108,7 @@
 
   if (hasGSAP && !RM) {
     // The manifesto rises over the sticky hero; the hero recedes underneath it.
-    var tl = gsap.timeline({ scrollTrigger: { trigger: ".manifesto", start: "top bottom", end: "top top", scrub: true,
+    var tl = gsap.timeline({ scrollTrigger: { trigger: ".agents", start: "top bottom", end: "top top", scrub: true,
       onUpdate: function (st) { heroCovered = st.progress > 0.995; syncHero(); } } });
     tl.to(".hero-video", { scale: 1.14, ease: "none" }, 0)
       .to(".hero-content", { y: -90, opacity: 0, ease: "none" }, 0)
@@ -157,7 +157,7 @@
     }, { threshold: 0.6 });
     counters.forEach(function (c) { cio.observe(c); });
 
-    var rvSel = ".groups .group, .stats > div, .index-head, .index-list li, .ch-head, .ch-lede, .tiles, .aro-stats, .timeline, .founder-copy > *, .cast-head, .formats-head, .svc-head, .svc-list li, .work-copy, .vault, .steps li, .process .h2, .more-card, .faq-grid > div, .final-inner > *";
+    var rvSel = ".agents-head, .stage, .agent-types article, .agent-caps, .roster-head, .agents-cta, .index-head, .index-list li, .ch-head, .ch-lede, .tiles, .aro-stats, .timeline, .founder-copy > *, .cast-head, .formats-head, .svc-head, .svc-list li, .work-copy, .vault, .steps li, .process .h2, .more-card, .faq-grid > div, .final-inner > *";
     var rio = new IntersectionObserver(function (es) { es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("in"); rio.unobserve(e.target); } }); }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
     $$(rvSel).forEach(function (el, i) { el.classList.add("rv"); el.style.transitionDelay = ((i % 4) * 70) + "ms"; rio.observe(el); });
 
@@ -368,7 +368,13 @@
      no setPointerCapture (it breaks clicks), NaN trap in tick, flat
      transform-style, hover never spins the wheel. */
   var CYL = (function () {
-    var car = $("#cast"), stage = car && $(".cyl-stage", car);
+    var car = $("#agents-cyl"), stage = car && $(".cyl-stage", car);
+    var roleBox = $(".roster-role"), roleT = roleBox && $("[data-role]", roleBox), roleD = roleBox && $("[data-role-desc]", roleBox), lastFront = -1;
+    function showRole(i) {   // the role caption follows whichever avatar is in front
+      if (!roleBox || i === lastFront) return; lastFront = i; var c = cards[i];
+      roleBox.classList.add("swap");
+      setTimeout(function () { roleT.textContent = c.getAttribute("data-role"); roleD.textContent = c.getAttribute("data-desc"); roleBox.classList.remove("swap"); }, 180);
+    }
     if (!car || !stage || RM) return null;
     var cards = $$(".cyl-card", stage), M = cards.length;
     var S = { p: 0, target: null, drag: false, moved: 0, lastX: 0, resume: 0, mx: 0, my: 0, tx: 0, ty: 0, cw: 240, v: 0, lastT: 0, spin: 0 };
@@ -448,12 +454,13 @@
         c.style.transform = "translateX(" + x.toFixed(1) + "px) translateZ(" + z.toFixed(1) + "px) rotateY(" + ry.toFixed(2) + "deg)";
         c.setAttribute("aria-hidden", i === f ? "false" : "true");
       }
+      showRole(f);
     }
     tick(); visible = false;
     return { tick: tick, setVisible: setVisible };
   })();
   if (CYL) {
-    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { CYL.setVisible(es[0].isIntersecting); }, { threshold: 0.15 }).observe($("#cast"));
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { CYL.setVisible(es[0].isIntersecting); }, { threshold: 0.15 }).observe($("#agents-cyl"));
     if (hasGSAP) gsap.ticker.add(CYL.tick); else (function loop() { CYL.tick(); requestAnimationFrame(loop); })();
   }
 
