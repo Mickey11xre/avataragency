@@ -5,9 +5,11 @@ SOURCE: https://support.claude.com/en/articles/10166901-use-google-workspace-con
 
 # Use Google Workspace connectors
 
-Connect your Gmail, Google Calendar, and Google Drive to Claude so you can search and send emails, manage your calendar, work with documents, and save files—all without leaving the conversation.
+Connect your Gmail, Google Calendar, and Google Drive to Claude so you can search and send emails, manage your calendar, work with documents, and save files, all without leaving the conversation.
 
 Google Workspace connectors (Gmail, Google Calendar, and Google Drive) are available for all users on Claude and Claude Desktop.
+
+**Beta:** Claude can edit Google Docs, Sheets, and Slides live in a pane beside the chat, on Claude on the web and Claude Desktop. You and Claude can edit the same file at the same time. Because this is a beta, some features are limited or may not work reliably. See **[Current limitations](#h_cbd94d5da5)**.
 
 For Team and Enterprise plans, an Owner or Primary Owner must enable these connectors at the organization level before individual users can authenticate. For setup instructions, read **[Use connectors to extend Claude's capabilities](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities#h_17dd443beb)**.
 
@@ -59,7 +61,17 @@ For Team and Enterprise plans, an Owner or Primary Owner must enable these conne
 
 - **Save Claude-generated files** directly to your Drive (requires **[code execution and file creation](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)** to be enabled).
 
-**Note:** Claude extracts text content only from Google Drive files. Images embedded in documents are not processed.
+**Note:** When Claude reads a Google Drive file, it extracts text content only. Images embedded in documents are not processed.
+
+### Google Docs, Sheets, and Slides (beta)
+
+- **Edit files live in a pane beside the chat.** You and Claude can work in the same file at the same time.
+
+- **Create new Google Docs, Sheets, and Slides files.**
+
+- **Read and work with comments and suggestions** in Google Docs.
+
+These are separate connectors from Google Drive. Google Drive still handles searching, uploading, and sharing files.
 
 ---
 
@@ -97,9 +109,27 @@ The Google Drive connector is only available when adding to **Files** in private
 
 Google Docs added to chats and projects sync directly from Google Drive, so you're always working with the latest version.
 
+### Edit Google Docs, Sheets, and Slides live (beta)
+
+1. Turn on the Docs, Sheets, and Slides connectors. Click the plus sign in the chat, hover over "Connectors," and toggle them on. If the connector isn't turned on when you ask Claude to edit a Google file, Claude prompts you to connect it, then continues with your request.
+
+2. Paste a Google Docs, Sheets, or Slides link into the chat, or ask Claude to create one by name (for example, "make a Google Slides deck from these notes"). Asking for a generic "doc" or "deck" without naming Google creates a local file instead.
+
+3. The file opens in a pane next to the conversation, and you can keep working in it while Claude edits.
+
+  1. The pane works on Claude on the web in Chrome, and on Claude Desktop when the **[built-in browser](https://support.claude.com/en/articles/16607400)** is turned on. On Enterprise plans, the built-in browser is off by default. If the pane isn't available, select “Open in Google” on the file card to open the file in your regular browser.
+
+4. Use the pane header to copy the file's Google link or open it directly in Google.
+
+Claude can only open and change files your Google account has access to. Your existing Google sharing permissions apply.
+
+Each file Claude creates or edits shows as a card in the chat. Select the card to open the file in the pane, or select “Open in Google” to open it in Google. In the pane, you can copy the file's Google link or use the share dialog.
+
+Sign in to Google in the pane: The pane needs a Google session to show your file. On Claude on the web, it uses the Google account already signed in to your browser. On Claude Desktop, Claude asks you to sign in to Google in the pane. If the account in the pane is different from the one you connected to Claude, Claude tells you and offers to switch.
+
 ### Manage individual connectors
 
-You can enable or disable specific connectors from below the chat interface:
+Live editing uses separate Google Docs, Google Sheets, and Google Slides connectors alongside Gmail, Google Calendar, and Google Drive. You can enable or disable specific connectors from below the chat interface:
 
 1. Click the plus sign in the chat interface.
 
@@ -136,6 +166,10 @@ During authentication, Google's OAuth screen mentions email sending permissions.
 ---
 
 ## Current limitations
+
+- Claude can't add charts to Google Slides, and Slides edits may not appear live in the pane.
+
+- Live editing in the pane works on Claude on the web in Chrome and on Claude Desktop with the built-in browser turned on. In other cases, use “Open in Google” on the file card.
 
 - Attachment content is not directly accessible through Gmail (metadata only).
 
@@ -181,6 +215,8 @@ If your organization uses Google Workspace and the connectors aren't working (yo
 
 5. Wait approximately 15 minutes for Google's policy to propagate, then try connecting again.
 
+Live editing for Docs, Sheets, and Slides uses the same Claude for Google Drive app. Admins approve it once, and no separate approval is needed for each file type.
+
 ---
 
 ## Frequently asked questions
@@ -199,7 +235,19 @@ You won't be able to view its contents in conversations where it was previously 
 
 ### Does Claude have access to images, comments, or suggestions in Google Docs?
 
-No. Claude extracts the main text content only and cannot see images, comments, or suggestions.
+Claude can see comments and suggestions in Google Docs, but it can't see images.
+
+### How do I get Claude to create a Google file instead of a local file?
+
+Ask for a Google doc, Google sheet, or Google Slides deck by name, or paste a link to an existing Google file. If you ask for a document without mentioning Google, Claude creates a file you can download instead.
+
+### Can I edit the file while Claude is editing it?
+
+Yes. You and Claude can work in the same file at the same time. Claude re-reads the current content before each change, but in a busy file, check the result.
+
+### Why does Claude ask me to sign in to Google in the pane?
+
+The connector lets Claude change your file, and the pane needs its own Google session to show it. Sign in with the same Google account you connected to Claude.
 
 ### Can Claude send emails on my behalf?
 
@@ -290,7 +338,7 @@ When Claude detects this state, the repository picker shows a banner prompting y
 
 **Important:** Disconnecting and reconnecting GitHub in your Claude settings won't fix this. A fresh connection doesn't automatically authorize organizations that require SSO, so you'll need to complete the authorization steps above.
 
-If your organization uses GitHub Enterprise Cloud with Enterprise Managed Users (EMU), the Claude app must also be approved at the enterprise level. Learn more in **[Set up Code Review for Claude Code](https://support.claude.com/en/articles/14233555-set-up-code-review-for-claude-code#h_49cea7a027)**.
+If your organization uses GitHub Enterprise Cloud with Enterprise Managed Users (EMU), connect GitHub while you're signed in with your managed account and have an active SSO session. An organization owner can check the Claude app under Settings > Third-party Access > GitHub Apps in your GitHub organization, and confirm that it has access to the repositories you need and has no pending permission requests.
 
 ---
 
@@ -325,7 +373,7 @@ The Model Context Protocol (MCP) is an open protocol that enables seamless integ
 
 Desktop extensions provide a streamlined way to install and manage local MCP servers through single-click installable packages. Instead of manually configuring JSON files and managing dependencies, you can now install local MCP servers on your computer as easily as browser extensions.
 
-**Note:** We’re building a directory of desktop extensions – if you’re a developer hoping to add an extension you built to the directory, complete our [desktop extensions interest form](https://docs.google.com/forms/d/14_Dmcig4z8NeRMB_e7TOyrKzuZ88-BLYdLvS6LPhiZU/viewform?edit_requested=true) to share more information with us.
+**Note:** If you’re a developer who wants to list a desktop extension (a local MCP server for Claude Desktop) in the directory, submit it through the **[desktop extension submission form](https://clau.de/desktop-extention-submission)**. To submit a plugin or a remote connector instead, use the **[developer portal](https://claude.ai/directory/manage)**. See **[Submitting your plugin](https://claude.com/docs/plugins/submit)** for what each route accepts.
 
 ## Installing desktop extensions from the directory
 
@@ -911,7 +959,7 @@ Desktop extensions run locally and are only available in Claude Desktop and Clau
 
 ## Plugins work with both
 
-A plugin can bundle either remote or local MCP servers (or both). Installing a plugin that references a remote MCP makes it available everywhere; one that references a local MCP works in Desktop and Claude Code.
+A plugin can bundle either remote or local MCP servers (or both). Adding a plugin that references a remote MCP makes it available everywhere. One that references a local MCP works in Cowork and Claude Code, not in chat.
 
 ## Quick guide
 
@@ -937,7 +985,7 @@ SOURCE: https://support.claude.com/en/articles/12542951-set-up-the-microsoft-365
 
 # Set up the Microsoft 365 connector
 
-This article walks admins through enabling the Microsoft 365 connector for their organization in Claude—including granting Microsoft Entra consent, restricting access, and managing permissions. Once setup is complete, people in your tenant can connect Microsoft 365 to their own Claude accounts to search across SharePoint, OneDrive, Outlook, and Teams from Claude. You can also enable write tools, which let Claude send email, manage calendar events, and create and update files on a member's behalf.
+This article walks admins through enabling the Microsoft 365 connector for their organization in Claude—including granting Microsoft Entra consent, restricting access, and managing permissions. Once setup is complete, people in your tenant can connect Microsoft 365 to their own Claude accounts to search across SharePoint, OneDrive, Outlook, and Teams from Claude. You can also enable write tools, which let Claude send email, manage calendar events, create and update files, and send Teams messages on a member's behalf.
 
 The Microsoft 365 connector is available on all Claude plans: Free, Pro, Max, Team, and Enterprise.
 
@@ -1057,7 +1105,7 @@ Both components need to be restricted to the same set of authorized people.
 
 To limit which types of resources the integration can access, selectively revoke permissions from the default set of authorized scopes. This requires Microsoft Entra admin access.
 
-1. As a Microsoft Entra admin, go to entra.admin.com.
+1. As a Microsoft Entra admin, go to entra.microsoft.com.
 
 2. Select “Enterprise Applications.”
 
@@ -1081,27 +1129,27 @@ To restore a revoked permission, follow the steps to grant admin consent describ
 
 ## Enable write tools
 
-Write tools let Claude send email, manage drafts and calendar events, update mailbox settings, and create and update files in OneDrive and SharePoint. Read and search tools work the same whether or not write tools are enabled.
+Write tools let Claude send email, manage drafts and calendar events, update mailbox settings, and create and update files in OneDrive and SharePoint, and send messages in Microsoft Teams. Read and search tools work the same whether or not write tools are enabled.
 
 **1. Re-consent to the updated permissions**
 
-The connector's permission set now includes additional Microsoft Graph scopes to support write tools. If your tenant consented before write tools launched, a Microsoft Entra Global Administrator needs to review and approve the updated permission set before write tools activate. Review and approve the updated permissions for the connector in your tenant's **Enterprise Applications** consent flow. This is a one-time action per tenant.
+The connector's permission set now includes additional Microsoft Graph scopes to support write tools. If your tenant consented before write tools or the Teams write tools launched, a Microsoft Entra Global Administrator needs to review and approve the updated permission set before write tools activate. Review and approve the updated permissions for the connector in your tenant's **Enterprise Applications** consent flow.
 
 **2. Enable write tools for your organization**
 
-If your organization was using the connector before write tools launched, they will be blocked by default. Enable them for everyone by going to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**, finding “Microsoft 365,” and setting the appropriate permissions. Enterprise plans can enable them for a subset of users through **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_979e558d00)**.
+If your organization was using the connector before write tools launched, they will be blocked by default. Enable them for everyone by going to **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)**, finding “Microsoft 365,” and setting the appropriate permissions. Enterprise plans can enable them for a subset of users through **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_979e558d00)**. For Microsoft Teams specifically, set each Teams write tool individually: the send, post, and reply tools can be set to Ask or Blocked (members confirm each send), and starting a new chat can also be set to Allow. The connector-wide "all tools" permission on its own doesn't turn these on.
 
 **3. Verify**
 
 Once enabled, ask Claude to perform a low-risk write action, such as "Draft an email to myself, but don't send it," to confirm write tools are active.
 
-**Note:** Emails Claude sends include an attribution header identifying them as agent-initiated. File and calendar writes aren't currently tagged. Attachments aren’t supported in write tools, so sending, forwarding, and drafting all reject messages with attachments. Write tools are also subject to per-user limits on writes, sends, and recipients.
+**Note:** Emails Claude sends include an attribution header identifying them as agent-initiated. File writes, calendar writes, and Teams messages aren't currently tagged. Attachments aren’t supported in write tools, so sending, forwarding, and drafting all reject messages with attachments. Write tools are also subject to per-user limits on writes, sends, and recipients.
 
 ---
 
 ## Permissions reference
 
-The Microsoft 365 connector uses **delegated permissions**, meaning Claude acts on behalf of each individual user and can only access data that user already has permission to view in Microsoft 365. Permissions are read-only—Claude can't modify, delete, or create content in your tenant.
+The Microsoft 365 connector uses **delegated permissions**, meaning Claude acts on behalf of each individual user and can only access data that user already has permission to view in Microsoft 365. Permissions are read-only by default. Claude can only send, create, or update content if you enable write tools.
 
 During authentication, the integration requests the following permissions:
 
@@ -1190,6 +1238,14 @@ The following permissions support write tools and are included in the updated co
 - `Files.ReadWrite.All`: Create and update files in OneDrive and SharePoint
 
 - `MailboxSettings.ReadWrite`: Manage categories, inbox rules, and automatic replies
+
+- `ChatMessage.Send`:  Send a Teams chat message on the user's behalf
+
+- `ChannelMessage.Send`**:** Post or reply in a Teams channel
+
+- `Chat.Create`: Start a new chat on the user’s behalf
+
+- `People.Read`: Find people in the organization to start a chat with
 
 **User directory**
 
@@ -1301,7 +1357,7 @@ Claude reads Word, Excel, PowerPoint (including older .doc, .xls, and .ppt files
 
 ### Can the integration modify Microsoft 365 data?
 
-Only after an Entra admin grants write scopes. With write tools on, Claude can send email, manage drafts and calendar events, update mailbox settings, and create and update files in OneDrive and SharePoint, always within each member's existing Microsoft 365 permissions. Without them, the integration is read-only. Claude can't post Teams messages or change Teams settings or permissions in either case, since there are no tools allowing this.
+Only after an Entra admin grants write scopes. With write tools on, Claude can send email, manage drafts and calendar events, update mailbox settings, create and update files in OneDrive and SharePoint, and send messages in Microsoft Teams (post/reply in a channel, send a chat message, or start a new chat on the user's behalf), always within each member's existing Microsoft 365 permissions. Without them, the integration is read-only. Claude still can't change Teams settings or permissions, only send messages.
 ---
 
 SOURCE: https://support.claude.com/en/articles/12684923-microsoft-365-connector-security-guide
@@ -1334,13 +1390,14 @@ Second, after the Owner enables the connector, a Microsoft Entra Global Administ
 
 You can selectively disable specific capabilities via Microsoft Entra Admin Center. For example:
 
-| **To restrict** | **Action**                                        | **Effect**                         |
-| --------------- | ------------------------------------------------- | ---------------------------------- |
-| All access      | Disable connector in Claude organization settings | Complete shutdown                  |
-| SharePoint only | Revoke Sites.Read.All permission in Entra         | Blocks SharePoint                  |
-| Email access    | Revoke Mail.Read permission in Entra              | Blocks Outlook                     |
-| Teams chat      | Revoke Chat.Read permission in Entra              | Blocks Teams                       |
-| OneDrive files  | Revoke Files.Read and/or Files.Read.All           | Blocks reading files from OneDrive |
+| **To restrict**         | **Action**                                                             | **Effect**                                |
+| ----------------------- | ---------------------------------------------------------------------- | ----------------------------------------- |
+| All access              | Disable connector in Claude organization settings                      | Complete shutdown                         |
+| SharePoint only         | Revoke Sites.Read.All permission in Entra                              | Blocks SharePoint                         |
+| Email access            | Revoke Mail.Read permission in Entra                                   | Blocks Outlook                            |
+| Teams chat              | Revoke Chat.Read permission in Entra                                   | Blocks Teams                              |
+| Teams messaging (write) | Revoke ChatMessage.Send, ChannelMessage.Send, and Chat.Create in Entra | Blocks Claude from sending Teams messages |
+| OneDrive files          | Revoke Files.Read and/or Files.Read.All                                | Blocks reading files from OneDrive        |
 
 Changes take effect immediately for all people in your organization. People can also choose to disable capabilities during a chat by selectively toggling off the connector's tools.
 
@@ -1467,20 +1524,42 @@ The connector provides **read-only** access to:
 | `sharepoint_move_item`           | Move a file or folder                                | Files.ReadWrite.All       |
 | `sharepoint_copy_item`           | Copy a file or folder                                | Files.ReadWrite.All       |
 | `sharepoint_delete_item`         | Delete a file or folder (to recycle bin)             | Files.ReadWrite.All       |
+| `teams_send_chat_message`        | Send a message in an existing Teams chat             | ChatMessage.Send          |
+| `teams_send_channel_message`     | Post or reply in a Teams channel                     | ChannelMessage.Send       |
+| `teams_reply_channel_message`    | Reply in a Teams channel thread                      | ChannelMessage.Send       |
+| `teams_create_chat`              | Start a new Teams chat                               | Chat.Create               |
 
-**Note:** “Always allow” is not supported for `outlook_send_email`, `outlook_forward_mail`, `outlook_send_draft`, `outlook_create_event`, or `outlook_update_event`.
+**Note:** “Always allow” is not supported for the following tools:
 
-When an organization enables write tools, the connector also exposes write tools for sending and organizing email, managing drafts and calendar events, updating mailbox settings, and creating and updating files in OneDrive and SharePoint. Teams remains read-only.
+- `outlook_send_email`
+
+- `outlook_forward_mail`
+
+- `outlook_send_draft`
+
+- `outlook_create_event`
+
+- `outlook_update_event`
+
+- `teams_send_chat_message`
+
+- `teams_send_channel_message`
+
+- `teams_reply_channel_message`
+
+When an organization enables write tools, the connector also exposes write tools for sending and organizing email, managing drafts and calendar events, updating mailbox settings, creating and updating files in OneDrive and SharePoint, and sending Teams messages. Teams write tools are off by default and are enabled individually in **[Organization settings > Connectors](https://claude.ai/admin-settings/connectors)** within “Microsoft 365”; the connector-wide "all tools" permission doesn't turn them on. Claude can send messages in Teams but can't change Teams settings, memberships, or permissions.
 
 Write tools include the following built-in safeguards:
 
-- **Attribution:** Emails Claude sends include an attribution header identifying them as agent-initiated. File and calendar writes aren't currently tagged.
+- **Attribution:** Emails Claude sends include an attribution header identifying them as agent-initiated. File writes, calendar writes, and Teams messages aren't currently tagged.
 
 - **Rate limits:** Per-user limits apply to writes, sends, and recipients.
 
 - **Attachment restriction:** Attachments aren't supported in any write tool—sending, forwarding, and drafting all reject messages with attachments.
 
-- **Blocked by default:** Organizations that used the connector before write tools launched have write tools blocked by default until an admin enables them.
+- **Blocked by default:** Organizations that used the connector before write tools launched have write tools blocked by default until an admin enables them. Teams write tools are blocked by default for every organization and must each be enabled individually.
+
+- **Confirmation required:** Sending a Teams chat message and posting or replying in a channel can only be set to Ask, so the user confirms every send.
 
 ## Permissions list
 
@@ -1562,9 +1641,17 @@ Requested as part of the updated consent set; used only when write tools are ena
 
 - **[MailboxSettings.ReadWrite](https://learn.microsoft.com/en-us/graph/permissions-reference#mailboxsettingsreadwrite)** - Manage categories, inbox rules, and automatic replies
 
+- **[ChatMessage.Send](https://learn.microsoft.com/en-us/graph/permissions-reference#chatmessagesend)** - Send a Teams chat message on the user's behalf
+
+- **[ChannelMessage.Send](https://learn.microsoft.com/en-us/graph/permissions-reference#channelmessagesend)** - Post or reply in a Teams channel
+
+- **[Chat.Create](https://learn.microsoft.com/en-us/graph/permissions-reference#chatcreate)** - Start a new Teams chat on the user's behalf
+
+- **[People.Read](https://learn.microsoft.com/en-us/graph/permissions-reference#peopleread)**: Find people in the organization to start a chat with
+
 ## Current limitations
 
-- **Teams is read-only**: Claude can't post Teams messages or modify Teams settings. Other write tools require an admin to enable them.
+- **Teams write access is limited to messaging**: Claude can send a chat message, post or reply in a channel, or start a new chat, but can't modify Teams settings, memberships, or permissions. All write tools require an admin to enable them, and Teams write tools are enabled individually.
 
 - **User-level access only**: Access with service principal authentication is not supported.
 
@@ -2047,7 +2134,7 @@ SOURCE: https://support.claude.com/en/articles/14328846-browse-skills-connectors
 
 # Browse skills, connectors, and plugins in one directory
 
-Our unified directory brings skills, connectors, and plugins together in one place so you can find and install everything that customizes Claude without switching between separate menus. On Team and Enterprise plans, the directory is also where skills shared across your organization appear.
+Our unified directory brings skills, connectors, and plugins together in one place so you can find and install everything that customizes Claude without switching between separate menus. On Team and Enterprise plans, the directory is also where skills and plugins published to your organization appear.
 
 ---
 
@@ -2057,19 +2144,19 @@ Our unified directory brings skills, connectors, and plugins together in one pla
 
 2. Click “Customize” in the left sidebar.
 
-3. Click on the tab you want to view (Skills, Connectors, or Plugins), then the “+” button.
+3. Click on the tab you want to view: Skills, Connectors, or Plugins.
 
-4. Select “Browse [skills / connectors / plugins]” to open the unified directory.
+4. Open the **Discover** tab.
 
 ### Skills
 
-To open the Skills directory, go to **[Customize > Skills](https://claude.ai/customize/skills)**, click the “+” button, then “Browse skills.” Click the “Install” button on any skill to add it to your skills list. Once installed, the skill appears in **[Customize > Skills](https://claude.ai/customize/skills)** and is enabled by default, so Claude can use it automatically when relevant. You can toggle it off at any time, but the skill stays in the directory so you can re-enable it later.
+To open the Skills directory, go to **[Customize > Skills](https://claude.ai/customize/skills)**, click the “+” button, then “Browse skills.” Click the “Add” button on any skill to add it to your skills list. Once installed, the skill appears in **[Customize > Skills](https://claude.ai/customize/skills)** and is enabled by default, so Claude can use it automatically when relevant. You can toggle it off at any time, but the skill stays in the directory so you can re-enable it later.
 
 Skills you install from the directory are view-only. You can use them, but you can't edit their contents. If you want to change how a skill works, download a copy, modify it, and upload it as your own.
 
-For members of Team and Enterprise plans, the “Your organization” tab surfaces skills that have been shared with your entire organization. This includes skills that owners have provisioned centrally and skills that colleagues have shared organization-wide. You can’t fully delete organization-shared skills from your list. Only the person who shared the skill or an organization owner can remove it from the directory.
+On Team and Enterprise plans, the "Your organization" tab lists skills available to your entire organization. This includes skills that owners have provisioned centrally and skills that colleagues have published to the organization. You can't fully delete these skills from your list. Only an organization owner can remove them from the directory.
 
-**Note:** Skills shared with you directly by a colleague don’t appear in the directory. They go straight to your skills list. See **[Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)** for details on how shared skills work.
+**Note:** Skills and plugins shared with you directly by a colleague don’t appear in the directory, they go straight to your skills list. See **[Use skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)** and **[Use plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude)** for details on how shared skills and plugins work.
 
 ### Connectors
 
@@ -2077,11 +2164,13 @@ The connectors tab shows the same catalog of services you can connect Claude to,
 
 ### Plugins
 
-The plugins tab shows available plugins, including any your organization has distributed through a marketplace. Click "Install" to add a plugin. Once installed, the skills from that plugin are available in chat (on the web and the Chat tab in Claude Desktop) and in Cowork. For more on installing and customizing plugins, see **[Use plugins in Claude](https://support.claude.com/en/articles/13837440-)**.
+The **Discover** tab in **Customize > Plugins** shows available plugins, including any your organization has distributed through a marketplace. Plugins a colleague has shared with you directly are listed under **Shared with you** in **Customize > Plugins**.
+
+Select a plugin, then click "Add." The plugin is saved to your account. Its skills and commands are available in chat (on the web and the Chat tab in Claude Desktop), in Cowork, and in Claude Code sessions signed in with the same Claude account. To take a plugin off your account later, open it and select "Remove."
 
 ## For organization owners
 
-Skill sharing to the directory is off by default. To let people in your organization share skills org-wide, enable the **Share with organization** toggle in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**. You can also enable the **Skill sharing** toggle separately, which lets people share skills with specific colleagues without publishing to the directory.
+Whether people can publish to the directory depends on your Publishing setting. To let people in your organization publish skills to the directory, set **Publishing** to **Open** or **Requires review** in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** in the “Policy” tab. The separate **Skill sharing** lets people share skills and plugins with specific colleagues without publishing to the directory.
 
 For full details on configuring sharing and provisioning skills centrally, see **[Provision and manage skills for your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization)**.
 ---
@@ -2089,6 +2178,8 @@ For full details on configuring sharing and provisioning skills centrally, see *
 SOURCE: https://support.claude.com/en/articles/14503689-mcp-connectors
 
 # MCP connectors
+
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
 
 MCP connectors let Claude connect to your organization’s tools, data sources, and services. Claude can search your documents, read your email, or call external APIs on your behalf, all without leaving the chat.
 
@@ -2186,6 +2277,8 @@ SOURCE: https://support.claude.com/en/articles/14503703-mcp-individual-connector
 
 # MCP: Individual connectors
 
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
+
 Your organization can register its own MCP servers in Claude for Government, letting Claude connect to internal systems, custom tools, or third-party services you've approved for your environment.
 
 **Custom connectors work the same way in Claude for Government as in Claude Enterprise.** The prerequisites, the registration flow, and the behavior once enabled are identical. For full setup instructions, see **[Use connectors to extend Claude's capabilities](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)**. This page covers only what's different.
@@ -2222,6 +2315,8 @@ Claude, the MCP proxy, and all OAuth token storage stay inside the FedRAMP High 
 SOURCE: https://support.claude.com/en/articles/14503775-mcp-web-search
 
 # MCP: Web Search
+
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
 
 The Web Search connector gives Claude the ability to search the public internet for real-time information, including verifying facts, pulling recent news, and researching topics outside its training data.
 
@@ -2338,15 +2433,19 @@ The Compliance API provides access to different data depending on the product:
 
 For Claude Enterprise customers, using an integration is straightforward:
 
-1. Enable the Compliance API in your organization settings. Learn how to **[access the Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**.
+1. Ask your organization's Primary Owner to enable the Compliance API (only the Primary Owner can do this), then create an access key—Owners can create keys limited to their own organization. Learn how to **[access the Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**.
 
-2. Connect your instance to a supported security platform. Setup guides are available in the **[Available integrations section](https://support.claude.com/en/articles/15167101-get-started-with-claude-compliance-api-integrations#h_7ff9e34f8e)**.
+2. Connect your instance to a supported security platform. Setup guides are available in the **[Available integrations section](#h_7ff9e34f8e)**.
 
 Claude activity will flow into the same dashboards and workflows your team uses for every other application.
+
+**Important**: For Claude Enterprise organizations, only your organization's Primary Owner can enable the Compliance API, from **[Organization settings > API](https://claude.ai/admin-settings/api-access)**. You can create a key on the same page by clicking "+Create key" under **Keys**: the Primary Owner can create a key covering every linked organization, and Owners can create keys limited to their own organization. Owners see this page but not the **Compliance API** toggle—only the Primary Owner can turn the API on or off. Admins don't see the page at all. If your organization is linked to a parent organization, the parent organization's Primary Owner enables it and the setting applies to every linked organization.
 
 For Claude Platform, contact your Anthropic sales team. Review **[Compliance API documentation](https://platform.claude.com/docs/en/manage-claude/compliance-api)** on Claude API Docs.
 
 ## Available integrations
+
+- **Above Security:** Above Security brings enterprise Claude activity - claude.ai chats and Claude Code, Cowork, and remote Cowork sessions - into its AI-powered insider risk platform via the Claude Compliance API. Read-only and privacy-preserving, it gives security teams evidence-grounded, automated investigations of how people use Claude across the organization. To set up this integration, see the **[Above Security setup guide](https://www.above.security/integrations)**.
 
 - **Air:** Air utilizes the Claude Compliance API as a core part of its agentic security platform, giving security teams unified posture management, real-time runtime protection, and supply-chain governance across all of their endpoint, cloud, and SaaS agents from a single control plane. To set up this integration, see the **[Air setup guide](https://www.air.security/claude-air-integration)**.
 
@@ -2360,6 +2459,8 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 
 - **Alignmt AI:** Alignmt AI transforms Compliance API activity into a risk-scored inventory of every AI resource, surfacing autonomous automations, write-capable connectors, and sensitive-data exposure, with provenance on every fact and human attestation for what evidence can't resolve. Learn more about **[Alignmt AI's integration with the Claude Compliance API](https://www.alignmt.ai/post/alignmt-ai-integrates-with-anthropic-s-compliance-api)**.
 
+- **Apiiro:** Apiiro uses the Compliance API activity feed to give security teams visibility into the AI coding agents, MCP servers, skills, and plugins active across their organization, correlating that activity with Apiiro's software supply chain risk model to surface unsafe or unauthorized components. Learn more about **[Apiiro’s integration with the Claude Compliance API](https://apiiro.com/blog/claude-compliance-api-now-in-the-apiiro-software-graph)**.
+
 - **Artemis Security:** Artemis ingests Claude Compliance API data to detect and investigate malicious behavior, correlating Claude activity with the rest of the environment for machine-speed detection and response. To set up this integration, see the **[Artemis setup guide](https://artemissecurity.com/company-news/secure-your-enterprise-ai-artemis-now-integrates-with-anthropic-compliance-api-and-telemetry/)**.
 
 - **Axonius:** Axonius brings Claude Enterprise into the Axonius Asset Cloud, reconciling directory and access artifacts against every other asset and exposure in your stack. Decision-grade asset intelligence surfaces coverage gaps, drift, and identity risk across the environment, mapped to the assets and owners behind them. To set up this integration, see the **[Axonius setup guide](https://docs.axonius.com/docs/anthropic)**.
@@ -2372,6 +2473,8 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 
 - **Bloom Security:** Bloom is the endpoint security platform for the AI-native era, giving security teams visibility and governance over every AI tool, plugin, and MCP server across their organization. The Claude Compliance API integration deepens that coverage—into every session, file, and configuration change across every user—so security teams can enable Claude at scale without losing control. To set up this integration, see the **[Bloom Security setup guide](https://bloom.security/anthropic-compliance-api-integration)**.
 
+- **Bluebear Security:** Bluebear uses the Compliance API to continuously check a Claude Enterprise organization's security settings—including SSO enforcement, trusted devices, permission bypass, network egress, data retention, and connector auto-approval—against a secure baseline, opening an incident with remediation steps when a control drifts and tying Claude activity to what AI coding agents executed on developer machines. To set up this integration, see the **[Bluebear Security setup guide](https://bluebear.io/integrations/claude/)**.
+
 - **Bold Security:** Prevent sensitive data from being misused by users or AI agents with real-time protection directly on the endpoint. To set up this integration, see the **[Bold Security setup guide](https://www.bold.security/blog/bold-security-extends-ai-data-protection-through-claudes-compliance-api)**.
 
 - **Brava Security:** Brava ingests the Claude activity feed via the Compliance API and turns it into fully-leveraged security telemetry—routed into your existing SIEM, data lake, and archive, and searchable for investigation—so one feed powers monitoring, insider risk, retention, and governance with no custom collectors. To set up this integration, see the **[Brava Security setup guide](https://brava.security/integrations/anthropic-claude)**.
@@ -2383,6 +2486,8 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 - **Cato Networks:** Cato AI Security integrates with the Compliance API to secure, govern, and audit all Claude interactions, enforcing real-time policies, preventing data leakage, and maintaining comprehensive compliance visibility. To set up this integration, see the **[Cato Networks setup guide](https://www.catonetworks.com/integrations/ai-activity-monitoring/anthropic-compliance-api/)**.
 
 - **Check Point:** Check Point's Workforce AI Security integration with the Claude Compliance API gives enterprises audit-grade visibility into Claude usage across surfaces and organization-level MCP servers—per-user and per-surface usage analytics plus content-level exposure analysis across chats and uploaded files, flagging PII, credentials, and regulated data for existing security workflows. To set up this integration, see the **[Check Point setup guide](https://sc1.checkpoint.com/documents/Infinity_Portal/WebAdminGuides/EN/Workforce-AI-Security-Admin-Guide/Topics-Workforce-AI-Security-AG/Integrations.htm?tocpath=Integrations%7C_____0)**.
+
+- **CloudEagle.ai:** CloudEagle.ai integrates with the Compliance API to give IT and security teams first-party visibility into who uses Claude and whether their access is current, pairing activity data with usage and spend analytics and automated provisioning and deprovisioning—so Claude is governed alongside every other SaaS and AI tool. To set up this integration, see the **[CloudEagle.ai setup guide](https://www.cloudeagle.ai/app-integration/claude)**.
 
 - **Cloudflare:** Cloudflare’s CASB integration provides security teams agentless visibility into posture, data, and compliance risks across their organization’s use of Claude. To set up this integration, see the **[Cloudflare setup guide](https://developers.cloudflare.com/changelog/post/2026-05-19-casb-claude-compliance-api/)**.
 
@@ -2402,13 +2507,15 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 
 - **Datadog:** Datadog’s Claude Compliance ingests audit logs from the Claude Platform into Datadog, giving security teams visibility into admin activity, API key lifecycle events, and authentication events across their Claude organization for SIEM and compliance use cases. To set up this integration, see the **[Datadog setup guide](https://docs.datadoghq.com/integrations/anthropic-compliance-logs/).**
 
-- **Daylight:** Monitor Claude usage in an organization for security investigations and compliance purposes. To set up this integration, see the **[Daylight setup guide](https://daylight.ai/claude-enterprise-detection)**.
+- **Daylight Security:** Monitor Claude usage in an organization for security investigations and compliance purposes. To set up this integration, see the **[Daylight Security setup guide](https://daylight.ai/claude-enterprise-detection)**.
 
 - **Elastic:** Collect Claude audit and usage activity to detect security risks, support compliance requirements, and investigate AI-related incidents. To set up this integration, see the **[Elastic setup guide](https://www.elastic.co/docs/reference/integrations/anthropic)**.
 
-- **Eon:** Eon provides AI governance for Claude through automated data classification and natural-language security queries, helping enterprises maintain visibility and control over sensitive data shared with AI tools. Learn more about **[Eon's integration with the Claude Compliance API](https://www.eon.io/blog/may-2026-eon-product-update)**.
+- **Eon:** Eon provides AI governance for Claude through automated data classification and natural-language security queries, helping enterprises maintain visibility and control over sensitive data shared with AI tools. Learn more about **[Eon's integration with the Claude Compliance API](https://www.eon.io/integrations/claude-compliance-api)**.
 
 - **eSentire:** eSentire Atlas integrates with the Compliance API to deliver 24/7 managed detection and response for Claude usage. eSentire ingests activity events and conversation content, correlates them with endpoint, identity, and cloud telemetry, and investigates and responds to threats and policy violations on customers' behalf. Learn more about **[eSentire's integration with the Claude Compliance API](https://www.esentire.com/what-we-do/mdr-and-platform-integrations)**.
+
+- **Evoke Security:** Evoke Security provides runtime threat detection and response for AI agents, covering Claude Code and Cowork. Its Compliance API integration extends that coverage to the Claude Enterprise conversation layer, joining chats, files, projects, and activity events with endpoint telemetry in Evoke's detection and response platform. To set up this integration, see the **[Evoke Security setup guide](https://www.evokesecurity.com/blogs/evoke-anthropic-compliance-api).**
 
 - **Exaforce:** Exaforce ingests Claude Compliance API activity, chat, and file data into the Exaforce Agentic SOC Platform, giving security teams a governed, SOC-ready view of Claude usage to monitor, detect, and investigate risky activity alongside their broader security signals. To set up this integration, see the **[Exaforce setup guide](https://www.exaforce.com/blogs/anthropic-integration)**.
 
@@ -2428,15 +2535,21 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 
 - **Harmonic Security:** Harmonic Security uses the Anthropic Compliance API to govern Claude use across every surface (Desktop, Web, Mobile, Claude Code, Cowork), classifying every interaction with proprietary detection models to surface sensitive-data exposure, prompt injection, and AI usage and adoption insights broken down by team, department, and location. To set up this integration, see the **[Harmonic Security setup guide](https://docs.harmonicsecurity.app/integration-guides/configure-anthropic-compliance-api-connector)**.
 
-- **IBM Guardium (coming soon):** IBM Guardium helps organizations monitor data access and usage by agentic AI systems and help ensure autonomous activities remain within approved security boundaries. With ready-to-use templates, customizable policies, continuous audit workflows, and compliance reporting aligned to frameworks such as EU AI Act, AIDA, PCI, SOX, HIPAA, GDPR, and CPRA, Guardium helps security and compliance teams confidently demonstrate oversight of AI-driven activity. Learn more about **[IBM Guardium](https://www.ibm.com/products/guardium)**.
+- **IBM Guardium:** IBM Guardium helps organizations monitor data access and usage by agentic AI systems and help ensure autonomous activities remain within approved security boundaries. With ready-to-use templates, customizable policies, continuous audit workflows, and compliance reporting aligned to frameworks such as EU AI Act, AIDA, PCI, SOX, HIPAA, GDPR, and CPRA, Guardium helps security and compliance teams confidently demonstrate oversight of AI-driven activity. Learn more about **[IBM Guardium](https://www.ibm.com/products/guardium)**.
 
 - **Island:** Island's Claude Compliance API integration gives security and compliance teams visibility into every Claude session—user-driven or autonomous—covering conversation topics, tool/model/skill usage, and continuously enriched detection of sensitive-data exposure and policy violations for posture assessment and anomaly detection. Learn more about **[Island's integration with the Claude Compliance API](https://www.island.io/blog/island-integrates-with-the-claude-compliance-api)**.
+
+- **KnowBe4:** KnowBe4 Agent Risk Manager uses the Compliance API to inventory AI agents and Claude usage, map activity back to its human, system, or agent source, and detect risks such as prompt injection, sensitive information disclosure, excessive agency, and unbounded consumption—with no on-device software to deploy. Note on availability: General availability is planned for November 2026. To set up this integration, see the **[KnowBe4 setup guide](https://support.knowbe4.com/hc/en-us/articles/55662933177875-Claude-Compliance-Integration-Guide-for-Agent-Risk-Manager)**.
+
+- **Lasso Security:** Lasso integrates with the Compliance API to give security teams centralized visibility into Claude activity—who is using Claude, what they are doing, and which MCP servers and skills they invoke—classifying each interaction against customer-defined policies with a full audit trail for compliance. To set up this integration, see the **[Lasso Security setup guide](https://www.lasso.security/use-cases/claude-enterprise).**
 
 - **Linx Security:** Linx integrates with the Claude Compliance API to govern access across human, non-human, and agent identities in Claude—delivering visibility, risk detection, access reviews, and least-privilege enforcement. To set up this integration, see the **[Linx Security setup guide](https://docs.linxsecurity.io/connectors/connectors-library/anthropic/claude.ai)**.
 
 - **Microsoft Purview:** Purview's integration with the Claude Compliance API extends Purview's enterprise security and compliance coverage by surfacing insights from Claude activity feed and chat conversations, enabling scenarios within Purview Data Security Posture Management and Audit. It provides centralized visibility of activities across Claude Enterprise and Claude Platform, allowing organizations to understand how data is accessed and used across their Claude systems. Surfacing this signal within Purview helps close a critical governance gap as enterprises rapidly adopt AI across multiple platforms. The same comprehensive visibility Purview provides for Copilot and the broader Microsoft AI ecosystem, is now available for Claude Enterprise users. To set up this integration, see the **[Microsoft Purview setup guide](https://learn.microsoft.com/en-us/purview/ai-microsoft-purview)**.
 
 - **Mimecast:** Mimecast's Governance, Compliance & Insights (GCI) platform now integrates with the Claude Compliance API to bring Claude Enterprise conversations into the same unified governance and compliance experience organizations already use for email and collaboration data, with no new interfaces or workflows required. To set up this integration, see the **[Mimecast setup guide](https://www.mimecast.com/use-cases/ai-governance/)**.
+
+- **Mind Security Inc:** MIND integrates with the Compliance API to discover Claude usage across the organization, correlate it with user identities, and classify the data shared in chats and files, so security teams can detect data risk in Claude alongside SaaS, endpoint, and GenAI activity. Learn more about **[Mind Security Inc's integration with the Claude Compliance API](https://mind.io/blog/claude-compliance-governance)**.
 
 - **Mint Security:** Mint provides contextual runtime security for AI agents, using the Claude Compliance API to apply organization-specific visibility, context, and policy controls to how teams use Claude. To set up this integration, see the **[Mint Security setup guide](https://docs.mint.security/integrations/claude/claude)**.
 
@@ -2454,6 +2567,8 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 
 - **Onyx Security:** Onyx is the secure AI control plane that gives enterprises observability, security, and governance over AI agents across SaaS, cloud, endpoint, and code. This integration extends Onyx's guardrails and audit trail to Claude deployments—letting security teams monitor usage, enforce policies, prevent data exfiltration, and meet compliance requirements without slowing Claude adoption. To set up this integration, see the **[Onyx Security setup guide](https://onyx.security/integrations/anthropic)**.
 
+- **Opal Security:** Opal uses the Compliance API to show security and IAM teams how their organization uses Claude—including MCP server connections and API keys—and to tighten what Claude agents can reach by adjusting entitlements in connected systems, before over-broad access becomes an incident. To set up this integration, see the **[Opal Security setup guide](https://docs.opal.dev/docs/agent-inventory)**.
+
 - **Opsin:** AI risk and agent governance for Claude Enterprise: Opsin's Compliance API integration surfaces data oversharing, risky user behavior, and agent sprawl within 24 hours, using a context graph that connects identity, data, and model for root-cause remediation. To set up this integration, see the **[Opsin setup guide](https://www.opsinsecurity.com/claude-integration)**.
 
 - **Orca Security:** Orca Security extends its unified platform to Claude Enterprise, giving security teams complete visibility into Claude identities, access, AI workspaces, and the sensitive data within them—to surface risk, enforce least privilege, and track compliance. To set up this integration, see the **[Orca Security setup guide](https://claude-doc.orca.security/)**.
@@ -2461,6 +2576,8 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 - **Origin:** Origin is endpoint observability for agentic AI: every AI agent on your fleet, what it did, and where your AI spend goes. The Compliance API adds Claude Enterprise usage from claude.ai and Claude Desktop, attributed to each user and folded into the same record as the agents Origin observes. To set up this integration, see the **[Origin setup guide](https://support.originhq.com/docs/claude-enterprise)**.
 
 - **Palo Alto Networks:** The Claude Compliance API integration enables organizations to understand what data is being shared with Claude, detect sensitive content and policy violations, identify threats and anomalous behavior, and guide users toward safer AI usage. To set up this integration, see the **[Palo Alto Networks setup guide](https://www.paloaltonetworks.com/blog/cloud-security/claude-security-integration-ai-governance)**.
+
+- **Pi Security:** Pi Security uses the Compliance API to understand how engineering teams build with Claude - the tasks they delegate, the workflows they follow, and where security-relevant decisions happen - so its agentic application security guidance reflects real development practice and catches risk earlier in the SDLC. Learn more about **[Pi Security’s integration with the Claude Compliance API](https://www.pi.security/blog/powering-every-builder-with-security-context-pi-integrates-with-anthropics-compliance-api)**.
 
 - **Pluto Security:** Pluto provides real-time visibility and enforcement across the Anthropic ecosystem—Claude Code, Cowork, and Office Agents. It monitors agent activity, detects risks like prompt injection and sensitive-data exposure, identifies malicious ecosystem components, and enforces policies on agent actions, MCPs, connectors, and tool usage. Learn more about **[Pluto Security's integration with the Claude Compliance API](https://pluto.security/blog/claude-enterprise-meets-ai-security-platform/)**.
 
@@ -2472,11 +2589,15 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 
 - **ReliaQuest:** The ReliaQuest GreyMatter platform now integrates with the Claude Compliance API, bringing Anthropic’s Claude Enterprise activity data into GreyMatter, giving security and IT teams visibility into activity logs to detect threats or unwanted behavior. To set up this integration, see the **[ReliaQuest setup guide](https://greymatter.myreliaquest.com/resources/articles/anthropic-claude-compliance)**.
 
+- **Reva.ai:** Reva brings runtime authorization to Claude Code and Claude Enterprise agents, evaluating policy at the moment of action through pre-tool hooks and Inference Hooks, and checking each request against the agent's purpose and normal patterns to catch drift and misuse that permission checks alone miss. Learn more about **[Reva.ai's integration with the Claude Compliance API](https://codingagent.dev.reva.ai/register)**.
+
 - **Rubrik:** Rubrik Agent Cloud integrates with the Claude Compliance API to help organizations control how Claude is used at work. Teams can see who is using Claude, review activity when needed, flag risky behavior, and use Rubrik SAGE to create natural-language policies that route alerts to their security tools. To set up this integration, see the **[Rubrik setup guide](https://www.rubrik.com/products/rubrik-agent-cloud)**.
 
 - **Safeguard:** Safeguard integrates with the Claude Compliance API to monitor Claude usage as part of AI-native software supply chain security—surfacing vulnerabilities and risks with AI-driven remediation across the lifecycle. To set up this integration, see the **[Safeguard setup guide](https://safeguard.sh/mcp/claude)**.
 
 - **SailPoint:** The SailPoint Claude Compliance API integration streamlines identity and access management by aggregating Organizational users, groups, and roles. To set up this integration, see the **[SailPoint setup guide](https://documentation.sailpoint.com/connectors/saas/claude_enterprise/help/)**.
+
+- **Salt Security:** Salt Security's Claude Compliance API integration gives security teams a continuous, authoritative inventory of every MCP server connected to Claude Enterprise—tracking added, removed, and active servers through a single read-only scope that never touches prompts or conversation content. To set up this integration, see the **[Salt Security setup guide](https://salt.security/blog/introducing-the-salt-claude-connect-continuous-mcp-server-visibility-for-claude-enterprise)**.
 
 - **Saviynt:** The Saviynt Claude Compliance API integration streamlines identity governance for Claude Enterprise by aggregating users, groups, and roles to enable centralized visibility, automated access certifications, and seamless lifecycle management. To set up this integration, see the **[Saviynt setup guide](https://exchange.saviynt.com/products/claude-enterprise)**.
 
@@ -2484,11 +2605,17 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 
 - **Sentra:** Discover sensitive data across projects, chats, prompts, and files, identify data exposure risks, and extend data security and compliance controls to your AI environments. To set up this integration, see the **[Sentra setup guide](https://sentra.io/guides/sentra-claude-enterprise-integration-guide)**.
 
+- **Shield:** Shield uses the Compliance API to capture Claude Enterprise chats, files, projects, and artifacts into compliant long-term storage, surveilled with behavioral analytics and NLP-based risk detection—giving regulated financial institutions an examination-ready recordkeeping and eDiscovery layer for their Claude usage. To set up this integration, see the **[Shield setup guide](https://hs.shieldfc.com/claude-connector)**.
+
+- **Silverfort:** Silverfort uses the Compliance API to map Claude identities and activity into its unified identity graph, helping security teams investigate access and surface risks such as dormant privileged users, incomplete offboarding, SSO bypass, public artifacts, exposed tunnel secrets, and ungoverned MCP servers. Learn more about **[Silverfort's integration with the Claude Compliance API](https://www.silverfort.com/blog/silverfort-integration-with-anthropic-compliance-api/)**.
+
 - **Smarsh:** Smarsh Capture helps organizations monitor and retain Claude Enterprise interactions, so you can adopt and govern AI with confidence and support compliance workflows. By connecting directly to the Claude Compliance API, you gain structured access to Claude conversations, consistent complete records, and support for audit and regulatory response. This enables company-wide Claude Enterprise adoption and governance while staying ahead of evolving regulations. To set up this integration, see the **[Smarsh setup guide](https://central.smarsh.com/s/article/From-which-networks-does-cloudcapture-gather-data-from)**.
 
 - **Snyk:** This new integration gives security and compliance teams a complete inventory of their Claude Enterprise environment including models, approved MCP servers, and tool-level permissions, in the platform they already use to govern the rest of the stack. To set up this integration, see the **[Snyk setup guide](https://docs.snyk.io/integrations/cloud-ai-platforms/anthropic-claude-enterprise)**.
 
 - **Sola Security:** Sola connects to the Compliance API to bring Claude Enterprise activity, user access, and conversation data into Sola's AI-powered security platform, where security teams can query their Claude environment in plain language, correlate it with identity tools, and surface governance risks like overprivileged users and orphaned accounts. To set up this integration, see the **[Sola Security setup guide](https://docs.sola.security/integrations/data-sources/claude-enterprise)**.
+
+- **Splunk, a Cisco Company:** Splunk ingests Claude Enterprise audit, usage, cost, and spend-limit data through the Compliance API and related Claude APIs, with CIM-normalized events, ready-made detections, and dashboards for security auditing, governance, and usage and spend analytics. To set up this integration, see the **[Splunk setup guide](https://lantern.splunk.com/Security_Use_Cases/Compliance/Monitoring_and_governing_enterprise_AI_platforms)**.
 
 - **Strac:** Strac helps enterprises safely adopt Claude by using the Compliance API to detect sensitive-data exposure, monitor usage, and generate audit-ready security insights. To set up this integration, see the **[Strac setup guide](https://www.strac.io/integrations/claude-compliance-api)**.
 
@@ -2510,9 +2637,13 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 
 - **Trellix:** The Trellix Claude Compliance API integration checks all chat content, artifacts, and responses against customer-defined privacy policies using their Data Security Engine and creates detection and audit events in Trellix Helix. This includes customer-specific patterns and policies that are defined for their endpoint, server, and collaboration software and applies it to Claude as well. To set up this integration, see the **[Trellix setup guide](https://www.trellix.com/platform/data-security/)**.
 
-- **TrendAI:** Trend Micro's integration with the Claude Compliance API automatically collects and monitors Claude chat activity across your organization, scans for prompt injection, harmful content, and sensitive-data leakage, and correlates findings with your broader security signals through SIEM and XDR for investigation and audit-ready compliance and governance. To set up this integration, see the **[TrendAI setup guide](https://www.trendmicro.com/en_us/research/26/f/governing-claude-enterprise.html)**.
+- **TrendAI:** TrendAI's integration with the Claude Compliance API automatically collects and monitors Claude chat activity across your organization, scans for prompt injection, harmful content, and sensitive-data leakage, and correlates findings with your broader security signals through SIEM and XDR for investigation and audit-ready compliance and governance. To set up this integration, see the **[TrendAI setup guide](https://www.trendmicro.com/en_us/research/26/f/governing-claude-enterprise.html)**.
+
+- **Twine Security:** Twine's AI digital employee, Alex, uses the Compliance API to bring identity governance to Claude Enterprise - mapping who has access, which roles, groups, and connectors they hold, and flagging risks such as accounts provisioned outside the identity provider, with remediation routed for human approval. To set up this integration, see the **[Twine Security setup guide](https://www.twinesecurity.com/resource/twine-anthropic-governing-claude-enterprise)**.
 
 - **Valence Security:** Valence integrates with the Compliance API to give security teams visibility into how Claude Enterprise and Claude Platform are used, including users, agents, MCP servers, connectors, and tools. Valence correlates this activity with identities and configurations across the rest of the environment, helping teams detect risky behavior and remediate exposure. To set up this integration, see the **[Valence Security setup guide](https://www.valencesecurity.com/resources/blogs/securing-agentic-identities-in-claude-the-valence-integration-with-the-compliance-api)**.
+
+- **Vanta:** Vanta uses the Compliance API to build an AI inventory from Claude Enterprise chats and Claude Code and Cowork sessions in its AI Governance product, so compliance teams can monitor Claude usage and produce audit-ready reports against their policies and controls. Note on availability: This integration is available in beta to select Vanta AI Governance customers using Claude Enterprise, with general availability planned for January 2027. To set up this integration, see the **[Vanta setup guide](https://www.vanta.com/integrations/claudes-compliance-api)**.
 
 - **Varonis:** The Compliance API integration deepens Varonis' support for Claude, enabling security and governance teams to monitor usage, investigate misuse across full sessions, and assess AI-related risk with data context. To set up this integration, see the **[Varonis setup guide](https://info.varonis.com/hubfs/documentation/varonis-atlas-anthropic-compliance-api-documentation.pdf)**.
 
@@ -2521,6 +2652,8 @@ For Claude Platform, contact your Anthropic sales team. Review **[Compliance API
 - **Vero Security:** Vero Security integrates with the Compliance API to provide security insights for enterprises, enabling full context for governance and policy enforcement so teams can monitor, manage, and safely scale Claude adoption across the organization. Learn more about **[Vero Security's integration with the Claude Compliance API](https://www.vero.security/blog/vero-antrpc-integration)**.
 
 - **Willow:** Willow gives every AI agent an identity and permissioned access to the right tools and skills, with a full audit trail. Through its integration with the Compliance API, Willow extends that governance to Claude usage so security teams can see and control agent activity across the organization. To set up this integration, see the **[Willow setup guide](https://docs.withwillow.ai/docs/admin/settings/claude-compliance-sync)**.
+
+- **WithWings:** WithWings uses the Compliance API to discover the AI agents and sessions across a Claude Enterprise environment, map their identities, permissions, and integrations, and assess whether each agent's actions stay aligned with its original purpose—detecting drift between intent and behavior. To set up this integration, see the **[WithWings setup guide](https://withwings.ai/integrations/claude)**.
 
 - **Wiz:** The Wiz connector for the Claude Compliance API allows organizations to discover AI projects, models, and users while identifying security risks like elevated roles or sensitive data within knowledge bases. It maps identity relationships and tracks model usage across the enterprise by integrating via the Claude Compliance API. Learn more about **[Wiz's integration with the Claude Compliance API](https://www.wiz.io/blog/claude-wiz-integration)**.
 
@@ -2574,6 +2707,8 @@ This setting applies to the following connectors:
 - Slack
 
 - Smartsheet
+
+- Tableau
 
 You can also view the current list in **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**. Contact **[our support team](https://support.claude.com/en/articles/9015913-how-to-get-support)** to request additional connectors.
 

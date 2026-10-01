@@ -81,7 +81,7 @@ While you can't increase the fixed context window size for your plan, you can us
 
 - **Lower the effort level:** Choose a lower effort level for routine tasks that don't need Claude's most thorough responses. Higher effort uses more tokens.
 
-- **Temporarily disable non-critical tools and connectors:** Disable web search, Research, and MCP connectors from your "Search and tools" settings when they're not needed for specific conversations.
+- **Turn off tools you don't need:** Turn off apps you've connected when a conversation doesn't need them, and ask Claude not to search the web when you don't need current information.
 
 **Note:** Tools and connectors are token-intensive, so managing them helps both maximize your available context window and optimize your usage limits.
 
@@ -153,47 +153,6 @@ This includes using agents to:
 - Engage in unauthorized, illegal, or fraudulent financial transactions (such as brokerage or investment advisory activities) or payment processing
 
 - Access or modify another person's account using their stored credentials without authorization
----
-
-SOURCE: https://support.claude.com/en/articles/13163666-holiday-2025-usage-promotion
-
-# Holiday 2025 Usage Promotion
-
-We’re giving Pro and Max subscribers a holiday gift—2x usage limits from December 25 through December 31. During this period, your plan’s usage limits will be doubled, giving you more room to explore Claude’s capabilities as you plan for the new year.
-
-## Who is eligible?
-
-To be eligible for this promotion, you must meet the following criteria:
-
-- You have an active Pro, Max 5x, or Max 20x subscription.
-
-- You are an individual subscriber (this promotion does not apply to Team or Enterprise plans).
-
-- Both existing subscribers and new users who sign up for Pro or Max during the promotional period are eligible.
-
-## What’s included in this promotion?
-
-During the promotional period, you’ll receive:
-
-- A 2x increase to your five-hour usage limits.
-
-- A 2x increase to your weekly usage caps.
-
-All weekly caps will be reset at the start of the promotional period (December 25 at 12:00 AM UTC).
-
-This promotion applies to usage on [claude.ai](http://claude.ai), Claude Code, and Claude in Chrome.
-
-## When does this promotion run?
-
-This is a one-week holiday promotion running from Wednesday, December 25, 2025 at 12:00 AM UTC through Wednesday, December 31 at 11:59 PM UTC.
-
-## What happens after the promotional period ends?
-
-After the promotional period ends, your usage limits will return to their standard levels based on your subscription plan. There is no additional charge—you’ll simply continue using Claude as part of your existing subscription.
-
-## Terms and Conditions
-
-Additional usage is available from December 25, 2025 at 12:00 AM UTC through December 31, 2025 at 11:59 PM UTC. The increased usage limits apply to the Claude web app, Claude Code, and Claude in Chrome only. This promotion cannot be combined with other offers or promotions. Available to individual Pro, Max 5x, and Max 20x subscribers only. Team and Enterprise plans are not eligible.
 ---
 
 SOURCE: https://support.claude.com/en/articles/14246112-buy-usage-bundles
@@ -420,19 +379,19 @@ SOURCE: https://support.claude.com/en/articles/16266773-how-claude-marks-ai-gene
 
 # How Claude marks AI-generated content
 
-Anthropic has signed the EU AI Act's Article 50(2) Code of Practice on Transparency of AI-Generated Content, as a provider of both generative AI models and generative AI systems. This article describes how we’re planning to put those commitments into practice, how marking works, and what its limitations are. We’ll update this article and publish more detailed technical guidance as it becomes available.
+Anthropic has signed the EU AI Act's Article 50(2) Code of Practice on Transparency of AI-Generated Content, as a provider of both generative AI models and generative AI systems. This article describes how we’re putting those commitments into practice, how marking works, and its limitations. We’ll update this article and publish more detailed technical guidance as it becomes available.
 
 **Anthropic’s commitments under the EU AI Act’s Code of Practice on Transparency of AI-Generated Content**
 
 What our marking commitments mean for Claude:
 
-- **New models will mark AI-generated content from day one.** Claude models launched in the EU on or after August 2, 2026 will support machine-readable marking at launch. Generated text will carry embedded watermarks, and generated files will include digitally signed provenance metadata where supported.
+- **New models will mark AI-generated content from day one.** Claude models launched in the EU on or after August 2, 2026 will support machine-readable marking at launch. Generated text will carry embedded watermarks, and generated files will include Content Credentials (C2PA) where supported.
 
 - **Marking works everywhere you use Claude.** Marks will apply to output from supported Claude models across Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag, and wherever Claude is offered, worldwide. Some platforms or features may not support certain marking types.
 
-- **We'll help you detect Claude's marks.** We'll support users and other third parties to detect Claude’s marks, as the Code requires, and we’ll share details in forthcoming documentation.
+- **Existing models are in progress.** The law includes a transition period for AI systems launched before August 2, 2026, and we’re working to add marking support for earlier Claude models. See **[Which Claude models support watermarking](#h_569d936489)** below.
 
-- **Existing models are in progress.** The law includes a transition period for Anthropic models launched before August 2, 2026, and we’re working to add marking support for those models as well.
+- **Watermark detection is in private preview.** Watermark detection is currently available to eligible organizations as required under EU law (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It is also available for enterprises who are similarly obligated to verify watermarking for their own compliance with the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
 
 More details about our marking plans are below.
 
@@ -444,17 +403,41 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 
 ### What’s covered
 
-- **Models.** Claude models launched on or after August 2, 2026 support marking at launch. We’re also working to add marking support to Claude models released before that date, and we’ll update this article as that becomes available.
+- **Models.** Claude models launched on or after August 2, 2026 support marking at launch, and we’re working to add marking support to other Claude models released before that date. See **[Which Claude models support watermarking](#h_569d936489)** below for the current list.
 
-- **Products.** Claude markings cover output from supported models everywhere you use Claude, including Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag. Embedded watermarks will apply to all generated text. Provenance metadata will apply where Claude supports processing files.
+- **Products.** Claude markings cover output from supported models everywhere you use Claude, including Claude Platform (API), Claude, Claude Code, Claude Cowork, and Claude Tag. Embedded watermarks will apply to all generated text. Content Credentials (C2PA) will apply where Claude supports processing files.
 
-- **Cloud partners.** Embedded watermarks will apply when supported Claude models are accessed through AWS, Google Cloud, or Microsoft Foundry. Signed provenance metadata may not be supported on every platform, depending on the features each platform offers.
+- **Cloud partners.** When supported Claude models are accessed through AWS, Google Cloud, or Microsoft Foundry they will carry watermarks. Content Credentials (C2PA) are added when Claude creates a file, so it applies only where a platform offers Claude's file generation features: in the Claude apps and the Claude Platform (API), including Claude Platform on AWS and Claude in Microsoft Foundry.
 
 - **Regions.** Marking will apply to output from supported models wherever Claude is offered, worldwide.
 
+### Which Claude models support watermarking
+
+| **Model**         | **Text watermarks in Claude output (first-party surfaces)** | **Text watermarks in cloud partner output (AWS, Google Cloud, Microsoft Foundry)** | **Content Credentials (C2PA) in files** |
+| ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------- |
+| Claude Fable 5.1  | ✅                                                           | ✅                                                                                  | ✅                                       |
+| Claude Fable 5    | ✅                                                           | ✅\*                                                                                | ✅                                       |
+| Claude Mythos 5.1 | ✅                                                           | ✅                                                                                  | ✅                                       |
+| Claude Mythos 5   |                                                             |                                                                                    | ✅                                       |
+| Claude Opus 5.5   | ✅                                                           | ✅                                                                                  | ✅                                       |
+| Claude Opus 5     | ✅                                                           | ✅                                                                                  | ✅                                       |
+| Claude Opus 4.8   | ✅                                                           | ✅\*                                                                                | ✅                                       |
+| Claude Opus 4.7   |                                                             |                                                                                    | ✅                                       |
+| Claude Opus 4.6   |                                                             |                                                                                    | ✅                                       |
+| Claude Opus 4.5   |                                                             |                                                                                    | ✅                                       |
+| Claude Sonnet 5.5 | ✅                                                           | ✅                                                                                  | ✅                                       |
+| Claude Sonnet 5   | ✅                                                           | ✅\*                                                                                | ✅                                       |
+| Claude Sonnet 4.6 |                                                             |                                                                                    | ✅                                       |
+| Claude Sonnet 4.5 |                                                             |                                                                                    | ✅                                       |
+| Claude Haiku 4.5  |                                                             |                                                                                    | ✅                                       |
+
+**Rollout on Amazon Bedrock will complete by October 12.*
+
+Consistent with our commitments under the Code, Anthropic is adding watermarks to outputs from models released before August 2, 2026.
+
 ## How Claude marks content
 
-Claude uses two complementary techniques to mark content generated and processed by Claude: (1) watermarks embedded in text, and (2) signed provenance metadata attached to files.
+Claude uses two complementary techniques to mark content generated and processed by Claude: (1) watermarks embedded in text, and (2) Content Credentials (C2PA) attached to files.
 
 ### 1. Embedded watermarks in text
 
@@ -462,15 +445,17 @@ When a supported Claude model generates text, it weaves an imperceptible waterma
 
 Because the watermark is part of the text, it will travel with the text when it’s copied and pasted elsewhere, and may persist through some editing. Watermarking will be applied at the model level, which means it will be present no matter which Claude product or surface the text comes from.
 
-### 2. Signed provenance metadata
+### 2. Content Credentials (C2PA)
 
-When Claude generates a supported file type, such as a .svg, .png, or .jpg, it will attach signed provenance metadata. This metadata follows the Coalition for Content Provenance and Authenticity (C2PA) open standard, which is used across the industry to record information about content provenance. If a signed metadata label is present, it signals that a file was processed by Claude and lets you detect whether the file has been tampered with.
+When Claude generates a supported file type such as a PNG or JPEG, it will attach signed provenance metadata. This metadata is called a Content Credential and follows the Coalition for Content Provenance and Authenticity (C2PA) open standard, which is used across the industry to record information about content provenance. If a signed metadata label is present, it signals that a file was processed by Claude.
 
-## Detecting Claude’s marks
+## Detect Claude’s marks
 
-We’re also working to enable users and other third parties to detect Claude’s embedded watermarks and provenance metadata. Detection checks whether a piece of text or a file carries a supported Claude mark. If a supported mark is found, it indicates that the content may have been processed by Claude.
+Detection checks whether a piece of text or a file carries a supported Claude mark. If a supported mark is found, it indicates that the content may have been generated or processed by Claude.
 
-We’ll share details on detection mechanisms in forthcoming technical documentation.
+To check whether a file contains a Claude-issued Content Credential, use the free **[Claude Content Checker](https://claude.com/check-content)**. To learn more about how Claude marks files and how to verify Claude-issued Content Credentials, see **[Content Credentials on generated files](https://platform.claude.com/docs/en/agents-and-tools/tool-use/code-execution-tool#content-credentials-on-generated-files)**.
+
+Watermark detection is currently in private preview, available to eligible organizations as required under EU law (such as regulators, law enforcement, media, fact-checkers, independent researchers, educational organizations, and EU civil society groups). It is also available for enterprises who are similarly obligated to verify watermarking for their own compliance with the Act. We plan to expand access to the detection API over time. You can register interest in access here: **[Claude Watermark Detector Access Request Form](https://forms.gle/9tGA33hPJJwtHsMk9)**.
 
 ## Limitations
 
@@ -484,7 +469,7 @@ Machine-readable marks provide important signals about content, but it’s worth
 
 - **Lack of a detected mark doesn’t mean the content wasn’t AI-generated or processed.** Content generated by Claude may not carry a detectable mark if, for example:
 
-  - It was generated by a model released before marking was supported;
+  - It was generated by a model before marking was supported for that model;
 
   - The text has been heavily edited, paraphrased, translated, or mixed into other writing;
 
@@ -497,6 +482,41 @@ Machine-readable marks provide important signals about content, but it’s worth
 ## If you build with Claude
 
 If you deploy Claude in your own product, you should independently assess what Article 50 requires of your products and services. Consistent with our commitments under the EU Code, our goal is to support you in meeting your own transparency obligations, and we'll share technical guidance on our marking and detection approach as it becomes available.
+---
+
+SOURCE: https://support.claude.com/en/articles/17007452-what-is-a-limit-reset
+
+# What is a limit reset?
+
+Limit resets are given occasionally to eligible plans, and set your usage limits back to full when you choose to use one.
+
+## How a limit reset works
+
+- Depending on the limit reset shown, either your five-hour session limit or your weekly usage limit go back to full right away.
+
+- Your weekly limits still reset on their usual day and time.
+
+- You don’t have to wait until you reach a limit to use it.
+
+- Once you use it, you can’t undo it.
+
+- If your limit reset has an expiry, the expiry date will be shown in **Settings > Usage**.
+
+A reset doesn't refund extra usage you've already been billed for or change your usage credit balance. If you downgrade or cancel before using your reset, it's no longer available.
+
+## Use your limit reset
+
+To use your reset:
+
+1. Go to **[Settings > Usage](https://claude.ai/settings/usage)** on the web or in Claude Desktop.
+
+2. Click "Reset for free" in the **Resets** section.
+
+3. Confirm by clicking "Reset for free."
+
+The same "Reset for free" button appears on the message you see when you reach a limit.
+
+**Note:** An unused reset expires on the day and time listed on the offer. The "Reset for free" button isn’t currently available on Claude Mobile or in Claude Code in your terminal or IDE, so open Claude in a browser or use Claude Desktop instead. Your usage limits are shared across your Claude account, so after you reset your usage limits, they’re back to full on Claude Mobile and in Claude Code too.
 ---
 
 SOURCE: https://support.claude.com/en/articles/8114527-i-m-encountering-429-errors-and-i-m-worried-my-rate-limit-is-too-low-what-should-i-do
@@ -791,11 +811,11 @@ Additional factors that affect your usage limits include:
 
 - Artifact creation and usage
 
+- Multi-step tasks, like running code, creating files, or browsing websites
+
 Our system also includes caching that helps you optimize your limits:
 
-- Content in projects is cached and doesn't count against your limits when reused.
-
-- Similar prompts you use frequently are partially cached.
+- Content in projects is cached and counts less against your limits when reused.
 
 - Claude remembers context from earlier in the conversation.
 
@@ -851,11 +871,13 @@ Projects offer significant caching benefits:
 
 - When you upload documents to a project, they're cached for future use.
 
-- Every time you reference that content, only new/uncached portions count against your limits.
+- When you reference that content again while it’s still cached, cached portions count less against your limits than new content.
 
 - This means you can work with the same documents repeatedly without using up your messages as quickly.
 
 - Example: If you're working on a research paper and add all your reference materials to a project, you can ask multiple questions about those materials while using fewer messages than if you uploaded them each time.
+
+- Caches expire after a period of inactivity. If you come back to a project after a long break, your first message counts that content in full again.
 
 - Projects offer a Retrieval Augmented Generation (RAG) mode allowing for expanded project knowledge capacity.
 
@@ -869,7 +891,7 @@ Projects offer significant caching benefits:
 
   - **Current session:** How much of your plan’s five-hour session limit you’ve used thus far, plus the amount of time remaining in the session.
 
-  - **Weekly limits:** Check when your plan’s weekly usage limit resets for Opus only and all other models.
+  - **Weekly limits:** Check when your plan’s weekly usage limit resets, for all models, and for Fable (if included in your plan).
 
 - **Usage credits:** If you are using a Pro, Max, Team, or seat-based Enterprise plan, your usage settings page will also show how much of your plan's limit you've used. Refer to these articles for more information about enabling usage credits depending on your plan:
 

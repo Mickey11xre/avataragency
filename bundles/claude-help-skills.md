@@ -7,7 +7,7 @@ SOURCE: https://support.claude.com/en/articles/12512176-what-are-skills
 
 Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks. Skills teach Claude how to complete specific tasks in a repeatable way, whether that's creating documents with your company's brand guidelines, analyzing data using your organization's specific workflows, or automating personal tasks.
 
-Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in beta for Claude Code users and for all API users using the code execution tool.
+Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in Claude Code, and in beta for all API users using the code execution tool.
 
 ---
 
@@ -108,11 +108,11 @@ SOURCE: https://support.claude.com/en/articles/12512180-use-skills-in-claude
 
 Skills extend Claude's capabilities by giving it access to specialized knowledge and workflows. This guide shows you how to enable, discover, and use skills in Claude.
 
-Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in beta for Claude Code users and for all API users using the code execution tool.
+Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in Claude Code, and in beta for all API users using the code execution tool.
 
 ## Prerequisites
 
-**For Enterprise plans:** Owners must check that both **Code execution and file creation** and **Skills** are enabled in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**. Owners can also upload skills to provision them organization-wide—these skills automatically appear for all users. Once skills are enabled at the organization level, individual members can toggle on example skills, access provisioned skills, and upload their own personal skills in **[Customize > Skills](https://claude.ai/customize/skills)**.
+**For Enterprise plans:** Owners must check that both **Code execution and file creation** and **Skills** are enabled in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** in the “Policy” tab. Owners can also upload skills to provision them organization-wide—these skills automatically appear for all users. Once skills are enabled at the organization level, individual members can toggle on example skills, access provisioned skills, and upload their own personal skills in **[Customize > Skills](https://claude.ai/customize/skills)**.
 
 **For Team plans:** This feature is enabled by default at the organization level. Once enabled, individual members can toggle on example skills and upload their own in **[Customize > Skills](https://claude.ai/customize/skills)**.
 
@@ -122,7 +122,7 @@ Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. Th
 
 ## How to enable skills
 
-1. For Team / Enterprise plans: Navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** and ensure that both **Code execution and file creation** and **Skills** are enabled.
+1. For Team / Enterprise plans: Navigate to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**, click the “Policy” tab, and ensure that both **Cloud code execution and file creation** and **Skills** are enabled.
 
 2. For individual Free, Pro, and Max plans: Navigate to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** and ensure that **Code execution and file creation** is enabled.
 
@@ -168,35 +168,55 @@ You can also create and upload your own skills to teach Claude your specific wor
 
 7. Your skill will appear in your skills list and can be toggled on or off.
 
-**Note:** Custom skills you upload are private to your individual account. If you’re on a Team or Enterprise plan and want to share skills with your organization, see **[Provision skills for your organization](https://support.claude.com/en/articles/13119606-managing-skills-as-an-admin#h_4dea113421)**.
+**Note:** Custom skills you upload aren't visible to colleagues until you share them. Admins can see their names and sharing status, but not their files On Team and Enterprise plans, you can share skills (see **Share a skill** below), or provision skills for your organization. Learn more about **[provisioning skills for your organization](https://support.claude.com/en/articles/13119606-managing-skills-as-an-admin#h_4dea113421)**.
 
 ---
 
 ## Share a skill
 
-On Team and Enterprise plans, you can share skills you've created with specific colleagues, groups, or with your entire organization. Skill sharing works in both chat and Cowork.
+On Team and Enterprise plans, you can share skills you've created with specific colleagues, groups. To make a skill available to your entire organization, publish it instead. Skill sharing works in both chat and Cowork.
 
-**Note:** The **Skill sharing** toggle is on by default for Team plans and for Enterprise plans that haven't set a skills preference. For organizations with HIPAA readiness or other regulated configurations, skills and skill sharing are off by default and an admin can enable them. The **Share with organization** and **Share with groups** toggles are also off by default. An owner must navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** and enable at least one of the toggles before the "Share" button appears. If your organization uses custom roles, your role must also have the **Share skills with groups** capability enabled. If you don't see the option to share, check with your organization owner.
+**Note:** The **Skill sharing** toggle is on by default for Team plans and for Enterprise plans that haven't set a skills preference. For organizations with HIPAA readiness or other regulated configurations, skills and skill sharing are off by default and an admin can enable them. The **Share with organization** and **Share with groups** toggles are also off by default. An owner must navigate to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**, click the “Policy” tab, and enable at least one of the toggles before the "Share" button appears. If your organization uses custom roles, your role must also have the **Share skills with groups** capability enabled. If you don't see the option to share, check with your organization owner.
 
 To share a skill:
 
 1. Navigate to **[Customize > Skills](https://claude.ai/customize/skills)**.
 
-2. Open a skill you created.
+2. Find the skill you created.
 
-3. Click "Share."
+3. Click the three-dot menu (...) next to it, then select "Share."
 
 4. Choose who to share with:
 
-  - **Specific people:** Enter names or emails to share directly. The skill appears in each recipient's skills list, grayed out until they enable it.
+  - **Specific people:** Enter names or emails to share directly. Sharing creates a link that opens the item for anyone it's shared with. The skill appears in each recipient's skills list, grayed out until they enable it, and shows your name as the owner.
 
-  - **A group:** Share with a group your organization has already set up. The skill appears in every group member's skills list, grayed out until they enable it. Requires the **Share with groups** toggle.
-
-  - **Entire organization:** The skill is published to your organization's directory, where anyone can find and install it.
+  - **A group (Enterprise plans only):** Share with a group your organization has already set up. The skill appears in every group member's skills list, grayed out until they enable it. Requires the **Share with groups** toggle.
 
 5. Click "Share."
 
-Shared skills are view-only. Recipients can enable and use the skill, but they can't edit the contents. If you update the skill later, recipients automatically get the updated version.
+Shared skills are view-only. Recipients can enable and use the skill, but they can't edit the contents. If you update the skill later, recipients automatically get the updated version at next use. You can remove someone's access at any time, and access is removed automatically if they leave the organization.
+
+---
+
+## Publish a skill to your organization
+
+On Team and Enterprise plans, you can submit a skill you've created to your organization's library, so anyone in your organization can install it. Sharing gives a skill to specific people or groups, and you keep control of it. Publishing hands it to your organization.
+
+To publish a skill:
+
+1. Navigate to **[Customize > Skills](https://claude.ai/customize/skills)**.
+
+2. Open the skill you want to publish.
+
+3. Click "Publish to org."
+
+4. If your organization requires review, choose how you'd like the skill offered: Available to install, Installed by default, or Required. Add release notes for the reviewer if you'd like, then submit.
+
+If your organization requires review, an owner (or someone with permission to review requests) checks the skill before it's published. Your choice of how it's offered is a proposal. The reviewer sees it preselected and can change it, and they also choose who gets the skill: everyone or specific groups. You can keep using and editing your copy while you wait, and you can withdraw the submission. The skill shows its status: pending, changes requested (with the reviewer's note), or published. You'll get an email when it's approved. If your organization doesn't require review, the skill is published to the library and available to everyone in your organization to install. If your organization has security scanning turned on, the skill isn't listed for others until it passes the scan, which usually takes a few minutes.
+
+Once published, the skill is managed by your organization. To update it, publish again. The new version goes through the same review, and everyone who uses the skill stays on the approved version until the update is approved.
+
+---
 
 ## Use skills shared with you
 
@@ -204,9 +224,9 @@ On Team and Enterprise plans, your skills list in **[Customize > Skills](https:/
 
 - **Personal skills:** Skills you've created or uploaded yourself.
 
-- **Shared skills:** Skills colleagues have shared with you directly. These appear grayed out until you enable them.
+- **Shared with you:** Skills colleagues have shared with you directly. These stay off until you turn them on.
 
-- **Organization skills:** Skills shared org-wide and skills your owner has provisioned. You install these from the directory rather than enabling them from the list.
+- **Organization skills:** Skills published to your organization and skills your owner has provisioned. You install these from the directory rather than enabling them from the list.
 
 ### Enable a skill shared with you directly
 
@@ -239,6 +259,22 @@ Skills you've enabled in your Claude settings are also available in the Claude f
 - Or describe your task naturally—Claude recognizes when a skill applies and uses it.
 
 Claude adapts skills to the surface it’s in. A research skill may produce a Word document in Cowork, but detailed data breakdowns in Excel. Some skills may work better on one surface than others. If you let Claude work across apps, Claude can orchestrate another app to apply the skill. If you build a skill with a specific Excel or PowerPoint template, Claude for Excel and Powerpoint can load that template exactly into the current open file.
+
+---
+
+## Use skills in Claude Code
+
+Skills you've enabled in your Claude settings also load in Claude Code in your terminal when you sign in with the same Claude account. This includes skills you created or turned on and skills an owner provisioned for your organization. It needs Claude Code v2.1.273 or later.
+
+Run `/skills` in Claude Code to see them listed under **claude.ai sync**.
+
+- Skills sync when a Claude Code session starts, then check for changes about every 10 minutes.
+
+- The sync is one-way. It reads from your Claude account and never changes anything in it.
+
+- Skills don't sync when Claude Code is signed in with an API key or runs on a cloud provider such as Amazon Bedrock.
+
+To stop skills from syncing, set `syncClaudeAiSkills` to `false` in your Claude Code settings. Learn more about **[how synced skills behave](https://code.claude.com/docs/en/skills#how-synced-skills-behave)** in the Claude Code docs.
 
 ---
 
@@ -282,7 +318,7 @@ If you change your mind, you can add the skill again by re-uploading the file.
 
 ## Privacy and security details
 
-For Team and Enterprise plans, organization owners can provision skills for all users through organization settings, and individuals can share skills with colleagues or organization-wide if an owner has enabled sharing. On all other plans, each person uploads skills to their own account.
+For Team and Enterprise plans, organization owners can provision skills for all users through organization settings. Individuals can share skills with colleagues if an owner has enabled sharing, or publish them to the organization if an owner has turned on publishing. On all other plans, each person uploads skills to their own account.
 
 Note that skills may include, or instruct Claude to install, third-party packages and software for Claude to use when completing a task. See **[our guidance on Claude's container environment](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_0ee9d698a1)** for details on Claude's container environment and **[the API documentation](https://docs.claude.com/en/docs/agents-and-tools/tool-use/code-execution-tool#containers)** for API's container environment.
 
@@ -302,7 +338,7 @@ When installing a skill from a less-trusted source—including one shared by a c
 
 ### Skills section not visible
 
-Ensure code execution is enabled in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max) or **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** (Team, Enterprise). Then navigate to **[Customize > Skills](https://claude.ai/customize/skills)** to access your skills. Skills require the code execution environment to function.
+Ensure code execution is enabled in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max) or **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** in the “Policy” tab (Team, Enterprise). Then navigate to **[Customize > Skills](https://claude.ai/customize/skills)** to access your skills. Skills require the code execution environment to function.
 
 ### Claude isn’t using a skill
 
@@ -341,6 +377,10 @@ The group needs the **Share resources with this group** visibility setting turne
 ### Share button not visible
 
 The **Skill sharing** toggle is on by default for Team plans and for Enterprise plans that haven't set a skills preference. For organizations with HIPAA readiness or other regulated configurations, skills and skill sharing are off by default and an admin can enable them. The **Share with organization** and **Share with groups** toggles are also off by default. An owner must navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** and enable at least one of the toggles before the "Share" button appears. If your organization uses custom roles, your role must also have the **Share skills with groups** capability enabled. If you don't see the option to share, check with your organization owner.
+
+### "Publish to org" button not visible
+
+Your organization's **Publishing** setting may be turned off, or the skill may not be one you created. You can't publish skills that were shared with you, Anthropic's built-in skills, or skills you installed from your organization's library. If it's your own skill and you don't see the button, check with your organization owner.
 
 ---
 
@@ -636,35 +676,39 @@ Organization-wide skill management is available to Team and Enterprise plans.
 
 ## Prerequisites
 
-Before you can provision skills for your organization, navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** and check that both **Code execution and file creation** and **Skills** are toggled on. Skills require code execution to function, so if code execution is disabled, skills will not be available.
+Before you can provision skills for your organization, navigate to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**, select the “Policy” tab, and check that both **Cloud code execution and file creation** and **Skills** are toggled on. Skills require code execution to function, so if code execution is disabled, skills will not be available.
 
 ---
 
 ## Provision skills for everyone
 
-When you upload a skill through organization settings, it becomes available to everyone in your organization in **[Customize > Skills](https://claude.ai/customize/skills)**. Individual users no longer need to upload the same skill themselves.
+When you upload a skill through organization settings, it becomes available to everyone in your organization in **[Customize > Skills](https://claude.ai/customize/skills)**. Individual users no longer need to upload the same skill themselves. Provisioned skills also load in Claude Code for users who sign in with their Claude account. To stop skills from syncing to Claude Code, set `syncClaudeAiSkills` to `false` in Claude Code managed settings.
 
 **To provision a skill:**
 
-1. Navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**.
+1. Navigate to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**.
 
-2. In the **Organization skills** section, click "+ Add."
+2. Click "Add” in the upper right corner.
 
-3. Select a .zip file containing your skill (must include a SKILL.md file).
+3. Choose “Upload a skill” or “Create a skill.”
 
-4. The skill is immediately provisioned to all users in your organization.
+4. If uploading, select a .zip file containing your skill (must include a SKILL.md file).
 
-Admin-provisioned skills are enabled by default for everyone, but users can toggle individual skills off if they choose. This gives your organization consistent, approved workflows while letting users customize their own experience.
+5. If creating, input the skill name and description in the modal, then click “Create.”
+
+6. The skill is immediately provisioned to all users in your organization.
+
+Owner-provisioned skills are enabled by default for everyone, but users can toggle individual skills off if they choose. This gives your organization consistent, approved workflows while letting users customize their own experience.
 
 ---
 
 ## Provision skills to specific groups
 
-Provisioning a skill through **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** gives it to everyone. To give a skill to only some users, bundle your skills into a plugin and assign that plugin to a group. The group's members see those skills, and members outside the group don't.
+Provisioning a skill through **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** gives it to everyone. Enterprise plans can give skills to only some users by bundling them into a plugin and assigning that plugin to a group. The group's members see those skills, and members outside the group don't.
 
 For example, if you have 10 skills for your marketing team, add them to a plugin and assign it to the marketing group. Only that group gets those skills.
 
-Skills provisioned this way appear in chat, on the web and the Chat tab in Claude Desktop, as well as in Claude Cowork. Group targeting you've already set up for Cowork carries over to chat with no extra steps.
+Skills provisioned this way appear in chat (on the web and the "Chat" tab in Claude Desktop), in Claude Cowork, and in Claude Code in the terminal for users who sign in with their Claude account. Group targeting you've already set up for Cowork carries over to chat with no extra steps.
 
 To set this up, see **[Manage plugins for your organization](https://support.claude.com/en/articles/13837433)**.
 
@@ -676,7 +720,7 @@ By default, users can create their own skills in Claude and upload skill files t
 
 To turn off skill creation for users:
 
-1. Navigate to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**.
+1. Navigate to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Policy” tab.
 
 2. Turn off **User-created skills**.
 
@@ -690,19 +734,103 @@ When **User-created skills** is off:
 
 ---
 
+## Let users publish skills and plugins to your organization
+
+Users can submit a skill or plugin they've built to your organization's library so everyone can use it. When your organization requires review, an owner approves each submission before it's published, and every later version goes through the same review.
+
+### Set the publishing policy
+
+1. Navigate to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and select the “Policy” tab.
+
+2. Under **Publishing**, choose an option:
+
+  - **Requires review:** Users can submit skills and plugins, and an owner must approve each one before it's published.When submitting, the user proposes how the item is offered. You can accept or change that when you approve.
+
+  - **Open:** Skills and plugins that users submit are published to the organization library without review, and are available to everyone in your organization to install. Users can't choose a different offering. On Enterprise plans with **[Skill and plugin security scanning](https://support.claude.com/en/articles/15927065)** on, a new item isn't listed for others until it passes the scan, which usually takes a few minutes.
+
+  - **Off:** Users don't see the "Publish to org" button. Owners can still add skills and plugins to the organization directly.
+
+Your starting setting depends on your plan:
+
+- **Team plans:** Publishing is set to “Open,” unless you already had **Share with organization** turned off, in which case “Off” is the default.
+
+- **Enterprise plans:** Publishing starts off.
+
+  - If your organization already had **Share with organization** turned on, it starts as “Open” instead.
+
+  - If you haven't chosen a setting, it switches to “Requires review” on October 2, 2026. To keep publishing off, or to choose a different setting, select it yourself before then.
+
+Turning **Publishing** off doesn't remove anything that's already published. Published items stay in the library until an owner removes them.
+
+### Review a submission
+
+Owners, and anyone whose role has Libraries set to “Can manage,” can review requests. You can't approve your own.
+
+**To review a submission:**
+
+1. Navigate to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and select the “Requests” tab.
+
+  - Plugin and skillsubmissions appear here, and each request shows who submitted it, whether it's a skill or plugin, its security scan result, and its status. If a submission looks like a skill or plugin your organization already has, a **Possible duplicate** tag appears next to it.
+
+2. Open a request. You'll see:
+
+  - How the item will be offered
+
+  - The scan result
+
+  - Every file
+
+  - For an update, what changed since the currently published version
+
+  - Up to three possible duplicates, if any, each with a reason and a link
+
+3. Choose how the item is offered and who gets it: everyone or specific groups. The submitter's proposed offering is preselected, and you can change it. Then click "Approve" to publish it, or click "Request changes" and add a note for the person who submitted it.
+
+Keep these points in mind when reviewing:
+
+- **You review a fixed version.** You see exactly the version that was submitted. The author can keep editing their own copy, but those edits don't reach the organization until they submit a new version and it's approved.
+
+- **Possible duplicate hints are a note, not a block.** Only reviewers see them. They don't stop you from approving a submission, and the person who submitted it doesn't see them. No setup is needed. Duplicate checks don't run for organizations with HIPAA, zero data retention, FERPA, or customer-managed keys.
+
+- **For Enterprise plans, submitted versions are scanned.** For Enterprise plans with **Skill and plugin security scanning** enabled, each version is checked for malicious content automatically. A submission that fails the scan can't be approved until the author fixes it and submits again. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065)**.
+
+### Manage published skills and plugins
+
+Every approved item is listed on the “Inventory” tab in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**. To see only your organization's items, set the **Source** filter to “Your organization."
+
+Click the menu button at the end of a row to:
+
+- View details and files
+
+- View version history
+
+- Choose how the item is offered under Default access (Available to install, Installed by default, Not available, or Required)
+
+- Set access for specific groups under “Group access…”
+
+- Copy a link to share with users
+
+The “Inventory” tab also lists skills and plugins that users created or shared.
+
+When you approve a new version, everyone who uses the item gets the update automatically. Until then, users stay on the currently approved version.
+
+Published items are managed by your organization. If the author leaves, the published item stays in the library.
+
+---
+
 ## Control skill sharing between users
 
-In addition to provisioning skills top-down, you can let users share skills they've built with each other. Three independent toggles control this:
+In addition to provisioning skills top-down, you can let users share skills or plugins they've built with each other. Two independent toggles control this:
 
-- **Skill sharing:** Users can share a skill with specific colleagues. Recipients see the skill in the **Shared with you** section of their skills list.
+- **Skill sharing:** Users can share a skill or plugin with specific colleagues. Recipients see the skill in the **Shared with you** section of their skills list.
 
-- **Share with organization:** Users can publish a skill to the organization directory, where anyone can find and install it.
+- **Share with groups:** Users can share a skill or plugin with an entire group. Recipients see it in the **Shared with you** section of their skills list, the same as items shared with individuals.
 
-- **Share with groups:** Users can share a skill with an entire group. Recipients see the skill in the **Shared with you** section of their skills list, the same as skills shared with individuals.
+To let users add skills and plugins to the organization library, use the **Publishing** setting. Learn more about **[letting users publish skills and plugins to your organization](#h_1abc45a27c)**.
 
-The **Skill sharing** toggle is on by default for Team plans and for Enterprise plans that haven't set a skills preference. For organizations with HIPAA readiness or other regulated configurations, skills and skill sharing are off by default and an admin can enable them in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**. The **Share with organization** and **Share with groups** toggles are also off by default and can be enabled by an admin.
+The **Skill sharing** toggle is on by default for Team plans and for Enterprise plans that haven't set a skills preference. For organizations with HIPAA readiness or other regulated configurations, skills and skill sharing are off by default and an admin can enable them in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** in the “Policy” tab. The **Share with groups** toggle is also off by default and can be enabled by an admin.
 
-**Note:** Shared skills are view-only, and stay off until the recipient chooses to enable them. Recipients can enable and use a shared skill but can't edit its contents.
+**Note:** Shared skills and plugins are view-only, and stay off until the recipient chooses to enable them. Recipients can enable and use a shared skill or plugin but can't edit its contents. When the owner saves a new version, everyone it's shared with gets the update automatically at next use. The owner can revoke someone's access at any time, and access is removed automatically if the recipient leaves the organization.
 
 ### Share skills with a group
 
@@ -710,24 +838,24 @@ Before you can share with a group, an admin needs to turn on **Share resources w
 
 If you use custom roles, also make sure the **Share skills with groups** capability is enabled for their role. See **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452)**.
 
-Once your organization’s settings allow skill sharing, users can begin sharing skills with groups.
+Once these settings are on, users can begin sharing skills with groups.
 
 ### How shared skills differ from provisioned skills
 
-|                               | **Owner-provisioned**  | **Shared peer-to-peer**               | **Shared org-wide**    | **Shared with a group**               |
-| ----------------------------- | ---------------------- | ------------------------------------- | ---------------------- | ------------------------------------- |
-| **Who can share**             | Owners only            | Any user (if enabled)                 | Any user (if enabled)  | Any user (if enabled)                 |
-| **Where it appears**          | Everyone's skills list | Recipient's "Shared with you" section | Organization directory | Recipient's "Shared with you" section |
-| **Can recipients remove it?** | Disable only           | Disable or delete                     | Disable only           | Disable only                          |
-| **Requires owner approval?**  | Owner uploads directly | No                                    | No                     | No                                    |
+|                               | **Owner-provisioned**  | **Shared peer-to-peer**               | **Published to the organization**                | **Shared with a group**               |
+| ----------------------------- | ---------------------- | ------------------------------------- | ------------------------------------------------ | ------------------------------------- |
+| **Who can share**             | Owners only            | Any user (if enabled)                 | Any user (if Publishing is on)                   | Any user (if enabled)                 |
+| **Where it appears**          | Everyone's skills list | Recipient's "Shared with you" section | Organization library                             | Recipient's "Shared with you" section |
+| **Can recipients remove it?** | Disable only           | Disable or delete                     | Depends on how an owner offers it                | Disable only                          |
+| **Requires owner approval?**  | Owner uploads directly | No                                    | Yes, when Publishing is set to “Requires review” | No                                    |
 
-**Important:** There's no approval workflow for org-wide sharing. If you enable **Share with organization**, any user can publish a skill to the directory without review. Consider enabling peer-to-peer sharing only if this is a concern.
+**Important:** When Publishing is set to “Open,” anything a user publishes goes straight to the organization library without review and is available to everyone in your organization Choose “Requires review” if you want an owner to check each skill and plugin first.
 
 ### Monitor sharing activity
 
-Skill sharing events are captured in the audit log and Compliance API as `role_assignment` events. You can see who shared a skill, with whom, and whether it was peer-to-peer, organization-wide, or group.
+Skill sharing events are captured in the audit log and Compliance API as `role_assignment` events. You can see who shared a skill or plugin, with whom, and whether it was peer-to-peer, a group, or (skills only) organization-wide.
 
-The audit log doesn't capture the contents of shared skills—only the share event itself. There's no admin dashboard to browse or inspect the contents of skills shared between users.
+The audit log doesn't capture the contents of shared skills or plugins—only the share event itself. The “Inventory” tab shows metadata, sharing status, and scan status for skills and plugins that users created or shared, but not their contents.
 
 ---
 
@@ -739,7 +867,7 @@ Skills appear for each user in **[Customize > Skills](https://claude.ai/customiz
 
 - **Shared with you:** Skills colleagues have shared directly with a user. These appear grayed out until enabled.
 
-- **Organization skills:** Skills an owner has provisioned and skills users have shared organization-wide. Users install these from the directory.
+- **Organization skills:** Skills an owner has provisioned and skills published to the organization. Users install these from the directory.
 
 Owner-provisioned skills are marked with a visual indicator so users can distinguish them from other skill types. Users can click on any skill to preview its contents and description.
 
@@ -749,21 +877,19 @@ For more on how users browse and install from the directory, see **[Browse skill
 
 ## Manage and remove provisioned skills
 
-The **Organization skills** section in **[Organization settings > Skills](https://claude.ai/admin-settings/skills)** displays all skills provisioned for your organization. Use search and the section headings to navigate them.
-
-To remove a skill from your organization, locate it in the **Organization skills** list and select the option to remove it. Once removed, the skill will no longer appear in users' skills lists in **[Customize > Skills](https://claude.ai/customize/skills).**
+The “Inventory” tab in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** lists all skills provisioned for your organization. Set **Source** to “Your organization” and **Type** to “Skills,” or search by name. To remove a skill, click the menu button at the end of its row and select “Remove from library.” Once removed, the skill will no longer appear in users' skills lists in **[Customize > Skills](https://claude.ai/customize/skills).**
 
 **Note:** Only owners can add or remove organization-wide skills. Individual users cannot delete provisioned skills, though they can toggle them off for their own use.
 
 ---
 
-## Scan skills and plugins for malicious content (beta)
+## Scan skills and plugins for malicious content
 
-On the Enterprise plan, you can turn on skill scanning for your organization. When it's on, Claude checks each third-party skill and plugin your users upload or edit for malicious content before it can run. Scanning is off by default, and it applies only to new uploads and edits, so skills and plugins already in your organization keep working.
+On the Enterprise plan, you can turn on skill scanning for your organization. When it's on, Claude checks each third-party skill and plugin your users upload or edit for malicious content before it can run. Scanning is off by default until October 2, 2026. From that date it's on by default, where available, for Enterprise organizations that haven't set it. Organizations that already turned it on or off keep their choice.
 
 To turn on skill scanning for your organization:
 
-1. Go to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**.
+1. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and select the “Policy” tab.
 
 2. Turn on **Skill and plugin security scanning**.
 
@@ -793,7 +919,7 @@ A blocked skill can't be overridden by the user who uploaded it, and can't be ap
 
 - **Consider default status carefully:** Enable skills by default when they're broadly useful to most users. Keep specialized skills disabled by default for the users who don't need them.
 
-- **Decide on sharing deliberately:** Organization-wide sharing has no approval step. If you want to review skills before they reach everyone, keep organization-wide sharing off and ask users to submit skills to an owner for provisioning instead.
+- **Decide on publishing deliberately:** Set Publishing to “Requires review” if you want an owner to check skills and plugins before they reach everyone.
 ---
 
 SOURCE: https://support.claude.com/en/articles/15927065-get-started-with-skill-and-plugin-scanning
@@ -802,7 +928,7 @@ SOURCE: https://support.claude.com/en/articles/15927065-get-started-with-skill-a
 
 Skill and plugin scanning automatically checks third-party skills and plugins for malicious content when someone uploads or edits them, before they can run in your organization. This article explains what scanning checks for, how to turn it on, and what the results mean.
 
-Skill and plugin scanning is available in beta on Enterprise plans in Claude, Claude Cowork, and Enterprise plugin marketplaces.
+Skill and plugin scanning is available on Enterprise plans in Claude, Claude Cowork, and Enterprise plugin marketplaces.
 
 ## What skill and plugin scanning does
 
@@ -812,7 +938,7 @@ Scanning runs in the background, and most scans finish in about one to two minut
 
 ## What gets scanned
 
-Scanning applies to third-party skills and plugins that a member or owner uploads or installs. This includes standalone skills, plugins, and the skills bundled inside a plugin.
+Scanning applies to third-party skills and plugins that a member or owner uploads. This includes standalone skills, plugins, and the skills bundled inside a plugin.
 
 Scanning doesn't apply to:
 
@@ -828,9 +954,9 @@ Scanning doesn't apply to:
 
 ## Turn on skill and plugin scanning
 
-Skill and plugin scanning is off by default. Owners and Primary Owners can turn it on for their organization in their settings:
+Skill and plugin scanning is off by default until October 2, 2026, when it turns on for Enterprise organizations that haven't set it. Owners and Primary Owners can turn it on for their organization in their settings:
 
-1. Go to **[Organization settings > Skills](https://claude.ai/admin-settings/skills)**.
+1. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and select the “Policy” tab.
 
 2. Turn on **Skill and plugin security scanning**.
 
@@ -841,6 +967,8 @@ Once it's on, every new skill and plugin upload or edit in your organization is 
 Turning on skill and plugin scanning in organization settings applies it across your whole organization. If you use custom roles, you can further define who scanning applies to. When you create or edit a custom role, turn on the **Skill and plugin security scanning** capability for roles that should have access to skill scanning. Learn more about **[managing custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
 
 ## What you'll see after an upload
+
+Admins can also see each item's scan result in the “Inventory” and “Requests” tabs in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**.
 
 ### Pass
 

@@ -678,7 +678,7 @@ You can verify multiple domains for a single organization, but all domains must 
 
 
 
-7. The setup screen displays a TXT record. **Copy the full Value using the copy button**—it begins with `anthropic-domain-verification-` and is longer than what's visible in the box. In your DNS provider, add a TXT record with **Host/Name** set to `@` (the root of your domain) and **Value** set to the copied string. Add it alongside any existing TXT records; don't replace them. The value is case-sensitive, so paste it exactly.
+7. The setup screen displays a TXT record. **Copy the full Value using the copy button**—it begins with `anthropic-domain-verification-` and is longer than what's visible in the box. In your DNS provider, add a TXT record to your domain and **Value** set to the copied string. The domain must match exactly what you entered in the previous step, including any subdomains. Add it alongside any existing TXT records; don't replace them. The value is case-sensitive, so paste it exactly. Please refer to your DNS provider's documentation on this topic.
 
   1. **Important:** Save the TXT value before leaving the setup screen. Once the domain shows as Pending, the admin console doesn't display the value again. If you lose it, you'll need to remove and re-add the domain, which generates a new value.
 
@@ -790,6 +790,8 @@ When your Identity Provider's X.509 signing certificate expires or is rotated, y
 
 5. Click "Test sign-in" on the same page to confirm everything is working.
 
+**Important:** If **Require SSO** is turned on and your certificate has already expired, no one in your organization can sign in to update it, because every sign-in option routes through SSO. **[Contact Support](https://support.claude.com/en/articles/9015913)** from an Owner’s or Primary Owner’s email address and we’ll help you regain access so an Owner can update the certificate. To avoid this, note your certificate’s expiry date in your Identity Provider and rotate it ahead of time.
+
 ---
 
 ## Turning off SSO
@@ -797,6 +799,10 @@ When your Identity Provider's X.509 signing certificate expires or is rotated, y
 You can toggle **Require SSO for Claude** or **Require SSO for Console** off at any time. This will make SSO optional for all users.
 
 To fully disconnect SSO, click “Manage SSO” then “Reset connection.” This will end all users’ sessions and require them to sign back in via email login link.
+
+## Locked out of admin access?
+
+If none of your Owners or Admins can sign in (for example, after a certificate expiry, an Identity Provider change, or a group mapping that removed your administrators), contact Support from an Owner’s or Primary Owner’s email address. We’ll verify your ownership of the organization and help you regain access so you can correct the configuration.
 ---
 
 SOURCE: https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning
@@ -822,6 +828,10 @@ Once SSO is configured, you need to decide how users will be provisioned to your
 **Just-in-time (JIT):** Users assigned to your Anthropic IdP app are automatically provisioned when they first log in. This option is available to all plans.
 
 **SCIM directory sync:** Users are automatically provisioned and deprovisioned based on assignments in your IdP, without requiring them to log in first. SCIM is available for Enterprise plans and Console organizations with their own parent organization or joined to an Enterprise parent organization. SCIM is not available for Team plans or Console organizations joined to a Team plan's parent organization.
+
+When SCIM directory sync is on, Claude sends each newly provisioned member a welcome email. To turn this off, Owners and Primary Owners can navigate to **Organization settings > Organization and access > User provisioning**, find **SCIM directory sync**, and turn off "Send a welcome email to new members."
+
+**Note:** Claude doesn't send this welcome email to organizations with additional data-handling or compliance requirements such as customer-managed encryption keys (CMEK), HIPAA, or FERPA, so the setting isn't shown for those organizations. Changes apply to members provisioned after you save, and emails already sent stay delivered.
 
 ### Provisioning behavior overview
 
@@ -933,7 +943,7 @@ Once your IdP is connected, continue to Step 3.
 
   2. You can map an IdP group to the “Custom” role. Users assigned this role have no default permissions; their access is determined entirely by the custom roles assigned to their groups in Claude. If you use JIT, add these users to groups manually in **[Organization settings > Groups](https://claude.ai/admin-settings/groups)** before they log in, since JIT doesn't sync group memberships from your IdP.
 
-6. **For all plans except single-seat Enterprise:** In the **Assign seat tiers to IdP groups** section (optional), click "Add" next to each seat type and select the corresponding group from your IdP. If a user isn't assigned to a seat type group, they will be assigned to the highest available type by default.
+6. **For all plans except single-seat Enterprise:** In the **Assign seat tiers to IdP groups** section (optional), click "Add" next to each seat type and select the corresponding group from your IdP. Users who aren’t in any seat tier group aren’t removed. Existing users keep their current seat type. New users receive the highest seat type that still has an unassigned purchased seat (for example, Premium while unassigned Premium seats remain, then Standard), and are added with no seat if none is available.
 
   1. **For single-seat Enterprise:** Seat type mapping does not apply. All provisioned users are automatically assigned an Enterprise seat, provided one is available in your organization.
 
@@ -1288,9 +1298,9 @@ The following capabilities are default-off for Enterprise plans:
 
 - Code execution and file creation
 
-- Interactive content in artifacts
+- Claude Design, Claude Slides, and Claude Docs (in Organization settings > Artifacts)
 
-- Claude Design
+- Standalone Claude Design at claude.ai/design
 
 - Claude in Chrome
 
@@ -1359,13 +1369,39 @@ SOURCE: https://support.claude.com/en/articles/13837433-manage-plugins-for-your-
 
 # Manage plugins for your organization
 
-Plugin marketplaces let Team and Enterprise plan owners distribute curated plugins to everyone in their organization. You create a marketplace, add plugins to it, and control exactly which plugins your team members can see and use. Plugins you distribute appear in both chat (on the web and the Chat tab in Claude Desktop) and Claude Cowork.
+Plugin marketplaces let Team and Enterprise plan owners distribute curated plugins to everyone in their organization. You create a marketplace, add plugins to it, and control exactly which plugins your team members can see and use. Plugins you distribute appear in chat (on the web and the Chat tab in Claude Desktop), in Claude Cowork, and in Claude Code sessions where members sign in with the same Claude account.
 
-Owners and Primary Owners of Team and Enterprise plans can manage organization plugins in **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+Owners and Primary Owners of Team and Enterprise plans can manage organization plugins in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**. On Enterprise plans, members with a custom role that includes managing the organization's libraries can too.
 
 **Requirements:** Cowork and Skills must both be enabled for your organization before you can use plugin marketplaces.
 
+For a reference version of these controls, see **[Manage plugins for your organization](https://code.claude.com/docs/en/plugins/org)** in the Claude Code docs.
+
+**Note:** Turning off Skills for your organization also stops skills and plugins from syncing to Claude Code, and removes the ones that already synced there. Turning off Cowork doesn't affect the sync to Claude Code. To keep skills and plugins in Claude but stop only the sync, set `syncClaudeAiSkills` and `syncClaudeAiPlugins` to `false` in Claude Code managed settings. Learn more about **[Claude Code admin setup](https://code.claude.com/docs/en/setup#advanced-setup)**.
+
+**Note:** Marketplaces are how owners distribute plugins to their organization. Users can also share a plugin they built with specific colleagues or groups, or submit it to be published to your organization's library. Sharing and publishing are controlled by the settings in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** in the “Policy” tab, and plugin submissions are reviewed there on the "Requests" tab. Learn more about **[using plugins in Claude](https://support.claude.com/en/articles/13837440-use-plugins-in-claude)** and **[letting users publish skills and plugins to your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization#h_1abc45a27c)**[.](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization#h_1abc45a27c)
+
 ---
+
+## See what's in your organization
+
+The “Inventory” tab lists every skill and plugin your organization governs, including the ones users created for themselves. Skills and plugins now live on the same page, so you don't need to switch between settings.
+
+For each item, the table shows its source, version, capabilities, audience, and how many people used it in the last 30 days.
+
+To find an item, search by name or use the filters:
+
+- **Source:** Your organization, Organization library, or a specific marketplace
+
+- **Audience:** Who can use the item
+
+- **Type:** Skills or plugins
+
+Skills your organization manages appear under **Organization library**. You manage plugin marketplaces in the **Marketplaces** tab.
+
+To act on an item, click the menu button at the end of its row. You can view details and files, see version history, and change default and group access.
+
+For skills and plugins that users created, the Inventory tab shows metadata and sharing status. It doesn't show the files themselves.
 
 ## Use Anthropic-built marketplaces
 
@@ -1373,9 +1409,9 @@ Anthropic provides built-in marketplaces of plugins for different functions, suc
 
 To add an Anthropic-built marketplace:
 
-1. Go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+1. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Marketplaces” tab.
 
-2. Click "Add plugins."
+2. Click “Add,” then select “Add marketplace.”
 
 3. Select "Browse Anthropic sources."
 
@@ -1383,7 +1419,7 @@ To add an Anthropic-built marketplace:
 
 To remove the Knowledge Work marketplace if it isn't relevant to your teams:
 
-1. Go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+1. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Marketplaces” tab.
 
 2. Find **Knowledge Work**.
 
@@ -1399,23 +1435,23 @@ Anthropic-built marketplaces show readable names, like "Knowledge Work," instead
 
 Beyond the Anthropic-built marketplaces, you can create your own. There are two ways to add plugins to a marketplace you create:
 
-- **Manual upload:** Upload individual plugin ZIP files through the admin UI. Best for quick iteration, one-off tools, or teams that don't use GitHub for plugin development.
+- **Manual upload:** Upload individual plugin ZIP files through the admin UI. Best for quick iteration, one-off tools, or teams that don't keep plugins in a Git repository.
 
-- **GitHub syncing:** Connect a private GitHub repository and Cowork automatically syncs plugins from it. Best when multiple developers collaborate on plugins or you want version-controlled updates.
+- **Repository syncing:** Connect a private GitHub or GitLab repository and Claude syncs plugins from it. Best when multiple developers collaborate on plugins or you want version-controlled updates.
 
 You can use both approaches in parallel. For example, run a GitHub-synced marketplace for your core plugins and a separate manual marketplace for ad-hoc tools.
 
 ### Set up a manual marketplace
 
-1. Go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+1. Go to[https://claude.ai/admin-settings/plugins](https://claude.ai/admin-settings/plugins)**[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**.
 
-2. Click "Add plugins" and select "Upload a file" as the source.
+2. Click “Add,” then select “Upload a plugin.”
 
 3. If this is your first time setting up a marketplace, "Upload to a new marketplace" is auto-selected. You'll be able to choose "Add to an existing marketplace" when uploading plugins later.
 
 4. Enter a name for your marketplace.
 
-5. Either drag your files in, or click the upload prompt and select your file. The file must be a valid .zip under 50 MB.
+5. Either drag your files in, or click the upload prompt and select your file. The file must be a valid .zip under 200 MB.
 
 6. Repeat for each plugin you want to add.
 
@@ -1429,21 +1465,29 @@ GitHub syncing lets you manage plugins as code in a repository. When you push ch
 
 **Prepare your repository**
 
-Your repository must be **private or internal**—public repos aren't allowed for organization marketplaces. You can connect a repo hosted on github.com or on your organization’s GitHub Enterprise host.
+You can connect a repo hosted on github.com or on your organization's GitHub Enterprise host. On github.com, your repository must be **private or internal**—public repos aren't allowed for organization marketplaces. To sync from GitLab, see **[Set up a GitLab-synced marketplace](#h_6be3dfbfbc)**.
 
 GitHub-synced marketplaces support a narrower set of `source` types in `marketplace.json` than Claude Code does. Relative paths to plugin folders inside the marketplace repository (for example, `"source": "./plugins/my-plugin"`) are fully supported, and are the simplest option. The `github`, `url`, and `git-subdir` source types are also supported. The `npm`, `archive`, and `command` source types are not supported.
 
-A plugin source can be private in two cases: a github.com source that shares your marketplace repository's owner, which organization sync fetches through the Claude GitHub App, or a source on your organization's GitHub Enterprise host with your organization's GitHub Enterprise App installed on that repository. Every other source is fetched without credentials, so github.com repositories under a different owner and repositories on other hosts (such as GitLab or Bitbucket) must be public.
+A plugin source can be private in three cases:
+
+- A github.com source that shares your marketplace repository's owner, which organization sync fetches through the Claude GitHub App.
+
+- A source on your organization's GitHub Enterprise host with your organization's GitHub Enterprise App installed on that repository.
+
+- A url or git-subdir source on the same GitLab host as your marketplace repository. On gitlab.com, the source must also be under the same top-level group or user namespace as the marketplace repository.
+
+Every other source is fetched without credentials, so it must be a public repository on github.com, gitlab.com, or bitbucket.org. Sources on any other host are rejected.
 
 If your plugin code lives in a private repository that doesn't meet the criteria above, copy those plugin folders into the marketplace repository and change each plugin's source to a relative path (a git subtree or a CI step that vendors the files works well).
 
-For details on plugin structure and formatting, see the **[plugin reference documentation](https://code.claude.com/docs/en/plugins-reference)**.
+For details on plugin structure and formatting, see the **[plugin manifest reference](https://code.claude.com/docs/en/plugins/manifest-reference)**.
 
 Additional resources:
 
-- **[Create and distribute a plugin marketplace](https://code.claude.com/docs/en/plugin-marketplaces)**
+- **[Create a marketplace](https://code.claude.com/docs/en/plugins/create-marketplace)**
 
-- **[Create plugins](https://code.claude.com/docs/en/plugins)**
+- **[Create a plugin](https://code.claude.com/docs/en/plugins/create)**
 
 - **[Creating a new GitHub repository](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-new-repository)**
 
@@ -1455,9 +1499,9 @@ Additional resources:
 
   2. **[Enable Skills](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization#h_7673241237)**
 
-2. Go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+2. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Marketplaces” tab.
 
-3. Click "Add plugins" and select "GitHub" as the source.
+3. Click “Add plugins,” then select “Sync from GitHub.”
 
 4. Enter the repository in `owner/repo` format (for example, `acme-corp/claude-plugins`).
 
@@ -1467,31 +1511,114 @@ Your personal GitHub token is verified to confirm you have access, then Cowork u
 
 **How syncing works**
 
-An initial sync runs automatically when you connect a repository. After that, organization owners can opt-in to continued automatic updates per marketplace by going to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, clicking the menu button in the upper right corner of the marketplace, then toggling "Sync automatically" on:
+An initial sync runs automatically when you connect a repository. In the GitHub creation flow, you can also turn off "Sync automatically," which is on by default. With it on, a sync runs when a pull request is merged into the branch the marketplace follows, or when someone pushes to that branch directly.
 
-
-
-Enabling automatic sync creates a webhook on the connected repository. The person turning the toggle on must have admin-level access to that repository on GitHub. This is checked through their personal GitHub connection, which is separate from the Claude GitHub App installation. Without admin access, the page shows "Cannot access repository. Ensure the repository exists and the Claude GitHub App is installed," even when the App is installed correctly and manual updates work.
+The person turning automatic sync on or off must have admin-level access to that repository on GitHub. This is checked through their personal GitHub connection, which is separate from the Claude GitHub App installation. Without admin access, the page shows "Cannot access repository. Ensure the repository exists and the Claude GitHub App is installed," even when the App is installed correctly and manual updates work.
 
 The Claude GitHub App's **Webhooks (Read & Write)** permission must also be approved on the installation. On installations created before this permission was introduced, GitHub shows a "Claude is requesting updated permissions" prompt that a repository or organization admin needs to approve.
 
-Once enabled, automatic sync runs when a pull request that includes a plugin version bump is merged to the repository's default branch. Direct pushes to the default branch don't trigger a sync. You can always trigger a sync manually by clicking "Update" on the marketplace.
+Once enabled, automatic sync for a GitHub repository runs when a pull request that includes a plugin version bump is merged to the repository's default branch. Direct pushes to the default branch don't trigger a sync. You can always trigger a sync manually by clicking "Re-sync" on the marketplace.
 
 During a sync, Cowork compares the latest commit in your repo against the last-synced commit. If nothing has changed, the sync is skipped. If there are changes, Cowork reads the manifest, validates each plugin, and replaces all plugins in the marketplace with the current state of the repo. Syncs can take up to 30 minutes depending on the number of plugins.
 
-**Important:** If a sync fails, plugins may be temporarily removed for your team members. If this happens, check the failure message, fix the issue in your repo, push the update, and trigger the sync again. Once the sync succeeds, verify that your installation preferences are still set correctly, since they may have been reset during the failure.
+**Important:** If a sync fails, members keep the last synced version of each plugin. Check the failure message, fix the repo, and re-sync.
 
-### Choose between manual upload and GitHub sync
+### Set up a GitLab-synced marketplace
+
+You can sync an organization marketplace from a repository on gitlab.com or on a self-managed GitLab instance. For supported plugin source types and which sources can be private, see **Prepare your repository** above.
+
+GitLab support is in beta and applies to plugin marketplace sync only. Claude Code on the web doesn't support GitLab repositories yet.
+
+**Before you start**
+
+- **Role.** You need the Owner or Primary Owner role to add a GitLab configuration.
+
+- **Project visibility.** On gitlab.com, the marketplace project must be private or internal. On a self-managed instance, any visibility works.
+
+- **Access token.** Create a GitLab access token for Claude to read the marketplace project and any plugin source projects on the same host. Personal, group, and project access tokens all work. The token's user needs at least the Reporter role on those projects.
+
+  - Legacy (scoped) token: at least the `read_api` scope.
+
+  - Fine-grained personal access token: the Project: Read, Branch: Read, and Repository: Read permissions.
+
+  - Optional, for automatic webhook setup (step 3): the Maintainer role on the marketplace project plus the `api` scope (legacy) or the Webhook: Create and Delete permission (fine-grained). Without these, you add the webhook by hand once (step 4).
+
+- **Self-managed instances only.**
+
+  - The instance's hostname must resolve to a public IP address, and the instance must accept HTTPS connections from **[Anthropic's outbound IP addresses](https://platform.claude.com/docs/en/api/ip-addresses#outbound-ip-addresses)**.
+
+  - If a private certificate authority issued its TLS certificate, have the CA certificate (PEM) ready.
+
+  - Webhook deliveries for automatic sync come from your instance to api.anthropic.com, so the instance must be able to make outbound HTTPS requests to that host.
+
+**Step 1: Add a GitLab configuration**
+
+To add a GitLab configuration:
+
+1. Go to **[Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code)**.
+
+2. Under **Self-hosted infrastructure**, find **GitLab** and click "Add configuration."
+
+3. Enter a display name, the hostname (gitlab.com, or your instance's hostname such as gitlab.example.com), the access token, and, for a self-managed instance with a private CA, the CA certificate.
+
+4. Click "Add configuration." Claude runs a connection test right away and shows the results in a **GitLab connection test** dialog.
+
+5. (Optional) To check that the token can read your marketplace project, enter its path (for example, `platform/claude-plugins`) under **Project path** and click "Test sync access."
+
+You can re-run the test at any time from the configuration's menu with **Test connection**. The hostname can't be changed later. If it changes, delete the configuration and add a new one.
+
+**Step 2: Add the marketplace**
+
+To add the marketplace:
+
+1. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the "Marketplaces" tab.
+
+2. Click "Add," then select "Sync from GitLab."
+
+3. In **GitLab repository URL**, enter the project's HTTPS URL, for example `https://gitlab.example.com/platform/claude-plugins`. Projects in nested subgroups work.
+
+4. Leave **Sync automatically** on if you want pushes to trigger a sync (see **Step 3**).
+
+5. Choose the **Default access** for the plugins the marketplace contains.
+
+6. Click "Create."
+
+Claude reads the project's default branch and validates the marketplace file before creating the marketplace, which is named after the project path.
+
+**Step 3: Automatic sync**
+
+With **Sync automatically** on, every push to the project's default branch triggers a sync through a webhook on the GitLab project. If your token can manage webhooks (see **Before you start**), Claude creates the webhook for you and there's nothing else to do.
+
+You can turn **Sync automatically** on or off later from the marketplace's menu. Turning it on sets up the webhook the same way.
+
+**Step 4: If Claude can't create the webhook**
+
+If the token can't manage webhooks, Claude shows a **Finish webhook setup in GitLab** message on screen with a **Webhook URL** and a token. The token is shown only once, so finish this step before closing the message.
+
+1. In your GitLab project, open **Settings > Webhooks** and add a new webhook with the URL from the message.
+
+2. Paste the token into the field.
+
+  1. If the message shows a **Secret token**, paste it into GitLab's Secret token field.
+
+  2. If the message shows a **Signing token** (gitlab.com and self-managed versions 19.1 or later), select "Generate signing token" in GitLab and replace the generated value with the one from Claude.
+
+3. Enable **Push events** and save.
+
+4. (Optional) Use **Test > Push events** on the new webhook in GitLab and confirm it reports HTTP 200.
+
+If you lose the token, open **Configure webhook** from the marketplace's menu, click "Remove webhook," then "Enable webhook" to get a new one. The old token will stop working.
+
+### Choose between manual upload and repository sync
 
 | **Scenario**                                         | **Recommended approach** |
 | ---------------------------------------------------- | ------------------------ |
-| Plugins are maintained in version control with CI/CD | GitHub sync              |
-| Multiple developers collaborate on plugins           | GitHub sync              |
-| You want automatic update propagation                | GitHub sync              |
-| You need more than 100 plugins in a marketplace      | GitHub sync              |
+| Plugins are maintained in version control with CI/CD | GitHub or GitLab sync    |
+| Multiple developers collaborate on plugins           | GitHub or GitLab sync    |
+| You want automatic update propagation                | GitHub or GitLab sync    |
 | Quick prototyping or one-off tools                   | Manual upload            |
 | Plugins built by non-engineering teams               | Manual upload            |
-| Environments without GitHub access                   | Manual upload            |
+| Environments without GitHub or GitLab access         | Manual upload            |
 | Testing a plugin before adding it to a synced repo   | Manual upload            |
 
 ---
@@ -1500,24 +1627,28 @@ During a sync, Cowork compares the latest commit in your repo against the last-s
 
 Once your marketplace has plugins, you control how they're distributed using installation preferences. For each plugin, you can set one of four options:
 
-| **Preference**        | **What it does**                                                            | **What members see**                                                                                 |
-| --------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Installed by default  | Automatically installed for all org members                                 | The plugin appears in their installed list without any action. Members can uninstall if they choose. |
-| Available for install | Listed in the plugin catalog                                                | Members see it when browsing plugins and can install it themselves.                                  |
-| Not available         | Hidden from the catalog entirely                                            | Members can't see or install the plugin. Useful for staging or deprecating plugins.                  |
-| Required              | Automatically installed for all org members without the option to remove it | The plugin appears in their installed list without any action and cannot be disabled or uninstalled. |
+| **Preference**       | **What it does**                                                            | **What members see**                                                                                                                                                                                                               |
+| -------------------- | --------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Installed by default | Pre-installs the plugin for all org members                                 | The plugin appears in their list without any action. Members can turn it off if they choose.                                                                                                                                       |
+| Available to install | Listed on the **Discover** tab                                              | Users see it on the **Discover** tab and can add it themselves.                                                                                                                                                                    |
+| Not available        | Hidden entirely                                                             | Users can't see or add the plugin. Useful for staging or deprecating plugins.                                                                                                                                                      |
+| Required             | Pre-installs the plugin for all org members without the option to remove it | The plugin appears in their list without any action, marked "This plugin is required by your organization." Users can't turn it off or remove it. It also stays on in Claude Code sessions that sync the member's account plugins. |
+
+**Important:** Plugins set to "Installed by default" or "Required" also install in Claude Code for users who sign in with their Claude account. In Claude Code, the plugin's hooks, sub-agents, and MCP servers run on the user's computer, and a "Required" plugin can't be disabled there. Review a plugin's hooks before you set it to "Required." Learn more about **[synced plugins](https://code.claude.com/docs/en/plugins-reference#synced-plugins)** in the Claude Code docs.
 
 ### Set preferences
 
-1. In **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, navigate to your marketplace.
+1. In **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**, click the “Inventory” tab.
 
-2. Select the installation preference for each plugin.
+2. Find the plugin and click the menu button at the end of its row.
 
-3. Changes take effect on each member's next session or plugin refresh.
+3. Click “Default access,” then select an option under **Install**.
+
+4. Changes take effect on each member's next session or plugin refresh.
 
 ### What members experience
 
-Members browse available plugins through the **Browse plugins** modal. Auto-installed plugins appear in their installed list automatically. Available plugins show up in the catalog for self-service installation.
+Members browse available plugins on the **Discover** tab in **Customize > Plugins**. Plugins you set to "Installed by default" or "Required" appear in their list automatically. Plugins you set to "Available to install" show up on **Discover** for members to add themselves.
 
 Members can't edit organization-managed plugins, which prevents conflicting changes to shared tooling.
 
@@ -1527,29 +1658,31 @@ Members can't edit organization-managed plugins, which prevents conflicting chan
 
 Enterprise admins can override a plugin's organization-wide installation preference for specific groups. For example, you can auto-install a plugin for the Engineering group, make it available for Legal to install on their own, and hide it from everyone else.
 
-Group-level plugin access is available on Enterprise plans and configurable by Admins and above.
+Group-level plugin access is available on Enterprise plans. You set it on the same **Organization settings > Plugins & skills** page, which requires an Owner or a custom role that includes managing the organization's libraries.
 
 ### How group overrides work
 
-Each plugin in your marketplace has an organization-wide installation preference (Installed by default, Available for install, Required, or Not available). By default, every group inherits that organization-wide setting.
+Each plugin in your marketplace has an organization-wide installation preference (Installed by default, Available to install, Required, or Not available). By default, every group inherits that organization-wide setting.
 
 When you set a group-level override for a plugin, it replaces the org-wide setting for members of that group. The resolution order is: group setting, then org-wide setting, then marketplace default.
 
 ### Set plugin access for a group
 
-1. In **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, navigate to your marketplace.
+1. In[https://claude.ai/admin-settings/plugins](https://claude.ai/admin-settings/plugins)**[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**[,](https://claude.ai/admin-settings/skills)click the “Inventory” tab.
 
-2. Find the plugin you want to customize.
+2. Find the plugin you want to customize and click the menu button at the end of its row.
 
-3. In the **Custom access** column, click “Add groups.”
+3. Click “Group access…”.
 
-4. Select the group and choose one of the installation preferences listed above.
+4. Click “Add groups” next to **Install targeting**.
+
+5. Select the group and choose one of the installation preferences listed above.
 
 Both manually created groups and SCIM-provisioned groups from your identity provider appear in the group picker and work the same way.
 
 ### What happens when a member is in multiple groups
 
-If a member belongs to two or more groups with different settings for the same plugin, the **most permissive** setting applies. The order from most to least permissive is: Required > Installed by default > Available for install > Not available.
+If a member belongs to two or more groups with different settings for the same plugin, the **most permissive** setting applies. The order from most to least permissive is: Required > Installed by default > Available to install > Not available.
 
 For example, if Group A sets a plugin to "Not available" and Group B sets it to "Installed by default," a member in both groups gets the plugin installed by default.
 
@@ -1557,11 +1690,11 @@ For example, if Group A sets a plugin to "Not available" and Group B sets it to 
 
 ### What happens when a group is deleted
 
-If a group is removed (for example, deleted from your identity provider), the override remains in the admin UI but is flagged as orphaned. It has no effect on members (since no one belongs to a deleted group) and doesn't count toward the custom access badge. You can clear orphaned overrides from the plugin's custom access settings.
+If a group is removed (for example, deleted from your identity provider), the override remains in the admin UI but is flagged as orphaned. It has no effect on members (since no one belongs to a deleted group) and doesn't count toward the custom access badge. You can clear orphaned overrides from the plugin's “Group access…” settings.
 
 ### Do group settings persist across marketplace re-syncs?
 
-Yes. Group-level overrides persist when you re-sync a GitHub-connected marketplace. They're only removed if the plugin itself is deleted from the marketplace.
+Yes. Group-level overrides persist when you re-sync a GitHub- or GitLab-connected marketplace. They're only removed if the plugin itself is deleted from the marketplace.
 
 ---
 
@@ -1571,11 +1704,13 @@ Yes. Group-level overrides persist when you re-sync a GitHub-connected marketpla
 
 To update a plugin, upload a new ZIP file with the same plugin name. The new version overwrites the existing one automatically. Plugin names are the unique identifier, so `legal` will always replace `legal`.
 
-To remove a plugin, delete it from your marketplace in **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+To remove a plugin, delete it from your marketplace in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** under the “Inventory” tab.
 
 ### GitHub-synced marketplaces
 
-Push your changes to the connected repository, then go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**, find your marketplace, and click "Update" to trigger a sync. Each sync replaces all plugins with the current state of the repo. If an owner has enabled "Sync automatically" for the marketplace, a sync also runs whenever a pull request with a plugin version bump is merged to the repository's default branch.
+Push your changes to the connected repository, then go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Marketplaces” tab, find your marketplace, and click "Update" to trigger a sync. Each sync replaces all plugins with the current state of the repo. If an owner has enabled "Sync automatically" for the marketplace, a sync also runs whenever a pull request with a plugin version bump is merged to the repository's default branch.
+
+For GitLab-synced marketplaces, see **[Set up a GitLab-synced marketplace](#h_6be3dfbfbc)**.
 
 To remove a plugin, delete it from the repository and trigger a sync.
 
@@ -1583,14 +1718,16 @@ To remove a plugin, delete it from the repository and trigger a sync.
 
 ## Limits
 
-| **Limit**                                 | **Value**                | **Notes**                                                                        |
-| ----------------------------------------- | ------------------------ | -------------------------------------------------------------------------------- |
-| Max plugin ZIP size (upload)              | 50 MB                    | Enforced both client-side and server-side                                        |
-| Max plugins per marketplace (manual)      | 100                      | Per marketplace                                                                  |
-| Max plugins per marketplace (GitHub sync) | 500                      | Per marketplace                                                                  |
-| Max plugin name length                    | 64 characters            | Must use lowercase words separated by hyphens                                    |
-| Sync timeout                              | 30 minutes               | Per sync operation                                                               |
-| GitHub repo visibility                    | Private or internal only | Hosted on github.com or GitHub Enterprise Server. Public repos aren't supported. |
+| **Limit**                                           | **Value**                                             | **Notes**                                                                                                                                                                                                                                                                                           |
+| --------------------------------------------------- | ----------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Max plugin ZIP size (upload)                        | 200 MB                                                | Enforced both client-side and server-side                                                                                                                                                                                                                                                           |
+| Max plugins per marketplace (manual)                | 1000                                                  | Per marketplace                                                                                                                                                                                                                                                                                     |
+| Max plugins per marketplace (GitHub or GitLab sync) | 1000                                                  | Per marketplace                                                                                                                                                                                                                                                                                     |
+| Max plugin name length                              | 64 characters                                         | Must use lowercase words separated by hyphens                                                                                                                                                                                                                                                       |
+| Sync timeout                                        | 30 minutes                                            | Per sync operation                                                                                                                                                                                                                                                                                  |
+| Synced repository visibility                        | Private or internal only on github.com and gitlab.com | Hosted on github.com, GitHub Enterprise Server, gitlab.com, or a self-managed GitLab instance. GitLab hosts (including gitlab.com) require a GitLab configuration in **[Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code)**.
+​
+Public repos aren't supported. |
 
 ---
 
@@ -1622,7 +1759,7 @@ Names that impersonate official Anthropic marketplaces are also blocked.
 
 ### Upload rejected
 
-Common causes: the file exceeds 50 MB, it isn't a valid ZIP file, or the marketplace has reached the 100-plugin limit. Check the file size and format, and remove unused plugins if you're at capacity. If skill and plugin scanning is on, a plugin can also be rejected because it was flagged for malicious content. Review the reason, fix the issue, and upload the plugin again.
+Common causes: the file exceeds 200 MB, it isn't a valid ZIP file, or the marketplace has reached the 1000-plugin limit. Check the file size and format, and remove unused plugins if you're at capacity. If skill and plugin scanning is on, a plugin can also be rejected because it was flagged for malicious content. Review the reason, fix the issue, and upload the plugin again.
 
 ### Plugin not appearing for members
 
@@ -1630,21 +1767,17 @@ Check the plugin's installation preference in your marketplace settings. If it's
 
 ### Updated plugin not reflecting for members
 
-Changes take effect on each member's next session or plugin refresh. If the update still isn't showing, confirm the upload succeeded by checking the plugin version in your marketplace.
+Changes take effect on each member's next session or plugin refresh. In Claude Code, users get the change the next time they start Claude Code. If the update still isn't showing, confirm the upload succeeded by checking the plugin version in your marketplace.
 
 ### GitHub sync fails with a content error
 
-One or more plugins in your repo is likely formatted incorrectly. Fix the formatting issue, push the update to GitHub, and trigger the sync again. For plugin structure requirements, see the **[plugin reference documentation](https://code.claude.com/docs/en/plugins-reference)**.
+One or more plugins in your repo is likely formatted incorrectly. Fix the formatting issue, push the update to GitHub, and trigger the sync again. For plugin structure requirements, see the **[plugin manifest reference](https://code.claude.com/docs/en/plugins/manifest-reference)**.
 
-### Sync fails with "External plugin source is not yet supported," or plugins are skipped with "Repository not found on github.com. Check the URL and make sure the repository is public."
+### Sync fails with "External plugin source type is not supported. Supported types: git-subdir, github, url" or plugins are skipped with "Repository not found on gitlab.com. Check the URL and make sure the repository is public."
 
-One or more plugin entries in your `marketplace.json` use a `source` that points outside the connected repository (a `github`, `url`, or `git-subdir` source), and organization sync can't fetch it. A private source only works in two cases: a github.com repository shares your marketplace repository's owner, or a repository on your organization's GitHub Enterprise host with your GitHub Enterprise App installed on it.
+One or more plugin entries in your `marketplace.json` use a `source` that points outside the connected repository (a `github`, `url`, or `git-subdir` source), and organization sync can't fetch it. A private source only works in three cases: a github.com repository shares your marketplace repository's owner, a repository on your organization's GitHub Enterprise host with your GitHub Enterprise App installed on it, or a url or git-subdir source on the same GitLab host as your marketplace repository (on gitlab.com, also under the same top-level group or user namespace).
 
-For any other private source, move the plugin folders into the marketplace repository and change each entry's `source` to a relative path (for example, `"./plugins/my-plugin"`), then push and re-sync. Alternatively, upload the affected plugins individually via **Organization settings > Plugins > Add plugins > Upload a file**, then select "Add to an existing marketplace." Plugins uploaded through a member's own Customize menu are installed only for that member and aren't distributed to your organization.
-
-### Plugins disappeared after a failed sync
-
-A failed GitHub sync can temporarily remove plugins from your marketplace. Fix the underlying issue, re-sync successfully, then verify that installation preferences are set correctly, since they may have been reset.
+For any other private source, move the plugin folders into the marketplace repository and change each entry's `source` to a relative path (for example, `"./plugins/my-plugin"`), then push and re-sync. Alternatively, upload the affected plugins individually via **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** Click “Add,” “Upload a plugin,” then select "Add to an existing marketplace." Plugins uploaded through a member's own Customize menu are installed only for that member and aren't distributed to your organization, although members can share plugins with specific colleagues or groups if sharing is turned on.
 
 ### Can't see a GitHub repo when connecting
 
@@ -1657,6 +1790,26 @@ If manual updates work but turning on "Sync automatically" shows "Cannot access 
 - **You don't have admin access to the repository.** Turning on automatic sync creates a webhook, which requires admin-level access to the repo through your personal GitHub connection. Ask a repository admin to enable the toggle, or have your GitHub access upgraded.
 
 - **The Claude GitHub App's Webhooks permission hasn't been approved.** On older installations, GitHub shows a "Claude is requesting updated permissions" prompt. A repository or organization admin needs to approve the **Webhooks (Read & Write)** permission on the installation.
+
+### "No GitLab instance is configured for your organization yet. Add one under Claude Code settings, then come back here" when adding a marketplace
+
+If you see this message when adding a marketplace in GitLab, make sure you’ve added the GitLab configuration first. See **Step 1: Add a GitLab configuration** under **[Set up a GitLab-synced marketplace](#h_6be3dfbfbc)**.
+
+### "This URL isn’t on a configured GitLab instance"
+
+Make sure the URL's hostname matches a configured GitLab hostname exactly.
+
+### Adding a gitlab.com project fails with "Failed to create marketplace. Try again."
+
+Check that the project's visibility is private or internal. Public gitlab.com projects can't be used as organization marketplaces.
+
+### The connection test fails at Reach host (for example "The hostname couldn’t be resolved," "The connection was refused," or "GitLab didn’t respond in time"), or adding a marketplace on a self-managed instance fails with a generic error
+
+Confirm the instance is reachable from the public internet over HTTPS and that Anthropic's outbound IP addresses are allowed through your firewall. "A secure connection couldn’t be established" usually means the CA certificate is missing or wrong.
+
+### Errors that start with "Authentication to … failed" or "Access denied"
+
+The token is expired, revoked, or missing a scope or role listed in the **Before you start** section under **[Set up a GitLab-synced marketplace](#h_6be3dfbfbc)**. Create a new token and paste it into the configuration (**Edit > Access token**).
 ---
 
 SOURCE: https://support.claude.com/en/articles/13917829-microsoft-entra-id-sso-scim-email-mismatch
@@ -2406,6 +2559,8 @@ Start the SSO setup flow there and keep it open alongside the Okta Admin console
 
 2. Under **Attribute Statements**, add an attribute named email with value user.email.
 
+  1. If you use group mappings (JIT or SCIM provisioning with **Enable group mappings** turned on), also add a Group Attribute Statement named "groups" with a filter that includes every Okta group you map to a Claude role or seat type. Without it, sign-ins arrive with no group information: users can’t be assigned a mapped role, and under JIT with group mappings, a user whose sign-in includes no mapped group is removed from the organization at their next login. See **[Set up JIT or SCIM provisioning](https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning)**.
+
 3. Download the **Identity Provider metadata** XML and upload it in the WorkOS setup flow when prompted.
 
 ## Step 3 — Enable SCIM provisioning
@@ -2723,12 +2878,14 @@ Before you trigger a manual resync, keep these in mind:
 
 - **Resyncing cascades to child organizations.** If you have multiple organizations with SCIM provisioning under the same **parent organization**, resyncing one triggers resyncing in the others. This includes sandbox organizations sharing the same parent.
 
-- **Incomplete group mappings remove members from the organization.** When enabling group mapping for SCIM, finish assigning all groups before saving. Any member not included in a role group mapping is removed from the organization. If you enable seat tier mapping, any member not in a seat tier group mapping is also removed.
+- **Incomplete role mappings remove members from the organization.** When enabling group mapping for SCIM, finish assigning all groups before saving. Any member not included in a role group mapping is removed from the organization. Seat tier mappings work differently: a member who isn’t in any seat tier group isn’t removed. Existing members keep their current seat type, and newly provisioned members receive the highest seat type that still has an unassigned purchased seat, then the next seat type down, and are added with no seat if none is available.
 ---
 
 SOURCE: https://support.claude.com/en/articles/14503613-sso-login
 
 # SSO login
+
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
 
 Claude for Government requires Single Sign-on (SSO) for user authentication. Unlike the commercial Claude Enterprise plan, email based (magic link) login is only available to the Primary Owner during account setup. All other users must authenticate through your organization's identity provider (IdP).
 
@@ -2837,6 +2994,8 @@ After SSO is configured, any user assigned to the SAML application in your IdP c
 SOURCE: https://support.claude.com/en/articles/14503643-set-up-scim-in-claude-for-government
 
 # Set up SCIM in Claude for Government
+
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
 
 System for Cross-domain Identity Management (SCIM) lets your identity provider automatically manage user accounts in Claude for Government. With SCIM, your IdP controls who has access, what role they hold, and what seat tier they're assigned—without manual intervention in the Claude admin console.
 
@@ -2949,6 +3108,8 @@ In a multi-org setup:
 SOURCE: https://support.claude.com/en/articles/14503675-organization-instructions-in-claude-for-government
 
 # Organization instructions in Claude for Government
+
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
 
 Organization instructions allow administrators to define custom instructions that Claude follows in every conversation for all users in the organization. Use this to set compliance guidance, communication standards, formatting requirements, or domain-specific context.
 
@@ -3183,7 +3344,7 @@ SOURCE: https://support.claude.com/en/articles/14782391-claude-enterprise-consum
 
 Claude Enterprise gives your organization access to powerful AI across chat, Claude Code, Claude Cowork, Claude Design, and Claude in the tools your teams already use, including Microsoft 365, Chrome, and Slack. With that access comes the responsibility of managing consumption effectively—ensuring your team gets maximum value while keeping usage predictable and within budget.
 
-This guide walks Enterprise admins through the key levers available to control and optimize token consumption: setting spend caps, configuring role-based access controls, educating users, and choosing the right model and effort level for the right task.
+This guide walks Enterprise admins through the key levers available to control and optimize token consumption: setting spend caps, configuring role-based access controls, educating users, choosing the right model and effort level for the right task, and measuring what your spend produces.
 
 ---
 
@@ -3219,7 +3380,7 @@ Role-based access controls (RBAC) let you group users and manage their access to
 
 Think about groups in terms of job function and use case, not organizational hierarchy. A few principles:
 
-- Create groups that map to distinct usage patterns, not org chart boxes. "Engineering" and "Sales" are more useful than "North America" and "EMEA" for consumption management.
+- Create groups that map to distinct usage patterns, not org chart boxes. "Engineering" and "Sales" are more useful than "North America" and "EMEA" for consumption management. Functional groups also make smart reports more useful, since reports scoped to a team produce findings specific enough to act on.
 
 - Limit group proliferation. More than 8–10 groups becomes hard to manage. Start with 4–6 and split only if usage patterns clearly diverge.
 
@@ -3233,9 +3394,11 @@ Once groups are configured:
 
 - Review group consumption weekly during initial rollout, monthly thereafter.
 
-- When a group consistently approaches its cap, investigate before automatically raising it—the right response might be model guidance (use Sonnet instead of Opus) rather than more budget.
+- When a group consistently approaches its limit (see Time at limit on the Usage page), investigate before automatically raising it. A smart report scoped to that group shows what the spend is producing, or you can send that group a short survey to ask directly. The right response might be a lower effort cap or clearer model guidance. If the report shows high-value work, raise the limit, because members at their limit are often your top adopters.
 
 - Consider assigning a "group owner" in each department who is responsible for reviewing usage and fielding questions from their team. This distributes the admin burden and puts someone with business context in the loop. You don't need to make these people Owners or Admins: create a custom role that grants the Analytics (Can view) admin permission—and optionally Billing (Can view) so they can see the Usage page—and assign it to a small 'usage reviewers' group. Admin permissions only apply to members whose role is set to Custom, and Analytics view access is organization-wide rather than limited to their group.
+
+- To give a group owner a view of just their team, you can let them run smart reports scoped to their groups. See **[Let team members run smart reports for specific groups](https://support.claude.com/en/articles/16948886-let-team-members-run-smart-reports-for-specific-groups)**.
 
 **Governance tip: Surface access as a first gate**
 
@@ -3245,11 +3408,11 @@ Before worrying about token-level limits, make sure the right people have access
 
 ## Set spend limits
 
-Spend limits are your primary tool for controlling consumption. Claude Enterprise lets admins set limits at three levels: the organization level, the group level (with RBAC), and the individual user level. **Our recommended approach is to start with RBAC group-level limits and per-user limits**—these give you precise, targeted control without the risk of cutting off your entire org if a limit is hit.
+Spend limits are your primary tool for controlling consumption. Claude Enterprise lets admins set limits at three levels: the organization level, the group level (with RBAC), and the individual user level, plus optional pooled budgets that give a group one shared monthly amount. **Our recommended approach is to start with RBAC group-level limits and per-user limits**—these give you precise, targeted control without the risk of cutting off your entire org if a limit is hit.
 
 ### Org-level spend limits
 
-The org-level limit is available as a hard ceiling across all users and surfaces, but use it carefully: hitting it affects everyone simultaneously, which can be disruptive. Most admins find that managing consumption at the group and user level gives them better outcomes with less operational risk.a
+The org-level limit is available as a hard ceiling across all users and surfaces, but use it carefully: hitting it affects everyone simultaneously, which can be disruptive. Most admins find that managing consumption at the group and user level gives them better outcomes with less operational risk.
 
 ### Group spend limit
 
@@ -3265,7 +3428,17 @@ Note the following precedence rules:
 
 - **No limit anywhere = no limit.** If a member has no individual limit and none of their groups have a limit, their spend isn't capped.
 
-**How to configure:** Organization settings → Usage → By group. Set limits to either a specific dollar amount or "Unlimited."
+**How to configure:** Organization settings → Usage → By group/tier. Set limits to either a specific dollar amount or "Unlimited."
+
+### Pooled group budgets (beta)
+
+A group spend cap gives each member the same individual limit. A pooled budget gives the whole group one shared monthly amount that every member draws from. Use it when a team has a fixed budget but uneven usage across members.
+
+Every request counts against both the member's own monthly limit and the group's pool. The member stops at whichever runs out first. Usage can go slightly over a limit before it pauses. Set the per-member limit as a guardrail, not an equal share of the pool. **When the pool runs out, usage pauses for every member of the group** until an admin raises it or it resets the next month. Billing admins get email alerts at 50%, 75%, 95%, and 100% of the pool.
+
+If a member belongs to more than one pooled group, the largest pool is used first. You can set a custom order under **Pooled budget priority**.
+
+**How to configure:** **Organization settings > Usage > Spend limits > By group/tier**. Open the group's menu, choose **Edit limits**, and set a **Pooled monthly budget** and a **Member monthly limit**. The group needs a monthly spend limit first. Owners, Primary Owners, Admins, the Billing role, and custom roles with Billing (Can manage) can set pools. In beta, the Billing permission applies to the whole org, so anyone who can edit one group's pool can edit every group's pool. Pools aren't available through the Admin API yet. See **[Manage pooled group budgets on Enterprise plans](https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans)**.
 
 ### User-level spend caps
 
@@ -3279,7 +3452,7 @@ User-level caps let you set consumption limits for individual accounts. These ar
 
 - Give power users (engineers, data scientists, researchers) higher or uncapped individual limits, but offset this by ensuring they use the right Claude model for the right task.
 
-- Monitor individual usage reports monthly to identify outliers—both users consistently hitting their cap (may need more) and users consuming very little (may not be activated yet).
+- Check Time at limit on the Usage page monthly to see how often members are reaching their limits. Also watch for users consuming very little, who may not be activated yet.
 
 ---
 
@@ -3291,12 +3464,12 @@ Effort level is a second consumption lever. Users can choose how much thinking C
 
 ### The right model for the right task
 
-| **Model**     | **Best for**                                      | **Token intensity** | **Recommended use**                                                                                         |
-| ------------- | ------------------------------------------------- | ------------------- | ----------------------------------------------------------------------------------------------------------- |
-| Claude Fable  | Days-long agentic coding work and reasoning tasks | Very High           | Reserve for your highest-value, most complex agentic work. Premium pricing and faster usage draw than Opus. |
-| Claude Opus   | Complex reasoning, research, multi-step tasks     | High                | Reserve for power users or specific workflows only                                                          |
-| Claude Sonnet | Everyday tasks, writing, analysis, Q&A            | Moderate            | Default model for all users—set as your org-wide default (see below)                                        |
-| Claude Haiku  | Simple lookups, summaries, fast responses         | Low                 | High-volume, lightweight automation tasks                                                                   |
+| **Model**     | **Best for**                                                                                 | **Token intensity** | **Recommended use**                                                                                |
+| ------------- | -------------------------------------------------------------------------------------------- | ------------------- | -------------------------------------------------------------------------------------------------- |
+| Claude Fable  | The hardest, open-ended work: deep research, complex analysis, and long-running agentic work | Very High           | Our most advanced generally available model, for your hardest and highest-value work.              |
+| Claude Opus   | Complex reasoning, research, writing, analysis, coding, and multi-step tasks                 | High                | A strong default for most roles, and for complex, multi-step work                                  |
+| Claude Sonnet | Everyday tasks, writing, analysis, Q&A                                                       | Moderate            | A fast option for lighter everyday tasks, or a default for groups doing high-volume, simpler work. |
+| Claude Haiku  | Simple lookups, summaries, fast responses                                                    | Low                 | High-volume, lightweight automation tasks                                                          |
 
 ### Set your organization's default model
 
@@ -3306,15 +3479,17 @@ You have two options:
 
 - **Anthropic recommended** — automatically updates as new models ship, so your org always starts on our current recommended general-purpose model with no manual upkeep.
 
-- **Choose your own** — sets a specific model as the org default and holds it there until you change it. Use this when you want to standardize on a known model for consumption predictability (for example, defaulting to Sonnet rather than Opus).
+- **Choose your own** — sets a specific model as the org default and holds it there until you change it. Use this when you want to standardize on a known model for consumption predictability (for example, defaulting to Opus and giving Fable to the roles that do the hardest work).
 
 This setting applies to new conversations in chat, Claude Cowork, Claude Code (CLI 2.1.199 or later), and Claude for Microsoft 365. If the selected model isn't available in a product, Anthropic's recommended default is used. If you also pin a model for Claude Code through managed settings, that setting takes precedence for the CLI and IDE. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**.
 
-You can also set model defaults by role through Custom Roles, so different groups can start on different models—for example, defaulting your engineering group to one model and the rest of the org to another. This pairs naturally with the RBAC groups you've already configured (see Section 2).
+**Sticky defaults - always start with the default model and effort level (beta).** By default, the model picker is sticky: new conversations start on whatever model a member last used. To change that, turn on **Always start with the default model and effort level** in **Organization settings > Models**. Every new conversation then starts on the org's default model and default effort level. Members can still change both within a conversation.
 
-**How to configure:** Organization settings → Models.
+Sticky defaults upgrade automatically. When a launch changes the default model, the sticky model moves to the new default, so no one is left on an older model. Roles that set their own default model have the same switch in the role editor. It works in chat, Claude Cowork, Claude Code, Claude for Microsoft 365, Claude Design, and Claude Science. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**.
 
-**Note:** Users' current model selection for new conversations may be cleared, so they'll pick up the org default on their next conversation.
+To follow the recommended configuration above, set defaults by role through Custom Roles. For example, you might make Claude Opus the org default and Claude Fable the default for your research and analysis roles. This builds on the RBAC groups you've already set up (see **Role-based access controls** above).
+
+**How to configure:** **Organization settings > Models** for the org default. For role defaults, go to **Organization settings > Roles > select a role > Models tab**.
 
 ### Manage model access for your organization
 
@@ -3328,17 +3503,15 @@ If a member belongs to multiple groups with different custom roles, access is **
 
 **Capping effort level by role**
 
-Beyond restricting which models a role can use, you can cap the **maximum effort level** members on that role can select per model — a more granular version of the effort guidance already covered above. This only applies to Custom roles, not at the org level. If a member has multiple roles, the highest effort cap across those roles wins.
+Beyond restricting which models a role can use, you can cap the **maximum effort level** members on that role can select per model — a more granular version of the effort guidance already covered above. You can also set an effort cap for the whole organization, which is the highest level any role can allow. If a member has multiple roles, the highest effort cap across those roles wins.
 
-**Admin tip: Pair model + effort restrictions**
-
-If model guidance (the "Sonnet is your default" messaging) isn't landing and you're still seeing heavy Opus consumption, restricting Opus access to specific roles—or capping effort to Medium/High instead of Max for non-power-user roles—is the next lever. Reserve full access for the roles where deep reasoning actually pays off.
+You can also set a **default effort level** for a role's default model, so new conversations start at the level you choose, either Anthropic's recommended default or a specific level. The default can't be higher than the effort cap for that model. See **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization?utm_source=it&utm_medium=email&utm_campaign=2026_Q3_PMM_MKTG_EntAdmin_Newsletter_Sept16&utm_term=ent_admins&utm_content=inline_link&campaign=19893371#h_d5373c4106)** to learn more.
 
 **Where this applies**
 
 Model access and effort restrictions are enforced across most Claude products, including chat (web, desktop, mobile), Claude Cowork, and Claude Code (CLI 2.1.199 or later—earlier versions still show restricted options but requests using them are rejected). Claude in Chrome and Claude Security don't support this yet. For the current list of supported products, see **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
 
-**How to configure:** Organization settings → Roles → select a role → Models tab. Set model access, an optional effort cap per model, and an optional role-level default model. To manage configuration across the org, go to **Organization settings → Models**.  More details in **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
+**How to configure:** **Organization settings > Roles > select a role > Models tab**. Set model access, an optional effort cap per model, an optional role-level default model, default effort level, and the **Always start with the default model and effort level** switch. To manage configuration across the org, go to **Organization settings > Models**.  More details in **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
 
 ### Admin configuration recommendations
 
@@ -3414,11 +3587,53 @@ This is useful for the same per-skill ROI questions above, just broken down by i
 
 ### Admin API
 
-For organizations managing limits across many groups, the **[Admin API](https://support.claude.com/en/articles/15330651-claude-enterprise-admin-api-reference-guide)** moves cost-control workflows into scripts — automating increase-request reviews, flagging members near their limits, and surfacing rapidly changing usage at scale. The API reads every member's effective limit and month-to-date spend and sets or clears per-user overrides. Group, seat-type, and org-level limits are still configured in Organization settings. The Admin API's user-management endpoints (currently in beta for Enterprise organizations) also let you create groups, add or remove members, and read your custom roles programmatically. See **[User management](https://platform.claude.com/docs/en/manage-claude/user-management)**.
+For organizations managing limits across many groups, the **[Admin API](https://support.claude.com/en/articles/15330651-claude-enterprise-admin-api-reference-guide)** moves cost-control workflows into scripts — automating increase-request reviews, flagging members near their limits, and surfacing rapidly changing usage at scale. The API reads every member's effective limit and month-to-date spend and sets or clears per-user overrides. Group, seat-type, org-level limits, and pooled group budgets are still configured in Organization settings. The Admin API's user-management endpoints (currently in beta for Enterprise organizations) also let you create groups, add or remove members, and read your custom roles programmatically. See **[User management](https://platform.claude.com/docs/en/manage-claude/user-management)**.
 
 ### Spend-threshold alerts
 
-Spend-threshold alerts notify admins at 75% and 90% of an org-level spend limit, giving you time to raise the cap before anyone is blocked mid-task.
+Spend-threshold alerts notify admins at 75% and 90% of an org-level spend limit, giving you time to raise the cap before anyone is blocked mid-task. Pooled group budgets send their own alerts to billing admins at 50%, 75%, 95%, and 100% of the pool.
+
+### In-product surveys
+
+The analytics above tell you how much your team uses Claude; surveys tell you what they're doing with it and what's getting in their way. From **[Analytics > Surveys](https://claude.ai/analytics/surveys)**, admins can send users a short survey that appears in Cowork or chat at a natural break in their work. Pick the audience by group, set a window, and review aggregated results in the console, including response rate, a breakdown by surface and group, and a feed of written answers, with a CSV export per survey. Learn more about **[creating surveys for your organization](https://support.claude.com/en/articles/16764057)**.
+
+### Time at limit (Usage page)
+
+The Usage page in **Organization settings > Usage** opens with a view of how often members are reaching their spend limits. It shows time at limit per active seat this month, for all members and for your power users (the top 10% by spend), plotted against prior months with a forecast. It also calls out which group or limit type accounts for the most time at limit, so you know where to look first.
+
+Use this view as your check on whether limits fit how people work. Rising time at limit means members are getting blocked mid-task. You can adjust limits from the same page: raise a default, or increase the limits of the members who reached them.
+
+### Smart reports (beta)
+
+Analytics shows how much each team spends. Smart reports show what that spend is producing. Scope a report to a team, a date range, and the products you want to include. Claude reviews a sample of transcripts and breaks spend down by workstream and output type.
+
+For consumption management, focus on these sections:
+
+- **Cost per session by type of output.** See which kinds of work are expensive to produce, and whether that cost matches their value.
+
+- **Most common frictions and inefficiencies.** Rework loops and sessions with no usable output are spend with no return. Repeated friction often points to a connector or setting you can turn on in minutes.
+
+- **Reusable skills and workflows to build.** Packaging repeated work as a shared skill gets the whole team a consistent result faster. Once it's rolled out, track its cost and ROI in the Skills view.
+
+- **Most expensive sessions.** See where spend concentrates.
+
+Smart reports are designed to help you understand adoption and plan investment, not to evaluate individual performance. For availability, setup, and how to create and share reports, see **[Get started with smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports)**.
+
+### Surveys (beta)
+
+You can run a short survey inside Claude to learn what people use Claude for, what it's worth to them, and where they're stuck. Then compare their answers with your spend data.
+
+Surveys show up as a card between tasks in Claude Cowork, or after a reply in chat, and never interrupt a running task. You can send one to all members or to specific groups, pick Cowork, chat or both, and set start and end dates. Each user sees a survey only once. Results update while the survey is live: response rate, bar charts for multiple-choice questions, and a feed of written answers you can filter by group. You can also export them to CSV.
+
+For consumption management, surveys are useful for:
+
+- **Checking value behind high spend.** When a group is often at its limit, ask what it's using Claude for before you raise or lower the cap.
+
+- **Filling in your ROI numbers.** Ask how much time Claude saves on key workflows, and use the answers as your value-per-run estimates in the Skills ROI analysis.
+
+- **Finding friction.** Ask where Claude isn't helping. Answers often point to a connector, skill, or model setting to change.
+
+**How to configure:** **Analytics > Surveys > New survey**. Primary Owners, Owners, Admins, and custom roles with Analytics view access can create surveys and see results. Responses go to your org's admins, and Anthropic accesses them only as needed to run the service. Don't put regulated data such as PHI in responses. Responses aren't anonymous: the export includes each respondent's email. Surveys aren't available yet for organizations using customer-managed encryption keys (CMEK). See **[Create surveys for your organization](https://support.claude.com/en/articles/16764057-create-surveys-for-your-organization)**.
 
 ---
 
@@ -3442,11 +3657,11 @@ When you onboard users, share the following:
 
 - Sonnet is the default and handles most tasks well. Use Opus only when Sonnet isn't getting you where you need to go.
 
-- Your org has a default model set for new conversations; you can still switch models mid-conversation when a task needs it.
+- Your org has a default model set for new conversations; you can still pick a different model. Choose it at the start of a task.
 
 - The model selector is visible in the interface—remind users to check it, especially if they're running complex tasks.
 
-- The model selector is sticky, so make it a practice to check that it's the model you want to use.
+- Unless your admin has turned on Always start with the default model, the model selector remembers your last choice, so check it before you start a task.
 
 - The effort level appears next to the model name. Higher effort means more thorough responses but higher token consumption, so match it to the task.
 
@@ -3455,6 +3670,8 @@ When you onboard users, share the following:
 - Users are notified in-product as they approach their spend limit and, once they hit it, can click "Request more usage" to send an increase request to admins without leaving Claude. Tell users who their approver is and your expected turnaround.
 
 - Nothing they've already produced is lost. The request that's already in flight completes, but further requests are blocked, so a multi-step Claude Code or Claude Cowork task may pause before it finishes. They can pick the work back up as soon as an admin raises the limit, or when limits reset at 00:00 UTC on the 1st of the month.
+
+- If your group uses a pooled budget, usage can pause for the whole group when the shared pool runs out, even if you haven't reached your own limit.
 
 **Resources to share with users**
 
@@ -3534,27 +3751,31 @@ SOURCE: https://support.claude.com/en/articles/15330088-set-a-default-model-for-
 
 # Set a default model for your organization
 
-This guide explains how to choose the Claude model that new conversations start on across your organization. You can set one default for your whole organization, or set different defaults for specific custom roles.
+This guide explains how to choose the Claude model that new conversations start on across your organization. You can set one default for your whole organization, or set different defaults for specific custom roles. You can also make every new conversation start on your default model and effort level, even after users pick a different model.
 
 Default model settings are available for Enterprise plan organizations. Primary Owners, Owners, and members whose custom role grants the Identity & Access permission can manage them in **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
+
+You can also set the default effort level that new conversations start on, or leave it on Anthropic's recommended default effort. To control which models members can use and cap the effort level they can select, see **[Manage model access for your organization](https://support.claude.com/en/articles/15694740)**.
 
 ---
 
 ## How default models work
 
-When you set or change a default model, it replaces the model currently selected in each member’s model picker. New conversations in chat, Claude Cowork, Claude Code, and Office Agents then start on the model you’ve chosen.
+When you set or change a default model, it replaces the model currently selected in each member’s model picker. New conversations in chat, Cowork, Claude Code, Claude for Office, Claude Design, and Claude Science then start on the model you’ve chosen.
 
 **Note:** Not all models are available in every product. If the selected model is not available in the product, Anthropic’s recommendation is used as default.
 
-Members can still select a different model for any conversation. Claude remembers each member’s last selection, so their next conversation starts on whichever model they last used. When you update the default again, the new default replaces their selection.
+Users can still select a different model for any conversation. By default, Claude remembers each user's last selection, so their next conversation starts on whichever model they last used. When you update the default again, the new default replaces their selection. To have every new conversation start on the default instead, see **Always start new conversations on the default model** below.
 
-For example: you set the organization default to Claude Sonnet 4.6, and every member’s new conversations start on Sonnet 4.6. A member switches a conversation to Claude Opus 4.7, so their next conversations start on Opus 4.7. When you later change the organization default, the new default replaces their selection again.
+For example: you set the organization default to Claude Sonnet 4.6, and every member’s new conversations start on Sonnet 4.6. A member switches a conversation to Claude Opus 4.7, so their next conversations start on Opus 4.7. When you later change the organization default, the new default replaces their selection again. If you turn on **Always start with the default model and effort level**, their next chat starts on Sonnet 4.6 no matter which model they used last.
 
 You can set a default at two levels:
 
 - Organization default: applies to every member of your organization.
 
 - Custom role default: applies to members assigned to that role and takes precedence over the organization default.
+
+Alongside the default model, you can set a default effort level. New conversations on the default model start at that effort level. Members can still change the effort level for any conversation, within the organization's effort cap for that model and any cap set by their custom role. If the default effort is higher than a cap that applies to a member, their conversations start at the highest level they're allowed.
 
 **Note:** Members on Claude Code CLI versions earlier than 2.1.199 won't pick up the organization default. Versions 2.1.196 through 2.1.198 also had a bug where setting a specific organization default caused other enabled models to disappear from the model picker in the CLI and VS Code extension; updating to 2.1.199 or later resolves both.
 
@@ -3570,17 +3791,71 @@ The organization default applies to every member. To set it:
 
 1. Navigate to **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
 
-2. Under **Default model**, select an option:
+2. Under **Default model**, select an option under the model dropdown list:
 
   1. “Use Anthropic’s recommended default”: Anthropic’s recommended model that updates automatically when new models are released.
 
   2. “Choose a specific model”: a specific model that won’t change when new models are released.
 
-3. If you select “Choose a specific model,” choose a model from the list.
+3. If you select “Choose a specific model,” choose a model from the list. Only models enabled under **Model access** on the same page can be selected.
 
 4. Click “Save changes.”
 
 
+
+---
+
+## Set the default effort level
+
+The default effort level applies to new conversations on the organization default model. To set it:
+
+1. Navigate to **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
+
+2. Under **Default model**, select an option under the effort level dropdown list:
+
+  1. "Use Anthropic's recommended default effort": Anthropic's recommended effort level for the default model, which updates automatically when recommendations change.
+
+  2. Choose a level from the list. Available effort levels differ depending on the model, and some models don't support effort level settings at all.
+
+3. Click "Save changes."
+
+The default effort level can't be higher than the organization's effort cap for the default model. If you lower that cap below the current default effort, the default effort is lowered to match.
+
+---
+
+## Always start new chats on the default model (beta)
+
+By default, each user's next conversation starts on the model they last used. Turn on this setting to have every new conversation start on your organization's default model and default effort level instead.
+
+1. Navigate to **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
+
+2. Turn on **Always start with the default model and effort level**.
+
+3. Click "Save."
+
+With this setting on:
+
+- Every new conversation starts on the default model at the default effort level.
+
+- Users can still change the model and effort level within a conversation. Their next conversation starts on the default again.
+
+- When the default model changes, new conversations move to the new default. For example, if you use Anthropic's recommended default and the recommendation moves to a newer model, every user's next conversation starts on the newer model.
+
+This setting applies in chat, Cowork, Claude Code, Claude for Office, Claude Design, and Claude Science.
+
+### For a custom role
+
+Custom roles that set their own default model have the same switch in the role editor.
+
+1. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**.
+
+2. Click the role you want to edit.
+
+3. Select the “Models” tab and choose a default model for the role.
+
+4. Turn on **Always start with the default model and effort level**.
+
+5. Click "Save role."
 
 ---
 
@@ -3592,7 +3867,7 @@ Custom role defaults let you set different starting models for different teams. 
 
 2. Click the role you want to edit, or create a new role.
 
-3. Select the **Models** tab, then under **Default model**, select a model. Roles are set to “None selected” unless you choose a specific model. Only models the role has access to can be selected.
+3. Select the **Models** tab, then under **Default model**, select a model. Roles are set to "Organization default" unless you choose a specific model. Only models the role has access to can be selected.
 
 4. Click “Save role” to save your changes.
 
@@ -3600,9 +3875,33 @@ A role’s default model takes precedence over the organization default for memb
 
 If a member belongs to multiple groups whose custom roles set different default models, the most capable model will be the default. Capability is determined first by model family (Haiku, Sonnet, Opus), then release date, so more capable model families take precedence, and newer models within the same family take precedence.
 
+The role's effort cap for the default model, if any, still applies. A role can't set an effort cap higher than the organization's cap for that model. For details, see **[Limit the maximum effort level for a custom role](https://support.claude.com/en/articles/15694740-manage-model-access-for-your-organization#h_e693614582)**.
+
 **Note:** Custom roles only affect members whose role is set to “Custom.” Members with the User, Admin, or Owner roles get the default model from the organization setting, not from custom roles.
 
 For details on creating roles and assigning them to groups, see **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452)**.
+
+---
+
+## Set the default effort level for a custom role
+
+The default effort level applies to new conversations on the role's default model. To set it:
+
+1. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**.
+
+2. Click the role you want to edit, or create a new role.
+
+3. Select the **Models** tab, then under **Default model**, select a model. Roles are set to "Organization default" unless you choose a specific model. Only models the role has access to can be selected.
+
+4. Under **Default model**, select an option under the effort level dropdown list:
+
+  1. **Use Anthropic's recommended default effort:** Anthropic's recommended effort level for the default model, which updates automatically when recommendations change.
+
+  2. **Choose a level from the list.** Available effort levels differ depending on the model, and some models don't support effort level settings at all.
+
+5. Click "Save changes."
+
+The default effort level can't be higher than the organization's effort cap for the default model. If you lower that cap below the current default effort, the default effort is lowered to match.
 
 ---
 
@@ -4465,7 +4764,7 @@ SOURCE: https://support.claude.com/en/articles/15694740-manage-model-access-for-
 
 # Manage model access for your organization
 
-This guide explains how to control which Claude models members of your organization can use, and how to cap the effort level each role can select per model. You can manage model access for your whole organization or for specific custom roles.
+This guide explains how to control which Claude models members of your organization can use, and how to cap the effort level members can select on each model. Model access and effort limits can be set for your whole organization or for specific custom roles.
 
 Model access settings are available for Enterprise plan organizations. Primary Owners, Owners, and members whose custom role grants the Identity & Access permission can manage them in **[Organization settings > Models](https://claude.ai/admin-settings/models)**.
 
@@ -4475,21 +4774,21 @@ To set the model new conversations start on, see **[Set a default model for your
 
 ## How model access works
 
-Model access is determined at two levels:
+Model access and effort limits are determined at two levels:
 
-- **Organization level:** each model is enabled or disabled for everyone in your organization. Disabling a model here removes it for every member, including Owners and Admins.
+- **Organization level:** each model is enabled or disabled for everyone in your organization. Disabling a model here removes it for every member, including Owners and Admins. You can also set a maximum effort level for each enabled model, which applies to every member.
 
-- **Custom role level:** for members on custom roles, each role grants access to a subset of the models enabled at the organization level. A role can also cap the maximum effort level members can select on each model.
+- **Custom role level:** for members on custom roles, each role grants access to a subset of the models enabled at the organization level. A role can also cap the maximum effort level members can select on each model, at or below the organization's cap for that model.
 
-The organization setting is the ceiling, so a role can’t grant access to a model that’s disabled for the organization. When the feature first becomes available, every model is enabled at both levels, so nothing changes for your members until you adjust these settings.
+The organization setting is the ceiling. A role can't grant access to a model that's disabled for the organization, and a role can't allow an effort level higher than the organization's cap. When the feature first becomes available, every model is enabled and set to its highest effort level at both levels, so nothing changes for your members until you adjust these settings.
 
 **Note:** Haiku models are always available to every member and can’t be disabled. This guarantees members always have at least one model to fall back to.
 
 ## Who each level affects
 
-- Disabling a model at the organization level affects every member, including Primary Owners, Owners, Admins, and Users.
+- Disabling a model or capping its effort level at the organization level affects every member, including Primary Owners, Owners, Admins, and Users.
 
-- Role-level model access and effort limits affect only members whose role is set to “Custom.” Members with the User, Admin, or Owner roles can use every model enabled at the organization level, at any effort level.
+- Role-level model access and effort limits affect only members whose role is set to "Custom." Members with the User, Admin, or Owner roles can use every model enabled at the organization level, up to the organization's effort cap for that model.
 
 ---
 
@@ -4513,6 +4812,22 @@ If any custom role uses the model you’re disabling as its default, you’ll be
 
 ---
 
+## Limit the maximum effort level for your organization
+
+Effort limits determine how much computation members can apply per response on each model. Higher effort levels produce more thorough responses but consume more usage. An organization-level effort cap applies to every member and is the highest level any custom role can allow.
+
+1. Navigate to **[Organization settings > Model](https://claude.ai/admin-settings/models)**[s](https://claude.ai/admin-settings/models).
+
+2. Under **Model access**, find the model you want to change.
+
+3. Click the effort level dropdown to select the maximum level.
+
+4. Click "Save."
+
+If any custom role has an effort cap higher than the new organization cap for that model, the role's cap is lowered to match. Members see only effort levels at or below the organization cap in their model menu. Available effort levels differ depending on the model, and some models don't support effort level settings at all. For an explanation of each level, see **[Change the model, effort, and thinking settings](https://support.claude.com/en/articles/8664678)**.
+
+---
+
 ## Set model access for a custom role
 
 1. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**.
@@ -4533,7 +4848,7 @@ Only models the role grants access to can be selected as that role’s default m
 
 ## Limit the maximum effort level for a custom role
 
-Effort limits determine how much computation members on a role can apply per response on each model. Higher effort levels produce more thorough responses but consume more usage. Effort limits can only be set per role, not at the organization level.
+Effort limits determine how much computation members on a role can apply per response on each model. Higher effort levels produce more thorough responses but consume more usage. A role's effort cap can't be higher than the organization's cap for that model.
 
 1. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**.
 
@@ -4557,7 +4872,7 @@ If a member belongs to multiple groups with different custom roles, model settin
 
 - **Model access is additive.** The member can use every model granted by any of their roles, as long as it’s enabled at the organization level.
 
-- **Effort limits take the highest cap.** For each model, the member gets the highest maximum effort level any of their roles allows.
+- **Effort limits take the highest cap.** For each model, the member gets the highest maximum effort level any of their roles allows, never exceeding the organization's cap for that model.
 
 For how default models are chosen across multiple roles, see **[Set a default model for your organization](https://support.claude.com/en/articles/15330088)**.
 
@@ -4567,11 +4882,11 @@ For details on creating roles and assigning them to groups, see **[Manage custom
 
 ## What users see
 
-In every covered product, the model picker shows only the models the member has access to. Effort levels above a role’s cap don’t appear in the effort menu.
+In every covered product, the model picker shows only the models the member has access to. Effort levels above the organization's cap, or above a role's cap, don't appear in the effort menu.
 
 Model availability also depends on the product. Each product supports a different set of models, so an enabled model appears only in the products that support it.
 
-If you disable a model a member is using in an open conversation or session, that conversation falls back to the member’s default model the next time they open it. If the member sends a message while you’re making the change, they’ll see an error that the model isn’t available and be prompted to switch.
+If you disable a model a member is using in an open conversation or session, that conversation falls back to the member's default model the next time they open it. If the member sends a message while you're making the change, they'll see an error that the model isn't available and be prompted to switch. If you lower a model's effort cap while a member has a higher level selected, their next message on that model uses the new maximum.
 
 ---
 
@@ -4599,6 +4914,406 @@ If your organization also configures Claude Code through `managed-settings.json`
 Managed settings for models apply only to Claude Code CLI and IDE, not to Claude Code on web or desktop. For consistent behavior across all Claude Code surfaces, we recommend using model access settings alone. For more on managed settings, see **[Claude Code settings](https://code.claude.com/docs/en/settings#settings-files)**.
 ---
 
+SOURCE: https://support.claude.com/en/articles/16764057-create-surveys-for-your-organization
+
+# Create surveys for your organization
+
+Surveys let admins ask users short, in-product questions about how they're using Claude and review the aggregated answers in the Admin console. This article explains how to create a survey, choose who sees it, and review the results.
+
+Surveys are available in beta for Enterprise plans. Primary Owners, Owners, and Admins can create and view surveys, along with users on **[custom roles that grant Analytics view access](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_536123d968)**. While the feature is in beta, organizations using **[customer-managed encryption keys (CMEK)](https://support.claude.com/en/articles/15505325)** can't use surveys.
+
+## How surveys work
+
+Surveys appear in the **Analytics** section. Usage analytics show how much your team uses Claude; surveys tell you what people are doing with it and what's getting in their way.
+
+Users see a survey as a small card in Cowork or chat at a natural break in their work. The card shows your organization's name, and each user sees a given survey once. A survey takes about 90 seconds to complete.
+
+## Create a survey
+
+To create and schedule a survey:
+
+1. Navigate to **[Analytics > Surveys](https://claude.ai/analytics/surveys)**.
+
+2. Click the “New survey” button in the upper right corner.
+
+3. Name your survey. The name is internal only, so users never see it.
+
+4. Set a start and end date. The survey runs for that window and closes automatically.
+
+5. Choose your audience: all members, or one or more groups. Groups are how you narrow a survey to a specific department or team: select the group that matches the department you want to hear from. You can select more than one. Click "Manage groups" to open your organization's group settings.
+
+6. Choose where the survey appears: Cowork, Chat, or both.
+
+7. Review the questions. You can add or remove questions before the survey goes live.
+
+8. Check the preview and the estimated reach panel, which shows how many users are in your selected audience, how many are active in Cowork or chat, and the expected number of responses.
+
+9. Schedule the survey, or save it as a draft.
+
+The following questions are included by default:
+
+1. “What’s the most valuable thing you’ve done with Claude recently? How could you tell the outcome was better than it would have been without Claude?” (text)
+
+2. “For the work you described, what (if anything) did Claude change about the time it took?” (multi-select)
+
+3. “What’s one way you use Claude that a teammate should copy? Describe it so they could start tomorrow: the setup, habit, or way of prompting they wouldn’t know to do.” (text)
+
+4. “If your team lost access to Claude tomorrow, what would break or slow down first?” (text)
+
+## What users see
+
+When a survey is live, users in the audience see a card at a natural break in their work: between tasks in Cowork, or after a reply in chat. A survey never interrupts a running task.
+
+- The card shows your organization's name and explains that answers go to your organization's admins, not to Anthropic.
+
+- Users answer one question at a time.
+
+- Dismissing the card declines the survey.
+
+## Review results
+
+The **Surveys** table lists every survey by status (Live, Scheduled, or Closed), along with its audience, window, response count, and response rate.
+
+Open a survey to see results, which aggregate while the survey is live:
+
+- Total responses and response rate
+
+- The split between Cowork and chat responses
+
+- Bar charts for multi-select questions
+
+- A feed of written responses tagged by group, surface, and date. Filter the feed by group to read the responses from a single department or team.
+
+You can also close a survey early from the results page.
+
+## Export responses
+
+Each survey can be exported as a CSV file from **[Analytics > Surveys](https://claude.ai/analytics/surveys)**. The export includes one row per response, with the submission time, the user's email, their group, the surface where they responded, and one column per question. Multi-select answers are separated by semicolons.
+
+## Privacy and data handling
+
+Surveys run under your organization's name, and responses go to your organization's admins. Your surveys are treated as your data so Anthropic accesses them only as necessary to operate the service. CMEK protections are coming soon, but while this feature is in beta, CMEK customers cannot use it. Regulated customers, including HIPAA customers, should not put regulated data, such as PHI, into survey responses.
+
+Learn more about **[viewing usage analytics for Team and Enterprise plans](https://support.claude.com/en/articles/12883420)**.
+---
+
+SOURCE: https://support.claude.com/en/articles/16764810-assign-a-program-to-workspaces-in-claude-console
+
+# Assign a program to workspaces in Claude Console
+
+Anthropic offers several verification programs, such as the Cyber Verification Program, or access to models that might not be generally available. In order to gain access to these programs, go to our **[Verification Portal](https://portal.anthropic.com/)** to see what programs are available to you, and apply.
+
+Once you’ve applied and been approved for a program, Anthropic issues a “program” to your organization. In order for it to be used, you must assign it to a group of people within the organization. In the Claude Console, a program applies to workspaces, either automatically (for programs like the Cyber Verification Program) or by assignment.
+
+This article covers how to enable programs for the Console.
+
+## Before you start
+
+- Your organization must already have a grant. Grants appear only after Anthropic issues one to your organization. To apply to a specific program, go to our **[Verification Portal](https://portal.anthropic.com/)** to see what programs are available.
+
+- In the Console, you need to be an organization Admin. Other roles cannot view or manage grants.
+
+## Give a Console workspace access
+
+In the Console, programs are issued to your organization and apply to workspaces. Some programs, such as the Cyber Verification Program, apply automatically to every workspace that meets their requirements. Others need workspaces assigned. A program only applies to API traffic from workspaces that meet its requirements.
+
+**Follow these steps:**
+
+1. **[Sign in to the Console](https://platform.claude.com/)** as an organization Admin. Go to **[Organization settings > Programs](https://platform.claude.com/settings/organization/programs)**. The program card shows whether it applies automatically or needs workspaces assigned.
+
+  
+
+2. Select the program to open its page. The **Workspaces** table shows each workspace's status. A workspace marked with an issue does not meet a requirement yet.
+
+  
+
+Hover over the issue to see which requirement is not met.
+
+  
+
+3. To give a workspace access, make it meet the requirements. Open the workspace, select "Manage," then "Programs," and check the **Qualifications** panel.
+
+  
+
+4. Fix the requirement. For the Cyber Verification Program, turn on data retention under Manage, then Privacy controls. Then select "Rerun."
+
+  
+
+5. The program shows **Active** for the workspace.
+
+  
+
+## Troubleshooting
+
+- **The Grants page is missing.** Your organization does not have a grant yet, or you are not an organization Admin. Contact your Anthropic account team or your admin.
+
+- **The workspace shows as inactive.** Open the workspace, select "Manage," then "Programs," and check the **Qualifications** panel for an unmet requirement. Fix each unmet requirement and try again.
+
+- **The grant is over its seat limit.** Some programs have a seat cap. Assigned workspaces lose access until your organization is back under the limit. Reduce the number of members counted toward the grant, then check again.
+
+- **You are trying to use the default Console workspace.** Some programs don't allow the program to be assigned to the default workspace. If the default workspace isn’t working, assign a different workspace or create a new one.
+---
+
+SOURCE: https://support.claude.com/en/articles/16824617-turn-on-data-retention-for-a-workspace-in-a-zero-data-retention-organization
+
+# Turn on data retention for a Workspace in a zero data retention organization
+
+This article shows you how to turn on 30-day data retention for a Workspace in your Claude Console organization when your organization uses zero data retention (ZDR).
+
+This is only available to organizations on the Claude API that use zero data retention. Organizations that already retain data for 30 days don’t have this setting.
+
+## Why a Workspace needs data retention
+
+**[Covered Models](https://support.claude.com/en/articles/15425695-covered-models)**, such as Claude Fable 5.1, require 30-day data retention and aren't available under zero data retention unless Anthropic has expressly authorized it for your organization (for example, under Enterprise Frontier Safeguards). If not, you need to turn on data retention. Data retention is configured at the Workspace level, so you need to turn it on for each Workspace you’d like to use Covered Models in.
+
+Requests to Covered Models from a Workspace with retention off return an error like this one:
+
+"In order to access this model, your organization or Workspace must have data retention enabled."
+
+## Before you begin
+
+Before you start, make sure that:
+
+- You're an Admin, Owner, or Primary Owner of the organization. Users with other roles who are members of the Workspace can see the setting but can't change it.
+
+- You're working in a Workspace other than the default Workspace. Retention for the default Workspace is managed at the organization level, so create a new Workspace if you need one. Learn more about **[creating and managing Workspaces](https://support.claude.com/en/articles/9796807)**.
+
+## Turn on data retention for a Workspace
+
+The setting lives in each Workspace's privacy controls, at the bottom of the Workspace's left sidebar.
+
+To turn on data retention for a Workspace:
+
+1. Log in to the **[Claude Console](https://platform.claude.com/login)**.
+
+2. Click your initials (or name) in the lower left corner to open your account menu.
+
+3. Navigate to **[Organization settings > Workspaces](https://platform.claude.com/settings/workspaces)**. The **Data retention** column shows the current setting for each Workspace.
+
+4. Click the Workspace you want to change.
+
+5. In the left sidebar, click "Manage" to expand the section if it's collapsed.
+
+6. Click "Privacy controls."
+
+7. In the **Data retention** card, toggle the **This workspace** switch on or off.
+
+8. Click "Accept" in the confirmation dialog. By accepting, you acknowledge that Section F of the **[Service Specific Terms](https://www.anthropic.com/legal/service-specific-terms)** applies to this Workspace and supplements your organization's agreement with Anthropic.
+
+The **This workspace** row now shows **On · 30 days**. There's no separate confirmation message, so this label is how you know the change took effect.
+
+## See which Workspaces have retention on
+
+To see which Workspaces have data retention on, navigate to **[Organization settings > Workspaces](https://platform.claude.com/settings/workspaces)** and check the **Data retention** column for each Workspace. You'll see either **Zero data retention** or **30 day retention**.
+
+## What changes after you turn it on
+
+- The change applies to new requests right away. In rare cases it can take up to an hour.
+
+- Inputs, Outputs, and other data from this Workspace are retained for 30 days by default and may be accessed by Anthropic for safety and security purposes.
+
+- The change isn't retroactive. It applies only to requests sent after you turn on retention.
+
+- Your organization's zero data retention no longer applies to this Workspace while retention is on. Other Workspaces aren't affected.
+
+- Requests to Covered Models from this Workspace's API keys now succeed, as long as your organization already has access to the model. You don't need new API keys.
+
+**Important:** This setting covers API requests and responses from the Workspace. It doesn't cover features that need to store data to work, such as the Batch API, the Files API, and Claude Managed Agents sessions. Learn more about **[which features are eligible for zero data retention](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#feature-eligibility)**.
+
+## Turn off data retention for a Workspace
+
+You can turn retention off again from the same switch. If the Workspace uses customer-managed encryption keys, you can't turn retention off. If a program on the Workspace requires retention, turning it off removes that program.
+---
+
+SOURCE: https://support.claude.com/en/articles/16948886-let-team-members-run-smart-reports-for-specific-groups
+
+# Let team members run smart reports for specific groups
+
+Smart reports show how your organization uses Claude. By default, only Primary Owners, Owners, Admins, and custom roles with analytics view access can create and view smart reports. With delegated access, you can let team leads or department heads run smart reports without making them admins. They can only report on the groups, departments, or cost centers you choose, and they see only the reports they ran or that others share with them.
+
+Smart reports are available in beta on Claude Enterprise plans and aren’t available for organizations using customer-managed encryption keys (CMEK) or HIPAA configurations. Smart reports are also unavailable for Claude Code for Claude Enterprise organizations that use zero data retention.
+
+**Important:** Smart reports help you understand adoption and plan your investment in Claude. They aren't designed and should not be used for evaluating individual performance or making employment decisions.
+
+## Who can manage access for smart reports
+
+To manage access to smart reports, you must be an Owner or Primary Owner, or in a custom role with both the **Analytics** permission and the **Identity & Access** permission. If you don’t have one of these roles, you won’t see the **Manage access** button.
+
+## Before you begin
+
+- Your organization must be on a Claude Enterprise plan with "Smart Reports (beta)" turned on in **Organization settings > Capabilities > Analytics**.
+
+- The people you add must be on the **Custom roles** access level, which is set per member in **Organization settings > Members**.
+
+## Step 1: Open Manage access
+
+Go to **[Analytics > Smart reports (beta)](https://claude.ai/analytics/insights)** and click "Manage access." The **Who can run reports** screen opens.
+
+The line at the top tells you which roles can run reports. Admins and owners can always run reports.
+
+## Step 2: Add a person
+
+Under **Add people**, type a name or email and pick the person.
+
+Some users appear greyed out with the label **Not on Custom roles**. Change their access level in **[Organization settings > Members](https://claude.ai/admin-settings/members)**, then close and reopen **Manage access** and add them.
+
+## Step 3: Choose what they can report on
+
+The person appears under **People with access**, with the columns **Person** and **Can run reports on**. Nothing is saved for them until you choose a scope.
+
+1. If your organization has more than one kind of scope, select **Group**, **Department**, or **Cost center** in the first dropdown menu.
+
+  1. Groups come from **[Organization settings > Groups](https://claude.ai/admin-settings/groups)**.
+
+  2. Departments and cost centers are offered only if your identity provider provisions members through SCIM with those attributes.
+
+2. Select the group, department, or cost center values in the second dropdown menu.
+
+Each change is saved as soon as you make it and will say "Saved."
+​
+
+If you click "Close" while someone still has no scope, or their last change couldn't be saved, the screen asks "Close without saving?" and explains that their access isn't saved.
+
+Keep in mind:
+
+- You can select up to 50 groups, departments, or cost centers of each kind per person.
+
+- A delegate can only run a report on what you assign here. They never get a whole-organization option.
+
+**Note:** People you give access to aren’t notified. They can view smart reports by clicking on their name in the lower left corner in Claude, then going to **Analytics > Smart reports (beta)**.
+
+## What happens automatically
+
+The first time you save a delegate, smart reports creates two things in your organization:
+
+- A group named **Smart Reports delegates**
+
+- A custom role named **Smart Reports delegates**, assigned to that group, with the **Smart Reports delegated admin** permission
+
+Every person you add is placed in this group, which is how they get permission to run reports. We recommend that you don’t edit these roles manually.
+
+The following badges can appear on a person's row:
+
+- **Not on Custom roles**: the person's access level changed after you added them. Change it back in **[Organization settings > Members](https://claude.ai/admin-settings/members)**.
+
+- **Needs the permission**: this person doesn’t have access to any roles that grant permission to run smart reports (for example, they were removed from the smart reports delegates group). Click **Add to the Smart Reports delegates role** on their row to add them back. If the automatic role itself lost the permission, restore it in **[Organization settings > Roles](https://claude.ai/admin-settings/roles)** first.
+
+## What a delegate sees and can do
+
+- In **Analytics**, delegates see only **Smart Reports**. Their list is titled **Your reports** and contains only the reports they ran.
+
+- When they click "New report," the **People in scope** menu offers only the groups, departments, or cost centers you assigned. All of them are selected to start, and the delegate can narrow the selection.
+
+- Delegates can share their reports with other members of your organization and download them, the same way admins can.
+
+- The attributed view, which shows user emails and session IDs, only appears when your organization's **Allow attribution to individual users** setting is on.
+
+- The same privacy guardrails apply to reports delegates run. Learn more about **[privacy guardrails in smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports#h_7b22bb48c1)**.
+
+- Reports run by delegates count toward your organization's monthly smart reports limit and share the same limit on reports running at once.
+
+Delegates cannot:
+
+- Run a report on the whole organization, or on anything outside their assigned scope
+
+- See reports other people ran, unless someone shares the report with them
+
+- Rename, archive, or delete reports
+
+- Open **Manage access** or change who can run reports
+
+## Change or remove access
+
+- **To change what someone can report on**, open **Manage access** and change their selections. The new selection replaces their previous scope. Reports they already ran stay available to them.
+
+- **To remove someone**, click the "✕" (**Remove**) button on their row. Their access is removed right away, and you'll see a confirmation that they can no longer run reports. If the smart reports delegates group is used only by the automatic role, they are also taken out of it. Otherwise, remove them from the group in **Organization settings > Groups**. Once they no longer hold the permission, they can't open smart reports, including the reports they ran. Reports they already downloaded aren't affected.
+
+- **When a user is removed from your organization**, they can no longer run reports. Their saved scope is usually removed at the same time. If your identity provider removes users through SCIM, remove them in **Manage access** first so their old scope isn't kept if they're added back later.
+
+- **When a group is deleted, or a department or cost center value no longer exists**, it disappears from the person's row and from their selections. If a delegate tries to run a report with a selection that no longer exists, the report is refused and they can pick again. You can also open their row and choose new values.
+
+## FAQ
+
+### Can I grant the permission through my own roles instead of the automatic one?
+
+Yes. In **Organization settings > Roles**, the **Smart Reports delegated admin** permission appears under **Product controls**. Adding it to a role isn't enough on its own: each person still needs a scope. Open **Manage access** on the smart reports page, add each person, and choose what they can report on.
+
+### Why is someone greyed out when I try to add them?
+
+They aren't on the **Custom roles** access level, which custom roles (including the automatic one) require. Change it in **Organization settings > Members**, or in your identity provider if it sets access levels.
+
+### Can a delegate see individual users' names or emails?
+
+Only if your organization's **Allow attribution to individual users** setting is on. It is off by default.
+---
+
+SOURCE: https://support.claude.com/en/articles/16952184-set-up-salesforce-in-claude-for-your-organization
+
+# Set up Salesforce in Claude for your organization
+
+Salesforce in Claude is a plugin built by Salesforce that brings your organization's Salesforce data and workflows into Claude. This article walks admins through enabling the plugin and connecting Salesforce for your organization.
+
+For end-user instructions about how to use Salesforce in Claude, see **[Use Salesforce in Claude](https://support.claude.com/en/articles/16952186)**.
+
+Salesforce in Claude is available in beta on all paid plans for organizations Salesforce approves through its beta sign-up. It currently works in chat and Claude Cowork (web and desktop).
+
+## What's included
+
+Salesforce in Claude bundles:
+
+- 37 sales skills built by Salesforce, covering workflows like renewal prep, QBR decks, pipeline coverage, and meeting follow-up.
+
+- The Salesforce and Slack connectors, so the plugin works without connecting each service separately.
+
+- A setup skill that runs the first time a user opens the plugin. It learns the user's role and book of business and personalizes the skills to them.
+
+## Before you begin
+
+Your organization needs access to the latest Sales Cloud enterprise edition to be eligible for beta.
+
+## Step 1: Request access to the Salesforce in Claude plugin (Salesforce admins)
+
+To install the Salesforce in Claude plugin, admins on your Salesforce account can request access through AgentExchange:
+
+1. Go to **[AgentExchange](https://agentexchange.salesforce.com/sales-cloud-in-claude-beta-access)**.
+
+2. Fill out the form to request access to the Salesforce in Claude plugin. Admins will receive an acceptance email with a link to a Salesforce help article for setup instructions.
+
+3. Complete the setup instructions in your acceptance email.
+
+## Step 2: Enable Salesforce in Claude for your organization (Claude admins)
+
+After you complete step 1, choose your installation preference and connect the MCP connector. You need Primary Owner or Owner access for the Claude organization to complete these steps.
+
+To choose your installation preference:
+
+1. Go to **[Organization settings > Plugins](https://claude.ai/admin-settings/plugins)**.
+
+2. Find **Salesforce Marketplace**.
+
+3. Choose an installation preference for the groups you want to use it: "Installed by default," "Available to install," or "Required." Learn more about **[controlling plugin distribution](https://support.claude.com/en/articles/13837433-manage-plugins-for-your-organization#h_cef6a5f497)**.
+
+To activate and configure the Salesforce MCP Connector:
+
+1. Your Salesforce admin follows Salesforce's setup guide to turn on the Salesforce MCP server.
+
+2. The admin sends you the External Client App's consumer key and consumer secret.
+
+3. In Claude, go to **Organization settings > Connectors** and select "Salesforce (Beta)." Enter the consumer key in the **OAuth client ID** field and the consumer secret in the **OAuth client secret** field, then save.
+
+After that, each member signs in to Salesforce with their own account the first time they use the plugin.
+
+## Step 3: Activate the Salesforce in Claude plugin (members of your organization)
+
+After you complete steps 1 and 2, members of your organization can turn on and use the plugin.
+
+If you’re a member of an organization and want to learn more about using the Salesforce in Claude plugin, see **[Use Salesforce in Claude](https://support.claude.com/en/articles/16952186)**.
+
+## What Claude can see and do in Salesforce
+
+Claude signs in as each user's own Salesforce account and sees only what that user's existing Salesforce permissions already allow. By default, Claude asks you to approve each proposed change before it's written.
+---
+
 SOURCE: https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers
 
 # Business Associate Agreements \(BAA\) for Commercial Customers
@@ -4611,7 +5326,7 @@ Anthropic provides a BAA covering our HIPAA-ready services, such as use of our f
 
 **Important:** To use the 1P API with PHI, your organization’s Primary Owner will need to sign a BAA and then reach out to your Anthropic contact or our[**Sales team**](https://claude.com/contact-sales) to get this turned on.
 
-For clarity, the BAA only covers the single organization that accepted it, and excludes features such as Claude Console, Claude Cowork, or features currently in beta such as Claude in Office and Claude Design. As part of the BAA, customers of Anthropic’s HIPAA-ready services are subject to certain configuration requirements and limitations on what features/integrations are available.
+For clarity, the BAA only covers the single organization that accepted it, and excludes features such as Claude Console, Claude Cowork, or features currently in beta such as Claude in Office, Claude Design, Claude Slides, and Claude Docs. As part of the BAA, customers of Anthropic’s HIPAA-ready services are subject to certain configuration requirements and limitations on what features/integrations are available.
 
 Not all API features are covered; see the **[Implementation Guide](https://trust.anthropic.com/resources?s=2zblcrsgb00l3x9l2tpjf&name=[anthropic]-2025-type-1-hipaa-report-(-1-p-api).pdf)** for the full list of eligible and non-eligible features.
 
@@ -4621,22 +5336,24 @@ Below is a breakdown of what’s covered under the BAA, by feature and product s
 
 ## What’s covered under Anthropic’s BAA
 
-| **Claude Enterprise Feature**                         | **Availability**                                                                                                                                                                                                                                             |
-| ----------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Chat                                                  | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| Projects                                              | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| Artifacts                                             | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| File creation & code execution                        | ✅ *Covered as Eligible Services under Anthropic BAA\**<br>⚠️ *excluding network access and use of external websites*                                                                                                                                         |
-| Voice                                                 | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| Web Search                                            | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| Research                                              | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| Skills                                                | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| MCPs / Connectors                                     | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable these features are responsible for ensuring their workforce uses them in compliance with applicable legal obligations.* |
-| Enterprise Search / “Ask Your Org”                    | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*     |
-| Claude in Chrome                                      | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*     |
-| Cowork                                                | ⚠️ *Available to use but feature is not covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*                                         |
-| Claude for Office (Excel,PowerPoint, and Docs (beta)) | ⚠️ *Available to use but some features are in beta and not covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*                      |
-| Claude Design [beta]                                  | ⚠️ *Available to use but feature is in beta and not covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*                             |
+| **Claude Enterprise Feature**      | **Availability**                                                                                                                                                                                                                                             |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Chat                               | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
+| Projects                           | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
+| Artifacts                          | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
+| File creation & code execution     | ✅ *Covered as Eligible Services under Anthropic BAA\**<br>⚠️ *excluding network access and use of external websites*                                                                                                                                         |
+| Voice                              | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
+| Web Search                         | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
+| Research                           | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
+| Skills                             | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
+| MCPs / Connectors                  | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable these features are responsible for ensuring their workforce uses them in compliance with applicable legal obligations.* |
+| Enterprise Search / “Ask Your Org” | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*     |
+| Claude in Chrome                   | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*     |
+| Cowork                             | ⚠️ *Available to use but feature is not covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*                                         |
+| Claude for Microsoft 365           | ⚠️ *Available to use but some features are in beta and not covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*                      |
+| Claude Design [beta]               | ❌ *Not available yet for HIPAA-ready organizations*                                                                                                                                                                                                          |
+| Claude Slides [beta]               | ❌ *Not available yet for HIPAA-ready organizations*                                                                                                                                                                                                          |
+| Claude Docs [beta]                 | ❌ *Not available yet for HIPAA-ready organizations*                                                                                                                                                                                                          |
 
 | **Claude Code Feature**                              | **Availability**                                                                                                                                                                                                                                                                                                  |
 | ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -4710,9 +5427,9 @@ The Messages API is covered as an Eligible Service under your BAA. The following
 | Claude Code Computer Use (beta)                                                                    | ❌ Not covered under BAA                                   |
 | Claude Code Remote Control (beta)                                                                  | ❌ Not covered under BAA                                   |
 | **Other beta features**                                                                            | **BAA coverage status**                                   |
-| Cowork                                                                                             | ❌ Not covered under BAA                                   |
-| Claude for Office (Excel, PowerPoint, Docs (beta))                                                 | ❌ Not covered under BAA                                   |
 | Claude Design (beta)                                                                               | ❌ Not covered under BAA                                   |
+| Claude Slides (beta)                                                                               | ❌ Not covered under BAA                                   |
+| Claude Docs (beta)                                                                                 | ❌ Not covered under BAA                                   |
 | **CLAUDE PLATFORM (1P API)**                                                                       |                                                           |
 | **Native 1P API features**                                                                         | **BAA coverage status**                                   |
 | Messages API (prompt caching, structured outputs, memory, web search, bash tool, text editor tool) | ✅ Eligible under BAA                                      |
@@ -4893,6 +5610,8 @@ Both paths move the same content for each person.
 
 4. Make a note of the apps you've connected so you can reconnect them.
 
+**Note:** After a migration, your chat list can take a little while to fill in. Searching by chat title works right away. The first time Claude searches your past chats in your new organization, it rebuilds its search index, so Claude might not find everything at first. If chats still seem to be missing, sign out, sign back in, and search again.
+
 ---
 
 ## Voluntary migration
@@ -4915,9 +5634,9 @@ If your organization has turned on HIPAA readiness or CMEK, **Bring your data wi
 
 What happens to your Pro or Max plan after migrating depends on where you bought it:
 
-- **Directly (not through a mobile app):** Your Pro or Max subscription is canceled automatically when your personal account closes, and you receive a prorated refund for unused time.
+- **Directly (not through a mobile app):** Your Pro or Max subscription is canceled automatically as part of the move, and you receive a prorated refund for unused time. The refund is issued about 24 hours after your plan is canceled, and depending on your bank, it can take several more business days to appear on your statement.
 
-- **Google Play Store:** Your Pro or Max subscription is canceled automatically when your personal account closes, and you receive a prorated refund for unused time. Refunds for Google Play purchases can take a few days to appear.
+- **Google Play Store:** Your Pro or Max subscription is canceled automatically as part of the move, and you receive a prorated refund for unused time. Refunds for Google Play purchases can take a few days to appear.
 
 - **Apple App Store:** Your Pro or Max subscription isn't canceled. Apple doesn't allow third-party cancellation, so you'll need to cancel it yourself through your Apple ID settings. If you don't, Apple keeps charging you after your personal account closes.
 

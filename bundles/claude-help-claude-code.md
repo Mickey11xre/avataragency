@@ -208,6 +208,8 @@ Once you confirm you have access, follow the installation instructions in our **
 
 5. Your premium seat subscription will be linked to Claude Code.
 
+Once you're signed in, skills and plugins from your Claude account, including those your organization provides, load in Claude Code automatically. This needs Claude Code v2.1.273 or later. Learn more about **[how synced skills behave](https://code.claude.com/docs/en/skills#how-synced-skills-behave)** in the Claude Code docs.
+
 ### Having trouble using your Team or Enterprise account to access Claude Code?
 
 If you're not seeing the option to authenticate with your preferred account, follow these steps to update Claude Code:
@@ -362,6 +364,12 @@ The simplest way to change models is to use the /model command directly within C
 
 ## Supported models
 
+- Sonnet 5.5, `claude-sonnet-5-5`
+
+- Opus 5.5, `claude-opus-5-5`
+
+- Fable 5.1, `claude-fable-5-1`
+
 - Opus 5, `claude-opus-5`
 
 - Sonnet 5, `claude-sonnet-5`
@@ -389,6 +397,12 @@ Use the `--model` flag when starting Claude Code.
 1. Start a fresh Terminal session.
 
 2. Enter the following commands (depending on the model you’d like to use for that session):
+
+  - **For Sonnet 5.5**: `claude --model claude-sonnet-5-5`
+
+  - **For Opus 5.5**: `claude --model claude-opus-5-5`
+
+  - **For Fable 5.1**: `claude --model claude-fable-5-1`
 
   - **For Opus 5**: `claude --model claude-opus-5`
 
@@ -422,6 +436,12 @@ Use the `--model` flag when starting Claude Code.
 
 ### For ZSH users (macOS)
 
+- Sonnet 5.5: `echo 'export ANTHROPIC_MODEL="claude-sonnet-5-5"' >> ~/.zshrc`
+
+- Opus 5.5: `echo 'export ANTHROPIC_MODEL="claude-opus-5-5"' >> ~/.zshrc`
+
+- Fable 5.1: `echo 'export ANTHROPIC_MODEL="claude-fable-5-1"' >> ~/.zshrc`
+
 - Opus 5: `echo 'export ANTHROPIC_MODEL="claude-opus-5"' >> ~/.zshrc`
 
 - Sonnet 5: `echo 'export ANTHROPIC_MODEL="claude-sonnet-5"' >> ~/.zshrc`
@@ -443,6 +463,12 @@ Use the `--model` flag when starting Claude Code.
 - Sonnet 4.5: `echo 'export ANTHROPIC_MODEL="claude-sonnet-4-5-20250929"' >> ~/.zshrc`
 
 ### For BASH users (Linux)
+
+- Sonnet 5.5: `echo 'export ANTHROPIC_MODEL="claude-sonnet-5-5"' >> ~/.bashrc`
+
+- Opus 5.5: `echo 'export ANTHROPIC_MODEL="claude-opus-5-5"' >> ~/.bashrc`
+
+- Fable 5.1: `echo 'export ANTHROPIC_MODEL="claude-fable-5-1"' >> ~/.bashrc`
 
 - Opus 5: `echo 'export ANTHROPIC_MODEL="claude-opus-5"' >> ~/.bashrc`
 
@@ -1403,7 +1429,7 @@ If you’ve installed the Claude GitHub App but your repositories don’t appear
 
 1. Confirm the Claude GitHub App has access to the repositories you expect. Go to your GitHub organization’s settings, find the Claude GitHub App under **Installed GitHub Apps**, and check whether it has access to all repositories or only selected ones.
 
-2. If your organization uses GitHub Enterprise Cloud with Enterprise Managed Users (EMU), make sure the Claude GitHub OAuth App is authorized at the enterprise level. EMU enterprises can restrict which OAuth apps are approved, and the Claude app must be explicitly allowed.
+2. If your organization uses GitHub Enterprise Cloud with Enterprise Managed Users (EMU), authorize Claude while you're signed in with your managed account and have an active SSO session. There's no separate enterprise-level approval step.
 
 3. Try disconnecting and reconnecting your GitHub account in Claude. Go to **[Customize > Connectors](https://claude.ai/customize/connectors)**, disconnect GitHub, and connect it again. Which repositories the App can access is managed on GitHub's side, covered in step 1.
 
@@ -1661,11 +1687,11 @@ If you signed in with an Enterprise seat, you generally do not need to think abo
 
 ## Choosing a model
 
-Run **`/model`** at any time to see which models are available to your account and to switch between them. As a rough guide:
+Run **`/model`** at any time to see which model you're using, check which models are available to your account, and switch between them. Your default model depends on how you signed in and on your organization's settings. As a rough guide:
 
-- **Sonnet** is the default and is the right choice for the large majority of coding work. It is fast, capable, and cost-efficient.
+- **Sonnet** is the right choice for the large majority of coding work. It is fast, capable, and cost-efficient.
 
-- **Opus** offers deeper reasoning for harder problems such as large cross-cutting refactors, difficult debugging, or architectural decisions. It uses meaningfully more of your quota, so switch to it when you need it rather than leaving it on by default.
+- **Opus** offers deeper reasoning for harder problems such as large cross-cutting refactors, difficult debugging, or architectural decisions. It uses meaningfully more of your quota, so consider switching to Sonnet for routine work.
 
 - **Haiku** is the fastest and cheapest option, well suited to quick lookups, simple edits, or high-volume scripted runs.
 
@@ -2149,7 +2175,7 @@ Claude Code team’s reasoning: *“It’s the best coding model I’ve ever use
 
 ### Effort level
 
-Run /effort to choose your effort level. The available levels are **low** (fewer tokens, faster), **medium**, **high** (more tokens, more intelligence), **xhigh**, **max**, and **auto** (Claude chooses per request). The default is **high** on Team, Enterprise, and direct API access, and **medium** on other plans. The Claude Code team uses high for everything. For complex coding and agentic work, switch to xhigh for deeper reasoning than high without the full token cost of max. Switch to max for hard debugging or architecture decisions where you want Claude to reason for as long as it needs. Max burns through usage limits faster, so activate it per session.
+Run /effort to choose your effort level. The available levels are **low** (fewer tokens, faster), **medium**, **high** (more tokens, more intelligence), **xhigh**, **max**, and **auto** (Claude chooses per request). For complex coding and agentic work, switch to xhigh for deeper reasoning than high without the full token cost of max. Switch to max for hard debugging or architecture decisions where you want Claude to reason for as long as it needs. Max burns through usage limits faster, so activate it per session.
 
 ---
 
@@ -3088,8 +3114,8 @@ Copy the message body from each table below directly into Slack or Teams. Replac
 
 **Message 13 — Effort levels**
 
-| 🧩 **Tip: Give Claude permission to actually think about the hard ones**<br>Got a bug that’s defeated you twice? Don’t ask for a fast answer — ask for a careful one.<br>`/effort max` pushes reasoning depth to the top of the scale. Claude takes longer, explores more branches, and the answer is more likely to hold up under scrutiny. Team and Enterprise plans already default to high, so max is the step up. Save it for the problems where being wrong costs you an afternoon.<br>**Try it now:** type `/effort max ` before describing your hardest open bug. Then go refill your water while it works.<br>📖 **[Effort levels](https://code.claude.com/docs/en/model-config#adjust-effort-level)**<br> |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 🧩 **Tip: Give Claude permission to actually think about the hard ones**<br>Got a bug that’s defeated you twice? Don’t ask for a fast answer — ask for a careful one.<br>`/effort max` pushes reasoning depth to the top of the scale. Claude takes longer, explores more branches, and the answer is more likely to hold up under scrutiny. Save it for the problems where being wrong costs you an afternoon.<br>**Try it now:** type `/effort max ` before describing your hardest open bug. Then go refill your water while it works.<br>📖 **[Effort levels](https://code.claude.com/docs/en/model-config#adjust-effort-level)**<br> |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Message 14 — Screenshots and images**
 

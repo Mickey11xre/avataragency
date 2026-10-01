@@ -59,7 +59,7 @@ To emphasize, we are interested in jailbreaks that extract information that answ
 
 We will pay **up to $35,000 per novel, universal jailbreak identified.** We are only interested in jailbreaks that reveal substantial amounts of harmful information based on our sole criteria and discretion. We award bounties using a sliding scale based on an internal grading rubric which determines how detailed and accurate responses are.
 
-This program is scoped to jailbreaks on our Constitutional Classifiers. For technical vulnerabilities that potentially exist on our Information Systems such as misconfigurations, CSRFs or cross site request forgeries, privilege escalation attacks, SQL Injection, XSS, and directory traversal attacks, please refer to our [Responsible Disclosure Policy](https://www.anthropic.com/responsible-disclosure-policy) and submit your report [here](https://hackerone.com/297a385f-b3bd-4ecd-9466-7d9ad55371ce/embedded_submissions/new).
+This program is scoped to jailbreaks on our Constitutional Classifiers. For technical vulnerabilities that potentially exist on our Information Systems such as misconfigurations, CSRFs or cross site request forgeries, privilege escalation attacks, SQL Injection, XSS, and directory traversal attacks, please refer to our [Responsible Disclosure Policy](https://www.anthropic.com/responsible-disclosure-policy) and submit your report [here](https://hackerone.com/4f1f16ba-10d3-4d09-9ecc-c721aad90f24/embedded_submissions/new).
 
 ## How to Apply
 
@@ -181,7 +181,7 @@ SOURCE: https://support.claude.com/en/articles/14604842-real-time-cyber-safeguar
 
 # Real-time cyber safeguards on Claude Opus and Sonnet
 
-**Note**: This article applies only to Opus and Sonnet class models.
+**Note**: This article applies only to Opus and Sonnet class models, but doesn’t apply to Claude Opus 5.5 or Sonnet 5.5. We'll soon be expanding the Cyber Verification Program to include Opus 5.5, Sonnet 5.5, and Mythos class models.
 
 As part of our ongoing safety commitments, we have real-time cyber safeguards on Claude Opus and Sonnet models. These safeguards are designed to automatically detect and block requests that may indicate prohibited or high-risk cybersecurity usage based on our Usage Policy.
 
@@ -205,20 +205,35 @@ Organizations on Zero Data Retention (ZDR) are not currently eligible to partici
 
 How you apply depends on how you access Claude. Once you submit your application, we aim to send an email notification with our review decision within two business days. To submit an application you will need to verify your identity. Please see **[Identity verification on Claude](https://support.claude.com/en/articles/14328960-identity-verification-on-claude)** for more information.
 
-| **How you access Claude**                                                | **How to apply**                                                                                                                                                                                                                                                                                                        |
-| ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Anthropic first-party** (Claude.ai, Claude Code, the Anthropic API)    | Navigate to the **[Verification Portal](https://portal.anthropic.com/programs/cvp)** to apply for access to the Cyber Verification Program.<br>**Note:** Only authorized admins will see this option.                                                                                                                   |
-| **Microsoft Foundry**                                                    | Find both your Azure Tenant ID and Subscription ID in your Azure Portal (see instructions **[here](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)**). Choose "Azure" under the **Surface** field in the **[Cyber Use Case Form](https://claude.com/form/cyber-use-case)**.            |
-| **Amazon Bedrock**                                                       | The Cyber Verification Program is not available on Bedrock at this time.                                                                                                                                                                                                                                                |
+| **How you access Claude**                                                | **How to apply**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Anthropic first-party** (Claude.ai, Claude Code, the Anthropic API)    | Navigate to the **[Verification Portal](https://portal.anthropic.com/programs/cvp)** to apply for access to the Cyber Verification Program.<br>**Note:** Only authorized admins will see this option.                                                                                                                                                                                                                                                                                                                                                 |
+| **Microsoft Foundry**                                                    | Find both your Azure Tenant ID and Subscription ID in your Azure Portal (see instructions **[here](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)**). Choose "Azure" under the **Surface** field in the **[Cyber Use Case Form](https://claude.com/form/cyber-use-case)**.                                                                                                                                                                                                                                          |
+| **Amazon Bedrock**                                                       | The Cyber Verification Program is not available on Bedrock at this time.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
 | **Claude Platform on AWS**                                               | Navigate to the **[Verification Portal](https://portal.anthropic.com/link?account_source=aws&program=cvp)** to apply for access to the Cyber Verification Program. You will need to create or log into an Anthropic account, then link your AWS account.
-​<br>**Note:** Only authorized admins will be able to apply. |
-| **Google Vertex AI**                                                     | The Cyber Verification Program is not available on Vertex at this time.                                                                                                                                                                                                                                                 |
-| **Third-party platform** (coding tools and other apps powered by Claude) | Reach out to your platform directly to check if Anthropic CVP is available and if so request access to the Cyber Use Case Form through the platform. Not all platforms participate in the CVP at this time.                                                                                                             |
-| **Bring your own key (BYOK) Customers**                                  | Follow instructions under **Anthropic first-party**                                                                                                                                                                                                                                                                     |
+​<br>**Note:** Only authorized admins will be able to apply.                                                                                                                                                                                                                               |
+| **Claude on Google Cloud**                                               | Navigate to the **[Verification Portal](http://portal.anthropic.com/link?account_source=aws&program=cvp)** to apply for access to the Cyber Verification Program. You will need to create or log into an Anthropic account, then **[link your Google account](https://portal.anthropic.com/linked-accounts/gcp/link?from=picker)** and configure data retention. Please see the instructions under the **[Enable data retention on Claude on Google Cloud](#h_c551899218)** section below.<br>**Note:** Only authorized admins will be able to apply. |
+| **Third-party platform** (coding tools and other apps powered by Claude) | Reach out to your platform directly to check if Anthropic CVP is available and if so request access to the Cyber Use Case Form through the platform. Not all platforms participate in the CVP at this time.                                                                                                                                                                                                                                                                                                                                           |
+| **Bring your own key (BYOK) Customers**                                  | Follow instructions under **Anthropic first-party**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 [Verification Portal](https://portal.anthropic.com/programs/cvp)
 
 **Are you a platform owner?** If you use Claude to power products or services available to your customers and want to learn whether your platform is eligible to participate in the Cyber Verification Program, please **[fill out this Platform CVP Interest Form](https://claude.com/form/platform-cvp-interest)**.
+
+## Enable data retention on Claude on Google Cloud
+
+In order to access the Cyber Verification Program through Claude on Google Cloud, you must consent to and configure data retention.
+
+Consent to the Advanced AI Safety Addendum once per project on the model page. In addition, the calling GCP project must opt in to the correct data retention settings. These are set on Google's **[PublisherModelConfig](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/v1beta1/projects.locations.endpoints#PublisherModelConfig)**, keyed by project, region, and model.
+
+**Note:** You must update these settings for every project, region, and model combination with which you'd like to use the Cyber Verification Program on Claude on Google Cloud.
+
+| **Setting**                     | **Needed for**                   | **`PublisherModelConfig` field**              |
+| ------------------------------- | -------------------------------- | --------------------------------------------- |
+| **Data sharing with Anthropic** | Opus 5                           | `dataSharingEnabledProvider: "ANTHROPIC"`     |
+| **Advanced AI**                 | Sonnet 5<br>Opus 4.7<br>Opus 4.8 | `claudeFeatureConfig.advancedAiEnabled: true` |
+
+You can find out more about how to set this configuration by reading the **[Google Cloud documentation](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/request-response-logging#share-requests-responses-with-maas-partners)**.
 
 ## Appeals
 
@@ -330,7 +345,7 @@ SOURCE: https://support.claude.com/en/articles/9199617-api-safeguards-tools
 
 # API Safeguards Tools
 
-Whether you are just starting the process of setting up safeguards for your API deployment of Claude, or your deployment is already running, here are some strategies to consider when building your own AI safety program. These suggestions are designed to help you comply with our [Terms of Service](https://www.anthropic.com/legal/commercial-terms) and [Usage Policy](https://www.anthropic.com/legal/aup), which prohibit certain uses of Claude. Failure to comply with the [Terms](https://www.anthropic.com/legal/commercial-terms) and [Usage Policy](https://www.anthropic.com/legal/aup) may result in suspension or termination of your access to the services.
+Whether you are just starting the process of setting up safeguards for your API deployment of Claude, or your deployment is already running, here are some strategies to consider when building your own AI safety program. These suggestions are designed to help you comply with our **[Terms of Service](https://www.anthropic.com/legal/commercial-terms)** and **[Usage Policy](https://www.anthropic.com/legal/aup)**, which prohibit certain uses of Claude. Failure to comply with the **[Terms](https://www.anthropic.com/legal/commercial-terms)** and **[Usage Policy](https://www.anthropic.com/legal/aup)** may result in suspension or termination of your access to the services.
 
 **Basic Safeguards**
 
@@ -338,21 +353,19 @@ Whether you are just starting the process of setting up safeguards for your API 
 
 - Consider assigning IDs to users, which can help you track specific individuals who are violating Anthropic’s AUP, allowing for more targeted action in cases of misuse.
 
-  - The choice to [pass IDs to Anthropic through the API](https://docs.anthropic.com/claude/reference/messages_post#:~:text=models%20for%20details.-,metadata,object,-An%20object%20describing) is up to you. But, if provided, we can more precisely pinpoint violations. To help protect end-users' privacy, any IDs passed should be cryptographically hashed.
+  - The choice to **[pass IDs to Anthropic through the API](https://docs.anthropic.com/claude/reference/messages_post#:~:text=models%20for%20details.-,metadata,object,-An%20object%20describing)** is up to you. But, if provided, we can more precisely pinpoint violations. To help protect end-users' privacy, any IDs passed should be cryptographically hashed.
 
 - Consider requiring customer to sign-up for an account on your platform before utilizing Claude
 
 - Ensure your customers understand permitted uses
 
-- Warn, throttle, or suspend users who repeatedly violate Anthropic’s [Terms of Service](https://www.anthropic.com/legal/commercial-terms) and [Usage Policy](https://www.anthropic.com/legal/aup)
+- Warn, throttle, or suspend users who repeatedly violate Anthropic’s **[Terms of Service](https://www.anthropic.com/legal/commercial-terms)** and **[Usage Policy](https://www.anthropic.com/legal/aup)**
 
 **Intermediate Safeguards**
 
 - Create customization frameworks that restrict end-user interactions with Claude to a limited set of prompts or only allow Claude to review a specific knowledge corpus that you already have, which will decrease the ability of users to engage in violative behavior.
 
-- Enable additional safety filters - free real-time moderation tooling built by Anthropic for helping detect potentially harmful prompts and managing real-time actions to reduce harm
-
-  - For more information about how to enable our additional safety filters, please reach out to <usersafety@anthropic.com>.
+- Anthropic runs real-time safeguards on API inputs and outputs by default. There is no additional opt-in filter to enable. You can add your own moderation layer in your application; see the moderation guidance in the developer docs.
 
 - *For Bedrock Customers:*
 
@@ -360,7 +373,7 @@ Whether you are just starting the process of setting up safeguards for your API 
 
 **Advanced Safeguards**
 
-- [Use Claude for your content moderation](https://docs.anthropic.com/claude/docs/content-moderation)
+- **[Use Claude for your content moderation](https://docs.anthropic.com/claude/docs/content-moderation)**
 
 - Run a moderation API against all end-user prompts before they are sent to Claude to ensure they are not harmful
 

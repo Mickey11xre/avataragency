@@ -36,7 +36,7 @@ SOURCE: https://support.claude.com/en/articles/10440198-configure-custom-data-re
 
 This feature is available to Enterprise plan customers. To set custom retention periods for your organization, you must have either a Primary Owner or Owner role.
 
-*This article is about our commercial products such as Claude for Work and the Anthropic API. For our consumer products such as Claude Free, Pro, Max and when accounts from those plans use Claude Code, see **[here](https://privacy.claude.com/en/collections/10663362-consumers)**.*
+*This article is about our commercial products, specifically Claude Enterprise. For our consumer products such as Claude Free, Pro, Max and when accounts from those plans use Claude Code, see **[here](https://privacy.claude.com/en/collections/10663362-consumers)**.*
 
 Custom data retention controls allow organizations to manage how long Claude stores conversation and project data. This article explains how to set up and manage data retention periods for your organization.
 
@@ -48,7 +48,7 @@ Data retention is based on the last observed activity:
 
 - **For projects:** Retention period starts from the time the project was last updated (this includes chat creation or project knowledge base modifications).
 
-  - Note that your custom data retention periods set for projects will supersede your custom retention periods for any chats.
+  - Project retention always takes precedence over chat retention for chats inside a project. This applies even if you haven’t set a custom project retention period: by default, projects are retained indefinitely, so chats inside projects are not deleted by your chat retention period.
 
 The minimum retention period is 30 days, and each month is counted as 30 days. For example, a three-month retention period equals 90 days.
 
@@ -56,7 +56,7 @@ The minimum retention period is 30 days, and each month is counted as 30 days. F
 
 When data reaches the end of its retention period:
 
-- **For chats:** All chats (including chats within projects) and any artifacts within those chats will be deleted.
+- **For chats:** All standalone chats (chats not inside a project) and any artifacts within those chats will be deleted. Chats inside a project follow the project’s retention period. Moving a chat into a project places it under the project’s retention period; moving a chat out of a project makes it standalone again, and it becomes eligible for deletion under the chat retention period based on its last activity.
 
 - **For projects:** All projects will be deleted, including any chats and artifacts within those projects.
 
@@ -66,9 +66,11 @@ When data reaches the end of its retention period:
 
 - By default, data is retained indefinitely unless a custom retention period is set.
 
-- When you modify retention settings, any data that falls outside the new retention period will be deleted immediately upon saving.
+- When you shorten a retention period, any data that falls outside the new period is scheduled for permanent deletion as soon as you save. A daily background process removes it, which can take several days for large amounts of data. Don’t rely on this delay to reverse the change.
 
 - Data past its retention period will be permanently deleted and cannot be recovered.
+
+- If your chat is flagged by our automated trust and safety systems as violating our Usage Policy, we retain inputs and outputs as described here: **[How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866)**
 
 ## Setting up data retention
 
@@ -81,6 +83,8 @@ When data reaches the end of its retention period:
 3. Set your desired retention period (minimum 30 days).
 
 4. Save your changes.
+
+**Important:** Custom retention periods apply to content in chats and projects. They do not apply to **[Claude Design](https://support.claude.com/en/articles/14604416-get-started-with-claude-design)**, **[Claude Tag](https://support.claude.com/en/articles/15594475-what-is-claude-tag)**, **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**, or any other features built on **[Claude Code on the web](https://support.claude.com/en/articles/12618689-claude-code-on-the-web)**.
 
 ## Example retention calculation
 
@@ -116,7 +120,7 @@ The Max plan is designed for users who collaborate with Claude frequently and ne
 
 ## Key benefits
 
-- **More usage capacity**: Get 5x or 20x more usage than the Pro plan, depending on your selected tier.
+- **More usage capacity**: Get 5x or 20x the Pro plan's usage allowance, depending on your selected tier.
 
 - **Fewer interruptions**: Stay in flow when it matters most with higher usage limits that allow for deeper, more extensive work with Claude.
 
@@ -126,7 +130,7 @@ The Max plan is designed for users who collaborate with Claude frequently and ne
 
 - **Access to Claude Code: [Use Claude Code](https://support.claude.com/en/articles/11145838)** for your terminal-based coding workflows with one unified subscription.
 
-- **Access to Cowork:** Hand off complex, multi-step tasks to Claude in Claude Desktop. See this article for more information: **[Get started with Claude Cowork](https://support.claude.com/en/articles/13345190)**.
+- **Longer, multi-step tasks:** Hand Claude work like reports, spreadsheets, and presentations, and it keeps going in the background. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -170,15 +174,17 @@ We occasionally run limited-time promotions, but we don't have any standing disc
 
 Yes. The Max plan offers substantially higher usage compared to our Pro plan and is available in two tiers:
 
-**Max 5x** provides five times more usage per session than the Pro plan. This tier is ideal for frequent users who work with Claude on a variety of tasks.
+**Max 5x** includes five times the Pro plan's per-session usage allowance. This tier is ideal for frequent users who work with Claude on a variety of tasks.
 
-**Max 20x** provides 20 times more usage per session than the Pro plan. This tier is ideal for daily users who collaborate often with Claude for most tasks.
+**Max 20x** includes 20 times the Pro plan's per-session usage allowance. This tier is ideal for daily users who collaborate often with Claude for most tasks.
 
 Your session-based usage limit will reset every five hours. Max plans also have a weekly usage limit that applies across all models. The weekly limit resets at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/new#settings/usage)**.
 
 In addition, to manage capacity and ensure fair access to all users, we may limit your usage in other ways, such as weekly and monthly caps or model and feature usage, at our discretion.
 
 For more information about usage and length limits, refer to **[Understanding usage and length limits](https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits)**. For guidance on using your Max capacity efficiently, we also have **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)**.
+
+**Note:** If you have a limit reset, you can use it to reset your five-hour session limit or weekly usage limits back to full. Learn more **[about limit resets](https://support.claude.com/en/articles/17007452)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/11049752-how-do-i-sign-up-for-the-max-plan
@@ -236,26 +242,6 @@ If you're moving from an annual Pro plan to a Max plan and the remaining balance
 ## How does subscription renewal work for Max plans?
 
 After subscribing for a Max plan, your subscription will be set to automatically renew at the end of each billing period by default. This ensures uninterrupted access to Max features. However, you have the flexibility to **[cancel your paid plan](https://support.claude.com/en/articles/8325617)** at any time if you choose not to continue.
----
-
-SOURCE: https://support.claude.com/en/articles/11049762-choose-a-claude-plan
-
-# Choose a Claude plan
-
-Use the following guide to determine which plan is right for you.
-
-| **Plan** | **Price**              | **Billing Interval** | **Usage Capacity**                                                                                                    | **Best For**                                                 |
-| -------- | ---------------------- | -------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------ |
-| Free     | $0                     | N/A                  | **[Limited](https://support.claude.com/en/articles/8114491-getting-started-with-claude#h_57262af5ae)**                | Occasional use                                               |
-| Pro      | $20/month<br>$200/year | Monthly or annual    | **[Standard](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan#h_62ccc00135)**                      | Regular use                                                  |
-| Max 5x   | $100                   | Monthly              | **[5x Pro capacity per session](https://support.claude.com/en/articles/11049741-what-is-the-max-plan#h_cfd2904008)**  | Frequent users who work with Claude on a variety of tasks    |
-| Max 20x  | $200                   | Monthly              | **[20x Pro capacity per session](https://support.claude.com/en/articles/11049741-what-is-the-max-plan#h_cfd2904008)** | Daily users who collaborate often with Claude for most tasks |
-
-The plans listed above are intended for individual users. Looking for a plan for your organization or company? Read more about our Team and Enterprise plans:
-
-- **[What is the Team plan?](https://support.claude.com/en/articles/9266767-what-is-the-team-plan)**
-
-- **[What is the Enterprise plan?](https://support.claude.com/en/articles/9797531-what-is-the-enterprise-plan)**
 ---
 
 SOURCE: https://support.claude.com/en/articles/11526368-how-am-i-billed-for-my-enterprise-plan
@@ -324,7 +310,7 @@ Usage is **billed monthly in arrears** based on your organization's actual consu
 
 **Payment methods**
 
-Sales-assisted Enterprise organizations can pay by bank transfer (ACH or wire) or, for smaller invoices, by credit card. Invoices of $50,000 or more can only be paid by bank transfer (ACH or wire). The credit card option won't appear on the payment page for invoices at or above this amount. To pay a specific invoice by card, reach out to your Anthropic Contact to request an exception.
+Sales-assisted Enterprise organizations can pay by bank transfer (ACH or wire) or, for smaller invoices, by credit card. Invoices of $50,000 or more can only be paid by bank transfer (ACH or wire). The credit card option won't appear on the payment page for invoices at or above this amount.
 
 ---
 
@@ -370,11 +356,33 @@ On **sales-assisted plans**, spend limits prevent usage from continuing past the
 
 You can track your organization's usage and spending in a few places:
 
-- **Organization** **settings > Usage:** View month-to-date spending for each member, current spend limit status, and credit balance (self-serve plans).
+### Organization settings > Usage
 
-- **Monthly invoices:** Detailed usage per user for the billing period (sales-assisted plans).
+View month-to-date spending for each member, current spend limit status, and credit balance (self-serve plans).
 
-- **Spend limit notifications:** Alerts when users or your organization approach configured spending thresholds.
+At the top of this page is a section called **Blocked by a spend limit** with a view of how often members reach their spend limits. **Blocked by a spend limit** is built for usage-based Enterprise plans. Orgs without usage-based seats only see how many members are blocked or near their limit right now.
+
+You'll see three metrics at the top:
+
+- **Blocked right now:** the number of users currently locked out because they've reached a spend limit. Click this to see who they are.
+
+- **Near their limit:** the number of users approaching their spend limit.
+
+- **Member-days lost this month:** total days of blocked usage across your organization this month, compared to the same day last month.
+
+Below this, a chart shows the time at limit per active seat this month, for all members and your power users (top 10% by spend), plotted against prior months with a forecast of where this month is headed. It also calls out which group or limit type accounts for the most time at limit, so you can quickly see where limits are working as intended and where your most engaged users may need more headroom.
+
+You can adjust limits from the same page, including raising a seat type's default or increasing the limits of the members who reached it.
+
+**Note:** If a user’s extra-usage spend limit is set to $0, extra usage is turned off for them entirely. They can appear in the "Blocked right now" count, but their time isn't counted as time lost to a spend limit. The member-days figure and the chart include only members whose limit is above $0 and who reached their limit.
+
+### Monthly invoices
+
+See detailed usage per user for the billing period (sales-assisted plans).
+
+### Spend limit notifications
+
+Get alerts when users or your organization approach configured spending thresholds.
 
 ---
 
@@ -398,7 +406,7 @@ Seat fees are billed annually. Usage billing works the same way as described in 
 
 ### Transition to the single Enterprise seat
 
-At your next contract renewal, your plan will automatically transition to the single Enterprise seat model. When that happens, all users — regardless of their current seat type — will move to the **Enterprise seat**. This seat includes Claude Code, Cowork, Chat and more.
+At your next contract renewal, your plan will automatically transition to the single Enterprise seat model. When that happens, all users—regardless of their current seat type—will move to the **Enterprise seat**. This seat includes Claude Code, Cowork, Chat and more.
 
 If you have questions about your upcoming renewal, reach out to your Anthropic Contact or **[our Sales team](https://claude.com/contact-sales)**.
 
@@ -505,6 +513,8 @@ You can reduce the total number of seats on your Team plan:
 
 8. Check the confirmation box and click "Confirm & purchase" to complete the change.
 
+Reducing your organization's seat count takes effect at your next renewal (on the annual renewal date for annual plans). There is no prorated refund at the time you submit this change.
+
 ---
 
 ## Assign and reassign seat types
@@ -522,6 +532,12 @@ To reassign a user's seat type:
 4. Select "Standard" or "Premium."
 
 Members moved from Premium to Standard will have lower usage limits, and vice versa.
+
+To move several members from Premium to Standard, do not use the per-member **Tier** dropdown. Instead, open **Organization and access**, click "Manage" under **Total seats**, then "Add or change seats," and set the Premium and Standard totals in one submission. You can set Premium below the number of members currently assigned to it: those members are moved onto Standard seats automatically at renewal. The Standard total cannot be lower than your current billable members.
+
+Only one scheduled seat change can be pending at a time. Submitting a new one, adding seats, or accepting a new invite replaces the pending change.
+
+Moving a member from Premium to Standard takes effect at your next renewal (on the annual renewal date for annual plans). There is no prorated refund at the time you submit this change.
 
 ---
 
@@ -561,7 +577,7 @@ Selecting **No seat assigned** lets you temporarily remove a user from a seat wi
 
 4. Find User A and change their seat tier to "Standard."
 
-**Note:** Unassigned users remain members of your organization but cannot use Claude until they're assigned to a seat.
+**Note:** Members with no seat assigned remain part of your organization but can't use Claude until you reassign them a seat. They do not count toward your organization's seat limit. Pending invitations do count. If "Add member" is unavailable even though seats show as available, revoke pending invitations that won't be accepted, or purchase additional seats.
 
 ---
 
@@ -704,7 +720,7 @@ Members of seat-based Enterprise plans will see a "Request usage credits" link u
 
 Click this to send a request to organization Admins to either switch you to a Premium seat (if you're currently assigned to a Standard seat) or enable usage credits for your user account. This will change to **Request sent to admin** after clicking it, indicating that you submitted a request for a seat tier increase or usage credits to an organization Admin.
 
-Admins and Owners can review these requests in **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**. Clicking into "Review requests" will open a modal where each requester is listed, along with their current seat, and the time they asked for more usage. Click "Increase limit" next to each request you want to approve. Admins and above will also receive a daily email including all your organization's outstanding requests.
+Owners, Primary Owners, and custom roles with the Billing permission set to "Can manage" can review these requests in **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**. Clicking into "Review requests" will open a modal where each requester is listed, along with their current seat, and the time they asked for more usage. Click "Increase limit" next to each request you want to approve. Admins and above will also receive a daily email including all your organization's outstanding requests.
 
 ### Disable usage credit requests
 
@@ -817,6 +833,14 @@ If you have an active subscription purchased on **[Claude for Android](https://s
 
 If you're requesting a refund for an inactive subscription, you'll need to **[contact our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)** with the email address associated with your Google Play account or your GPA order number (found on your Google Play receipt, formatted GPA.xxxx-xxxx-xxxx-xxxxx) to further review the charge and refund eligibility.
 
+### I upgraded from Pro or Max to Team—when do I get my refund?
+
+When you upgrade to a Team plan from a Pro or Max plan, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. You don't need to request it manually. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. Google Play purchases don't have this wait, but the refund can take a few days to appear. Any prepaid usage credits on your individual account are refunded.
+
+If you signed up for Pro or Max through the Apple App Store, you can't upgrade to Team in place. **[Cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** through your Apple ID settings first, then start the Team upgrade. App Store subscription refunds need to be requested through Apple directly, as described above.
+
+For full upgrade details, see **[Get started with the Team plan](https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan#h_830eec632d)**.
+
 ## How do I request a refund when I'm disputing the payment?
 
 Our Support team cannot process refunds during pending disputes, as the disputed funds are pulled back immediately. You can choose to either continue working with your bank until the dispute is resolved, or to withdraw the bank dispute, which will allow us to process a refund.
@@ -852,7 +876,7 @@ When you reach your plan’s usage limit with usage credits enabled:
 
 ---
 
-## Enabling usage credits
+## Enable usage credits
 
 To enable usage credits on your paid Claude plan:
 
@@ -898,9 +922,9 @@ Price and plans are subject to change at Anthropic's discretion.
 
 ---
 
-## Managing your usage credits
+## Manage your usage credits
 
-### Monitoring usage and costs
+### Monitor usage and costs
 
 Track your usage credits through:
 
@@ -979,7 +1003,7 @@ Usage analytics are available to Team plan Owners and Primary Owners, and Enterp
 
 Usage analytics help you track team activity, feature adoption, and spend directly from your admin dashboard. You can monitor how your organization uses Claude and export detailed reports for your own analysis.
 
-Primary Owners and Owners can access analytics via dedicated Analytics settings by clicking your initials in the lower left corner and selecting **[Analytics](https://claude.ai/analytics/activity)** from the menu. Additionally, the Chat, Claude Code, Claude Design, and Cowork options offer product-specific analytics.
+Primary Owners and Owners can access analytics via dedicated Analytics settings by clicking your initials in the lower left corner and selecting **[Analytics](https://claude.ai/analytics/overview)** from the menu. Additionally, the Chat, Claude Code, Claude Design, and Cowork options offer product-specific analytics, and the Surveys option lets you ask users directly about their experience.
 
 ---
 
@@ -1058,6 +1082,8 @@ This section includes the following analytics:
 
 
 
+
+**Note:** For a view of how spend limits are affecting your organization, you can also check the **Blocked by a spend limit** section at the top of **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**. **Blocked by a spend limit** is built for usage-based Enterprise plans. Orgs without usage-based seats only see how many members are blocked or near their limit right now. Learn more about **[monitoring usage and spend on Enterprise plans](https://support.claude.com/en/articles/11526368-how-am-i-billed-for-my-enterprise-plan#h_ae17ec8236)**.
 
 ## Export a spend report
 
@@ -1257,9 +1283,15 @@ Navigate to **[Analytics > Cowork](https://claude.ai/analytics/cowork)** to view
 
 ---
 
+## Surveys
+
+Navigate to **[Analytics > Surveys](https://claude.ai/analytics/surveys)** to ask users short, in-product questions about what they're getting out of Claude and review the aggregated answers. Surveys appear to users as a small card in Cowork or chat, and results include response rates, a breakdown by surface and group, and a CSV export per survey. Learn more about **[creating surveys for your organization](https://support.claude.com/en/articles/16764057)**.
+
+---
+
 ## View your own usage as a member
 
-When your admin turns on individual usage analytics, any member of the organization can see their own usage broken down by product, model, and skill, along with where they stand against any spend limits set for them. Individual usage analytics are available in **[Settings > Usage](https://claude.ai/settings/usage)**.
+On Enterprise plans with usage-based billing, when your admin turns on individual usage analytics, any member of the organization can see their own usage broken down by product, model, and skill, along with where they stand against any spend limits set for them. Individual usage analytics are available in **[Settings > Usage](https://claude.ai/settings/usage)**.
 
 
 
@@ -1267,7 +1299,7 @@ When your admin turns on individual usage analytics, any member of the organizat
 
 ## Turn individual usage analytics on or off
 
-**Note:** Individual usage analytics is off  by default, but will be on by default starting on July 11, 2026. If you want to keep member-level visibility off, change the setting on or after July 11.
+**Note:** Individual usage analytics is available to Enterprise organizations on usage-based billing. The **Member analytics** toggle does not appear for Team plan organizations or for seat-based Enterprise organizations.
 
 Owners and Primary Owners control whether members can see this view. The setting applies to the whole organization.
 
@@ -1277,11 +1309,15 @@ Owners and Primary Owners control whether members can see this view. The setting
 
 3. Switch it on or off.
 
+**Note:** Individual usage analytics is default on since July 11, 2026. If you want to keep member-level visibility off, change the setting.
+
 ---
 
 ## Access your analytics data programmatically
 
 If you’re on an Enterprise plan and want to pull analytics data into your own dashboards or reporting tools, the Analytics API gives you programmatic access to the same usage and engagement metrics available in the analytics dashboard. To get started, refer to our **[Analytics API docs](https://platform.claude.com/docs/en/manage-claude/analytics-api)**.
+
+**Important**: Only your organization's Primary Owner can enable the Analytics API and create Analytics API keys, from **[Organization settings > API](https://claude.ai/admin-settings/api-access)**: under **APIs**, turn on Analytics API; under **Keys**, click "+Create key" and select the `read:analytics` scope. Owners and Admins don't see the Analytics API on that page at all. That's expected, not a permissions error—ask your Primary Owner to enable it and create the key. If your organization is linked to a parent organization, the parent organization's Primary Owner does this.
 ---
 
 SOURCE: https://support.claude.com/en/articles/12938627-how-to-gift-a-claude-subscription
@@ -1492,6 +1528,14 @@ Please click on the message icon in the bottom right of our Help Center to conta
 ## My Team plan access is no longer active and I want to resubscribe.
 
 An organization owner can resubscribe for Team plan access by navigating to **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**.
+
+## What happens to my Pro or Max subscription when I upgrade to Team?
+
+When you upgrade from Pro or Max to Team in place, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. Google Play purchases don't have this wait, but the refund can take a few days to appear. Any prepaid usage credits on your individual account are refunded
+
+If you signed up for Pro or Max through the Apple App Store, in-place upgrades work differently. For more information, refer to **[Get started with the Team plan](https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan#h_5d142d3f45)**.
+
+If you'd rather keep your personal subscription active, check the opt-out box (**Keep your personal account separate**)  in the team-creation flow when you upgrade.
 ---
 
 SOURCE: https://support.claude.com/en/articles/13133750-manage-members-on-team-and-enterprise-plans
@@ -1846,7 +1890,7 @@ To unassign a member:
 
 To restore their access, repeat the process and select “Enterprise seat.”
 
-**Note:** Members with no seat assigned remain part of your organization but can't use Claude until you reassign them a seat.
+**Note:** Members with no seat assigned remain part of your organization but can't use Claude until you reassign them a seat. They do not count toward your organization's seat limit. Pending invitations do count. If "Add member" is unavailable even though seats show as available, revoke pending invitations that won't be accepted, or purchase additional seats.
 
 ---
 
@@ -2010,15 +2054,15 @@ Groups and group spend limits are available for Enterprise plan organizations. O
 
 Groups let you organize members into logical collections—by team, department, or any other grouping that fits your organization. Once groups are set up, you can:
 
-- **Set spend limits for groups**, so all members of a group share a per-user spend limit.
+- **Set spend limits for groups**, so all members of a group share a per-user spend limit, and optionally give the group one shared monthly budget (beta).
 
 - **Control member access through group memberships and custom roles**, so their capabilities and permissions are determined entirely by the groups they belong to. For additional details, see **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
 
-- **Let members share resources with a group**, so a project or skill shared with the group is available to everyone in it, and access follows membership as it changes. For details, see[**Manage project visibility and sharing**](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)  and **[Provision and manage skills for your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization)**.
+- **Let members share resources with a group**, so a project, skill, or plugin shared with the group is available to everyone in it, and access follows membership as it changes. For details, see **[Manage project visibility and sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)** and **[Provision and manage skills for your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization)**.
 
-Groups can be created manually or synced automatically from your identity provider via SCIM. Each organization can have up to 100 groups. There's no limit on how many groups a member can belong to, though belonging to more than 250 can slow performance.
+Groups can be created manually or synced automatically from your identity provider via SCIM. Each organization can have up to 1000 groups. There's no limit on how many groups a member can belong to, though belonging to more than 250 can slow performance.
 
-In addition to spend limits, Enterprise admins can use groups to control plugin access in Cowork. Each plugin in your organization's marketplace can have group-level overrides that determine whether it's available, pre-installed, required, or hidden for members of a specific group. For details, see **[Manage Cowork plugins for your organization](https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization)**.
+In addition to spend limits, Enterprise admins can use groups to control plugin access in chat, Cowork, and Claude Code. Each plugin in your organization's marketplace can have group-level overrides that set it to "Available to install," "Installed by default," "Required," or "Not available" for members of a specific group. For details, see **[Manage plugins for your organization](https://support.claude.com/en/articles/13837433-manage-cowork-plugins-for-your-organization)**.
 
 ---
 
@@ -2070,13 +2114,13 @@ To manually trigger a sync, click “SCIM Sync."
 
 ## Group visibility
 
-By default, groups appear only on admin surfaces. Visibility settings let you make a group discoverable to members so they can share resources (like projects and skills) with it. You set them in the **Visibility settings** section when creating or editing a group.
+By default, groups appear only on admin surfaces. Visibility settings let you make a group discoverable to members so they can share resources (like projects, skills, or plugins) with it. You set them in the **Visibility settings** section when creating or editing a group.
 
 There are three settings:
 
 - **Discover this group:** Members can find the group by name. This doesn't expose group members, spend limits, or role assignments.
 
-- **Share resources with this group:** Members can share resources, such as projects and skills, with the group.
+- **Share resources with this group:** Members can share resources, such as projects, skills, and plugins, with the group.
 
 - **See group members:** Members can see who belongs to the group, by name and email address.
 
@@ -2088,7 +2132,7 @@ The **Visibility** column in the groups list shows each group's current state. N
 
 **Important:** Visibility settings are configured per organization. Groups, group membership, and SCIM sync are managed at the parent organization level and shared across child organizations, but visibility settings aren't. An admin changing visibility settings in one organization doesn't affect any other organization.
 
-### Remove a group's access to shared projects and skills
+### Remove a group's access to shared projects, skills, and plugins
 
 Turning off **Share resources with this group** blocks new shares. It doesn't revoke projects already shared with the group. To revoke those:
 
@@ -2117,6 +2161,10 @@ You can control individual members' feature access entirely through groups and c
 3. Select "Custom."
 
 Owners, Primary Owners, and custom roles with the **User Management** permission set to "Can manage" can change member roles. You can also assign “Custom” at scale by mapping an IdP group using **[group mappings](https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning)**.
+
+**Important:** If your provisioning mode is SCIM directory sync and group mappings are enabled, each member’s role is set by your IdP group-to-role mapping and managed by the sync, not by the **Members** page. A role that was set to “Custom” before you enabled group mappings (or set another way) is recalculated on the next full sync and reverts to the mapped role. It works until that sync runs, and the reversion isn’t recorded in the audit log, so it can look like custom role permissions stopped applying for no reason.
+
+To keep a member on “Custom,” add them to an IdP group that’s mapped to the “Custom” role in **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**, then run a sync. See **[Set up JIT or SCIM provisioning](https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning)** and **[How SCIM sync works for Enterprise organizations](https://support.claude.com/en/articles/14499648-how-scim-sync-works-for-enterprise-organizations)**.
 
 ### Recommended setup
 
@@ -2150,33 +2198,35 @@ Group spend limits let you control spending across your organization by assignin
 
 Group spend limits work alongside individual spend limits. If a member has an individual spend limit set, their individual limit takes precedence over any group limit.
 
-## Set a group spend limit
+A pooled budget only starts counting spend after it is created and resets each month.
+
+### Set a group spend limit
 
 1. Navigate to **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**.
 
-2. Select the “By group” tab.
+2. Select the "By group/tier" tab.
 
-3. Find the group and click the menu button to the right, then “Edit limit”
+3. Find the group and click the menu button to the right, then "Edit limits."
 
-4. Select “Unlimited,” or “Set dollar amount” and enter a dollar amount for the spend limit.
+4. Select "No member limit" or "Member limit" and enter an amount.
 
-5. Click "Set limit."
+5. Click "Save."
 
 The spend limit applies to all members of the group. Members who also have an individual spend limit set are governed by their individual limit instead.
 
-## Choose how multi-group spend limits resolve
+### Choose how multi-group spend limits resolve
 
 If a member belongs to more than one group with a spend limit, the **Multi-group spend limit** setting controls which limit applies.
 
 1. Navigate to **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**.
 
-2. Find **Multi-group spend limit** in the **Spending defaults** section.
+2. Find **Member limit** from groups in the **Spending defaults** section.
 
 3. Select "Higher group limit" or "Lower group limit" from the dropdown.
 
 Select "Lower group limit" to set a broad limit on a large group and create subgroups with tighter budgets. Select "Higher group limit" to set a conservative baseline on a large group and grant more headroom to specific teams.
 
-## How spend limits are resolved
+### How spend limits are resolved
 
 When determining a member's effective spend limit, the system evaluates in this order:
 
@@ -2185,6 +2235,8 @@ When determining a member's effective spend limit, the system evaluates in this 
 2. **Group limit**—if the member has no individual limit, the system checks their group memberships. If the member belongs to multiple groups with spend limits, your **Multi-group spend limit** setting determines whether the higher or lower limit applies.
 
 3. **No limit**—if the member has no individual limit and belongs to no groups with spend limits, no spend limit is applied.
+
+For a view of how spend limits are affecting your organization, see the **Blocked by a spend limit** section at the top of **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**. **Blocked by a spend limit** is built for usage-based Enterprise plans. Orgs without usage-based seats only see how many members are blocked or near their limit right now. Learn more about **[monitoring usage and spend on Enterprise plans](https://support.claude.com/en/articles/11526368-how-am-i-billed-for-my-enterprise-plan#h_ae17ec8236)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans
@@ -2200,6 +2252,8 @@ Custom roles let you define which features your members can access. Each custom 
 Custom roles work alongside groups. The typical workflow is: create custom roles, assign them to groups, and then set members' roles to “Custom” so their access is governed entirely by the custom roles assigned to their groups.
 
 **Note:** Custom roles only affect members whose role is set to “Custom.” Members with the User, Admin, or Owner roles get their permissions from those roles directly, not from custom roles.
+
+**Note:** With SCIM directory sync and group mappings enabled, each member’s role is owned by the sync. A member whose role was set to “Custom” before group mappings were enabled reverts to their mapped role on the next full sync unless they’re in an IdP group mapped to “Custom.” See **[Manage groups and group spend limits on Enterprise plans](https://support.claude.com/en/articles/13799932-manage-groups-and-group-spend-limits-on-enterprise-plans#h_05cb172230)**.
 
 ---
 
@@ -2231,18 +2285,22 @@ Each custom role can grant or restrict access to the following capabilities:
 | Code execution and file creation          | Ability to run code and create files in conversations.                                                                                                                                                                                                   |
 | Memory                                    | Ability to use memory across conversations.                                                                                                                                                                                                              |
 | Web search                                | Ability to use web search in conversations.                                                                                                                                                                                                              |
+| Share projects                            | Ability to share projects with other users, groups, or your organization. Turning this off doesn't change existing shares.                                                                                                                               |
 | Public projects                           | Ability to share projects with everyone in your organization.                                                                                                                                                                                            |
 | Create skills                             | Ability to create or upload custom skills.                                                                                                                                                                                                               |
-| Share skills with org members             | Ability to share skills with specific people in your organization.                                                                                                                                                                                       |
+| Share skills and plugins with org members | Ability to share skills and plugins with specific people in your organization.                                                                                                                                                                           |
 | Share skills with the full organization   | Ability to share skills with everyone in your organization at once.                                                                                                                                                                                      |
-| Share skills with groups                  | Ability to share skills with a group in your organization.                                                                                                                                                                                               |
-| Skill and plugin security scanning (beta) | Ability to run a scan on skills and plugins when they’re uploaded to catch possible security concerns.                                                                                                                                                   |
+| Share skills and plugins with groups      | Ability to share skills and plugins with a group in your organization.                                                                                                                                                                                   |
+| Skill and plugin security scanning        | Ability to run a scan on skills and plugins when they’re uploaded to catch possible security concerns.                                                                                                                                                   |
 | Claude Code                               | Access to Claude Code.                                                                                                                                                                                                                                   |
 | Fast mode                                 | Access to faster model options for Claude Code.                                                                                                                                                                                                          |
 | Claude Code dynamic workflows\*           | Access to dynamic workflows in Claude Code, which let Claude run large engineering tasks—migrations, audits, codebase-wide bug hunts—from start to finish in a single session. These runs can last for hours and use more tokens than a typical session. |
 | Claude Security                           | Find and fix security vulnerabilities in your code with Claude.                                                                                                                                                                                          |
 | Claude Code artifacts                     | Ability to create artifacts in Claude Code, which turn a session's work into a live, shareable page built from the session's context.                                                                                                                    |
-| Claude Design                             | Access to Claude Design to generate design artifacts.                                                                                                                                                                                                    |
+| Claude Design [standalone]                | Access to standalone Claude Design at claude.ai/design. This doesn't control Claude Design in conversations and the Artifacts tab, which has its own capability, Design (under **Artifacts**).                                                           |
+| Design                                    | Ability to create designs with Claude Design in conversations and the Artifacts tab, including creating and editing design systems. Users without it can still open, comment on, and use designs shared with them.                                       |
+| Slides                                    | Ability to create slide decks with Claude Slides. Users without it can still open decks shared with them.                                                                                                                                                |
+| Docs                                      | Ability to create docs with Claude Docs. Users without it can still open docs shared with them.                                                                                                                                                          |
 | Claude Cowork                             | Access to Claude Cowork.                                                                                                                                                                                                                                 |
 | Cowork in the cloud (beta)                | Lets members run Cowork tasks on Anthropic's infrastructure instead of their own computer, so tasks can keep running across desktop, web, and mobile.                                                                                                    |
 | Claude for Chrome                         | Access to Claude for Chrome, the browser extension that lets Claude browse and act on web pages on the user's behalf.                                                                                                                                    |
@@ -2285,7 +2343,7 @@ Roles set to either option pick up new capabilities automatically as they launch
 
 7. Configure connectors. You can choose Always allow, Needs approval, or Blocked for all connectors, or customize per connector or connector tool.
 
-8. Configure models. Select which models this role can use, optionally set a maximum effort level per model, and optionally choose a default model for the role.
+8. Configure models. Select which models this role can use, optionally set a maximum effort level per model, and optionally choose a default model and default effort level for the role.
 
 9. Click “Save role.”
 
@@ -2377,17 +2435,18 @@ Within an area, you grant all of View or all of Manage. You can't grant or restr
 
 ### Available admin permissions
 
-There are seven admin permission areas:
+There are eight admin permission areas:
 
 | **Area**             | **View**                                                                                                                                                         | **Manage**                                                                                                                           |
 | -------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | Identity & Access    | SSO and SAML configuration, verified domains, domain memberships, IP allowlist, session settings, group definitions, role definitions, and provisioning settings | Edit SSO, manage domains, edit the IP allowlist, edit session settings, create and edit groups and roles, and configure provisioning |
 | Billing              | Plan details, seat counts, invoices, billing addresses, and usage spend                                                                                          | Change seats, update payment methods, edit billing addresses, and configure spend limits and extra usage                             |
-| Analytics            | Usage analytics, Claude Code analytics, and feature adoption metrics                                                                                             | Not available                                                                                                                        |
+| Analytics            | Usage analytics, Claude Code analytics, feature adoption metrics, and surveys (create and view)                                                                  | Not available                                                                                                                        |
 | Privacy              | Data retention settings, export configuration, sharing settings, geolocation settings, US-only inference setting, and encryption-key status                      | Edit retention periods, run data exports, change sharing settings, and configure geolocation, US-only inference, and encryption      |
 | User Management      | Not available                                                                                                                                                    | Invite members, change member roles, remove members, and manage pending invitations                                                  |
 | Libraries            | Not available                                                                                                                                                    | Add, edit, and remove organization-shared skills, plugins, and connectors. Also includes directory management.                       |
 | Directory management | Not available                                                                                                                                                    | Submit and manage directory listings, and view observability for listings your organization has published                            |
+| Claude Design Admin  | Not available                                                                                                                                                    | Publish design systems, set the organization's default design system, and delete design systems                                      |
 
 **Note:** A role with **Identity & Access** set to "Can manage" can create and edit groups and roles, including its own role definition. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
 
@@ -2505,7 +2564,7 @@ Members can’t tell which layer restricted a tool. The message is the same whet
 
 ## Model access
 
-Custom roles also control which Claude models a role can use and the maximum effort level members can select on each one. You set these on the **Models** tab of the role editor, alongside the role's default model.
+Custom roles also control which Claude models a role can use and the maximum effort level members can select on each one. You set these on the **Models** tab of the role editor, alongside the role's default model and default effort level.
 
 The organization-level model setting is the ceiling. A role can't grant a model that's disabled at the organization level. Across a member's roles, model access is additive and effort limits take the highest cap any role allows. Haiku models are always available and can't be disabled.
 
@@ -2638,7 +2697,7 @@ Set admin permissions on each role to delegate access to admin settings, like bi
 
 3. Select the **Permissions** tab, between **Capabilities** and **Connectors**.
 
-### **Set admin permissions**
+### Set admin permissions
 
 The **Permissions** tab lists each admin area: Identity & Access, Billing, Analytics, Privacy, User Management, Libraries, and Directory. Set each admin area to one of the following options:
 
@@ -2652,7 +2711,7 @@ Within an area, you grant all of View or all of Manage. You can't grant or restr
 
 **Note:** A role with Identity & Access set to Manage can create and edit groups and roles, including its own role definition. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
 
-### **Verify enforcement**
+### Verify enforcement
 
 Verify admin permissions after you’ve migrated members to "Custom" roles (Step 7). See **Step 11: Verify and monitor**.
 
@@ -2854,6 +2913,8 @@ For any feature you want to control per-group:
 
 Enabling a feature at the organization level doesn't mean everyone gets it—custom role permissions are already in place to control who can use it. Think of the organization-level toggle as making the feature "available for role-based assignment" rather than "on for everyone."
 
+**Note:** This includes the Design, Slides, and Docs settings in Organization settings > Artifacts. Members outside the roles that grant them can still open, comment on and use artifacts shared with them.
+
 ---
 
 ## Step 10: Apply a group spend limit (usage-based orgs only)
@@ -2978,7 +3039,7 @@ If you enabled group mappings during setup and lost admin access, follow the rec
 
 ### Do I need to enable a feature at the organization level if I only want some members to have it?
 
-Yes. The organization-level toggle must be on for custom roles to control per-member access. If a feature is off at the organization level, no one can access it regardless of their role. Think of it as a main switch—custom roles control who gets access underneath it.
+Yes. The organization-level toggle must be on for custom roles to control per-member access. If a feature is off at the organization level, no one can access it regardless of their role. Think of it as a main switch—custom roles control who gets access underneath it. This includes the Design, Slides, and Docs settings in **Organization settings > Artifacts**.
 
 ### What happens if a member whose role is set to "Custom" isn't in any groups?
 
@@ -3079,25 +3140,35 @@ SOURCE: https://support.claude.com/en/articles/14604406-claude-design-admin-guid
 
 # Claude Design admin guide for Team and Enterprise plans
 
-Claude Design lets your team create on-brand designs, prototypes, presentations, and interactive microsites through conversation with Claude.
+Claude Design lets your team create on-brand designs, prototypes, and interactive microsites through conversation with Claude. Presentations now have their own tool, Claude Slides.
 
-Claude Design is available in beta to Pro, Max, Team, and Enterprise plans. This capability is default off for Enterprise plans.
+Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It's on by default on Team plans. On Enterprise plans, it's off by default until an owner turns it on.
+
+**Note:** Settings for artifacts, templates (including **Design**), design systems, and sharing live in one place now. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**. This guide covers standalone Claude Design at **claude.ai/design** and how to roll out Claude Design with a design system in place.
 
 Claude Design works best when a **design system** is set up for your organization first. This ensures every project your team creates stays true to your brand, typography, color palette, and component patterns. This guide walks you through enabling Claude Design, setting up the right foundation, and rolling it out to your team.
 
-## Enable Claude Design for your organization
+**[Create an artifact with Claude](https://claude.ai/artifacts)**
 
-Claude Design is available via a toggle in organization settings, and can be **[controlled using custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
+---
 
-Before you enable broad access, read through the rollout approach below. Turning on Claude Design without a design system in place means your team will get functional but generic output.
+## Turn on Claude Design for your organization
 
-Team and Enterprise plan admins can enable this organization-wide by following these steps:
+Your team can use Claude Design in two places, and each has its own setting. Turning one on doesn't turn on the other.
 
-1. Go to **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
+### Claude Design in conversations and the Artifacts tab
 
-2. Find the **Claude Design** toggle under **Anthropic Labs** and switch it on.
+To turn on the **Design** template, see the instructions in **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
 
+### Standalone Claude Design at claude.ai/design
 
+1. Go to **[Organization settings > Claude Design](https://claude.ai/admin-settings/claude-design)**.
+
+2. Find the **Enable for your organization** toggle under **Claude Design [standalone]** and switch it on.
+
+On Enterprise plans, you can control access to standalone Claude Design with **[custom roles](https://support.claude.com/en/articles/13930452)**.
+
+Before you turn on broad access, read through the rollout approach below. Turning on Claude Design without a design system in place means your team gets functional but generic output.
 
 ---
 
@@ -3125,59 +3196,15 @@ Any member with Claude Design access can create and edit design systems. On the 
 
 ---
 
-## Restrict who can manage design systems
-
-The **Claude Design Admin** permission is available on the Enterprise plan through custom roles.
-
-By default, any member with access to Claude Design can publish a design system, set the organization default, and delete design systems. The **Claude Design Admin** permission lets you reserve these actions for specific members, giving your organization a single source of truth for its design systems.
-
-### What the permission controls
-
-Members with the permission set to "Can manage" can:
-
-- **Publish a design system:** Make it available across your organization so anyone can attach it to a project.
-
-- **Set the organization default:** Choose the design system new projects use automatically.
-
-- **Delete a design system:** Permanently remove it from your organization.
-
-Everyone else can still create, edit, and use any published design system. If a member without the permission tries to publish, set the default, or delete, they'll see a note directing them to contact their administrator.
-
-**Note:** If you don't assign this permission to anyone, nothing changes. All members keep the same access to design systems as before.
-
-### Grant the permission
-
-You'll need Owner access to configure roles.
-
-1. Go to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)** and create or edit a custom role.
-
-2. In the **Permissions** tab, find **Claude Design Admin** under **In-app admin** and set it to **Can manage**.
-
-3. Assign the role to a group. Members of that group inherit the permission.
-
-4. Set each member's role to **Custom roles**.
-
-Permissions are additive. A member in multiple groups gets the union of what those groups' roles grant. Learn more about **[managing custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
-
-### Verify access
-
-Permission changes can take up to 15 minutes to apply, and members may need to refresh their browser. There are two ways to confirm:
-
-- **Ask the member to check.** In admin settings, they'll see only the sections their permissions cover.
-
-- **Review as an Owner.** Check the member's groups on the **Members** page, then review those groups' roles on the **Roles** page.
-
----
-
 ## Recommended rollout phases
 
-A phased rollout lets you validate your design system and build internal expertise before broad adoption. You can control access to Claude Design in accordance with each rollout phase using **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
+A phased rollout lets you validate your design system and build internal expertise before broad adoption. On Enterprise plans, you can phase access to standalone Claude Design using **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**. You can phase access to Claude Design in conversations and the Artifacts tab the same way, with the Design capability (under **Artifacts**).
 
 ### Phase 1: Design system setup
 
 - **Who:** 2–4 trusted designers and design leads across brand and product design.
 
-- **Goal:** Create and validate your organization’s design system, including product and slide deck templates everyone can use as a starting point.
+- **Goal:** Create and validate your organization’s design system, including product templates everyone can use as a starting point.
 
 - **Checkpoint:** Review generated output for brand consistency before proceeding.
 
@@ -3223,7 +3250,7 @@ Once set up, your team can use Claude Design to:
 
 - **Create prototypes and mockups:** Describe a UI and get a working interactive prototype.
 
-- **Build presentations and slide decks:** Generate on-brand decks through conversation, presentable as HTML, PDF, and PPTX.
+- **Build presentations with Claude Slides:** Make on-brand decks from notes, reports, or an existing conversation, and export them to PowerPoint or PDF. Claude Slides has its own setting in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
 
 - **Design microsites and landing pages:** Create polished single-page sites.
 
@@ -3231,53 +3258,13 @@ Once set up, your team can use Claude Design to:
 
 - **Hand off to engineering:** Export design intent for use with Claude Code or your existing development workflow.
 
-We have more tutorials available here:
-
-- **[Using Claude Design for prototypes and UX](http://claude.com/resources/tutorials/using-claude-design-for-prototypes-and-ux)**
-
-- **[Using Claude Design for presentations and slide decks](http://claude.com/resources/tutorials/using-claude-design-for-presentations-and-slide-decks)**
-
 ---
 
-## Monitor usage
-
-Track Claude Design adoption from the analytics dashboard. Navigate to **[Analytics > Claude Design](https://claude.ai/analytics/claude-design)** to view daily, weekly, and monthly active users for your organization. Claude Design is also available as a product filter on the Overview tab. Learn more about **[viewing usage analytics for Team and Enterprise plans](https://support.claude.com/en/articles/12883420-view-usage-analytics-for-team-and-enterprise-plans)**.
-
-Claude Design doesn't support audit logs yet.
-
-We also recommend supplementing analytics with qualitative check-ins during your rollout: gather feedback from each group as they onboard, and sample a few projects periodically to assess design system compliance.
-
-## Data handling and privacy
-
-When your team uses Claude Design, they may upload design assets, brand guidelines, screenshots, and other materials. Understanding how these are handled is important for organizations with data governance requirements.
-
-- Uploaded assets are stored persistently, and fall under the same **[data retention and deletion policies](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)** as other Anthropic enterprise products.
-
-- Claude Design doesn’t currently support data residency requirements.
-
-### Preview sandbox isolation
+## Preview sandbox isolation
 
 Claude Design project previews run inside a sandboxed iframe on a separate content domain that Anthropic operates. These sandboxed iframes help each project preview stay in its own space, separate from others. The code in a preview can't reach your Claude account, your login, or the editor.
 ​
 Access to a preview is controlled by signed tokens—short-lived passes that prove someone's allowed in. Claude re-checks these tokens against your sharing permissions every time someone opens the preview, so when you remove someone's access, they're locked out right away.
-
----
-
-## Third-party platform availability
-
-Claude Design is currently available only through the web interface at claude.ai/design.
-
-If your organization requires Claude Design through your existing cloud provider agreements, reach out to your Anthropic contact or our **[Sales team](https://claude.com/contact-sales)**.
-
----
-
-## Usage and billing
-
-Claude Design usage counts toward each member's existing usage limits, shared with chat, Claude Code, and Cowork. There's no separate Claude Design allowance to provision or manage.
-
-- **Team and seat-based Enterprise plans:** Claude Design draws from each member's seat usage limits, including both session and weekly limits. Admins can purchase **[usage credits](https://support.claude.com/en/articles/12005970-manage-extra-usage-for-team-and-seat-based-enterprise-plans)** for members who need more capacity.
-
-- **Usage-based Enterprise plans:** Claude Design usage bills from your organization's consumption at standard API rates, like every other surface. Organization, group, and per-user spend limits apply.
 
 ---
 
@@ -3295,21 +3282,13 @@ Yes. Organizations can have multiple design systems.
 
 They’ll get functional designs, but the designs won’t reflect your brand. We strongly recommend completing design system setup first for the best team experience.
 
-### Who can publish, set the default, or delete design systems?
-
-If you haven't assigned the **Claude Design Admin** permission to anyone, any member with Claude Design access can take these actions. On the Enterprise plan, you can reserve these actions for specific members. See **[Restrict who can manage design systems](#h_e24c8ef395)** above.
-
-### Can I restrict Claude Design to specific departments?
-
-Yes. Enterprise plans can use custom roles to grant access to specific groups or departments rather than enabling it for the whole organization.
-
 ### How many users can we onboard at once?
 
 There are no strict limits, but we recommend the phased approach outlined above to ensure quality and successful adoption across your organization.
 
 ### Can we export or archive generated designs?
 
-Claude Design currently supports export to HTML bundles, PPTX, PDF, and hand-off to Claude Code or the following partners: Adobe, Base44, Canva, Gamma, Lovable, Miro, Replit, Vercel, or Wix. Reach out to your Anthropic Contact or our **[Sales team](https://claude.com/contact-sales)** if there’s a specific format or destination you need.
+Claude Design currently supports export to HTML bundles, PPTX, and PDF, hand-off to Claude Code, and sending designs to the partner tools listed in **[Get started with Claude Design](https://support.claude.com/en/articles/14604416)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan
@@ -3411,33 +3390,31 @@ If you administer a Team or Enterprise account, here’s what to know:
 **What you need to do.** Nothing right now. Eligible users on your team will receive an email with details and instructions to claim their credit before June 15, 2026.
 ---
 
-SOURCE: https://support.claude.com/en/articles/15424964-claude-fable-5-on-your-plan
+SOURCE: https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan
 
-# Claude Fable 5 on your plan
+# Claude Fable models on your plan
 
-We previously ran a promotion that allowed you to use up to 50% of your weekly subscription limit on Claude Fable 5 at no extra cost. After that promotion ends on July 19, 2026 at 11:59:59 PM PT, Fable 5 will still be available to you, and how you access it will depend on your plan.
+We previously ran a promotion that allowed you to use up to 50% of your weekly subscription limit on Claude Fable 5 at no extra cost. That promotion ended on July 19, 2026 at 11:59:59 PM PT, and it applied to Fable 5 only. Claude Fable 5.1 was never part of it.
 
-On Max plans, premium seats on Team plans, and premium seats on legacy seat-based Enterprise plans, Fable 5 will be a standard part of your plan. On Pro plans, standard seats on Team plans, and standard seats on legacy seat-based Enterprise plans, Fable 5 will run on pay-as-you-go usage credits. This article explains how Fable 5 will work on each plan, how to access it, and what happens when you reach your usage limits.
+Fable 5 and Fable 5.1 work the same way on your plan. On Max plans, premium seats on Team plans, and premium seats on legacy seat-based Enterprise plans, both are a standard part of your plan. On Pro plans, standard seats on Team plans, and standard seats on legacy seat-based Enterprise plans, both models run on pay-as-you-go usage credits. This article explains how they work on each plan, how to access them, and what happens when you reach your usage limits.
 
-Claude Fable 5 is available on all paid plans (Pro, Max, Team, and Enterprise).
+Claude Fable 5 and Claude Fable 5.1 are available on all paid plans (Pro, Max, Team, and Enterprise).
 
-## How Fable 5 works on each plan
+## How Fable models work on each plan
 
-Starting July 20, 2026:
+- **Max plans, premium seats on Team plans, and premium seats on seat-based Enterprise plans:** Fable 5 and Fable 5.1 are included as a standard part of your plan. You can use up to 50% of your weekly usage limits on Fable models at no extra cost. They draw from your plan's regular weekly usage limits and use them faster than other Claude models. When you reach your Fable limit, you can keep using Fable models with usage credits, or switch to another model to stay within your plan's usage limits.
 
-- **Max plans, premium seats on Team plans, and premium seats on seat-based Enterprise plans:** Fable 5 is included as a standard part of your plan. You can use up to 50% of your weekly usage limits on Fable 5 at no extra cost. Fable 5 draws from your plan's regular weekly usage limits and uses them faster than other Claude models. When you reach your Fable 5 limit, you can keep using Fable 5 with usage credits, or switch to another model to stay within your plan's usage limits.
+- **Pro plans and standard seats on Team plans:** Fable 5 and Fable 5.1 aren’t included in your plan's usage limits. You can use them with usage credits, which let you pay for usage beyond what your plan includes. Eligible Pro and Team standard seats qualified for a one-time credit when Fable 5 moved to usage credits in July 2026. That credit applied to the Fable 5 change only, and there's no equivalent credit for Fable 5.1. Learn more about the **[Claude Fable 5 one-time free credits promotion](https://support.claude.com/en/articles/15862783)**.
 
-- **Pro plans and standard seats on Team plans:** Fable 5 isn't included in your plan's usage limits. You can use Fable 5 with usage credits, which let you pay for usage beyond what your plan includes. Eligible Pro and Team standard seats qualify for a one-time credit to help with the change. Learn more about the **[Claude Fable 5 one-time free credits promotion](https://support.claude.com/en/articles/15862783)**.
+- **Standard seats on seat-based Enterprise plans:** Fable 5 and Fable 5.1 aren’t included in your plan's usage limits. You can use them if your organization has enabled usage credits, which let you pay for usage beyond what your plan includes. Standard seats on seat-based Enterprise plans don't qualify for the one-time promotional credit.
 
-- **Standard seats on seat-based Enterprise plans:** Fable 5 isn't included in your plan's usage limits. You can use Fable 5 if your organization has enabled usage credits, which let you pay for usage beyond what your plan includes. Standard seats on seat-based Enterprise plans don't qualify for the one-time promotional credit.
+- **Usage-based Enterprise plans:** Access to Fable 5 and Fable 5.1 is billed at standard API rates. For current per-model pricing, see our **[API pricing page](https://www.anthropic.com/pricing#api)**.
 
-- **Usage-based Enterprise plans:** Access to Fable 5 is billed at standard API rates. For current per-model pricing, see our **[API pricing page](https://www.anthropic.com/pricing#api).**
+- **Claude API:** Access to Fable 5 and Fable 5.1 is billed at standard API rates. For current per-model pricing, see our **[API pricing page](https://www.anthropic.com/pricing#api)**.
 
-- **Claude API:** Access to Fable 5 is billed at standard API rates. For current per-model pricing, see our **[API pricing page](https://www.anthropic.com/pricing#api).**
+## How to access Claude Fable models
 
-## How to access Claude Fable 5
-
-You can access Claude Fable 5 on:
+You can access Claude Fable 5 and Fable 5.1 on:
 
 - Claude on the web
 
@@ -3455,41 +3432,43 @@ You can access Claude Fable 5 on:
 
 - Claude Tag
 
-In Claude on the web, Claude Desktop, and Claude Mobile, select "Fable 5" from the model picker. In Claude Code, Fable 5 requires version 2.1.170 or later. To use Fable 5 in Claude Cowork, you need to be on the latest version of Claude Desktop.
+In Claude on the web, Claude Desktop, and Claude Mobile, select "Fable 5" or “Fable 5.1” from the model picker. In Claude Code, Fable 5 requires version 2.1.170 or later and Fable 5.1 requires version 2.1.255 or later. To use Fable models in Claude Cowork, you need to be on the latest version of Claude Desktop.
 
-## When you reach your Fable 5 usage limit
+## When you reach your Fable usage limit
 
-On Max plans, premium seats on Team plans, and premium seats on seat-based Enterprise plans, once you use up to 50% of your weekly usage limits on Fable 5, you can continue in one of two ways: keep using Fable 5 with usage credits, or switch to another Claude model to keep working within your plan's usage limits.
+On Max plans, premium seats on Team plans, and premium seats on seat-based Enterprise plans, once you use up to 50% of your weekly usage limits on Fable models, you can continue in one of two ways: keep using Fable models with usage credits, or switch to another Claude model to keep working within your plan's usage limits.
 
-On Pro plans, standard seats on Team plans, and standard seats on seat-based Enterprise plans, Fable 5 runs on pay-as-you-go usage credits from the start, since it isn't included in your plan's usage limits.
+On Pro plans, standard seats on Team plans, and standard seats on seat-based Enterprise plans, Fable models run on pay-as-you-go usage credits from the start, since they aren’t included in your plan's usage limits.
 
 This works the same way across Claude on the web, Claude Mobile, Claude Desktop, Claude Cowork, and Claude Code. Learn more about **[usage credits](https://support.claude.com/en/articles/12429409)**.
 
 ## Frequently asked questions
 
-### Why can’t I see Claude Fable 5?
+### Why can’t I see Claude Fable 5 or Fable 5.1?
 
 Check the following:
 
 - You’re on a paid Claude plan. Fable 5 isn’t available on the Free plan.
 
-- If you’re using Claude Code, you’re on version 2.1.170 or later.
+- If you’re using Claude Code, you’re on version 2.1.170 or later for Fable 5, or 2.1.255 or later for Fable 5.1.
 
 - If you’re using Cowork, you’re on the latest version of Claude Desktop.
 
-- Your organization hasn't enabled Fable 5.
+- Your organization hasn't enabled Fable models.
 
 ### Will this use my regular usage limits?
 
-It depends on your plan. On the Max plan, premium seats on the Team plan, and premium seats on the seat-based Enterprise plan, Fable 5 counts toward your plan's usage limits, and you can use up to 50% of your weekly usage limits on Fable 5 at no extra cost. On the Pro plan, standard seats on the Team plan, and standard seats on the seat-based Enterprise plan, Fable 5 runs on usage credits rather than your plan's usage limits.
+It depends on your plan. On the Max plan, premium seats on the Team plan, and premium seats on the seat-based Enterprise plan, Fable models count toward your plan's usage limits, and you can use up to 50% of your weekly usage limits on Fable models at no extra cost. On the Pro plan, standard seats on the Team plan, and standard seats on the seat-based Enterprise plan, Fable models run on usage credits rather than your plan's usage limits.
 
-### Will I get 50% more for my weekly limit for Fable 5 if I’m on the Max plan, Team plan with premium seats, or a seat-based Enterprise plan with premium seats?
+### Will I get 50% more for my weekly limit for Fable models if I’m on the Max plan, Team plan with premium seats, or a seat-based Enterprise plan with premium seats?
 
-No. You can use up to 50% of your weekly limit on Fable 5, but your use of other models draws from the same usage limits and you can never use more than your weekly limit. You can track both in your usage settings.
+No. You can use up to 50% of your weekly limit on Fable models, but your use of other models draws from the same usage limits and you can never use more than your weekly limit. You can track both in your usage settings.
 
 ### I'm on the Pro or Team plan. Why is Fable 5 no longer included?
 
 The earlier promotion that included Fable 5 in your plan's weekly usage limits ended on July 19, 2026 at 11:59:59 PM PT. On the Pro plan and standard seats on the Team plan, you can keep using Fable 5 with usage credits or by upgrading to the Max plan. You may also be eligible for a one-time credit. Learn more about the **[Claude Fable 5 one-time free credits promotion](https://support.claude.com/en/articles/15862783)**.
+
+Fable 5.1 works the same way on these plans: it isn't included in your plan's usage limits, and it wasn't part of the earlier promotion.
 ---
 
 SOURCE: https://support.claude.com/en/articles/16634237-claude-team-plan-for-scientists
@@ -3498,7 +3477,7 @@ SOURCE: https://support.claude.com/en/articles/16634237-claude-team-plan-for-sci
 
 ## What is the Claude Team plan for scientists?
 
-The **[Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists)** gives academic and non-profit research groups and labs discounted access to a Claude Team subscription plan. Standard seats are free, and Premium seats are $15 per user per month. This discounted pricing is for verified research groups, available for 12 months and offered to a limited number of groups.
+The **[Claude Team plan for scientists](https://claude.com/programs/team-plan-for-scientists)** gives academic and non-profit research groups and labs discounted access to a Claude Team subscription plan. Standard seats are free, and Premium seats are $15 per user per month. This discounted pricing is for verified research groups, available for 12 months and offered to a limited number of groups. Final pricing is confirmed after verification at sign up; **[terms apply](https://anthropic.com/legal/team-plan-for-scientists-terms)**.
 
 A principal investigator (PI) can sign up directly, verify their eligibility, and then invite their whole group.
 
@@ -3567,6 +3546,109 @@ By default, Anthropic doesn’t train its models on user data from Team and Ente
 First, you must complete the **[application flow](https://claude.ai/labs-verification/attestation)** to verify your eligibility for the discounted plan. Once you are verified, you can apply the discounted pricing to an existing plan that you manage in **Settings > Account** under **Program verifications**.
 ---
 
+SOURCE: https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans
+
+# Manage pooled group budgets on Enterprise plans
+
+A pooled group budget gives a group one shared monthly amount that all its members draw from, on top of each user's own monthly spend limit. This article explains how pooled budgets work and how to set, prioritize, and monitor them.
+
+Pooled group budgets are in beta for Enterprise plan organizations. Primary Owners, Owners, Admins, and custom roles with the **Billing** permission set to "Can manage" can set pooled budgets in **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**. To share feedback on the beta, contact your Anthropic account team.
+
+## How pooled budgets work
+
+A group spend limit applies to each group member separately, so every member gets the same monthly limit. A pooled budget adds one shared amount for the whole group.
+
+Every request counts against both the user's own monthly spend limit and the group's pooled budget, and the user stops at whichever runs out first. Usage can go slightly over a limit before it pauses. When the pooled budget is used up, usage pauses for every member of the group until you raise the budget or it resets for the new month. After you raise it, group members can send messages again right away.
+
+**Note:** A pooled budget isn't an equal share for each person. If you set the member monthly limit to the pooled budget divided by the number of group members, you're back to one-person limits and lose the benefit of a shared budget. Set the member monthly limit as a guard rail against unusually high use by one person.
+
+## Before you start
+
+Check the following before you set a pooled budget:
+
+- The group exists in **[Organization settings > Groups](https://claude.ai/admin-settings/groups)**. Learn more about **[managing groups and group spend limits on Enterprise plans](https://support.claude.com/en/articles/13799932)**.
+
+- The group has a monthly spend limit. A pooled budget sits on top of this limit.
+
+- You've picked a group to start with. A single team with a clear owner is a good first choice.
+
+## Choose starting amounts
+
+Base your first amounts on last month's actual spend, not an estimate. You need two numbers for the group. Editing limits for a group suggests these automatically, alternatively you can verify these numbers in **Analytics**:
+
+- **Last month's spend for the group:** In **Analytics**, filter the members table to the group and add up the spend.
+
+- **The group's top spender:** The first row when you sort that table by spend.
+
+A good starting point is a pooled budget of about three times last month's group spend, and a member monthly limit of about three times the top spender's spend.
+
+For example, if a group spent $1450 last month and its top spender used $310, set the pooled budget to $2900 and the member monthly limit to about $950. With these amounts, requests for more should be rare and the pooled budget should last the month.
+
+## Set a pooled budget
+
+Set the pooled budget and the member monthly limit together from the group's row in the spend limits table.
+
+1. Navigate to **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**.
+
+2. Scroll to **Spend limits** and select the "By group/tier" tab.
+
+3. Find the group, click the menu button to the right, and select "Edit limits."
+
+4. Under **Pooled monthly budget**, select "Set amount." A suggested amount based on the group's recent usage is filled in, and you can change it.
+
+5. Under **Member monthly limit**, click "Use" to apply the suggested limit, or enter your own.
+
+6. Click "Save."
+
+If the member monthly limit is too low for the pooled budget, you'll see a warning with an option to raise it.
+
+## Change, freeze, or turn off a pooled budget
+
+- **Change the amount:** Select "Edit limits" in the group's row menu and enter a new amount.
+
+- **Freeze the group:** Set the pooled budget to $0. Every group member stops until you raise it.
+
+- **Pause the pooled budget**: select Paused. The amount is kept but not enforced until you select Set amount again. To remove the pool, select **No pooled budget**
+
+- **Remove the group's spend limit:** This also removes the group's pooled budget.
+
+## Set the budget priority for users in several groups
+
+If a user belongs to more than one group with a pooled budget, the largest pooled budget pays first by default. To choose the order yourself:
+
+1. Navigate to **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**.
+
+2. In the **Pooled budget priority** card, select "Custom order."
+
+3. Use the arrows to put the groups in order, with the most specific team first.
+
+4. Click "Save order."
+
+With a custom order, the first available pooled budget with remaining usage in your list pays first.
+
+**Note:** Budget priority only decides which pooled budget pays. To choose which group's member monthly limit applies to a user in more than one group, use the **Member limit from groups** setting under **Spending defaults**.
+
+## Monitor pooled budgets
+
+Check pooled budget usage at any time in the **Pooled budget** column on the "By group/tier" tab in **[Organization settings > Usage](https://claude.ai/admin-settings/usage)**. The column shows each group's pooled budget and how much of it has been used this month. The bar turns amber at 75% and red at 90%., and a dash means the group has no pooled budget.
+
+When a pooled budget reaches 50%, 75%, 95%, and 100% of its monthly amount, every admin with billing permissions gets an email, and a notice for the group appears on the admin home page. Click "View group" in the notice to go to the group's row, then dismiss the notice once you've acted on it.
+
+To tell whether your amounts are right, also check the number of requests under **Review requests**. If a pooled budget is 75% used before the 20th of the month, consider raising it by 50%. If users keep requesting more, raise the member monthly limit.
+
+## What users see
+
+Nothing changes for users until they reach their own monthly spend limit or the group's pooled budget runs out. At that point, a message appears in the message box with a "Request more" button. If the pooled budget is used up, the message says their team's shared budget has run out.
+
+Requests from users appear under **Review requests**. Users never see the group's name or the pooled budget amount.
+
+## Beta limitations
+
+- The **Billing** permission applies across your whole organization, so anyone who can edit one group's pooled budget can edit every group's pooled budget.
+
+- Pooled budgets can only be managed in **Organization settings**. They aren't available through the Admin API.
+---
+
 SOURCE: https://support.claude.com/en/articles/8241216-i-m-planning-to-launch-a-product-using-the-claude-api-what-steps-should-i-take-to-ensure-i-m-not-violating-anthropic-s-usage-policy
 
 # I’m planning to launch a product using the Claude API. What steps should I take to ensure I’m not violating Anthropic’s Usage Policy?
@@ -3596,7 +3678,7 @@ The Pro plan is a paid plan for our Claude chat experience. It is currently avai
 
 The benefits of the Pro plan are:
 
-- At least five times the usage per session compared to our free service.
+- More usage per session than the Free plan.
 
 - Priority access to Claude during high-traffic periods.
 
@@ -3604,7 +3686,7 @@ The benefits of the Pro plan are:
 
 - **[Claude Code access](https://support.claude.com/en/articles/11145838-using-claude-code-with-your-pro-or-max-plan)**
 
-- **[Cowork access](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)**
+- **[Longer, multi-step tasks](https://support.claude.com/en/articles/16761823)**
 
 Learn how to **[sign up for the Pro plan](https://support.claude.com/en/articles/8325609-how-do-i-sign-up-for-the-pro-plan)**.
 
@@ -3624,7 +3706,7 @@ Price and plans are subject to change at Anthropic's discretion.
 
 ## How can I get a free or discounted Pro plan?
 
-We do not offer standard discounted pricing any of our paid plans, including Pro plans. With that said, anyone in a supported location can access the free version of Claude by navigating to claude.ai and signing up using an email address.
+We do not offer standard discounted pricing for any of our paid plans, including Pro plans. With that said, anyone in a supported location can access the free version of Claude by navigating to claude.ai and signing up using an email address.
 
 We occasionally run limited-time promotions, but we don't have any standing discounts available upon request. These promotional offers are typically announced through our official channels when available. If you're interested in potential future promotions, we recommend following our official social media accounts or signing up for our newsletter to be notified of any special offers. Our Support team cannot issue one-off discounts or coupons.
 
@@ -3632,13 +3714,15 @@ We occasionally run limited-time promotions, but we don't have any standing disc
 
 ## Does the Pro plan have any usage limits?
 
-Yes. During peak hours, the Pro plan offers at least five times the usage per session compared to our free service. The number of messages you can send will vary based on message length, including the length of files you attach, the length of your current conversation, and the model or feature you use. Your session-based usage limit will reset every five hours.
+Yes. The Pro plan offers more usage per session than the Free plan. The number of messages you can send will vary based on message length, including the length of files you attach, the length of your current conversation, and the model or feature you use. Your session-based usage limit will reset every five hours.
 
 Pro plans also have a weekly usage limit that applies across all models. Weekly limits reset at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/new#settings/usage)**.
 
 In addition, to manage capacity and ensure fair access to all users, we may limit your usage in other ways, such as weekly and monthly caps or model and feature usage, at our discretion.
 
 For more information about usage and length limits, refer to **[Understanding usage and length limits](https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits)**. For guidance on using your Pro capacity efficiently, we also have **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)**.
+
+**Note:** If you have a limit reset, you can use it to reset your five-hour session limit or weekly usage limits back to full. Learn more **[about limit resets](https://support.claude.com/en/articles/17007452)**.
 
 ### How do I increase my Pro plan usage limits?
 
@@ -3808,15 +3892,59 @@ SOURCE: https://support.claude.com/en/articles/8606394-how-large-is-the-context-
 
 # How large is the context window on paid Claude plans?
 
-Claude Opus 5 and Sonnet 5 support a 1M token context window on all paid plans when chatting with Claude. Claude Opus 4.8, Opus 4.7, Opus 4.6, and Sonnet 4.6 support a 500K token context window on all paid plans when chatting with Claude. Outside of these models, Claude’s context window size is 200K, meaning it can ingest 200K+ tokens (about 500 pages of text or more) when using a paid Claude plan.
+This article explains how large the context window is on paid Claude plans (Pro, Max, Team, Enterprise) when you chat with Claude, or use Claude Code or Claude Cowork.
 
-When using Claude Code with a Pro, Max, Team, or Enterprise plan, Claude Sonnet 5, Fable 5, Opus 5, Opus 4.8, Opus 4.7, and Opus 4.6 support a 1M token context window. Pro users need to enable usage credits to access the 1M token context window for Opus models. Sonnet 4.6 also supports a 1M context window for all paid Claude plans on Claude Code, but usage credits must be enabled to access it (except for usage-based Enterprise plans).
+## Chatting with Claude
 
-When using Claude Cowork with a Pro, Max, Team, or Enterprise plan, Claude Opus 5, Opus 4.8, Opus 4.7, Sonnet 5, and Fable 5 support a 1M token context window. Claude Sonnet 5 automatically compacts the conversation at 500K tokens. Claude Sonnet 4.6, Opus 4.6, and Haiku 4.5 support a 200K token context window in Cowork.
+| **Model**         | **Context window** |
+| ----------------- | ------------------ |
+| Claude Fable 5.1  | 1M tokens          |
+| Claude Fable 5    | 500K tokens        |
+| Claude Opus 5.5   | 1M tokens          |
+| Claude Opus 5     | 1M tokens          |
+| Claude Opus 4.8   | 500K tokens        |
+| Claude Opus 4.7   | 500K tokens        |
+| Claude Opus 4.6   | 500K tokens        |
+| Claude Sonnet 5.5 | 1M tokens          |
+| Claude Sonnet 5   | 1M tokens          |
+| Claude Sonnet 4.6 | 500K tokens        |
+
+Outside of these models, Claude’s context window size is 200K, meaning it can ingest 200K+ tokens (about 500 pages of text or more) when using a paid Claude plan to chat with Claude.
+
+## Claude Code
+
+| **Model**         | **Context window**                                                                                                                                                                       |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Fable 5.1  | 1M tokens                                                                                                                                                                                |
+| Claude Fable 5    | 1M tokens                                                                                                                                                                                |
+| Claude Opus 5.5   | 1M tokens                                                                                                                                                                                |
+| Claude Opus 5     | 1M tokens                                                                                                                                                                                |
+| Claude Opus 4.8   | 1M tokens                                                                                                                                                                                |
+| Claude Opus 4.7   | 1M tokens                                                                                                                                                                                |
+| Claude Opus 4.6   | 1M tokens<br>**Note:** 1M context window available by selecting `claude-opus-4-6[1m]` with `/model`; on Pro, usage credits must be enabled to access                                     |
+| Claude Sonnet 5.5 | 1M tokens                                                                                                                                                                                |
+| Claude Sonnet 5   | 1M tokens                                                                                                                                                                                |
+| Claude Sonnet 4.6 | 1M tokens<br>**Note:** 1M context window available by selecting `claude-sonnet-4-6[1m]` with `/model`; usage credits must be enabled to access (except for usage-based Enterprise plans) |
+
+## Claude Cowork
+
+| **Model**         | **Context window**                                                                     |
+| ----------------- | -------------------------------------------------------------------------------------- |
+| Claude Fable 5.1  | 1M tokens                                                                              |
+| Claude Fable 5    | 1M tokens                                                                              |
+| Claude Opus 5.5   | 1M tokens                                                                              |
+| Claude Opus 5     | 1M tokens                                                                              |
+| Claude Opus 4.8   | 1M tokens                                                                              |
+| Claude Opus 4.7   | 1M tokens                                                                              |
+| Claude Opus 4.6   | 200K tokens                                                                            |
+| Claude Sonnet 5.5 | 1M tokens                                                                              |
+| Claude Sonnet 5   | 1M tokens<br>**Note:** Sonnet 5 automatically compacts the conversation at 500K tokens |
+| Claude Sonnet 4.6 | 200K tokens                                                                            |
+| Haiku 4.5         | 200K tokens                                                                            |
 
 ## Automatic context management
 
-For users on paid plans with code execution enabled, Claude automatically manages your conversation context. When your conversation approaches the context window limit, Claude summarizes earlier messages to make room for new content. This does not count towards your usage limit, and allows conversations to continue indefinitely in most cases.
+For users on paid plans with code execution enabled, Claude automatically manages your conversation context. When your conversation approaches the context window limit, Claude summarizes earlier messages to make room for new content. This allows conversations to continue indefinitely in most cases. Longer conversations that trigger automatic context management use more of your usage limit.
 
 Your full chat history is preserved so Claude can reference it, even after earlier portions have been summarized. You may occasionally notice Claude "organizing its thoughts" during long conversations—this is the automatic context management at work.
 
@@ -3843,7 +3971,7 @@ The Team plan is a paid plan for our Claude chat experience built for ambitious 
 
 Users with Standard seats on the Team plan can access the following:
 
-- **Increased usage:** More usage than the Pro plan per five-hour session, so every team member can get what they need from Claude.
+- **Increased usage:** A larger per-session usage allowance than the Pro plan, so every team member can get what they need from Claude.
 
 - **Option to purchase usage credits:** Prepay for usage credits, allowing team members to continue working after reaching limits.
 
@@ -3931,9 +4059,11 @@ Yes. For both Standard and Premium seats, weekly limits reset at a fixed time ea
 ​
 Usage limits differ between Standard and Premium seats in the following ways:
 
-**Standard seats:** Team plan Standard seats offer 1.25x more usage per session than the Pro plan and have a weekly usage limit that applies across all models.
+**Standard seats:** Team plan Standard seats include 1.25x the Pro plan's per-session usage allowance and have a weekly usage limit that applies across all models.
 
-**Premium seats:** Team plan Premium seats offer 6.25x more usage per session than the Pro plan and have a weekly usage limit that applies across all models.
+**Premium seats:** Team plan Premium seats include 6.25x the Pro plan's per-session usage allowance and have a weekly usage limit that applies across all models.
+
+**Note:** If you have a limit reset, you can use it to reset your five-hour session limit or weekly usage limits back to full. Learn more **[about limit resets](https://support.claude.com/en/articles/17007452)**.
 
 ### Do usage limits apply across the team or to individual members?
 
@@ -3974,13 +4104,37 @@ To get started with the Team plan, navigate to **[claude.ai/login](https://claud
 
 ## Upgrade from an individual plan to the Team plan
 
-If you already have an individual Free, Pro, or Max account associated with your work email and wish to create a Team plan, sign into your individual account, then visit **[claude.ai/upgrade](https://claude.ai/upgrade)**. Follow the steps to create your Team.
+If you already have a Free, Pro, or Max account on your work email and want to upgrade to Team, sign in to your account and visit **[claude.ai/upgrade](https://claude.ai/upgrade)**. Follow the steps to create your Team.
 
-Upgrading to the Team plan creates a new Claude organization. Your individual Free, Pro, or Max account remains separate, and you can toggle between the two by clicking your initials or name in the lower left and selecting the account you'd like to access.
-
-If you'd rather use a single account, you can migrate your personal account into your Team organization. Migration moves your chats, projects, files, and memory into the organization's workspace, and your paid individual subscription is canceled automatically as part of the migration (subscriptions purchased through the Apple App Store must be canceled separately first). To get started, go to **[Settings > Account](https://claude.ai/settings/account)**, or see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)** for details.
+If you see the **Keep your personal account separate** checkbox, then upgrading to Team upgrades your existing organization in place by default. Your organization ID stays the same and some of your content carries over to your new Team plan. For a full list of what does and doesn’t migrate, see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_4e63ef6e87)**.
 
 **Note:** Once content has been moved into an organization, it can't be moved back to a personal account.
+
+If you don’t see the **Keep your personal account separate** checkbox, then this upgrade process will create a separate Team plan with a new organization ID instead. This applies to subscriptions purchased via the Apple App Store, paused plans, and plans using unsupported currencies.
+
+What else happens during an in-place upgrade:
+
+- Your individual Pro or Max subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement.
+
+- Any prepaid usage credits on your individual account are refunded.
+
+- Public projects in your account become private once the upgrade is complete. Project owners can give others in their organization access to the project from its **Share** menu. For details, see **[Manage project visibility and sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)**.
+
+**Note:** If you'd rather keep your personal Claude account active alongside your new Team plan, check this box in the team-creation flow before completing your upgrade: **Keep your personal account separate**. We’ll set up a new workspace for this team and your existing chats and projects stay in your personal account. If you check this, your individual subscription stays active and your personal data stays in your individual account instead of moving into the Team org.
+
+### Apple App Store subscribers
+
+Because Apple doesn't allow third-party cancellation of App Store subscriptions, in-place upgrades work differently if you signed up for Pro or Max through the Apple App Store. By default, you will upgrade to a new, separate Team organization. If you'd prefer to upgrade in place, you’ll need to **[cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** first and wait for the billing period to end.
+
+### Google Play Store subscribers
+
+Subscriptions purchased through the Google Play Store are eligible for in-place upgrade. Your refund doesn't have the 24-hour wait, but it can take a few days to appear.
+
+### If you decline the in-place upgrade
+
+If you choose to keep your personal account, your Team plan creates a separate Claude organization. You can switch between your personal account and the Team org by clicking your initials or name in the lower left corner and selecting the account you want to access. Data isn't shared between separate accounts.
+
+To use only your Team plan after upgrading separately, you'll need to **[cancel your paid subscription](https://support.claude.com/en/articles/8325617-how-do-i-cancel-my-paid-claude-subscription)** and **[delete your individual Claude account](https://support.claude.com/en/articles/9028421-how-can-i-delete-my-claude-account)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9267289-how-is-my-team-plan-bill-calculated
@@ -4153,7 +4307,7 @@ Both self-serve and sales-assisted Enterprise plans include the same features an
 
 *New self-serve Enterprise organizations can choose ACH bank transfer, credit card, or debit card at signup. Organizations upgrading from a Team plan start on credit card and can switch to ACH bank transfer afterward in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**.
 
-†For sales-assisted invoices of $50,000 or more, only bank transfer (ACH or wire) is available. Reach out to your Anthropic Contact to request a card-payment exception.
+†For sales-assisted invoices of $50,000 or more, only bank transfer (ACH or wire) is available.
 
 **When to contact Sales:** If your organization needs invoicing, dedicated customer success management, or to pay with a currency other than USD, reach out to our **[Sales team](https://claude.com/contact-sales)** to set up a sales-assisted Enterprise plan.
 

@@ -108,7 +108,7 @@ Desktop extensions transform how you connect Claude to your desktop applications
 
 To explore desktop extensions, navigate to Settings > Extensions within the Claude Desktop app after installation.
 
-**Note:** We’re building a directory of desktop extensions – if you’re a developer hoping to add an extension you built to the directory, complete our **[desktop extensions interest form](https://docs.google.com/forms/d/14_Dmcig4z8NeRMB_e7TOyrKzuZ88-BLYdLvS6LPhiZU/viewform?edit_requested=true)** to share more information with us.
+**Note:** If you’re a developer who wants to list a desktop extension (a local MCP server for Claude Desktop) in the directory, submit it through the **[desktop extension submission form](https://clau.de/desktop-extention-submission)**. To submit a plugin or a remote connector instead, use the **[developer portal](https://claude.ai/directory/manage)**. See **[Submitting your plugin](https://claude.com/docs/plugins/submit)** for what each route accepts.
 
 Read more about desktop extensions in our **[Getting Started with Local MCP Servers on Claude Desktop](https://support.claude.com/en/articles/10949351-getting-started-with-local-mcp-servers-on-claude-desktop)** article.
 
@@ -477,7 +477,7 @@ SOURCE: https://support.claude.com/en/articles/11825384-how-to-update-claude-for
 
 # How to update Claude for iOS
 
-If you aren’t seeing the latest features on Claude for iOS, you may need to [update your mobile app manually by following these instructions from Apple](https://support.apple.com/en-us/102629):
+If you aren’t seeing the latest features on Claude for iOS, you may need to update your mobile app manually by following these **[instructions from Apple](https://support.apple.com/en-us/102629)**:
 
 1. Open the App Store.
 
@@ -1270,18 +1270,18 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Claude" -Name "isClaudeCodeForDe
 
 ## Enterprise policy options
 
-| **Key**                              | **Type**        | **Default**  | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                  |
-| ------------------------------------ | --------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `allowedWorkspaceFolders`            | string[] (JSON) | Unrestricted | Filepath or filepaths the user can mount to Cowork                                                                                                                                                                                                                                                                                                                                                                               |
-| `autoUpdaterEnforcementHours`        | Integer (1-72)  | 72           | Hours before forcefully restarting Claude to apply a prepared update                                                                                                                                                                                                                                                                                                                                                             |
-| `disableAutoUpdates`                 | Boolean         | false        | Disable automatic updates. Set this when your MDM manages Claude Desktop versions; leave unset to let the app self-update after a one-time provisioned install. See **[Deploy Claude Desktop for Windows](https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows)**.                                                                                                                                  |
-| `effortLevel`                        | string          | null         | Sets the default effort level (`low`, `medium`, `high`, `xhigh`, or `max`) for Claude Code sessions in Claude Desktop. The managed value applies fresh at the start of every session, even if someone changed the effort level from the picker in an earlier session. Requires Claude Desktop version 1.25927.0 or later. Doesn't apply to Cowork sessions in Claude Desktop, which don't read Claude Code managed settings.<br> |
-| `forceLoginOrgUUID`                  | string / array  | null         | Require login to belong to a specific organization. Accepts a single UUID string, which also pre-selects that organization during login, or an array of UUIDs where any listed organization is accepted without pre-selection. Login fails if the authenticated account does not belong to a listed organization.                                                                                                                |
-| `isClaudeCodeForDesktopEnabled`      | Boolean         | true         | Enable Claude code access in desktop                                                                                                                                                                                                                                                                                                                                                                                             |
-| `isDesktopExtensionEnabled`          | Boolean         | true         | Enable/disable extensions                                                                                                                                                                                                                                                                                                                                                                                                        |
-| `isDesktopExtensionDirectoryEnabled` | Boolean         | true         | Enable extension directory access                                                                                                                                                                                                                                                                                                                                                                                                |
-| `isLocalDevMcpEnabled`               | Boolean         | true         | Enable local MCP servers                                                                                                                                                                                                                                                                                                                                                                                                         |
-| `secureVmFeaturesEnabled`            | Boolean         | true         | Enable **[Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)** access in desktop                                                                                                                                                                                                                                                                                                               |
+| **Key**                              | **Type**        | **Default**  | **Description**                                                                                                                                                                                                                                                                                                                                                               |
+| ------------------------------------ | --------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `allowedWorkspaceFolders`            | string[] (JSON) | Unrestricted | Filepath or filepaths the user can mount to Cowork                                                                                                                                                                                                                                                                                                                            |
+| `autoUpdaterEnforcementHours`        | Integer (1-72)  | 72           | Hours before forcefully restarting Claude to apply a prepared update                                                                                                                                                                                                                                                                                                          |
+| `disableAutoUpdates`                 | Boolean         | false        | Disable automatic updates. Set this when your MDM manages Claude Desktop versions; leave unset to let the app self-update after a one-time provisioned install. See **[Deploy Claude Desktop for Windows](https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows)**.                                                                               |
+| `effortLevel`                        | string          | null         | Sets the default effort level (`low`, `medium`, `high`, `xhigh`, or `max`) for Claude Code sessions in Claude Desktop. The managed value applies fresh at the start of every session, even if someone changed the effort level from the picker in an earlier session. Requires Claude Desktop version 1.25927.0 or later. Doesn't apply to Cowork sessions in Claude Desktop. |
+| `forceLoginOrgUUID`                  | string / array  | null         | Require login to belong to a specific organization. Accepts a single UUID string, which also pre-selects that organization during login, or an array of UUIDs where any listed organization is accepted without pre-selection. Login fails if the authenticated account does not belong to a listed organization.                                                             |
+| `isClaudeCodeForDesktopEnabled`      | Boolean         | true         | Enable Claude code access in desktop                                                                                                                                                                                                                                                                                                                                          |
+| `isDesktopExtensionEnabled`          | Boolean         | true         | Enable/disable extensions                                                                                                                                                                                                                                                                                                                                                     |
+| `isDesktopExtensionDirectoryEnabled` | Boolean         | true         | Enable extension directory access                                                                                                                                                                                                                                                                                                                                             |
+| `isLocalDevMcpEnabled`               | Boolean         | true         | Enable local MCP servers                                                                                                                                                                                                                                                                                                                                                      |
+| `secureVmFeaturesEnabled`            | Boolean         | true         | Enable **[Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)** access in desktop                                                                                                                                                                                                                                                            |
 ---
 
 SOURCE: https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows
@@ -1587,37 +1587,6 @@ Yes. You can disable quick entry shortcuts at any time in Settings > General > D
 You can customize the quick access shortcut to use Option + Space or create a custom keyboard shortcut that doesn't conflict with your other applications. The voice shortcut can only use Caps Lock or be disabled.
 ---
 
-SOURCE: https://support.claude.com/en/articles/14479591-use-dictation-in-office-agents
-
-# Use dictation in Office agents
-
-Dictation lets you speak your prompts instead of typing them when using Office agents. Click the microphone icon in the chat input, speak, and your words appear in the composer as you talk.
-
-Dictation is available for organizations that sign in with Claude directly. It isn't available when Office agents is configured with third-party authentication such as a gateway, Vertex AI, or Bedrock. See below for more information.
-
-**Note:** Dictation is different from voice mode. Dictation turns your speech into text so you can send a written prompt, and Claude replies in text. Voice mode is a full spoken conversation—you talk to Claude and Claude talks back, and it can use your connected tools. Learn more about **[voice mode](https://support.claude.com/en/articles/11101966-use-voice-mode)**.
-
-## How it works
-
-When you click the microphone, Office agents streams your audio to Anthropic's transcription service, the same infrastructure that powers dictation in the Claude apps. The transcribed text appears in the composer in real time. Click the microphone again to stop, or press Enter to stop and send in one step.
-
-Nothing is transcribed on your device, and your audio isn’t sent to any third-party service. Audio is processed entirely on Anthropic’s infrastructure and isn’t retained; only the resulting text remains in your composer.
-
-## Use dictation
-
-- Click the microphone icon on the right side of the chat input. The placeholder changes to *Listening...* and the button turns blue.
-
-- Speak your prompt. Your words appear in the composer as you talk.
-
-- Click the microphone again to stop, or press Enter to stop and send in one step.
-
-- To choose a different microphone, hover over the microphone icon and click the arrow that appears.
-
-## Why dictation isn't available with third-party authentication
-
-In third-party environments, Office agents do not send prompts to Anthropic directly. Spoken audio is effectively a prompt, so dictation isn’t offered there. If you need voice input in a third-party environment, use the dictation feature built into your operating system or Office application instead.
----
-
 SOURCE: https://support.claude.com/en/articles/14729294-open-claude-desktop-with-a-link
 
 # Open Claude Desktop with a link
@@ -1788,7 +1757,7 @@ If you’re unable to locate Claude for iOS in your App Store, you may be locate
 
 ## What versions of iOS are supported?
 
-We currently support iOS version 17.0 and above.
+We currently support iOS version 18.0 and above, and iPadOS 18.0 and above.
 
 ## How do I uninstall the Claude for iOS app?
 

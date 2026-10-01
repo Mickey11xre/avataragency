@@ -191,7 +191,7 @@ To set your voice language, go to **[Settings > General](https://claude.ai/new#s
 
 ### Can I use voice mode with Claude Cowork or Claude Code?
 
-No. While dictation is available in Claude Cowork and Code, voice mode is not. This also means Claude voice mode will not be able to reference the projects and skills you have set up in Cowork.
+In the new Claude experience, voice mode works in any conversation, including ones where Claude is working on a task. In Claude Cowork and Claude Code, dictation is available but voice mode isn't.
 
 ### Can Enterprise Admins disable voice mode for their organizations?
 

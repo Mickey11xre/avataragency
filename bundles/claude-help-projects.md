@@ -5,7 +5,7 @@ SOURCE: https://support.claude.com/en/articles/11473015-retrieval-augmented-gene
 
 # Retrieval augmented generation \(RAG\) for projects
 
-RAG for projects is available for all Claude plans (free, Pro, Max, Team, and Enterprise).
+RAG for projects is available on paid plans (Pro, Max, Team, and Enterprise).
 
 Projects can now handle much more content without running into limits, giving Claude better context to help you. As you add more files and information to your projects, Claude automatically switches to a faster mode (powered by RAG) that keeps response times quick while maintaining quality responses.
 
@@ -98,7 +98,9 @@ SOURCE: https://support.claude.com/en/articles/14116274-organize-your-tasks-with
 
 # Organize your tasks with projects in Claude Cowork
 
-Projects in Claude Cowork let you group related tasks into dedicated workspaces with their own files, context, instructions, and memory. If you use projects on Claude, Cowork projects work similarly, but they live locally on your desktop and are built around the tasks you run through Cowork.
+**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that's a quick answer or a task. This is rolling out gradually to Pro and Max plans, with more plans to follow. If you're on a Pro or Max plan and your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
+
+Projects in Claude Cowork let you group related tasks into dedicated workspaces with their own files, context, instructions, and memory. Projects work the same way in Cowork and in Claude. New projects you create in Cowork are saved to your Claude account, so you can pick them up from your other devices, and projects you create from a folder on your computer stay on that computer.
 
 ## Availability
 
@@ -174,6 +176,16 @@ For more information about how memory works, see **[Use Claude’s chat search a
 
 ---
 
+## Share a project
+
+Project sharing is available on Team and Enterprise plans.
+
+Cowork projects share the same way as projects in Claude. You can give people in your organization “Can view” or “Can edit” access, and change or remove that access later. Learn more about **[sharing projects](https://support.claude.com/en/articles/9519177-how-can-i-create-and-manage-projects#h_551239a4d4)**.
+
+Group sharing is also in beta for Enterprise plans; for more information, see **[Manage project visibility and sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing#h_ee7fbc143e)**.
+
+---
+
 ## Archive a project
 
 When you archive a project in Cowork:
@@ -188,18 +200,39 @@ When you archive a project in Cowork:
 
 - Projects are only available in Cowork, not in Claude Code. Support for Claude Code is planned for a future update.
 
-- Projects are desktop-only and stored locally. There's no cloud sync for project data at this time.
-
-- For members of Team and Enterprise plans, Cowork projects do not support **[project sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)**.
+- Projects you create from an existing folder on your computer stay on that computer and aren’t saved to your Claude account.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9517075-what-are-projects
 
 # What are projects?
 
-Projects are available to all users, including those with free Claude accounts. Free users can create a maximum of five projects.
+**Note:** A new version of projects is now available in beta, rolling out in stages starting with Claude Code. Existing projects keep working as they do today. See **[The new version of projects (beta)](#h_e9fb2a161e)** below.
 
 Projects allow you to create self-contained workspaces with their own chat histories and knowledge bases. Within each project, you can upload documents, provide context, and have focused chats with Claude.
+
+Projects are available to all users, including those with free Claude accounts. Free users can create a maximum of five projects.
+
+## The new version of projects (beta)
+
+We're rolling out a new version of projects in stages, starting with Claude Code. In the new version, a project is one conversation: you say what you need as it comes to you, and Claude breaks the work into parallel threads that run in the cloud. Claude tells you what's done and what's waiting on you, and if you close your laptop, the threads keep going. Every thread starts with the project's files, repositories, instructions, and memory, and the project's Library collects the files you add and the files Claude produces.
+
+### Who has it
+
+The new version is now available in beta to select Pro and Max subscribers who use Claude Code. If you have it, you'll see "Projects" in the sidebar at **[claude.ai/code](https://claude.ai/code)** and in the Code tab of the Claude desktop app. More Claude Code users on Pro and Max plans will get access as the rollout expands, and chat, Cowork, Team, and Enterprise will follow. If you're on Pro or Max and don't have access yet, you can **[join the waitlist](https://claude.com/form/projects)**.
+
+### Your existing projects
+
+Existing projects in chat and Cowork keep working as they do today. On Pro and Max plans, we'll upgrade them to the new version as the rollout expands to chat and Cowork.
+
+### Usage
+
+Projects draw from your plan's usage like any other use of Claude, and running several threads at once uses it faster.
+​
+
+For more on the new version, see **[Projects](https://code.claude.com/docs/en/claude-projects)** in the Claude Code docs. The rest of this article describes the current version of projects.
+
+---
 
 ## Project knowledge
 
@@ -240,6 +273,8 @@ For users on Team and Enterprise plans, projects can be shared with other member
 - **Organization-wide sharing:** Make projects available to everyone in your organization either when creating the project or afterward.
 
   - **Note:** If an Owner or Primary Owner disables public projects, organization-wide sharing will be disabled both when creating the project and afterward.
+
+- **Admin controls:** Owners can turn off project sharing for your organization, or on Enterprise plans for specific roles. Turning off **Share projects** also turns off **Public projects**. When sharing is off, users can't share projects with new users or groups, and existing shares stay in place.
 
 **Collaboration features:**
 
@@ -306,7 +341,7 @@ You'll find the project knowledge base on the right side of your project's main 
 
 ## Share projects
 
-If you are a member of a Team or Enterprise plan organization, you can share projects with other members of your organization.
+If you're on a Team or Enterprise plan, you can share projects with other users in your organization, unless your admin has turned off project sharing. See **[If you can't share projects](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing#h_d5a68ef397)** for what to expect.
 
 ### To share a project
 
@@ -334,7 +369,7 @@ If you are a member of a Team or Enterprise plan organization, you can share pro
 
 ### Find shared projects
 
-Projects that others have shared with you will appear in the "Shared with me" tab on your **[Projects page](https://claude.ai/projects)**. You'll also receive an email notification when someone shares a project with you.
+Your **[Projects page](https://claude.ai/projects)** has three tabs: "Your projects," "Organization," and "Shared with you." "Your projects" lists the projects you created, and "Organization" lists projects that other members have shared with your organization. If you can't find a project, check all three tabs.
 
 ---
 
@@ -374,12 +409,6 @@ You can also remove chats from projects, or move them between projects, using th
 
 
 
-You can move chats into projects in bulk from **[Your chat history page](https://claude.ai/recents)**:
-
-
-
-Select the chats you want to move, then click the icon next to the number of selected chats to move them into your project.
-
 ---
 
 ## Move chats to manage Claude’s memory
@@ -387,6 +416,8 @@ Select the chats you want to move, then click the icon next to the number of sel
 Memory is on by default for Free, Pro, and Max plans on the web, Claude Desktop, and Claude Mobile. On Team and Enterprise plans, memory is available when an owner has enabled it.
 
 For Team and Enterprise plans using Claude’s memory, the ability to move chats into and out of projects allows you to manage what’s included in Claude’s memory. Each project has its own memory, kept separate from your non-project chats. For example, if you accidentally start an unrelated chat in a project and need to remove it from the project-specific memory summary, you can click “Remove from project” so it will be included in Claude’s non-project memory instead.
+
+You can also turn memory off for a single chat, inside or outside a project, by turning off "Memory" in the "+" menu before you send your first message. A project chat started this way doesn't use or add to the project's memory.
 
 Refer to our article on chat search and memory for more information: **[What is Claude’s memory?](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_82126ebcc9)**
 
@@ -469,7 +500,7 @@ SOURCE: https://support.claude.com/en/articles/9519189-manage-project-visibility
 
 # Manage project visibility and sharing
 
-Project visibility and sharing features are available to users on Team or Enterprise plans. This article assumes that public projects are enabled for your organization. For more information, see **[How can I disable public projects?](https://support.claude.com/en/articles/9927533-how-can-i-disable-public-projects)**
+Project visibility and sharing features are available to users on Team or Enterprise plans. This article assumes that public projects and project sharing are enabled for your organization. Admins can turn either off. For more information, see **[Control project sharing for your organization](https://support.claude.com/en/articles/9927533)**.
 
 Sharing a project with a group requires an Enterprise plan and is currently in beta.
 
@@ -481,21 +512,15 @@ When creating a project on a Team or Enterprise plan, you can choose between two
 
 - **Private:** Only invited members can view and use the project.
 
-
-
 ## What are public projects?
 
-If you choose to share a project with the rest of your organization upon creation, this means that any other member of your team can find it by browsing or searching the [Team tab in the Projects section](https://claude.ai/projects?category=team), and use it to start a chat. Even if a project is public, your chats within that project will be private and inaccessible to other members of your organization unless you manually share them.
+If you choose to share a project with the rest of your organization upon creation, this means that any other member of your team can find it by browsing or searching the **[Organization tab in the Projects section](https://claude.ai/projects?category=team)**, and use it to start a chat. Even if a project is public, your chats within that project will be private and inaccessible to other members of your organization unless you manually share them.
 
 ### Can I change a project from public to private?
 
-Yes, you can switch the visibility of a project you created as public to private at any time by opening the project and clicking the “Share” button to the right of the project name:
+Yes, you can switch the visibility of a project you created as public to private at any time by opening the project and clicking the “Share” button to the right of the project name.
 
-
-
-Click “Everyone at [your organization]” under **General access** and select “Only people invited” to change the project from public to private:
-
-
+Click “Everyone at [your organization]” under **General access** and select “Only people invited” to change the project from public to private.
 
 ## What are private projects?
 
@@ -503,13 +528,9 @@ Choosing “Only people invited” keeps your project private so that you are th
 
 ### Can I change a project from private to public?
 
-Yes, you can switch the visibility of a project you created as private to public at any time by opening the project and clicking the “Share” button to the right of the project name:
+Yes, you can switch the visibility of a project you created as private to public at any time by opening the project and clicking the “Share” button to the right of the project name.
 
-
-
-Click “Only people invited” under General access and select “Everyone at [your organization]” to change the project from private to public:
-
-
+Click “Only people invited” under General access and select “Everyone at [your organization]” to change the project from private to public.
 
 ## Add and remove access to private projects
 
@@ -586,6 +607,20 @@ Projects that have been shared with you will appear in a "Shared with you" tab o
 
 Archiving a project doesn't reset its sharing permissions or remove members. All members, permission levels, and project knowledge are preserved, and everything is restored exactly as it was when you unarchive the project. To revoke someone's access, remove them in the project's sharing settings before or after archiving.
 
+## If you can't share projects
+
+Owners can turn off project sharing for your organization. On Enterprise plans, they can also turn it off for specific roles. When sharing is off for you:
+
+- You can still open a project's “Share” menu, but you'll see "Project sharing is turned off by your administrator." You can't add new users or groups.
+
+- You can still change or remove existing access.
+
+- Projects that are already shared stay shared, and users who already have access keep it.
+
+- Public projects become private, so people who only had access because a project was public lose it. They stay private if your admin turns sharing back on.
+
+Contact your admin if you need to share a project.
+
 ## Share and unshare chats
 
 Chats within a project are not shared by default.
@@ -613,52 +648,78 @@ The chat snapshot includes all messages that were sent prior to sharing the chat
 3. Change the chat from "Shared" to "Private" to disable the direct link.
 ---
 
-SOURCE: https://support.claude.com/en/articles/9927533-disable-public-projects-for-your-organization
+SOURCE: https://support.claude.com/en/articles/9927533-control-project-sharing-for-your-organization
 
-# Disable public projects for your organization
+# Control project sharing for your organization
 
-This feature is available to Primary Owners and Owners on Team and Enterprise plans.
+This feature is available to Primary Owners and Owners on Team and Enterprise plans. On Enterprise plans, custom roles with the **Privacy** permission set to "Can manage" can also change these settings. Setting project sharing by role is available on Enterprise plans only.
 
-Disabling the public project feature allows Team and Enterprise owners to restrict the creation of public projects across their organization while maintaining internal sharing capabilities.
+Two settings in the **Sharing** section control how users share projects in your organization:
 
-Follow these steps:
+- **Share projects** controls whether users can share projects with others in your organization.
 
-1. Navigate to **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)**.
+- **Public projects** controls whether all users in your organization can see and start chats in public projects. It's a sub-setting of Share projects.
 
-2. Find **Public projects** and toggle it off
+Both are on by default.
 
+## Turn off project sharing
 
+1. Go to **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)**.
 
-## How does disabling public projects work?
+2. In the **Sharing** section, find **Share projects** and toggle it off.
 
-By default, **[public projects](https://support.claude.com/en/articles/9519189-project-visibility-and-sharing#h_2c0e9eb7c4)** are enabled for all Team and Enterprise plans. When you disable public projects:
+Turning off **Share projects** also turns off **Public projects**.
 
-1. All existing public projects will be converted to private projects.
+**When you turn off project sharing**
 
-2. Users will be prevented from creating new public projects.
+- Users can't share projects with new users or groups.
 
-**Important:** Users can still share **[private projects](https://support.claude.com/en/articles/9519189-project-visibility-and-sharing#h_a088ccfaa3)** with individual users within your organization after disabling public projects. Any private projects that were shared with individuals will retain their shared settings.
+- Projects that are already shared stay shared, and users who already have access keep it.
 
-## Impact on project sharing
+- Existing public projects become private, so people who only had access because a project was public lose it. Users can't create new public projects.
 
-Disabling public projects does not affect the internal project sharing capabilities available to Team and Enterprise users:
+- Users can still open a project's “Share” menu, but they see "Project sharing is turned off by your administrator" and can't add new users or groups. They can still change or remove existing access.
 
-- **Individual project sharing:** Users can still share projects with specific team members using email-based invitations.
+**Note:** If you turn off project sharing, let your teams know. They keep their current projects but can't add new users, and public projects become private.
 
-- **Organization-wide sharing:** Projects can still be shared across your entire organization (where permissions allow).
+## Turn off public projects only
 
-- **Permission management:** All view and edit permission levels remain available for internal sharing.
+1. Go to **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)**.
 
-- **Collaboration features:** The "Shared with me" tab and other collaborative features will continue to function as expected.
+2. In the **Sharing** section, under **Share projects**, toggle **Public projects** off.
 
-This setting specifically controls external public sharing while preserving all internal collaboration functionality.
+**When you turn off public projects:**
 
-## Re-enable public projects
+- All existing public projects become private.
 
-If you choose to re-enable public projects after disabling them:
+- Users can't create new public projects.
 
-- Existing projects will remain private.
+- Users can't share a project with everyone in your organization.
 
-- Users will regain the ability to create new public projects.
+- Users can still share projects with specific users and groups. Projects already shared keep their sharing settings.
 
-- Internal sharing settings and permissions will remain unchanged.
+## Set project sharing by role
+
+On Enterprise plans, you can turn project sharing on or off for specific roles.
+
+1. Go to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**.
+
+2. Open a role, or click "Add role."
+
+3. On the "Capabilities" tab, toggle **Share projects** on or off.
+
+4. Click "Save role."
+
+**Share projects** must be on at the organization level before roles can control it. Role changes can take up to 15 minutes to apply. See **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**.
+
+## Turn project sharing back on
+
+- Turn **Share projects** back on and users can share projects again.
+
+- Projects that became private stay private.
+
+- Turn **Public projects** on and users can create new public projects.
+
+- Existing sharing settings and permissions don't change.
+
+To learn how users share projects, see **[Manage project visibility and sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)**.

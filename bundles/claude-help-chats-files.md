@@ -60,6 +60,12 @@ SOURCE: https://support.claude.com/en/articles/10684626-enable-and-use-web-searc
 
 You can have Claude search the internet to provide you with up-to-date information and insights when using the following models:
 
+- Sonnet 5.5
+
+- Opus 5.5
+
+- Fable 5.1
+
 - Opus 5
 
 - Sonnet 5
@@ -83,6 +89,8 @@ Web search expands Claude's knowledge with real-time data, helping you make bett
 An Owner or Primary Owner must first enable web search for the entire workspace in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)**.
 
 Once this is enabled at the workspace level, any member of the organization can switch it on while starting a chat by clicking the “+” button in the lower left corner of the chat window and selecting “Web search." Users can toggle this off for chats that don’t require web search capabilities.
+
+**Note:** If you have the new Claude experience, there's no web search toggle. Claude searches the web when it helps.
 
 ## Enable web search in a chat
 
@@ -142,7 +150,7 @@ Claude can also display interactive content in search results. For more detailed
 
 ## Manage usage on free Claude accounts
 
-As a free user, you have daily usage limits for Claude. Since web search and fetch both contribute to these limits, here are some tips to make the most of your capacity:
+As a free user, you have usage limits that reset every five hours. Since web search and fetch both contribute to these limits, here are some tips to make the most of your capacity:
 
 - **Be mindful of direct links:** Before asking Claude to analyze a long article via its URL, consider whether you need the full analysis or just key points.
 
@@ -188,7 +196,7 @@ You can re-enable it anytime you need current information.
 
 - Search times may vary based on query complexity.
 
-- Usage of web search and web fetch counts toward your daily limits.
+- Usage of web search and web fetch counts toward your usage limits.
 
 ## Support
 
@@ -275,11 +283,15 @@ SOURCE: https://support.claude.com/en/articles/12260368-use-incognito-chats
 
 # Use incognito chats
 
-Incognito chats are available to all Claude users (Free, Pro, Max, Team, and Enterprise plans).
+**Note:** If you have the new Claude experience, incognito chats open in the previous chat experience, so Claude can't create files or run code in them.
 
 ## What are incognito chats?
 
-Incognito chats are temporary conversations that aren't saved to your chat history or to **[Claude’s memory](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context)**. These differ from regular chats in several ways:
+Incognito chats are temporary conversations that aren't saved to your chat history or to **[Claude’s memory](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context)**.
+
+Incognito chats are available to all Claude users (Free, Pro, Max, Team, and Enterprise plans).
+
+These differ from regular chats in several ways:
 
 - Incognito chats are not used for training. See our Privacy Center for more information:
 
@@ -331,6 +343,10 @@ If you're using incognito chats on a Team or Enterprise plan:
 
 ## Frequently asked questions
 
+### What's the difference between an incognito chat and a chat with memory turned off?
+
+An incognito chat isn't saved to your chat history or to memory. If you want Claude to skip memory for one conversation but still keep the chat, turn off "Memory" in the "+" menu before you send your first message instead. Claude won't use or add to memory in that chat, and the chat stays in your chat history and Claude can still find it when searching past chats from your other conversations.
+
 ### Can Claude access my profile information (custom styles, personal preferences, etc.) in incognito chats?
 
 Yes, Claude can access this information within an incognito chat.
@@ -341,7 +357,7 @@ No, once you start an incognito chat, it cannot be converted to a regular chat o
 
 ### Can I use incognito mode in projects?
 
-Incognito mode is currently only available for chats outside of projects, so you will not see the ghost icon when starting a chat within a project.
+Incognito mode is currently only available for chats outside of projects, so you won't see the ghost icon when starting a chat within a project. Instead, you can turn memory off for a single chat in a project by turning off "Memory" in the "+" menu before you send your first message.
 
 ### What happens if I accidentally close an incognito chat?
 
@@ -467,45 +483,45 @@ This table below lists the beta and research preview features currently availabl
 Feedback on beta and research preview features helps inform our decisions. You can share feedback with **[our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
 ---
 
-SOURCE: https://support.claude.com/en/articles/15363606-why-claude-switched-models-in-your-conversation-with-fable-5
+SOURCE: https://support.claude.com/en/articles/15363606-why-claude-switched-models-in-your-conversation-with-fable-5-or-fable-5-1
 
-# Why Claude switched models in your conversation with Fable 5
+# Why Claude switched models in your conversation with Fable 5 or Fable 5.1
 
-This article explains why a request might be blocked on Claude Fable 5, what happens when your conversation switches to a different Claude model, and how to manage automatic switching.
+This article explains why a request might be blocked on Claude Fable 5 or Fable 5.1, what happens when your conversation switches to a different Claude model, and how to manage automatic switching.
 
 ## Why some requests get blocked
 
-Claude Fable 5's capabilities far exceed those of every model we've previously made generally available. It is state-of-the-art on nearly all tested benchmarks of AI capability, showing exceptional performance in software engineering, knowledge work, vision, and many other areas.
+Claude Fable 5 and Fable 5.1's capabilities far exceed those of every model we've previously made generally available. They are state-of-the-art on nearly all tested benchmarks of AI capability, showing exceptional performance in software engineering, knowledge work, vision, and many other areas.
 
-Releasing a model this capable comes with risks. Without strong safeguards, Claude Fable 5's advanced capabilities in areas like cybersecurity and biology could be misused by users to create large-scale cyberattacks or bioweapons that could result in catastrophic damage. These capabilities are the reason we’ve previously only released Mythos-class models (like Mythos Preview) to a small number of selected and vetted partners.
+Releasing a model this capable comes with risks. Without strong safeguards, Claude Fable 5 and Fable 5.1's advanced capabilities in areas like cybersecurity and biology could be misused by users to create large-scale cyberattacks or bioweapons that could result in catastrophic damage. These capabilities are the reason we’ve previously only released Mythos-class models (like Mythos Preview) to a small number of selected and vetted partners.
 
-Recognizing these risks, to allow general users to access the vast majority of Fable 5's capabilities, we've launched the model with safeguards that redirect or block its responses in some specific areas in line with our **[Terms of Service](https://www.anthropic.com/legal/commercial-terms)** and **[Acceptable Use Policy](https://www.anthropic.com/legal/aup)**. We’ve also **[been iterating](https://www.anthropic.com/news/redeploying-fable-5)** on safeguards since our first launch of Claude Fable 5.
+Recognizing these risks, to allow general users to access the vast majority of Fable 5 and Fable 5.1's capabilities, we've launched these models with safeguards that redirect or block their responses in some specific areas in line with our **[Terms of Service](https://www.anthropic.com/legal/commercial-terms)** and **[Usage Policy](https://www.anthropic.com/legal/aup)**. We’ve also **[been iterating](https://www.anthropic.com/news/redeploying-fable-5)** on safeguards since our first launch of Claude Fable 5.
 
-Most user queries blocked by these safeguards on Fable 5 may instead receive a response from our next-most-capable model (i.e., "fallback"). We're working on making these safeguards more precise to help block only genuinely risky requests, with fewer false positives than there are today.
+We're working on making these safeguards more precise to help block only genuinely risky requests, with fewer false positives than there are today. Most user queries blocked by these safeguards on Fable 5 or Fable 5.1 may instead receive a response from our next-most-capable model (i.e., "fallback"), which can respond to these types of queries.
 
-## What requests may fallback
+## What requests may fall back
 
-**Claude Fable 5 runs automated safety checks, or classifiers, on every user request. These checks are intended to visibly fallback from Fable 5 to Opus models when users submit requests in:**
+**Claude Fable 5 and Fable 5.1 run automated safety checks, or classifiers, on every user request. These checks are intended to visibly fall back from Fable 5 and Fable 5.1 to Opus models when users submit requests in:**
 
-- Offensive cybersecurity techniques, such as building exploits, malware, or attack tooling. Claude Fable 5 can assist with routine cybersecurity tasks, but users should expect high fallback rates. The safeguards are designed to block access to Mythos-level capabilities.
+- Offensive cybersecurity techniques, such as building exploits, malware, or attack tooling. Claude Fable 5 and Fable 5.1 can assist with routine cybersecurity tasks, but users should expect high fallback rates. The safeguards are designed to block access to Mythos-level capabilities.
 
-- A large fraction of queries we consider dual-use in biology, such as virology, toxicology, drug design, and molecular design—so Fable 5 is not recommended for professional biology research and drug development at this time. (**[Classifier updated](https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards)**: August 6, 2026 on Claude, Claude apps, and Claude Platform, with Amazon Bedrock, Claude Platform on AWS, Google Cloud Vertex AI, and Microsoft Foundry to follow.)
+- A large fraction of queries we consider dual-use in biology, such as virology, toxicology, drug design, and molecular design—so Fable 5 and Fable 5.1 are not recommended for professional biology research and drug development at this time. (**[Classifier updated](https://www.anthropic.com/news/improving-fable-5-s-biology-safeguards)**: August 6, 2026 on Claude, Claude apps, and Claude Platform, with Amazon Bedrock, Claude Platform on AWS, Google Cloud Vertex AI, and Microsoft Foundry to follow.)
 
-- Distillation attacks on Fable 5, including attempts to extract the model’s **[summarized thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#summarized-thinking).**
+- Distillation attacks on Fable 5 and Fable 5.1, including attempts to extract the model’s **[summarized thinking](https://platform.claude.com/docs/en/build-with-claude/extended-thinking#summarized-thinking).**
 
 - A narrow set of frontier LLM development tasks, such as distributed training infrastructure, ML accelerator design, and kernel development for certain non-standard chips.
 
-These blocking safeguards are intentionally broad, and we work to continuously improve the safeguards to reduce their user-experience impact. When requests are blocked, they may fallback to a non-Mythos model, currently Opus 5 for biology, chemistry, and life sciences requests, and Opus 4.8 for offensive cybersecurity technique requests.
+These blocking safeguards are intentionally broad, and we work to continuously improve the safeguards to reduce their user-experience impact. When requests are blocked, they may fall back to a non-Mythos model, currently Opus 5 for biology, chemistry, and life sciences requests, and Opus 4.8 for offensive cybersecurity technique requests.
 
 The checks also review everything the model reads, not just your latest message—including memory, content from connectors, web search results, and files, so a block can be triggered by content you didn't type.
 
 ## What happens after a fallback
 
-Automatic model switching is active by default. When your request falls back, Claude re-runs your blocked Claude Fable 5 request on an Opus model in the same conversation. You’ll see a notice explaining that the model switched, and the response will be labeled with the model that answered. Opus is a highly capable model with strong safeguards of its own, and for most otherwise legitimate requests blocked on Fable 5, Opus should give you a helpful answer.
+Automatic model switching is active by default. When your request falls back, Claude re-runs your blocked Claude Fable 5 or Fable 5.1 request on an Opus model in the same conversation. You’ll see a notice explaining that the model switched, and the response will be labeled with the model that answered. Opus is a highly capable model with strong safeguards of its own, and for most otherwise legitimate requests blocked on Fable 5 or Fable 5.1, Opus should give you a helpful answer.
 
-After the switch, the model picker stays on Opus for the rest of the conversation. You can switch back to Claude Fable 5 anytime from the model picker.
+After the switch, the model picker stays on Opus for the rest of the conversation. You can switch back to Claude Fable 5 or Fable 5.1 anytime from the model picker.
 
-**Note:** If you switch back to Claude Fable 5 after an automatic model switch, the same Fable 5 safeguards may cause Claude to fallback again if your original request is still part of the conversation. Editing your previous message before retrying often helps.
+**Note:** If you switch back to Claude Fable 5 or Fable 5.1 after an automatic model switch, the same Fable 5 or Fable 5.1 safeguards may cause Claude to fallback again if your original request is still part of the conversation. Editing your previous message before retrying often helps.
 
 ## If the fallback request is also blocked
 
@@ -515,7 +531,7 @@ If your request is also blocked on the less capable model, you can edit your mes
 
 ## Manage automatic model switching
 
-Automatic switching is enabled by default the first time you select Claude Fable 5. It stays on by default, and you can turn it off anytime:
+Automatic switching is enabled by default the first time you select Claude Fable 5 or Fable 5.1. It stays on by default, and you can turn it off anytime:
 
 1. Go to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (or **Config > MODEL & OUTPUT** in Claude Code).
 
@@ -523,21 +539,26 @@ Automatic switching is enabled by default the first time you select Claude Fable
 
 With automatic model switching off, a blocked request pauses the conversation instead of switching models. You can then:
 
-- Edit your message and retry on  Claude Fable 5
+- Edit your message and retry on  Claude Fable 5 or Fable 5.1
 
 - Send the same message to a less capable model manually
+​
 
 ## Usage and billing
 
 Blocked requests are billed differently depending on when the block happens:
 
-- **Blocked on input:** If a request is blocked before Claude Fable 5 produces any output, the conversation switches to Opus immediately. You're charged only at Opus rates, and the Opus response counts toward your usage limit or consumption.
+- **Blocked before Claude responds:** To disrupt coordinated attacks on our safeguards, refusals that arrive before any output are billed when they stop or fall back due to biology, distillation, or frontier LLM development safety classifiers. These are the categories where our false positive rates are lowest as of September 2026. Requests blocked before any output in other categories are not charged.
 
-- **Blocked midstream:** If a request is blocked midstream, the input and the tokens streamed before the block are charged at Claude Fable 5 rates. The rest of the response is charged at Opus rates.
+- **Blocked after Claude starts responding:** If a request is blocked midstream, the input tokens and those streamed before the block are charged at the rates of the model that produced them.
+
+- **Fallback requests:** If you are opted into automatic model switching, and the conversation switches to Opus after a block, the Opus response is charged separately, at the respective model’s rates. We provide a credit to compensate for the cache miss of the fallback request at the time of the request.
+
+Learn more about **[refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed)**.
 
 ## Give feedback
 
-If your blocked request seems unrelated to security or biology topics, or if your legitimate work in these areas keeps getting blocked, let us know. Use "Send feedback" to report it. Reports of incorrectly blocked requests help us narrow and improve these safeguards.
+If your blocked request seems unrelated to one of the classifiers listed above, or if your legitimate work in these areas keeps getting blocked, let us know. Use "Send feedback" to report it. Reports of incorrectly blocked requests help us narrow and improve these safeguards.
 
 ## Stay tuned for updates
 
@@ -547,7 +568,7 @@ We'll share more details about the program, including eligibility and how to app
 
 ## Where automatic model switching applies
 
-Automatic model switching works the same way everywhere you can use Claude Fable 5:
+Automatic model switching works the same way everywhere you can use Claude Fable 5 and Fable 5.1:
 
 - Claude on the web
 
@@ -569,24 +590,30 @@ Automatic model switching works the same way everywhere you can use Claude Fable
 
 Read our blog to learn more about **[Claude Fable 5 and Claude Mythos 5](https://www.anthropic.com/news/claude-fable-5-mythos-5)**.
 
-Our safeguards are built to match the capabilities of a model. For how safeguards work on Claude Opus 5, see **[Why Claude switched models in your conversation with Opus 5](https://support.claude.com/en/articles/16049681).**
+Our safeguards are built to match the capabilities of a model. For how safeguards work on Claude Opus 5, see **[Why Claude switched models in your conversation with Opus 5](https://support.claude.com/en/articles/16049681)**.
 ---
 
-SOURCE: https://support.claude.com/en/articles/16049681-why-claude-switched-models-in-your-conversation-with-opus-5
+SOURCE: https://support.claude.com/en/articles/16049681-why-claude-switched-models-in-your-conversation-with-opus-5-or-opus-5-5
 
-# Why Claude switched models in your conversation with Opus 5
+# Why Claude switched models in your conversation with Opus 5 or Opus 5.5
 
-This article explains why a request might fallback on Claude Opus 5, what happens when your conversation switches to another model, and how to manage automatic switching.
+This article explains why a request might fall back on Claude Opus 5 or Opus 5.5, what happens when your conversation switches to another model, and how to manage automatic switching.
 
 ## Why some requests get blocked
 
-Claude Opus 5 improves on Claude Opus 4.8 across the board, including in software engineering and cybersecurity. We've set its safeguards in line with those capability gains.
+Claude Opus 5 and Opus 5.5 improve on Claude Opus 4.8 across the board. We've set its safeguards in line with those capability gains.
 
-Most cyber requests sent to Opus 5 will not encounter fallback safety interventions. A narrow set of higher-risk cybersecurity requests fallback to Opus 4.8, our next-most-capable model, so we can keep supporting everyday security work while limiting the risk of misuse. We're continuing our work to reduce false positives, and your feedback helps inform these improvements.
+Most requests sent to Opus 5 or Opus 5.5 won’t encounter fallback safety interventions. A narrow set of higher-risk requests either fall back to a less capable model or are blocked directly, so we can keep supporting everyday work while limiting the risk of misuse. We continue working to refine these safeguards so they block fewer legitimate requests. That includes fine-tuning our classifiers to reduce false positives and factoring in a range of account trust signals. Your feedback helps guide this work.
 
-## What requests may fallback
+## What requests may fall back or get blocked
 
-Claude Opus 5 runs automated safety checks, or classifiers, on every user request. These checks cause Claude to visibly fallback from Opus 5 to Opus 4.8 when you submit higher-risk offensive cybersecurity requests, such as:
+Claude Opus 5 and Opus 5.5 run automated safety checks, or classifiers, on every user request. The checks also review everything the model reads, not just your latest message. This includes memory, content from connectors, web search results, and files, so a fallback can be triggered by content you didn't type.
+
+Fallbacks and blocks work differently depending on the type of classifier triggered: cybersecurity, biology, frontier LLM development, or distillation.
+
+### Cybersecurity
+
+Opus 5 or Opus 5.5 may fall back to Opus 4.8 when our cyber classifiers flag potentially higher-risk offensive cybersecurity requests, such as:
 
 - Exploit generation
 
@@ -594,31 +621,47 @@ Claude Opus 5 runs automated safety checks, or classifiers, on every user reques
 
 - Penetration testing
 
-You can still use Opus 5 for security work, including scanning source code for vulnerabilities, triaging security issues, and building secure code.
+You can still use Opus 5 and Opus 5.5 for secure coding, including scanning source code for vulnerabilities, triaging security issues, and building secure code.
 
-The checks also review everything the model reads, not just your latest message. This includes memory, content from connectors, web search results, and files, so a fallback can be triggered by content you didn't type.
+### Biology
 
-In early testing, Opus 5 traffic ran into cyber fallbacks 85% less than Fable 5.
+While Claude Opus 5 improves on Opus 4.8 in biology, it’s not as capable as Fable 5 at real world long-horizon tasks for novel research discoveries that could lead to significant risk. As a result, Opus 5 doesn't fall back on biology, chemistry, or life-sciences questions. It uses similar safeguards for these topics as Opus 4.8.
 
-**Note:** While Claude Opus 5 improves on Opus 4.8 in biology, it is not as capable as Fable 5 at real world long-horizon tasks for novel research discoveries that could lead to significant risk. As a result, Opus 5 doesn't fallback on biology, chemistry, or life-sciences questions. It uses similar safeguards for these topics as Opus 4.8.
+Opus 5.5 has similar safety classifiers to Claude Fable 5 for biology due to increases in capabilities over Opus 5. These classifiers cause Claude to fall back from Opus 5.5 to Opus 5 when you submit dual-use requests in areas like virology, toxicology, and molecular design. You can still use Opus 5.5 for everyday health and educational questions, including interpreting lab results, understanding symptoms, and learning about biology.
+
+### Frontier LLM development (Opus 5.5 only)
+
+Opus 5.5 has classifiers similar to Fable models for a small set of capabilities related to the development of frontier LLMs, such as kernel development for certain ML accelerators. They shouldn't impact the vast majority of traditional AI or ML development, research, or general coding. These classifiers cause Claude to fall back from Opus 5.5 to Opus 5.
+
+**Note:** These frontier LLM development classifiers apply only to Opus 5.5. Opus 5 doesn’t fall back on frontier LLM development questions.
+
+### Distillation
+
+Opus 5 and Opus 5.5 have classifiers that detect and directly block attempts to extract the model's internal reasoning. Distillation blocks don't fall back to another model, and the request is blocked outright.
+
+Examples of blocked requests include prompts that ask Claude to repeat its reasoning verbatim or write its full chain of thought to an external output. You can still ask Claude to explain its reasoning, teach you a concept, or walk through a code review. Conversational requests like "why did you do that?" aren't affected.
 
 ## What happens after a fallback
 
-Automatic model switching is active by default. When your request falls back, Claude re-runs your blocked Opus 5 request on a less capable model in the same conversation. You'll see a notice explaining that the model switched, and the response will be labeled with the model that answered.
+Automatic model switching is active by default. When your request falls back, Claude re-runs your blocked request on a less capable model in the same conversation. All fallbacks are transparent, meaning you'll see a notice explaining that the model switched, and the response will be labeled with the model that answered.
 
-After the switch, the model picker stays on the less capable model for the rest of the conversation. You can switch back to Opus 5 anytime from the model picker.
+After the switch, the model picker stays on the less capable model for the rest of the conversation. You can switch back to Opus 5 or Opus 5.5 anytime from the model picker.
 
-**Note:** If you switch back to Opus 5 after an automatic model switch, the same Opus 5 safeguards may cause Claude to fallback again if your original request is still part of the conversation. Editing your previous message before retrying often helps.
+**Note:** If you switch back to Opus 5 or Opus 5.5 after an automatic model switch, the same safeguards may cause Claude to fall back again if your original request is still part of the conversation. Editing your previous message before retrying often helps.
 
 ## If the fallback request is also blocked
 
-Opus 4.8 has its own safety systems. If your request is also blocked on Opus 4.8, you can edit your message and retry. For cybersecurity specifically, if your use case has a legitimate defensive purpose and is affected by these safeguards, you can apply for the Cyber Verification Program (CVP). Learn more about **[real-time cyber safeguards on Claude Opus and Sonnet](https://support.claude.com/en/articles/14604842-real-time-cyber-safeguards-on-claude-opus-and-sonnet)**.
+Opus 4.8 has its own safety systems. If your request is also blocked on Opus 4.8, you can edit your message and retry.
 
-**Note:** If your organization already uses Opus 4.8 through the Cyber Verification Program, access to Opus 5 with fewer cyber restrictions is available now. Opus 5 is also compatible with Zero Data Retention.
+For cybersecurity specifically, if your use case has a legitimate defensive purpose and is affected by these safeguards, you can apply for the Cyber Verification Program (CVP). Learn more about **[real-time cyber safeguards on Claude Opus and Sonnet](https://support.claude.com/en/articles/14604842-real-time-cyber-safeguards-on-claude-opus-and-sonnet)**.
+
+For biology, if your organization does legitimate life sciences research and is affected by these safeguards, you can apply for the Life Sciences Verification Program (LSVP). The LSVP gives verified life sciences organizations access to Claude's most capable models for internal research and development. Learn more in our blog: **[Introducing the Life Sciences Verification Program](https://www.anthropic.com/news/life-sciences-verification-program)**.
+
+**Note:** Opus 5.5 isn't currently available in the Cyber Verification Program. If your organization already uses Opus 4.8 through the Cyber Verification Program, access to Opus 5 with fewer cyber restrictions is available now. Opus 5 is also compatible with Zero Data Retention.
 
 ## Manage automatic model switching
 
-Automatic switching is enabled by default the first time you select Claude Opus 5. It stays on by default, and you can turn it off anytime:
+Automatic switching is enabled by default the first time you select Claude Opus 5 or Opus 5.5. It stays on by default, and you can turn it off anytime:
 
 1. Go to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (or **Config > MODEL & OUTPUT** in Claude Code).
 
@@ -626,17 +669,29 @@ Automatic switching is enabled by default the first time you select Claude Opus 
 
 With automatic model switching off, a request that falls back pauses the conversation instead of switching models. You can then:
 
-- Edit your message and retry on Opus 5
+- Edit your message and retry on Opus 5 or Opus 5.5
 
 - Send the same message to a less capable model manually
 
+## Usage and billing
+
+How a request that falls back is billed depends on when the block happens and which classifier triggered it:
+
+- **Blocked before Claude responds:** To disrupt coordinated attacks on our safeguards, refusals that arrive before any output are billed when they stop or fall back due to biology, distillation, or frontier LLM development safety classifiers. These are the categories where our false positive rates are lowest, as of September 2026. Requests blocked before any output in other categories are not charged.
+
+- **Blocked after Claude starts responding:** If a request is blocked midstream, the input tokens and those streamed before the block are charged at the rates of the model that produced them.
+
+- **Fallback requests:** If you are opted into automatic model switching, and the conversation switches to another model after a block, the fallback response is charged separately, at the responding model’s rates. We provide a credit to compensate for the cache miss of the fallback request.
+
+Learn more about **[refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed)**.
+
 ## Give feedback
 
-If your request is blocked but seems unrelated to cybersecurity, or if your legitimate security work keeps falling back, let us know. Use "Send feedback" to report it. Reports of incorrectly blocked requests help us narrow and improve these safeguards.
+If your request is blocked but seems unrelated to one of the classifiers listed above, or if your legitimate security work keeps falling back, let us know. Use "Send feedback" to report it. Reports of incorrectly blocked requests help us narrow and improve these safeguards.
 
 ## Where automatic model switching applies
 
-Automatic model switching works the same way everywhere you can use Claude Opus 5:
+Automatic model switching works the same way everywhere you can use Claude Opus 5 or Opus 5.5:
 
 - Claude on the web
 
@@ -658,9 +713,375 @@ Automatic model switching works the same way everywhere you can use Claude Opus 
 
 **Important:** If you're using the Claude API, model switching works differently. Automatic switching isn't active by default, and API customers must opt into and configure the fallbacks. Until fallbacks are configured, the model will return a 200 response with a stop reason on the API. See the **[developer documentation](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback)** for details.
 
-Read our blog to learn more about **[Claude Opus 5](https://www.anthropic.com/news/claude-opus-5)**.
+Read our blog to learn more about **[Claude Opus 5](https://www.anthropic.com/news/claude-opus-5)** and **[Claude Opus 5.5](https://www.anthropic.com/claude-opus-5-5)**.
 
 Our safeguards are built to match the capabilities of a model. For how safeguards work on Claude Fable 5, see **[Why Claude switched models in your conversation with Fable 5](https://support.claude.com/en/articles/15363606-why-claude-switched-models-in-your-conversation-with-fable-5).**
+---
+
+SOURCE: https://support.claude.com/en/articles/16761192-preserved-thinking-changing-how-the-messages-api-handles-thinking-blocks-to-protect-against-distillation
+
+# Preserved thinking: changing how the Messages API handles thinking blocks to protect against distillation
+
+We're changing how the Messages API handles thinking blocks to protect against distillation. A thinking block is a record of the reasoning Claude may produce while working on a response. On Claude Fable 5.1, Claude Opus 5.5, and Claude Sonnet 5.5, new API accounts can no longer edit the context around a thinking block, such as the messages, tools, or system prompt, during a multi-turn conversation. We’ll expand the rollout to all users with upcoming model launches.
+
+Modifying this prior context has legitimate applications, which we continue to support using the adjustments outlined below. However, such modifications are also a common and **[publicly documented technique](https://arxiv.org/abs/2608.09867)** for industrial-scale illicit distillation, which is prohibited by our **[Usage Policy](https://www.anthropic.com/legal/aup)** and Terms of Service.
+
+Now, the API will now verify that a thinking block is sent back with the same system prompt, tools, and messages that produced it, and will return an error if they don't match. In order for modified requests to succeed, developers may opt-in to instead have the thinking blocks *removed* from such requests; the model will respond without seeing the thinking block.
+
+In this article, we share details on why we're doing this and the adjustments you can make to minimize disruption.
+
+## What are thinking blocks?
+
+Claude produces reasoning steps before providing its final answer. On the API, these are returned to the user as "thinking blocks." In a multi-turn conversation, API users send these blocks back with each exchange (along with the system prompt, tools, and earlier messages), so that Claude has full conversational context.
+
+## What’s changing?
+
+For affected accounts using the models listed below, the API will return an error if the system prompt, tools, or messages preceding a prior thinking block have been modified.
+
+To avoid an error message, you may opt into "non-strict" mode. In this mode, the request will go through, but the affected thinking blocks will be dropped from what the model sees. This allows you to continue your conversation or task uninterrupted despite the prior turns’ thinking not being shown to the model. When this happens, the API response will tell you which blocks were dropped.
+
+## Why are we making this change?
+
+Altering the earlier turns of a conversation is a **[common technique](https://arxiv.org/abs/2608.09867)** used in illicit distillation campaigns, which aim to extract the capabilities of advanced models—especially thinking—to train another model, without authorization. Distillation is often employed on an industrial scale, using thousands of fake accounts. We encrypt Claude's thinking blocks to prevent this, but by editing the conversation before a thinking block, a user could get Claude to decrypt and print its reasoning. Systems trained this way can inherit capabilities they wouldn’t otherwise have, *without* inheriting the safeguards that we've built to prevent a broad range of misuse like cyberattacks and weapons development.
+
+This change aims to make distillation campaigns more difficult to execute. It builds on existing anti-distillation measures like **[enhanced distillation classifiers](https://www.anthropic.com/research/next-generation-constitutional-classifiers)** and restrictions on transferring sessions or reasoning from more advanced models to less capable models with weaker safeguards.
+
+## What does this mean for API integrations?
+
+Certain integrations—particularly those that involve rewriting earlier turns mid-conversation, like context compaction, injected system reminders, or changing tools mid-session—may need adjustment.
+
+Here are the resources to help guide you through this update:
+
+- The **[preserved thinking documentation](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking)** covers where the change applies, how to check whether your integration is affected, and **[how to make common edits](https://platform.claude.com/docs/en/build-with-claude/preserved-thinking#replace-prefix-edits)** without breaking preserved thinking.
+
+- **[Compaction](https://platform.claude.com/docs/en/build-with-claude/compaction)** (beta) can summarize older turns while keeping the most recent turns word for word, and can build the summary in the background while your agent keeps working. It replaces client-side compaction, which is likely the most common reason integrations need to change.
+
+- **[Mid-conversation tool changes](https://platform.claude.com/docs/en/build-with-claude/mid-conversation-system-messages#mid-conversation-tool-changes)** (beta) let you add or remove tools during a conversation without editing earlier turns.
+
+- Our **[migration guides](https://platform.claude.com/docs/en/about-claude/models/migration-guide)** have a full checklist for moving to each model.
+
+Check each page for availability on Amazon Bedrock, Google Cloud Vertex AI, and Microsoft Foundry.
+
+If the guidance above doesn't cover your use case, please **[reach out to our support team](https://support.claude.com/en/articles/9015913)**. If you work with an account team, you can also reach out to them for support with updating more complex integrations.
+
+There are additional benefits to keeping thinking blocks consistent: it means that the API can reuse cached prompts more often, which reduces costs and response time.
+
+## Who will this impact?
+
+Preserved thinking applies to these models and accounts:
+
+| **Model**         | **API accounts created on or after August 31, 2026 (00:00 UTC)** | **Accounts created before then** |
+| ----------------- | ---------------------------------------------------------------- | -------------------------------- |
+| Claude Fable 5.1  | Applies                                                          | Doesn't apply                    |
+| Claude Opus 5.5   | Applies                                                          | Doesn't apply                    |
+| Claude Sonnet 5.5 | Applies                                                          | Doesn't apply                    |
+
+This covers Claude Platform organizations, Amazon Bedrock accounts, Google Cloud Vertex AI projects, and Microsoft Foundry projects.
+
+We're taking a phased approach to enforcement, starting with new accounts, where we see the highest concentration of distillation-related abuse. This gives developers with existing accounts time to make their harnesses and integrations compatible.
+
+If you use Claude Code, Claude Cowork, or Claude.ai, there's nothing you need to change; those products handle thinking blocks for you.
+
+## Thinking can only be read by the account that created it
+
+Starting with Claude Sonnet 5.5, a thinking block can only be read by the account that created it, or by an account linked to it.
+
+Thinking blocks can contain private information. Because they are encrypted, that information isn't visible when you inspect a transcript. This check helps keep a shared or leaked transcript from exposing the reasoning inside it. It also makes it harder for distillers to move harvested transcripts to new accounts after we ban the account that produced them.
+
+If a request includes thinking from an account that isn't linked, the API drops that thinking and the request continues. It doesn't return an error. The next response may be slower and use more tokens, similar to a compaction.
+
+Accounts in the same Claude Platform parent organization or the same Google Cloud organization are linked automatically. If you continue conversations across other accounts, for example to fail over between the Claude Platform and Amazon Bedrock, contact your account team to link them.
+
+In Claude Code, switching accounts in the middle of a session has the same effect: the next response is slower and uses more tokens.
+---
+
+SOURCE: https://support.claude.com/en/articles/16762437-public-links-for-shared-chats
+
+# Public links for shared chats
+
+When you share a chat with a public link, anyone who has the link can view a snapshot of that chat. This article covers who can see it, what's included, and how public links interact with search engines like Google.
+
+Public links are available on Free, Pro, and Max plans. Team and Enterprise members can only share chats inside their organization. For how to share and unshare, see **[Share and unshare chats](https://support.claude.com/en/articles/10593882)**.
+
+## What a public link does
+
+- It shares a snapshot of the chat as of the moment you shared it. Messages you send afterward stay private unless you update the snapshot.
+
+- Anyone with the link can open it. No Claude account is required.
+
+- It's view only. Viewers can't continue the chat.
+
+- Files you attached to the chat are not included.
+
+- You can turn it off at any time from the "Share" menu, or from **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)** under **Shared chats**. Once it's off, the link stops working.
+
+## Can Google or other search engines index my shared chat?
+
+We ask them not to. Every shared chat page carries a "noindex" instruction, which is the standard way to tell Google and other search engines not to show a page in search results. We also don't publish a directory or sitemap of shared chats, and each link is a long random string that can't be guessed.
+
+There are things we can't control:
+
+- **Where the link gets posted.** If you (or someone you sent it to) post the link on a public site like a forum, social feed, or blog, anyone who finds it there can open it.
+
+- **Copies.** Anyone who can view the page can copy, screenshot, or repost what's in it. Third-party archive and scraping services may save their own copy, and those copies aren't governed by our noindex instruction.
+
+- **Every search engine.** Major search engines honor noindex. We can't guarantee every crawler on the internet does.
+
+The simple rule: treat a public link as public. If you wouldn't post the contents on the open web, don't put them behind a public link.
+
+## Frequently asked questions
+
+### Does someone need a Claude account to open a public link?
+
+No. Anyone with the link can view the snapshot.
+
+### I only sent the link to one person. Is it still public?
+
+Yes. A link sent privately won't land in search results on its own, but whoever has it can forward or post it, and there's no way to limit a public link to specific people.
+
+### One of my shared chats showed up in search results. What should I do?
+
+Turn off sharing for that chat (Share menu > set to Private, or Settings > Privacy > Shared chats). The link stops working immediately, so nobody can click through and read it. Search engines drop dead and noindexed pages on their own recrawl schedule, which can take some time. For Google, you can speed this up with their **[Remove outdated content](https://support.google.com/websearch/answer/6349986)** tool. If a third-party site saved a copy, you'll need to contact that site directly.
+
+### If I turn off a public link, are copies deleted too?
+
+No. Turning it off disables the link on claude.ai. It can't remove copies, screenshots, or archives someone else already made.
+
+### Can Team or Enterprise members create public links?
+
+No. On Team and Enterprise plans, shared chats are only visible to signed-in members of the same organization.
+---
+
+SOURCE: https://support.claude.com/en/articles/16762496-share-a-chat-with-specific-people
+
+# Share a chat with specific people
+
+You can share a chat with specific people by inviting them by email. This is the default way to share a chat and keeps it private to the people you choose. Invited people can view a snapshot of the chat but can't reply, copy it into their own account, or continue the conversation.
+
+Sharing with specific people is available on all plans (Free, Pro, Max, Team, and Enterprise) on claude.ai. If you want anyone with the link to be able to view a chat instead, see **[Public links for shared chats](https://support.claude.com/en/articles/16762437)**.
+
+## Invite people to a chat
+
+1. Open the chat and click the "Share" button in the upper right corner.
+
+2. Under **People with access**, enter one or more email addresses.
+
+3. Click "Send."
+
+Each person gets an email with your name and the chat title and a link to open the chat. The invite only works for the email address you entered. If someone forwards the email, the link won't open for anyone else.
+
+**Note:** There's a limit on how many people you can invite in a day. If you hit it, you'll see a message in the share dialog and can try again later.
+
+## What invited people can see
+
+Sharing creates a snapshot of the chat at the moment you share it. People you invite see:
+
+- All messages in the chat up to that point, including artifacts
+
+- Your name as the person who shared it
+
+They don't see:
+
+- Messages you send after sharing (unless you update the shared chat, see below)
+
+- Files you attached to the chat (unless sharing was done within your organization)
+
+- Raw data from connectors or MCP tool calls, only Claude's final responses
+
+Shared chats are view only. Recipients can't continue the chat, copy it to their account, or download files from it.
+
+## If the person doesn't have a Claude account
+
+You can invite any email address. If the person doesn't have a Claude account yet, the invite email takes them to sign up with that email already filled in. A free account is enough to view the chat. Once they finish signing up, they land on the chat you shared.
+
+A few things to know:
+
+- The invite shows as **Pending** in your share dialog until they open it. You can remove a pending invite at any time.
+
+- Pending invites expire after 30 days if they aren't opened.
+
+- The person needs to sign up with the exact email you invited. If they sign in with Google or Apple using a different email, they'll see "You need access."
+
+## Change who has access or stop sharing
+
+To remove someone:
+
+1. Click "Share" on the chat.
+
+2. Under **People with access**, find the person and remove them.
+
+To stop sharing the chat entirely, click "Turn off" in the share dialog. The link stops working for everyone right away.
+
+You can also review everything you've shared from **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)** under **Shared chats**. This lists each shared chat with the date and who has access, and lets you turn off sharing per chat.
+
+## Update a shared chat
+
+People you invite see the chat as it was when you shared it. If you keep chatting and want them to see the new messages, open the share dialog and click "Update shared chat." This replaces the old snapshot with the current one for everyone who has access.
+
+## Sharing on Team and Enterprise plans
+
+On Team and Enterprise plans, sharing stays inside your organization:
+
+- You can invite people with an email address on your organization's domain. Emails outside your organization can't be invited.
+
+- Under **General access**, you can choose "Anyone at [your organization]" so any signed-in member with the link can view the chat.
+
+- Public links aren't available.
+
+- If you invite a coworker who doesn't have a Claude seat yet, they'll be asked to sign in. Depending on how your organization is set up, they'll either get access automatically or see a message to ask their admin.
+
+- Admins can turn off chat sharing for the organization, see and revoke shared chats, and view sharing activity in the audit log.
+
+## Open a chat someone shared with you
+
+Click the link in the invite email and sign in with the email address the invite was sent to. If you see "You need access," check which account you're signed into. The page shows your current account so you can switch if needed.
+
+## Frequently asked questions
+
+### Can people I invite forward the chat to someone else?
+
+No. The link only opens for the invited email. They'd need to ask you to add the other person.
+
+### Can I give someone edit access or let them continue the chat?
+
+No. Shared chats are view only.
+
+### Does the person I invite know I checked whether they have an account?
+
+We never tell you whether an email has a Claude account. Every invite looks the same on your end until it's opened.
+
+### What happens if I delete the chat?
+
+The shared snapshot is removed and the link stops working.
+
+### Can I share from the mobile app?
+
+Not yet. Sharing with specific people is available on claude.ai on the web. You can open a chat shared with you on any device.
+---
+
+SOURCE: https://support.claude.com/en/articles/17161993-why-claude-switched-models-in-your-conversation-with-sonnet-5-5
+
+# Why Claude switched models in your conversation with Sonnet 5.5
+
+This article explains why a request might fall back to another model or be blocked on Claude Sonnet 5.5, what happens when your chat switches models, and how to manage automatic switching.
+
+## Why some requests get blocked
+
+Because its cybersecurity capabilities are a substantial step up from Claude Sonnet 5's, Claude Sonnet 5.5 is the first Sonnet model with cyber fallbacks like those we’ve developed for our most capable models. Its biology safeguards are the same as Sonnet 5’s. Both safeguards target a narrow set of high-risk requests; routine software development and most life sciences work are unaffected.
+
+Most requests sent to Sonnet 5.5 won't encounter these safeguards. A narrow set of higher-risk requests either fall back to Sonnet 5 or are blocked directly, so we can keep supporting everyday work while limiting the risk of misuse. We continue to refine these safeguards so they block fewer legitimate requests, including fine-tuning our classifiers to reduce false positives. Your feedback helps guide this work.
+
+## What requests may fall back or get blocked
+
+Sonnet 5.5 runs automated safety checks, or classifiers, on every request. The checks also review everything the model reads, not just your latest message. This includes memory, content from connectors, web search results, and files, so a fallback or block can be triggered by content you didn't type.
+
+Fallbacks and blocks work differently depending on the type of classifier triggered: cybersecurity, biology, LLM development, or distillation.
+
+## Cybersecurity
+
+Sonnet 5.5 may fall back to Claude Sonnet 5 when our cyber classifiers flag potentially higher-risk offensive cybersecurity requests, such as:
+
+- Exploit generation
+
+- Binary-based vulnerability scanning
+
+- Penetration testing
+
+You can still use Sonnet 5.5 for secure coding use cases, such as scanning source code for vulnerabilities.
+
+## Biology
+
+Sonnet 5.5 blocks requests that could help someone cause serious biological harm. Biology blocks don't fall back to another model, and the request is blocked outright.
+
+Sonnet 5.5 uses the same set of biology safeguards as Sonnet 5. These target harmful requests; most research, education, and clinical work is unaffected, though some microbiology and virology requests may be flagged in error. Organizations can apply to our Life Sciences Verification Program for access to safeguards designed for the full breadth of biology-related work.
+
+## Frontier LLM development
+
+Sonnet 5.5 has classifiers for a small set of capabilities related to developing the most advanced LLMs, such as kernel development for certain ML accelerators. They shouldn't affect the vast majority of traditional AI or ML development, research, or general coding. When these classifiers flag a request, Claude falls back from Sonnet 5.5 to Sonnet 5.
+
+## Distillation
+
+Sonnet 5.5 has classifiers that detect and directly block attempts to extract the model's internal reasoning. Distillation blocks don't fall back to another model, and the request is blocked outright.
+
+Examples of blocked requests include prompts that ask Claude to repeat its reasoning verbatim or write its full chain of thought to an external output. You can still ask Claude to explain its reasoning, teach you a concept, or walk through a code review. Conversational requests like "why did you do that?" aren't affected.
+
+## What happens after a fallback
+
+Automatic model switching is active by default. When your request falls back, Claude re-runs it on Sonnet 5 in the same conversation. All fallbacks are transparent, meaning you'll see a notice explaining that the model switched, and the response is labeled with the model that answered.
+
+After the switch, the model picker stays on Sonnet 5 for the rest of the chat. You can switch back to Sonnet 5.5 anytime from the model picker.
+
+**Note:** If you switch back to Sonnet 5.5 after an automatic model switch, the same safeguards may cause Claude to fall back again if your original request is still part of the conversation. Editing your previous message before retrying often helps.
+
+## If the fallback request is also blocked
+
+Sonnet 5 has its own safety systems. If your request is also blocked on Sonnet 5, you can edit your message and retry.
+
+For biology, if your organization does legitimate life sciences research and is affected by these safeguards, you can apply for the Life Sciences Verification Program (LSVP) for expanded capabilities. On Sonnet 5.5, LSVP relaxes biology safeguards only through the High-risk Use add-on. Learn more in our blog: **[Introducing the Life Sciences Verification Program](https://support.claude.com/en/articles/16975617)**.
+
+Sonnet 5.5 isn't available in the Cyber Verification Program at launch. Soon, cyberdefenders will be able to apply to our expanded Cyber Verification Program for tiered access to more advanced capabilities on Sonnet 5.5.
+
+**Note:** Claude Sonnet 5.5 is compatible with Zero Data Retention (ZDR).
+
+## Manage automatic model switching
+
+Automatic switching is enabled by default for Sonnet 5.5, and you can turn it off anytime:
+
+1. Go to **Settings > Capabilities** (or **Config > MODEL & OUTPUT** in Claude Code).
+
+2. Toggle **Switch models when a message is flagged** off.
+
+With automatic model switching off, a request that falls back pauses the chat instead of switching models. You can then:
+
+- Edit your message and retry on Sonnet 5.5
+
+- Send the same message to a different model manually
+
+## Usage and billing
+
+How a request that falls back or is blocked is billed depends on when the block happens and which classifier triggered it:
+
+- **Blocked before Claude responds:** To disrupt coordinated attacks on our safeguards, refusals that arrive before any output are billed when they stop or fall back due to biology, distillation, or LLM development safety classifiers. Requests blocked before any output in other categories aren't charged.
+
+- **Blocked after Claude starts responding:** If a request is blocked midstream, the input tokens and those streamed before the block are charged at the rates of the model that produced them.
+
+- **Fallback requests:** If you're opted into automatic model switching and the chat switches to Sonnet 5 after a block, the Sonnet 5 response is charged separately, at Sonnet 5's rates. We provide a credit to compensate for the cache miss of the fallback request.
+
+Learn more about **[refusals and fallback](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback#how-refusals-are-billed)**.
+
+## Give feedback
+
+If your request is blocked but seems unrelated to one of the classifiers listed above, or if your legitimate work keeps falling back, let us know. Use "Send feedback" to report it. Reports of incorrectly blocked requests help us narrow and improve these safeguards.
+
+## Where automatic model switching applies
+
+Automatic model switching works the same way everywhere you can use Claude Sonnet 5.5:
+
+- Claude on the web
+
+- Claude Mobile
+
+- Claude Desktop
+
+- Claude Cowork
+
+- Claude Code
+
+- Claude Design
+
+- Claude for Microsoft 365
+
+- Claude Tag
+
+- Claude Science
+
+**Important:** If you're using the Claude API, model switching works differently. Automatic switching isn't active by default, and API customers must opt into and configure fallbacks. Until fallbacks are configured, the model returns a 200 response with a stop reason on the API. See the **[developer documentation](https://platform.claude.com/docs/en/build-with-claude/refusals-and-fallback)** for details.
+
+Read our blog to learn more about **[Claude Sonnet 5.5](https://www.anthropic.com/claude-sonnet-5-5)**.
+
+Our safeguards are built to match the capabilities of a model.
+
+For how safeguards work on Claude Opus 5.5, see **[Why Claude switched models in your conversation with Opus 5 or Opus 5.5](https://support.claude.com/en/articles/16049681)**. For Claude Fable 5.1, see **[Why Claude switched models in your conversation with Fable 5 or Fable 5.1](https://support.claude.com/en/articles/15363606)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/8230524-delete-or-rename-a-conversation

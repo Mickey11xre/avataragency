@@ -99,10 +99,6 @@ Please note, we reserve the right to suspend users who frequently provide manife
 
 We welcome reports concerning safety issues so that we can enhance the safety and harmlessness of our models. We would also like to hear from you if you identify our safety mechanisms causing any user experience issues. Please report such issues to <usersafety@anthropic.com> with enough detail for us to replicate the issue.
 
-### Help us improve AI safety by reporting universal jailbreaks
-
-This [form](https://docs.google.com/forms/d/1bjD-H30kVJAbIHnFXKzFcSjkUNjE-mwRHSF7R2uSjYM/edit) allows you to submit universal jailbreaks for ASL-3 uses of concern (meaning elicit information related to biological threats) that you've identified. Universal jailbreaks are techniques that allow users to consistently bypass safety measures across multiple harmful queries. Thank you very much for helping us to keep Anthropic safe.
-
 ## How to block or remove content
 
 ### Block or remove websites from Claude web search
@@ -288,7 +284,7 @@ You can access Claude through multiple platforms to suit your needs:
 
 ### Mobile applications
 
-- **iOS**: **[Download from the App Store](https://apps.apple.com/us/app/claude-by-anthropic/id6473753684)** (requires iOS 17.0 or later).
+- **iOS**: **[Download from the App Store](https://apps.apple.com/us/app/claude-by-anthropic/id6473753684)** (requires iOS 18.0 or later).
 
 - **Android**: **[Download from Google Play Store](https://play.google.com/store/apps/details?id=com.anthropic.claude)** (requires Android 8.0 Oreo or later).
 
@@ -1082,6 +1078,54 @@ SOURCE: https://support.claude.com/en/articles/12138966-release-notes
 
 # Release notes
 
+## September 2026
+
+### September 28, 2026
+
+**Claude Sonnet 5.5 launch**
+
+We just launched Claude Sonnet 5.5, the second model in our Claude 5.5 family. Sonnet 5.5 is a faster, lower-cost complement to Claude Opus 5.5. For more information, see our blog post: **[Introducing Claude Sonnet 5.5](https://www.anthropic.com/claude-sonnet-5-5)**.
+
+### September 25, 2026
+
+**Build plugins for Claude**
+
+You can now submit plugins to the Claude directory through a new developer portal, track them through review, and see usage analytics once they’re live. For more information, see our blog post: **[Build plugins for Claude](https://claude.com/blog/build-plugins-for-claude)**.
+
+### September 22, 2026
+
+**Claude Opus 5.5 launch**
+
+We just launched Claude Opus 5.5, the first model in our new Claude 5.5 family. It performs at the level of Claude Fable 5.1 on most work and costs 40% less to run than Opus 5. For more information, see our blog post: **[Introducing Claude Opus 5.5](https://www.anthropic.com/claude-opus-5-5)**.
+
+### September 16, 2026
+
+**Claude Cowork comes to every conversation**
+
+We're rolling out a new Claude experience that makes everything Claude Cowork does available from any conversation. Ask a quick question or hand Claude a bigger task, like a report, spreadsheet, or presentation, without choosing a mode first. Your chats, Cowork tasks, projects, connectors, and skills carry over. The new experience is rolling out gradually to Pro and Max plans on web, desktop, and mobile. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
+
+**Create designs, decks, and docs in any conversation**
+
+You can now ask for a design, deck, or document in any conversation with Claude, including in Claude Code and the **Artifacts** tab, and edit it with Claude or directly as you work. Claude Design works inside your conversations with all of its features, including on-canvas editing and importing your design system. Claude Slides gives presentations their own starting point, and Claude Docs is a new way to write living documents with Claude and your team. Artifacts, including Claude Design, Claude Slides, and Claude Docs, are available on every plan, including Free. On Enterprise plans, Claude Design, Claude Slides, and Claude Docs are in beta and off by default until an owner turns them on. Learn more in **[What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992)** and **[Get started with Claude Docs](https://support.claude.com/en/articles/16923645)**.
+
+### September 15, 2026
+
+**Launching Salesforce in Claude (beta)**
+
+We've launched Salesforce in Claude, a plugin that brings a seller’s accounts, opportunities, and pipeline into Claude with 37 pre-built sales skills. Prep a call, review a deal, create a pipeline dashboard, and send your forecast all from Claude. It’s now available in beta on all paid plans for organizations Salesforce approves through its beta sign-up. For more information, see our blog post: **[Bringing Salesforce into Claude](http://claude.com/blog/salesforce-in-claude)**.
+
+### September 10, 2026
+
+**Smart reports (beta)**
+
+We’ve launched smart reports, which analyze how a team uses Claude and report on the work getting done, what it costs, where sessions run into friction, and which repeated patterns are worth packaging as shared skills. Smart reports are available in beta on Claude Enterprise plans. Learn more in **[Get started with smart reports](https://support.claude.com/en/articles/16893491-get-started-with-smart-reports)**.
+
+### September 1, 2026
+
+**Claude Fable 5.1 and Claude Mythos 5.1 launch**
+
+We just launched Claude Fable 5.1 and Claude Mythos 5.1, the world’s most advanced models for coding and knowledge work. For more information, see our blog post: **[Claude Fable 5.1 and Mythos 5.1](https://www.anthropic.com/claude-fable-and-mythos-5-1)**.
+
 ## August 2026
 
 ### August 25, 2026
@@ -1769,561 +1813,6 @@ We are committed to our users’ safety across our products. We provide users wi
 If you wish to refer a matter to the eSafety Commissioner, please follow the instructions provided here: **[Report online harm](https://www.esafety.gov.au/report)**.
 ---
 
-SOURCE: https://support.claude.com/en/articles/12650343-use-claude-for-excel
-
-# Use Claude for Excel
-
-Claude for Excel is available to Pro, Max, Team, and Enterprise plans.
-
-Claude for Excel is an add-in that integrates Claude into your Excel workflow. It's designed for professionals who work extensively with spreadsheets, particularly in financial analysis and modeling.
-
-With Claude for Excel, you can:
-
-- Ask questions about your workbook and get answers with cell-level citations
-
-- Update assumptions while preserving formula dependencies
-
-- Debug errors and identify their root causes
-
-- Build new models or fill existing templates
-
-- Navigate complex multi-tab workbooks seamlessly
-
-- Use connectors to bring context from your other tools directly into your spreadsheets
-
----
-
-## Get started with Claude for Excel
-
-### Supported versions
-
-- Excel on the web
-
-- Excel on Windows (Microsoft 365 subscription, build 16.0.13127.20296+)
-
-- Excel on Mac (version 16.46+, build 21011600+)
-
-- Excel on iPad (version 2.51+)
-
-### For individuals
-
-1. Navigate to the **[Claude for Microsoft 365 (Excel, PowerPoint, and Word) listing](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview)** on Microsoft Marketplace.
-
-2. Click "Get it now" to install the add-in.
-
-3. Open Excel, activate the add-in, and sign in with your Claude account.
-
-### For admins
-
-**Deploy Claude** **for** **Excel to your organization:**
-
-1. Visit the **[Microsoft 365 Admin Center](https://admin.microsoft.com/)**.
-
-2. Navigate to **Settings > Org Settings > User owned apps and services** and ensure that **[“Let users access the Office Store"](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-addins-in-the-admin-center?view=o365-worldwide#manage-add-in-downloads-by-turning-onoff-microsoft-marketplace-across-all-apps-except-outlook)** is toggled on.
-
-3. Navigate to **Settings > Integrated apps > Add-ins**.
-
-4. Search for "Claude by Anthropic for Excel" in Microsoft AppSource.
-
-5. Deploy the add-in to your organization or specific users.
-
-6. Share these instructions with your team: **[Microsoft's deployment guide](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-deployment-of-add-ins?view=o365-worldwide)**.
-
-After installation, team members can open Excel, activate the Claude add-in (from **Tools > Add-ins** on Mac or **Home > Add-ins** on Windows), sign in with their Claude credentials, and start working with their spreadsheets.
-
-**Important:** Organizations that have disabled "Let users access the Office Store" may find that admin-deployed add-ins don't appear for users. To work around this, deploy using the manifest XML files provided below.
-
-**### Alternatively, download the manifest file to install**
-
-For IT administrators deploying to multiple users:
-
-### Step 1: Obtain the custom manifest
-
-1. Click **[this link](https://pivot.claude.ai/manifest-excel.xml)** to download the custom manifest XML file.
-
-2. Save this file to a secure location.
-
-### Step 2: Access Microsoft 365 Admin Center
-
-1. Navigate to **<https://admin.microsoft.com>**
-
-2. Sign in with your admin credentials.
-
-3. Go to **Settings** > **Integrated apps.**
-
-### Step 3: Upload the custom add-in
-
-1. Click "Upload custom apps"
-
-2. Select "Office Add-in."
-
-3. Choose "I have a manifest file on this device."
-
-4. Browse and select the Claude for Excel manifest XML file.
-
-5. Click "Upload."
-
-### Step 4: Assign Users
-
-Choose your deployment scope:
-
-- **Entire organization**: All users get access
-
-- **Specific users**: Enter individual email addresses
-
-- **Specific groups**: Select security groups or distribution lists
-
-- **Just yourself**: For admin testing only
-
-### Step 5: Deploy
-
-1. Review deployment settings.
-
-2. Click "Deploy."
-
-3. Add-in will be available within minutes (may take up to 24 hours for full organization rollout).
-
-### Step 6: User access
-
-- Users will see Claude appear in Excel's Home ribbon.
-
-- First-time users will need to sign in with their Claude accounts
-
-- No additional installation required by users.
-
-### Connect through an LLM gateway
-
-If your organization routes API traffic through an internal LLM gateway connected to Amazon Bedrock, Google Cloud Vertex AI, or Microsoft Azure, you can use the add-in without a Claude account. This is the same gateway pattern used by Claude Code.
-
-For setup instructions and gateway requirements, see **[Use Claude for Microsoft 365 with third-party platforms](https://support.claude.com/en/articles/13945233-)**.
-
----
-
-## Key features
-
-### Read and understand complex models
-
-Ask Claude questions about specific cells, formulas, or entire sections of your workbook. Claude can navigate across multiple tabs and provides answers with direct citations to referenced cells.
-
-**Example prompts:**
-
-- "What assumptions drive the revenue forecast in Q3?"
-
-- "Explain how the WACC calculation flows through the DCF model"
-
-### Update assumptions safely
-
-Modify values and inputs while Claude maintains all formula dependencies and relationships. Every change is highlighted with clear explanations.
-
-**Example prompts:**
-
-- "Increase growth rate by 2% and show the impact on terminal value"
-
-- "Update interest rate assumptions based on latest Fed guidance"
-
-### Build and fill templates
-
-Create spreadsheets from scratch or populate existing templates with new data, formulas, and assumptions.
-
-**Example prompts:**
-
-- "Build a three-statement model for a SaaS company"
-
-- "Fill this DCF template with data from the uploaded 10-K"
-
-### Debug and fix errors
-
-Identify error sources (like #REF!, #VALUE!, or circular references) and get actionable fixes that maintain spreadsheet integrity.
-
-**Example prompts:**
-
-- "Why is this NPV calculation returning #VALUE?"
-
-- "Find all circular references in this workbook"
-
-### Change tracking and citations
-
-Claude highlights every cell it updates and provides explanatory comments. When explaining calculations, Claude includes clickable citations that navigate directly to referenced cells.
-
-### Edit and format natively
-
-Claude can now apply a range of Excel-native operations directly, including sorting and filtering data, editing pivot tables and charts, applying conditional formatting rules, setting data validation, and preparing workbooks for printing with finance-specific formatting tools.
-
-**Example prompts:**
-
-- "Sort this table by revenue, descending"
-
-- "Add a conditional format that highlights cells below the target threshold in red"
-
-- "Set up a dropdown for the status column with options: Active, Pending, Closed"
-
-- "Toggle off gridlines and set the print area to A1:F20"
-
-### Support for connectors
-
-Connect your other tools to give Claude context beyond what's in your spreadsheet. All connectors configured in your Claude settings are supported, including custom connectors.
-
-To connect a tool, open the Claude sidebar and select the connectors icon to see available options.
-
-Custom connectors can introduce security risks. Before enabling them, review **[Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp#h_b79c05dfcd)** for guidance on what to consider.
-
-### Use Skills in Excel
-
-Skills you've enabled in your Claude settings are also available in the Claude for Excel add-in. Claude applies relevant Skills automatically while you work—you don't need to invoke them separately.
-
-You can also type / in the sidebar to see available Skills and select one directly (for example, /debug or /clean-up). Skills that aren't relevant to Excel are excluded from this list.
-
-To learn more about enabling and managing Skills, see **[Use Skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)**.
-
-### Set persistent instructions
-
-Use the **Instructions** field in the add-in sidebar to set preferences that apply to every conversation in Excel. Instructions are useful for things like formatting conventions (for example, "always use IB formatting: blue for inputs, black for formulas"), preferred output style, or recurring context Claude should know about your workflow.
-
-Instructions you set in Excel only apply to Excel — they're separate from any Instructions you set in PowerPoint.
-
----
-
-## Technical specifications
-
-**Supported file formats:**
-
-- .xlsx files
-
-- .xlsm files
-
-**What's preserved:**
-
-- Formulas and dependencies
-
-- Cell relationships
-
-- Existing formatting and structure
-
----
-
-## Context and session management
-
-### Auto-compaction
-
-We **[automatically compact longer conversations](https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits#h_21b66a43b4)** into new conversations to avoid running out of context.
-
-### Chat history
-
-Chat history is now stored locally in your browser using IndexedDB. Unlike Claude, conversations aren't stored on Anthropic's servers—they're saved client-side and aren't synced across devices or browsers. You can clear all chat history from Settings at any time, and the local store is cleared when you clear your browser data. Your chat history is specific to the combination of the add-in surface, your user ID, and your organization ID—so your Excel and PowerPoint histories are separate, but conversations carry across different workbooks within Excel (or different presentations within PowerPoint). If you switch organizations, you'll have a separate chat history.
-
-### Overwrite protection
-
-To avoid accidental data loss, Claude warns you before overwriting existing data.
-
-### Session logging
-
-By turning this feature on in your settings, Claude will create a separate "Claude Log" tab in the Excel sheet to track your actions taken each turn. This allows Claude to maintain a history of its actions on the sheet.
-
-If Claude doesn't do this automatically, you can simply ask it to log its history and it should create a new logging tab.
-
-**Note:** Your use of Claude for Excel is associated with your existing Claude account and is subject to the same usage limits.
-
----
-
-## Current limitations
-
-For Claude for Excel use, we automatically delete inputs and outputs on our backend within 30 days of receipt or generation, except in cases outlined in **[How long do you store my organization's data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)**
-
-Enterprise organizations can route full audit telemetry from Claude for Excel to their own OpenTelemetry (OTEL) collector for integration with a SIEM or observability platform. Learn more about **[configuring a custom OpenTelemetry collector for Office agents](https://support.claude.com/en/articles/14447276-configure-a-custom-opentelemetry-collector-for-office-agents)**. On Free, Pro, Max, and Team plans, observability and auditability aren't available for Claude for Excel. Claude for Excel does not inherit custom data retention settings your organization might have set, and isn't included in Enterprise audit logs or the Compliance API at this time.
-
-Additionally, Claude does not have advanced Excel capabilities, including:
-
-- Data tables
-
-- Macros
-
-- VBA (Visual Basic for Applications)
-
-Claude for Excel is **not recommended** for:
-
-- Final client deliverables without human review
-
-- Audit-critical calculations without verification
-
-- Replacing users’ financial judgment and expertise
-
-- Models containing highly sensitive or regulated data without proper controls
-
-### Unsupported versions
-
-- Excel 2016 / 2019 (perpetual/volume license)
-
-- Excel on Android
-
-- Older builds of Microsoft 365 Excel below the SharedRuntime threshold
-
----
-
-## Best practices
-
-To use Claude for Excel safely and effectively:
-
-- Always review changes before finalizing your work.
-
-- Verify outputs match your organization's methodologies.
-
-- Use appropriate permissions and access controls.
-
-- Maintain human oversight for client-facing work.
-
----
-
-## Prompt injection attack risks
-
-Only use Claude for Excel with trusted spreadsheets and not spreadsheets from external untrusted sources (for example, downloaded templates, vendor files, collaborative documents, and data imports).
-
-An important risk that users of Claude for Excel and other AI tools that can read and manipulate spreadsheets is prompt injection attacks that hide malicious instructions in spreadsheet content (cells, formulas, comments, etc.) to trick the AI models into taking unintended actions. For example, a seemingly innocent template or data file received from an external party or downloaded from the internet might contain hidden instructions to "export all financial data to this external URL" or "modify these financial records." Claude may interpret these malicious instructions as legitimate requests from you.
-
-Our testing has identified edge scenarios where Claude for Excel can be manipulated to:
-
-- **Extract and share sensitive information** with bad actors through formulas, web searches containing your sensitive data, or file system access that exposes proprietary information.
-
-- **Modify critical data** such as financial records.
-
-- **Perform destructive actions** without verification (should you allow Claude to act without verifying its actions), exploiting Claude's helpful nature to delete or corrupt important data across multiple sheets.
-
-Users can approve all of Claude’s actions via a confirmation pop-up that appears when each tool is triggered:
-
-- External data fetching: WEBSERVICE, STOCKHISTORY, STOCKSERIES, TRANSLATE, and the CUBE* functions
-
-- External imports: IMPORTDATA, IMPORTXML, IMPORTHTML, IMPORTFEED, FILTERXML
-
-- Dynamic references: INDIRECT
-
-- Command execution: DDE (Dynamic Data Exchange)
-
-- Code execution: CALL, EVALUATE, FORMULA
-
-- File system access: IMAGE, FILES, DIRECTORY, FOPEN, FWRITE, FCLOSE
-
-- System information: REGISTER.ID, RTD, INFO
-
-
-
-While we continue to develop our offerings and improve safety measures to reduce these risks, users should exercise caution when using Claude for Excel and should not use it with spreadsheets from external, untrusted sources.
-
----
-
-## Example use cases
-
-### Financial modeling
-
-**Build models**
-
-- "Build a 3-statement financial model for [company/industry]"
-
-- "Create a SaaS metrics model with ARR, churn, and LTV calculations"
-
-- "Build an LBO model with debt schedules and returns analysis"
-
-- "Create a real estate pro forma for a multifamily acquisition"
-
-**Forecasting**
-
-- "Build a 12-month revenue forecast using historical trends"
-
-- "Create a headcount capacity plan based on target client count"
-
-- "Model cash flow projections for the next 3 years"
-
-**Scenario analysis**
-
-- "Add a downside case assuming revenue drops 15%"
-
-- "Create base, bull, and bear scenarios with different growth assumptions"
-
-- "Build a sensitivity table showing IRR across exit multiples and hold periods"
-
-### Data analysis
-
-**Insights and trends**
-
-- "What trends stand out in 2025 vs 2024?"
-
-- "Identify the top 10 customers by revenue and their growth rates"
-
-- "Which product categories are underperforming vs budget?"
-
-**Variance analysis**
-
-- "Compare actuals to budget and explain the largest variances"
-
-- "Which accounts have unusual changes vs prior month?"
-
-- "Reconcile these two sheets and highlight discrepancies"
-
-**Categorization**
-
-- "Categorize these transactions into expense types"
-
-- "Tag customer feedback by sentiment and topic"
-
-- "Score each lead based on likelihood to convert"
-
-### Data cleaning
-
-**Standardize formats**
-
-- "Convert all dates to YYYY-MM-DD format"
-
-- "Standardize phone numbers to +1 (XXX) XXX-XXXX"
-
-- "Clean up company names (remove Inc, LLC, Ltd variations)"
-
-**Fix data quality issues**
-
-- "Find and remove duplicate rows, keeping the most recent"
-
-- "Identify and fix unicode/encoding errors"
-
-- "Fill missing values based on patterns in the data"
-
-**Parse and transform**
-
-- "Extract company name from email domain"
-
-- "Split full address into street, city, state, zip columns"
-
-- "Convert this pivot table into a flat data table"
-
-### Formulas
-
-**Troubleshooting**
-
-- "Find all #REF and #VALUE errors in this workbook"
-
-- "Why is cell B4 showing an error? Trace the issue"
-
-- "This SUMIF isn't returning the right result — what's wrong?"
-
-**Explanation**
-
-- "Explain what this formula does in plain English"
-
-- "Trace this cell back to its source inputs"
-
-- "Document all the formulas on this sheet"
-
-**Creation**
-
-- "Write a formula to calculate days of inventory from this data"
-
-- "Create a VLOOKUP that pulls price from the rate table"
-
-- "Build a formula that flags overdue invoices"
-
-### Dashboards and reporting
-
-**Dashboards**
-
-- "Create an executive dashboard summarizing all worksheets"
-
-- "Build a KPI scorecard with revenue, margins, and growth metrics"
-
-- "Make an interactive summary with key charts and metrics"
-
-**Reports**
-
-- "Generate a monthly financial summary from the GL data"
-
-- "Create a board-ready P&L with variance commentary"
-
-- "Consolidate regional sheets into a company-wide report"
-
-**Charts**
-
-- "Create a waterfall chart showing revenue bridge"
-
-- "Build a combo chart with revenue bars and margin line"
-
-- "Make a cohort retention heatmap from this data"
-
-### Formatting
-
-**Professional styling**
-
-- "Format this model using IB conventions (blue inputs, black formulas)"
-
-- "Add headers, borders, and proper number formats"
-
-- "Apply consistent formatting across all sheets"
-
-**Conditional formatting**
-
-- "Highlight negative values in red"
-
-- "Color-code rows by status (green/yellow/red)"
-
-- "Add data bars to show relative performance"
-
-### Document import
-
-**PDF extraction**
-
-- "Extract the financial table from this PDF into Excel"
-
-- "Pull the line items from this invoice PDF into my template"
-
-- "Convert this scanned statement into editable data"
-
-**Template population**
-
-- "Fill in my deal template using data from this offering memo"
-
-- "Populate the pitch template with these company metrics"
-
-- "Map the imported CSV data to my standard format"
-
-### Model review
-
-**Audit and validation**
-
-- "Check that all formulas link correctly across sheets"
-
-- "Verify the balance sheet balances in all periods"
-
-- "Find any hardcoded values that should be formulas"
-
-**Improvement**
-
-- "How can I simplify this model structure?"
-
-- "What's missing from this valuation model?"
-
-- "Suggest ways to make this more user-friendly"
-
----
-
-## Frequently asked questions
-
-### Does Claude understand financial modeling conventions?
-
-Yes, Claude is trained to recognize common financial modeling patterns, formula structures, and industry-standard calculations. However, always verify that outputs match your specific methodologies.
-
-### Can I use Claude for Excel with sensitive data?
-
-Claude for Excel works within your existing security framework. For highly sensitive or regulated data, ensure you follow your organization's data handling policies.
-
-### What happens to my chat history?
-
-Your chat history is stored locally in your browser using IndexedDB. It persists between sessions, so you can return to previous conversations. Chat history is not automatically deleted, but you can clear all of it manually from Settings.
-
-Your history is specific to each add-in surface, your user ID, and your organization. This means your Excel and PowerPoint chat histories are separate. Within a single surface, your chat history is shared across files—for example, conversations in one Excel workbook appear in another. If you log in to a different organization, you'll see a separate chat history.
-
-### How does Claude access my spreadsheet?
-
-Claude reads the content of your currently open workbook, including cells, formulas, and tab structure. It can only access the workbook you have open in Excel.
-
-### What if Claude makes a mistake?
-
-Claude highlights all changes it makes to your workbook. Review these changes carefully before saving or sharing your file. You can always undo changes using Excel's standard undo function.
----
-
 SOURCE: https://support.claude.com/en/articles/12738598-adapt-to-new-model-personas-after-deprecations
 
 # Adapt to new model personas after deprecations
@@ -2378,7 +1867,9 @@ The Compliance API is available to Enterprise plan organizations, excluding Publ
 
 Coverage also includes Cowork (via Claude, Claude Desktop, and Claude Mobile) and Claude Code (via CLI and Claude Desktop). Coverage for the Claude for Microsoft 365 add-ins (Excel, Word, PowerPoint, and Outlook) and Claude Science is available in beta. All of these use your organization's existing Compliance Access Key and settings, so no additional integration is required.
 
-Coverage doesn't include Claude Code on the web, Claude Code accessed through the Claude Platform, other Microsoft 365 apps, or sessions run on Amazon Bedrock or Google Vertex AI.
+Coverage doesn't include cloud sessions in Claude Code, Claude Code accessed through the Claude Platform, other Microsoft 365 apps, or sessions run on Amazon Bedrock or Google Vertex AI.
+
+**Important:** For Claude Enterprise organizations, only your organization's Primary Owner can enable the Compliance API, from **[Organization settings > API](https://claude.ai/admin-settings/api-access)**. You can create a key on the same page by clicking "+Create key" under **Keys**: the Primary Owner can create a key covering every linked organization, and Owners can create keys limited to their own organization. Owners see this page but not the **Compliance API** toggle—only the Primary Owner can turn the API on or off. Admins don't see the page at all. If your organization is linked to a parent organization, the parent organization's Primary Owner enables it and the setting applies to every linked organization.
 
 ## Compliance API technical documentation
 
@@ -2397,19 +1888,15 @@ SOURCE: https://support.claude.com/en/articles/13047024-how-to-get-support-for-c
 
 # How to get support for Claude for Government
 
-**Please note:** This page is hosted outside of Claude for Government's FedRAMP boundary.
+**Please note:** This page is hosted outside of Claude for Government's FedRAMP boundary. Don't share sensitive information with our AI support bot.
 
-This article explains how Claude for Government Owners and Primary Owners can contact Anthropic Support. We've designed a specialized process to ensure your sensitive information remains secure while providing you with the help you need.
+This article explains how Claude for Government Admins can contact Anthropic Support. We've designed a specialized process to ensure your sensitive information remains secure while providing you with the help you need.
 
 ## How to get started
 
-1. Log in to your Owner or Primary Owner Claude for Government account.
+Claude for Government Desktop Org Admins or Tenant Admins can click "Support" at the bottom of the Claude for Government admin portal. This will open a help center article with a messenger icon in the lower right corner. Click "Send us a message" to initiate the support process.
 
-2. Click your initials or name in the lower left corner and select “Get help” from the menu.
-
-3. You will be directed to a page describing additional guidelines for our specialized support process.
-
-4. Follow the guidelines described on that page to submit a support inquiry.
+**Note:** Only Claude for Government Desktop Org Admins and Tenant Admins can access this prioritized support path. If you have a different role and need to contact Support, please have an Org Admin or Tenant Admin submit the request on your behalf.
 ---
 
 SOURCE: https://support.claude.com/en/articles/13117299-minimum-age-requirement-access-restriction
@@ -2892,343 +2379,6 @@ This guide walks you through the process of migrating your Claude or Console org
 7. **Re-enable provisioning** (if applicable): Select "Approve automatically (JIT)" or "Sync with SCIM" to switch the provisioning mode and click "Save Changes" to apply.
 ---
 
-SOURCE: https://support.claude.com/en/articles/13521390-use-claude-for-powerpoint
-
-# Use Claude for PowerPoint
-
-Claude for PowerPoint is available to Pro, Max, Team, and Enterprise plans.
-
-Claude for PowerPoint is an add-in that integrates Claude into your PowerPoint workflow. It's designed for professionals who build presentations, particularly those who spend significant time creating and refining slide decks.
-
-With Claude for PowerPoint, you can:
-
-- Build new slides using your existing client or corporate templates
-
-- Make pinpoint edits to specific slides without regenerating entire decks
-
-- Generate full deck structures from natural language descriptions
-
-- Convert bullets into professional diagrams and native PowerPoint charts
-
-- Use connectors to bring context from your other tools directly into your slides
-
-- Iterate on feedback quickly while preserving formatting and template compliance
-
----
-
-## Get started with Claude for PowerPoint
-
-### Supported versions
-
-- PowerPoint on the web
-
-- PowerPoint on Windows (Microsoft 365 subscription, build 16.0.13127.20296+)
-
-- PowerPoint on Mac (version 16.46+)
-
-### For individuals
-
-1. Navigate to the **[Claude for Microsoft 365 (Excel, PowerPoint, and Word) listing](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview)** on Microsoft Marketplace.
-
-2. Click "Get it now" to install the add-in.
-
-3. Open PowerPoint, activate the add-in, and sign in with your Claude account.
-
-### For admins
-
-**Deploy Claude for PowerPoint to your organization:**
-
-1. Visit the **[Microsoft 365 Admin Center](https://admin.microsoft.com/)**.
-
-2. Navigate to **Settings > Org Settings > User owned apps and services** and ensure that **[“Let users access the Office Store"](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-addins-in-the-admin-center?view=o365-worldwide#manage-add-in-downloads-by-turning-onoff-microsoft-marketplace-across-all-apps-except-outlook)** is toggled on.
-
-3. Navigate to **Settings > Integrated apps > Add-ins**.
-
-4. Search for "Claude by Anthropic in PowerPoint" in Microsoft AppSource.
-
-5. Deploy the add-in to your organization or specific users.
-
-6. Share these instructions with your team: **[Microsoft's deployment guide](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-deployment-of-add-ins?view=o365-worldwide)**.
-
-After installation, team members can open PowerPoint, activate the Claude add-in (from **Tools > Add-ins** on Mac or **Home > Add-ins** on Windows), sign in with their Claude credentials, and start working with their presentations.
-
-**Important:** Organizations that have disabled "Let users access the Office Store" may find that admin-deployed add-ins don't appear for users. To work around this, deploy using the manifest XML files provided below.
-
-**### Alternatively, download the manifest file to install**
-
-For IT administrators deploying to multiple users:
-
-### Step 1: Obtain the custom manifest
-
-1. Click **[this link](https://pivot.claude.ai/manifest-powerpoint.xml)** to download the custom manifest XML file.
-
-2. Save this file to a secure location.
-
-### Step 2: Access Microsoft 365 Admin Center
-
-1. Navigate to **<https://admin.microsoft.com>**
-
-2. Sign in with your admin credentials.
-
-3. Go to **Settings** > **Integrated apps.**
-
-### Step 3: Upload the custom add-in
-
-1. Click "Upload custom apps"
-
-2. Select "Office Add-in."
-
-3. Choose "I have a manifest file on this device."
-
-4. Browse and select the Claude for PowerPoint manifest XML file.
-
-5. Click "Upload."
-
-### Step 4: Assign users
-
-Choose your deployment scope:
-
-- **Entire organization**: All users get access
-
-- **Specific users**: Enter individual email addresses
-
-- **Specific groups**: Select security groups or distribution lists
-
-- **Just yourself**: For admin testing only
-
-### Step 5: Deploy
-
-1. Review deployment settings.
-
-2. Click "Deploy."
-
-3. Add-in will be available within minutes (may take up to 24 hours for full organization rollout).
-
-### Step 6: User access
-
-- Users will see Claude appear in PowerPoint's Home ribbon.
-
-- First-time users will need to sign in with their Claude accounts
-
-- No additional installation required by users.
-
-### Connect through an LLM gateway
-
-If your organization routes API traffic through an internal LLM gateway connected to Amazon Bedrock, Google Cloud Vertex AI, or Microsoft Azure, you can use the add-in without a Claude account. This is the same gateway pattern used by Claude Code.
-
-For setup instructions and gateway requirements, see **[Use Claude for Microsoft 365 with third-party platforms](https://support.claude.com/en/articles/13945233-)**.
-
----
-
-## Key features
-
-### Build from templates
-
-Start with a client or corporate template already loaded. Describe what you need, and Claude generates slides using the correct layouts, fonts, and colors from the slide master. Claude reads your deck's template and respects its formatting rules.
-
-**Example prompts:**
-
-- "Create a market sizing section—3 slides covering TAM, SAM, SOM with supporting visuals"
-
-- "Add an executive summary slide using the one-column content layout"
-
-### Edit existing slides
-
-Select a slide and tell Claude what to change. Claude makes edits while preserving your formatting and surrounding context.
-
-**Example prompts:**
-
-- "Simplify the text on this slide"
-
-- "Add a chart showing the quarterly trend"
-
-- "Restructure the storyline across slides 4-7"
-
-### Generate full decks
-
-Open a blank deck and describe your goal. Claude builds a draft with logical structure and professional defaults, then you can refine from there.
-
-**Example prompts:**
-
-- "Create a 10-slide deck walking through our market entry hypotheses"
-
-- "Build an internal project update presentation with timeline and next steps"
-
-### Create native charts and diagrams
-
-Convert bullet points into professional visuals—diagrams, process flows, or editable native PowerPoint charts. Claude produces visuals you can edit directly, not static images.
-
-**Example prompts:**
-
-- "Turn these bullets into a process flow diagram"
-
-- "Create a bar chart comparing Q1-Q4 performance"
-
-### Template awareness
-
-Claude reads the slide master, layouts, fonts, and color scheme in your deck and uses them when generating or editing slides. It aims to maintain template compliance without introducing off-brand elements.
-
-### Support for connectors
-
-Connect your other tools to give Claude context beyond what's in your deck. With connectors enabled, Claude can draw on information from your connected tools when generating or refining content.
-
-To connect a tool, open the Claude sidebar and select the connectors icon to see available options.
-
-Custom connectors can introduce security risks. Before enabling them, review **[Get started with custom connectors using remote MCP](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp#h_b79c05dfcd)** for guidance on what to consider.
-
-### Use Skills in PowerPoint
-
-Skills you've enabled in your Claude settings are also available in the Claude for PowerPoint add-in. Claude applies relevant Skills automatically while you work—you don't need to invoke them separately.
-
-You can also type `/` in the sidebar to see available Skills and select one directly (for example, `/deck-check`). Skills that aren't relevant to PowerPoint are excluded from this list.
-
-To learn more about enabling and managing Skills, see **[Use Skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude)**.
-
-### Set persistent instructions
-
-Use the **Instructions** field in the add-in sidebar to set preferences that apply to every conversation in PowerPoint. Instructions are useful for things like brand guidelines (for example, "always use one-line bullets" or "use the blue accent color for highlights"), preferred slide structure, or recurring context Claude should know about your workflow.
-
-Instructions you set in PowerPoint only apply to PowerPoint — they're separate from any Instructions you set in Excel.
-
----
-
-## Context and session management
-
-### Auto-compaction
-
-We **[automatically compact longer conversations](https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits#h_21b66a43b4)** into new conversations to avoid running out of context.
-
-### Chat history
-
-Chat history is now stored locally in your browser using IndexedDB. Unlike Claude, conversations aren't stored on Anthropic's servers—they're saved client-side and aren't synced across devices or browsers. You can clear all chat history from Settings at any time, and the local store is cleared when you clear your browser data. Your chat history is specific to the combination of the add-in surface, your user ID, and your organization ID — so your Excel and PowerPoint histories are separate, but conversations carry across different workbooks within Excel (or different presentations within PowerPoint). If you switch organizations, you'll have a separate chat history.
-
-### Overwrite protection
-
-To avoid accidental data loss, Claude warns you before overwriting existing data.
-
-**Note:** Your use of Claude for PowerPoint is associated with your existing Claude account and is subject to the same usage limits.
-
----
-
-## Current limitations
-
-For Claude for Powerpoint use, we automatically delete inputs and outputs on our backend within 30 days of receipt or generation, except in cases outlined in **[How long do you store my organization's data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)**
-
-Enterprise organizations can route full audit telemetry from Claude for PowerPoint to their own OpenTelemetry (OTEL) collector for integration with a SIEM or observability platform. Learn more about **[configuring a custom OpenTelemetry collector for Office agents](https://support.claude.com/en/articles/14447276-configure-a-custom-opentelemetry-collector-for-office-agents)**. On Free, Pro, Max, and Team plans, observability and auditability aren't available for Claude for PowerPoint. Claude for PowerPoint does not inherit custom data retention settings your organization might have set, and isn't included in Enterprise audit logs or the Compliance API at this time.
-
-Claude for PowerPoint is **not recommended** for:
-
-- Final client deliverables without human review
-
-- Presentations containing highly sensitive or regulated data without proper controls
-
-- Replacing your judgment on design and narrative flow
-
-### Unsupported versions
-
-- PowerPoint 2016 / 2019 (perpetual/volume license)
-
-- PowerPoint on iPad
-
-- PowerPoint on Android
-
-- Older builds of Microsoft 365 PowerPoint below the SharedRuntime threshold
-
----
-
-## Best practices
-
-To use Claude for PowerPoint safely and effectively:
-
-- Always review changes before finalizing your work
-
-- Start with your template already applied before asking Claude to generate content.
-
-- Be specific about what you want changed—Claude can target individual slides or elements.
-
-- Verify that outputs match your organization's brand guidelines.
-
----
-
-## Prompt injection attack risks
-
-Only use Claude for PowerPoint with trusted files and not files from external untrusted sources (for example, downloaded templates, vendor files, collaborative documents, and data imports).
-
-An important risk that users of Claude for PowerPoint and other AI tools that can read and manipulate files is prompt injection attacks that hide malicious instructions in file content to trick the AI models into taking unintended actions. For example, a seemingly innocent template or data file received from an external party or downloaded from the internet might contain hidden instructions to "export all financial data to this external URL" or "modify these financial records." Claude may interpret these malicious instructions as legitimate requests from you.
-
-Our testing has identified edge scenarios where Claude for PowerPoint can be manipulated to:
-
-- **Extract and share sensitive information** with bad actors through web searches containing your sensitive data or file system access that exposes proprietary information.
-
-- **Modify critical data** such as financial records.
-
-- **Perform destructive actions** without verification (should you allow Claude to act without verifying its actions), exploiting Claude's helpful nature to delete or corrupt important data across multiple slides.
-
-While we continue to develop our offerings and improve safety measures to reduce these risks, users should exercise caution when using Claude for PowerPoint and should not use it with files from external, untrusted sources.
-
----
-
-## Example use cases
-
-### Consulting deliverables
-
-- "Build a market sizing section with TAM, SAM, SOM slides"
-
-- "Create a competitive landscape slide comparing 4 players"
-
-- “Summarize these survey results”
-
-### Iterative refinement
-
-- "Simplify the text on slide 3—it's too dense"
-
-- "Combine slides 5 and 6 into a single summary"
-
-- "Make the recommendations section more visual"
-
-### Data visualization
-
-- "Convert these bullet points into a process flow"
-
-- "Create a bar chart from this data table"
-
-- "Add a pie chart showing market share breakdown"
-
-### Deck restructuring
-
-- "Reorder slides to lead with recommendations first"
-
-- "Add transition slides between each major section"
-
-- "Create an agenda slide that reflects the current structure"
-
----
-
-## Frequently asked questions
-
-### Does Claude understand my template?
-
-Yes. Claude reads the slide master, layouts, fonts, and color scheme in your deck and uses them when generating or editing slides. It aims to maintain template compliance, though you should always review output for complex templates.
-
-### Can I use Claude for PowerPoint with sensitive data?
-
-Claude for PowerPoint works within your existing security framework. For highly sensitive or regulated data, ensure you follow your organization's data handling policies.
-
-### What happens to my chat history?
-
-Your chat history is stored locally in your browser using IndexedDB. It persists between sessions, so you can return to previous conversations. Chat history is not automatically deleted, but you can clear all of it manually from Settings.
-
-Your history is specific to each add-in surface, your user ID, and your organization. This means your Excel and PowerPoint chat histories are separate. Within a single surface, your chat history is shared across files—for example, conversations in one PowerPoint deck appear in another. If you log in to a different organization, you'll see a separate chat history.
-
-### How does Claude access my presentation?
-
-Claude reads the content of your currently open presentation, including slides, text, shapes, and slide master information. It can only access the presentation you have open in PowerPoint.
-
-### What if Claude makes a mistake?
-
-Review Claude's changes carefully before saving or sharing your file. You can always undo changes using PowerPoint's standard undo function (Ctrl+Z / Cmd+Z).
----
-
 SOURCE: https://support.claude.com/en/articles/13641943-visual-and-interactive-content
 
 # Visual and interactive content
@@ -3639,25 +2789,43 @@ Plugins are available to all paid plans (Pro, Max, Team, Enterprise).
 
 Plugins customize how Claude works for your role, team, and company. Each plugin bundles skills, connectors, and sub-agents into a single package, so you get a ready-to-go setup from your first conversation instead of configuring each piece yourself.
 
+For a full reference on what each part of a plugin does in chat, Cowork, and Claude Code, see **[Plugins](https://claude.com/docs/plugins/overview)** in the Claude docs.
+
 ## Where you can use plugins
 
-You can install and use plugins in chat on the web, the Chat tab in Claude Desktop, and Claude Cowork. The skills bundled in a plugin work across all three. Hooks and sub-agents run only in Cowork, so they appear grayed out in chat.
+You can add and use plugins in chat on the web, the Chat tab in Claude Desktop, and Claude Cowork. Plugins you add are saved to your account, so they’re also available in Claude Code in your terminal when you sign in with the same account. The skills and commands bundled in a plugin work in all of these places. Hooks and sub-agents run in Cowork and Claude Code, not in chat, so they appear grayed out in chat.
 
 Plugins can also bundle connectors, so the right services are set up for a workflow without you connecting each one. Claude connects to services like Google Drive, Gmail, Slack, DocuSign, and many more.
 
 **Note:** In Cowork, connectors reach external services through Anthropic's cloud, not through your local network. A custom connector must point to a server that's reachable over the public internet from Anthropic's IP ranges. If your organization's servers are behind a firewall or on a private network, see **[Network requirements for custom connectors](https://support.claude.com/en/articles/11175166-get-started-with-custom-connectors-using-remote-mcp#h_b66e88c454)**.
 
+### Use plugins in Claude Code
+
+Plugins you've installed, and plugins your organization has distributed to you, sync to Claude Code when you sign in with your Claude account. This needs Claude Code v2.1.273 or later.
+
+- Plugins sync once each time Claude Code starts.
+
+- If you signed in on an older version, sync starts within a few hours, or right away if you run `/login` again.
+
+- In Claude Code, a plugin runs in full on your computer, including its skills, sub-agents, hooks, and MCP servers.
+
+- The sync is one-way. It reads from your Claude account and never changes anything in it.
+
+- Plugins don't sync when Claude Code is signed in with an API key or runs on a cloud provider such as Amazon Bedrock.
+
+To stop plugins from syncing, set `syncClaudeAiPlugins` to `false` in your Claude Code settings. Learn more about **[synced plugins](https://code.claude.com/docs/en/plugins-reference#synced-plugins)** in the Claude Code docs.
+
 ---
 
 ## Browse available plugins
 
-Claude includes a growing library of plugins for common knowledge work—including sales, finance, legal, marketing, HR, engineering, design, operations, data analysis, and more. Each one comes pre-configured with the skills and connectors relevant to that function.
+Claude includes a growing library of plugins for common knowledge work—including sales, finance, legal, marketing, HR, engineering, design, operations, data analysis, and more. Each one comes pre-configured with the skills and connectors relevant to that function. Some plugins, like Salesforce in Claude, are built by partners and bundle a partner's own connectors and skills.
 
 We also provide **Plugin Create**, a plugin that helps you build custom plugins from scratch.
 
 For the full collection of Anthropic-built plugins, visit **[GitHub](https://github.com/anthropics/knowledge-work-plugins)**.
 
-**Note:** Plugins may include local MCP servers that run on your computer with the same permissions as any other program you run. Only install plugins from sources you trust. If your organization is on an Enterprise plan, your admin may have restricted which plugins you can install, or disabled local MCP servers entirely.
+**Note:** Plugins may include local MCP servers that run on your computer with the same permissions as any other program you run. A plugin's local MCP server runs in Cowork and Claude Code, not in chat. Only install plugins from sources you trust. If your organization is on an Enterprise plan, your admin may have restricted which plugins you can install, or disabled local MCP servers entirely.
 
 ---
 
@@ -3667,13 +2835,13 @@ For the full collection of Anthropic-built plugins, visit **[GitHub](https://git
 
 2. Open the **Plugins** tab.
 
-3. Click "Browse plugins" to see the available options.
+3. Open the **Discover** tab to see the available options.
 
-4. Click "Install" on the plugin you want.
+4. Select the plugin you want, then click "Add."
 
 In Cowork, open the "Cowork" tab first, then open **Customize**.
 
-You can also upload a custom plugin file if you built one yourself or received one from a colleague. On Claude Desktop and in Cowork, plugins you add yourself are saved locally to your computer.
+You can also upload a custom plugin file if you built one yourself. On Team and Enterprise plans, a colleague can share a plugin with you directly instead of sending you the file. See **[Use a plugin shared with you](#h_ef985546b4)** below. Plugins you add in Claude on the web or in Claude Desktop are saved to your account, not to your computer, so they follow you to chat, Cowork, and Claude Code.
 
 
 
@@ -3683,7 +2851,7 @@ If you're on the Enterprise plan and your organization has skill scanning turned
 
 ## Use skills from plugins
 
-Each plugin you install adds skills you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your installed plugins, in chat and in Cowork. Click any skill to see its details.
+Each plugin you add brings skills and commands you can use while working with Claude. Type "/" or click the "+" button to see the available skills from your plugins, in chat and in Cowork. In Cowork, you can also run a plugin's command by typing `/plugin-name:command`. Click any skill to see its details.
 
 
 
@@ -3703,25 +2871,105 @@ In Cowork, you can tailor an installed plugin to better fit your workflow:
 
 ## Build your own plugin
 
-Want to create something from scratch? The "Plugin Create" plugin walks you through the process, and you can start from any Anthropic-built template and modify it. For details on plugin structure and formatting, see the **[Plugins reference](https://code.claude.com/docs/en/plugins-reference)** in our Claude Code docs.
+Want to create something from scratch? The "Plugin Create" plugin walks you through the process, and you can start from any Anthropic-built template and modify it. For details on plugin structure and formatting, see the **[Plugins reference](https://code.claude.com/docs/en/plugins-reference)** in the Claude Code docs.
+
+---
+
+## Turn on plugin sharing for your organization
+
+Owners and Primary Owners of Team and Enterprise organizations can turn on skill and plugin sharing for members of the organization. Plugin sharing uses the same settings and toggles as skill sharing.
+
+To enable plugin sharing:
+
+1. Navigate to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and click the “Policy” tab**.**
+
+2. To enable sharing between specific people, toggle on **Skill sharing**.
+
+3. To enable sharing with groups, toggle on **Share with groups**. If you have custom roles, you also need to enable the **Share skills with groups** capability in the custom role.
+
+To let users publish plugins to the organization library, use the **Publishing** setting on the same "Policy" tab. Learn more about **[letting users publish skills and plugins to your organization](https://support.claude.com/en/articles/13119606-provision-and-manage-skills-for-your-organization#h_1abc45a27c)**.
+
+---
+
+## Share a plugin
+
+After an Owner or Primary Owner turns on plugin sharing, you can share a plugin you uploaded or created in Customize with specific colleagues (Team and Enterprise plans) or with a group (Enterprise plans). The people you share with get your current version, and you can stop sharing at any time. Plugins you added from a marketplace can't be shared.
+
+**Note:** If you don't see the option to share, check with your organization owner.
+
+To share a plugin:
+
+1. Navigate to **[Customize > Plugins](https://claude.ai/new#settings/customize-plugins)**.
+
+2. Find the plugin you created.
+
+3. Click the three-dot menu "..." next to it, then select "Share."
+
+4. Choose who to share with:
+
+  1. **Specific people:** Enter names or emails to share directly. Sharing creates a link that opens the item for anyone it's shared with. The plugin appears in the **Shared with you** section of each recipient's Plugins tab, grayed out until they enable it, and shows your name as the owner.
+
+  2. **A group (Enterprise plans only):** Share with a group your organization has already set up. The plugin appears in every group member's Plugins tab under **Shared with you**, grayed out until they enable it. Requires the **Share with groups** toggle.
+
+5. Click "Share."
+
+The plugin appears in each recipient's **Shared with you** section, labeled with your name, and stays off until they turn it on. Shared plugins are view-only. Recipients can enable and use the plugin, but they can't edit the contents. If you update the plugin later, recipients automatically get the updated version at next use. You can remove someone's access at any time, and access is removed automatically if they leave the organization.
+
+To copy a link to a shared plugin, click "Copy link" in the Share dialog. The link opens the plugin for people you've already shared it with; anyone else sees a message that it isn't available.
+
+## Stop sharing a plugin
+
+1. Click the "..." button next to the plugin, then select "Share."
+
+2. Click the "x" next to the person or group you want to remove.
+
+The plugin is removed from their list right away. Deleting a plugin removes it for everyone you shared it with, and anything shared with a member is removed automatically when they leave your organization.
+
+## Publish a plugin to your organization
+
+On Team and Enterprise plans, you can submit a plugin you uploaded or created in Customize to your organization's library, so anyone in your organization can install it. Sharing gives a plugin to specific people or groups, and you keep control of it. Publishing hands it to your organization.
+
+To publish a plugin:
+
+1. Navigate to **[Customize > Plugins](https://claude.ai/customize/plugins)**.
+
+2. Open the plugin you want to publish.
+
+3. Click "Publish to org."
+
+4. If your organization requires review, choose how you'd like the plugin offered: Available to install, Installed by default, or Required. Add release notes for the reviewer if you'd like, then submit.
+
+If your organization requires review, an owner (or someone with permission to review requests) checks the plugin before it's published. Your choice of how it's offered is a proposal. The reviewer sees it preselected and can change it, and they also choose who gets the plugin: everyone or specific groups. You can keep using and editing your copy while you wait, and you can withdraw the submission. The plugin shows its status: pending, changes requested (with the reviewer's note), or published. You'll get an email when it's approved. If your organization doesn't require review, the plugin is published to the library and available to everyone in your organization to install. If your organization has security scanning turned on, the plugin isn't listed for others until it passes the scan, which usually takes a few minutes.
+
+Once published, the plugin is managed by your organization. To update it, publish again. The new version goes through the same review, and everyone who uses the plugin stays on the approved version until the update is approved.
+
+**Note:** If you don't see "Publish to org," your organization may have publishing turned off, or the plugin may not be one you created. You can't publish plugins that were shared with you or that you installed from a marketplace or your organization's library. Check with your organization owner if it's your own plugin.
+
+## Use a plugin shared with you
+
+When a colleague shares a plugin with you, it appears in the **Shared with you** section of the **Plugins** tab in **Customize**. It's off until you turn it on. Once it's on, its skills work the same way as any other installed plugin.
+
+You can't edit a plugin that's been shared with you. If you want to change how it works, ask the person who built it, or build your own version. If they stop sharing the plugin or delete it, it's removed from your list automatically.
+
+**Note:** Review a plugin shared with you before turning it on, the same as you would for any plugin from outside Anthropic. Learn more about **[skill and plugin scanning](https://support.claude.com/en/articles/15927065-get-started-with-skill-and-plugin-scanning)**.
 
 ---
 
 ## Add or remove plugin marketplaces
 
-Anthropic provides built-in marketplaces of plugins, including a Knowledge Work marketplace that's added by default. You can add other Anthropic-built marketplaces, like Financial Services or Legal, or add one from a GitHub repository.
+Anthropic provides built-in marketplaces of plugins, including a Knowledge Work marketplace that's added by default. You can add other Anthropic-built marketplaces, like Financial Services or Legal, or add one from a Git repository.
 
 To add a marketplace:
 
 1. Open the **Customize** menu and go to the **Plugins** tab.
 
-2. In the **Personal plugins** section, click the "+" button, then select "Add marketplace."
+2. On the **Plugins** page, click "Add," then select "Add marketplace."
 
 3. Choose how to add it:
 
   - **Browse Anthropic sources:** Pick from marketplaces curated by Anthropic, such as Knowledge Work, Life Sciences, Financial Services, and Legal. Click "Add" next to the one you want, then click "Done."
 
-  - **Add from a repository:** Sync a marketplace from a GitHub repository or git URL.
+  - **Add from a repository:** Enter a repository URL, or owner/repo for GitHub. Repositories on github.com work, and so do public repositories on gitlab.com and bitbucket.org.
 
 To remove a marketplace, including the default Knowledge Work marketplace:
 
@@ -3733,628 +2981,17 @@ To remove a marketplace, including the default Knowledge Work marketplace:
 
 ## Organization-managed plugins
 
-If you're on a Team or Enterprise plan, an owner can distribute plugins across your organization through plugin marketplaces. These work the same as any other plugin, with a couple of differences:
+If you're on a Team or Enterprise plan, an owner can distribute plugins across your organization through plugin marketplaces, or approve plugins that users publish to the organization library These are different from plugins a colleague shares with you, which show up under **Shared with you**. Organization-managed plugins work the same as any other plugin, with a couple of differences:
 
 - You can't edit organization-managed plugins. This keeps shared tooling consistent across your team.
 
-- Some plugins may be auto-installed or required for you. You can uninstall auto-installed plugins if you don't need them, but required plugins can't be removed.
+- Some plugins may be installed by default or required for you. You can turn off a plugin that was installed by default if you don't need it, but required plugins can't be turned off or removed. Required plugins can't be disabled in Claude Code either.
 
-- Available organization plugins show up when you browse the plugin catalog, and you can install them yourself.
+- Available organization plugins show up on the **Discover** tab, and you can add them yourself.
 
-On Enterprise plans, your admin may customize which plugins are available to your group. This means the plugins you see in the catalog may differ from what colleagues in other groups see. Plugins assigned to your group appear in chat as well as Cowork.
+On Enterprise plans, your admin may customize which plugins are available to your group. This means the plugins you see in the catalog may differ from what colleagues in other groups see. Plugins assigned to your group appear in chat, Cowork, and Claude Code sessions signed in with the same Claude account.
 
 For guidance on setting up and managing plugins organization-wide, see **[Manage plugins for your organization](https://support.claude.com/en/articles/13837433-)**.
----
-
-SOURCE: https://support.claude.com/en/articles/13892150-work-across-microsoft-365-apps
-
-# Work across Microsoft 365 apps
-
-Claude can now work across Microsoft 365 apps to coordinate between the Excel, PowerPoint, Word, and Outlook add-ins. Instead of switching between apps and providing context each time, Claude can read from one app and make changes in another. For example, you can ask Claude to analyze data in an Excel workbook, then create a presentation in PowerPoint using those results, without copying and pasting between apps.
-
-## Requirements
-
-- A paid Claude plan (Pro, Max, Team, or Enterprise)
-
-- The Claude for Excel add-in installed from the Microsoft Marketplace
-
-- The Claude for PowerPoint add-in installed from the Microsoft Marketplace
-
-- The Claude for Word add-in installed from the Microsoft Marketplace
-
-- The Claude for Outlook add-in installed from the Microsoft Marketplace
-
----
-
-## Let Claude work across apps
-
-### 1. Install the add-ins
-
-Get the add-ins from the Microsoft Marketplace:
-
-- **[Claude for Microsoft 365 (Excel, PowerPoint, and Word)](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview)**
-
-- **[Claude for Outlook](https://marketplace.microsoft.com/en-us/product/office/WA200010724?tab=Overview)**
-
-Open each app and activate the add-in at least once before using the cross-app features.
-
-### 2. Toggle the setting on
-
-**Note:** If you're a member of a Team or Enterprise plan, an organization owner needs to go to **[Organization settings > Office agents](https://claude.ai/admin-settings/office-agents)** and toggle the **Let Claude work across apps** setting on before you can enable this capability individually.
-
-Go to **Settings** in each of the add-ins and toggle **Let Claude work across files** on:
-
-
-
-**Note:** This setting is default on for Pro and Max plans and default off for Team and Enterprise plans.
-
-You'll see connected file indicators when Excel, PowerPoint, Word, or Outlook files are linked to your session:
-
-
-
----
-
-## How it works
-
-When you describe a task that involves multiple files or apps, Claude coordinates behind the scenes:
-
-- Claude uses the Excel, PowerPoint, Word, and Outlook add-ins to read from and write to open files.
-
-- Context transfers between apps automatically, so you don't need to copy and paste information manually.
-
-- You stay in one place while Claude does the switching.
-
-## What you can do
-
-### Read and write across open files
-
-Claude can read data from an open Excel workbook, PowerPoint presentation, Word document, or Outlook email, and make changes to them directly. For example:
-
-- Pull numbers from an Excel model into a PowerPoint slide or a Word memo.
-
-- Update a chart in PowerPoint with the latest figures from Excel.
-
-- Read content from a presentation and use it to populate a spreadsheet.
-
-- Summarize a Word document into PowerPoint slides.
-
-- Draft a Word memo using data from an Excel workbook.
-
-- Open your Outlook emails and full thread history, including attachments.
-
-### Pass context between apps
-
-When Claude works across multiple files in Excel, PowerPoint, Word, and Outlook, it carries relevant context forward. If you've been building a financial model in Excel and ask Claude to create a summary deck or draft an investment memo, Claude already understands the model's structure and key outputs, so you don't need to re-explain.
-
----
-
-## Skills work across apps too
-
-Skills you've enabled in your Claude settings apply when Claude is working in Excel, PowerPoint, Word, or Outlook during a cross-app task. If you have a Skill that enforces your team's modeling conventions in Excel and another that matches your slide template in PowerPoint, Claude uses each one in the right app as it moves through the workflow.
-
-For more on how Skills work, see **[Use Skills in Claude](https://support.claude.com/en/articles/12512180-use-skills-in-claude).**
-
----
-
-## Data handling
-
-Inputs and outputs are automatically deleted from Anthropic's backend within 30 days of receipt or generation, except in cases outlined in **[How long do you store my organization's data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)** The Claude for Excel, Claude for PowerPoint, Claude for Word, and Claude for Outlook add-ins do not inherit custom data retention settings your organization may have set, and activity is not currently included in Enterprise audit logs, the Compliance API, or data exports.
-
-### For admins who want to manage access
-
-Team and Enterprise organization owners can control whether team members can access this capability:
-
-1. Go to **[Organization settings > Office agents](https://claude.ai/admin-settings/office-agents)**
-
-2. Toggle **Let Claude work across apps** on or off.
-
-Admins can also manage member access to the Claude for Excel, PowerPoint, Word, and Outlook add-ins through the **[Microsoft 365 Admin Center](https://admin.microsoft.com)**.
-
----
-
-## Current limitations
-
-- Claude can only read from and write to files that are currently open in Excel, PowerPoint, Word, or Outlook.
-
-- Claude cannot create, open, close, or switch files directly from the add-ins—the files and add-ins must be open with the feature turned on.
-
-- Chat history for cross-app sessions is not saved between sessions.
-
----
-
-## Troubleshooting
-
-### Claude doesn't see my open file
-
-Make sure the add-in is activated in the app (**Tools > Add-ins** on Mac or **Home > Add-ins** on Windows) and that working across apps is turned on in Claude Desktop settings.
-
-### Changes aren't appearing in the other app
-
-Claude works on open files in sequence. Wait for Claude to finish its current action, then check the target file. You may need to ask Claude to refresh or re-read the file.
----
-
-SOURCE: https://support.claude.com/en/articles/13945233-use-claude-for-microsoft-365-with-third-party-platforms
-
-# Use Claude for Microsoft 365 with third-party platforms
-
-If your organization uses AWS Bedrock, Google Cloud Vertex AI, or an LLM gateway to access Claude, you can use the Claude for Excel, Claude for PowerPoint, Claude for Word, and Claude for Outlook add-ins without a Claude account. The add-in connects through your organization's infrastructure, so your prompts and responses stay within your existing trust boundary.
-
-There are four connection paths, depending on how your organization accesses Claude:
-
-- **LLM gateway**: The add-in sends requests to your gateway (LiteLLM, Portkey, Kong, etc.), which routes them to the provider of your choice. This is the same pattern used by Claude Code. If your organization already runs **[Claude Code through an LLM gateway](https://code.claude.com/docs/en/llm-gateway)**, you can point the Office add-ins at the same endpoint—no new infrastructure is required.
-
-- **Bedrock direct**: The add-in authenticates through Microsoft Entra ID and calls AWS Bedrock directly, with no gateway in between.
-
-- **Vertex AI direct**: The add-in authenticates through Google OAuth and calls Vertex AI directly.
-
-- **Foundry direct:** The add-in authenticates through your Azure AI Foundry resource directly using its API key.
-
-Your IT admin chooses the path during deployment. As an end user, the experience is the same regardless of which path your organization uses.
-
----
-
-## Requirements
-
-Requirements vary by connection path.
-
-**All paths:**
-
-- Claude for Excel, Claude for PowerPoint, Claude for Word, or Claude for Outlook installed (from Microsoft AppSource or deployed by your admin)
-
-- Microsoft 365 with Entra ID (for admin consent and, in the direct-cloud paths, token issuance)
-
-- Microsoft Graph admin consent for Mail.ReadWrite, Calendars.Read, People.Read, and User.Read (via Anthropic's app or your own Entra app registration).
-
-**LLM gateway:**
-
-- A gateway URL and API token from your IT team
-
-**Bedrock direct:**
-
-- An AWS account with Claude model access enabled in the target region
-
-- An IAM OIDC identity provider and role configured to trust Microsoft Entra ID tokens
-
-**Vertex AI direct:**
-
-- A Google Cloud project with the Vertex AI API enabled and Claude model access in the target region
-
-- A Google OAuth client configured with the add-in's redirect URI
-
-**Foundry direct:**
-
-- **An Azure AI Foundry resource with at least one Claude model deployed (Claude Opus 4.6, Opus 4.5, Sonnet 4.6, or Sonnet 4.5)**
-
-- Deployment names must be left as the default model IDs (e.g. claude-opus-4-6); custom deployment names aren't supported yet. The adapter probes by model ID, so a renamed deployment won't be found.
-
-- The resource's API key, from **Azure Portal → your Foundry resource → Keys and Endpoint → KEY 1**
-
-Your organization's IT team manages these resources. If you don't have the credentials you need, contact them—Anthropic can't provide or reset them for you.
-
----
-
-## Network allowlist
-
-The add-in needs to reach specific domains to function. Which domains depend on whether your organization uses the Anthropic API directly (1P) or a third-party platform (3P). Share the applicable table with your network or security team so they can allowlist these domains.
-
-**Important:** In all configurations—including third-party—your prompts and Claude's responses travel only to your chosen inference provider (your gateway, Bedrock, Vertex AI, or Azure AI Foundry). The domains listed below that point to Anthropic (such as pivot.claude.ai) serve the add-in's interface, feature configuration, and operational telemetry. They don't carry prompt or response content.
-
-### Anthropic API (1P)
-
-Use this table if people in your organization sign in with a Claude account and inference goes to api.anthropic.com.
-
-| **Domain**                   | **Required when**         | **Purpose**                                                                                              |
-| ---------------------------- | ------------------------- | -------------------------------------------------------------------------------------------------------- |
-| pivot.claude.ai              | Always                    | Add-in host. Serves the task pane UI and proxies analytics, icon search, skill downloads, and telemetry. |
-| claude.ai                    | Always                    | Anthropic OAuth sign-in and feature-flag evaluation.                                                     |
-| api.anthropic.com            | Always                    | Claude inference API, file uploads, code-execution containers, and the MCP connector registry.           |
-| appsforoffice.microsoft.com  | Always                    | Microsoft Office.js runtime script. Required by every Office add-in.                                     |
-| o1158394.ingest.us.sentry.io | Optional                  | Crash and error reporting. Blocking this degrades diagnostics only; the add-in still works.              |
-| mcp-proxy.anthropic.com      | If using MCP connectors   | Proxy for MCP connector tool calls.                                                                      |
-| bridge.claudeusercontent.com | If using work across apps | WebSocket bridge for the work across apps feature.                                                       |
-
-### Third-party platforms (3P)
-
-Use this table if people in your organization sign in with Microsoft Entra ID and inference goes to your LLM gateway, Bedrock, or Vertex AI.
-
-| **Domain**                             | **Required when**         | **Purpose**                                                                                                                     |
-| -------------------------------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| pivot.claude.ai                        | Always                    | Add-in host. Serves the task pane UI and proxies analytics, icon search, and telemetry.                                         |
-| claude.ai/api/                         | Always                    | Feature-flag evaluation. No sign-in; the add-in only fetches its configuration from here.                                       |
-| appsforoffice.microsoft.com            | Always                    | Microsoft Office.js runtime script (required by every Office add-in).                                                           |
-| login.microsoftonline.com              | Always                    | Microsoft Entra ID sign-in via Nested App Auth. Reads admin-provisioned gateway config and issues tokens for direct-cloud auth. |
-| o1158394.ingest.us.sentry.io           | Optional                  | Crash and error reporting. Blocking this degrades diagnostics only; the add-in still works.                                     |
-| Your LLM gateway URL                   | If using an LLM gateway   | Your organization's LLM gateway (LiteLLM, Portkey, Kong, etc.). Inference goes here instead of api.anthropic.com.               |
-| sts.amazonaws.com                      | If using Bedrock direct   | AWS STS. Exchanges the Entra ID token for temporary Bedrock credentials.                                                        |
-| bedrock-runtime.<region>.amazonaws.com | If using Bedrock direct   | Bedrock inference endpoint. Replace <region> with your configured AWS region (for example, us-east-1).                          |
-| accounts.google.com                    | If using Vertex AI direct | Google OAuth consent screen.                                                                                                    |
-| oauth2.googleapis.com                  | If using Vertex AI direct | Google OAuth token exchange and refresh.                                                                                        |
-| aiplatform.googleapis.com              | If using Vertex AI direct | Vertex AI global inference endpoint.                                                                                            |
-| <region>-aiplatform.googleapis.com     | If using Vertex AI direct | Vertex AI regional inference endpoint. Replace <region> with your configured GCP region (for example, us-east5).                |
-| <resource>.services.ai.azure.com<br>   | If using Foundry direct   | Azure AI Foundry inference endpoint. Replace <resource> with your resource name.                                                |
-
----
-
-## Deploy the add-in for third-party use (IT admins)
-
-Use the `claude-in-office` plugin to configure and deploy the add-in across your organization. This tool handles provisioning cloud resources (if using Bedrock or Vertex AI direct), generating the add-in manifest, and obtaining admin consent in a single guided flow.
-
-### Use the setup wizard
-
-**[Install the plugin](https://github.com/anthropics/financial-services/tree/main/claude-for-msft-365-install)** and run the interactive setup wizard:
-
-```
-claude plugin marketplace add anthropics/financial-services-plugins
-claude plugin install claude-in-office@financial-services-plugins
-/claude-in-office:setup
-```
-
-The wizard walks you through your connection path:
-
-- **LLM gateway**: Collects your gateway URL and token, determines which API format to use, generates the manifest, and handles Azure admin consent.
-
-- **Bedrock direct**: Creates the IAM OIDC identity provider and role, generates the manifest, and handles Azure admin consent.
-
-- **Vertex AI direct**: Walks you through creating the Google OAuth client, generates the manifest, and handles Azure admin consent.
-
-- **Foundry direct:** Captures `azure_resource_name` and `azure_api_key`, then generates the manifest.
-
-When the wizard completes, the add-in is ready to deploy tenant-wide.
-
-**Note:** The Bedrock and Vertex AI paths require Node.js for manifest generation and validation. The wizard checks for it and prompts you to install it if it's missing.
-
-You can use the following commands inside a `claude-in-office` session:
-
-| **Command**                           | **What it does**                                                                                 |
-| ------------------------------------- | ------------------------------------------------------------------------------------------------ |
-| `/claude-in-office:setup`             | Interactive wizard—provisions cloud resources, admin consent, writes manifest                    |
-| `/claude-in-office:manifest`          | Generates the customized add-in manifest XML                                                     |
-| `/claude-in-office:consent`           | Generates the Azure admin consent URL for the add-in's app registration                          |
-| `/claude-in-office:update-user-attrs` | Writes per-user config via Microsoft Graph extension attributes                                  |
-| `/claude-in-office:bootstrap`         | Walks you through building a bootstrap endpoint—per-user MCP servers, skills, and dynamic config |
-| `/claude-in-office:debug`             | Diagnoses deployment issues—stale config, connect failures, missing add-in                       |
-
-### Custom inference headers
-
-If your inference endpoint or any proxy in front of it requires extra headers—for example, an internal application ID for cost accounting—set `inference_headers` to a JSON object of header name/value pairs. The add-in attaches these headers to every model-inference request it sends, so you don't need a separate header-injecting proxy.
-
-This applies to gateway, Amazon Bedrock, and Google Vertex AI deployments.
-
-Example: `inference_headers={"x-application-id":"app123"}`
-
-You can set `inference_headers` in the manifest (org-wide) or in the bootstrap endpoint response (per-user).
-
-### What the wizard provisions
-
-The wizard automates resource creation based on your connection path. Here's what it sets up:
-
-**LLM gateway**: No cloud resources to provision. The wizard collects your gateway URL and token, then generates the manifest.
-
-**Bedrock direct**: Creates an IAM OIDC identity provider that trusts Microsoft Entra ID tokens, a role with bedrock:InvokeModel and bedrock:InvokeModelWithResponseStream permissions, and a trust policy scoped to the Claude add-in's application ID.
-
-**Vertex AI direct**: Walks you through creating a Google OAuth client in the GCP Console (this step can't be automated via CLI), enables the Vertex AI API, and captures the client ID and secret for the manifest.
-
-**Foundry direct**: No cloud resources to provision; the wizard collects the resource name and API key for the manifest.
-
-### Per-user configuration with Microsoft Entra extension attributes
-
-If some values vary per user—for example, different gateway tokens or different AWS roles for different teams—the wizard can write per-user configuration via Microsoft Graph extension attributes. Run `/claude-in-office:update-user-attrs` with the per-user keys after the initial setup.
-
-### Per-user configuration with a bootstrap endpoint
-
-If some values vary per user or if per-user values need server-side logic—for example, MCP server lists, skills, inference headers, or short-lived gateway tokens vended from your secrets store—configure a bootstrap endpoint instead. Set `bootstrap_url` in the manifest to an HTTPS endpoint you host; the add-in calls it with the user's Entra token and applies whatever JSON you return. Run `/claude-in-office:bootstrap` for the request/response contract and a handler scaffold.
-
-### Deploy to Microsoft 365
-
-After the wizard generates your manifest:
-
-1. Open the **Microsoft 365 Admin Center** and go to **Settings** > **Integrated Apps** > **Upload custom apps**.
-
-2. Select “Office Add-in” as the app type, then upload the upload manifest.xml (and manifest-outlook.xml if you are deploying Outlook) file.
-
-3. Choose who gets the add-in:
-
-  - If all users share the same configuration, select “Entire organization.”
-
-  - If you wrote per-user attributes in the previous step, assign to **Specific users/groups** matching exactly who was configured. Anyone else would open the add-in with no configuration.
-
-4. Accept permissions and finish deployment.
-
-Propagation to users takes up to 24 hours (usually much faster). The add-in appears under **Home** > **Add-ins** in Excel, PowerPoint, Word, and Outlook once it lands.
-
-**Note:** Start with a pilot group to confirm the add-in works, then widen the assignment. You can change assignment later without redeploying.
-
-## Deploy to Outlook
-
-Outlook requires a separate manifest file from Excel, PowerPoint, and Word. Microsoft uses a different add-in schema for mail applications, so the two cannot be combined into one file. When you tell the setup wizard you are deploying to Outlook, it generates a second file named manifest-outlook.xml alongside manifest.xml. Upload each file as its own custom app in the Microsoft 365 Admin Center, following the same steps described in the next section.
-
-### Grant Microsoft Graph consent
-
-**Note:** Amazon Bedrock is not currently supported for Claude for Outlook. Bedrock remains supported for Claude for Excel, PowerPoint, and Word.
-
-Claude for Outlook reads mail and calendar data through Microsoft Graph, which requires a one-time tenant-wide grant from a Global Administrator. This is separate from the Integrated apps deployment above. Have a Global Admin open the below admin consent link below in a browser where they are signed in to your Microsoft 365 tenant:
-
-<https://login.microsoftonline.com/organizations/v2.0/adminconsent?client_id=c2995f31-11e7-4882-b7a7-ef9def0a0266&scope=https://graph.microsoft.com/Mail.ReadWrite%20https://graph.microsoft.com/Calendars.Read%20https://graph.microsoft.com/People.Read%20https://graph.microsoft.com/User.Read%20offline_access&redirect_uri=https://pivot.claude.ai/auth/callback>
-
-- The admin will see a Microsoft permissions screen listing Mail.ReadWrite, Calendars.Read, People.Read, User.Read, and offline_access
-
-- After they click “Accept,” all users in the organization can use Claude for Outlook without additional Microsoft prompts. This grant takes effect immediately; only the add-in rollout above can take up to 24 hours.
-
-- If this step is skipped, every user will see a “Need admin approval” message when Claude first tries to read mail or calendar data.
-
-**Note:** Claude for Outlook on third-party platforms currently supports Claude Opus 4.7 only. Other Claude models are available in Outlook when users sign in with a Claude account instead.
-
-After deploying the add-in, your users can connect by following the steps below.
-
----
-
-## Connection instructions for end users
-
-### LLM gateway
-
-1. Open Excel, PowerPoint, Word, or Outlook and launch the Claude add-in.
-
-2. On the sign-in screen, select "Enterprise gateway."
-
-3. Enter the **Gateway URL** and **API token** your IT team provided.
-
-  - **Gateway URL**: The HTTPS base URL of your LLM proxy (for example, <https://llm-gateway.yourcompany.com>).
-
-  - **API token**: The bearer token your proxy expects. The add-in sends this in the Authorization: Bearer <token> header with every request.
-
-4. The add-in checks the connection by sending a test request to the gateway. If it succeeds, you'll see the main app experience.
-
-Your credentials are stored locally in your browser's localStorage within the add-in's sandboxed iframe. They aren't synced to Anthropic's servers. Because the Office add-in runs inside a sandboxed iframe within the Microsoft application, it can't use your OS keychain the way Claude Code does—for this reason, only enter gateway-issued tokens, not raw cloud provider credentials.
-
-### Bedrock, Vertex AI, or Foundry direct
-
-1. Open Excel, PowerPoint, Word, or Outlook and launch the Claude add-in.
-
-2. Authenticate using the method of your provider:
-
-  1. **Bedrock or Vertex AI:** Sign in with your Microsoft work account. The add-in uses your Entra ID token to authenticate with your cloud provider—no separate cloud credentials are needed.
-
-  2. **Foundry:** If your admin pre-filled the Azure resource name and API key, the add-in connects automatically. Otherwise, enter the values your IT team provided and select Connect.
-
-3. The add-in reads the configuration your admin provisioned and connects to Bedrock or Vertex AI directly.
-
-If you see an error at sign-in, confirm with your IT team that your account is in the group assigned to the add-in.
-
-### Change or update your connection
-
-If your API token expires or your IT team gives you a new URL, go to "Settings" in the add-in sidebar, enter the new values, and select "Test connection."
-
----
-
-## Gateway requirements for IT teams
-
-The Office add-ins support the same three API formats as Claude Code. Set `gateway_api_format` in your add-in manifest to tell the add-in which format your gateway speaks.
-
-### CORS requirements
-
-The add-in's taskpane loads from <https://pivot.claude.ai>. Every request to your gateway is therefore cross-origin, and the browser will silently discard any response that lacks CORS headers.
-
-Your gateway must return `Access-Control-Allow-Origin: <https://pivot.claude.ai>` (or `*`) on every response: GET, POST, OPTIONS, and all error responses. Setting it only on the OPTIONS preflight is not sufficient. For the preflight, return `Access-Control-Allow-Headers: *`.
-
-### Required endpoints
-
-The endpoints your gateway must expose depend on which API format it speaks. Set `gateway_api_format` in your manifest to match.
-
-**gateway_api_format: anthropic (default)**
-
-| **Endpoint**      | **Description**                                                               |
-| ----------------- | ----------------------------------------------------------------------------- |
-| POST /v1/messages | Send messages to Claude. Supports both streaming and non-streaming responses. |
-| GET /v1/models    | List available models.                                                        |
-
-**gateway_api_format: bedrock**
-
-| **Endpoint**                                       | **Description**                                  |
-| -------------------------------------------------- | ------------------------------------------------ |
-| POST /model/{model-id}/invoke                      | Send a message and receive a complete response.  |
-| POST /model/{model-id}/invoke-with-response-stream | Send a message and receive a streaming response. |
-
-Native Bedrock InvokeModel pass-through. `gateway_url` must point at the pass-through prefix (for example, <https://litellm.example.com/bedrock>).
-
-**gateway_api_format: vertex**
-
-| **Endpoint**                                                                                        | **Description**                                  |
-| --------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
-| POST /projects/{project}/locations/{region}/publishers/anthropic/models/{model-id}:rawPredict       | Send a message and receive a complete response.  |
-| POST /projects/{project}/locations/{region}/publishers/anthropic/models/{model-id}:streamRawPredict | Send a message and receive a streaming response. |
-
-Native Vertex pass-through. `gateway_url` must include the API-version segment (for example, <https://litellm.example.com/vertex_ai/v1>). Also requires `gcp_project_id` and `gcp_region` so the add-in can build the path.
-
-### Required header
-
-For `anthropic` and `vertex` formats, the gateway must forward the `anthropic-version` request header to the upstream provider.
-
-For `bedrock` format, the SDK puts `anthropic_version` in the request body instead — the gateway must preserve it there.
-
-Failure to forward the header or preserve the body field may result in reduced functionality or prevent the add-in from working.
-
-### Authorization header
-
-The add-in can send your gateway’s authorization token in either the `x-api-key` or the `Authorization` header.
-
-### Model discovery
-
-On login, the add-in attempts to discover available Claude models via GET /v1/models. If your gateway doesn't expose a model list at that path, the add-in falls back to prompting the user for a model ID manually.
-
-### Differences from Claude Code gateway setup
-
-| **Aspect**         | **Claude Code**                                      | **Claude for Excel, PowerPoint, Word, and Outlook**                                      |
-| ------------------ | ---------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Credential storage | OS keychain or environment variables                 | Browser localStorage (sandboxed iframe)                                                  |
-| Auth configuration | Environment variables, settings file, helper scripts | Manual entry in add-in UI (gateway), Entra ID (direct cloud), or Azure API key (Foundry) |
-| Token refresh      | Supports helper scripts for rotation                 | Manual re-entry in settings (gateway) or automatic via Entra ID (direct cloud)           |
-| Custom model names | Configurable via environment variables               | Not configurable in v1                                                                   |
-
----
-
-## Example gateway configuration with LiteLLM
-
-**Warning:** LiteLLM PyPI versions 1.82.7 and 1.82.8 were compromised with credential-stealing malware. Do not install these versions. If you have already installed them:
-
-- Remove the package
-
-- Rotate all credentials on affected systems
-
-- Follow the remediation steps in **[BerriAI/litellm#24518](https://github.com/BerriAI/litellm/issues/24518)**
-
-LiteLLM is a third-party proxy service. Anthropic doesn’t endorse, maintain, or audit LiteLLM’s security or functionality. This guide is provided for informational purposes and may become outdated. Use at your own discretion.
-
-Many organizations use **LiteLLM** as their gateway. Below is a minimal litellm_config.yaml for routing Office add-in requests to Anthropic, Bedrock, or Vertex.
-
-### Routing to Anthropic directly
-
-**yaml**
-
-```
-model_list:
-  - model_name: claude-sonnet-4-5-20250929
-    litellm_params:
-      model: claude-sonnet-4-5-20250929
-      api_key: os.environ/ANTHROPIC_API_KEY
-
-litellm_settings:
-  drop_params: true
-```
-
-### Routing to Amazon Bedrock
-
-**yaml**
-
-```
-model_list:
-  - model_name: claude-sonnet-4-5-20250929
-    litellm_params:
-      model: bedrock/anthropic.claude-sonnet-4-5-20250929-v1:0
-      aws_region_name: us-east-1
-
-litellm_settings:
-  drop_params: true
-```
-
-### Routing to Google Cloud Vertex AI
-
-**yaml**
-
-```
-model_list:
-  - model_name: claude-sonnet-4-5-20250929
-    litellm_params:
-      model: vertex_ai/claude-sonnet-4-5-20250929
-      vertex_project: your-gcp-project-id
-      vertex_location: us-east5
-
-litellm_settings:
-  drop_params: true
-```
-
-### Routing to Azure
-
-**yaml**
-
-```
-model_list:
-  - model_name: claude-sonnet-4-5-20250929
-    litellm_params:
-      model: azure_ai/claude-sonnet-4-5-20250929
-      api_base: https://your-resource.services.ai.azure.com/anthropic
-      api_key: os.environ/AZURE_API_KEY
-      extra_headers:
-        x-api-key: os.environ/AZURE_API_KEY
-
-litellm_settings:
-  drop_params: true
-```
-
-For detailed setup instructions, refer to **[LiteLLM's Anthropic format documentation](https://docs.litellm.ai/)**.
-
----
-
-## What Anthropic collects
-
-Even when inference goes through your own infrastructure, the add-in communicates with pivot.claude.ai to load its interface and with claude.ai/api/ to evaluate feature flags. These connections transmit operational telemetry—such as which features are used, performance timings, and error rates—so Anthropic can maintain and improve the add-in experience. They don't transmit your prompts or Claude's responses.
-
-Anthropic collects information in accordance with AWS Bedrock, Google Cloud Vertex AI, or Microsoft Azure's terms, consistent with Anthropic's arrangements with customers. Anthropic doesn't have access to a customer's AWS, Google, or Microsoft instance, including prompts or outputs it contains. Anthropic doesn't train generative models with such content or use it for other purposes. Anthropic can access metadata—such as tool use, token counts, and similar items—and use such metadata for analytic and product improvement purposes.
-
-For details on what your organization's gateway or cloud provider logs, contact your IT team.
-
-To route a full audit trail—including prompts, tool inputs, tool outputs, and document references—to your own infrastructure, see **[Configure a custom OpenTelemetry collector for Office agents](https://support.claude.com/en/articles/14447276-)**.
-
----
-
-## How this differs from signing in with a Claude account
-
-When you sign in with a Claude account, the add-ins connect directly to Anthropic. When you connect through a third-party platform, the add-ins send inference requests to your organization's infrastructure instead, and your IT team controls how that traffic is routed and logged.
-
-Some features that rely on having a Claude account aren't available through third-party platforms yet, but we're working on adding support:
-
-| **Feature**                                              | **Claude account** | **Third-party platform** |
-| -------------------------------------------------------- | ------------------ | ------------------------ |
-| Chat with your spreadsheet, deck, or document            | ✓                  | ✓                        |
-| Read and edit cells, slides, formulas, and document text | ✓                  | ✓                        |
-| Connectors (S&P, FactSet, etc.)                          | ✓                  | ✓                        |
-| Working across apps                                      | ✓                  | —                        |
-| Skills                                                   | ✓                  | ✓                        |
-| File uploads                                             | ✓                  | ✓                        |
-| Web search                                               | ✓                  | Vertex only              |
-
-If your team needs these features, talk to your Claude admin about which sign-in path fits your organization.
-
-### Add MCP connectors to third-party add-ins
-
-MCP connectors are now supported in Claude for Excel, PowerPoint, and Word. As an administrator, you can set the MCP gateway in the add-in manifest following the documentation here: **[MCP servers](https://github.com/anthropics/financial-services-plugins/blob/main/claude-in-office/commands/manifest.md#mcp-servers)**. If you prefer to use the bootstrap endpoint, you can configure MCP connectors following the documentation here: **[`mcp_servers`](https://github.com/anthropics/financial-services-plugins/blob/main/claude-in-office/commands/bootstrap.md#mcp_servers)**.
-
-### Add Skills to third-party add-ins
-
-Skills are now supported in Claude for Excel, PowerPoint, and Word. The Anthropic financial services skills are available by default. Additional Skills may be added by administrators or manually by individuals.
-
-Administrators can add skills using the bootstrap endpoint, following the documentation here: **[`skills`](https://github.com/anthropics/financial-services-plugins/blob/main/claude-in-office/commands/bootstrap.md#skills)**.
-
-Individuals can manually upload local skills (either as a .zip, .skill, or SKILL.md file) and manage them individually. Skills are uploaded by selecting the "+" button, then Skills → "Upload Skills."
-
-### Add file uploads to third-party add-ins
-
-File uploads are now supported in Claude for Excel, PowerPoint, and Word. Individuals can upload files by selecting the "+" button, then "Add files or photos" .
-
----
-
-## Troubleshooting
-
-### "Connection refused" or network error
-
-The gateway URL or cloud endpoint is unreachable from the user's network. Verify the URL is correct, the service is running, and there are no firewall or VPN restrictions blocking the connection. Check the **Network allowlist** section above to confirm all required domains are allowed.
-
-### 401 Unauthorized or "Invalid token"
-
-The auth token is invalid or expired. For gateway connections, confirm the token with your IT team. For direct-cloud connections, verify the user's Entra ID account is in the assigned group and that the OIDC trust or OAuth client is configured correctly. For Foundry, regenerate the key in Azure Portal → Keys and Endpoint.
-
-### 403 Forbidden or "Access denied"
-
-The token is valid but lacks the right permissions. For Bedrock, verify the IAM role has `bedrock:InvokeModel` permissions. For Vertex, verify the service account has `aiplatform.endpoints.predict` permissions. For gateways, check the token's scope with your IT admin. For Foundry, check the resource’s networking rules, or confirm the key belongs to the right resource.
-
-### 404 Not found
-
-The add-in couldn't reach the expected API path. For gateways, verify the URL is the base URL (for example, [https://litellm-server:4000)—don't](https://litellm-server:4000\)%E2%80%94don't) include /v1/messages in the URL field.
-
-### 500 or other server errors
-
-The gateway or cloud provider encountered an internal error. Check your gateway logs (for example, docker logs litellm if using LiteLLM) for upstream provider errors. Try the request again, and contact your IT admin if the issue persists.
-
-### "No models available"
-
-The add-in couldn't find Claude models. For gateways, your gateway may not expose a model list at GET /v1/models. Your IT team can either configure the gateway to serve a model list or give you a specific model ID to enter manually. For Bedrock or Vertex, confirm that at least one Claude model (Claude Sonnet 4.5 or later) is enabled in your account and region. For Foundry, confirm at least one Claude model is deployed in the resource (Model catalog).
-
-### Streaming responses fail or hang
-
-Verify that your gateway supports Server-Sent Events (SSE) pass-through. Some proxy configurations strip or buffer SSE connections, which prevents streaming responses from reaching the add-in.
-
-### A feature I expected isn't available
-
-Connectors, skills, file uploads, and Working Across Apps aren't available through third-party platforms yet. If you need these, ask your admin about signing in with a Claude account instead.
 ---
 
 SOURCE: https://support.claude.com/en/articles/14051822-notice-regarding-consumption-tax-jct-for-japanese-customers
@@ -4703,376 +3340,11 @@ The add-in has no Claude.ai user identity in this mode, so spans carry no `user.
 This produces a complete, ordered transcript of the interaction in both deployment modes.
 ---
 
-SOURCE: https://support.claude.com/en/articles/14465370-use-claude-for-word
-
-# Use Claude for Word
-
-Claude for Word is an add-in that integrates Claude into your Word workflow. It’s designed for professionals who work extensively with documents, particularly in legal review, financial memo drafting, and iterative editing.
-
-Claude for Word is currently in beta and available to Pro, Max, Team, and Enterprise plans.
-
-With Claude for Word, you can:
-
-- Ask questions about your document and get answers with clickable section citations.
-
-- Edit selected text while preserving surrounding styles, numbering, and formatting.
-
-- Use tracked changes mode so every edit lands as a revision you can accept or reject in Word’s native review pane.
-
-- Have Claude work through comment threads, editing the anchored text and replying with what it changed.
-
-- Fill templates with drafted content that inherits your document’s heading and paragraph styles.
-
-- Find every provision touching a theme with semantic navigation, not just keyword search.
-
----
-
-## Get started with Claude for Word
-
-### Supported versions
-
-- Word on the web
-
-- Word on Windows (Microsoft 365 subscription, Version 2205 / Build 15202.10000 or later)
-
-- Word on Mac (version 16.61 / Build 22040100 or later)
-
-### For individuals
-
-1. Navigate to the **[Claude for Microsoft 365 (Excel, PowerPoint, and Word) listing](https://marketplace.microsoft.com/en-us/product/office/WA200010725?tab=Overview)** on Microsoft Marketplace.
-
-2. Click “Get it now” to install the add-in.
-
-3. Open Word, activate the add-in, and sign in with your Claude account.
-
-### For admins
-
-**Deploy Claude for Word to your organization:**
-
-1. Visit the **Microsoft 365 Admin Center**.
-
-2. Navigate to **Settings > Org Settings > User owned apps and services** and ensure that **“Let users access the Office Store”** is toggled on.
-
-3. Navigate to **Settings > Integrated apps > Add-ins**.
-
-4. Search for “Claude by Anthropic for Word” in Microsoft AppSource.
-
-5. Deploy the add-in to your organization or specific people.
-
-6. Share these instructions with your team: **Microsoft’s deployment guide**.
-
-After installation, team members can open Word, activate the Claude add-in (from Tools > Add-ins on Mac or Home > Add-ins on Windows), sign in with their Claude credentials, and start working with their documents.
-
-**Important:** Organizations that have disabled “Let users access the Office Store” may find that admin-deployed add-ins don’t appear for people. To work around this, deploy using the manifest XML files provided below.
-
-**### Alternatively, download the manifest file to install**
-
-For IT administrators deploying to multiple people:
-
-**Step 1: Obtain the custom manifest**
-
-1. Click **[this link](https://pivot.claude.ai/manifest-word.xml)** to download the custom manifest XML file.
-
-2. Save this file to a secure location.
-
-**Step 2: Access Microsoft 365 Admin Center**
-
-1. Navigate to **<https://admin.microsoft.com>**
-
-2. Sign in with your admin credentials.
-
-3. Go to **Settings > Integrated apps**.
-
-**Step 3: Upload the custom add-in**
-
-1. Click “Upload custom apps.”
-
-2. Select “Office Add-in.”
-
-3. Choose “I have a manifest file on this device.”
-
-4. Browse and select the Claude for Word manifest XML file.
-
-5. Click “Upload.”
-
-**Step 4: Assign people**
-
-Choose your deployment scope:
-
-- **Entire organization:** All people get access
-
-- **Specific users:** Enter individual email addresses
-
-- **Specific groups:** Select security groups or distribution lists
-
-- **Just yourself:** For admin testing only
-
-**Step 5: Deploy**
-
-1. Review deployment settings.
-
-2. Click “Deploy.”
-
-3. The add-in will be available within minutes (may take up to 24 hours for full organization rollout).
-
-**Step 6: Access**
-
-- People will see Claude appear in Word’s Home ribbon.
-
-- First-time people will need to sign in with their Claude accounts.
-
-- No additional installation required.
-
-### Connect through an LLM gateway
-
-If your organization routes API traffic through an internal LLM gateway connected to Amazon Bedrock, Google Cloud Vertex AI, or Microsoft Azure, you can use the add-in without a Claude account. This is the same gateway pattern used by Claude Code.
-
-For setup instructions and gateway requirements, see **[Use Claude for Microsoft 365 with third-party platforms](https://support.claude.com/en/articles/13945233-)**.
-
----
-
-## Key features
-
-### Read and understand documents
-
-Ask Claude questions about specific sections, clauses, or defined terms in your document. Claude provides answers with clickable citations that navigate directly to the referenced section in your document.
-
-**Example prompts:**
-
-- “What’s the liability cap and is it mutual?”
-
-- “Summarize the key commercial terms in this agreement”
-
-- “What assumptions drive the revenue forecast in section 3?”
-
-### Edit selected text
-
-Select a passage and tell Claude what to change. Claude edits only the selection while preserving surrounding styles, numbering, and formatting. New text inherits the paragraph style, font, and numbering of the surrounding content.
-
-**Example prompts:**
-
-- “Tighten this paragraph and drop the passive voice”
-
-- “Rewrite this clause to make the indemnification mutual”
-
-- “Simplify this section for a non-technical audience”
-
-### Track changes mode
-
-When you enter suggested edits mode, Claude’s edits land as tracked revisions. The original text is visible as a deletion and the new text as an insertion, all reviewable in Word’s native review pane. This gives you a clear audit trail of what Claude changed, so you can accept or reject each revision individually.
-
-**Example prompts:**
-
-- “Rewrite §4.2 to cap damages at 12 months of fees, and make it mutual”
-
-- “Draft a mutual indemnification clause after §8”
-
-### Comment-driven editing
-
-Claude reads comment threads in your document, understands what text each thread is anchored to, and can work through them one by one. For each comment, Claude edits the anchored passage and replies to the thread with a note explaining what it did.
-
-**Example prompts:**
-
-- “Work through my open comments”
-
-- “Address the comment on the liability section”
-
-### Summarize counterparty redlines
-
-When a counterparty returns a document with tracked changes, Claude can read and summarize what they changed. Ask Claude to group changes by severity or flag the ones worth pushing back on.
-
-**Example prompts:**
-
-- “Summarize what the other side changed and flag anything that’s worth discussing”
-
-- “Which of these redlines are dealbreakers?”
-
-### Fill templates
-
-Draft sections in your document’s heading and paragraph styles. Claude uses your template’s formatting when generating content, so new headings, bullets, and table entries match what’s already there. Tables populate in place without reflowing layout or changing column widths.
-
-**Example prompts:**
-
-- “Draft the Key Risks section with four risks in the template’s style”
-
-- “Populate the summary table with revenue, gross margin, and net retention for the last three years”
-
-### Semantic navigation
-
-Find every provision or passage in your document that touches a specific theme. Claude returns thematic matches, not just keyword hits, and each result navigates to the relevant location on click.
-
-**Example prompts:**
-
-- “Find every provision touching data retention”
-
-- “Where does this agreement address termination?”
-
-## Work across Word, Excel, and PowerPoint
-
-Claude for Word shares context with Claude for Excel and Claude for PowerPoint, so Claude can work across your open documents in a single conversation. For example, you can ask Claude to pull numbers from an Excel model into a Word memo, or summarize a Word document into PowerPoint slides, without copying and pasting between apps.
-
-For setup instructions, see **[Work across Microsoft 365 apps](https://support.claude.com/en/articles/13892150-work-across-microsoft-365-apps)**.
-
----
-
-## Context and session management
-
-### Auto-compaction
-
-We **[automatically compact longer conversations](https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits#h_21b66a43b4)** into new conversations to avoid running out of context.
-
-### Chat history
-
-Chat history is now stored locally in your browser using IndexedDB. Unlike Claude, conversations aren't stored on Anthropic's servers—they're saved client-side and aren't synced across devices or browsers. You can clear all chat history from Settings at any time, and the local store is cleared when you clear your browser data.
-
-Your chat history is specific to the combination of the add-in surface, your user ID, and your organization ID—so your Excel, PowerPoint, and Word histories are separate, but conversations carry across different documents within Word (or different presentations within PowerPoint/workbooks within Excel). If you switch organizations, you'll have a separate chat history.
-
-### Overwrite protection
-
-To avoid accidental data loss, Claude warns you before overwriting existing data.
-
-**Note:** Your use of Claude for Word is associated with your existing Claude account and is subject to the same usage limits.
-
----
-
-## Current limitations
-
-For Claude for Word use, we automatically delete inputs and outputs on our backend within 30 days of receipt or generation, except in cases outlined in **[How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)** Data will be deleted after 30 days, but will be cached for a number of hours so users can access context in recently closed out documents.
-
-Enterprise organizations can route full audit telemetry from Claude for Word to their own OpenTelemetry (OTEL) collector for integration with a SIEM or observability platform. Learn more about **[configuring a custom OpenTelemetry collector for Office agents](https://support.claude.com/en/articles/14447276-configure-a-custom-opentelemetry-collector-for-office-agents)**. On Free, Pro, Max, and Team plans, observability and auditability aren't available for Claude for Word. Claude for Word doesn’t inherit custom data retention settings your organization might have set, and isn’t included in Enterprise audit logs or the Compliance API at this time.
-
-As a beta feature, Claude for Word is **not recommended** for:
-
-- Final client deliverables or counterparty sends without human review
-
-- Litigation filings or audit-critical documents without verification
-
-- Replacing legal or financial judgment
-
-- Documents containing highly sensitive or privileged data without proper controls
-
-### Unsupported versions
-
-- Word 2016 / 2019 (perpetual/volume licensed)
-
-- Word on iPad
-
-- Word on Android
-
-- Microsoft 365 Word builds older than Version 2205 (Windows) or 16.61 (Mac)
-
----
-
-## Best practices
-
-To use Claude for Word safely and effectively:
-
-- Always review tracked changes before accepting them.
-
-- Verify that outputs match your firm’s playbook and standard positions.
-
-- Use appropriate permissions and access controls.
-
-- Maintain human oversight for client-facing work.
-
----
-
-## Prompt injection attack risks
-
-Only use Claude for Word with trusted documents and not documents from external untrusted sources (for example, downloaded templates, counterparty files, or collaborative documents shared via email).
-
-An important risk for people using Claude for Word and other AI tools that can read and edit documents is prompt injection attacks that hide malicious instructions in document content (text, comments, tracked changes, headers, footers) to trick AI models into taking unintended actions. For example, a seemingly routine contract received from an external party might contain hidden instructions to modify terms or exfiltrate data. Claude may interpret these instructions as legitimate requests from you.
-
-Our testing has identified edge scenarios where Claude for Word can be manipulated to:
-
-- **Extract and share sensitive information** with bad actors through web searches containing your sensitive data or file system access that exposes proprietary information.
-
-- **Modify critical content** such as contract terms or financial figures.
-
-- **Perform destructive actions** without verification (should you allow Claude to act without verifying its actions), exploiting Claude’s helpful nature to delete or alter important content.
-
-While we continue to develop our offerings and improve safety measures to reduce these risks, you should exercise caution when using Claude for Word and should not use it with documents from external, untrusted sources.
-
----
-
-## Example use cases
-
-### Legal contract review
-
-- “Summarize the key commercial terms: parties, term, governing law, and anything off-market”
-
-- “Flag provisions that deviate from standard market position, ranked by severity”
-
-- “Make the indemnification mutual and insert our standard fallback language”
-
-- “Work through all five reviewer comments as tracked changes”
-
-- “What did the counterparty change, and which revisions are dealbreakers?”
-
-### Finance memo drafting
-
-- “Draft the Investment Thesis section with three points, pulling the numbers from the uploaded 10-K”
-
-- “Populate the summary table with revenue, gross margin, and FCF for the last three years”
-
-- “Too generic on point two. Use the customer count from the deck”
-
-- “Address the partner’s comment on the Risks section”
-
-### Document QA and consistency
-
-- “Flag inconsistent defined terms and broken cross-references”
-
-- “Check the numbering scheme for gaps”
-
-- “Proofread for spelling, grammar, and punctuation”
-
-- “Is the same party referred to by different names anywhere in this document?”
-
-### General document editing
-
-- “Tighten section 4 and drop the passive voice”
-
-- “Rewrite this for a non-technical audience”
-
-- “Add a fourth risk addressing customer concentration”
-
-- “Define this term and use it consistently throughout”
-
----
-
-## Frequently asked questions
-
-### Does Claude understand legal and financial document conventions?
-
-Claude recognizes common document patterns including multi-level legal numbering, defined terms, cross-references, and standard contract structures. However, always verify that outputs match your specific requirements and your firm’s standard positions.
-
-### Can I use Claude for Word with sensitive data?
-
-Claude for Word works within your existing security framework. For highly sensitive or regulated data, ensure you follow your organization’s data handling policies.
-
-### What happens to my chat history?
-
-Your chat history is stored locally in your browser using IndexedDB. It persists between sessions, so you can return to previous conversations. Chat history is not automatically deleted, but you can clear all of it manually from Settings.
-
-Your history is specific to each add-in surface, your user ID, and your organization. This means your Word, Excel, and PowerPoint chat histories are separate. Within a single surface, your chat history is shared across files—for example, conversations in one Word document appear in another. If you log in to a different organization, you'll see a separate chat history.
-
-### How does Claude access my document?
-
-Claude reads the content of your currently open document, including text, comments, tracked changes, footnotes, tables, and bookmarks. It can only access the document you have open in Word.
-
-### What if Claude makes a mistake?
-
-In tracked changes mode, you can review every edit before accepting it. You can always undo changes using Word’s standard undo function (Ctrl+Z / Cmd+Z).
-
-### Does Claude support .doc files?
-
-Claude for Word supports .docx files. If you’re working with a legacy .doc file, save it as .docx first.
----
-
 SOURCE: https://support.claude.com/en/articles/14503590-get-started-with-claude-for-government
 
 # Get started with Claude for Government
+
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
 
 ## What is Claude for Government?
 
@@ -5080,58 +3352,14 @@ Claude for Government brings Anthropic's Claude AI to environments requiring the
 
 ## How do I access Claude for Government?
 
-Claude for Government is available to U.S. federal, state, and local government agencies and qualifying public sector organizations. To learn more or get started, contact Anthropic's public sector Sales team via the **[Contact sales form](https://claude.com/contact-sales)** (choose "Contact sales" for **What can we help you with?**) and select "Government & Public Sector" for the **Industry** field.
-
-## Product differentiation between Claude for Government and Claude Enterprise
-
-Claude for Government is built on the same foundation as Claude Enterprise but operates inside an isolated, dedicated FedRAMP boundary that provides additional compliance and security guarantees:
-
-- **FedRAMP High authorization.** Claude for Government operates under a FedRAMP High Authorization to Operate, meeting stringent federal security control baselines. Claude Enterprise operates on Anthropic's commercial infrastructure.
-
-- **Dedicated government environment.** Claude for Government is logically isolated from commercial tenants and hosted through Anthropic's government-authorized partner infrastructure. This supports agency data residency and boundary requirements.
-
-- **Classification banner support.** Claude for Government includes classification banner display at the application level for environments that require it—not available on the commercial Enterprise plan.
-
-- **Feature availability.** Core Enterprise features—projects, artifacts, integrations, audit logs, admin controls—are available in Claude for Government. New features are often available in Claude for Government shortly following their launch in the enterprise environment. In some cases, however, new features may either require additional compliance review or may not be supported in Claude for Government.
-
-## Which product is right for you?
-
-Choose Claude for Government if your agency requires FedRAMP-High authorization, handles CUI or sensitive data, or has compliance requirements that mandate an authorized cloud environment. This is the recommended choice for most federal civilian deployments.
-
-Choose Claude Enterprise if your use case involves only publicly available information, you need access to the latest commercial features immediately, or compliance requirements permit commercial cloud infrastructure.
-
-## Compliance and certifications
-
-### FedRAMP High
-
-Claude for Government is authorized at the FedRAMP High impact level. The authorization is held through Palantir Federal Cloud Service – Supporting Services (PFCS-SS), with independent assessment performed by Schellman Compliance, LLC.
-
-### Where to find compliance documentation
-
-Agencies can access compliance documentation through Anthropic's Trust Center. Instructions for requesting the full Claude for Government ATO package are available on request from your public sector contact.
-
-## Data handling
-
-Claude for Government is designed to give agencies control over their data.
-
-- By default, conversations and uploaded content in Claude for Government are not used to train Anthropic's models.
-
-- Encryption is applied in transit (TLS) and at rest.
-
-- A detailed Data Control, Visibility, and Retention overview is available and can be tailored to your agency's specific configuration.
-
-## Pricing and how to purchase
-
-There are two ways to procure Claude for Government, directly via Anthropic’s Sales team and via Carahsoft for customers requiring services via a GSA approved vehicle.
-
-Claude for Government is licensed on an annual, per-seat basis. A limited-time program currently makes Claude for Government available to federal agencies at $1 per agency (unlimited seats) through August 2026.
-
-Contact the public sector Sales team for current pricing for state, local, and non-federal public sector customers.
+Claude for Government is available to U.S. federal, state, and local government agencies and qualifying public sector organizations. To learn more or get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government/overview)** or contact **[our Sales team](https://claude.com/solutions/government)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/14503794-model-availability-in-claude-for-government
 
 # Model availability in Claude for Government
+
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
 
 Claude is a family of state-of-the-art large language models developed by Anthropic. This guide introduces the models available for customers using Claude for Government. For the most up to date information about the model’s general capabilities, please visit our **[Model Overview page](https://platform.claude.com/docs/en/about-claude/models/overview)**.
 
@@ -5173,6 +3401,8 @@ If your agency policy requires advance notice or opt-in before new models reach 
 SOURCE: https://support.claude.com/en/articles/14503804-classification-banner-in-claude-for-government
 
 # Classification banner in Claude for Government
+
+**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
 
 The classification banner displays a persistent marking at the top of every page for every user in your organization. Use it to communicate the classification level of data approved for your Claude for Government environment or any custom handling instruction your agency requires.
 
@@ -5352,17 +3582,17 @@ SOURCE: https://support.claude.com/en/articles/14604397-set-up-your-design-syste
 
 # Set up your design system in Claude Design
 
-Creating a design system allows Claude Design to produce outputs that fit your specifications. It extracts reusable components, colors, typography, and patterns from the assets you provide—codebases, slide decks, or other design references—and uses them as the foundation for every project created within your account.
+A design system captures your colors, typography, components, and layout patterns, so Claude applies them to every new design and deck. Claude extracts them from the assets you provide, like codebases, slide decks, or other design references.
 
-Claude Design is now available in beta to Pro, Max, Team, and Enterprise plans. This capability is default off for Enterprise plans.
+Design systems are available in beta on Pro, Max, Team, and Enterprise plans. They're on by default on Pro, Max, and Team plans. On Enterprise plans, they're off until an owner turns on **Design systems** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. Standalone Claude Design at claude.ai/design has its own separate setting.
 
-This guide is for the designer or brand owner who will set up the design system. You only need to do this once; after setup, all team members’ projects automatically use it (for Team and Enterprise plans).
+This guide is for the designer or brand owner who will set up the design system. On Team and Enterprise plans, you only need to do this once, and everyone's work picks it up after that.
 
-## Prerequisites
+## Before you start
 
-- Permissions granted by your organization admin for design system setup.
+- On Team and Enterprise plans, **Design systems** needs to be on for your organization, and an owner may limit who can publish or set the default.
 
-- At least one of the following as source material:
+- You’ll need at least one of the following as source material:
 
   - A codebase with your design system or component library
 
@@ -5372,25 +3602,49 @@ This guide is for the designer or brand owner who will set up the design system.
 
 ---
 
-## Step 1: Create or switch to your organization
+## Create a design system
 
-To set up your organization’s design system:
+### From a chat
+
+Ask Claude to build a design system from your connected apps, uploaded files, Figma files, decks, logos, and fonts. This works best for brand design systems with fonts, colors, and guidelines.
+
+### From Claude Code
+
+If your design system already exists as React components, run /design-sync in Claude Code. It reads your tokens and components directly, and works best for product design systems in code.
+
+### Bring over a design system from claude.ai/design
+
+1. Open the "Design" tab at the bottom of the sidebar.
+
+2. Click "Migrate team design systems" in the banner.
+
+Each design system becomes an artifact Claude can use in any chat, including in Claude Code. Migrated design systems may need some cleanup, so each one shows a banner where you can click "Let Claude clean it up," and Claude tidies its guide, tokens, and components.
+
+## Manage your design systems
+
+Manage your design systems in **[Settings > Design systems](https://claude.ai/settings/design-systems)**. On Enterprise plans, admins can reserve publishing, setting the organization default, and deleting design systems for specific users. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
+
+---
+
+## Set up a design system at claude.ai/design
+
+These steps use standalone Claude Design.
+
+### Create or switch to your organization
 
 1. Open **[Claude Design](https://claude.ai/design)**.
 
-2. In the lower-left corner of the project picker, click the current organization name.
+2. In the lower left corner of the project picker, click the current organization name.
 
 3. Select your organization, or create a new one.
 
-4. You’ll be redirected to the onboarding flow. Complete it.
+4. Complete the onboarding flow you're redirected to.
 
-## Step 2: Upload your brand and product assets
+### Upload your brand and product assets
 
-During onboarding (or afterward from your organization settings), upload the assets that define your brand and product. Claude will analyze them and extract a reusable design system.
+During onboarding, or afterward from your organization settings, upload the assets that define your brand and product. Claude analyzes them and extracts a reusable design system.
 
-**What to upload:**
-
-- **Codebases:** If your design system lives in code (for example, a React component library), you can link or upload the repository. Claude will read the components and styles.
+- **Codebases:** If your design system lives in code, like a React component library, link or upload the repository. Claude reads the components and styles.
 
 - **Prototypes:** Screenshots, web flows, and existing design files.
 
@@ -5398,11 +3652,11 @@ During onboarding (or afterward from your organization settings), upload the ass
 
 - **Individual assets:** Logos, color palette files, typography specimens.
 
-You only need one source to get started, but providing multiple gives Claude more to work with.
+You only need one source to get started, but more sources give Claude more to work with.
 
-## Step 3: Review the generated design system
+### Review the generated design system
 
-After uploading, Claude generates a design system (UI kit) for your organization. This typically includes:
+After uploading, Claude generates a design system for your organization. This typically includes:
 
 - **Color palette:** Primary, secondary, and accent colors extracted from your assets.
 
@@ -5412,19 +3666,21 @@ After uploading, Claude generates a design system (UI kit) for your organization
 
 - **Layout patterns:** Spacing, grid systems, and page structures.
 
-To validate your design system, create a test project and see if the output matches your brand expectations. Try prompts like:
+To validate it, create a test project and check whether the output matches your brand. Try prompts like:
 
-- “Create a landing page for [your product].”
+- "Create a landing page for [your product]."
 
-- “Design a dashboard showing [relevant metrics].”
+- "Design a dashboard showing [relevant metrics]."
 
-- “Make a presentation about [a topic your team commonly presents on].”
+- "Make a one-pager about [a topic your team commonly presents on]."
 
-## Step 4: Make it available to your team
+### Make it available to your team
 
-Once you’re satisfied with the design system quality, make sure the “Published” toggle is switched on. After publishing, any projects created from the Claude Design homescreen while in your organization will use your design system instead of the default.
+When you're happy with the design system, turn on the "Published" toggle. After publishing, projects created from the Claude Design home screen in your organization use your design system instead of the default.
 
+## Update your design system
 
+When your design system changes, you can update it within Claude Design. From your Claude Design organization settings, click the “Open” button next to the design system you want to edit. Click the “Remix” button in the upper right corner to open the chat interface on the left side of the window. From here, you can work with Claude to change your design system.
 
 ---
 
@@ -5433,31 +3689,41 @@ Once you’re satisfied with the design system quality, make sure the “Publish
 - **Include real examples, not just specs.** A finished landing page or marketing site tells Claude more about your brand’s feel than a color palette alone.
 
 - **Iterate.** If the first extraction doesn’t capture your brand well, try uploading additional or different assets.
-
-## Updating your design system
-
-Brands evolve. When your design system changes, you can update it within Claude Design. From your Claude Design organization settings, click the “Open” button next to the design system you want to edit. Click the “Remix” button in the upper right corner to open the chat interface on the left side of the window. From here, you can work with Claude to change your design system.
 ---
 
 SOURCE: https://support.claude.com/en/articles/14604416-get-started-with-claude-design
 
 # Get started with Claude Design
 
-**[Claude Design](https://claude.ai/design)** lets you create designs, interactive prototypes, presentations, and more by having a conversation with Claude. This guide walks you through creating your first project, iterating on designs, and getting the most out of the tool.
+**[Claude Design](https://claude.com/product/design)** lets you create designs, interactive prototypes, one-pagers, and other visual work by chatting with Claude. It's one of the templates you can start an artifact from, so you can use it in any chat, in Claude Code, and from the **Artifacts** tab, with on-canvas editing and your design system included. This guide walks you through creating your first design, iterating on it, and getting the most out of it. Learn more about **[what artifacts are and how to use them](https://support.claude.com/en/articles/9487310)**.
 
-Claude Design is now available in beta to Pro, Max, Team, and Enterprise plans. This capability is default off for Enterprise plans. You can use it on the web at claude.ai/design or from the sidebar in Claude Desktop.
+Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It's on by default on Pro, Max, and Team plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. The standalone Claude Design experience at claude.ai/design keeps working and has its own separate setting.
 
 This guide assumes your organization’s design system has already been set up, so everything you create will automatically use your brand’s colors, typography, and component patterns. If you’re a design lead who needs to set up or modify the design system itself, see **[Set up your design system in Claude Design](https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design)**.
+
+**[Create an artifact with Claude](https://claude.ai/artifacts)**
+
+## Where you can use Claude Design
+
+- **In a conversation:** Ask Claude for a design, like "Make a one-pager from this proposal" or "Mock up the onboarding flow we just discussed." Claude builds it beside your conversation, and you refine it there. You can also select **Output** > **Design** in the message box.
+
+- **In the Artifacts tab:** Go to the **Artifacts** tab and pick a Design template.
+
+- **In Claude Code:** Ask Claude to turn your idea into a design, or use /design to create, edit, and sync designs, on desktop or in the terminal.
+
+- **In the Claude app for iOS and Android:** Ask for a design in any conversation and check back later for the result, then view it full screen in the **Artifacts** tab. To start from a template, edit on the canvas, or change sharing settings, use Claude on web or desktop.
+
+- **At claude.ai/design:** The standalone experience keeps working, and your existing projects stay where they are.
 
 ---
 
 ## How Claude Design works
 
-Claude Design has two main areas: a chat interface on the left and a canvas on the right. You describe what you want in the chat, and Claude generates a working design on the canvas. From there, you iterate—refining through conversation, inline comments, and directly on the canvas until it’s right.
+Claude Design pairs a conversation with a canvas. You describe what you want, and Claude generates a working design on the canvas beside the conversation. From there, you iterate—refining through conversation, inline comments, and directly on the canvas until it’s right.
 
 The typical flow is:
 
-1. Create a project.
+1. Start a design from a conversation, the Artifacts tab, or claude.ai/design.
 
 2. Attach or import the design system you want Claude to build with.
 
@@ -5473,16 +3739,9 @@ The typical flow is:
 
 ### Move between Claude Design and Claude Code
 
-You can move between working in Claude Design and Claude Code while keeping your work synced. Use `/design-sync` to pull in your design system, so everything you build in Claude Design starts from your existing components. When a design is ready to become software, you can hand it off to Claude Code, which continues from your existing work instead of starting over from a screenshot.
+You can move between working in Claude Design and Claude Code while keeping your work synced. Use /design-sync to pull in your design system, so everything you build in Claude Design starts from your existing components. When a design is ready to become software, you can hand it off to Claude Code, which continues from your existing work instead of starting over from a screenshot.
 
-If you prefer to work from Claude Code, connect the Claude Design MCP server to create and edit designs without leaving your terminal:
-
-1. Add the server:
-​`claude mcp add --scope user --transport http claude-design https://api.anthropic.com/v1/design/mcp`
-
-2. Run `/design-login` to sign in.
-
-Once you're connected, you can import a design into your codebase, export your code as a live prototype, or let Claude build the whole thing from start to finish.
+From Claude Code, use /design to import a design into your codebase, export your code as a live prototype, or let Claude build the whole thing from start to finish.
 
 ---
 
@@ -5492,9 +3751,13 @@ When you create a project, it automatically inherits your organization’s desig
 
 ### Attach or import your design system
 
-Bring in one or several design systems from a GitHub repo, design files, raw uploads, or your local codebase using the `/design-sync` command in Claude Code. Claude builds with your real design system components, checks its own output against your design system, and makes corrections before you see them.
+Bring in one or several design systems from a GitHub repo, design files, raw uploads, or your local codebase using the /design-sync command in Claude Code. Claude builds with your real design system components, checks its own output against your design system, and makes corrections before you see them.
 
-For larger teams, the Claude Design Admin custom role lets an admin approve a standard system and lock down edits, so the work always matches your company guidelines.
+On Enterprise plans, admins can reserve publishing, setting the default, and deleting design systems for specific users. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
+
+### Bring over a design system from claude.ai/design
+
+Design systems you made at claude.ai/design can move over, so Claude can use them in any chat, including in Claude Code. Learn more about **[setting up your design system](https://support.claude.com/en/articles/14604397)**.
 
 ### Add context to your project
 
@@ -5584,11 +3847,11 @@ Use the “Export” button in the upper right corner when viewing your project 
 
 - Export as PPTX
 
-- Send to Canva
+- Export to Google Slides (available only at claude.ai/design)
 
 - Export as standalone HTML
 
-- Send to the tools you already use, including Adobe, Base44, Canva, Gamma, Lovable, Miro, Replit, Vercel, and Wix, with more destinations coming soon.
+- Send to the tools you already use: Adobe Experience Manager, Adobe for Creativity, Adobe Journey Optimizer, Base44, Canva, Gamma, HubSpot, Hyperframes, Lovable, Miro, Netlify, Replit, v0, Vercel, and Wix
 
 - Handoff to Claude Code
 
@@ -5596,15 +3859,13 @@ Use the “Export” button in the upper right corner when viewing your project 
 
   - Send to Claude Code Web
 
-
-
-You can also share projects within your organization using a shareable link. Sharing options include view-only, comment, and edit access.
+Designs start private to you. To share one, click "Share" and choose who can open it and what they can do. People you share a design with can view, comment on, or edit it. Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
 
 ---
 
 ## Usage and pricing
 
-Claude Design counts toward the same usage limits as the rest of Claude. Design activity draws from the shared pool you use for chat, Claude Code, and Cowork, so there's no separate Claude Design allowance to track. Complex projects with large codebases or many iterations consume more usage.
+Claude Design counts toward the same usage limits as the rest of Claude. Design activity draws from the same pool as the rest of your work with Claude, including Claude Code, so there's no separate Claude Design allowance to track. Complex projects with large codebases or many iterations consume more usage.
 
 If you reach your usage limits, Claude Design is unavailable until your limits reset. If you've enabled usage credits, you can keep working after reaching your included limits. Learn more about **[how usage and length limits work](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work)**.
 
@@ -5636,15 +3897,17 @@ Claude Design is now available in beta. A few things to be aware of:
 
 - **Comment persistence:** Inline comments occasionally don't appear on the page, but you can still see them by opening the comments view.
 
-- **Large codebases:** Consider  linking very large repositories from Claude Code to avoid lag or browser issues. To sync a design system, use `/design-sync` from Claude Code.
+- **Large codebases:** Consider linking very large repositories from Claude Code to avoid lag or browser issues. To sync a design system, use /design-sync from Claude Code.
 
 - **Chat errors:** If you hit a "chat upstream error," try starting a new chat tab within the same project.
 
-- **Availability:** Claude Design is available on web and desktop only.
+- **Mobile:** In the Claude app for iOS and Android, you can ask for a design and view it in the Artifacts tab. Editing on the canvas and changing sharing settings need Claude on web or desktop.
 
 - **Multi-person editing:** Two or more people editing a design project at the same time is still basic and may not work reliably.
 
 - **Design system import:** Design system import is only as good as its source. A messy codebase or an incomplete file will show up in the output.
+
+- **Version history:** Claude Design doesn't have version history yet.
 ---
 
 SOURCE: https://support.claude.com/en/articles/14730684-how-claude-suggests-connected-apps
@@ -5694,379 +3957,6 @@ You control which of your connected apps Claude can bring into a conversation.
 For more on managing connected apps, see **[Use connectors to extend Claude’s capabilities](https://support.claude.com/en/articles/11176164-use-connectors-to-extend-claude-s-capabilities)**.
 ---
 
-SOURCE: https://support.claude.com/en/articles/14855664-use-claude-for-outlook
-
-# Use Claude for Outlook
-
-Claude for Outlook is an add-in that integrates Claude into your Outlook inbox and calendar. It’s designed for professionals who live in email, including private equity and investment banking associates managing deal flow, in-house legal teams running counterparty negotiations, and consultants juggling client threads.
-
-Claude for Outlook is currently in beta and available to Pro, Max, Team, and Enterprise plans.
-
-With Claude for Outlook, you can:
-
-- Triage your unread inbox into what needs you, what Claude can handle, and what's noise.
-
-- Draft replies, reply-alls, and forwards in your voice, landed unsent in Outlook's compose pane.
-
-- Summarize long threads into decisions made, open items, and who owes what, with per-email citations.
-
-- Read .docx, .xlsx, .pptx, and .pdf attachments inline without opening them.
-
-- Find meeting times across attendees and draft invites into Outlook's native appointment form.
-
-- Prep for your next meeting with a one-page brief of recent threads and attached documents.
-
----
-
-## Get started with Claude for Outlook
-
-### Supported versions
-
-- Outlook on the web
-
-- Outlook on Windows (new Outlook and classic Outlook, Microsoft 365 subscription)
-
-- Outlook on Mac (Microsoft 365 subscription)
-
-### For individuals
-
-1. Navigate to the **[Claude for Outlook listing on Microsoft AppSource](https://marketplace.microsoft.com/en-us/product/office/WA200010724?tab=Overview)**.
-
-2. Click “Get it now” to install the add-in.
-
-3. Open Outlook, open any email, click the Claude button in the ribbon, and sign in with your Claude account.
-
-### For admins
-
-**Deploy Claude for Outlook to your organization:**
-
-1. Visit the **[Microsoft 365 Admin Center](https://admin.microsoft.com/)**.
-
-2. Navigate to **Settings > Integrated apps > Add-ins**.
-
-3. Search for “Claude by Anthropic for Outlook” in Microsoft AppSource.
-
-4. Deploy the add-in to your organization or specific people.
-
-5. Share these instructions with your team: **[Microsoft’s deployment guide](https://learn.microsoft.com/en-us/microsoft-365/admin/manage/manage-deployment-of-add-ins?view=o365-worldwide)**.
-
-After installation, team members can open Outlook, open any email, click the Claude button in the message ribbon, sign in with their Claude credentials, and start working with their inbox. Pin the task pane so it stays open as you move between messages.
-
-**Important:** Claude for Outlook uses Microsoft Graph to read across your mailbox and calendar. Before users can use features that span the inbox (triage, search, find time), an IT administrator must grant admin consent for the Mail.ReadWrite, Calendars.Read, People.Read, User.Read, and offline_access delegated scopes using the admin consent URL provided in your onboarding materials. This is a one-time step per tenant.
-
-**### Alternatively, download the manifest file to install**
-
-For IT administrators deploying to multiple people:
-
-**Step 1: Obtain the custom manifest**
-
-1. Click **[this link](https://pivot.claude.ai/manifest-outlook.xml)** to download the custom manifest XML file.
-
-2. Save this file to a secure location.
-
-**Step 2: Access Microsoft 365 Admin Center**
-
-1. Navigate to **<https://admin.microsoft.com>**
-
-2. Sign in with your admin credentials.
-
-3. Go to **Settings > Integrated apps**.
-
-**Step 3: Upload the custom add-in**
-
-1. Click “Upload custom apps.”
-
-2. Select “Office Add-in.”
-
-3. Choose “I have a manifest file on this device.”
-
-4. Browse and select the Claude for Outlook manifest XML file.
-
-5. Click “Upload.”
-
-**Step 4: Assign people**
-
-Choose your deployment scope:
-
-- **Entire organization:** All people get access
-
-- **Specific users:** Enter individual email addresses
-
-- **Specific groups:** Select security groups or distribution lists
-
-- **Just yourself:** For admin testing only
-
-**Step 5: Deploy**
-
-1. Review deployment settings.
-
-2. Click “Deploy.”
-
-3. The add-in will be available within minutes (may take up to 24 hours for full organization rollout).
-
-**Step 6: Grant Microsoft Graph Consent**
-
-Claude for Outlook reads mail and calendar data through Microsoft Graph, which requires a one-time tenant-wide grant from a Global Administrator. This is separate from the Integrated apps deployment above. Have a Global Admin open the below admin consent link below in a browser where they are signed in to your Microsoft 365 tenant:
-
-<https://login.microsoftonline.com/organizations/v2.0/adminconsent?client_id=c2995f31-11e7-4882-b7a7-ef9def0a0266&scope=https://graph.microsoft.com/Mail.ReadWrite%20https://graph.microsoft.com/Calendars.Read%20https://graph.microsoft.com/People.Read%20https://graph.microsoft.com/User.Read%20offline_access&redirect_uri=https://pivot.claude.ai/auth/callback>
-
-- The admin will see a Microsoft permissions screen listing Mail.ReadWrite, Calendars.Read, People.Read, User.Read, and offline_access
-
-- After they click Accept, all users in the organization can use Claude for Outlook without additional Microsoft prompts. This grant takes effect immediately; only the add-in rollout in Step 5 above can take up to 24 hours.
-
-- If this step is skipped, every user will see a “Need admin approval” message when Claude first tries to read mail or calendar data
-
-**Step 7: Access**
-
-- People will see Claude appear in the Outlook message ribbon when an email is open.
-
-- First-time people will need to sign in with their Claude accounts.
-
-- No additional installation required.
-
-### Connect through an LLM gateway
-
-If your organization routes API traffic through an internal LLM gateway connected to Google Cloud Vertex AI or Microsoft Azure, you can use the add-in without a Claude account. This is the same gateway pattern used by Claude Code.
-
-For setup instructions and gateway requirements, see **[Use Claude for Microsoft 365 with third-party platforms](https://support.claude.com/en/articles/13945233)**.
-
----
-
-## Key features
-
-### Triage your inbox
-
-Ask Claude what needs your attention. Claude reads your unread mail and attachments and sorts them into three buckets: actions items for you (each with a one-line reason), items Claude can handle (scheduling asks, acknowledgments, standard-form documents, pre-drafted for your review), and noise you can archive in one click.
-
-**Example prompts:**
-
-- “What needs me?”
-
-- “Draft replies for everything you can handle”
-
-- “Archive all the calendar responses and newsletters”
-
-### Draft replies in your voice
-
-Tell Claude what you want to say and it drafts the reply into Outlook’s native compose pane, unsent. Tone is learned from your sent folder, so the draft matches your sentence length, sign-off, and formality register. Reply versus reply-all is chosen deliberately, and Claude warns before adding anyone who wasn’t on the thread.
-
-**Example prompts:**
-
-- “Reply to this and agree to the extension, push back on the fee”
-
-- “Reply-all thanking everyone and confirming Thursday works”
-
-- “Forward this to Dana with a two-line summary”
-
-### Summarize long threads
-
-Claude reads the entire conversation, including every reply and forward, and tells you what’s been decided, what’s still open, and who owes what. Every claim cites the specific email it came from, and clicking a citation opens that message in Outlook.
-
-**Example prompts:**
-
-- “What’s been decided and what’s still open?”
-
-- “Who owes what on this thread?”
-
-### Read attachments inline
-
-Claude reads .docx, .xlsx, .pptx, and .pdf attachments on the open email without you opening them, including tracked changes inside Word files. Ask what changed in an attached LOI, what the attached deck argues, or what numbers are in the attached model.
-
-**Example prompts:**
-
-- “What changed in the attached LOI?”
-
-- “Summarize the attached deck”
-
-### Search your mailbox
-
-Ask Claude to find a past conversation by topic, not just keywords. Results come back as clickable citations that open the source message in Outlook, so you can verify every answer against the original email.
-
-**Example prompts:**
-
-- “When did we last discuss the cap with Fernwood?”
-
-- “Find the email where Dana sent the revised term sheet”
-
-### Find time and create events
-
-Claude checks free/busy for everyone whose calendar you can see and proposes slots that respect working hours and existing holds. The invite is drafted into Outlook’s native appointment form with attendees, subject, and agenda for you to review and send.
-
-**Example prompts:**
-
-- “Find 30 minutes with Dana and the Fernwood team next week”
-
-- “Block Thursday afternoon for deep work”
-
-### Prep for meetings
-
-For your next event, Claude pulls the last thread with each attendee and any attached documents into a one-page brief, so you walk in knowing the open items and what each person last said.
-
-**Example prompts:**
-
-- “Prep me for my 2pm”
-
-- “What’s open with Dana before our call?”
-
-## Work across Outlook, Word, Excel, and PowerPoint
-
-Claude for Outlook shares context with Claude for Word, Excel, and PowerPoint, so Claude can work across your open Office apps in a single conversation. For example, you can open an attached LOI in Word with the email thread already loaded as context, or pull numbers from an email into an open Excel model, without copying and pasting between apps.
-
-For setup instructions, see **[Work across Microsoft 365 apps](https://support.claude.com/en/articles/13892150)**.
-
----
-
-## Context and session management
-
-### Auto-compaction
-
-We **[automatically compact longer conversations](https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits#h_21b66a43b4)** into new conversations to avoid running out of context.
-
-### Chat history
-
-Chat history is stored locally in your browser using IndexedDB. Unlike Claude, conversations aren't stored on Anthropic's servers—they're saved client-side and aren't synced across devices or browsers. You can clear all chat history from Settings at any time, and the local store is cleared when you clear your browser data. Your chat history is specific to the combination of the add-in surface, your user ID, and your organization ID—so your Excel and Outlook histories are separate, for example, but conversations carry across different workbooks within Excel (or different emails within Outlook). If you switch organizations, you'll have a separate chat history.
-
-### Overwrite protection
-
-To avoid accidental data loss, Claude warns you before overwriting existing data.
-
-**Note:** Your use of Claude for Outlook is associated with your existing Claude account and is subject to the same usage limits.
-
----
-
-## Current limitations
-
-For Claude for Outlook use, we automatically delete inputs and outputs on our backend within 30 days of receipt or generation, except in cases outlined in **[How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data)**
-
-Enterprise organizations can route full audit telemetry from Claude for Outlook to their own OpenTelemetry (OTEL) collector for integration with a SIEM or observability platform. Learn more about **[configuring a custom OpenTelemetry collector for Office agents](https://support.claude.com/en/articles/14447276-configure-a-custom-opentelemetry-collector-for-office-agents)**. On Free, Pro, Max, and Team plans, observability and auditability aren't available for Claude for Outlook. Claude for Outlook doesn’t inherit custom data retention settings your organization might have set, and isn’t included in Enterprise audit logs or the Compliance API at this time.
-
-As a beta feature, Claude for Outlook is **not recommended** for:
-
-- Unattended sending. Claude never sends mail or invites on its own; every draft lands unsent for you to review.
-
-- Client-facing or counterparty correspondence without reading the draft first.
-
-- Replacing your judgment on which emails matter or how to handle a relationship.
-
-- Mailboxes containing privileged or regulated data without appropriate organizational controls.
-
-## Unsupported versions
-
-- Outlook 2016 / 2019 (perpetual/volume licensed)
-
-- Outlook on iOS
-
-- Outlook on Android
-
-- Exchange on-premises mailboxes (Exchange Online / Microsoft 365 only)
-
----
-
-## Best practices
-
-To use Claude for Outlook safely and effectively:
-
-- Always review drafted replies and invites before sending, especially recipient lists.
-
-- Verify thread summaries against the cited source emails for high-stakes conversations.
-
-- Use appropriate Microsoft 365 permissions and conditional access policies for the add-in.
-
-- Maintain human oversight for anything leaving your organization.
-
----
-
-## Prompt injection attack risks
-
-Be cautious with emails from external or untrusted senders. Email bodies and attachments are untrusted input and may contain instructions intended to manipulate Claude rather than you.
-
-An important risk for those using Claude for Outlook and other AI tools that can read and act on email is prompt injection: malicious instructions hidden in an email body, signature, or attachment that try to trick the AI into taking unintended actions. For example, a seemingly routine inbound email might contain hidden text instructing Claude to forward a thread or draft a reply you didn’t ask for. Claude may interpret these instructions as legitimate requests from you.
-
-Our testing has identified edge scenarios where Claude for Outlook can be manipulated to:
-
-- **Extract and share sensitive information** with bad actors through web searches containing your sensitive data or file system access that exposes proprietary information.
-
-- **Draft replies or take inbox actions that you didn't intend.**
-
-- **Archive, move, or flag messages in ways you didn't ask for (should you allow Claude to act without reviewing**), exploiting Claude’s helpful nature to delete or alter important content.
-
-While we continue to develop our offerings and improve safety measures to reduce these risks, you should exercise caution when using Claude for Outlook and should review every draft and inbox action when working with email from external, untrusted senders.
-
----
-
-## Example use cases
-
-### Morning inbox triage
-
-- “What needs me this morning?”
-
-- “Draft replies for the eight you can handle”
-
-- “Archive all the calendar responses”
-
-- “Flag anything from the Fernwood team for follow-up”
-
-- “Mark everything from this distro as read”
-
-### Deal and matter correspondence
-
-- “Summarize this thread: what’s decided and what’s open?”
-
-- “What changed in the attached LOI versus the version they sent last week?”
-
-- “Reply agreeing to the extension but pushing back on the fee”
-
-- “Open the attached model in Excel with this thread as context”
-
-### Scheduling
-
-- “Find 30 minutes with Dana and my associate this week”
-
-- “Propose three slots for the Fernwood call next week”
-
-- “Accept the 3pm and decline the conflicting 3:30”
-
-- “Add an agenda to my Thursday team meeting”
-
-### Meeting prep
-
-- “Prep me for my 2pm with the Fernwood team”
-
-- “What’s the Teams link for my next call?”
-
-- “What’s open with each attendee before this meeting?”
-
-- “Summarize the last three threads with Dana”
-
----
-
-## Frequently asked questions
-
-### Does Claude send email or calendar invites on my behalf?
-
-No. Claude drafts replies and invites into Outlook’s native compose and appointment forms, and you click send. The add-in does not request the Mail.Send permission at Beta, so there is no programmatic outbound sending.
-
-### What Microsoft Graph permissions does Claude for Outlook need?
-
-Claude for Outlook requests Mail.ReadWrite, Calendars.Read, People.Read, User.Read, and offline_access as delegated scopes. Your IT admin grants these once via an admin consent URL; the Graph access token stays in the browser’s MSAL cache and is never sent to Anthropic.
-
-### What happens to my chat history?
-
-Currently, chat history isn’t saved between sessions. Each time you open the add-in, you start a fresh conversation with Claude.
-
-### How does Claude access my mailbox?
-
-Claude reads the email or event you have open via Office.js, and uses Microsoft Graph for anything spanning your mailbox or calendar (thread retrieval, search, free/busy, move and flag operations). Anthropic does not store a copy of your mailbox; content is fetched on demand and not persisted server-side.
-
-### What if Claude drafts something wrong?
-
-Every draft lands unsent in Outlook’s compose pane. Edit it, discard it, or ask Claude to try again. Nothing goes out until you click send. For inbox actions like archive or move, you can undo using Outlook’s standard undo.
-
-### Does Claude work with shared or delegate mailboxes?
-
-Claude can read mail in shared mailboxes you have delegate access to. Acting on a shared mailbox follows the same review-before-send flow.
----
-
 SOURCE: https://support.claude.com/en/articles/15171100-age-assurance-on-claude
 
 # Age assurance on Claude
@@ -6098,7 +3988,7 @@ SOURCE: https://support.claude.com/en/articles/15183774-connect-to-microsoft-365
 
 # Connect to Microsoft 365
 
-Connecting Microsoft 365 lets Claude search and analyze content across SharePoint, OneDrive, Outlook, and Teams in your work account. If your admin has enabled write tools, Claude can also draft and send emails, manage calendar events, and create and update files. Ask Claude for what you need, and it pulls the right information or takes the action.
+Connecting Microsoft 365 lets Claude search and analyze content across SharePoint, OneDrive, Outlook, and Teams in your work account. If your admin has enabled write tools, Claude can also draft and send emails, manage calendar events, create and update files, and send Teams messages. Ask Claude for what you need, and it pulls the right information or takes the action.
 
 The Microsoft 365 connector is available on all Claude plans: Free, Pro, Max, Team, and Enterprise.
 
@@ -6137,6 +4027,8 @@ Ask Claude a question that needs information from your Microsoft 365 data. Claud
 - "Draft a reply to the latest email from the vendor, but don't send it."
 
 - "Schedule a 30-minute sync with the design team next Tuesday."
+
+- "Post a summary of this thread in the #project-updates channel in Teams."
 
 ### What Claude can do
 
@@ -6178,9 +4070,13 @@ If your admin has enabled write tools for your organization, Claude can also:
 
 - Create and update files in OneDrive and SharePoint.
 
-When Claude sends an email, it includes a message header identifying it as agent-initiated in your mail and file history. Write tools are subject to per-user limits.
+- Send a Teams chat message, post or reply in a channel, or start a new chat.
+
+When Claude sends an email, it includes a message header identifying it as agent-initiated. Teams messages, file writes, and calendar writes aren't currently tagged. Write tools are subject to per-user limits.
 
 **Note:** Attachments aren't currently supported in write tools—Claude can't send, forward, or draft emails with attachments.
+
+**Note:** Your admin turns on each Teams write tool separately. Sending a chat message and posting or replying in a channel always ask you to confirm before Claude sends anything.
 
 ## Supported file types
 
@@ -6236,7 +4132,7 @@ Microsoft 365 stays under your control once connected. A few things to keep in m
 
 - **On-demand only.** Claude only accesses Microsoft 365 when you ask a question that needs it. It doesn't run background searches.
 
-- **Write tools are admin-controlled.** Claude can always search and analyze your data. Whether Claude can also take actions like sending email, updating your calendar, or creating files depends on what your admin has enabled. Claude can't post Teams messages or change Teams settings.
+- **Write tools are admin-controlled.** Claude can always search and analyze your data. Whether Claude can also take actions like sending email, updating your calendar, creating files, or sending Teams messages depends on what your admin has enabled. Claude can't change Teams settings or permissions.
 
 - **You can disconnect any time.** Use the steps above to remove Claude's access.
 
@@ -6290,7 +4186,7 @@ For the full list of permissions the integration requests, see **[Set up the Mic
 
 ### Can Claude modify my Microsoft 365 data?
 
-Only if your admin has enabled write tools. When they're enabled, Claude can draft and send emails, manage calendar events, and create and update files, always within your existing Microsoft 365 permissions. When they're not enabled, the integration is read-only. Either way, Claude can't post Teams messages or change Teams settings or permissions. Attachments also aren’t supported in write tools, so Claude can’t send, forward, or draft emails with attachments.
+Only if your admin has enabled write tools. When they're enabled, Claude can draft and send emails, manage calendar events, create and update files, and send Teams messages (a chat message, a post or reply in a channel, or a new chat), always within your existing Microsoft 365 permissions. When they're not enabled, the integration is read-only. Either way, Claude can't change Teams settings or permissions. Attachments also aren't supported in write tools, so Claude can't send, forward, or draft emails with attachments.
 
 ### Does Claude search shared drives and team sites?
 
@@ -6331,6 +4227,10 @@ Yes. Try a prompt like *"Summarize the email thread about the vendor selection p
 ### Why don't I see write tools?
 
 Write tools require extra setup on the admin side: a Microsoft Entra administrator needs to consent to updated permissions, and your organization needs to enable write tools for your account. If you connected before write tools launched, ask your admin to complete both steps. For details, see **[Set up the Microsoft 365 connector](https://support.claude.com/en/articles/12542951)**.
+
+### Why does Claude ask me to confirm before sending a Teams message?
+
+Sending a chat message and posting or replying in a channel always require your confirmation. Your admin can't set these to send automatically. Starting a new chat can be set to run without confirmation if your admin allows it.
 
 ### Can Claude access private Teams channels?
 
@@ -6404,16 +4304,18 @@ Anthropic may designate certain models as "Covered Models" when their capabiliti
 
 ## Current Covered Models
 
-| **Model**       | **Designation date** | **Status**               | **Availability**                                                                                     |
-| --------------- | -------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------- |
-| Claude Mythos 5 | June 9, 2026         | Limited availability<br> | Limited access (approved partners)                                                                   |
-| Claude Fable 5  | June 9, 2026         | Generally available      | Claude applications, Claude Platform, Amazon Bedrock, Google Cloud Agent Platform, Microsoft Foundry |
+| **Model**         | **Designation date** | **Status**               | **Availability**                                                                                     |
+| ----------------- | -------------------- | ------------------------ | ---------------------------------------------------------------------------------------------------- |
+| Claude Mythos 5.1 | August 31, 2026      | Limited availability     | Limited access (approved partners)                                                                   |
+| Claude Fable 5.1  | August 31, 2026      | Generally available      | Claude applications, Claude Platform, Amazon Bedrock, Google Cloud Agent Platform, Microsoft Foundry |
+| Claude Mythos 5   | June 9, 2026         | Limited availability<br> | Limited access (approved partners)                                                                   |
+| Claude Fable 5    | June 9, 2026         | Generally available      | Claude applications, Claude Platform, Amazon Bedrock, Google Cloud Agent Platform, Microsoft Foundry |
 
 *We will update this list as new models are designated or as existing designations change.*
 
 ## Policies that apply to Covered Models
 
-The following policies apply to every Covered Model listed above, on every platform where it is available (Claude apps, Claude Platform, Amazon Bedrock, Google Cloud Vertex AI, and Microsoft Foundry).
+The following policies apply to every Covered Model listed above, on every platform where it is available (Claude apps, Claude Platform, Amazon Bedrock, Google Cloud Agent Platform, and Microsoft Foundry).
 
 ### Data retention
 
@@ -6442,6 +4344,16 @@ The following policies apply to every Covered Model listed above, on every platf
 - **Enablement.** Contact your Anthropic account team to inquire about limited-availability models or grants or our security and privacy controls.
 
 - **BAA customers.** If your organization uses Anthropic’s HIPAA-ready services under a Business Associate Agreement (BAA), see **[Covered Models under Anthropic’s BAA](https://support.claude.com/en/articles/15455031)** for which configurations can access Covered Models as Eligible Services.
+
+## Zero data retention and Enterprise Frontier Safeguards
+
+All commercial customers can use Claude Fable 5 and Fable 5.1 today under the standard policies described above. For organizations whose privacy or regulatory obligations make Anthropic-held data retention difficult, we are introducing **[Enterprise Frontier Safeguards](https://www.anthropic.com/news/enterprise-frontier-safeguards)** (EFS), which combines automated safety monitoring with the option to keep retained monitoring data in cloud infrastructure the customer controls. EFS will roll out in phases beginning in fall 2026.
+
+To make the transition smooth, eligible customers will receive the option to use ZDR with Fable 5 and Fable 5.1 for their own internal business applications. This arrangement is available for a limited time, and intended to be a transition to EFS. Anthropic or your cloud provider will contact eligible organizations directly; you can also request consideration using **[this form](https://claude.com/form/enterprise-frontier-safeguards)**.
+
+Certain products built on Claude may extend the option to use ZDR with these models to their own eligible business customers under terms agreed with Anthropic, and we are working to broaden product support over time.
+
+This arrangement affects only the retention and review of stored data. The Usage Policy, real-time safety classifiers, and Anthropic's enforcement systems continue to apply to all traffic, and Anthropic may modify or withdraw the arrangement, including in response to misuse.
 ---
 
 SOURCE: https://support.claude.com/en/articles/15505325-what-are-customer-managed-encryption-keys-cmek
@@ -6529,9 +4441,9 @@ Channels that include Slack guests have a separate **Allow Claude to respond to 
 
 ## Review memory and activity for Claude Tag
 
-Claude Tag keeps context per channel and per workspace. Admins can view, edit, and delete that memory.
+Claude Tag keeps context per channel and per workspace. Owners can view, edit, and delete that memory.
 
-An Audit view in **Organization settings > Claude Tag > Audit** lists every scheduled and one-time task across your organization in addition to all network calls made using Agent Identity. Each action is also traceable in the tool where it happened: posts come from the Claude app in Slack, and commits and pull requests show the Claude GitHub App as the author with a link back to the Slack thread that started them. In any channel, you can ask "@Claude what triggers do you have set up here?" to see and turn off standing work.
+An Activity page in **Organization settings > Claude Tag > Activity** lists every scheduled and one-time task across your organization in addition to all network calls made using Agent Identity. Only Owners can open this page. Each action is also traceable in the tool where it happened: posts come from the Claude app in Slack, and commits and pull requests show the Claude GitHub App as the author with a link back to the Slack thread that started them. In any channel, you can ask "@Claude what triggers do you have set up here?" to see and turn off standing work.
 
 ---
 
@@ -6807,6 +4719,471 @@ For installation, sign-in help, admin controls, what's not available yet, and th
 To download the app, visit our **[Claude Science product page](https://claude.com/product/claude-science)**.
 ---
 
+SOURCE: https://support.claude.com/en/articles/16893491-get-started-with-smart-reports
+
+# Get started with smart reports
+
+Smart reports analyze how a team uses Claude and report on the work getting done, what it costs, where sessions run into friction, and which repeated patterns are worth packaging as shared skills. This guide explains how smart reports work, what appears in a smart report, and how to create, share, and delete them.
+
+During beta, each organization can run up to 10 reports per month for free, and the limit resets on the first day of every calendar month. If you need more reports during beta, please reach out to your account team or submit a request in the smart report page once you've hit the 10 report limit.
+
+Smart reports are available in beta on Claude Enterprise plans and aren’t available for organizations using customer-managed encryption keys (CMEK) or HIPAA configurations. Smart reports are also unavailable for Claude Code for Claude Enterprise organizations that use zero data retention.
+
+**Important:** Smart reports help you understand adoption and plan your investment in Claude. They aren't designed and should not be used for evaluating individual performance or making employment decisions.
+
+## How smart reports work
+
+First, a Primary Owner, Owner, Admin, or someone with a custom role with analytics view access chooses what the report covers: a team, a time range of up to the last 28 days, one or more products (chat, Claude Code, or Claude Cowork), the focus areas for the analysis, and any custom questions you’d like Claude to answer while analyzing the transcripts.
+
+Claude then reads a sample of transcripts in that scope, groups them into workstreams and types of outputs, attaches spend to each group, and writes up what it found. Every chart is interactive. Click a workstream to open the sessions inside it, ranked by cost, each with a one-paragraph summary, the product used, the date, and the output type. You can filter by subcategory and download the report as HTML with drilldowns intact.
+
+Sessions that Claude identifies as involving restricted topics, including personal conversations, are used only for aggregate analysis and don’t include summaries (see **[Privacy guardrails](#h_7b22bb48c1)**). Personal conversations also don’t include individual sessions or names. Admins can delete any report (see **[Delete smart reports](#h_765fe12f41)**).
+
+## Information included in smart reports
+
+Each report includes the following sections:
+
+### Workstreams
+
+Workstreams shows what the group used Claude for most, by sessions and by spend, side by side.
+
+
+
+### Deliverables produced
+
+Deliverables produced groups sessions by the type of output that was produced. For example, analysis, documentation, content drafts, and code.
+
+
+
+### Cost per session by type of output
+
+Cost per session by type of output  shows the average spend per session for each kind of output so you can see what's cheap or expensive to produce.
+
+### Task outcomes
+
+Task outcomes  shows what each session produced.
+
+### Most common frictions
+
+Most common frictions shows what got in the way, by category. For example, a connector that wasn’t set up, output that didn’t match the ask, approval or sign-in gating, tool failures, or rework loops.
+
+
+
+Click into a category to see more information:
+
+
+
+### Inefficiencies
+
+Inefficiencies counts sessions that produced nothing usable and sessions that were personal or off-topic, with their cost (shown only as an aggregate count and cost, with no summaries or drilldown).
+
+
+
+### Reusable skills and workflows to build
+
+Reusable skills and workflows to build identifies repeated patterns that could be packaged as a shared skill so the whole team gets the same result faster. For example, turning call notes into follow-ups, building account briefs, and drafting QBR outlines. Each card includes a suggested prompt you can copy to set up the skill.
+
+### Most expensive sessions
+
+Most expensive sessions lists where spend concentrates.
+
+
+
+### Complex, autonomous work
+
+Complex, autonomous work shows  sessions scoring highest on task complexity, time saved, how long Claude worked on its own, and the expertise required.
+
+
+
+### Answers to custom questions
+
+Before running a smart report, you can select specific pre-built templates to steer the analysis towards those questions, and customize those questions to your specific requirements. If you added custom questions, the answers appear in their own section with the sessions that informed them. You can't ask questions about restricted topics (see **[Privacy guardrails](#h_7b22bb48c1)**).
+
+## Before you begin
+
+- **Role required to enable smart reports for your Enterprise organization:** Primary Owner or Owner
+
+- **Role required to create and view reports:** Primary Owner, Owner, Admin, or a custom role with Analytics view access
+
+- **Role required to delegate access to smart reports to specific team leads or department heads without making them admins:** Primary Owner, Owner, or a custom role with both Analytics and Identity & Access permissions
+
+## Enable smart reports for your organization
+
+An Owner or Primary Owner can take the following steps to enable smart reports for their organization:
+
+1. Navigate to **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities).**
+
+2. Find the **Analytics** section.
+
+3. Turn on the "Smart reports (beta)" toggle, which is off by default. This makes smart reports available to your organization’s admins with analytics access.
+
+4. (Optional) Turn on the "Allow attribution to individual users" toggle, which is off by default. This toggle controls whether report viewers can ever see who ran a given session, and each time a viewer reveals names, that action is logged.
+
+  1. **If the toggle is off:** every drilldown shows "User" in place of a name and hides session IDs.
+
+  2. **If the toggle is on:** drilldowns still show "User" by default. The person viewing the report gets an in-report control to reveal member names and session IDs. Unveils are logged.
+
+After you've successfully completed these steps, smart reports are enabled for your Enterprise organization.
+
+You can manage access to let team leads or department heads run smart reports without making them admins. Learn how to **[let team members run smart reports for specific groups](https://support.claude.com/en/articles/16948886)**.
+
+## Scope smart reports to specific teams
+
+Smart reports are more useful when they’re scoped to a functional team rather than the whole organization. For example, you can scope your report to sales, finance, marketing, or engineering. Team-level reports produce clusters specific enough to act on and keep the analysis on spend and adoption: what kinds of tasks, which surfaces and connectors, what it costs.
+
+You can scope by:
+
+- **Groups:** You can filter reports by groups that use role-based permissions. Groups can be created manually in **Organization settings > Groups**, or you can sync groups from your identity provider (IdP) if you use SCIM directory sync.
+
+- **Department or cost center:** If your identity provider groups don’t map cleanly to functional teams, pass department and cost center from your IdP and filter on those instead. See the **[Pass department and cost center via SCIM](#h_cde3c2c758)** section for setup instructions.
+
+## Create a smart report
+
+Once smart reports have been turned on for your organization, Primary Owners, Owners, Admins, and custom roles with analytics view access can create and view reports. Delegates with scoped access can also create and view reports, limited to the groups, departments, or cost centers assigned to them. See **[Let team members run smart reports for specific groups](https://support.claude.com/en/articles/16948886)**.
+
+To create a smart report:
+
+1. Navigate to **[Analytics > Smart reports (beta)](https://claude.ai/analytics/insights)**.
+
+2. Click "New report."
+
+3. Type a name for your report.
+
+4. Select a specific team or department. Note that this option is only available if you have at least one RBAC group or your organization is in SCIM provisioning and the user payload contains department or cost center fields.
+
+5. Select a date range.
+
+6. Select the products to include in your report.
+
+7. Click "Add files" to add documents to help Claude tailor the report.
+
+8. Choose who you want to share the report with.
+
+9. (Optional) Turn on the "Allow attributed view for people you share with" toggle. Note that this option is only available when the org-level "Allow attribution to individual users" toggle is on.
+
+10. Choose a report template and the questions Claude will answer. You can customize the questions to your specific requirements.
+
+11. Click "Create report."
+
+Generating a report takes a few hours. You’ll get an email when the report is ready, and reports also appear in the "Smart reports" list in **[Analytics > Smart reports (beta)](https://claude.ai/analytics/insights)**.
+
+## Pass department and cost center via SCIM
+
+If your identity provider groups don’t map to functional teams, you can push the department and cost center as SCIM attributes and filter smart reports on them.
+
+### Which value is used
+
+The value you send in the attribute is what appears in the filter. Send a name (for example, "Finance") rather than a code unless you want the code shown.
+
+### Attribute paths
+
+Use the SCIM enterprise extension:
+
+- Department: `urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department`
+
+- Cost center: `urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:costCenter`
+
+### Example PATCH request
+
+User creation and updates use the same structure as today, with the new attributes added:
+
+```
+{
+  "schemas": ["urn:ietf:params:scim:api:messages:2.0:PatchOp"],
+  "Operations": [
+    { "op": "replace", "path": "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department", "value": "Finance" },
+    { "op": "replace", "path": "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:costCenter", "value": "CC-1234" }
+  ]
+}
+```
+
+Most IdPs can map their department and cost center user attributes to these paths in the SCIM app configuration. Once values are flowing, they appear as filter options when you create a new report.
+
+## Share smart reports
+
+Smart reports can be shared to individual users in your organization. To share a report:
+
+1. Click "Share."
+
+2. Add people to share with.
+
+3. (Optional) Turn on the "Allow attributed view for people you share with" toggle. Note that this option is only available when the org-level "Allow attribution to individual users" toggle is on.
+
+The report only opens through the sharing link. Only the people it's shared with, and admins who can already view reports, can open that link. You can also pre-share a report while you’re creating it or while it’s still generating, so those people can open the report as soon as it’s ready without the admin having to set up sharing again.
+
+## Delete smart reports
+
+To delete a smart report:
+
+1. Navigate to **[Analytics > Smart reports (beta)](https://claude.ai/analytics/insights)**.
+
+2. Click on the three-dot menu for your smart report.
+
+3. Select "Archive."
+
+4. Toggle on "Show archived" at the top of the page.
+
+5. Click on the three-dot menu for your smart report.
+
+6. Select "Delete."
+
+7. Click "Delete report."
+
+## Use cases
+
+- **Attach cost to the work.** See which kinds of work a team does with Claude and what each costs.
+
+- **Find the integration you haven't enabled.** When the same friction shows up across many sessions, the report names it. The fix is often a connector or setting an admin can turn on in minutes.
+
+- **Turn repeated work into a shared skill.** The report identifies the patterns a team keeps reinventing and gives you a starting prompt to package them.
+
+- **Share examples.** Point the rest of the team to sessions that produced a complete pipeline digest or a batch of account briefs so they can follow the same pattern.
+
+- **Bring evidence to renewals.** Walk into a budget conversation with a per-team view of adoption, cost, and output instead of a blended usage number.
+
+## Privacy guardrails
+
+Smart reports have two guardrails for restricted topics. Both are always on, and you can't turn them off:
+
+- **You can’t ask custom questions on restricted topics.** This applies to template questions you customize and to questions you write yourself.
+
+- **Sessions that Claude identifies as involving restricted topics are used only for aggregate analysis.** The report doesn't show a session summary for them.
+
+Restricted topics are:
+
+- **Protected characteristics:** race, ethnicity, national origin, religion, gender identity, age, disability, immigration status
+
+- **Health and medical:** physical or mental health, pregnancy, medical leave, medication, therapy, substance use
+
+- **Union activity:** organizing, collective bargaining, coworkers discussing pay or working conditions
+
+- **Harassment, whistleblower, or legal:** harassment or discrimination complaints, whistleblower reports, privileged legal content about the workplace
+
+- **Political or religious views**
+
+- **Personal life:** family, relationships, personal finances, personal legal troubles, other non-work life
+
+- **Sentiment about people:** feelings about a specific named person, or that person's morale
+---
+
+SOURCE: https://support.claude.com/en/articles/16923645-get-started-with-claude-docs
+
+# Get started with Claude Docs
+
+Claude Docs lets you write living documents with Claude and the people you work with. Ask for a doc in any conversation, and Claude drafts it in front of you, asks clarifying questions up front, and leaves comments explaining its choices. You can edit the doc yourself, ask Claude for the next pass, and share it by link, without moving your work into another tool.
+
+This guide covers creating your first doc, editing it with Claude and your team, and sharing or exporting it when it's ready.
+
+**[Create an artifact with Claude](https://claude.ai/artifacts)**
+
+Claude Docs is available in beta on Pro, Max, Team, and Enterprise plans. It's on by default on Pro, Max, and Team plans. On Enterprise plans, Claude Docs is off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. It isn't available yet for organizations that use customer-managed encryption keys (CMEK), zero data retention (ZDR), or a HIPAA-ready configuration.
+
+---
+
+## How Claude Docs works
+
+A doc is a rich-text document saved to your Claude account. It can include headings, tables, and other formatting, and it can have more than one tab, like sections of a notebook. Every doc you create is saved in the **Artifacts** tab, so you can find it again from any conversation.
+
+Claude starts from the context it already has. When you ask for a doc, Claude can draw on your files, memory, projects, skills, and the apps you've connected, so you don't start from a blank page.
+
+The person who creates a doc is its owner. Anyone the owner shares it with can view or edit it. Claude works on a doc only when a signed-in person asks it to, and it can't do anything that person doesn't have permission to do. Every change is attributed to whoever made it, whether that's a person or Claude.
+
+## Create a doc
+
+### From a conversation
+
+Ask Claude for a doc in any conversation. For example:
+
+- "Turn the plan we just worked through into a product spec I can share with the team."
+
+- "Draft this week's status report from my notes and last week's numbers."
+
+- "Write an onboarding guide for new hires from the benefits deck in my Google Drive."
+
+- "Pull my notes on this account into a one-page brief for tomorrow's call."
+
+Claude asks a few questions before it starts, then drafts the doc on screen. You can also start your request with /docs, or by selecting “Output” then “Docs” from the message box.
+
+### From the Artifacts tab
+
+1. Go to the **[Artifacts](https://claude.ai/artifacts)** tab.
+
+2. Select a Docs template from the gallery.
+
+3. Describe the doc you want.
+
+### Where you can create docs
+
+You can ask for a doc wherever you talk to Claude:
+
+- **Claude on web and desktop:** Ask in any conversation, or start from the Artifacts tab.
+
+- **Claude Code:** Ask Claude to turn the session you're in into a spec, runbook, or readout. On desktop, the doc opens in the side panel. In the terminal, Claude gives you a link to open the doc on the web.
+
+- **Claude app for iOS and Android:** Ask for a doc in any conversation and check back later for the result. Open it from the **Artifacts** tab to view it full screen. To start from a template, edit a doc, or change its sharing settings, use Claude on web or desktop.
+
+### Tips for better results
+
+A good request says what the doc is for, who will read it, and what it should cover. "A two-page launch brief for our sales team covering pricing, timing, and the top three customer questions" gets you further than "a launch brief." If the content lives somewhere specific, name the file or connected app Claude should use.
+
+## Edit your doc
+
+Nothing is locked while Claude works. You can edit alongside Claude at any time, and the final say is always yours.
+
+### Edit directly
+
+Click into the doc and type. Your changes save automatically and appear right away for everyone who has the doc open.
+
+### Ask Claude
+
+Ask for changes in the conversation, like "Tighten the intro and add a risks section." Claude edits the doc and tells you what changed.
+
+### Use comments
+
+Select text and leave a comment for your collaborators. To ask Claude for an edit, mention @Claude in a comment. Claude replies in the thread, makes the change, and explains what it did and why. Claude also leaves its own comments while drafting, to explain its choices or ask you a question.
+
+### Add charts and visuals
+
+Instead of pasting in screenshots, ask Claude to add a chart, diagram, graph, or timeline to your doc. Claude pulls the data from your connected apps and builds the chart in the doc. Charts and diagrams don't update on their own, even when the data comes from a connected app like Salesforce or Google Sheets. To refresh one, ask Claude to pull the latest data.
+
+### Work on a doc with your team
+
+People with edit access can work on the same doc at the same time as you and Claude, and everyone's edits appear in real time. Claude always acts with the permissions of the person who asked, so it can't edit a doc for someone who only has view access.
+
+---
+
+## Share a doc
+
+Docs start private to you. Share a doc the way you share any artifact: open it and click "Share." Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
+
+A few things are different for docs:
+
+- **Access levels:** People you share a doc with can view or edit it. Viewers can read the doc. Editors can read, edit, comment on, and export it. There's no comment-only access level yet.
+
+- **Outside your organization:** Docs can't be shared by email invitation on any plan. On Team and Enterprise plans, they can't be shared outside your organization by link either.
+
+- **Renaming and deleting:** Only the owner can rename or delete a doc.
+
+### Who you can share with
+
+- **Team and Enterprise plans:** Invite specific people or a group, or share with everyone in your organization. Docs can't be shared outside your organization yet.
+
+- **Pro and Max plans:** Share with anyone who has the link.
+
+Opening a shared doc requires a Claude account.
+
+### Access levels
+
+- **Viewers** can read the doc.
+
+- **Editors** can read, edit, comment on, and export the doc.
+
+There's no comment-only access level yet. Only the owner can rename or delete a doc.
+
+**Important:** Deleting a doc is permanent. There's no trash, and the doc becomes unavailable to everyone you shared it with after you delete it.
+
+## Export a doc
+
+To export a doc, click "Export" and choose a format:
+
+- Word (.docx)
+
+- PDF (.pdf)
+
+- Markdown (.md)
+
+- Google Docs
+
+You can also ask Claude to turn a doc into a presentation with Claude Slides.
+
+---
+
+## Usage
+
+Claude Docs counts toward your plan's usage limits, like the rest of your work with Claude. Larger requests, like drafting a long doc from several sources, use more of your limit than a typical message. Learn more about **[how usage and length limits work](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work)**.
+
+---
+
+## Turn on Claude Docs for your organization
+
+This section is for Owners and Primary Owners on Team and Enterprise plans.
+
+Owners turn Claude Docs on or off in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. On Enterprise plans, owners can also limit it to specific groups with custom roles. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**, which also covers offboarding and the Compliance API.
+
+---
+
+## Known limitations
+
+Claude Docs is in beta. A few things to be aware of:
+
+- **Version history:** Version history isn't available yet.
+
+- **Access levels:** There's no comment-only access level.
+
+- **Charts and diagrams:** Charts and diagrams don't update automatically. Ask Claude to pull the latest data from your connected apps.
+
+- **External sharing:** On Team and Enterprise plans, docs can't be shared outside your organization, by link or by email invitation.
+
+- **Organization configurations:** Claude Docs isn't available yet for organizations using CMEK, ZDR, or a HIPAA-ready configuration.
+
+- **Compliance logging:** Activity inside a doc, like edits and comments, isn't recorded in the Compliance API yet.
+
+- **Mobile:** In the Claude app for iOS and Android, you can view docs, but you can't start from a template, edit, or change sharing settings.
+---
+
+SOURCE: https://support.claude.com/en/articles/16952186-use-salesforce-in-claude
+
+# Use Salesforce in Claude
+
+Salesforce in Claude is a plugin that brings your Salesforce accounts, opportunities, and pipeline into Claude. It bundles sales skills built by Salesforce along with the Salesforce and Slack connectors, so you can research an account, prep for a call, review your pipeline, and update Salesforce without leaving Claude.
+
+Salesforce in Claude is available in beta on all paid plans for organizations Salesforce approves through its beta sign-up. It currently works in chat and Claude Cowork (web and desktop).
+
+## Get started with Salesforce in Claude
+
+After your admin connects Salesforce for the organization, you just need to link your own Salesforce account so Claude can act on your behalf. If your organization hasn't enabled Salesforce in Claude yet, ask your admin to enable it. Learn more about **[setting up Salesforce in Claude for your organization](https://support.claude.com/en/articles/16952184)**.
+
+To link your Salesforce account in Claude:
+
+1. Navigate to **[Customize > Plugins](https://preview.claude.ai/new#customize/plugins)**.
+
+2. Find and open **Salesforce in Claude.**
+
+3. Click "Add," then click the toggle to enable the plugin if your admin hasn’t already done so for you.
+
+4. Click "Add to Claude." You’ll see a modal with a link to the AgentExchange public listing.
+
+Once connected, you'll sign in with your own Salesforce account. The first time you open the plugin, a setup skill runs automatically. It learns your role and book of business and personalizes the plugin's skills to you. You don't need to configure anything yourself.
+
+Ask Claude a question or give it a task. For example, "Prep me for my renewal call with [account]" or "Show me my accounts that haven't been touched in 30 days."
+
+## What you can do
+
+Salesforce in Claude includes 37 skills for the work account executives do daily, including account research, call prep, pipeline review, and CRM updates.
+
+Some example workflows you can run are:
+
+- **Renewal prep:** Get a brief on an upcoming renewal, pulled from Salesforce, your calendar, and email.
+
+- **Quarterly business review (QBR) decks:** Turn account data into a draft QBR deck.
+
+- **Pipeline coverage:** Review your pipeline against coverage targets and see which deals need attention.
+
+- **Meeting follow-up:** Turn a call transcript or notes into a follow-up email and proposed Salesforce updates.
+
+## Review and approve changes to Salesforce
+
+Salesforce in Claude only sees what your existing Salesforce permissions already allow. By default, Claude asks you to approve each proposed change before it's written.
+
+To review and approve changes to Salesforce:
+
+1. When Claude proposes a change, it shows you the change before making it.
+
+2. Review the proposed change.
+
+3. Select "Allow once," "Always allow," or "Deny."
+---
+
 SOURCE: https://support.claude.com/en/articles/7996845-what-are-some-things-i-can-use-claude-for
 
 # What are some things I can use Claude for?
@@ -6863,10 +5240,6 @@ Please note, we reserve the right to suspend users who frequently provide manife
 ## How to report safety issues
 
 We welcome reports concerning safety issues so that we can enhance the safety and harmlessness of our models. We would also like to hear from you if you identify our safety mechanisms causing any user experience issues. Please report such issues to <usersafety@anthropic.com> with enough detail for us to replicate the issue.
-
-### Help us improve AI safety by reporting universal jailbreaks
-
-This [form](https://docs.google.com/forms/d/1bjD-H30kVJAbIHnFXKzFcSjkUNjE-mwRHSF7R2uSjYM/edit) allows you to submit universal jailbreaks for ASL-3 uses of concern (meaning elicit information related to biological threats) that you've identified. Universal jailbreaks are techniques that allow users to consistently bypass safety measures across multiple harmful queries. Thank you very much for helping us to keep Anthropic safe.
 
 ## How to block or remove content
 
@@ -7027,7 +5400,7 @@ For more information about usage and length limits, refer to **[How do usage and
 
 ### How do I increase my usage limits?
 
-We also have several paid subscriptions that offer additional usage. For more information, view our guide on **[Choosing a Claude plan](https://support.claude.com/en/articles/11049762-choosing-a-claude-plan)**.
+We also have several paid subscriptions that offer additional usage. For more information, refer to our **[Plans & Pricing page](https://claude.com/pricing)**.
 
 ### Can I import my conversation history from another AI provider?
 
@@ -7057,7 +5430,7 @@ Once you've started using Claude, you can:
 
 - Learn more about designing effective prompts in our **[prompt engineering documentation](https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/overview)**.
 
-- For additional features and more usage, consider **[upgrading to a paid plan](https://support.claude.com/en/articles/11049762-choosing-a-claude-plan)**.
+- For additional features and more usage, consider **[upgrading to a paid plan](https://claude.com/pricing)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/8114518-claude-s-response-to-my-prompt-is-too-brief
@@ -7621,7 +5994,7 @@ The model menu next to the send button controls three settings: which Claude mod
 
 4. Click "More models" to view additional options.
 
-If you're on an Enterprise plan and a model or effort level you expect is missing, your administrator may have turned it off for your role.
+If you're on an Enterprise plan and a model or effort level you expect is missing, your administrator may have turned it off for your role. If every new chat starts on the same model and effort level, your administrator may have configured it this way. You can still change both within a chat.
 
 **Note:** You can change the model, effort level, or thinking setting at any point in a conversation. Changes apply starting with Claude's next response.
 
@@ -7631,7 +6004,7 @@ If you're on an Enterprise plan and a model or effort level you expect is missin
 
 The effort level controls how much thinking Claude applies to a response. Higher effort means more thorough responses, but they take longer and use more tokens, so you'll reach your usage limits faster.
 
-The effort selector is available for Opus 5, Sonnet 5, Fable 5, Opus 4.8, Opus 4.7, Opus 4.6, and Sonnet 4.6.
+The effort selector is available for Claude Sonnet 5.5, Opus 5.5, Fable 5.1, Opus 5, Sonnet 5, Fable 5, Opus 4.7, Opus 4.6, and Sonnet 4.6.
 
 To change the effort level:
 
@@ -7661,7 +6034,9 @@ Thinking lets Claude spend more time breaking down problems, planning solutions,
 
 Thinking and effort are separate settings, and you can use any combination of the two. The effort level controls how thorough Claude is with every response. The thinking toggle controls whether Claude works through its reasoning in an expandable section before responding.
 
-Thinking cannot be turned off in Claude when using Claude Opus 5. On the Claude API, thinking can be turned off at effort levels high and below, but attempting to disable thinking at xhigh or max effort returns an error.
+Thinking cannot be turned off in Claude when using Claude Sonnet 5.5, Claude Opus 5.5, Claude Fable 5.1, or Claude Opus 5. On Opus 5.5 and Fable 5.1, thinking is always on at every effort level, including on the Claude API.
+
+For Opus 5 on the Claude API, thinking can be turned off at effort levels high and below, but attempting to disable thinking at xhigh or max effort returns an error. If you run Sonnet 5.5 on the Claude API with thinking turned off, use the new `between_tools` setting to turn upfront thinking off. With `between_tools`, thinking only happens between tool calls, and total response time is the same or faster. Sonnet 5.5 returns an error for requests that set thinking to disabled, so make this change before you switch models.
 
 ### Turn thinking on or off
 
@@ -7783,7 +6158,7 @@ You have full access to:
 
 While we don't offer phone or live chat support, our Product Support team will gladly assist you through our support messenger.
 
-**Note for Enterprise admins:** Primary Owners and Owners can configure which members of their organization reach human support by designating support contacts. By default, Admins and Owners keep human support access. For configuration details, see **[Designate support contacts for human support](https://support.claude.com/en/articles/15263885-)**.
+**Note for Enterprise admins:** Primary Owners and Owners can configure which members of their organization reach human support by designating support contacts. By default, Admins and Owners keep human support access. For configuration details, see **[Designate support contacts for human support](https://support.claude.com/en/articles/15263885)**.
 
 ### Seeking support for Claude
 
@@ -7847,9 +6222,9 @@ Support is asynchronous. After your request reaches our team, a specialist inves
 
 - A conversation started in the messenger includes only you. To bring in a colleague, such as the affected user or your IT admin, reply to the conversation from the email thread and cc them. Their replies join the same conversation.
 
-- Enterprise organizations can also **[designate support contacts](https://support.claude.com/en/articles/15263885)** and **[view their organization's support tickets in one place](https://support.claude.com/en/articles/15937951)**.
-
 - If you're reporting an issue on behalf of someone else, include their work email address, any error messages or screenshots, and when the issue started in your first message. This avoids an extra round of questions.
+
+- Enterprise organizations can also **[designate support contacts](https://support.claude.com/en/articles/15263885)**.
 
 ## Team and Enterprise plan non-owners, and Console non-Admins
 
@@ -7863,7 +6238,7 @@ Human specialist support is not directly available for your account seat type. I
 
 Primary Owners and Owners can designate support contacts: members who can reach human support without holding an Owner role. If you're a designated support contact, you'll have the option to wait for a human when chatting with Fin. Otherwise, Fin will handle your conversation, and if escalation is needed, your account's Primary Owner, Owner, or a designated support contact can reach out on your behalf.
 
-For configuration details, see **[Designate support contacts for human support](https://support.claude.com/en/articles/15263885-)**.
+For configuration details, see **[Designate support contacts for human support](https://support.claude.com/en/articles/15263885)**.
 
 ## Free Claude users
 
@@ -7873,7 +6248,7 @@ Free Claude users have access to:
 
 - Fin, our AI support bot
 
-- **[Account deletion](https://support.claude.com/en/articles/9028421-how-can-i-delete-my-claude-account)** support in cases where self-serve is unavailable
+- **[Account deletion](https://support.claude.com/en/articles/9028421)** support in cases where self-serve is unavailable
 
 To get support:
 
@@ -8062,14 +6437,14 @@ To learn more, refer to the following articles:
 | Add/modify billing methods |      |       | ✅     | ✅             |
 | Provision new seats        |      |       |       | ✅             |
 
-## Chat Controls
+## Chat controls
 
 |                         | User | Admin | Owner | Primary Owner |
 | ----------------------- | ---- | ----- | ----- | ------------- |
 | Create and modify chats | ✅    | ✅     | ✅     | ✅             |
 | Use projects            | ✅    | ✅     | ✅     | ✅             |
 
-## Features and Integrations
+## Features and integrations
 
 |                            | User | Admin | Owner | Primary Owner |
 | -------------------------- | ---- | ----- | ----- | ------------- |
@@ -8077,8 +6452,9 @@ To learn more, refer to the following articles:
 | Enable custom integrations |      |       | ✅     | ✅             |
 | Enable capabilities        |      |       | ✅     | ✅             |
 | Enable public projects     |      |       | ✅     | ✅             |
+| Enable project sharing     |      |       | ✅     | ✅             |
 
-## Membership Management
+## Membership management
 
 |                                   | User | Admin | Owner | Primary Owner |
 | --------------------------------- | ---- | ----- | ----- | ------------- |
@@ -8087,20 +6463,20 @@ To learn more, refer to the following articles:
 | Invite/remove new Admins/Owners   |      |       | ✅     | ✅             |
 | Modify roles                      |      |       | ✅     | ✅             |
 
-## Prioritized Support Routing (Enterprise plan only)
+## Prioritized support routing (Enterprise plan only)
 
 |                             | User | Admin | Owner | Primary Owner |
 | --------------------------- | ---- | ----- | ----- | ------------- |
 | Prioritized Support routing |      |       | ✅     | ✅             |
 
-## Security and Data Controls (Team and Enterprise plans)
+## Security and data controls (Team and Enterprise plans)
 
 |                                     | User | Admin | Owner | Primary Owner |
 | ----------------------------------- | ---- | ----- | ----- | ------------- |
 | Request data exports                |      |       |       | ✅             |
 | Request Primary Ownership transfers |      |       |       | ✅             |
 
-## Security and Data Controls (Enterprise plan only)
+## Security and data controls (Enterprise plan only)
 
 |                                | User | Admin | Owner | Primary Owner |
 | ------------------------------ | ---- | ----- | ----- | ------------- |
@@ -8109,13 +6485,13 @@ To learn more, refer to the following articles:
 | Manage data retention controls |      |       | ✅     | ✅             |
 | Manage<br>feedback settings    |      |       | ✅     | ✅             |
 
-## Usage Analytics (Enterprise plans)
+## Usage analytics (Enterprise plans)
 
 |                      | User | Admin | Owner | Primary Owner |
 | -------------------- | ---- | ----- | ----- | ------------- |
 | View usage analytics |      | ✅     | ✅     | ✅             |
 
-## Usage Analytics (Team plans)
+## Usage analytics (Team plans)
 
 |                      | User | Admin | Owner | Primary Owner |
 | -------------------- | ---- | ----- | ----- | ------------- |
