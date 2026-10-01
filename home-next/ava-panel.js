@@ -495,7 +495,7 @@
   var hearing = false, lastT = 0, visible = false, demoRun = 0;
   var capKey = "";
   // Redraw only when the text changes — rewriting it on every timeupdate restarted the fade-in, which read as flicker.
-  function caption(lines) { var k = JSON.stringify(lines || []); if (k === capKey) return; capKey = k; capBox.innerHTML = (lines || []).map(function (l) { return '<span class="cap' + (l.you ? " you" : "") + '"><b>' + (l.you ? "You" : "Ava") + "</b>" + esc(l.text) + "</span>"; }).join(""); }
+  function caption(lines) { var k = JSON.stringify(lines || []); if (k === capKey) return; capKey = k; capBox.innerHTML = (lines || []).map(function (l) { return '<span class="cap' + (l.you ? " you" : "") + '">' + (l.you ? "<b>You</b>" : "") + esc(l.text) + "</span>"; }).join(""); }
   function ensureSrc() { if (!vid.getAttribute("src")) { vid.src = vid.getAttribute("data-src"); } }
   function playQuiet() { if (RM || hearing || liveState !== "idle") return; ensureSrc(); vid.muted = true; var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
   function stopHearing() { hearing = false; vid.muted = true; hearBtn.setAttribute("aria-pressed", "false"); $("use", hearBtn).setAttribute("href", "#i-vol"); $("span", hearBtn).textContent = "Hear Ava"; if (!demoRun) caption([]); if (RM) vid.pause(); }
