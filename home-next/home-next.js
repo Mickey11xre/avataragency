@@ -224,6 +224,7 @@
     }
     P.play = function () {
       players.forEach(function (o) { if (o !== P) o.pause(); });
+      $(".sv-film video").forEach(function (pv) { pv.pause(); });   // Ava's panel film yields to a chapter film
       if (!film.src) { film.src = fig.getAttribute("data-film"); film.preload = "auto"; }
       film.muted = false;
       var pr = film.play(); if (pr && pr.catch) pr.catch(function () { state("paused"); });
@@ -267,6 +268,7 @@
     }
     players.push(P);
   });
+  window.AAFilms = { pauseAll: function () { players.forEach(function (p) { p.pause(); }); } };   // used by Ava's panel
   if (cursor && FINE) {
     var cx = 0, cy = 0;
     window.addEventListener("mousemove", function (e) { cx = e.clientX; cy = e.clientY; cursor.style.transform = cursor.classList.contains("on") ? "translate(" + cx + "px," + cy + "px) scale(1)" : "translate(" + cx + "px," + cy + "px) scale(0)"; }, { passive: true });

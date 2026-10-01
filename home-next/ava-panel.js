@@ -46,13 +46,13 @@
     arrow: '<svg><use href="#i-arrow"/></svg>',
   };
   var SERVICES = [
-    { id: "agents", name: "Talking AI Agents", line: "An agent like me, working on your website", img: "media/agents/angela-collins.jpg", text: "A digital twin of you, a custom brand avatar, or a ready-to-go presenter — answering questions, booking appointments and capturing leads around the clock.", film: null, page: "#agents" },
-    { id: "strategist", name: "Creative Strategist", line: "Your whole content engine, run by one strategist", img: "media/poster-strategist.jpg", text: "Brand and story strategy, a digital twin capture, cinematic AI production and every format for every platform — run end to end for you.", film: "#ch-strategist", page: "/strategist/" },
-    { id: "realestate", name: "Real Estate", line: "Listing videos, market updates and tours", img: "media/poster-re.jpg", text: "Your digital avatar delivers listing videos, market updates and neighborhood tours — no film crew, no drone operator, no three-week turnaround.", film: "#ch-realestate", page: "/real-estate" },
-    { id: "business", name: "Business & Influencers", line: "One session. Endless content.", img: "media/poster-biz.jpg", text: "Your clone or an original AI spokesperson, fresh videos every month, and your YouTube channel managed for you.", film: "#ch-business", page: "/business" },
-    { id: "authors", name: "Authors & Publishers", line: "From the page to the screen", img: "media/poster-authors.jpg", text: "Cinematic book trailers, a talking author avatar, an author website and a launch campaign.", film: "#ch-authors", page: "/authors" },
-    { id: "aro", name: "AI Referral Optimization", line: "Get recommended by ChatGPT, Gemini and more", img: "media/poster-aro.jpg", text: "We test real customer questions on ChatGPT, Gemini, Grok, Perplexity and Claude — and make your business the answer.", film: "#ch-aro", page: "/aiso/" },
-    { id: "claude", name: "Claude Coaching", line: "Master Claude in 90 minutes", img: "media/poster-claude.jpg", text: "A private, hands-on session in your own account. You leave with AI already running your busywork.", film: "#ch-claude", page: "/claudecoaching/" },
+    { id: "agents", name: "Talking AI Agents", line: "An agent like me, working on your website", img: "media/agents/angela-collins.jpg", text: "A digital twin of you, a custom brand avatar, or a ready-to-go presenter — answering questions, booking appointments and capturing leads around the clock.", film: null, dur: null, page: null },
+    { id: "strategist", name: "Creative Strategist", line: "Your whole content engine, run by one strategist", img: "media/poster-strategist.jpg", text: "Brand and story strategy, a digital twin capture, cinematic AI production and every format for every platform — run end to end for you.", film: "/strategist/vsl.mp4?v=1", dur: "1:25", page: "/strategist/" },
+    { id: "realestate", name: "Real Estate", line: "Listing videos, market updates and tours", img: "media/poster-re.jpg", text: "Your digital avatar delivers listing videos, market updates and neighborhood tours — no film crew, no drone operator, no three-week turnaround.", film: "media/film-re.mp4?v=1", dur: "1:46", page: "/real-estate" },
+    { id: "business", name: "Business & Influencers", line: "One session. Endless content.", img: "media/poster-biz.jpg", text: "Your clone or an original AI spokesperson, fresh videos every month, and your YouTube channel managed for you.", film: "media/film-biz.mp4?v=1", dur: "0:55", page: "/business" },
+    { id: "authors", name: "Authors & Publishers", line: "From the page to the screen", img: "media/poster-authors.jpg", text: "Cinematic book trailers, a talking author avatar, an author website and a launch campaign.", film: "media/film-authors.mp4?v=1", dur: "3:14", page: "/authors" },
+    { id: "aro", name: "AI Referral Optimization", line: "Get recommended by ChatGPT, Gemini and more", img: "media/poster-aro.jpg", text: "We test real customer questions on ChatGPT, Gemini, Grok, Perplexity and Claude — and make your business the answer.", film: "/aiso/video/aro-sales.mp4?v=1", dur: "1:34", page: "/aiso/" },
+    { id: "claude", name: "Claude Coaching", line: "Master Claude in 90 minutes", img: "media/poster-claude.jpg", text: "A private, hands-on session in your own account. You leave with AI already running your busywork.", film: "/claudecoaching/vsl.mp4?v=2", dur: "2:03", page: "/claudecoaching/" },
   ];
 
   /* ═════════ State + rendering ═════════ */
@@ -132,10 +132,12 @@
     },
     service: function () {
       var s = SERVICES.filter(function (x) { return x.id === S.svc; })[0] || SERVICES[0];
-      return '<div class="p-card"><img src="' + s.img + '" alt=""><div><h4>' + esc(s.name) + "</h4><p>" + esc(s.text) + '</p><div class="row">' +
-        (s.film ? '<a class="link" href="' + s.film + '" data-jump>Watch the film ' + IC.arrow + "</a>" : "") +
-        '<a class="link" href="' + s.page + '"' + (s.page.charAt(0) === "#" ? " data-jump" : "") + ">" + (s.page.charAt(0) === "#" ? "Learn more " : "Explore the page ") + IC.arrow + "</a></div></div></div>" +
-        '<button class="btn btn-gold btn-sm p-go" type="button" data-act="book">Talk it through with Michael ' + IC.arrow + "</button>";
+      var media = s.film
+        ? '<div class="sv-film"><video playsinline preload="none" poster="' + s.img + '" aria-label="' + esc(s.name) + ' film"></video><button class="sv-play" type="button" aria-label="Play the ' + esc(s.name) + ' film (' + s.dur + ')"><span class="ring"><svg><use href="#i-play"/></svg></span><span class="lbl"><b>Watch the film</b><small>' + s.dur + "</small></span></button></div>"
+        : '<img class="sv-still" src="' + s.img + '" alt="">';
+      return '<div class="p-card">' + media + "<div><h4>" + esc(s.name) + "</h4><p>" + esc(s.text) + "</p></div></div>" +
+        '<div class="p-svc-actions"><button class="btn btn-gold btn-sm" type="button" data-act="book">Book a strategy call ' + IC.arrow + "</button>" +
+        (s.page ? '<a class="link" href="' + s.page + '" target="_blank" rel="noopener">Open the full page ' + IC.arrow + "</a>" : "") + "</div>";
     },
     days: function () {
       if (S.slotsErr && !S.slots) return '<p class="p-msg err">I couldn\'t load Michael\'s calendar just now.</p><a class="btn btn-gold btn-sm p-go" href="' + CAL + '" target="_blank" rel="noopener">Pick a time on Calendly ' + IC.arrow + "</a>";
@@ -190,7 +192,23 @@
   function act(id, icon, title, sub) { return '<button class="p-act" type="button" data-act="' + id + '"><i>' + icon + "</i><span><b>" + title + "</b><small>" + sub + "</small></span>" + IC.arrow + "</button>"; }
 
   var validEmail = function (e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); };
+  function wireFilm() {
+    var box = $(".sv-film", body); if (!box) return;
+    var s = SERVICES.filter(function (x) { return x.id === S.svc; })[0], v = $("video", box), btn = $(".sv-play", box);
+    btn.addEventListener("click", function () {
+      if (hearing) stopHearing();
+      if (window.AAFilms) AAFilms.pauseAll();            // never two films (or a film and Ava's recording) at once
+      if (!v.getAttribute("src")) v.src = s.film;
+      v.controls = true; box.classList.add("playing");
+      var p = v.play(); if (p && p.catch) p.catch(function () { box.classList.remove("playing"); v.controls = false; });
+      track("ava_service_film", { service: s.id });
+    });
+    v.addEventListener("play", function () { emit("The visitor is playing the " + s.name + " film (" + s.dur + "). Stay quiet until it ends or they pause it.", false); });
+    v.addEventListener("pause", function () { if (!v.ended) emit("The visitor paused the " + s.name + " film. You may speak again.", false); });
+    v.addEventListener("ended", function () { emit("The visitor finished watching the " + s.name + " film. You may speak again.", false); });
+  }
   var WIRE = {
+    service: wireFilm,
     details: function () { wireForm(function (f) { S.book.name = f("name"); S.book.email = f("email"); S.book.phone = f("phone"); S.book.notes = f("notes"); return TOOLS_IMPL.confirm_booking({}); }); },
     lead: function () { wireForm(function (f) { S.lead.name = f("lname"); S.lead.email = f("lemail"); S.lead.phone = f("lphone"); S.lead.need = f("lneed"); return TOOLS_IMPL.submit_lead({}); }); },
     portfolio: function () { wireForm(function (f) { S.pf.name = f("pname"); S.pf.email = f("pemail"); return TOOLS_IMPL.submit_portfolio({}); }); },
@@ -345,7 +363,13 @@
 
     // ── Panel-only tools (not given to the twin until her instructions mention them) ──
     show_home: function () { S.hist = []; go("home", { replace: true }); return { ok: true }; },
-    show_service: function (a) { var id = a && a.service; if (!SERVICES.some(function (s) { return s.id === id; })) { go("services"); return { ok: true }; } S.svc = id; go("service"); return { ok: true }; },
+    show_service: function (a) {
+      var id = a && a.service, s = SERVICES.filter(function (x) { return x.id === id; })[0];
+      if (!s) { go("services"); return { ok: false, error: "Unknown service", services: SERVICES.map(function (x) { return { id: x.id, name: x.name }; }) }; }
+      S.svc = id; go("service"); track("ava_service", { service: id });
+      return { ok: true, service: s.name, summary: s.text, has_film: !!s.film, film_length: s.dur || null,
+        note: s.film ? "The panel now shows this service with its sales film. The visitor chooses to play it — offer it, and stay quiet while it plays." : "The panel now shows this service." };
+    },
     show_lead_form: function () { go("lead"); return { ok: true }; },
     submit_lead: function () {
       if (!S.lead.name.trim() || !validEmail(S.lead.email.trim())) { setMsg(!S.lead.name.trim() ? "Please add your name." : "Please enter a valid email.", true); return Promise.resolve({ ok: false }); }
@@ -383,6 +407,8 @@
     { name: "confirm_booking", description: "Book the strategy call once a time, a name and an email are on the panel and the visitor has said yes. Read the time and email back first. Relay the returned message in your own words.",
       inputSchema: { type: "object", properties: {} }, annotations: { destructiveHint: true } },
   ];
+  TOOLS.push({ name: "show_service", description: "Show one Avatar Agency service on the panel beside you, with its short sales film that the visitor can choose to play. Call it as soon as you start talking about a specific service, so the visitor sees what you are describing. Service ids: agents (talking AI agents like you), strategist (creative strategist), realestate (real estate agents and brokers), business (businesses and influencers), authors (authors and publishers), aro (AI referral optimization), claude (Claude coaching).",
+    inputSchema: { type: "object", properties: { service: { type: "string", enum: SERVICES.map(function (s) { return s.id; }) } }, required: ["service"] } });
   function execTool(name, args) {
     var fn = TOOLS.some(function (t) { return t.name === name; }) && TOOLS_IMPL[name];   // the twin can only reach the contract tools
     if (!fn) return Promise.resolve({ ok: false, error: "Unknown tool " + name });
