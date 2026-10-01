@@ -501,7 +501,8 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 
 /* ═════════════ THRIVE + TWIN ═════════════ */
 .more { background: var(--ink); padding: clamp(90px, 10vw, 140px) 0; }
-.more-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.more-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+.more-card img { object-position: 50% 22%; }
 .more-card { position: relative; border-radius: 22px; overflow: hidden; min-height: 440px; display: flex; align-items: flex-end; background: var(--ink-3); border: 1px solid var(--line-dark); isolation: isolate; }
 .more-card img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transition: transform 1.2s var(--ease); }
 .more-card:hover img { transform: scale(1.04); }
@@ -509,11 +510,6 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .more-body { padding: clamp(24px, 3vw, 40px); }
 .more-body h3 { font-size: clamp(24px, 2.4vw, 34px); letter-spacing: -.02em; margin: 0 0 10px; font-weight: 600; }
 .more-body p { color: var(--on-dark-mid); margin: 0 0 18px; max-width: 42ch; font-size: 15.5px; }
-.twin-slot { background: radial-gradient(70% 60% at 50% 30%, rgba(201,168,76,.16), transparent 70%), var(--ink-3); }
-.twin-visual { position: absolute; left: 50%; top: 36%; transform: translate(-50%, -50%); width: 160px; height: 160px; border-radius: 50%; border: 1px solid rgba(228,201,122,.4); display: grid; place-items: center; }
-.twin-visual::before, .twin-visual::after { content: ""; position: absolute; inset: -24px; border-radius: 50%; border: 1px solid rgba(228,201,122,.18); }
-.twin-visual::after { inset: -52px; border-color: rgba(228,201,122,.08); }
-.pulse { width: 14px; height: 14px; border-radius: 50%; background: var(--gold-light); box-shadow: 0 0 24px var(--gold); animation: blink 1.6s ease-in-out infinite; }
 
 /* ═════════════ FAQ ═════════════ */
 .faq { background: var(--cream); color: var(--text); padding: clamp(100px, 12vw, 160px) 0; position: relative; z-index: 2; }
