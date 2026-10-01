@@ -71,9 +71,10 @@
   function go(mode, opts) {
     opts = opts || {};
     if (!opts.replace && S.mode !== mode) S.hist.push(S.mode);
+    if (S.mode !== mode) S.review = null;
     S.mode = mode; render(opts);
   }
-  function goBack() { var m = S.hist.pop() || "home"; S.mode = m; render({}); }
+  function goBack() { var m = S.hist.pop() || "home"; S.mode = m; S.review = null; render({}); }
   backBtn.addEventListener("click", function () { if (S.demo) return; goBack(); });
 
   function dayKey(iso) { return new Intl.DateTimeFormat("en-CA", { timeZone: TZ, year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(iso)); }
@@ -118,6 +119,44 @@
         : '<input id="ap-' + id + '" type="' + type + '" value="' + esc(val) + '" ' + (attrs || "") + ">") + "</div>";
   };
   var hp = '<div class="hp" aria-hidden="true"><label>Leave this empty<input name="hp" tabindex="-1" autocomplete="off"></label></div>';
+  // Express consent to marketing email — shown wherever a visitor gives us their email for the portfolio or a follow-up.
+  var CONSENT_TEXT = "By submitting, you agree that AvatarAgency may email you additional information about our services, offers and promotions. You can unsubscribe at any time.";
+  var CONSENT = '<p class="p-consent">' + CONSENT_TEXT + ' <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></p>';
+
+  /* "Is this correct?" — nothing is booked or sent until the visitor confirms what is on screen.
+     S.review = { kind: "book" | "pf" | "lead", sig, at, ok }. Any change to the details (sig) cancels the confirmation. */
+  var REVIEW_MODE = { book: "details", pf: "portfolio", lead: "lead" };
+  var tr = function (v) { return String(v || "").trim(); };
+  function sigOf(k) {
+    if (k === "book") return [S.slot ? S.slot.start_time : "", tr(S.book.name), tr(S.book.email).toLowerCase(), tr(S.book.phone), tr(S.book.notes)].join("|");
+    if (k === "pf") return [tr(S.pf.name), tr(S.pf.email).toLowerCase()].join("|");
+    return [tr(S.lead.name), tr(S.lead.email).toLowerCase(), tr(S.lead.phone), tr(S.lead.need)].join("|");
+  }
+  var inReview = function (k) { return !!(S.review && S.review.kind === k); };
+  var reviewFresh = function (k) { return inReview(k) && S.review.sig === sigOf(k); };
+  function reviewRows(k) {
+    var r = k === "book" ? [["Time", S.slot ? info(S.slot).label + " " + tzShort() : ""], ["Name", S.book.name], ["Email", S.book.email], ["Phone", S.book.phone], ["Note", S.book.notes]]
+      : k === "pf" ? [["First name", S.pf.name], ["Email", S.pf.email]]
+      : [["Name", S.lead.name], ["Email", S.lead.email], ["Phone", S.lead.phone], ["What you need", S.lead.need]];
+    return r.filter(function (x) { return tr(x[1]); });
+  }
+  function reviewCard(k) {
+    var yes = { book: "Yes, book my call", pf: "Yes, email me the link", lead: "Yes, send to Michael" }[k] + (S.demo ? " (demo)" : "");
+    return (k === "book" ? steps(3) : "") + '<div class="p-review"><p class="p-label">Is this correct?</p><dl class="p-rv">' +
+      reviewRows(k).map(function (x) { return "<div><dt>" + x[0] + "</dt><dd>" + esc(tr(x[1])) + "</dd></div>"; }).join("") +
+      '</dl><p class="p-sub">Please check your details. Nothing is ' + (k === "book" ? "booked" : "sent") + ' until you confirm.</p><div class="p-rv-acts"><button class="btn btn-gold btn-sm p-go" type="button" data-act="review-yes">' + yes + " " + IC.arrow +
+      '</button><button class="btn btn-ghost btn-sm" type="button" data-act="review-edit">Edit</button></div>' + (k === "book" ? "" : CONSENT) + '<p class="p-msg" role="status"></p></div>';
+  }
+  function openReview(k, fromTwin) {
+    if (S.mode !== REVIEW_MODE[k]) go(REVIEW_MODE[k]);
+    S.review = { kind: k, sig: sigOf(k), at: Date.now(), ok: false }; render({});
+    var b = $('[data-act="review-yes"]', body); if (b && !fromTwin) b.focus({ preventScroll: true });
+    if (fromTwin || S.demo) return;
+    var list = reviewRows(k).map(function (x) { return x[0].toLowerCase() + " " + tr(x[1]); }).join(", ");
+    emit(k === "book"
+      ? "The visitor pressed Confirm. Nothing is booked yet: the panel is showing their details for review (" + list + "). Read the time, name and email back to them, spelling the email, and ask whether everything is correct. Fix anything they correct with fill_booking_details. Book only after a clear yes, with confirm_booking, or when they press Yes on the panel."
+      : "The visitor is reviewing their " + (k === "pf" ? "private-portfolio request" : "details for Michael") + " (" + list + "). Nothing is sent yet. Read the email back and ask whether it is correct. It is sent only when they press Yes on the panel.", true);
+  }
 
   var VIEWS = {
     home: function () {
@@ -161,6 +200,7 @@
       }).join("") + "</div>";
     },
     details: function () {
+      if (inReview("book")) return reviewCard("book");
       return steps(3) + '<div class="p-summary">' + IC.cal.replace("<svg", '<svg width="18" height="18"') + "<span><b>" + esc(fmtDay(S.slot.start_time, true)) + "</b> at <b>" + esc(fmtTime(S.slot.start_time)) + "</b> " + esc(tzShort()) + '</span></div><form class="p-form" novalidate>' +
         field("name", "Your name", "text", S.book.name, false, 'autocomplete="name" required data-bind="book.name"') +
         field("email", "Email", "email", S.book.email, false, 'autocomplete="email" required data-bind="book.email"') +
@@ -173,19 +213,21 @@
         (S.demo ? "" : '<button class="btn btn-ghost btn-sm" type="button" data-act="home">Back to Ava</button>') + "</div>";
     },
     lead: function () {
+      if (inReview("lead")) return reviewCard("lead");
       return '<p class="p-sub">Tell us a little about what you need. Michael will be in touch.</p><form class="p-form" novalidate>' +
         field("lname", "Your name", "text", S.lead.name, false, 'autocomplete="name" required data-bind="lead.name"') +
         field("lemail", "Email", "email", S.lead.email, false, 'autocomplete="email" required data-bind="lead.email"') +
         field("lphone", "Phone", "tel", S.lead.phone, true, 'autocomplete="tel" data-bind="lead.phone"') +
         field("lneed", "What can we help with?", "textarea", S.lead.need, true, 'data-bind="lead.need"') + hp +
-        '<button class="btn btn-gold btn-sm p-go" type="submit">Send to Michael ' + IC.arrow + '</button><p class="p-msg" role="status"></p></form>';
+        '<button class="btn btn-gold btn-sm p-go" type="submit">Send to Michael ' + IC.arrow + '</button>' + CONSENT + '<p class="p-msg" role="status"></p></form>';
     },
     leadDone: function () { return '<div class="p-done"><span class="tick">✓</span><h4>Got it.</h4><p>' + esc(S.doneMsg || "") + '</p><button class="btn btn-ghost btn-sm" type="button" data-act="home">Back to Ava</button></div>'; },
     portfolio: function () {
+      if (inReview("pf")) return reviewCard("pf");
       return '<p class="p-sub">Our clients\' films stay private by agreement. I\'ll email you a private link to the full portfolio.</p><form class="p-form" novalidate>' +
         field("pname", "First name", "text", S.pf.name, false, 'autocomplete="given-name" required data-bind="pf.name"') +
         field("pemail", "Email", "email", S.pf.email, false, 'autocomplete="email" required data-bind="pf.email"') + hp +
-        '<button class="btn btn-gold btn-sm p-go" type="submit">Email me the link ' + IC.arrow + '</button><p class="p-msg" role="status"></p></form>';
+        '<button class="btn btn-gold btn-sm p-go" type="submit">Email me the link ' + IC.arrow + '</button>' + CONSENT + '<p class="p-msg" role="status"></p></form>';
     },
     portfolioDone: function () { return '<div class="p-done"><span class="tick">✓</span><h4>Check your inbox.</h4><p>' + esc(S.doneMsg || "") + '</p><button class="btn btn-ghost btn-sm" type="button" data-act="home">Back to Ava</button></div>'; },
   };
@@ -235,6 +277,8 @@
     else if (a === "lead") { go("lead", { focus: true }); emit("The visitor opened the leave-your-details form.", false); track("ava_panel", { action: "lead_open" }); }
     else if (a === "portfolio") { go("portfolio", { focus: true }); emit("The visitor opened the private portfolio form.", false); track("ava_panel", { action: "portfolio_open" }); }
     else if (a === "home") { S.hist = []; go("home", { replace: true }); }
+    else if (a === "review-yes") { if (!S.review || S.busy) return; S.review.ok = true; var rk = S.review.kind; (rk === "book" ? TOOLS_IMPL.confirm_booking : rk === "pf" ? TOOLS_IMPL.submit_portfolio : TOOLS_IMPL.submit_lead)({}); }
+    else if (a === "review-edit") { S.review = null; render({ focus: true }); emit("The visitor chose to edit their details. Nothing has been booked or sent.", false); }
     else if (t.hasAttribute("data-svc")) { TOOLS_IMPL.show_service({ service: t.getAttribute("data-svc") }); emit("The visitor is looking at the " + SERVICES.filter(function (s) { return s.id === S.svc; })[0].name + " service.", false); }
     else if (t.hasAttribute("data-day")) { S.day = t.getAttribute("data-day"); S.slot = null; go("times"); emit("The visitor picked " + fmtDay(days().filter(function (x) { return x.key === S.day; })[0].slots[0].start_time, true) + " and is choosing a time.", false); }
     else if (t.hasAttribute("data-slot")) { var sl = (S.slots || []).filter(function (x) { return x.start_time === t.getAttribute("data-slot"); })[0]; if (sl) { selectSlot(sl, false); emit("The visitor selected " + info(sl).label + ".", false); } }
@@ -297,6 +341,10 @@
     }
     return bits.join("; ") + ".";
   }
+  function needConfirm() {
+    return { ok: false, booked: false, needs_confirmation: true, details: formState(),
+      message: "Nothing is booked yet. The panel is now showing these details to the visitor for review. Read back the time, name and email (spell the email) and ask: 'Is all of that correct?' Fix anything they correct with fill_booking_details. Call confirm_booking again only after they clearly say yes." };
+  }
   function bookingFallback(extra) { return Object.assign({ fallback_email: "michael@avataragency.ai", calendly: CAL }, extra || {}); }
 
   var TOOLS_IMPL = {
@@ -322,14 +370,19 @@
       if (S.slot && S.mode !== "details") go("details");
       else changed.forEach(function (k) { var el = $("#ap-" + k, body); if (el) el.value = S.book[k]; });
       changed.forEach(function (k) { var el = $("#ap-" + k, body); if (el) flash(el); });    // visitor sees Ava writing
+      if (changed.length && inReview("book") && !reviewFresh("book")) { openReview("book", true); return { ok: true, form: formState(), still_needed: stillNeeded(), note: "The details changed, so the visitor must confirm again. Read the updated details back and ask whether everything is correct before calling confirm_booking." }; }
       return { ok: true, form: formState(), still_needed: stillNeeded() };
     },
     confirm_booking: function () {
       if (S.booked) return Promise.resolve({ ok: true, already_booked: true, when: S.booked.when });
       var missing = stillNeeded();
-      if (missing.length) { setMsg("Still needed: " + missing.join(", ") + ".", true); return Promise.resolve({ ok: false, missing: missing, error: "Still needed before booking: " + missing.join(", ") }); }
-      if (S.demo) { S.doneMsg = "In a real conversation I'd confirm " + info(S.slot).label + " — and Calendly would email the invite."; go("booked"); return Promise.resolve({ ok: true, demo: true }); }
+      if (missing.length) { if (S.review) { S.review = null; render({}); } setMsg("Still needed: " + missing.join(", ") + ".", true); return Promise.resolve({ ok: false, missing: missing, error: "Still needed before booking: " + missing.join(", ") }); }
       var fromTwin = TOOLS_IMPL.__fromTwin;
+      // Never book on the first call: the visitor must see the details and say yes (to Ava) or press Yes (on the panel).
+      if (!reviewFresh("book")) { openReview("book", fromTwin); return Promise.resolve(needConfirm()); }
+      if (fromTwin && Date.now() - S.review.at < 4000) return Promise.resolve({ ok: false, booked: false, needs_confirmation: true, message: "Nothing is booked. The visitor has not answered yet. Wait for a clear yes before calling confirm_booking again." });
+      if (!fromTwin && !S.review.ok) return Promise.resolve(needConfirm());
+      if (S.demo) { S.doneMsg = "In a real conversation I'd confirm " + info(S.slot).label + " — and Calendly would email the invite."; go("booked"); return Promise.resolve({ ok: true, demo: true }); }
       busy(true); setMsg("Booking your call…");
       // A slot's token lasts 30 minutes: if the list is older than ~25, refetch and re-match the chosen time to its fresh token.
       return loadSlots(false, 25 * 60e3).then(function () { return null; }, function () { return null; })
@@ -373,9 +426,10 @@
     show_lead_form: function () { go("lead"); return { ok: true }; },
     submit_lead: function () {
       if (!S.lead.name.trim() || !validEmail(S.lead.email.trim())) { setMsg(!S.lead.name.trim() ? "Please add your name." : "Please enter a valid email.", true); return Promise.resolve({ ok: false }); }
+      if (!reviewFresh("lead") || !S.review.ok) { openReview("lead", false); return Promise.resolve({ ok: false, needs_confirmation: true }); }
       if (S.demo) { S.doneMsg = "Demo — nothing was sent."; go("leadDone"); return Promise.resolve({ ok: true }); }
       busy(true); setMsg("Sending…");
-      return post("/api/agent-lead", { name: S.lead.name.trim(), email: S.lead.email.trim(), phone: S.lead.phone.trim(), need: S.lead.need.trim(), source: "ava-panel" }).then(function (r) {
+      return post("/api/agent-lead", { name: S.lead.name.trim(), email: S.lead.email.trim(), phone: S.lead.phone.trim(), need: S.lead.need.trim(), source: "ava-panel", consent: true, consent_text: CONSENT_TEXT }).then(function (r) {
         busy(false);
         if (r.ok) { S.doneMsg = r.message || "Michael has your details and will be in touch soon."; go("leadDone"); track("generate_lead", { lead_source: "ava_panel_lead" }); return r; }
         setMsg("", true, 'That didn\'t go through. Email <a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a> and we\'ll reply directly.'); return r;
@@ -384,9 +438,10 @@
     show_portfolio_form: function () { go("portfolio"); return { ok: true }; },
     submit_portfolio: function () {
       if (!S.pf.name.trim() || !validEmail(S.pf.email.trim())) { setMsg(!S.pf.name.trim() ? "Please add your first name." : "Please enter a valid email.", true); return Promise.resolve({ ok: false }); }
+      if (!reviewFresh("pf") || !S.review.ok) { openReview("pf", false); return Promise.resolve({ ok: false, needs_confirmation: true }); }
       if (S.demo) { S.doneMsg = "Demo — nothing was sent."; go("portfolioDone"); return Promise.resolve({ ok: true }); }
       busy(true); setMsg("Sending your private link…");
-      return post("/api/portfolio-signup", { name: S.pf.name.trim(), email: S.pf.email.trim(), company: "", hp: "" }).then(function (r) {
+      return post("/api/portfolio-signup", { name: S.pf.name.trim(), email: S.pf.email.trim(), company: "", hp: "", consent: true, consent_text: CONSENT_TEXT, source: "ava-panel" }).then(function (r) {
         busy(false);
         if (r.ok) { S.doneMsg = "Your private portfolio link is on its way to " + S.pf.email.trim() + ". (Not there? Check promotions or spam.)"; go("portfolioDone"); track("generate_lead", { lead_source: "ava_panel_portfolio" }); return r; }
         setMsg("", true, 'That didn\'t go through. Email <a href="mailto:michael@avataragency.ai?subject=Private%20portfolio">michael@avataragency.ai</a> for the link.'); return r;
@@ -404,7 +459,7 @@
       inputSchema: { type: "object", properties: { date: str("YYYY-MM-DD, exactly as returned"), time: str("e.g. 10:00 AM, exactly as returned") }, required: ["date", "time"] } },
     { name: "fill_booking_details", description: "Fill in the booking form on the panel each time you learn a detail - name, email, phone number, or a short note about their business and what they want to discuss. Only include the fields you just learned. Read each detail back; spell the email back where it is unclear.",
       inputSchema: { type: "object", properties: { name: str("Full name"), email: str("Email address"), phone: str("Phone number"), notes: str("A short note about their business and what they want to discuss") } } },
-    { name: "confirm_booking", description: "Book the strategy call once a time, a name and an email are on the panel and the visitor has said yes. Read the time and email back first. Relay the returned message in your own words.",
+    { name: "confirm_booking", description: "Book the strategy call. The first call never books: it shows the visitor their details for review and returns needs_confirmation. Then read back the time, name and email (spell the email), ask whether everything is correct, fix anything with fill_booking_details, and call confirm_booking again only after the visitor clearly says yes. Relay the returned message in your own words.",
       inputSchema: { type: "object", properties: {} }, annotations: { destructiveHint: true } },
   ];
   TOOLS.push({ name: "show_service", description: "Show one Avatar Agency service on the panel beside you, with its short sales film that the visitor can choose to play. Call it as soon as you start talking about a specific service, so the visitor sees what you are describing. Service ids: agents (talking AI agents like you), strategist (creative strategist), realestate (real estate agents and brokers), business (businesses and influencers), authors (authors and publishers), aro (AI referral optimization), claude (Claude coaching).",
@@ -434,10 +489,13 @@
   AvaPanel.installModelContext();   // harmless until a session starts; guarantees it exists before any sdk.init()
 
   /* ═════════ Ava's clip: muted loop (it's the cue to click), "Hear Ava" with captions ═════════ */
-  var LINES = [[0.6, 3.5, "Hey there — I'm Ava, and I'm not real."], [4.0, 7.6, "I'm a digital avatar created by AvatarAgency."], [8.4, 12.9, "When someone lands on this website, I'm the first one to say hello."],
-    [13.4, 17.1, "I answer questions, I explain how everything works,"], [17.1, 20.4, "and when you're ready, I can book a call with the team for you."], [21.3, 27.5, "So tell me — what brought you here today?"]];
+  // Timed to her voice (ffmpeg silencedetect on media/ava-intro.mp4): each line appears just before she says it and holds through short pauses.
+  var LINES = [[0.62, 4.05, "Hey there — I'm Ava, and I'm not real."], [4.05, 8.4, "I'm a digital avatar created by AvatarAgency."], [8.4, 13.42, "When someone lands on this website, I'm the first one to say hello."],
+    [13.42, 17.12, "I answer questions, I explain how everything works,"], [17.12, 20.8, "and when you're ready, I can book a call with the team for you."], [21.32, 26.5, "So tell me — what brought you here today?"]];
   var hearing = false, lastT = 0, visible = false, demoRun = 0;
-  function caption(lines) { capBox.innerHTML = (lines || []).map(function (l) { return '<span class="cap' + (l.you ? " you" : "") + '"><b>' + (l.you ? "You" : "Ava") + "</b>" + esc(l.text) + "</span>"; }).join(""); }
+  var capKey = "";
+  // Redraw only when the text changes — rewriting it on every timeupdate restarted the fade-in, which read as flicker.
+  function caption(lines) { var k = JSON.stringify(lines || []); if (k === capKey) return; capKey = k; capBox.innerHTML = (lines || []).map(function (l) { return '<span class="cap' + (l.you ? " you" : "") + '"><b>' + (l.you ? "You" : "Ava") + "</b>" + esc(l.text) + "</span>"; }).join(""); }
   function ensureSrc() { if (!vid.getAttribute("src")) { vid.src = vid.getAttribute("data-src"); } }
   function playQuiet() { if (RM || hearing || liveState !== "idle") return; ensureSrc(); vid.muted = true; var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
   function stopHearing() { hearing = false; vid.muted = true; hearBtn.setAttribute("aria-pressed", "false"); $("use", hearBtn).setAttribute("href", "#i-vol"); $("span", hearBtn).textContent = "Hear Ava"; if (!demoRun) caption([]); if (RM) vid.pause(); }
@@ -566,7 +624,10 @@
       .then(function () { if (!alive()) throw "stopped"; selectSlot(pick, true); return say("ava", "Perfect. What's your name and the best email for the invite?", 2400); })
       .then(function () { caption([{ text: "Jordan Lee — jordan@example.com", you: true }]); return typeInto("name", "Jordan Lee", run); })
       .then(function () { return typeInto("email", "jordan@example.com", run); })
-      .then(function () { S.book.name = "Jordan Lee"; S.book.email = "jordan@example.com"; return say("ava", "Thanks, Jordan. Booking you in now.", 1500); })
+      .then(function () { S.book.name = "Jordan Lee"; S.book.email = "jordan@example.com"; if (!alive()) throw "stopped"; return TOOLS_IMPL.confirm_booking({}); })
+      .then(function () { return say("ava", fmtWeekday(pick.start_time) + " at " + fmtTime(pick.start_time) + ", Jordan Lee, jordan@example.com — is all of that correct?", 3200); })
+      .then(function () { return say("you", "Yes, that's right.", 1300); })
+      .then(function () { if (!alive()) throw "stopped"; var y = $('[data-act="review-yes"]', body); if (y) flash(y); if (S.review) S.review.ok = true; return wait(800); })
       .then(function () { if (!alive()) throw "stopped"; return TOOLS_IMPL.confirm_booking({}); })
       .then(function () { return say("ava", "You're all set — Calendly emails the invite. That's me at work.", 3300); })
       .then(function () { return say("ava", "Now it's your turn. Tap any option to try the real thing.", 2600); })

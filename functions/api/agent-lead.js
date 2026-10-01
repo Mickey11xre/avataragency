@@ -30,6 +30,8 @@ export async function onRequestPost(context) {
   const lead = {
     name: clip(b.name, 80), email: clip(b.email, 160).toLowerCase(), phone: clip(b.phone, 40),
     need: clip(b.need, 1200), source: clip(b.source || "ava-panel", 40), createdAt: new Date().toISOString(),
+    // Proof of marketing-email consent: the exact notice shown beside the button, and when they agreed.
+    consent: b.consent === true ? { at: new Date().toISOString(), text: clip(b.consent_text, 600) } : null,
   };
   if (!lead.name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(lead.email)) return json({ ok: false, error: "a name and a valid email are required" }, 400);
 
@@ -43,8 +45,9 @@ export async function onRequestPost(context) {
 
   const id = crypto.randomUUID();
   await env.AISO_KV.put("lead:agent:" + id, JSON.stringify(lead));
+  if (lead.consent) context.waitUntil(env.AISO_KV.put("consent:email:" + lead.email, JSON.stringify({ ...lead.consent, name: lead.name, form: "agent-lead", source: lead.source })));
 
-  const rows = [["Name", lead.name], ["Email", lead.email], ["Phone", lead.phone || "—"], ["What they need", lead.need || "—"], ["Source", lead.source]]
+  const rows = [["Name", lead.name], ["Email", lead.email], ["Phone", lead.phone || "—"], ["What they need", lead.need || "—"], ["Source", lead.source], ["Marketing email consent", lead.consent ? "yes" : "not given"]]
     .map(([k, v]) => `<tr><td style="padding:6px 14px 6px 0;color:#8a8278;vertical-align:top">${k}</td><td style="padding:6px 0;color:#1c1a16">${esc(v).replace(/\n/g, "<br>")}</td></tr>`).join("");
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",

@@ -477,7 +477,7 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .field input[aria-invalid="true"] { border-color: #e0493d; }
 .work-form .btn { grid-column: 1 / -1; justify-self: start; margin-top: 6px; }
 .work-form .btn[disabled] { opacity: .6; pointer-events: none; }
-.form-note { grid-column: 1 / -1; margin: 0; font-size: 13px; color: var(--on-dark-mute); }
+.form-note { grid-column: 1 / -1; margin: 0; font-size: 12.5px; line-height: 1.55; color: var(--on-dark-mute); }
 .form-msg { grid-column: 1 / -1; margin: 0; font-size: 15px; color: var(--gold-light); min-height: 1em; }
 .form-msg.err { color: #f08a80; }
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
@@ -716,6 +716,15 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .p-msg { margin: 0; font-size: 14px; color: var(--gold-light); min-height: 1em; }
 .p-msg.err { color: #f08a80; }
 .p-msg a { color: var(--gold-light); border-bottom: 1px solid rgba(228,201,122,.4); }
+.p-consent { margin: 2px 0 0; font-size: 12px; line-height: 1.5; color: var(--on-dark-mute); }
+.p-consent a, .form-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.p-review { display: grid; gap: 12px; }
+.p-rv { margin: 0; display: grid; gap: 0; border-radius: 12px; border: 1px solid rgba(201,168,76,.3); background: rgba(201,168,76,.07); overflow: hidden; }
+.p-rv div { display: grid; grid-template-columns: 96px 1fr; gap: 10px; padding: 10px 13px; }
+.p-rv div + div { border-top: 1px solid rgba(201,168,76,.16); }
+.p-rv dt { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--on-dark-mute); padding-top: 2px; }
+.p-rv dd { margin: 0; font-size: 15px; color: #fff; overflow-wrap: anywhere; }
+.p-rv-acts { display: flex; flex-wrap: wrap; gap: 10px; }
 .p-done { display: grid; justify-items: start; gap: 12px; margin-top: 6px; }
 .p-done .tick { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(180deg, var(--gold-light), var(--gold)); color: #120f08; font-size: 26px; font-weight: 700; animation: tickIn .5s var(--ease); }
 @keyframes tickIn { from { transform: scale(.5); opacity: 0; } to { transform: none; opacity: 1; } }

@@ -43,9 +43,17 @@ export async function onRequestPost(context) {
   if (await env.AISO_KV.get(rl)) return json({ ok: true });
   await env.AISO_KV.put(rl, "1", { expirationTtl: 600 });
 
+  // Proof of marketing-email consent: the exact notice the visitor saw beside the button, and when they agreed.
+  const consent = body.consent === true
+    ? { at: new Date().toISOString(), text: String(body.consent_text || "").slice(0, 600), source: String(body.source || "").slice(0, 40) }
+    : null;
+  if (consent) {
+    context.waitUntil(env.AISO_KV.put("consent:email:" + email, JSON.stringify({ ...consent, name, form: "portfolio" })));
+  }
+
   const token = crypto.randomUUID().replace(/-/g, "") + crypto.randomUUID().slice(0, 8);
   await env.AISO_KV.put("pf:confirm:" + token,
-    JSON.stringify({ name, email, company, createdAt: new Date().toISOString(), accessKey: null }),
+    JSON.stringify({ name, email, company, createdAt: new Date().toISOString(), accessKey: null, consent }),
     { expirationTtl: 60 * 60 * 24 * 7 });
 
   const link = `${SITE}/api/portfolio-confirm?t=${token}`;
@@ -74,7 +82,7 @@ export async function onRequestPost(context) {
   context.waitUntil(sendEmail(env, {
     from: FROM, to: [NOTIFY], reply_to: email,
     subject: `Portfolio request: ${name}${company ? " — " + company : ""}`,
-    html: `<p><b>${esc(name)}</b> &lt;${esc(email)}&gt; requested the private portfolio${company ? ` (${esc(company)})` : ""}.</p><p>Status: link sent, not yet opened. You'll get a second note when they open it.</p>`,
+    html: `<p><b>${esc(name)}</b> &lt;${esc(email)}&gt; requested the private portfolio${company ? ` (${esc(company)})` : ""}.</p><p>Marketing email consent: ${consent ? "yes (" + esc(consent.source || "form") + ")" : "not given"}.</p><p>Status: link sent, not yet opened. You'll get a second note when they open it.</p>`,
   }));
   return json({ ok: true });
 }

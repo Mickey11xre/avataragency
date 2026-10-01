@@ -488,7 +488,7 @@
       if (!name || !okEmail) { msg.textContent = !name ? "Please add your first name." : "Please enter a valid email address."; msg.classList.add("err"); (!name ? fName : fEmail).focus(); return; }
       btn.disabled = true; msg.textContent = "Sending your private link…";
       fetch("/api/portfolio-signup", { method: "POST", headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name, email: email, company: company, hp: fHp.value }) })
+        body: JSON.stringify({ name: name, email: email, company: company, hp: fHp.value, consent: true, consent_text: ($(".form-note", form).textContent || "").trim(), source: "homepage-form" }) })
         .then(function (r) { return r.json().catch(function () { return { ok: false }; }).then(function (j) { return { status: r.status, j: j }; }); })
         .then(function (res) {
           if (res.j && res.j.ok) {
