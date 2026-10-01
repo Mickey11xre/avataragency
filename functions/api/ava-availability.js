@@ -106,5 +106,8 @@ export async function onRequestGet(context) {
   const exp = Date.now() + SLOT_TTL_MIN * 60 * 1000;
   const key = await slotKey(env);
   const signed = await Promise.all(slots.map(async s => ({ start_time: s, token: await signSlot(key, s, exp) })));
-  return json({ ok: true, event: { name: et.name, duration: et.duration }, slots: signed });
+  // Ava may read the event name aloud: write the brand as spoken (fleet standard #6). The
+  // Calendly event itself is named "Free AvatarAgency Consultation Meeting" and stays as it is.
+  const spokenName = String(et.name || "").replace(/AvatarAgency/g, "Avatar Agency");
+  return json({ ok: true, event: { name: spokenName, duration: et.duration }, slots: signed });
 }
