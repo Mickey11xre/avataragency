@@ -15,3 +15,8 @@
 # wiring are open. A redirect is not a public link, but do not advertise either URL. 2026-08-15
 /dentalarts            /clients/dental-arts/  301
 /dentalarts/*          /clients/dental-arts/  301
+# Homepage launch 2026-10-02: /home-next/ was the private staging copy of the new homepage, now promoted to /.
+# EXACT rules only. Never /home-next/* — the live homepage loads its media, CSS and JS from /home-next/.
+/home-next             /  301
+/home-next/            /  301
+/home-next/index.html  /  301
