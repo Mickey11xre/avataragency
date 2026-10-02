@@ -1,96 +1,679 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="no-js">
 <head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-T8NJ9JVWFV"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-T8NJ9JVWFV');</script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-T8NJ9JVWFV');
+</script>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="robots" content="noindex, nofollow">
-<title>Private Portfolio — AvatarAgency</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- PRIVATE: reachable only through the email-confirmed portfolio link (functions/work/_middleware.js). Never link it. -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Private Portfolio | AvatarAgency</title>
+<meta name="description" content="AvatarAgency's private client portfolio.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="/favicon.ico?v=1" sizes="48x48">
+<link rel="icon" href="/favicon.png?v=1" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
-<style>
-  :root { --ink:#0a0a0a; --ink-3:#1b1917; --gold:#C9A84C; --gold-light:#E4C97A; --on:#f5f0e8; --mid:rgba(245,240,232,.72); --mute:rgba(245,240,232,.5); --line:rgba(255,255,255,.09);
-    --f:'General Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif; --serif:'Cormorant Garamond',serif; --g:clamp(16px,4.2vw,64px); }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: var(--ink); color: var(--on); font: 16px/1.6 var(--f); -webkit-font-smoothing: antialiased; }
-  a { color: inherit; text-decoration: none; }
-  .logo-lockup { font-family: var(--f); font-weight: 700; font-size: 26px; letter-spacing: -0.012em; line-height: 1; display: inline-flex; align-items: baseline; white-space: nowrap; }
-  .logo-lockup .c { color: #fff; } .logo-lockup .l { color: var(--gold); }
-  header { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px var(--g); border-bottom: 1px solid var(--line); }
-  .btn { display: inline-flex; align-items: center; height: 44px; padding: 0 22px; border-radius: 999px; font-weight: 600; font-size: 14px; background: linear-gradient(180deg,var(--gold-light),var(--gold)); color: #120f08; }
-  main { max-width: 1320px; margin: 0 auto; padding: clamp(50px,7vw,100px) var(--g) 100px; }
-  .eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); margin: 0 0 16px; }
-  h1 { font-size: clamp(36px,5.4vw,72px); line-height: 1.02; letter-spacing: -.03em; font-weight: 600; margin: 0; max-width: 16ch; }
-  h1 em { font-family: var(--serif); font-weight: 400; color: var(--gold-light); }
-  .intro { color: var(--mid); max-width: 60ch; margin: 22px 0 0; font-size: 17px; }
-  .note { margin: 14px 0 0; font-size: 13px; color: var(--mute); }
-  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin: 46px 0 26px; }
-  .filters button { font: 500 13px var(--f); color: var(--mid); background: transparent; border: 1px solid rgba(255,255,255,.18); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
-  .filters button[aria-pressed="true"] { color: #120f08; background: var(--gold-light); border-color: var(--gold-light); }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 22px; }
-  .item { background: var(--ink-3); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; }
-  .item video { display: block; width: 100%; aspect-ratio: 16/9; background: #000; object-fit: contain; }
-  .item.vertical video { aspect-ratio: 9/16; max-height: 70vh; }
-  .meta { padding: 18px 20px 22px; }
-  .meta small { display: block; font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
-  .meta b { display: block; font-size: 18px; font-weight: 600; letter-spacing: -.01em; }
-  .meta p { margin: 6px 0 0; color: var(--mute); font-size: 14.5px; }
-  .state { color: var(--mid); padding: 40px 0; }
-  footer { border-top: 1px solid var(--line); padding: 26px var(--g); color: var(--mute); font-size: 12.5px; }
-  .cta { margin-top: 70px; padding: clamp(30px,4vw,50px); border-radius: 20px; border: 1px solid rgba(228,201,122,.25); background: radial-gradient(80% 90% at 90% 20%, rgba(201,168,76,.14), transparent 60%), var(--ink-3); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 20px; }
-  .cta h2 { margin: 0; font-size: clamp(24px,2.6vw,36px); letter-spacing: -.02em; font-weight: 600; }
-  .cta h2 em { font-family: var(--serif); font-weight: 400; color: var(--gold-light); }
-</style>
+<link rel="stylesheet" href="/work/portfolio.css?v=1">
+<script>
+  (function (d) {
+    var h = d.documentElement; h.className = h.className.replace('no-js', 'js');
+    if ((window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) || /[?&]rm=1/.test(location.search)) h.classList.add('rm');
+  })(document);
+</script>
 </head>
 <body>
-<header>
-  <a href="/" class="logo-lockup"><span class="c">Avatar</span><span class="l">Agency</span></a>
-  <a class="btn" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener" data-cta="portfolio-header">Book a strategy call</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a.6.6 0 0 0 .9.5l10.4-6.5a.6.6 0 0 0 0-1L8.9 5a.6.6 0 0 0-.9.5z" fill="currentColor"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13m-5-5.5L18.5 12 13 17.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="M19 12H6m5-5.5L5.5 12 11 17.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v13m-5.5-5L12 18.5 17.5 13" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+</svg>
+
+<header class="hdr" id="hdr">
+  <div class="hdr-in">
+    <a href="/" class="logo-lockup" aria-label="AvatarAgency — home"><span class="c">Avatar</span><span class="l">Agency</span></a>
+    <div class="hdr-mid"><span class="dot"></span>Private portfolio · Confidential</div>
+    <a class="btn btn-gold btn-sm" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener" data-cta="header"><span class="lg">Book a strategy call</span><span class="sm">Book a call</span> <svg><use href="#i-arrow"/></svg></a>
+  </div>
 </header>
-<main>
-  <p class="eyebrow">Private portfolio</p>
-  <h1>Client work, <em>shared with you.</em></h1>
-  <p class="intro">These films were made for real clients and stay private by agreement. Please don't share or record them — we're glad to show you more on a call.</p>
-  <div class="filters" role="toolbar" aria-label="Filter by category"></div>
-  <div class="grid" aria-live="polite"><p class="state">Loading the portfolio…</p></div>
-  <section class="cta">
-    <h2>Want this for <em>your brand?</em></h2>
-    <a class="btn" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener" data-cta="portfolio-bottom">Book a strategy call</a>
-  </section>
+
+<nav class="rail" id="rail" aria-label="Case studies">
+  <a href="#case-paul"><i></i>01 <span>Paul Small</span></a>
+  <a href="#case-danny"><i></i>02 <span>Danny Gomes</span></a>
+  <a href="#case-alena"><i></i>03 <span>Dr. Alena Nawrocki</span></a>
+  <a href="#case-laurie"><i></i>04 <span>Dr. Laurie Schreiner</span></a>
+  <a href="#case-ethica"><i></i>05 <span>Ethica</span></a>
+  <a href="#case-guardian"><i></i>06 <span>The Enrollment Guardian</span></a>
+  <a href="#case-softlips"><i></i>07 <span>Softlips</span></a>
+  <a href="#case-plaud"><i></i>08 <span>PLAUD</span></a>
+</nav>
+
+<main id="main">
+
+<!-- ═════════════ HERO + INDEX ═════════════ -->
+<section class="hero" id="top" aria-labelledby="hero-title">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="hero-top">
+      <div>
+        <p class="eyebrow gold">Private portfolio</p>
+        <h1 id="hero-title"><span class="ln"><span>The work</span></span><span class="ln"><span>we <em>don't post.</em></span></span></h1>
+      </div>
+      <div class="hero-side">
+        <p class="hello">Hi <span data-viewer>there</span> — this link is just for you.</p>
+        <p>Eight productions, start to finish: the films, the cloning sessions behind them, and the talking avatars, websites and campaigns around them.</p>
+        <p class="priv"><svg><use href="#i-lock"/></svg><span>Our clients share this work with you privately. Please don't forward this page or download the films.</span></p>
+      </div>
+    </div>
+
+    <div class="stats rv" aria-label="At a glance">
+      <div><b>8</b><span>Case studies</span></div>
+      <div><b>23</b><span>Films &amp; spots</span></div>
+      <div><b>11</b><span>Likenesses &amp; characters</span></div>
+      <div><b>0</b><span>Film crews</span></div>
+    </div>
+
+    <div class="index">
+      <div class="filters" role="group" aria-label="Filter case studies">
+        <button type="button" aria-pressed="true" data-filter="all">All work</button>
+        <button type="button" aria-pressed="false" data-filter="film">Cinematic film</button>
+        <button type="button" aria-pressed="false" data-filter="clone">Digital clone</button>
+        <button type="button" aria-pressed="false" data-filter="character">Original character</button>
+        <button type="button" aria-pressed="false" data-filter="avatar">Talking avatar</button>
+        <button type="button" aria-pressed="false" data-filter="web">Website</button>
+        <button type="button" aria-pressed="false" data-filter="ads">Ads &amp; campaigns</button>
+      </div>
+      <div class="cards">
+        <a class="card rv" href="#case-paul" data-tags="film clone">
+          <img src="/work/assets/poster/paul-hermosa.webp" alt="" loading="eager" decoding="async">
+          <video muted loop playsinline preload="none" data-src="/work/assets/preview/paul.mp4" aria-hidden="true"></video>
+          <span class="card-num">01</span>
+          <span class="card-meta"><b>Paul Small</b><span>"My Hermosa Beach" · Compass</span><ul><li>Film</li><li>Digital clone</li></ul></span>
+        </a>
+        <a class="card rv" href="#case-danny" data-tags="film clone ads">
+          <img src="/work/assets/poster/danny-recruiting.webp" alt="" loading="eager" decoding="async">
+          <video muted loop playsinline preload="none" data-src="/work/assets/preview/danny.mp4" aria-hidden="true"></video>
+          <span class="card-num">02</span>
+          <span class="card-meta"><b>Danny Gomes</b><span>Legacy Realty Partners</span><ul><li>3 films</li><li>Digital clone</li></ul></span>
+        </a>
+        <a class="card rv" href="#case-alena" data-tags="film clone ads">
+          <img src="/work/assets/poster/alena-service.webp" alt="" loading="eager" decoding="async">
+          <video muted loop playsinline preload="none" data-src="/work/assets/preview/alena.mp4" aria-hidden="true"></video>
+          <span class="card-num">03</span>
+          <span class="card-meta"><b>Dr. Alena Nawrocki</b><span>Dental Arts San Diego</span><ul><li>Film</li><li>Spots</li><li>Digital clone</li></ul></span>
+        </a>
+        <a class="card rv" href="#case-laurie" data-tags="film clone web">
+          <img src="/work/assets/poster/laurie-hero.webp" alt="" loading="eager" decoding="async">
+          <video muted loop playsinline preload="none" data-src="/work/assets/preview/laurie.mp4" aria-hidden="true"></video>
+          <span class="card-num">04</span>
+          <span class="card-meta"><b>Dr. Laurie Schreiner</b><span>The Thriving Project</span><ul><li>Website</li><li>Film</li><li>Digital clone</li></ul></span>
+        </a>
+        <a class="card rv" href="#case-ethica" data-tags="film character avatar">
+          <img src="/work/assets/poster/ethica-teaser.webp" alt="" loading="lazy" decoding="async">
+          <video muted loop playsinline preload="none" data-src="/work/assets/preview/ethica.mp4" aria-hidden="true"></video>
+          <span class="card-num">05</span>
+          <span class="card-meta"><b>Ethica</b><span>Fraud dies. Truth thrives.</span><ul><li>Character</li><li>Trailer</li><li>Talking avatar</li></ul></span>
+        </a>
+        <a class="card rv" href="#case-guardian" data-tags="film character clone">
+          <img src="/work/assets/poster/guardian-film.webp" alt="" loading="lazy" decoding="async">
+          <video muted loop playsinline preload="none" data-src="/work/assets/preview/guardian.mp4" aria-hidden="true"></video>
+          <span class="card-num">06</span>
+          <span class="card-meta"><b>The Enrollment Guardian</b><span>A thank-you film</span><ul><li>Character</li><li>Film</li><li>Digital twin</li></ul></span>
+        </a>
+        <a class="card rv" href="#case-softlips" data-tags="character ads avatar">
+          <img src="/work/assets/still/softlips-2-sm.webp" alt="" loading="lazy" decoding="async">
+          <video muted loop playsinline preload="none" data-src="/work/assets/preview/softlips.mp4" aria-hidden="true"></video>
+          <span class="card-num">07</span><span class="pitch">Pitch</span>
+          <span class="card-meta"><b>Softlips</b><span>"What your lips say about you"</span><ul><li>Campaign</li><li>Storyboard</li></ul></span>
+        </a>
+        <a class="card rv" href="#case-plaud" data-tags="character ads">
+          <img src="/work/assets/poster/plaud-ugc.webp" alt="" loading="lazy" decoding="async">
+          <video muted loop playsinline preload="none" data-src="/work/assets/preview/plaud.mp4" aria-hidden="true"></video>
+          <span class="card-num">08</span><span class="pitch">Spec</span>
+          <span class="card-meta"><b>PLAUD</b><span>A UGC ad in 24 hours</span><ul><li>UGC ad</li><li>AI creator</li></ul></span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ 01 · PAUL SMALL ═════════════ -->
+<section class="case" id="case-paul" aria-labelledby="t-paul">
+  <div class="wrap case-head rv">
+    <div class="case-num" aria-hidden="true">01</div>
+    <div>
+      <p class="eyebrow gold">Real estate · Compass · Los Angeles</p>
+      <h2 class="case-title" id="t-paul">Paul Small <em>My Hermosa Beach</em></h2>
+      <p class="case-line">A neighborhood film that shows buyers what it actually feels like to live in Hermosa Beach — with Paul as their guide, and without a single day on set.</p>
+      <ul class="tags"><li class="hl">Cinematic film</li><li class="hl">Digital clone</li><li>Storyboard</li></ul>
+    </div>
+    <dl class="facts">
+      <div><dt>Client</dt><dd>Paul Small, real estate advisor with Compass, "The Art of Representation"</dd></div>
+      <div><dt>Market</dt><dd>West Los Angeles and the South Bay</dd></div>
+      <div><dt>Capture</dt><dd>One cloning session: 47 reference photographs, plus his own narration</dd></div>
+      <div><dt>Delivered</dt><dd>"My Hermosa Beach" (1:49), his second neighborhood film after Mar Vista</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap feature rv">
+    <figure class="film" data-src="/work/film/paul-hermosa.mp4" data-title="My Hermosa Beach">
+      <video playsinline preload="none" controlslist="nodownload noremoteplayback" poster="/work/assets/poster/paul-hermosa.webp"></video>
+      <div class="vf" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span>● Final cut</span><span class="r">16:9 · 1080p</span></div>
+      <button class="film-play" type="button" aria-label="Play My Hermosa Beach, 1 minute 49 seconds"><span class="pill"><span class="ring"><svg><use href="#i-play"/></svg></span><span><b>Watch the film</b><small>1:49 · Sound on</small></span></span></button>
+    </figure>
+    <div class="film-cap"><span><b>My Hermosa Beach</b> · a "My Los Angeles" episode</span><span>Approved by Paul as delivered</span></div>
+  </div>
+
+  <div class="wrap story">
+    <div class="rv"><h3>The client</h3><p>Paul Small is a native Angeleno, a former talent agent and a Certified Senior Advisor with Compass. He didn't want another listing video. He wanted a film that sells the neighborhood itself, the way a local would show it to a friend.</p></div>
+    <div class="rv"><h3>The capture</h3><p>It started with <strong>one cloning session</strong>: 47 reference photographs of Paul from every angle — full body, close-ups, three-quarter and mid-speech — and his own voice. From that set we built a private likeness model, so Paul could walk the Strand, the Greenbelt and Pier Avenue without a camera crew in sight.</p></div>
+    <div class="rv"><h3>The craft</h3><p>We wrote and storyboarded the film in four acts — who Hermosa is for, its micro-neighborhoods, the local businesses and the pier — and Paul signed off on every frame before production. Real photographs of the homes, storefronts and rooftop views anchor each scene, relit for golden hour, with real-geography aerials carrying the camera between them. His on-camera lines are lip-synced exactly, then cut, graded and mixed in a professional edit.</p></div>
+  </div>
+
+  <div class="capture rv">
+    <div class="wrap capture-in">
+      <div>
+        <p class="eyebrow gold-deep">Behind the likeness</p>
+        <h3>One session. <em>Every angle.</em></h3>
+        <p>Every clone starts here: a structured reference set, cleaned onto white and sorted by angle, so the AI learns the real person — not an idealized one. Eight of Paul's 47 references are shown.</p>
+        <div class="legend"><span><b>FB</b> Full body</span><span><b>CU</b> Close-up</span><span><b>TQ</b> Three-quarter</span><span><b>MS</b> Mid-speech</span></div>
+      </div>
+      <div class="strip" data-gal="paul-refs">
+        <button class="frame" type="button" data-src="/work/assets/ref/paul-1.webp" data-title="Paul Small · Full body · front"><img src="/work/assets/ref/paul-1.webp" alt="Paul Small reference, full body, front" loading="lazy"><span class="cap"><b>FB</b>01</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/paul-2.webp" data-title="Paul Small · Full body · profile"><img src="/work/assets/ref/paul-2.webp" alt="Paul Small reference, full body, profile" loading="lazy"><span class="cap"><b>FB</b>05</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/paul-3.webp" data-title="Paul Small · Full body · back"><img src="/work/assets/ref/paul-3.webp" alt="Paul Small reference, full body, back" loading="lazy"><span class="cap"><b>FB</b>08</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/paul-4.webp" data-title="Paul Small · Close-up · front"><img src="/work/assets/ref/paul-4.webp" alt="Paul Small reference, close-up, front" loading="lazy"><span class="cap"><b>CU</b>01</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/paul-5.webp" data-title="Paul Small · Close-up · three-quarter"><img src="/work/assets/ref/paul-5.webp" alt="Paul Small reference, close-up, three-quarter" loading="lazy"><span class="cap"><b>CU</b>04</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/paul-6.webp" data-title="Paul Small · Close-up · profile"><img src="/work/assets/ref/paul-6.webp" alt="Paul Small reference, close-up, profile" loading="lazy"><span class="cap"><b>CU</b>08</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/paul-7.webp" data-title="Paul Small · Three-quarter"><img src="/work/assets/ref/paul-7.webp" alt="Paul Small reference, three-quarter" loading="lazy"><span class="cap"><b>TQ</b>05</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/paul-8.webp" data-title="Paul Small · Mid-speech"><img src="/work/assets/ref/paul-8.webp" alt="Paul Small reference, mid-speech" loading="lazy"><span class="cap"><b>MS</b>02</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap next"><a href="#case-danny">Next case <b>Danny Gomes</b><svg><use href="#i-down"/></svg></a></div>
+</section>
+
+<!-- ═════════════ 02 · DANNY GOMES ═════════════ -->
+<section class="case" id="case-danny" aria-labelledby="t-danny">
+  <div class="wrap case-head rv">
+    <div class="case-num" aria-hidden="true">02</div>
+    <div>
+      <p class="eyebrow gold">Probate &amp; trust real estate · California</p>
+      <h2 class="case-title" id="t-danny">Danny Gomes <em>Legacy Realty Partners</em></h2>
+      <p class="case-line">Three films and a set of social shorts for an agent whose clients are often settling a loved one's estate — calm, warm and steady, a guide rather than a salesman.</p>
+      <ul class="tags"><li class="hl">Cinematic film</li><li class="hl">Digital clone</li><li>Vertical shorts</li></ul>
+    </div>
+    <dl class="facts">
+      <div><dt>Client</dt><dd>Danny Gomes, Legacy Realty Partners — probate, trust and conservatorship sales</dd></div>
+      <div><dt>Likeness</dt><dd>Three approved looks, refined into five clean references; real photographs of his office as sets</dd></div>
+      <div><dt>Voice</dt><dd>His own recorded voiceover</dd></div>
+      <div><dt>Delivered</dt><dd>Agent Recruiting (1:19), Probate Outreach (1:11), Brand Story (1:20), two captioned vertical shorts</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap feature rv">
+    <figure class="film" data-src="/work/film/danny-recruiting.mp4" data-title="Agent Recruiting">
+      <video playsinline preload="none" controlslist="nodownload noremoteplayback" poster="/work/assets/poster/danny-recruiting.webp"></video>
+      <div class="vf" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span>● Agent Recruiting</span><span class="r">16:9 · 1080p</span></div>
+      <button class="film-play" type="button" aria-label="Play Agent Recruiting, 1 minute 19 seconds"><span class="pill"><span class="ring"><svg><use href="#i-play"/></svg></span><span><b>Watch the film</b><small>1:19 · Sound on</small></span></span></button>
+    </figure>
+    <div class="film-cap"><span><b>Agent Recruiting</b> · filmed in his real office</span><span>1 of 3 films</span></div>
+  </div>
+
+  <div class="wrap story">
+    <div class="rv"><h3>The client</h3><p>Danny Gomes helps families sell real estate through probate, trusts and conservatorships — some of the most delicate sales in the business. He needed films that sound like him, plus a recruiting film to help him grow his team at Legacy Realty Partners.</p></div>
+    <div class="rv"><h3>The capture</h3><p>We built Danny's likeness from <strong>three looks he approved</strong>, refined into five clean, studio-grade references with true skin texture — including two mid-speech frames for natural lip sync. For the recruiting film we used photographs of his actual Legacy Realty office as empty sets and placed his digital twin inside them, lit by the room's own light.</p></div>
+    <div class="rv"><h3>The craft</h3><p>Each film is written to one listener. Probate Outreach speaks to the executor settling an estate: quiet and respectful, with no grief clichés. Agent Recruiting moves through his office in a series of cinematic setups. Every revision note — down to how the Legacy sign sits on his desk — was resolved before delivery, and two captioned verticals carry the same voice to social.</p></div>
+  </div>
+
+  <div class="capture rv">
+    <div class="wrap capture-in">
+      <div>
+        <p class="eyebrow gold-deep">Behind the likeness</p>
+        <h3>Three looks. <em>Five references.</em></h3>
+        <p>Sometimes the best likeness is designed together with the client first, then locked into a clean reference set. These five frames drive every shot of Danny across all three films.</p>
+        <div class="legend"><span><b>A–C</b> Approved looks</span><span><b>MS</b> Mid-speech</span></div>
+      </div>
+      <div class="strip" data-gal="danny-refs">
+        <button class="frame" type="button" data-src="/work/assets/ref/danny-1.webp" data-title="Danny Gomes · Look A"><img src="/work/assets/ref/danny-1.webp" alt="Danny Gomes reference, look A" loading="lazy"><span class="cap"><b>Look</b>A</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/danny-2.webp" data-title="Danny Gomes · Look B"><img src="/work/assets/ref/danny-2.webp" alt="Danny Gomes reference, look B" loading="lazy"><span class="cap"><b>Look</b>B</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/danny-3.webp" data-title="Danny Gomes · Look C"><img src="/work/assets/ref/danny-3.webp" alt="Danny Gomes reference, look C" loading="lazy"><span class="cap"><b>Look</b>C</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/danny-4.webp" data-title="Danny Gomes · Mid-speech"><img src="/work/assets/ref/danny-4.webp" alt="Danny Gomes reference, mid-speech" loading="lazy"><span class="cap"><b>MS</b>01</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/danny-5.webp" data-title="Danny Gomes · Mid-speech, open"><img src="/work/assets/ref/danny-5.webp" alt="Danny Gomes reference, mid-speech, mouth open" loading="lazy"><span class="cap"><b>MS</b>02</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap more">
+    <div class="more-h rv"><h3>More from this project</h3><span>Tap to play</span></div>
+    <div class="split">
+      <div class="clips rv" data-gal="danny-films" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+        <button class="clip" type="button" data-src="/work/film/danny-probate.mp4" data-poster="/work/assets/poster/danny-probate.webp" data-title="Probate Outreach · 1:11"><img src="/work/assets/poster/danny-probate.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Probate Outreach</b><small>1:11 · 16:9</small></span></span></button>
+        <button class="clip" type="button" data-src="/work/film/danny-brand.mp4" data-poster="/work/assets/poster/danny-ramsey.webp" data-title="Brand Story · 1:20"><img src="/work/assets/poster/danny-ramsey.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Brand Story</b><small>1:20 · 16:9</small></span></span></button>
+      </div>
+      <div class="rail-v rv" data-gal="danny-verticals">
+        <button class="clip v" type="button" data-src="/work/film/danny-vertical-1.mp4" data-poster="/work/assets/poster/danny-vertical-1.webp" data-ratio="v" data-title="Vertical short No. 1 · 0:41"><img src="/work/assets/poster/danny-vertical-1.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 1</b><small>0:41 · 9:16</small></span></span></button>
+        <button class="clip v" type="button" data-src="/work/film/danny-vertical-2.mp4" data-poster="/work/assets/poster/danny-vertical-2.webp" data-ratio="v" data-title="Vertical short No. 2 · 0:32"><img src="/work/assets/poster/danny-vertical-2.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 2</b><small>0:32 · 9:16</small></span></span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap next"><a href="#case-alena">Next case <b>Dr. Alena Nawrocki</b><svg><use href="#i-down"/></svg></a></div>
+</section>
+
+<!-- ═════════════ 03 · DR. ALENA NAWROCKI ═════════════ -->
+<section class="case" id="case-alena" aria-labelledby="t-alena">
+  <div class="wrap case-head rv">
+    <div class="case-num" aria-hidden="true">03</div>
+    <div>
+      <p class="eyebrow gold">Dentistry · El Cajon, California</p>
+      <h2 class="case-title" id="t-alena">Dr. Alena Nawrocki <em>Dental Arts San Diego</em></h2>
+      <p class="case-line">A practice film, nine short spots and vertical cuts — every scene set inside her real office, as bright and welcoming as the practice itself.</p>
+      <ul class="tags"><li class="hl">Cinematic film</li><li class="hl">Digital clone</li><li>Short-form spots</li></ul>
+    </div>
+    <dl class="facts">
+      <div><dt>Client</dt><dd>Dr. Alena Nawrocki, Dental Arts San Diego — 25+ years in El Cajon</dd></div>
+      <div><dt>Capture</dt><dd>On site at the practice: two likeness sets (Alena and her son Ron), cloned voices, the office itself</dd></div>
+      <div><dt>Rule</dt><dd>Every room is a real photograph of her practice, relit — never an invented set</dd></div>
+      <div><dt>Delivered</dt><dd>Practice film (1:13), nine short spots, two vertical cuts</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap feature rv">
+    <figure class="film" data-src="/work/film/alena-practice.mp4" data-title="Dental Arts San Diego">
+      <video playsinline preload="none" controlslist="nodownload noremoteplayback" poster="/work/assets/poster/alena-service.webp"></video>
+      <div class="vf" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span>● Practice film</span><span class="r">16:9 · 1080p</span></div>
+      <button class="film-play" type="button" aria-label="Play the Dental Arts San Diego practice film, 1 minute 13 seconds"><span class="pill"><span class="ring"><svg><use href="#i-play"/></svg></span><span><b>Watch the film</b><small>1:13 · Sound on</small></span></span></button>
+    </figure>
+    <div class="film-cap"><span><b>Dental Arts San Diego</b> · practice film</span><span>Filmed entirely in her own office</span></div>
+  </div>
+
+  <div class="wrap story">
+    <div class="rv"><h3>The client</h3><p>Dr. Alena Nawrocki has cared for families in El Cajon for more than 25 years, with a team that speaks English, Russian, Spanish, Tagalog and Japanese. Her son Ron, a dental student, is preparing to join the practice. They wanted video that feels like walking through their front door.</p></div>
+    <div class="rv"><h3>The capture</h3><p>We captured everything <strong>on site, at Dental Arts San Diego</strong>: reference photographs of Alena and Ron from every angle, their voices for cloning, and the practice itself — the hallway lined with her portraits, the reception desk, the operatories. One session produced two complete likeness sets and a library of real-location plates.</p></div>
+    <div class="rv"><h3>The craft</h3><p>Every environment in these films is a real photograph of her office, relit — never a fabricated room. We tuned the look to her own notes: bright, clean and professional, true to her age and skin, never smoothed. And we never show a procedure, only the care and the result. The practice film led to nine short spots — toothaches, emergencies, implants, dentures, aligners — and vertical cuts for social.</p></div>
+  </div>
+
+  <div class="capture rv">
+    <div class="wrap capture-in">
+      <div>
+        <p class="eyebrow gold-deep">Behind the likeness</p>
+        <h3>Two people. <em>One session at the office.</em></h3>
+        <p>Alena's set has 25 references and Ron's has 31, each sorted by angle, plus mid-speech frames so the lip sync reads naturally in every language spot. A selection from both sets is shown.</p>
+        <div class="legend"><span><b>FB</b> Full body</span><span><b>CU</b> Close-up</span><span><b>MS</b> Mid-speech</span></div>
+      </div>
+      <div class="strip" data-gal="alena-refs">
+        <button class="frame" type="button" data-src="/work/assets/ref/alena-1.webp" data-title="Dr. Alena Nawrocki · Full body · front"><img src="/work/assets/ref/alena-1.webp" alt="Dr. Alena Nawrocki reference, full body, front" loading="lazy"><span class="cap"><b>FB</b>Alena</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/alena-2.webp" data-title="Dr. Alena Nawrocki · Full body · three-quarter"><img src="/work/assets/ref/alena-2.webp" alt="Dr. Alena Nawrocki reference, full body, three-quarter" loading="lazy"><span class="cap"><b>FB</b>¾ R</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/alena-3.webp" data-title="Dr. Alena Nawrocki · Full body · profile"><img src="/work/assets/ref/alena-3.webp" alt="Dr. Alena Nawrocki reference, full body, profile" loading="lazy"><span class="cap"><b>FB</b>Profile</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/alena-4.webp" data-title="Dr. Alena Nawrocki · Close-up · smile"><img src="/work/assets/ref/alena-4.webp" alt="Dr. Alena Nawrocki reference, close-up, smiling" loading="lazy"><span class="cap"><b>CU</b>Smile</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/alena-5.webp" data-title="Dr. Alena Nawrocki · Close-up · three-quarter"><img src="/work/assets/ref/alena-5.webp" alt="Dr. Alena Nawrocki reference, close-up, three-quarter" loading="lazy"><span class="cap"><b>CU</b>¾ R</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/alena-6.webp" data-title="Dr. Alena Nawrocki · Close-up · profile"><img src="/work/assets/ref/alena-6.webp" alt="Dr. Alena Nawrocki reference, close-up, profile" loading="lazy"><span class="cap"><b>CU</b>Profile</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/alena-7.webp" data-title="Dr. Alena Nawrocki · Mid-speech"><img src="/work/assets/ref/alena-7.webp" alt="Dr. Alena Nawrocki reference, mid-speech" loading="lazy"><span class="cap"><b>MS</b>02</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/ron-1.webp" data-title="Ron · Full body · front"><img src="/work/assets/ref/ron-1.webp" alt="Ron reference, full body, front" loading="lazy"><span class="cap"><b>FB</b>Ron</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/ron-2.webp" data-title="Ron · Close-up · front"><img src="/work/assets/ref/ron-2.webp" alt="Ron reference, close-up, front" loading="lazy"><span class="cap"><b>CU</b>Ron</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/ron-3.webp" data-title="Ron · Mid-speech"><img src="/work/assets/ref/ron-3.webp" alt="Ron reference, mid-speech" loading="lazy"><span class="cap"><b>MS</b>Ron</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap more">
+    <div class="more-h rv"><h3>Nine short spots</h3><span>One idea each · about 20 seconds · tap to play</span></div>
+    <div class="clips four rv" data-gal="alena-shorts">
+      <button class="clip" type="button" data-src="/work/film/alena-short-toothache.mp4" data-poster="/work/assets/poster/alena-short-toothache.webp" data-title="Toothache · 0:27"><img src="/work/assets/poster/alena-short-toothache.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Toothache</b><small>0:27</small></span></span></button>
+      <button class="clip" type="button" data-src="/work/film/alena-short-tooth-infection.mp4" data-poster="/work/assets/poster/alena-short-tooth-infection.webp" data-title="Tooth Infection · 0:23"><img src="/work/assets/poster/alena-short-tooth-infection.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Tooth Infection</b><small>0:23</small></span></span></button>
+      <button class="clip" type="button" data-src="/work/film/alena-short-el-cajon-emergency.mp4" data-poster="/work/assets/poster/alena-short-el-cajon-emergency.webp" data-title="El Cajon Emergency · 0:24"><img src="/work/assets/poster/alena-short-el-cajon-emergency.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>El Cajon Emergency</b><small>0:24</small></span></span></button>
+      <button class="clip" type="button" data-src="/work/film/alena-short-invisalign.mp4" data-poster="/work/assets/poster/alena-short-invisalign.webp" data-title="Clear Aligners · 0:21"><img src="/work/assets/poster/alena-short-invisalign.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Clear Aligners</b><small>0:21</small></span></span></button>
+      <button class="clip" type="button" data-src="/work/film/alena-short-too-old-implants.mp4" data-poster="/work/assets/poster/alena-short-too-old-implants.webp" data-title="Too Old for Implants? · 0:20"><img src="/work/assets/poster/alena-short-too-old-implants.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Too Old for Implants?</b><small>0:20</small></span></span></button>
+      <button class="clip" type="button" data-src="/work/film/alena-short-need-dentures.mp4" data-poster="/work/assets/poster/alena-short-need-dentures.webp" data-title="Told You Need Dentures? · 0:22"><img src="/work/assets/poster/alena-short-need-dentures.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Told You Need Dentures?</b><small>0:22</small></span></span></button>
+      <button class="clip" type="button" data-src="/work/film/alena-short-scared.mp4" data-poster="/work/assets/poster/alena-short-scared.webp" data-title="Scared of the Dentist · 0:23"><img src="/work/assets/poster/alena-short-scared.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Scared of the Dentist</b><small>0:23</small></span></span></button>
+      <button class="clip" type="button" data-src="/work/film/alena-short-busy-people.mp4" data-poster="/work/assets/poster/alena-short-busy-people.webp" data-title="Built for Busy People · 0:21"><img src="/work/assets/poster/alena-short-busy-people.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Built for Busy People</b><small>0:21</small></span></span></button>
+      <button class="clip" type="button" data-src="/work/film/alena-short-four-generations.mp4" data-poster="/work/assets/poster/alena-short-four-generations.webp" data-title="Four Generations · 0:19"><img src="/work/assets/poster/alena-short-four-generations.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Four Generations</b><small>0:19</small></span></span></button>
+
+    </div>
+    <div class="more-h rv" style="margin-top:34px"><h3>Vertical cuts</h3><span>9:16 for Reels, TikTok and Shorts</span></div>
+    <div class="rail-v" data-gal="alena-verticals">
+      <button class="clip v" type="button" data-src="/work/film/alena-vertical-1.mp4" data-poster="/work/assets/poster/alena-vertical-1.webp" data-ratio="v" data-title="Clear Aligners · vertical · 0:21"><img src="/work/assets/poster/alena-vertical-1.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Aligners</b><small>0:21 · 9:16</small></span></span></button>
+      <button class="clip v" type="button" data-src="/work/film/alena-vertical-2.mp4" data-poster="/work/assets/poster/alena-vertical-2.webp" data-ratio="v" data-title="Scared of the Dentist · vertical · 0:24"><img src="/work/assets/poster/alena-vertical-2.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Scared?</b><small>0:24 · 9:16</small></span></span></button>
+    </div>
+  </div>
+
+  <div class="wrap next"><a href="#case-laurie">Next case <b>Dr. Laurie Schreiner</b><svg><use href="#i-down"/></svg></a></div>
+</section>
+
+<!-- ═════════════ 04 · DR. LAURIE SCHREINER ═════════════ -->
+<section class="case" id="case-laurie" aria-labelledby="t-laurie">
+  <div class="wrap case-head rv">
+    <div class="case-num" aria-hidden="true">04</div>
+    <div>
+      <p class="eyebrow gold">Higher education · Research</p>
+      <h2 class="case-title" id="t-laurie">Dr. Laurie Schreiner <em>The Thriving Project</em></h2>
+      <p class="case-line">An interactive, scroll-animated website and a cinematic hero film for the creator of the Thriving Quotient — carried by her own voice.</p>
+      <ul class="tags"><li class="hl">Interactive website</li><li class="hl">Cinematic film</li><li class="hl">Digital clone</li></ul>
+    </div>
+    <dl class="facts">
+      <div><dt>Client</dt><dd>Dr. Laurie Schreiner, Professor Emerita of Higher Education, Azusa Pacific University</dd></div>
+      <div><dt>Capture</dt><dd>On site in Upland, California: reference stills and two 4K talking takes</dd></div>
+      <div><dt>Voice</dt><dd>Her own narration, start to finish</dd></div>
+      <div><dt>Delivered</dt><dd>thrivingincollege.org — scroll-animated site with online store; "The Thriving Project" film (2:54)</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap feature rv">
+    <figure class="film" data-src="/work/film/laurie-hero.mp4" data-title="The Thriving Project">
+      <video playsinline preload="none" controlslist="nodownload noremoteplayback" poster="/work/assets/poster/laurie-hero.webp"></video>
+      <div class="vf" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span>● Hero film</span><span class="r">16:9</span></div>
+      <button class="film-play" type="button" aria-label="Play The Thriving Project, 2 minutes 54 seconds"><span class="pill"><span class="ring"><svg><use href="#i-play"/></svg></span><span><b>Watch the film</b><small>2:54 · Sound on</small></span></span></button>
+    </figure>
+    <div class="film-cap"><span><b>The Thriving Project</b> · homepage hero film</span><span>Live on thrivingincollege.org</span></div>
+  </div>
+
+  <div class="wrap story">
+    <div class="rv"><h3>The client</h3><p>Dr. Laurie Schreiner created the Thriving Quotient, a research-based measure of how college students flourish — intellectually, socially and psychologically. Her old website didn't reflect decades of scholarship. She wanted a home for the Thriving Project that felt alive, credible and unmistakably hers.</p></div>
+    <div class="rv"><h3>The capture</h3><p>We captured Laurie <strong>on site in Upland, California</strong>: reference stills from every angle and two long talking takes in 4K. She then recorded the narration herself, so the film carries her real voice from the first word to the last.</p></div>
+    <div class="rv"><h3>The craft</h3><p>The website is a scroll-driven story: the page grows as visitors move through it, leading them from what it means to thrive to the research, the instruments and the store. The film places Laurie in her home office, a lecture hall, a library and a morning on campus, intercut with the students her work is for.</p></div>
+  </div>
+
+  <div class="wrap more rv">
+    <div class="more-h"><h3>The website</h3><span>Interactive — explore it right here</span></div>
+    <div class="browser">
+      <div class="browser-bar"><i></i><i></i><i></i><span class="url"><svg><use href="#i-lock"/></svg>thrivingincollege.org</span><a href="https://www.thrivingincollege.org/" target="_blank" rel="noopener">Open <svg><use href="#i-ext"/></svg></a></div>
+      <div class="browser-view" data-site="https://www.thrivingincollege.org/">
+        <img src="/work/assets/still/thriving-desktop.webp" alt="The Thriving Project homepage on thrivingincollege.org" loading="lazy">
+        <div class="go"><button class="btn btn-gold" type="button">Explore the live site <svg><use href="#i-arrow"/></svg></button></div>
+      </div>
+    </div>
+    <p class="site-note">The live site loads inside this window. Scroll inside it to watch the page grow.</p>
+  </div>
+
+  <div class="capture rv">
+    <div class="wrap capture-in">
+      <div>
+        <p class="eyebrow gold-deep">Behind the likeness</p>
+        <h3>A scholar, <em>exactly as she is.</em></h3>
+        <p>Her reference set pairs clean stills with frames pulled from the talking takes, so the clone keeps her real expressions and gestures — the warmth her students know.</p>
+        <div class="legend"><span><b>CU</b> Head angles</span><span><b>MS</b> From the 4K takes</span></div>
+      </div>
+      <div class="strip" data-gal="laurie-refs">
+        <button class="frame" type="button" data-src="/work/assets/ref/laurie-1.webp" data-title="Dr. Laurie Schreiner · Front"><img src="/work/assets/ref/laurie-1.webp" alt="Dr. Laurie Schreiner reference, front" loading="lazy"><span class="cap"><b>CU</b>Front</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/laurie-2.webp" data-title="Dr. Laurie Schreiner · Smile"><img src="/work/assets/ref/laurie-2.webp" alt="Dr. Laurie Schreiner reference, smiling" loading="lazy"><span class="cap"><b>CU</b>Smile</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/laurie-3.webp" data-title="Dr. Laurie Schreiner · Three-quarter"><img src="/work/assets/ref/laurie-3.webp" alt="Dr. Laurie Schreiner reference, three-quarter" loading="lazy"><span class="cap"><b>CU</b>¾</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/laurie-4.webp" data-title="Dr. Laurie Schreiner · Three-quarter, other side"><img src="/work/assets/ref/laurie-4.webp" alt="Dr. Laurie Schreiner reference, three-quarter, other side" loading="lazy"><span class="cap"><b>CU</b>¾ R</span></button>
+        <button class="frame" type="button" data-src="/work/assets/ref/laurie-5.webp" data-title="Dr. Laurie Schreiner · Profile"><img src="/work/assets/ref/laurie-5.webp" alt="Dr. Laurie Schreiner reference, profile" loading="lazy"><span class="cap"><b>CU</b>Profile</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap next"><a href="#case-ethica">Next case <b>Ethica</b><svg><use href="#i-down"/></svg></a></div>
+</section>
+
+<!-- ═════════════ 05 · ETHICA ═════════════ -->
+<section class="case" id="case-ethica" aria-labelledby="t-ethica">
+  <div class="wrap case-head rv">
+    <div class="case-num" aria-hidden="true">05</div>
+    <div>
+      <p class="eyebrow gold">Original character · Fraud prevention</p>
+      <h2 class="case-title" id="t-ethica">Ethica <em>Fraud dies. Truth thrives.</em></h2>
+      <p class="case-line">A superhero built from nothing — face, suit, emblem and nemesis — with a trailer to launch her and a talking avatar you can actually speak with.</p>
+      <ul class="tags"><li class="hl">Original character</li><li class="hl">Cinematic trailer</li><li class="hl">Talking avatar</li></ul>
+    </div>
+    <dl class="facts">
+      <div><dt>Character</dt><dd>Ethica, the alter ego of accountant Marissa Brooks; her nemesis, Victor Crane</dd></div>
+      <div><dt>Mission</dt><dd>Fraud prevention, told through prevention, detection and remediation</dd></div>
+      <div><dt>Capture</dt><dd>None — designed from scratch and locked into reference sheets</dd></div>
+      <div><dt>Delivered</dt><dd>Teaser trailer (2:30), character and villain design, a talking avatar</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap feature rv">
+    <figure class="film" data-src="/work/assets/film/ethica-teaser.mp4" data-title="Ethica — teaser trailer">
+      <video playsinline preload="none" controlslist="nodownload noremoteplayback" poster="/work/assets/poster/ethica-teaser.webp"></video>
+      <div class="vf" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span>● Teaser trailer</span><span class="r">16:9 · 1080p</span></div>
+      <button class="film-play" type="button" aria-label="Play the Ethica teaser trailer, 2 minutes 30 seconds"><span class="pill"><span class="ring"><svg><use href="#i-play"/></svg></span><span><b>Watch the trailer</b><small>2:30 · Sound on</small></span></span></button>
+    </figure>
+    <div class="film-cap"><span><b>Ethica</b> · teaser trailer</span><span>Every frame AI-generated</span></div>
+  </div>
+
+  <div class="wrap story">
+    <div class="rv"><h3>The idea</h3><p>Ethica is Marissa Brooks: an accountant by day who becomes a superhero when the numbers don't add up. Built around a simple framework — prevention, detection, remediation — she turns fraud prevention into something people actually want to watch.</p></div>
+    <div class="rv"><h3>The creation</h3><p>There was no one to photograph, so <strong>we designed her</strong>: her face, the suit and emblem, and the city she protects, all locked into reference sheets so she looks the same in every frame. Her nemesis, Victor Crane, got the same treatment — a full turnaround from every angle.</p></div>
+    <div class="rv"><h3>The craft</h3><p>The teaser is cut like a studio trailer, from the cubicles where the fraud begins to the moment the truth comes out, closing on a theatrical one-sheet. And Ethica doesn't stay on screen: as a talking avatar, she holds real conversations about spotting and stopping fraud.</p></div>
+  </div>
+
+  <div class="capture rv">
+    <div class="wrap capture-in">
+      <div>
+        <p class="eyebrow gold-deep">Character design</p>
+        <h3>Designed, <em>then locked.</em></h3>
+        <p>For an original character, the reference sheet is the contract: one face, one costume, one silhouette, held identical across every scene the AI generates.</p>
+        <div class="legend"><span><b>Hero</b> Ethica</span><span><b>Villain</b> Victor Crane</span></div>
+      </div>
+      <div class="strip" data-gal="ethica-refs">
+        <button class="frame sheet" type="button" data-src="/work/assets/ref/ethica-poster.webp" data-title="Ethica · theatrical one-sheet"><img src="/work/assets/ref/ethica-poster.webp" alt="Ethica movie poster: Fraud dies. Truth thrives." loading="lazy"><span class="cap"><b>Key art</b>One-sheet</span></button>
+        <button class="frame sheet" type="button" data-src="/work/assets/ref/ethica-closeup.webp" data-title="Ethica · close-up"><img src="/work/assets/ref/ethica-closeup.webp" alt="Ethica, close-up portrait" loading="lazy"><span class="cap"><b>Hero</b>Close-up</span></button>
+        <button class="frame sheet" type="button" data-src="/work/assets/ref/sheet-victor-crane.webp" data-title="Victor Crane · character reference sheet"><img src="/work/assets/ref/sheet-victor-crane.webp" alt="Victor Crane character reference sheet, full turnaround" loading="lazy"><span class="cap"><b>Villain</b>Turnaround</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap more rv">
+    <div class="talk">
+      <div class="talk-img"><img src="/work/assets/ref/ethica-closeup.webp" alt="" loading="lazy"><span class="live"><i></i>Talking avatar</span></div>
+      <div class="talk-copy">
+        <p class="eyebrow gold">Try it</p>
+        <h3>Talk to <em>Ethica.</em></h3>
+        <p>She answers in real time, face to face, in her own voice. Ask her how to spot a fraud scheme.</p>
+        <div><a class="btn btn-gold" href="/ethica/thrive?demo" target="_blank" rel="noopener" data-cta="talk-ethica"><svg><use href="#i-mic"/></svg>Talk to Ethica</a></div>
+        <small>Opens in a new tab and asks to use your microphone.</small>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap next"><a href="#case-guardian">Next case <b>The Enrollment Guardian</b><svg><use href="#i-down"/></svg></a></div>
+</section>
+
+<!-- ═════════════ 06 · THE ENROLLMENT GUARDIAN ═════════════ -->
+<section class="case" id="case-guardian" aria-labelledby="t-guardian">
+  <div class="wrap case-head rv">
+    <div class="case-num" aria-hidden="true">06</div>
+    <div>
+      <p class="eyebrow gold">Higher education · A thank-you film</p>
+      <h2 class="case-title" id="t-guardian">The Enrollment Guardian <em>Good deeds don't go unnoticed.</em></h2>
+      <p class="case-line">How do you thank someone who quietly changes students' lives? You turn her into the superhero she already is.</p>
+      <ul class="tags"><li class="hl">Original character</li><li class="hl">Cinematic film</li><li class="hl">Digital twin</li></ul>
+    </div>
+    <dl class="facts">
+      <div><dt>From</dt><dd>Dr. Stephanie Geter</dd></div>
+      <div><dt>For</dt><dd>Dr. Jessica Barco, a leader in strategic enrollment management</dd></div>
+      <div><dt>Cast</dt><dd>The Enrollment Guardian (designed) and Dr. Geter's own digital twin and cloned voice</dd></div>
+      <div><dt>Delivered</dt><dd>A one-minute thank-you film (1:02), character design and title art</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap feature rv">
+    <figure class="film" data-src="/work/assets/film/guardian-film.mp4" data-title="The Enrollment Guardian">
+      <video playsinline preload="none" controlslist="nodownload noremoteplayback" poster="/work/assets/poster/guardian-film.webp"></video>
+      <div class="vf" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i><span>● Thank-you film</span><span class="r">16:9 · 1080p</span></div>
+      <button class="film-play" type="button" aria-label="Play The Enrollment Guardian, 1 minute 2 seconds"><span class="pill"><span class="ring"><svg><use href="#i-play"/></svg></span><span><b>Watch the film</b><small>1:02 · Sound on</small></span></span></button>
+    </figure>
+    <div class="film-cap"><span><b>The Enrollment Guardian</b> · a thank-you to Dr. Jessica Barco</span><span>One minute, made to be shared</span></div>
+  </div>
+
+  <div class="wrap story">
+    <div class="rv"><h3>The idea</h3><p>Dr. Stephanie Geter wanted to thank a colleague in a way she'd never forget. Dr. Jessica Barco works in strategic enrollment management — guiding students to campus and helping them stay. So we cast her as the hero she is: <strong>The Enrollment Guardian</strong>.</p></div>
+    <div class="rv"><h3>The creation</h3><p>We designed the Guardian's look — a navy-and-orange suit and cape with a graduation-cap emblem — and locked it into a full character sheet. Dr. Geter appears as her own digital twin, built from an earlier capture session and speaking in her cloned voice.</p></div>
+    <div class="rv"><h3>The craft</h3><p>In one minute, the Guardian lands on campus, works the student fair and walks into the sunset with the students she helped bring there, while Dr. Geter delivers the thank-you on a palm-lined campus walkway. A personal gesture, produced like a feature.</p></div>
+  </div>
+
+  <div class="capture rv">
+    <div class="wrap capture-in">
+      <div>
+        <p class="eyebrow gold-deep">Character design</p>
+        <h3>A hero <em>and a twin.</em></h3>
+        <p>Two reference sheets drive the film: the Guardian, designed from scratch in six angles, and Dr. Geter's digital twin, built from her own capture session.</p>
+        <div class="legend"><span><b>Designed</b> The Guardian</span><span><b>Cloned</b> Dr. Geter</span></div>
+      </div>
+      <div class="strip" data-gal="guardian-refs">
+        <button class="frame sheet" type="button" data-src="/work/assets/ref/sheet-guardian.webp" data-title="The Enrollment Guardian · character reference sheet"><img src="/work/assets/ref/sheet-guardian.webp" alt="The Enrollment Guardian character reference sheet, six angles" loading="lazy"><span class="cap"><b>Designed</b>6 angles</span></button>
+        <button class="frame sheet" type="button" data-src="/work/assets/ref/sheet-stephanie.webp" data-title="Dr. Stephanie Geter · digital twin reference sheet"><img src="/work/assets/ref/sheet-stephanie.webp" alt="Dr. Stephanie Geter digital twin reference sheet" loading="lazy"><span class="cap"><b>Cloned</b>Dr. Geter</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap more">
+    <div class="more-h rv"><h3>Key frames</h3><span>Tap to enlarge</span></div>
+    <div class="stills rv" data-gal="guardian-stills">
+      <button class="still" type="button" data-src="/work/assets/still/guardian-title.webp" data-title="Title art"><img src="/work/assets/still/guardian-title.webp" alt="The Enrollment Guardian title art" loading="lazy"><span>Title art</span></button>
+      <button class="still" type="button" data-src="/work/assets/still/guardian-landing.webp" data-title="The landing"><img src="/work/assets/still/guardian-landing.webp" alt="The Enrollment Guardian lands at a campus event" loading="lazy"><span>The landing</span></button>
+      <button class="still" type="button" data-src="/work/assets/still/guardian-stephanie.webp" data-title="Dr. Geter's digital twin on campus"><img src="/work/assets/still/guardian-stephanie.webp" alt="Dr. Stephanie Geter's digital twin on a campus walkway" loading="lazy"><span>Dr. Geter's twin</span></button>
+    </div>
+  </div>
+
+  <div class="wrap next"><a href="#case-softlips">Next case <b>Softlips</b><svg><use href="#i-down"/></svg></a></div>
+</section>
+
+<!-- ═════════════ 07 · SOFTLIPS ═════════════ -->
+<section class="case" id="case-softlips" aria-labelledby="t-softlips">
+  <div class="wrap case-head rv">
+    <div class="case-num" aria-hidden="true">07</div>
+    <div>
+      <p class="eyebrow gold">Beauty · Campaign concept · Pitch</p>
+      <h2 class="case-title" id="t-softlips">Softlips <em>What your lips say about you.</em></h2>
+      <p class="case-line">A whispered, fifteen-second campaign concept for Softlips Repair Cherry — storyboarded, cast and tested in motion for a brand pitch.</p>
+      <ul class="tags"><li class="hl">Campaign concept</li><li class="hl">Storyboard</li><li>Original character</li><li>Talking avatar concept</li></ul>
+    </div>
+    <dl class="facts">
+      <div><dt>Brand</dt><dd>Softlips Repair Cherry</dd></div>
+      <div><dt>For</dt><dd>A South African agency's pitch to the brand</dd></div>
+      <div><dt>Market</dt><dd>South Africa — Amazon.co.za and Takealot</dd></div>
+      <div><dt>Delivered</dt><dd>Concept, a seven-shot storyboard, an original model, motion tests and a talking-avatar concept</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap board rv" id="board">
+    <div class="board-stage">
+      <button class="board-shot" type="button" aria-label="Enlarge this frame"><img src="/work/assets/still/softlips-1.webp" alt="" data-board-img><span class="tc" data-board-tc>00:00 — 00:02</span></button>
+      <div class="board-note" aria-live="polite">
+        <span class="n" data-board-n>Shot 01 / 07</span>
+        <h4 data-board-t>The Touch</h4>
+        <p data-board-d>Extreme macro: the balm tip meets her lower lip at a quarter speed and the gloss blooms. Under it, a whispered hush.</p>
+        <div class="nav"><button type="button" data-board-prev aria-label="Previous shot"><svg><use href="#i-left"/></svg></button><button type="button" data-board-next aria-label="Next shot"><svg><use href="#i-arrow"/></svg></button></div>
+      </div>
+    </div>
+    <div class="timeline" role="tablist" aria-label="Storyboard shots">
+      <button type="button" role="tab" aria-current="true" data-i="0"><img src="/work/assets/still/softlips-1-sm.webp" alt="Shot 1, The Touch"><span>00:00</span></button>
+      <button type="button" role="tab" data-i="1"><img src="/work/assets/still/softlips-2-sm.webp" alt="Shot 2, Shhh"><span>00:02</span></button>
+      <button type="button" role="tab" data-i="2"><img src="/work/assets/still/softlips-3-sm.webp" alt="Shot 3, The Glow"><span>00:04</span></button>
+      <button type="button" role="tab" data-i="3"><img src="/work/assets/still/softlips-4-sm.webp" alt="Shot 4, The Glide"><span>00:07</span></button>
+      <button type="button" role="tab" data-i="4"><img src="/work/assets/still/softlips-5-sm.webp" alt="Shot 5, The Payoff"><span>00:09</span></button>
+      <button type="button" role="tab" data-i="5"><img src="/work/assets/still/softlips-6-sm.webp" alt="Shot 6, Product Hero"><span>00:11</span></button>
+      <button type="button" role="tab" data-i="6"><img src="/work/assets/still/softlips-7-sm.webp" alt="Shot 7, End Card"><span>00:13</span></button>
+    </div>
+    <div class="ruler" aria-hidden="true"><i data-board-bar></i></div>
+  </div>
+
+  <div class="wrap story">
+    <div class="rv"><h3>The brief</h3><p>A South African agency asked us to help pitch Softlips Repair Cherry to the brand. We built the campaign concept, the storyboard, the model and a talking-avatar idea that could greet shoppers and send them straight to checkout.</p></div>
+    <div class="rv"><h3>The concept</h3><p>The idea is a whisper: a hush, a touch of balm, a knowing smile — and one question, <strong>"So… what do your lips say about you?"</strong> Seven shots in fifteen seconds, from an extreme-macro touch to the product hero and end card.</p></div>
+    <div class="rv"><h3>The craft</h3><p>The model is an original character, designed from the agency's concept references, so the brand would own a face no one else can use. Each frame was art-directed for skin, gloss and light, then tested in motion — the hush below is one of those tests.</p></div>
+  </div>
+
+  <div class="wrap motion rv">
+    <video muted loop playsinline preload="none" data-autoplay data-src="/work/assets/film/softlips-gloss.mp4" poster="/work/assets/still/softlips-2.webp" aria-label="Softlips motion test: shot 02, the hush"></video>
+    <div><p class="eyebrow gold">Motion test</p><h4>The hush, in motion.</h4><p>Shot 02: the stick held to her lips, serene eye contact, a slow push-in — with the gloss refined on the balm tip in a second pass. Testing key shots in motion comes before a single frame of the final is produced.</p></div>
+  </div>
+
+  <div class="wrap next"><a href="#case-plaud">Next case <b>PLAUD</b><svg><use href="#i-down"/></svg></a></div>
+</section>
+
+<!-- ═════════════ 08 · PLAUD ═════════════ -->
+<section class="case" id="case-plaud" aria-labelledby="t-plaud">
+  <div class="wrap case-head rv">
+    <div class="case-num" aria-hidden="true">08</div>
+    <div>
+      <p class="eyebrow gold">Tech · UGC ad · Spec pitch</p>
+      <h2 class="case-title" id="t-plaud">PLAUD <em>Everyone knows it's on.</em></h2>
+      <p class="case-line">A finished, native-feeling TikTok ad for the PLAUD NotePro, made the same day the brief arrived — in French.</p>
+      <ul class="tags"><li class="hl">UGC ad</li><li class="hl">Original AI creator</li><li>Vertical 9:16</li></ul>
+    </div>
+    <dl class="facts">
+      <div><dt>Brand</dt><dd>PLAUD NotePro, an AI voice recorder</dd></div>
+      <div><dt>Type</dt><dd>Spec ad for PLAUD's creator agency — a pitch, not used in their campaign</dd></div>
+      <div><dt>Format</dt><dd>9:16, in French, 18 fast-cut seconds</dd></div>
+      <div><dt>Turnaround</dt><dd>Same day, with a four-page proposal</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap feature rv">
+    <div class="split" style="align-items:center">
+      <div class="story" style="grid-template-columns:1fr;margin-top:0">
+        <div><h3>The brief</h3><p>PLAUD makes AI voice recorders. Their creator agency sent a brief in French: a native-feeling TikTok ad for the NotePro, the product named in the first ten seconds, and no hint of secret recording. We answered the same day with a finished spec ad.</p></div>
+        <div><h3>The creator</h3><p>She's an <strong>original AI persona</strong> — warm, early thirties, the coworker you'd trust over coffee — designed for this brief and consistent from shot to shot, from the selfie open to the hand-held product close-ups.</p></div>
+        <div><h3>The craft</h3><p>The no-eavesdropping rule became the hook: "everyone knows it's on." The French consent notice sits on the first frame, and the product is named by second four. Storyboarded, generated and cut like a real creator's video. PLAUD didn't run it — but it shows how one creator can be adapted for every audience in a brief.</p></div>
+      </div>
+      <figure class="film vertical" data-src="/work/assets/film/plaud-ugc.mp4" data-title="PLAUD NotePro — spec UGC ad" style="width:min(380px,100%)">
+        <video playsinline preload="none" controlslist="nodownload noremoteplayback" poster="/work/assets/poster/plaud-ugc.webp"></video>
+        <div class="vf" aria-hidden="true"><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
+        <button class="film-play" type="button" aria-label="Play the PLAUD spec ad, 18 seconds"><span class="pill"><span class="ring"><svg><use href="#i-play"/></svg></span><span><b>Watch the ad</b><small>0:18 · Sound on</small></span></span></button>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ═════════════ CLOSE ═════════════ -->
+<section class="close" aria-labelledby="close-title">
+  <div class="wrap">
+    <p class="eyebrow gold-deep rv">Your move</p>
+    <h2 class="rv" id="close-title">Your story <em>could be next.</em></h2>
+    <p class="rv">Every project on this page started with a 30-minute strategy call. Bring your market and your goals — you'll leave with a plan, whether we work together or not.</p>
+    <div class="close-ctas rv">
+      <a class="btn btn-gold" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener" data-cta="close">Book a strategy call <svg><use href="#i-arrow"/></svg></a>
+      <a class="btn btn-ghost" href="mailto:michael@avataragency.ai?subject=Your%20private%20portfolio" data-cta="email">Email Michael</a>
+    </div>
+  </div>
+</section>
+
 </main>
-<footer>Content on this page may contain AI-generated synthetic performers, created and used with the consent of the people they portray. Disclosed per NY law (eff. 6/9/26) &amp; FTC guidelines. © 2026 AvatarAgency.ai · Los Angeles, California</footer>
-<script>
-(function () {
-  var grid = document.querySelector(".grid"), bar = document.querySelector(".filters");
-  function esc(s) { return String(s || "").replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
-  fetch("/work/media/manifest.json", { credentials: "same-origin" })
-    .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
-    .then(function (m) {
-      var items = (m && m.items) || [];
-      if (!items.length) { grid.innerHTML = '<p class="state">The portfolio is being updated — check back shortly.</p>'; return; }
-      var cats = ["All"].concat(items.map(function (i) { return i.category; }).filter(function (c, k, a) { return c && a.indexOf(c) === k; }));
-      bar.innerHTML = cats.map(function (c, k) { return '<button type="button" aria-pressed="' + (k === 0) + '">' + esc(c) + "</button>"; }).join("");
-      grid.innerHTML = items.map(function (i) {
-        return '<article class="item' + (i.aspect === "9:16" ? " vertical" : "") + '" data-cat="' + esc(i.category) + '">' +
-          '<video controls playsinline preload="none" controlslist="nodownload" oncontextmenu="return false" poster="/work/media/' + esc(i.poster) + '" src="/work/media/' + esc(i.video) + '" data-title="' + esc(i.title) + '"></video>' +
-          '<div class="meta"><small>' + esc(i.category) + (i.duration ? " · " + esc(i.duration) : "") + "</small><b>" + esc(i.title) + "</b>" + (i.summary ? "<p>" + esc(i.summary) + "</p>" : "") + "</div></article>";
-      }).join("");
-      bar.addEventListener("click", function (e) {
-        var b = e.target.closest("button"); if (!b) return;
-        [].forEach.call(bar.children, function (x) { x.setAttribute("aria-pressed", x === b); });
-        [].forEach.call(grid.children, function (a) { a.hidden = b.textContent !== "All" && a.getAttribute("data-cat") !== b.textContent; });
-      });
-      grid.addEventListener("play", function (e) {
-        [].forEach.call(grid.querySelectorAll("video"), function (v) { if (v !== e.target) v.pause(); });
-        try { gtag("event", "portfolio_play", { video_title: e.target.getAttribute("data-title") }); } catch (x) {}
-      }, true);
-    })
-    .catch(function () { grid.innerHTML = '<p class="state">We couldn\'t load the portfolio just now. Please refresh, or email <a href="mailto:michael@avataragency.ai" style="color:#E4C97A">michael@avataragency.ai</a>.</p>'; });
-})();
-</script>
+
+<footer class="ftr">
+  <div class="wrap">
+    <a href="/" class="logo-lockup" aria-label="AvatarAgency — home"><span class="c">Avatar</span><span class="l">Agency</span></a>
+    <p>Content on this page may contain AI-generated synthetic performers. Disclosed per NY law (eff. 6/9/26) &amp; FTC guidelines. Shared privately with the permission of our clients — please don't redistribute. &copy; 2026 AvatarAgency.ai — All Rights Reserved · Los Angeles, California</p>
+    <span class="legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/protection">Likeness Protection</a></span>
+  </div>
+</footer>
+
+<!-- Theater: one overlay for every clip, reference frame and storyboard still -->
+<div class="theater" id="theater" role="dialog" aria-modal="true" aria-label="Viewer" hidden>
+  <div class="theater-bg" data-close></div>
+  <span class="theater-count" data-count></span>
+  <div class="theater-box" data-box></div>
+  <p class="theater-cap" data-cap></p>
+  <button class="theater-x" type="button" data-close aria-label="Close"><svg><use href="#i-close"/></svg></button>
+  <button class="theater-prev" type="button" data-prev aria-label="Previous"><svg><use href="#i-left"/></svg></button>
+  <button class="theater-next" type="button" data-next aria-label="Next"><svg><use href="#i-arrow"/></svg></button>
+</div>
+
+<script src="/home-next/vendor/gsap.min.js"></script>
+<script src="/home-next/vendor/ScrollTrigger.min.js"></script>
+<script src="/home-next/vendor/lenis.min.js"></script>
+<script src="/work/portfolio.js?v=1"></script>
 </body>
 </html>
