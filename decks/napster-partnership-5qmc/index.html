@@ -1419,6 +1419,30 @@ html, body { background: var(--bg) !important; }
 
 <!-- 01 · COMMERCIAL FILM -->
 <!-- 01 · COVER -->
+<section class="slide" data-title="The commercial">
+  <div class="slide-content" style="justify-content: center; align-items: center; text-align: center; gap: clamp(0.9rem,2vw,1.5rem);">
+    <h1 class="display reveal" style="font-size: clamp(0.95rem,min(1.7vw,2.5vh),1.4rem); max-width: 52ch; text-align: center; margin: 0 auto;">We believed in this platform enough to produce its commercial.</h1>
+    <div class="film-frame reveal" id="film-frame">
+      <video class="film-video" src="napster-commercial.mp4" poster="napster-commercial.jpg" preload="none" playsinline controlslist="nodownload noremoteplayback"></video>
+      <button class="film-play" type="button" aria-label="Play the commercial, 1 minute 33 seconds">
+        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
+      </button>
+    </div>
+    <p class="fine reveal" style="margin-top:0;">We funded this proof ourselves. The rollout across the Americas is what a partner marketing budget buys.</p>
+    <script>
+      (function () {
+        var frame = document.getElementById('film-frame');
+        if (!frame) return;
+        var v = frame.querySelector('video'), btn = frame.querySelector('.film-play');
+        btn.addEventListener('click', function () {
+          v.preload = 'auto'; v.controls = true; btn.style.display = 'none';
+          var p = v.play(); if (p && p.catch) p.catch(function () { btn.style.display = ''; v.controls = false; });
+        });
+      })();
+    </script>
+  </div>
+</section>
+
 <section class="slide lead" data-title="Cover">
   <div class="slide-content">
     <div class="cover-stack reveal">
@@ -1440,7 +1464,7 @@ html, body { background: var(--bg) !important; }
     <h1 class="display reveal" style="font-size: clamp(1.4rem,min(3.4vw,4.9vh),2.8rem); max-width: 26ch; margin: 0 auto;">Some of our <em>Napster API</em> deployments.</h1>
     <div class="val-grid reveal" style="grid-template-columns: repeat(3, 1fr); max-width: 1000px;">
       <a class="val" style="--c: var(--accent)" href="https://avataragency.ai/#agents" target="_blank" rel="noopener"><div class="vn">01</div><div class="vphoto"><img src="ava.jpg" alt="Ava, AvatarAgency's talking AI agent"></div><h3>Ava · talking AI agent</h3><p>Live on the new avataragency.ai homepage in NV2 video. She greets every visitor face to face, guides them through the site and books real meetings on our calendar.</p><span class="go">avataragency.ai →</span></a>
-      <a class="val" style="--c: var(--gold-light)" href="https://livebrand.ai" target="_blank" rel="noopener"><div class="vn">02</div><div class="vphoto"><img src="lisa.jpg" alt="Lisa Cooper, LiveBrand's digital assistant"></div><h3>Lisa · LiveBrand concierge</h3><p>Speaks first, answers every question about the platform and welcomes returning visitors by name — a companion selling companions.</p><span class="go">livebrand.ai →</span></a>
+      <a class="val" style="--c: var(--gold-light)" href="https://livebrand.ai/?greet=1" target="_blank" rel="noopener"><div class="vn">02</div><div class="vphoto"><img src="lisa.jpg" alt="Lisa Cooper, LiveBrand's digital assistant"></div><h3>Lisa · LiveBrand concierge</h3><p>Speaks first, answers every question about the platform and welcomes returning visitors by name — a companion selling companions.</p><span class="go">livebrand.ai →</span></a>
       <a class="val" style="--c: var(--amber)" href="https://avataragency.ai/ethica/thrive/" target="_blank" rel="noopener"><div class="vn">03</div><div class="vphoto"><img src="ethica.jpg" alt="Ethica, the Financial Fraud Fighter"></div><h3>Ethica · the Fraud Fighter</h3><p>An original character with her own Stage: avatar, memberships and merch on one page.</p><span class="go">/ethica →</span></a>
     </div>
     <p class="fine reveal">Tap any card — every one of these is live right now, metering through the Companion API on Azure</p>
@@ -1458,7 +1482,7 @@ html, body { background: var(--bg) !important; }
           <ul><li>Speaks first, face to face, in NV2 video</li><li>Drives the page as she talks: services, films and forms</li><li>Books real meetings on our calendar, and reads the details back before she confirms</li><li>Sends the private portfolio and remembers returning visitors</li></ul>
           <span class="go">avataragency.ai → Talk to Ava</span></div>
       </a>
-      <a class="spot" style="--c: var(--gold-light)" href="https://livebrand.ai" target="_blank" rel="noopener">
+      <a class="spot" style="--c: var(--gold-light)" href="https://livebrand.ai/?greet=1" target="_blank" rel="noopener">
         <div class="spot-media"><img src="lisa.jpg" alt="Lisa Cooper, LiveBrand's digital assistant"><span class="spot-live"><i></i>Live</span></div>
         <div class="spot-body"><div class="vn">Lisa · LiveBrand.ai</div><h3>The platform's concierge</h3>
           <ul><li>Greets every visitor and speaks first</li><li>Answers every question about LiveBrand</li><li>Turns conversations into waitlist leads</li><li>Welcomes returning visitors back by name</li></ul>
@@ -1630,7 +1654,7 @@ html, body { background: var(--bg) !important; }
       </ul>
     </div>
     <div class="iso-stage reveal" style="aspect-ratio:auto;">
-      <a class="browser-frame" href="https://livebrand.ai" target="_blank" rel="noopener">
+      <a class="browser-frame" href="https://livebrand.ai/?greet=1" target="_blank" rel="noopener">
         <span class="bar"><i></i><i></i><i></i><span class="url">livebrand.ai</span></span>
         <img src="livebrand-home.jpg" alt="LiveBrand.ai — your image, your voice, your brand">
       </a>
@@ -1663,31 +1687,6 @@ html, body { background: var(--bg) !important; }
 </section>
 
 <!-- 06 · THE STAGE — every LiveBrand client's landing page (live Ethica instance) -->
-<section class="slide iso-slide" data-title="The Stage">
-  <div class="slide-content">
-    <div class="iso-text">
-      <div class="reveal" style="margin:0 0 clamp(0.55rem,min(1.1vw,1.6vh),0.9rem);"><span class="lblogo" style="--s: clamp(30px,min(3.4vw,4.8vh),42px);"><span class="mk"><span class="rings"><span class="ring o"></span><span class="ring i"></span></span><span class="disc"><span class="lv">Live</span></span></span><span class="wd"><span class="br">Brand</span><span class="ai">.ai</span></span></span></div>
-      <h3 class="kicker reveal">What every client gets</h3>
-      <h2 class="scene-title reveal">Every client gets a <em>Stage.</em></h2>
-      <p class="body-text reveal">The client's avatar owns the top third — live, user-initiated. Everything they already have — their story, their video, their store — swipes beneath it. This is Ethica's, live right now.</p>
-      <ul class="fine-list reveal">
-        <li><span class="k">01 · Avatar</span><span class="v">Live on the Companion API</span></li>
-        <li><span class="k">02 · Modules</span><span class="v">Story · trailer · merch</span></li>
-        <li><span class="k">03 · All real</span><span class="v">Live checkout, real links</span></li>
-        <li class="teal"><span class="k">04 · Live at</span><span class="v">avataragency.ai/ethica/stage</span></li>
-      </ul>
-    </div>
-    <div class="iso-stage reveal" style="aspect-ratio:auto;">
-      <a class="phone-frame" href="https://avataragency.ai/ethica/stage/" target="_blank" rel="noopener">
-        <img src="ethica-stage-phone.jpg" alt="The Ethica Stage — live avatar over a swipeable module deck">
-        <span class="cap">TAP TO OPEN THE LIVE PAGE</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-
-
 <!-- 09 · THE FLYWHEEL -->
 <section class="slide" data-title="The flywheel">
   <div class="slide-content" style="justify-content: center; align-items: center; text-align: center;">
@@ -1710,31 +1709,6 @@ html, body { background: var(--bg) !important; }
 </section>
 
 <!-- 10 · THE COMMERCIAL (v2: moved before the ask — proof crescendo, then the ask) -->
-<section class="slide" data-title="The commercial">
-  <div class="slide-content" style="justify-content: center; align-items: center; text-align: center; gap: clamp(0.9rem,2vw,1.5rem);">
-    <h3 class="kicker reveal">Skin in the game</h3>
-    <h1 class="display reveal" style="font-size: clamp(0.95rem,min(1.7vw,2.5vh),1.4rem); max-width: 52ch; text-align: center; margin: 0 auto;">We believed in this platform enough to produce its commercial — <em>on our own.</em></h1>
-    <div class="film-frame reveal" id="film-frame">
-      <video class="film-video" src="napster-commercial.mp4" poster="napster-commercial.jpg" preload="none" playsinline controlslist="nodownload noremoteplayback"></video>
-      <button class="film-play" type="button" aria-label="Play the commercial, 1 minute 33 seconds">
-        <span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg></span>
-      </button>
-    </div>
-    <p class="fine reveal" style="margin-top:0;">We funded this proof ourselves. The rollout across the Americas is what a partner marketing budget buys.</p>
-    <script>
-      (function () {
-        var frame = document.getElementById('film-frame');
-        if (!frame) return;
-        var v = frame.querySelector('video'), btn = frame.querySelector('.film-play');
-        btn.addEventListener('click', function () {
-          v.preload = 'auto'; v.controls = true; btn.style.display = 'none';
-          var p = v.play(); if (p && p.catch) p.catch(function () { btn.style.display = ''; v.controls = false; });
-        });
-      })();
-    </script>
-  </div>
-</section>
-
 <!-- 11 · THE PARTNERSHIP (v2: MDF evangelism pilot leads; Thunder Studios folded in) -->
 <section class="slide" data-title="The partnership">
   <div class="slide-content" style="justify-content: center; max-width: min(92vw, 1040px); margin-inline: auto; padding-inline: clamp(1rem, 3vw, 2.5rem);">
