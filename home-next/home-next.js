@@ -493,7 +493,9 @@
         .then(function (res) {
           if (res.j && res.j.ok) {
             form.classList.add("done");
-            msg.textContent = "Check your inbox, " + name + " — your private portfolio link is on its way. (Don't see it? Look in promotions or spam.)";
+            msg.textContent = res.j.already
+              ? "We already sent your private link to " + email + " a few minutes ago, " + name + " — check your inbox, including promotions and spam."
+              : "Check your inbox, " + name + " — your private portfolio link is on its way. (Don't see it? Look in promotions or spam.)";
             track("generate_lead", { lead_source: "private_portfolio" });
           } else throw new Error(res.j && res.j.error || "unavailable");
         })

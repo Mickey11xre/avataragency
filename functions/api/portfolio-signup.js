@@ -49,10 +49,10 @@ export async function onRequestPost(context) {
   if (ipN >= PER_IP_PER_HOUR) return json({ ok: false, error: "too many requests" }, 429);
   await env.AISO_KV.put(ipKey, String(ipN + 1), { expirationTtl: 3700 });
 
-  // One email per address per 10 minutes — repeat submits succeed quietly.
+  // One email per address per 10 minutes. A repeat inside that window sends nothing, and says so, so the page can
+  // tell the visitor their link is already in their inbox instead of claiming a new one is on its way.
   const rl = "pf:rl:" + email;
-  if (await env.AISO_KV.get(rl)) return json({ ok: true });
-  await env.AISO_KV.put(rl, "1", { expirationTtl: 600 });
+  if (await env.AISO_KV.get(rl)) return json({ ok: true, already: true });
 
   // Proof of marketing-email consent: the exact notice the visitor saw beside the button, and when they agreed.
   const consent = body.consent === true
@@ -88,6 +88,8 @@ export async function onRequestPost(context) {
 
   const sent = await sendEmail(env, { from: FROM, to: [email], reply_to: NOTIFY, subject: "Your private AvatarAgency portfolio link", html });
   if (!sent) return json({ ok: false, error: "email failed" }, 502);
+  // Only a delivered email starts the 10-minute window, so a failed send can be retried straight away.
+  await env.AISO_KV.put(rl, "1", { expirationTtl: 600 });
 
   // Heads-up to Michael (not blocking the visitor if it fails).
   context.waitUntil(sendEmail(env, {

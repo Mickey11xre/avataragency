@@ -453,6 +453,11 @@
       busy(true); setMsg("Sending your private link…");
       return post("/api/portfolio-signup", { name: S.pf.name.trim(), email: S.pf.email.trim(), company: "", hp: "", consent: true, consent_text: CONSENT_TEXT, source: "ava-panel" }).then(function (r) {
         busy(false);
+        if (r.ok && r.already) {
+          S.doneMsg = "We already sent your private link to " + S.pf.email.trim() + " a few minutes ago — check your inbox, including promotions and spam."; go("portfolioDone"); rememberName(S.pf.name);
+          emit("No new email was sent: the private portfolio link already went to " + S.pf.email.trim() + " a few minutes ago. Tell them to check their inbox, including promotions and spam, and that the link works for 7 days.", true);
+          return clean(r);
+        }
         if (r.ok) {
           S.doneMsg = "Your private portfolio link is on its way to " + S.pf.email.trim() + ". (Not there? Check promotions or spam.)"; go("portfolioDone"); track("generate_lead", { lead_source: "ava_panel_portfolio" }); rememberName(S.pf.name);
           emit("The private portfolio link was just emailed to " + S.pf.email.trim() + ". Tell them it is on its way, that it works for 7 days, and to check promotions or spam if it is not there in a minute.", true);
