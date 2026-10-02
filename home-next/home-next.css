@@ -803,12 +803,15 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .ava-btn.ava-talk[disabled] { opacity: .7; pointer-events: none; }
 .ava-btn.ava-talk.is-on { background: rgba(10,10,10,.55); color: var(--on-dark); border-color: rgba(255,255,255,.2); }
 /* The SDK mounts its own wrapper — without these rules it floats as a small panel in a corner of the viewport (spec gotcha #2). */
-.ava-mount { position: absolute; inset: 0; z-index: 1; overflow: hidden; opacity: 0; transition: opacity .45s ease; background: #050505; }
+.ava-mount { position: absolute; inset: 0; z-index: 1; overflow: hidden; opacity: 0; transition: opacity .8s cubic-bezier(.4,0,.2,1); background: #050505; }
 .ava-mount > *, .ava-mount video, .ava-mount canvas { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; margin: 0 !important; border-radius: 0 !important; object-fit: cover; }
 .ava-mount, .ava-mount * { overflow: hidden !important; scrollbar-width: none; }
 .stage-av.live-ready .ava-mount { opacity: 1; }
-.stage-av.live .ava-video { opacity: .35; transition: opacity .4s; }          /* the still loop dims while connecting */
-.stage-av.live-ready .ava-video { opacity: 0; }
+/* Hand-off (Michael, 2 Oct: "the video stops and the image is blurred… a little bit clunky"): her clip keeps
+   PLAYING at full brightness while Napster connects; the live video fades in OVER it once it is sharp
+   (ava-panel.js whenSharp); the clip is hidden only after that fade, and snaps back underneath on end. */
+.stage-av .ava-video { opacity: 1; transition: none; }
+.stage-av.live-ready .ava-video { opacity: 0; transition: opacity 0s linear .8s; }
 .stage-av.live::after { display: none; }
 .stage-av.live-ready .ava-ctrls, .stage-av.live-ready .ava-caption { display: none; }   /* the SDK's own control bar takes over */
 .stage-av.live .ava-ctrls .ava-hear { display: none; }

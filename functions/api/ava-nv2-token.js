@@ -1,9 +1,9 @@
 // Cloudflare Pages Function — mints a short-lived Napster session token for Ava NV2, the live talking
 // agent on the avataragency.ai homepage ("Talk to Ava", home-next/ava-panel.js → CFG.TOKEN_ENDPOINT).
 //
-// ✅ WIRED 2026-10-01 (Michael's go) to agent 5d72dc62 "Ava - Avatar Agency website (NV2-H)", currently on the
-//    HeyGen twin b1df8c54, for live testing on /home-next/. When the HeyGen-vs-Seedance A/B is decided, the
-//    WINNING twin goes onto this SAME agent (PATCH /agents/{id} companionId) — this file does not change.
+// ✅ WIRED 2026-10-01 (Michael's go) to agent 5d72dc62 "Ava - Avatar Agency website (NV2-H)". Since 2026-10-02 the
+//    agent wears the SEEDANCE twin 93d5c657 (Michael's pick; was HeyGen b1df8c54) — swapped on the agent itself
+//    (PATCH /agents/{id} companionId), so this file did not change for it.
 //    Which agent id is which: livebrand-ops/AGENT-ROSTER.md.
 //
 // Required env var (Cloudflare Pages → Settings → Environment variables):
@@ -47,6 +47,17 @@ export async function onRequest(context) {
   const cookies = request.headers.get('Cookie') || '';
   const known = cookies.match(new RegExp('(?:^|;\\s*)' + VISITOR_COOKIE + '=([a-f0-9]{32})(?:;|$)'));
   const visitorId = known ? known[1] : crypto.randomUUID().replace(/-/g, '');
+  // Returning visitors, "like Lisa on livebrand.ai" (Michael, 2 Oct). ava-panel.js sets aa_ava_seen once a live
+  // conversation has really started in this browser, and aa_ava_name when the visitor typed their first name into
+  // one of the panel's forms. A returning visitor is welcomed BACK instead of hearing the first-time intro, and a
+  // known name goes to Napster as the session profile (the same shape Lisa's token Worker sends).
+  const seen = /(?:^|;\s*)aa_ava_seen=1(?:;|$)/.test(cookies);
+  const firstName = readFirstName(cookies);
+  const returning = Boolean(known && seen);
+  const connection = { channelType: 'webrtc', externalClientId: visitorId, initialSpeech: returning ? welcomeBack(firstName) : FIRST_VISIT };
+  if (firstName) {
+    connection.externalClientProfile = { name: firstName, context: 'Visitor on the Avatar Agency website' + (returning ? ' who has talked with Ava before.' : '.') };
+  }
 
   try {
     const r = await fetch(
@@ -54,18 +65,7 @@ export async function onRequest(context) {
       {
         method: 'POST',
         headers: { 'X-Api-Key': API_KEY, 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          channelType: 'webrtc',
-          externalClientId: visitorId,
-          // Guidance, not a script — the model paraphrases initialSpeech. The brand is two words because
-          // the voice says exactly what it reads ("AvatarAgency" comes out as one jumbled word).
-          initialSpeech:
-            "Speak first, immediately, before the visitor says anything, in English. Open warmly: you're Ava, " +
-            "a digital avatar created by Avatar Agency. When someone lands on this website you're the first " +
-            "to say hello; you answer questions, explain how everything works, and when they're ready you " +
-            "can book a call with the team for them. Then ask what brought them here today. " +
-            "Under fifteen seconds, friendly and natural. Do not mention pricing."
-        }),
+        body: JSON.stringify(connection),
       }
     );
 
@@ -83,6 +83,33 @@ export async function onRequest(context) {
     console.error('Ava NV2 token function error:', err);
     return json({ error: 'Internal error' }, 500);
   }
+}
+
+// Guidance, not a script — the model paraphrases initialSpeech. The brand is two words because the voice says exactly
+// what it reads ("AvatarAgency" comes out as one jumbled word). No "I'm not real" (Michael, 2 Oct: too redundant).
+const FIRST_VISIT =
+  "Speak first, immediately, before the visitor says anything, in English. Open warmly: you're Ava, " +
+  "a digital avatar created by Avatar Agency. When someone lands on this website you're the first " +
+  "to say hello; you answer questions, explain how everything works, and when they're ready you " +
+  "can book a call with the team for them. Then ask what brought them here today. " +
+  "Under fifteen seconds, friendly and natural. Do not mention pricing.";
+
+function welcomeBack(name) {
+  return "Speak first, immediately, before the visitor says anything, in English. This visitor has talked with you " +
+    "before" + (name ? ", and their first name is " + name : "") + ". Welcome them back warmly" + (name ? " by name" : "") +
+    " - do not repeat your full introduction. If you remember what you talked about last time, mention it in a few " +
+    "words and offer to pick up there; otherwise ask what brings them back today. Under ten seconds, friendly and " +
+    "natural. Do not mention pricing.";
+}
+
+// Letters only, 30 max: the cookie is written by our own page from the visitor's own form input, and this keeps
+// anything else out of the session's opening guidance.
+function readFirstName(cookies) {
+  const m = cookies.match(/(?:^|;\s*)aa_ava_name=([^;]{1,90})/);
+  if (!m) return '';
+  let v = '';
+  try { v = decodeURIComponent(m[1]); } catch { return ''; }
+  return v.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ'-]/g, '').slice(0, 30);
 }
 
 function json(body, status = 200, extraHeaders = {}) {

@@ -66,6 +66,16 @@
     if (!instance || !instance.sendCommand) return;
     try { instance.sendCommand({ type: "send_message", data: { text: "[Booking panel] " + String(text).replace(/AvatarAgency/g, "Avatar Agency"), role: "system", trigger_response: !!speak } }); } catch (e) {}
   };
+  /* Memory (fleet #2, LiveBrand agent 2 Oct). /api/ava-nv2-token reads these: aa_ava_seen = this browser has
+     had a live conversation (so she welcomes them BACK instead of repeating the first-time intro); aa_ava_name =
+     the first name the visitor typed into one of the panel's forms (sent to Napster as the session profile, the
+     way Lisa greets returning visitors on livebrand.ai). First-party, this browser only. */
+  var COOKIE_TAIL = "; Path=/; Max-Age=31536000; Secure; SameSite=Lax";
+  function rememberSeen() { try { document.cookie = "aa_ava_seen=1" + COOKIE_TAIL; } catch (e) {} }
+  function rememberName(full) {
+    var first = (String(full || "").trim().split(/\s+/)[0] || "").replace(/[^A-Za-zÀ-ÖØ-öø-ÿ'-]/g, "").slice(0, 30);
+    if (first) { try { document.cookie = "aa_ava_name=" + encodeURIComponent(first) + COOKIE_TAIL; } catch (e) {} }
+  }
   var TZ_NAME = TZ.replace(/_/g, " ");
 
   function go(mode, opts) {
@@ -396,7 +406,7 @@
           if (r.ok && r.booked) {
             var when = r.when || info(S.slot).label; S.booked = { when: when };
             S.doneMsg = "Your strategy call with Michael is confirmed for " + when + ". Calendly has emailed your confirmation and calendar invite to " + S.book.email.trim() + ".";
-            go("booked"); track("ava_booking_confirmed", {}); track("generate_lead", { lead_source: "ava_panel_booking" });
+            go("booked"); track("ava_booking_confirmed", {}); track("generate_lead", { lead_source: "ava_panel_booking" }); rememberName(S.book.name);
             if (!fromTwin) emit("Booking confirmed for " + when + ". Calendly emailed " + S.book.email.trim() + ".", true);   // she reacts aloud
             return clean(r);
           }
@@ -431,11 +441,11 @@
       busy(true); setMsg("Sending…");
       return post("/api/agent-lead", { name: S.lead.name.trim(), email: S.lead.email.trim(), phone: S.lead.phone.trim(), need: S.lead.need.trim(), source: "ava-panel", consent: true, consent_text: CONSENT_TEXT }).then(function (r) {
         busy(false);
-        if (r.ok) { S.doneMsg = r.message || "Michael has your details and will be in touch soon."; go("leadDone"); track("generate_lead", { lead_source: "ava_panel_lead" }); return r; }
+        if (r.ok) { S.doneMsg = r.message || "Michael has your details and will be in touch soon."; go("leadDone"); track("generate_lead", { lead_source: "ava_panel_lead" }); rememberName(S.lead.name); return r; }
         setMsg("", true, 'That didn\'t go through. Email <a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a> and we\'ll reply directly.'); return r;
       });
     },
-    show_portfolio_form: function () { go("portfolio"); return { ok: true }; },
+    show_portfolio_form: function () { go("portfolio"); return { ok: true, note: "The private-portfolio form is open on the panel. Ask the visitor to type their first name and email and press 'Email me the link' - never fill it in for them. The private link arrives by email in about a minute and works for 7 days." }; },
     submit_portfolio: function () {
       if (!S.pf.name.trim() || !validEmail(S.pf.email.trim())) { setMsg(!S.pf.name.trim() ? "Please add your first name." : "Please enter a valid email.", true); return Promise.resolve({ ok: false }); }
       if (!reviewFresh("pf") || !S.review.ok) { openReview("pf", false); return Promise.resolve({ ok: false, needs_confirmation: true }); }
@@ -443,7 +453,11 @@
       busy(true); setMsg("Sending your private link…");
       return post("/api/portfolio-signup", { name: S.pf.name.trim(), email: S.pf.email.trim(), company: "", hp: "", consent: true, consent_text: CONSENT_TEXT, source: "ava-panel" }).then(function (r) {
         busy(false);
-        if (r.ok) { S.doneMsg = "Your private portfolio link is on its way to " + S.pf.email.trim() + ". (Not there? Check promotions or spam.)"; go("portfolioDone"); track("generate_lead", { lead_source: "ava_panel_portfolio" }); return r; }
+        if (r.ok) {
+          S.doneMsg = "Your private portfolio link is on its way to " + S.pf.email.trim() + ". (Not there? Check promotions or spam.)"; go("portfolioDone"); track("generate_lead", { lead_source: "ava_panel_portfolio" }); rememberName(S.pf.name);
+          emit("The private portfolio link was just emailed to " + S.pf.email.trim() + ". Tell them it is on its way, that it works for 7 days, and to check promotions or spam if it is not there in a minute.", true);
+          return r;
+        }
         setMsg("", true, 'That didn\'t go through. Email <a href="mailto:michael@avataragency.ai?subject=Private%20portfolio">michael@avataragency.ai</a> for the link.'); return r;
       });
     },
@@ -464,6 +478,9 @@
   ];
   TOOLS.push({ name: "show_service", description: "Show one Avatar Agency service on the panel beside you, with its short sales film that the visitor can choose to play. Call it as soon as you start talking about a specific service, so the visitor sees what you are describing. Service ids: agents (talking AI agents like you), strategist (creative strategist), realestate (real estate agents and brokers), business (businesses and influencers), authors (authors and publishers), aro (AI referral optimization), claude (Claude coaching).",
     inputSchema: { type: "object", properties: { service: { type: "string", enum: SERVICES.map(function (s) { return s.id; }) } }, required: ["service"] } });
+  // 2 Oct (Michael): visitors must be able to get the private portfolio from Ava herself - no strategy call needed.
+  TOOLS.push({ name: "show_portfolio_form", description: "Open the private-portfolio form on the panel beside you. Call it as soon as the visitor wants to see client work, examples, case studies or the portfolio. The visitor types their first name and email and presses the button themselves - never fill it in for them. A private link to Avatar Agency's client films and case studies is emailed to them right away and works for 7 days. No strategy call or meeting is needed to see the portfolio.",
+    inputSchema: { type: "object", properties: {} } });
   function execTool(name, args) {
     var fn = TOOLS.some(function (t) { return t.name === name; }) && TOOLS_IMPL[name];   // the twin can only reach the contract tools
     if (!fn) return Promise.resolve({ ok: false, error: "Unknown tool " + name });
@@ -543,19 +560,42 @@
     if ("requestVideoFrameCallback" in v) { try { v.requestVideoFrameCallback(go_); return; } catch (e) {} }
     if (v.readyState >= 3) return go_(); v.addEventListener("playing", go_, { once: true }); v.addEventListener("loadeddata", go_, { once: true });
   }
-  function armReveal() { if (!revealed && instance) waitForVideo(45, function (v) { onFirstFrame(v, reveal); }); }
+  // WebRTC video starts small and soft, then sharpens over a second or two. Hold the crossfade until the picture is
+  // close to the size it is shown at, so the first thing the visitor sees of the live Ava is crisp (max 2 s wait).
+  function whenSharp(v, cb) {
+    var t0 = Date.now(), fired = false, fin = function () { if (!fired) { fired = true; cb(); } };
+    var want = Math.min(960, Math.round((mount.clientWidth || 640) * Math.min(window.devicePixelRatio || 1, 2) * 0.75));
+    (function check() { if (fired) return; if (!v || (v.videoWidth || 0) >= want || Date.now() - t0 > 2000) return fin(); setTimeout(check, 120); })();
+  }
+  function armReveal() { if (!revealed && instance) waitForVideo(45, function (v) { onFirstFrame(v, function () { whenSharp(v, reveal); }); }); }
   function reveal() {
     if (revealed || !instance) return; revealed = true; liveState = "live";
     if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
     avStage.classList.add("live-ready"); say_("", 0); setTalk("End conversation", true); pinBg();
+    rememberSeen();
+    setTimeout(function () { if (liveState === "live") vid.pause(); }, 900);   // the clip is fully covered by then
     track("ava_live_session", {});
+  }
+  // "Talk to Ava" pressed while she is talking in the recorded clip: fade her recorded voice out instead of cutting it.
+  // Timers, not requestAnimationFrame (which stops in a hidden tab and would leave the recorded voice playing over the
+  // live Ava), plus a hard stop. iOS ignores media volume, so there it simply stops at the end of the fade.
+  function fadeOutVoice(ms) {
+    ms = ms || 450; var v0 = vid.volume, t0 = Date.now(), done = false, iv = null;
+    var finish = function () { if (done) return; done = true; if (iv) clearInterval(iv); stopHearing(); caption([]); try { vid.volume = v0; } catch (e) {} };
+    iv = setInterval(function () {
+      var k = Math.min(1, (Date.now() - t0) / ms);
+      try { vid.volume = Math.max(0, v0 * (1 - k)); } catch (e) {}
+      if (k >= 1) finish();
+    }, 30);
+    setTimeout(finish, ms + 120);
   }
   function endedState(msg) {
     instance = null; revealed = false; liveState = "idle";
     [capTimer, readyTimer].forEach(function (t) { if (t) clearTimeout(t); }); capTimer = readyTimer = null;
-    avStage.classList.remove("live", "live-ready"); mount.innerHTML = ""; setTalk("Talk to Ava", false);
+    if (visible) playQuiet();                                  // the clip is back underneath BEFORE the live video fades out
+    avStage.classList.remove("live", "live-ready"); setTalk("Talk to Ava", false);
+    setTimeout(function () { if (liveState === "idle") mount.innerHTML = ""; }, 850);   // after the .8 s fade
     stage.classList.remove("is-live"); say_(msg || "", msg ? 9000 : 0); pinBg();
-    if (visible) playQuiet();
   }
   function liveError(e) {
     var st = e && e.status;
@@ -566,9 +606,11 @@
   }
   async function startLive() {
     if (liveState !== "idle") return;
-    liveState = "connecting"; stopDemo(); if (hearing) stopHearing(); caption([]);
+    liveState = "connecting"; stopDemo(); if (hearing) fadeOutVoice(); else caption([]);
     setTalk("Connecting…", false); say_("Connecting to Ava…", 0); avStage.classList.add("live"); stage.classList.add("is-live");
-    vid.pause(); readyTimer = setTimeout(function () { if (liveState === "connecting") say_("Almost there… allow the microphone if your browser asks.", 0); }, 5000);
+    // Her clip keeps playing (muted) while Napster connects - pausing it read as the video "stopping" (Michael, 2 Oct).
+    if (!RM && vid.paused) { ensureSrc(); vid.muted = true; var pq = vid.play(); if (pq && pq.catch) pq.catch(function () {}); }
+    readyTimer = setTimeout(function () { if (liveState === "connecting") say_("Almost there… allow the microphone if your browser asks.", 0); }, 5000);
     try {
       AvaPanel.installModelContext();                       // before init — the tools are registered from here
       await loadSdk(); pinBg();
