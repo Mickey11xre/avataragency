@@ -46,13 +46,13 @@
     arrow: '<svg><use href="#i-arrow"/></svg>',
   };
   var SERVICES = [
-    { id: "agents", name: "Talking AI Agents", line: "An agent like me, working on your website", img: "media/agents/angela-collins.jpg", text: "A digital twin of you, a custom brand avatar, or a ready-to-go presenter — answering questions, booking appointments and capturing leads around the clock.", film: null, dur: null, page: null },
-    { id: "strategist", name: "Creative Strategist", line: "Your whole content engine, run by one strategist", img: "media/poster-strategist.jpg", text: "Brand and story strategy, a digital twin capture, cinematic AI production and every format for every platform — run end to end for you.", film: "/strategist/vsl.mp4?v=1", dur: "1:25", page: "/strategist/" },
-    { id: "realestate", name: "Real Estate", line: "Listing videos, market updates and tours", img: "media/poster-re.jpg", text: "Your digital avatar delivers listing videos, market updates and neighborhood tours — no film crew, no drone operator, no three-week turnaround.", film: "media/film-re.mp4?v=1", dur: "1:46", page: "/real-estate" },
-    { id: "business", name: "Business & Influencers", line: "One session. Endless content.", img: "media/poster-biz.jpg", text: "Your clone or an original AI spokesperson, fresh videos every month, and your YouTube channel managed for you.", film: "media/film-biz.mp4?v=1", dur: "0:55", page: "/business" },
-    { id: "authors", name: "Authors & Publishers", line: "From the page to the screen", img: "media/poster-authors.jpg", text: "Cinematic book trailers, a talking author avatar, an author website and a launch campaign.", film: "media/film-authors.mp4?v=1", dur: "3:14", page: "/authors" },
-    { id: "aro", name: "AI Referral Optimization", line: "Get recommended by ChatGPT, Gemini and more", img: "media/poster-aro.jpg", text: "We test real customer questions on ChatGPT, Gemini, Grok, Perplexity and Claude — and make your business the answer.", film: "/aiso/video/aro-sales.mp4?v=1", dur: "1:34", page: "/aiso/" },
-    { id: "claude", name: "Claude Coaching", line: "Master Claude in 90 minutes", img: "media/poster-claude.jpg", text: "A private, hands-on session in your own account. You leave with AI already running your busywork.", film: "/claudecoaching/vsl.mp4?v=2", dur: "2:03", page: "/claudecoaching/" },
+    { id: "agents", name: "Talking AI Agents", line: "An agent like me, working on your website", img: "/home-next/media/agents/angela-collins.jpg", text: "A digital twin of you, a custom brand avatar, or a ready-to-go presenter — answering questions, booking appointments and capturing leads around the clock.", film: null, dur: null, page: null },
+    { id: "strategist", name: "Creative Strategist", line: "Your whole content engine, run by one strategist", img: "/home-next/media/poster-strategist.jpg", text: "Brand and story strategy, a digital twin capture, cinematic AI production and every format for every platform — run end to end for you.", film: "/strategist/vsl.mp4?v=1", dur: "1:25", page: "/strategist/" },
+    { id: "realestate", name: "Real Estate", line: "Listing videos, market updates and tours", img: "/home-next/media/poster-re.jpg", text: "Your digital avatar delivers listing videos, market updates and neighborhood tours — no film crew, no drone operator, no three-week turnaround.", film: "/home-next/media/film-re.mp4?v=1", dur: "1:46", page: "/real-estate" },
+    { id: "business", name: "Business & Influencers", line: "One session. Endless content.", img: "/home-next/media/poster-biz.jpg", text: "Your clone or an original AI spokesperson, fresh videos every month, and your YouTube channel managed for you.", film: "/home-next/media/film-biz.mp4?v=1", dur: "0:55", page: "/business" },
+    { id: "authors", name: "Authors & Publishers", line: "From the page to the screen", img: "/home-next/media/poster-authors.jpg", text: "Cinematic book trailers, a talking author avatar, an author website and a launch campaign.", film: "/home-next/media/film-authors.mp4?v=1", dur: "3:14", page: "/authors" },
+    { id: "aro", name: "AI Referral Optimization", line: "Get recommended by ChatGPT, Gemini and more", img: "/home-next/media/poster-aro.jpg", text: "We test real customer questions on ChatGPT, Gemini, Grok, Perplexity and Claude — and make your business the answer.", film: "/aiso/video/aro-sales.mp4?v=1", dur: "1:34", page: "/aiso/" },
+    { id: "claude", name: "Claude Coaching", line: "Master Claude in 90 minutes", img: "/home-next/media/poster-claude.jpg", text: "A private, hands-on session in your own account. You leave with AI already running your busywork.", film: "/claudecoaching/vsl.mp4?v=2", dur: "2:03", page: "/claudecoaching/" },
   ];
 
   /* ═════════ State + rendering ═════════ */
@@ -121,7 +121,7 @@
   var hp = '<div class="hp" aria-hidden="true"><label>Leave this empty<input name="hp" tabindex="-1" autocomplete="off"></label></div>';
   // Express consent to marketing email — shown wherever a visitor gives us their email for the portfolio or a follow-up.
   var CONSENT_TEXT = "By submitting, you agree that AvatarAgency may email you additional information about our services, offers and promotions. You can unsubscribe at any time.";
-  var CONSENT = '<p class="p-consent">' + CONSENT_TEXT + ' <a href="/privacy.html" target="_blank" rel="noopener">Privacy Policy</a></p>';
+  var CONSENT = '<p class="p-consent">' + CONSENT_TEXT + ' <a href="/privacy" target="_blank" rel="noopener">Privacy Policy</a></p>';
 
   /* "Is this correct?" — nothing is booked or sent until the visitor confirms what is on screen.
      S.review = { kind: "book" | "pf" | "lead", sig, at, ok }. Any change to the details (sig) cancels the confirmation. */

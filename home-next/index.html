@@ -13,9 +13,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <!-- PROTOTYPE: private review build. Remove noindex when this replaces the live homepage. -->
 <meta name="robots" content="noindex, nofollow">
-<title>AvatarAgency — AI Marketing Agency | Digital Twins, Cinematic AI Video &amp; AI Referral Optimization | Los Angeles</title>
-<meta name="description" content="AvatarAgency is a Los Angeles AI marketing agency. One capture session becomes your digital twin, cinematic AI video for every platform, and a brand that AI assistants recommend. Book a free strategy call.">
+<title>AvatarAgency: AI Video, Digital Twins &amp; AI Agents | Los Angeles</title>
+<meta name="description" content="Los Angeles AI marketing agency: digital twins, talking AI agents, cinematic AI video and AI Referral Optimization so AI assistants recommend you.">
 <meta name="theme-color" content="#0a0a0a">
+<meta name="facebook-domain-verification" content="bmevs2rkax4dsr9ewkab7xmcutzker" />
+<link rel="icon" href="/favicon.ico?v=1" sizes="48x48">
+<link rel="icon" href="/favicon.png?v=1" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png?v=1">
 <link rel="canonical" href="https://avataragency.ai/">
 
 <meta property="og:type" content="website">
@@ -26,15 +30,17 @@
 <meta property="og:site_name" content="AvatarAgency">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@AvatarAgencyai">
+<meta name="twitter:title" content="AvatarAgency — Your brand, everywhere. Without the film crew.">
+<meta name="twitter:description" content="Digital twins, talking AI agents, cinematic AI video and AI Referral Optimization — run for you by one creative strategist. Los Angeles, CA.">
+<meta name="twitter:image" content="https://avataragency.ai/assets/og-home.jpg">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="media/poster-hero.jpg?v=2" media="(min-aspect-ratio: 4/5)">
-<link rel="preload" as="image" href="media/poster-hero-portrait.jpg?v=2" media="(max-aspect-ratio: 4/5)">
-<link rel="stylesheet" href="home-next.css?v=12">
+<link rel="preload" as="image" href="/home-next/media/poster-hero.jpg?v=2" media="(min-aspect-ratio: 4/5)">
+<link rel="stylesheet" href="/home-next/home-next.css?v=13">
 <script>
   /* Runs before paint: flags JS, reduced motion, and whether the intro plays (once per session). */
   (function (d) {
@@ -51,60 +57,86 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Organization",
-      "@id": "https://avataragency.ai/#org",
+      "@type": ["Organization", "ProfessionalService"],
+      "@id": "https://avataragency.ai/#organization",
       "name": "AvatarAgency",
-      "alternateName": "AvatarAgency.ai",
+      "alternateName": ["Avatar Agency", "AvatarAgency.ai"],
       "url": "https://avataragency.ai/",
-      "logo": "https://avataragency.ai/assets/og-home.jpg",
-      "description": "Los Angeles AI marketing agency: digital twins, cinematic AI video, AI Referral Optimization and Claude coaching for real estate agents, businesses, influencers and authors.",
+      "logo": "https://avataragency.ai/assets/avatar-agency-logo.png?v=1",
+      "image": "https://avataragency.ai/assets/og-home.jpg",
+      "foundingDate": "2024",
+      "description": "Los Angeles AI marketing agency: digital twins, talking AI agents, cinematic AI video, AI Referral Optimization and Claude coaching for real estate agents, businesses, influencers and authors.",
       "email": "michael@avataragency.ai",
       "telephone": "+1-310-980-9378",
       "address": { "@type": "PostalAddress", "addressLocality": "Los Angeles", "addressRegion": "CA", "addressCountry": "US" },
-      "founder": { "@type": "Person", "name": "Michael Rivera", "jobTitle": "Founder & CEO" },
+      "areaServed": { "@type": "Country", "name": "United States" },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], "opens": "09:00", "closes": "18:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "10:00", "closes": "15:00" }
+      ],
+      "founder": { "@id": "https://avataragency.ai/about#michael-rivera" },
+      "contactPoint": { "@type": "ContactPoint", "telephone": "+1-310-980-9378", "contactType": "customer service", "email": "michael@avataragency.ai" },
       "sameAs": [
         "https://www.instagram.com/avataragencyai/",
         "https://www.facebook.com/profile.php?id=61590037792432",
         "https://x.com/AvatarAgencyai",
-        "https://www.linkedin.com/in/michaelrayrivera/",
         "https://www.youtube.com/@AvatarAgencyAI",
         "https://www.threads.com/@avataragencyai",
         "https://www.tiktok.com/@avataragencyai"
       ]
     },
     {
+      "@type": "Person",
+      "@id": "https://avataragency.ai/about#michael-rivera",
+      "name": "Michael Rivera",
+      "jobTitle": "Founder",
+      "worksFor": { "@id": "https://avataragency.ai/#organization" },
+      "knowsAbout": ["AI video production", "digital twins and interactive avatars", "AI Referral Optimization", "Claude (Anthropic) workflow coaching", "brand marketing"],
+      "description": "Founder of AvatarAgency. 25+ years leading marketing at the intersection of consumer technology and real estate, including Activision; now operates as a fractional CMO building AI video, digital twins, and AI referral visibility for owner-operated businesses.",
+      "sameAs": ["https://www.linkedin.com/in/michaelrayrivera/"]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://avataragency.ai/#webpage",
+      "url": "https://avataragency.ai/",
+      "name": "AvatarAgency: AI Video, Digital Twins & AI Agents | Los Angeles",
+      "isPartOf": { "@id": "https://avataragency.ai/#organization" },
+      "about": { "@id": "https://avataragency.ai/#organization" }
+    },
+    {
       "@type": "ItemList",
       "name": "AvatarAgency services",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "item": { "@type": "Service", "name": "Creative Strategist", "url": "https://avataragency.ai/strategist/", "provider": { "@id": "https://avataragency.ai/#org" } } },
-        { "@type": "ListItem", "position": 2, "item": { "@type": "Service", "name": "AI Video for Real Estate Agents", "url": "https://avataragency.ai/real-estate", "provider": { "@id": "https://avataragency.ai/#org" } } },
-        { "@type": "ListItem", "position": 3, "item": { "@type": "Service", "name": "AI Video & Digital Cloning for Business and Influencers", "url": "https://avataragency.ai/business", "provider": { "@id": "https://avataragency.ai/#org" } } },
-        { "@type": "ListItem", "position": 4, "item": { "@type": "Service", "name": "Cinematic Book Marketing for Authors & Publishers", "url": "https://avataragency.ai/authors", "provider": { "@id": "https://avataragency.ai/#org" } } },
-        { "@type": "ListItem", "position": 5, "item": { "@type": "Service", "name": "AI Referral Optimization", "url": "https://avataragency.ai/aiso/", "provider": { "@id": "https://avataragency.ai/#org" } } },
-        { "@type": "ListItem", "position": 6, "item": { "@type": "Service", "name": "Claude Coaching", "url": "https://avataragency.ai/claudecoaching/", "provider": { "@id": "https://avataragency.ai/#org" } } },
-        { "@type": "ListItem", "position": 7, "item": { "@type": "Service", "name": "Talking AI Agents", "description": "Real-time talking AI agents for business websites: digital twins of real people, custom brand avatars, or ready-to-go presenters that answer questions, book appointments and capture leads.", "url": "https://avataragency.ai/#agents", "provider": { "@id": "https://avataragency.ai/#org" } } }
+        { "@type": "ListItem", "position": 1, "item": { "@type": "Service", "name": "Creative Strategist", "url": "https://avataragency.ai/strategist/", "provider": { "@id": "https://avataragency.ai/#organization" } } },
+        { "@type": "ListItem", "position": 2, "item": { "@type": "Service", "name": "AI Video for Real Estate Agents", "url": "https://avataragency.ai/real-estate", "provider": { "@id": "https://avataragency.ai/#organization" } } },
+        { "@type": "ListItem", "position": 3, "item": { "@type": "Service", "name": "AI Video & Digital Cloning for Business and Influencers", "url": "https://avataragency.ai/business", "provider": { "@id": "https://avataragency.ai/#organization" } } },
+        { "@type": "ListItem", "position": 4, "item": { "@type": "Service", "name": "Cinematic Book Marketing for Authors & Publishers", "url": "https://avataragency.ai/authors", "provider": { "@id": "https://avataragency.ai/#organization" } } },
+        { "@type": "ListItem", "position": 5, "item": { "@type": "Service", "name": "AI Referral Optimization", "url": "https://avataragency.ai/aiso/", "provider": { "@id": "https://avataragency.ai/#organization" } } },
+        { "@type": "ListItem", "position": 6, "item": { "@type": "Service", "name": "Claude Coaching", "url": "https://avataragency.ai/claudecoaching/", "provider": { "@id": "https://avataragency.ai/#organization" } } },
+        { "@type": "ListItem", "position": 7, "item": { "@type": "Service", "name": "Talking AI Agents", "description": "Real-time talking AI agents for business websites: digital twins of real people, custom brand avatars, or ready-to-go presenters that answer questions, book appointments and capture leads.", "url": "https://avataragency.ai/#agents", "provider": { "@id": "https://avataragency.ai/#organization" } } }
       ]
     },
     {
       "@type": "FAQPage",
+      "@id": "https://avataragency.ai/#faq",
       "mainEntity": [
-        { "@type": "Question", "name": "How does AI digital cloning work?", "acceptedAnswer": { "@type": "Answer", "text": "AvatarAgency captures your likeness and voice in a single session, then uses that digital twin to produce professional video content across every platform without you showing up again. We generate cinematic footage on the newest AI engines, sync your cloned voice, and hand-finish every video in a professional edit." } },
-        { "@type": "Question", "name": "Do I have to be on camera all the time?", "acceptedAnswer": { "@type": "Answer", "text": "Once. One guided capture session builds your digital twin. After that, we produce new video of you without you re-shooting anything." } },
-        { "@type": "Question", "name": "Will it look like AI content?", "acceptedAnswer": { "@type": "Answer", "text": "No. Every piece is storyboarded, generated on the best engine for the shot, and hand-finished in a professional edit. If it looks fake, it doesn't ship." } },
-        { "@type": "Question", "name": "What platforms are the videos made for?", "acceptedAnswer": { "@type": "Answer", "text": "Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube and X — widescreen for your website and YouTube, vertical for social." } },
-        { "@type": "Question", "name": "What is a talking AI agent?", "acceptedAnswer": { "@type": "Answer", "text": "A talking AI agent is a lifelike avatar on your website that speaks with visitors face to face in real time. It answers questions in a natural voice, follows the visitor's language, remembers returning visitors, books appointments on your calendar and captures every lead. AvatarAgency builds three kinds: a digital twin of you, a custom avatar designed for your brand, or a ready-to-go presenter from our Signature Collection." } },
-        { "@type": "Question", "name": "What is AI Referral Optimization?", "acceptedAnswer": { "@type": "Answer", "text": "People now ask ChatGPT, Gemini, Grok, Perplexity and Claude for recommendations, and the AI answers with two or three business names. AI Referral Optimization makes your business one of those names. It starts with a free AI Referral Audit that tests five real customer questions on all five AIs." } },
-        { "@type": "Question", "name": "What does it cost?", "acceptedAnswer": { "@type": "Answer", "text": "Every engagement is scoped to your market and goals on a free 30-minute strategy call. You leave knowing the number and the plan, with no obligation." } },
-        { "@type": "Question", "name": "How fast will I see something?", "acceptedAnswer": { "@type": "Answer", "text": "Your first production is typically in your hands within weeks of your capture session, not months. Urgent projects can move faster." } },
-        { "@type": "Question", "name": "Who is AvatarAgency?", "acceptedAnswer": { "@type": "Answer", "text": "AvatarAgency is a full-service AI marketing agency in Los Angeles, California, founded by Michael Rivera, who brings 25+ years in marketing across consumer technology (including Activision) and real-estate development." } }
+        { "@type": "Question", "name": "How does AI digital cloning work?", "acceptedAnswer": {"@type": "Answer", "text": "We capture your likeness and voice in a single session, then use that digital twin to produce professional video across every platform — without you showing up again. We generate cinematic footage on the newest AI engines, sync your cloned voice, and hand-finish every video in a professional edit."} },
+        { "@type": "Question", "name": "Do I have to be on camera all the time?", "acceptedAnswer": {"@type": "Answer", "text": "Once. One guided capture session builds your digital twin. After that, we produce new video of you without you re-shooting anything."} },
+        { "@type": "Question", "name": "Will it look like “AI content”?", "acceptedAnswer": {"@type": "Answer", "text": "No — and that's the point of having a strategist. Every piece is storyboarded, generated on the best engine for the shot, and hand-finished in a professional edit. If it looks fake, it doesn't ship."} },
+        { "@type": "Question", "name": "What platforms are the videos made for?", "acceptedAnswer": {"@type": "Answer", "text": "Facebook, Instagram, Threads, TikTok, LinkedIn, YouTube and X — widescreen for your website and YouTube, vertical for social."} },
+        { "@type": "Question", "name": "What is a talking AI agent?", "acceptedAnswer": {"@type": "Answer", "text": "A lifelike avatar on your website that speaks with visitors face to face, in real time. It answers questions in a natural voice, follows your customer's language, remembers returning visitors, books appointments on your calendar and captures every lead. We build three kinds: a digital twin of you, a custom avatar designed for your brand, or a ready-to-go presenter from our Signature Collection. Meet Ava."} },
+        { "@type": "Question", "name": "What is AI Referral Optimization?", "acceptedAnswer": {"@type": "Answer", "text": "People now ask ChatGPT, Gemini, Grok, Perplexity and Claude for recommendations, and the AI answers with two or three names. We make your business one of them — starting with a free AI Referral Audit that tests five real customer questions on all five AIs."} },
+        { "@type": "Question", "name": "What does it cost?", "acceptedAnswer": {"@type": "Answer", "text": "Every engagement is scoped to your market and goals on a free 30-minute strategy call. You leave knowing the number and the plan, with no obligation."} },
+        { "@type": "Question", "name": "How fast will I see something?", "acceptedAnswer": {"@type": "Answer", "text": "Your first production is typically in your hands within weeks of your capture session — not months. Urgent projects can move faster."} },
+        { "@type": "Question", "name": "Who is AvatarAgency?", "acceptedAnswer": {"@type": "Answer", "text": "A full-service AI marketing agency in Los Angeles, California, founded by Michael Rivera. We build digital twins, cinematic AI video and AI Referral Optimization for real estate agents, businesses, influencers and authors — and serve clients across the US remotely."} }
       ]
     },
     { "@type": "VideoObject", "name": "Meet Your Creative Strategist", "description": "How AvatarAgency builds your digital twin, cinematic videos and content engine with the newest AI.", "thumbnailUrl": "https://avataragency.ai/strategist/vsl-poster.jpg", "uploadDate": "2026-07-25", "duration": "PT1M25S", "contentUrl": "https://avataragency.ai/strategist/vsl.mp4" },
-    { "@type": "VideoObject", "name": "AI Real Estate Videos That Look Like Hollywood — No Camera Crew", "description": "Listing videos, market updates and neighborhood tours delivered by your digital avatar.", "thumbnailUrl": "https://avataragency.ai/home-next/media/poster-re.jpg", "uploadDate": "2026-04-09", "duration": "PT1M46S", "embedUrl": "https://www.youtube.com/embed/0SgYuyhBdaU" },
-    { "@type": "VideoObject", "name": "We Create Your Content So You Never Have To", "description": "Custom branded AI video and digital cloning for business owners and influencers.", "thumbnailUrl": "https://avataragency.ai/home-next/media/poster-biz.jpg", "uploadDate": "2026-04-10", "duration": "PT55S", "embedUrl": "https://www.youtube.com/embed/ieAimq2MxXI" },
-    { "@type": "VideoObject", "name": "Turn Your Book Into a Movie — AI Cinematic Book Promotion", "description": "Cinematic book trailers, author avatars and launch campaigns for authors and publishers.", "thumbnailUrl": "https://avataragency.ai/home-next/media/poster-authors.jpg", "uploadDate": "2026-05-14", "duration": "PT3M14S", "embedUrl": "https://www.youtube.com/embed/rVuyxGsylGg" },
+    { "@type": "VideoObject", "name": "AI Real Estate Videos That Look Like Hollywood — No Camera Crew", "description": "Listing videos, market updates and neighborhood tours delivered by your digital avatar.", "thumbnailUrl": "https://avataragency.ai/home-next/media/poster-re.jpg", "uploadDate": "2026-04-09", "duration": "PT1M46S", "contentUrl": "https://avataragency.ai/home-next/media/film-re.mp4", "embedUrl": "https://www.youtube.com/embed/0SgYuyhBdaU" },
+    { "@type": "VideoObject", "name": "We Create Your Content So You Never Have To", "description": "Custom branded AI video and digital cloning for business owners and influencers.", "thumbnailUrl": "https://avataragency.ai/home-next/media/poster-biz.jpg", "uploadDate": "2026-04-10", "duration": "PT55S", "contentUrl": "https://avataragency.ai/home-next/media/film-biz.mp4", "embedUrl": "https://www.youtube.com/embed/ieAimq2MxXI" },
+    { "@type": "VideoObject", "name": "Turn Your Book Into a Movie — AI Cinematic Book Promotion", "description": "Cinematic book trailers, author avatars and launch campaigns for authors and publishers.", "thumbnailUrl": "https://avataragency.ai/home-next/media/poster-authors.jpg", "uploadDate": "2026-05-14", "duration": "PT3M14S", "contentUrl": "https://avataragency.ai/home-next/media/film-authors.mp4", "embedUrl": "https://www.youtube.com/embed/rVuyxGsylGg" },
     { "@type": "VideoObject", "name": "Your next customer isn't Googling you. They're asking an AI.", "description": "The 90-second explanation of AI Referral Optimization and the free AI Referral Audit.", "thumbnailUrl": "https://avataragency.ai/aiso/img/aro-poster.jpg", "uploadDate": "2026-08-23", "duration": "PT1M34S", "contentUrl": "https://avataragency.ai/aiso/video/aro-sales.mp4" },
-    { "@type": "VideoObject", "name": "Your Brand is Your Edge in 2026", "description": "Founder Michael Rivera on why your brand is the one thing AI can't replicate.", "thumbnailUrl": "https://avataragency.ai/home-next/media/poster-about.jpg", "uploadDate": "2026-04-18", "duration": "PT49S", "embedUrl": "https://www.youtube.com/embed/RTO1TRyqG_Y" }
+    { "@type": "VideoObject", "name": "Your Brand is Your Edge in 2026", "description": "Founder Michael Rivera on why your brand is the one thing AI can't replicate.", "thumbnailUrl": "https://avataragency.ai/home-next/media/poster-about.jpg", "uploadDate": "2026-04-18", "duration": "PT49S", "contentUrl": "https://avataragency.ai/home-next/media/film-about.mp4", "embedUrl": "https://www.youtube.com/embed/RTO1TRyqG_Y" }
   ]
 }
 </script>
@@ -146,7 +178,7 @@
       <a href="#work">Work</a>
       <a href="#founder">About</a>
       <a href="/thrive/">THRIVE</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/contact">Contact</a>
     </nav>
     <div class="hdr-actions">
       <button class="btn-login" type="button" data-open-login>Client Login</button>
@@ -175,8 +207,8 @@
       <a href="#work">Private portfolio</a>
       <a href="#founder">About Michael</a>
       <a href="/thrive/">THRIVE speaking</a>
-      <a href="/services.html">All services</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/services">All services</a>
+      <a href="/contact">Contact</a>
       <a href="#" data-open-login>Client Login</a>
     </div>
     <a class="btn btn-gold" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener" data-cta="menu">Book a strategy call <svg><use href="#i-arrow"/></svg></a>
@@ -192,7 +224,7 @@
     <label>Email Address<input type="email" placeholder="you@example.com" autocomplete="email"></label>
     <label>Password<input type="password" placeholder="••••••••" autocomplete="current-password"></label>
     <button class="btn btn-ink" type="button">Sign In</button>
-    <a class="modal-forgot" href="/contact.html">Forgot your access? Contact us →</a>
+    <a class="modal-forgot" href="/contact">Forgot your access? Contact us →</a>
   </div>
 </div>
 
@@ -202,9 +234,9 @@
 <div class="stack">
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="hero-media">
-      <video class="hero-video" muted loop playsinline autoplay preload="auto" poster="media/poster-hero.jpg?v=2"
-             data-src-land="media/hero-reel.mp4?v=4" data-src-port="media/hero-reel-portrait.mp4?v=4"
-             data-poster-port="media/poster-hero-portrait.jpg?v=2" aria-hidden="true"></video>
+      <video class="hero-video" muted loop playsinline autoplay preload="auto" poster="/home-next/media/poster-hero.jpg?v=2"
+             data-src-land="/home-next/media/hero-reel.mp4?v=4" data-src-port="/home-next/media/hero-reel-portrait.mp4?v=4"
+             data-poster-port="/home-next/media/poster-hero-portrait.jpg?v=2" aria-hidden="true"></video>
       <div class="hero-scrim"></div>
       <div class="grain"></div>
     </div>
@@ -234,12 +266,12 @@
     </div>
 
     <nav class="hero-rail" aria-label="Jump to a service">
-      <a href="#ch-strategist"><img src="media/thumb-strategist.jpg" alt="" loading="lazy" decoding="async"><span>Creative Strategist</span></a>
-      <a href="#ch-realestate"><img src="media/thumb-re.jpg" alt="" loading="lazy" decoding="async"><span>Real Estate</span></a>
-      <a href="#ch-business"><img src="media/thumb-biz.jpg" alt="" loading="lazy" decoding="async"><span>Business</span></a>
-      <a href="#ch-authors"><img src="media/thumb-authors.jpg" alt="" loading="lazy" decoding="async"><span>Authors</span></a>
-      <a href="#ch-aro"><img src="media/thumb-aro.jpg" alt="" loading="lazy" decoding="async"><span>AI Referral</span></a>
-      <a href="#ch-claude"><img src="media/thumb-claude.jpg" alt="" loading="lazy" decoding="async"><span>Claude Coaching</span></a>
+      <a href="#ch-strategist"><img src="/home-next/media/thumb-strategist.jpg" alt="" loading="lazy" decoding="async"><span>Creative Strategist</span></a>
+      <a href="#ch-realestate"><img src="/home-next/media/thumb-re.jpg" alt="" loading="lazy" decoding="async"><span>Real Estate</span></a>
+      <a href="#ch-business"><img src="/home-next/media/thumb-biz.jpg" alt="" loading="lazy" decoding="async"><span>Business</span></a>
+      <a href="#ch-authors"><img src="/home-next/media/thumb-authors.jpg" alt="" loading="lazy" decoding="async"><span>Authors</span></a>
+      <a href="#ch-aro"><img src="/home-next/media/thumb-aro.jpg" alt="" loading="lazy" decoding="async"><span>AI Referral</span></a>
+      <a href="#ch-claude"><img src="/home-next/media/thumb-claude.jpg" alt="" loading="lazy" decoding="async"><span>Claude Coaching</span></a>
     </nav>
   </section>
 
@@ -257,7 +289,7 @@
       <div class="stage" id="ava-stage">
         <div class="stage-av">
           <div id="ava-mount" class="ava-mount"></div>
-          <video class="ava-video" muted loop playsinline preload="none" poster="media/ava-poster.jpg?v=1" data-src="media/ava-intro.mp4?v=1" aria-label="Ava, AvatarAgency's AI agent, introducing herself"></video>
+          <video class="ava-video" muted loop playsinline preload="none" poster="/home-next/media/ava-poster.jpg?v=1" data-src="/home-next/media/ava-intro.mp4?v=1" aria-label="Ava, AvatarAgency's AI agent, introducing herself"></video>
           <div class="ava-badge"><span class="ava-dot"></span>Ava · AI agent</div>
           <div class="ava-caption" aria-live="polite"></div>
           <div class="ava-toast" role="status" hidden></div>
@@ -302,18 +334,18 @@
       <div class="cyl cyl-wide" id="agents-cyl" tabindex="0" aria-roledescription="carousel" aria-label="Signature Collection avatars and the roles they can play">
         <button class="cyl-arrow prev" type="button" aria-label="Previous avatar"><svg><use href="#i-arrow"/></svg></button>
         <div class="cyl-stage">
-          <figure class="cyl-card" data-role="Customer service" data-desc="Answers every question, any hour, in your customer's language."><img src="media/agents/angela-collins.jpg" alt="Angela, an AI customer service agent" draggable="false" loading="lazy"><figcaption><b>Angela</b>Customer service</figcaption></figure>
-          <figure class="cyl-card" data-role="Sales representative" data-desc="Qualifies every lead and books the demo while you sleep."><img src="media/agents/emir.jpg" alt="Emir, an AI sales representative" draggable="false" loading="lazy"><figcaption><b>Emir</b>Sales representative</figcaption></figure>
-          <figure class="cyl-card" data-role="Technical support" data-desc="Walks customers through setup and troubleshooting, step by step."><img src="media/agents/tesek.jpg" alt="Tesek, an AI technical support agent" draggable="false" loading="lazy"><figcaption><b>Tesek</b>Technical support</figcaption></figure>
-          <figure class="cyl-card" data-role="Concierge" data-desc="Recommends, reserves, and remembers every guest's preferences."><img src="media/agents/grace.jpg" alt="Grace, an AI concierge" draggable="false" loading="lazy"><figcaption><b>Grace</b>Concierge</figcaption></figure>
-          <figure class="cyl-card" data-role="Coach" data-desc="Checks in, motivates and keeps every client on track between sessions."><img src="media/agents/farid.jpg" alt="Farid, an AI coach" draggable="false" loading="lazy"><figcaption><b>Farid</b>Coach</figcaption></figure>
-          <figure class="cyl-card" data-role="Real estate assistant" data-desc="Answers listing questions, pre-qualifies buyers and schedules showings."><img src="media/agents/adriana.jpg" alt="Adriana, an AI real estate assistant" draggable="false" loading="lazy"><figcaption><b>Adriana</b>Real estate assistant</figcaption></figure>
-          <figure class="cyl-card" data-role="Patient coordinator" data-desc="Books appointments and answers the questions patients ask most."><img src="media/agents/sophia.jpg" alt="Sophia, an AI patient coordinator" draggable="false" loading="lazy"><figcaption><b>Sophia</b>Patient coordinator</figcaption></figure>
-          <figure class="cyl-card" data-role="Legal intake" data-desc="Gathers the facts of each case and books the consultation."><img src="media/agents/angela-mabena.jpg" alt="Angela, an AI legal intake agent" draggable="false" loading="lazy"><figcaption><b>Angela</b>Legal intake</figcaption></figure>
-          <figure class="cyl-card" data-role="Wealth advisor's assistant" data-desc="Explains your services with discretion and books the first meeting."><img src="media/agents/thierry.jpg" alt="Thierry, an AI wealth advisor's assistant" draggable="false" loading="lazy"><figcaption><b>Thierry</b>Wealth advisor's assistant</figcaption></figure>
-          <figure class="cyl-card" data-role="Front desk" data-desc="Greets every visitor and routes them to the right person."><img src="media/agents/alexis.jpg" alt="Alexis, an AI front desk receptionist" draggable="false" loading="lazy"><figcaption><b>Alexis</b>Front desk</figcaption></figure>
-          <figure class="cyl-card" data-role="Onboarding specialist" data-desc="Guides every new customer through their first week."><img src="media/agents/david.jpg" alt="David, an AI onboarding specialist" draggable="false" loading="lazy"><figcaption><b>David</b>Onboarding specialist</figcaption></figure>
-          <figure class="cyl-card" data-role="Account manager" data-desc="Checks in with clients, answers account questions and spots the next opportunity."><img src="media/agents/luc.jpg" alt="Luc, an AI account manager" draggable="false" loading="lazy"><figcaption><b>Luc</b>Account manager</figcaption></figure>
+          <figure class="cyl-card" data-role="Customer service" data-desc="Answers every question, any hour, in your customer's language."><img src="/home-next/media/agents/angela-collins.jpg" alt="Angela, an AI customer service agent" draggable="false" loading="lazy"><figcaption><b>Angela</b>Customer service</figcaption></figure>
+          <figure class="cyl-card" data-role="Sales representative" data-desc="Qualifies every lead and books the demo while you sleep."><img src="/home-next/media/agents/emir.jpg" alt="Emir, an AI sales representative" draggable="false" loading="lazy"><figcaption><b>Emir</b>Sales representative</figcaption></figure>
+          <figure class="cyl-card" data-role="Technical support" data-desc="Walks customers through setup and troubleshooting, step by step."><img src="/home-next/media/agents/tesek.jpg" alt="Tesek, an AI technical support agent" draggable="false" loading="lazy"><figcaption><b>Tesek</b>Technical support</figcaption></figure>
+          <figure class="cyl-card" data-role="Concierge" data-desc="Recommends, reserves, and remembers every guest's preferences."><img src="/home-next/media/agents/grace.jpg" alt="Grace, an AI concierge" draggable="false" loading="lazy"><figcaption><b>Grace</b>Concierge</figcaption></figure>
+          <figure class="cyl-card" data-role="Coach" data-desc="Checks in, motivates and keeps every client on track between sessions."><img src="/home-next/media/agents/farid.jpg" alt="Farid, an AI coach" draggable="false" loading="lazy"><figcaption><b>Farid</b>Coach</figcaption></figure>
+          <figure class="cyl-card" data-role="Real estate assistant" data-desc="Answers listing questions, pre-qualifies buyers and schedules showings."><img src="/home-next/media/agents/adriana.jpg" alt="Adriana, an AI real estate assistant" draggable="false" loading="lazy"><figcaption><b>Adriana</b>Real estate assistant</figcaption></figure>
+          <figure class="cyl-card" data-role="Patient coordinator" data-desc="Books appointments and answers the questions patients ask most."><img src="/home-next/media/agents/sophia.jpg" alt="Sophia, an AI patient coordinator" draggable="false" loading="lazy"><figcaption><b>Sophia</b>Patient coordinator</figcaption></figure>
+          <figure class="cyl-card" data-role="Legal intake" data-desc="Gathers the facts of each case and books the consultation."><img src="/home-next/media/agents/angela-mabena.jpg" alt="Angela, an AI legal intake agent" draggable="false" loading="lazy"><figcaption><b>Angela</b>Legal intake</figcaption></figure>
+          <figure class="cyl-card" data-role="Wealth advisor's assistant" data-desc="Explains your services with discretion and books the first meeting."><img src="/home-next/media/agents/thierry.jpg" alt="Thierry, an AI wealth advisor's assistant" draggable="false" loading="lazy"><figcaption><b>Thierry</b>Wealth advisor's assistant</figcaption></figure>
+          <figure class="cyl-card" data-role="Front desk" data-desc="Greets every visitor and routes them to the right person."><img src="/home-next/media/agents/alexis.jpg" alt="Alexis, an AI front desk receptionist" draggable="false" loading="lazy"><figcaption><b>Alexis</b>Front desk</figcaption></figure>
+          <figure class="cyl-card" data-role="Onboarding specialist" data-desc="Guides every new customer through their first week."><img src="/home-next/media/agents/david.jpg" alt="David, an AI onboarding specialist" draggable="false" loading="lazy"><figcaption><b>David</b>Onboarding specialist</figcaption></figure>
+          <figure class="cyl-card" data-role="Account manager" data-desc="Checks in with clients, answers account questions and spots the next opportunity."><img src="/home-next/media/agents/luc.jpg" alt="Luc, an AI account manager" draggable="false" loading="lazy"><figcaption><b>Luc</b>Account manager</figcaption></figure>
         </div>
         <button class="cyl-arrow next" type="button" aria-label="Next avatar"><svg><use href="#i-arrow"/></svg></button>
       </div>
@@ -347,12 +379,12 @@
       <p class="index-sub">Each one comes with its own short film. Scroll, and the page stops at each film so you can watch it, or keep going.</p>
     </div>
     <ol class="index-list">
-      <li><a href="#ch-strategist" data-preview="media/poster-strategist.jpg"><span class="ix-n">01</span><span class="ix-t">Creative Strategist</span><span class="ix-d">Your whole content engine, run by one strategist</span><span class="ix-r">1:25 <svg><use href="#i-arrow"/></svg></span></a></li>
-      <li><a href="#ch-realestate" data-preview="media/poster-re.jpg"><span class="ix-n">02</span><span class="ix-t">Real Estate</span><span class="ix-d">Listing videos, market updates and tours — no crew</span><span class="ix-r">1:46 <svg><use href="#i-arrow"/></svg></span></a></li>
-      <li><a href="#ch-business" data-preview="media/poster-biz.jpg"><span class="ix-n">03</span><span class="ix-t">Business &amp; Influencers</span><span class="ix-d">One session. Endless content. Zero camera anxiety</span><span class="ix-r">0:55 <svg><use href="#i-arrow"/></svg></span></a></li>
-      <li><a href="#ch-authors" data-preview="media/poster-authors.jpg"><span class="ix-n">04</span><span class="ix-t">Authors &amp; Publishers</span><span class="ix-d">From the page to the screen</span><span class="ix-r">3:14 <svg><use href="#i-arrow"/></svg></span></a></li>
-      <li><a href="#ch-aro" data-preview="media/poster-aro.jpg"><span class="ix-n">05</span><span class="ix-t">AI Referral Optimization</span><span class="ix-d">Get recommended by ChatGPT, Gemini, Grok, Perplexity and Claude</span><span class="ix-r">1:34 <svg><use href="#i-arrow"/></svg></span></a></li>
-      <li><a href="#ch-claude" data-preview="media/poster-claude.jpg"><span class="ix-n">06</span><span class="ix-t">Claude Coaching</span><span class="ix-d">Master Claude in 90 minutes</span><span class="ix-r">2:03 <svg><use href="#i-arrow"/></svg></span></a></li>
+      <li><a href="#ch-strategist" data-preview="/home-next/media/poster-strategist.jpg"><span class="ix-n">01</span><span class="ix-t">Creative Strategist</span><span class="ix-d">Your whole content engine, run by one strategist</span><span class="ix-r">1:25 <svg><use href="#i-arrow"/></svg></span></a></li>
+      <li><a href="#ch-realestate" data-preview="/home-next/media/poster-re.jpg"><span class="ix-n">02</span><span class="ix-t">Real Estate</span><span class="ix-d">Listing videos, market updates and tours — no crew</span><span class="ix-r">1:46 <svg><use href="#i-arrow"/></svg></span></a></li>
+      <li><a href="#ch-business" data-preview="/home-next/media/poster-biz.jpg"><span class="ix-n">03</span><span class="ix-t">Business &amp; Influencers</span><span class="ix-d">One session. Endless content. Zero camera anxiety</span><span class="ix-r">0:55 <svg><use href="#i-arrow"/></svg></span></a></li>
+      <li><a href="#ch-authors" data-preview="/home-next/media/poster-authors.jpg"><span class="ix-n">04</span><span class="ix-t">Authors &amp; Publishers</span><span class="ix-d">From the page to the screen</span><span class="ix-r">3:14 <svg><use href="#i-arrow"/></svg></span></a></li>
+      <li><a href="#ch-aro" data-preview="/home-next/media/poster-aro.jpg"><span class="ix-n">05</span><span class="ix-t">AI Referral Optimization</span><span class="ix-d">Get recommended by ChatGPT, Gemini, Grok, Perplexity and Claude</span><span class="ix-r">1:34 <svg><use href="#i-arrow"/></svg></span></a></li>
+      <li><a href="#ch-claude" data-preview="/home-next/media/poster-claude.jpg"><span class="ix-n">06</span><span class="ix-t">Claude Coaching</span><span class="ix-d">Master Claude in 90 minutes</span><span class="ix-r">2:03 <svg><use href="#i-arrow"/></svg></span></a></li>
     </ol>
   </div>
   <div class="ix-float" aria-hidden="true"><img alt=""></div>
@@ -379,8 +411,8 @@
     </header>
     <div class="ch-stage">
       <div class="ch-sticky">
-        <figure class="player" data-loop="media/loop-strategist.mp4?v=1" data-film="/strategist/vsl.mp4?v=1" data-title="Meet Your Creative Strategist" data-duration="1:25">
-          <img class="player-poster" src="media/poster-strategist.jpg" alt="Cinematic stills from the Creative Strategist film" loading="lazy" decoding="async">
+        <figure class="player" data-loop="/home-next/media/loop-strategist.mp4?v=1" data-film="/strategist/vsl.mp4?v=1" data-title="Meet Your Creative Strategist" data-duration="1:25">
+          <img class="player-poster" src="/home-next/media/poster-strategist.jpg" alt="Cinematic stills from the Creative Strategist film" loading="lazy" decoding="async">
         </figure>
       </div>
     </div>
@@ -411,8 +443,8 @@
     </header>
     <div class="ch-stage">
       <div class="ch-sticky">
-        <figure class="player" data-loop="media/loop-re.mp4?v=1" data-film="media/film-re.mp4?v=1" data-title="AI Real Estate Videos That Look Like Hollywood" data-duration="1:46">
-          <img class="player-poster" src="media/poster-re.jpg" alt="A luxury pool and villa from the AvatarAgency real estate film" loading="lazy" decoding="async">
+        <figure class="player" data-loop="/home-next/media/loop-re.mp4?v=1" data-film="/home-next/media/film-re.mp4?v=1" data-title="AI Real Estate Videos That Look Like Hollywood" data-duration="1:46">
+          <img class="player-poster" src="/home-next/media/poster-re.jpg" alt="A luxury pool and villa from the AvatarAgency real estate film" loading="lazy" decoding="async">
         </figure>
       </div>
     </div>
@@ -441,8 +473,8 @@
     </header>
     <div class="ch-stage">
       <div class="ch-sticky">
-        <figure class="player" data-loop="media/loop-biz.mp4?v=1" data-film="media/film-biz.mp4?v=1" data-title="We Create Your Content So You Never Have To" data-duration="0:55">
-          <img class="player-poster" src="media/poster-biz.jpg" alt="A creator and a chef from the AvatarAgency business film" loading="lazy" decoding="async">
+        <figure class="player" data-loop="/home-next/media/loop-biz.mp4?v=1" data-film="/home-next/media/film-biz.mp4?v=1" data-title="We Create Your Content So You Never Have To" data-duration="0:55">
+          <img class="player-poster" src="/home-next/media/poster-biz.jpg" alt="A creator and a chef from the AvatarAgency business film" loading="lazy" decoding="async">
         </figure>
       </div>
     </div>
@@ -473,8 +505,8 @@
     </header>
     <div class="ch-stage">
       <div class="ch-sticky">
-        <figure class="player" data-loop="media/loop-authors.mp4?v=1" data-film="media/film-authors.mp4?v=1" data-title="Turn Your Book Into a Movie" data-duration="3:14">
-          <img class="player-poster" src="media/poster-authors.jpg" alt="A glowing book in a library, from the AvatarAgency authors film" loading="lazy" decoding="async">
+        <figure class="player" data-loop="/home-next/media/loop-authors.mp4?v=1" data-film="/home-next/media/film-authors.mp4?v=1" data-title="Turn Your Book Into a Movie" data-duration="3:14">
+          <img class="player-poster" src="/home-next/media/poster-authors.jpg" alt="A glowing book in a library, from the AvatarAgency authors film" loading="lazy" decoding="async">
         </figure>
       </div>
     </div>
@@ -503,8 +535,8 @@
     </header>
     <div class="ch-stage">
       <div class="ch-sticky">
-        <figure class="player" data-loop="media/loop-aro.mp4?v=1" data-film="/aiso/video/aro-sales.mp4?v=1" data-title="AI Referral Optimization, explained" data-duration="1:34">
-          <img class="player-poster" src="media/poster-aro.jpg" alt="A shop owner at a laptop, from the AI Referral Optimization film" loading="lazy" decoding="async">
+        <figure class="player" data-loop="/home-next/media/loop-aro.mp4?v=1" data-film="/aiso/video/aro-sales.mp4?v=1" data-title="AI Referral Optimization, explained" data-duration="1:34">
+          <img class="player-poster" src="/home-next/media/poster-aro.jpg" alt="A shop owner at a laptop, from the AI Referral Optimization film" loading="lazy" decoding="async">
         </figure>
       </div>
     </div>
@@ -536,8 +568,8 @@
     </header>
     <div class="ch-stage">
       <div class="ch-sticky">
-        <figure class="player" data-loop="media/loop-claude.mp4?v=1" data-film="/claudecoaching/vsl.mp4?v=2" data-title="Claude Coaching" data-duration="2:03">
-          <img class="player-poster" src="media/poster-claude.jpg" alt="A business owner working late at a laptop, from the Claude Coaching film" loading="lazy" decoding="async">
+        <figure class="player" data-loop="/home-next/media/loop-claude.mp4?v=1" data-film="/claudecoaching/vsl.mp4?v=2" data-title="Claude Coaching" data-duration="2:03">
+          <img class="player-poster" src="/home-next/media/poster-claude.jpg" alt="A business owner working late at a laptop, from the Claude Coaching film" loading="lazy" decoding="async">
         </figure>
       </div>
     </div>
@@ -575,10 +607,10 @@
       <h2 class="h2 dark" id="founder-title">The AI is new. <em>The craft isn't.</em></h2>
       <p class="lede">Michael Rivera brings 25+ years in marketing across consumer technology — including Activision — and real-estate development. AvatarAgency pairs that craft with the newest AI, so owner-operated businesses get the presence big brands pay agencies for.</p>
       <blockquote>“AI is everywhere. Your brand is the only thing it can't replicate.”</blockquote>
-      <figure class="player player-card" data-loop="media/loop-about.mp4?v=1" data-film="media/film-about.mp4?v=1" data-title="Your Brand is Your Edge in 2026" data-duration="0:49">
-        <img class="player-poster" src="media/poster-about.jpg" alt="Stills from the founder film, Your Brand is Your Edge in 2026" loading="lazy" decoding="async">
+      <figure class="player player-card" data-loop="/home-next/media/loop-about.mp4?v=1" data-film="/home-next/media/film-about.mp4?v=1" data-title="Your Brand is Your Edge in 2026" data-duration="0:49">
+        <img class="player-poster" src="/home-next/media/poster-about.jpg" alt="Stills from the founder film, Your Brand is Your Edge in 2026" loading="lazy" decoding="async">
       </figure>
-      <a class="link dark" href="/about.html">More about AvatarAgency <svg><use href="#i-arrow"/></svg></a>
+      <a class="link dark" href="/about">More about AvatarAgency <svg><use href="#i-arrow"/></svg></a>
     </div>
   </div>
 </section>
@@ -591,12 +623,12 @@
       <h2 class="h2" id="formats-title">One story, cut for <em>every screen.</em></h2>
     </div>
     <div class="formats-track" tabindex="0" aria-label="Video formats">
-      <figure class="fmt r-16x9"><video muted loop playsinline preload="none" data-src="media/loop-re.mp4?v=1" poster="media/poster-re.jpg"></video><figcaption><b>16:9</b>YouTube &amp; your website</figcaption></figure>
-      <figure class="fmt r-9x16"><video muted loop playsinline preload="none" data-src="media/loop-authors.mp4?v=1" poster="media/poster-authors.jpg"></video><figcaption><b>9:16</b>TikTok · Reels · Shorts</figcaption></figure>
-      <figure class="fmt r-1x1"><video muted loop playsinline preload="none" data-src="media/loop-biz.mp4?v=1" poster="media/poster-biz.jpg"></video><figcaption><b>1:1</b>Instagram &amp; Facebook feed</figcaption></figure>
-      <figure class="fmt r-4x5"><video muted loop playsinline preload="none" data-src="media/loop-strategist.mp4?v=1" poster="media/poster-strategist.jpg"></video><figcaption><b>4:5</b>Paid social</figcaption></figure>
-      <figure class="fmt r-9x16"><video muted loop playsinline preload="none" data-src="media/loop-aro.mp4?v=1" poster="media/poster-aro.jpg"></video><figcaption><b>9:16</b>Stories &amp; Threads</figcaption></figure>
-      <figure class="fmt r-16x9"><video muted loop playsinline preload="none" data-src="media/loop-claude.mp4?v=1" poster="media/poster-claude.jpg"></video><figcaption><b>16:9</b>LinkedIn &amp; X</figcaption></figure>
+      <figure class="fmt r-16x9"><video muted loop playsinline preload="none" data-src="/home-next/media/loop-re.mp4?v=1" poster="/home-next/media/poster-re.jpg"></video><figcaption><b>16:9</b>YouTube &amp; your website</figcaption></figure>
+      <figure class="fmt r-9x16"><video muted loop playsinline preload="none" data-src="/home-next/media/loop-authors.mp4?v=1" poster="/home-next/media/poster-authors.jpg"></video><figcaption><b>9:16</b>TikTok · Reels · Shorts</figcaption></figure>
+      <figure class="fmt r-1x1"><video muted loop playsinline preload="none" data-src="/home-next/media/loop-biz.mp4?v=1" poster="/home-next/media/poster-biz.jpg"></video><figcaption><b>1:1</b>Instagram &amp; Facebook feed</figcaption></figure>
+      <figure class="fmt r-4x5"><video muted loop playsinline preload="none" data-src="/home-next/media/loop-strategist.mp4?v=1" poster="/home-next/media/poster-strategist.jpg"></video><figcaption><b>4:5</b>Paid social</figcaption></figure>
+      <figure class="fmt r-9x16"><video muted loop playsinline preload="none" data-src="/home-next/media/loop-aro.mp4?v=1" poster="/home-next/media/poster-aro.jpg"></video><figcaption><b>9:16</b>Stories &amp; Threads</figcaption></figure>
+      <figure class="fmt r-16x9"><video muted loop playsinline preload="none" data-src="/home-next/media/loop-claude.mp4?v=1" poster="/home-next/media/poster-claude.jpg"></video><figcaption><b>16:9</b>LinkedIn &amp; X</figcaption></figure>
     </div>
   </div>
 </section>
@@ -609,12 +641,12 @@
       <h2 class="h2 dark" id="svc-title">Everything else it takes <em>to win online.</em></h2>
     </div>
     <ul class="svc-list">
-      <li><a href="/services.html#cloning"><span class="svc-t">Digital Cloning <em>&amp; Custom Avatars</em></span><span class="svc-d">Your likeness and voice captured once — or an original persona built only for your brand. You own every source file.</span><svg><use href="#i-arrow"/></svg></a></li>
-      <li><a href="/services.html#video"><span class="svc-t">AI Video <em>Production</em></span><span class="svc-d">Reels and TikToks, YouTube long-form, course videos, UGC ads, brand films and spokesperson content.</span><svg><use href="#i-arrow"/></svg></a></li>
-      <li><a href="/services.html"><span class="svc-t">Social Media <em>Marketing</em></span><span class="svc-d">YouTube channel growth, Instagram DM funnels, LinkedIn authority and outreach — followers that book.</span><svg><use href="#i-arrow"/></svg></a></li>
-      <li><a href="/services.html#automation"><span class="svc-t">Marketing <em>Automation</em></span><span class="svc-d">AI chatbots, comment-to-booked-call pipelines, AI voice that answers your phone, automated onboarding.</span><svg><use href="#i-arrow"/></svg></a></li>
+      <li><a href="/services#cloning"><span class="svc-t">Digital Cloning <em>&amp; Custom Avatars</em></span><span class="svc-d">Your likeness and voice captured once — or an original persona built only for your brand. You own every source file.</span><svg><use href="#i-arrow"/></svg></a></li>
+      <li><a href="/services#video"><span class="svc-t">AI Video <em>Production</em></span><span class="svc-d">Reels and TikToks, YouTube long-form, course videos, UGC ads, brand films and spokesperson content.</span><svg><use href="#i-arrow"/></svg></a></li>
+      <li><a href="/services"><span class="svc-t">Social Media <em>Marketing</em></span><span class="svc-d">YouTube channel growth, Instagram DM funnels, LinkedIn authority and outreach — followers that book.</span><svg><use href="#i-arrow"/></svg></a></li>
+      <li><a href="/services#automation"><span class="svc-t">Marketing <em>Automation</em></span><span class="svc-d">AI chatbots, comment-to-booked-call pipelines, AI voice that answers your phone, automated onboarding.</span><svg><use href="#i-arrow"/></svg></a></li>
       <li><a href="#agents"><span class="svc-t">Websites That <em>Have a Conversation</em></span><span class="svc-d">An interactive avatar that greets every visitor, answers questions in your voice and captures the lead.</span><svg><use href="#i-arrow"/></svg></a></li>
-      <li><a href="/services.html"><span class="svc-t">AI Voice <em>&amp; Audio</em></span><span class="svc-d">A custom voice model trained on your recordings — across video, voiceovers, SMS and AI phone systems.</span><svg><use href="#i-arrow"/></svg></a></li>
+      <li><a href="/services"><span class="svc-t">AI Voice <em>&amp; Audio</em></span><span class="svc-d">A custom voice model trained on your recordings — across video, voiceovers, SMS and AI phone systems.</span><svg><use href="#i-arrow"/></svg></a></li>
     </ul>
   </div>
 </section>
@@ -632,7 +664,7 @@
         <div class="field field-wide"><label for="pf-company">Business or website <span>(optional)</span></label><input id="pf-company" name="company" autocomplete="organization"></div>
         <div class="hp" aria-hidden="true"><label>Leave this empty<input name="website_hp" tabindex="-1" autocomplete="off"></label></div>
         <button class="btn btn-gold" type="submit">Email me the private portfolio <svg><use href="#i-arrow"/></svg></button>
-        <p class="form-note">By submitting this form, you agree that AvatarAgency may email you your private link and additional information about our services, offers and promotions. You can unsubscribe at any time. We never sell or share your address. <a href="/privacy.html">Privacy Policy</a></p>
+        <p class="form-note">By submitting this form, you agree that AvatarAgency may email you your private link and additional information about our services, offers and promotions. You can unsubscribe at any time. We never sell or share your address. <a href="/privacy">Privacy Policy</a></p>
         <p class="form-msg" role="status" aria-live="polite"></p>
       </form>
     </div>
@@ -698,14 +730,14 @@
 
 <!-- ═════════════ FINAL CTA ═════════════ -->
 <section class="final" aria-labelledby="final-title">
-  <div class="final-media" aria-hidden="true"><img src="media/poster-strategist.jpg" alt="" loading="lazy" decoding="async"></div>
+  <div class="final-media" aria-hidden="true"><img src="/home-next/media/poster-strategist.jpg" alt="" loading="lazy" decoding="async"></div>
   <div class="wrap final-inner">
     <p class="eyebrow gold">Your move</p>
     <h2 class="final-title" id="final-title">Thirty minutes from now, <em>you could have a plan.</em></h2>
     <p class="lede">A free strategy call. We'll map exactly how a creative strategist and the newest AI put your brand in front of your market — and you keep the plan whether we work together or not.</p>
     <a class="btn btn-gold btn-lg" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener" data-cta="final">Book a strategy call <svg><use href="#i-arrow"/></svg></a>
     <div class="final-alt">
-      <a href="https://docs.google.com/forms/d/1j2yGuJDcohUXC0mYg0Aw_DGdtnAGc6tU-rbMZa72dH4" target="_blank" rel="noopener">Take the 60-second survey — <strong>50% off</strong> your cloning session</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSf106FQTe2DveQOpKqTvAw5kvmA7PyhcfkrxU6GFmG5ymjjag/viewform" target="_blank" rel="noopener">Take the 60-second survey — <strong>50% off</strong> your cloning session</a>
       <a href="/aiso/">Get a free AI Referral Audit</a>
     </div>
   </div>
@@ -740,32 +772,32 @@
     </div>
     <div class="ftr-col">
       <p class="ftr-label">Agency</p>
-      <a href="/about.html">About</a>
-      <a href="/services.html">All services</a>
+      <a href="/about">About</a>
+      <a href="/services">All services</a>
       <a href="#work">Private portfolio</a>
       <a href="/thrive/">THRIVE speaking</a>
-      <a href="/contact.html">Contact</a>
+      <a href="/contact">Contact</a>
     </div>
     <div class="ftr-col">
       <p class="ftr-label">Get in touch</p>
       <a href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a call</a>
-      <a href="https://docs.google.com/forms/d/1j2yGuJDcohUXC0mYg0Aw_DGdtnAGc6tU-rbMZa72dH4" target="_blank" rel="noopener">Take the survey</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSf106FQTe2DveQOpKqTvAw5kvmA7PyhcfkrxU6GFmG5ymjjag/viewform" target="_blank" rel="noopener">Take the survey</a>
       <a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a>
       <a href="tel:3109809378">(310) 980-9378</a>
     </div>
   </div>
   <div class="wrap ftr-bar">
     <span>Content on this page may contain AI-generated synthetic performers. Disclosed per NY law (eff. 6/9/26) &amp; FTC guidelines. &copy; 2026 AvatarAgency.ai — All Rights Reserved · Los Angeles, California</span>
-    <span class="ftr-legal"><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/protection.html">Likeness Protection</a></span>
+    <span class="ftr-legal"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/protection">Likeness Protection</a></span>
   </div>
 </footer>
 
 <div class="cursor" aria-hidden="true"><span>Play</span></div>
 
-<script src="vendor/gsap.min.js"></script>
-<script src="vendor/ScrollTrigger.min.js"></script>
-<script src="vendor/lenis.min.js"></script>
-<script src="home-next.js?v=7"></script>
-<script src="ava-panel.js?v=5"></script>
+<script src="/home-next/vendor/gsap.min.js"></script>
+<script src="/home-next/vendor/ScrollTrigger.min.js"></script>
+<script src="/home-next/vendor/lenis.min.js"></script>
+<script src="/home-next/home-next.js?v=8"></script>
+<script src="/home-next/ava-panel.js?v=6"></script>
 </body>
 </html>

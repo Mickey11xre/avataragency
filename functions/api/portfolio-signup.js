@@ -10,6 +10,8 @@
 const FROM = "AvatarAgency <studio@avataragency.ai>";
 const NOTIFY = "michael@avataragency.ai";
 const SITE = "https://avataragency.ai";
+const ALLOWED_ORIGINS = ["https://avataragency.ai", "https://www.avataragency.ai"];   // same guard as agent-lead.js
+const PER_IP_PER_HOUR = 6;
 
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: { "Content-Type": "application/json" } });
@@ -27,7 +29,9 @@ async function sendEmail(env, payload) {
 }
 
 export async function onRequestPost(context) {
-  const { env } = context;
+  const { env, request } = context;
+  const origin = request.headers.get("Origin") || "";
+  if (!ALLOWED_ORIGINS.includes(origin)) return json({ ok: false, error: "forbidden" }, 403);
   let body;
   try { body = await context.request.json(); } catch { return json({ ok: false, error: "invalid input" }, 400); }
   const name = String(body.name || "").trim().slice(0, 80);
@@ -37,6 +41,13 @@ export async function onRequestPost(context) {
   if (!name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return json({ ok: false, error: "invalid input" }, 400);
   if (!env.RESEND_API_KEY) return json({ ok: false, error: "email not configured" }, 503);
   if (!env.AISO_KV) return json({ ok: false, error: "storage not configured" }, 503);
+
+  // Per-IP limit (stops scripted sends of studio@ mail to arbitrary addresses).
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  const ipKey = "rl:portfolio-signup:ip:" + ip + ":" + new Date().toISOString().slice(0, 13);
+  const ipN = parseInt((await env.AISO_KV.get(ipKey)) || "0", 10);
+  if (ipN >= PER_IP_PER_HOUR) return json({ ok: false, error: "too many requests" }, 429);
+  await env.AISO_KV.put(ipKey, String(ipN + 1), { expirationTtl: 3700 });
 
   // One email per address per 10 minutes — repeat submits succeed quietly.
   const rl = "pf:rl:" + email;

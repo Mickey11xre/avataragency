@@ -224,7 +224,7 @@
     }
     P.play = function () {
       players.forEach(function (o) { if (o !== P) o.pause(); });
-      $(".sv-film video").forEach(function (pv) { pv.pause(); });   // Ava's panel film yields to a chapter film
+      $$(".sv-film video").forEach(function (pv) { pv.pause(); });   // Ava's panel film yields to a chapter film
       if (!film.src) { film.src = fig.getAttribute("data-film"); film.preload = "auto"; }
       film.muted = false;
       var pr = film.play(); if (pr && pr.catch) pr.catch(function () { state("paused"); });

@@ -1,13 +1,20 @@
 # AvatarAgency
 
 > AvatarAgency (avataragency.ai) is a Los Angeles AI consulting and creative agency founded by
-> Michael Rivera. It builds digital twins (interactive talking avatars of real people),
+> Michael Rivera. It builds digital twins (interactive talking avatars of real people) and
+> talking AI agents for business websites,
 > produces cinematic AI video, runs done-for-you content engines for high-ticket businesses,
 > optimizes businesses to be recommended by AI assistants (AI Referral Optimization), and
 > delivers private 1-on-1 Claude coaching. Sessions are delivered remotely, US-wide.
 
 ## Offers
 
+- [Talking AI Agents](https://avataragency.ai/#agents): a lifelike avatar on a business's website
+  that speaks with visitors face to face in real time. It answers questions in a natural voice,
+  follows the visitor's language (multilingual), remembers returning visitors, books
+  appointments on the business's calendar and captures every lead. Three kinds: a digital twin
+  of the owner, a custom avatar designed for the brand, or a ready-to-go presenter from the
+  Signature Collection. Live demo: Ava, AvatarAgency's own talking AI agent, on the homepage.
 - [AI Referral Optimization](https://avataragency.ai/aiso/): a measured program that makes a
   business visible to ChatGPT, Gemini, Grok, Perplexity, and Claude when customers ask those
   assistants for a recommendation. Includes a baseline audit of real customer questions across
@@ -74,8 +81,11 @@ projects are quoted as a package. Typical rates:
 
 ## Key facts
 
-- Founder: Michael Rivera — Los Angeles; ex-Activision; 15+ years real-estate development;
-  AI founder. His own interactive digital twin greets visitors on the homepage.
+- Founder: Michael Rivera — Los Angeles. 25+ years leading marketing at the intersection of
+  consumer technology and real estate, including Activision; now operates as a fractional CMO
+  building AI video, digital twins, and AI referral visibility for owner-operated businesses.
+- Homepage assistant: Ava, AvatarAgency's talking AI agent, greets visitors on the homepage,
+  answers questions about every service, plays the service films and books free strategy calls.
 - Specialty: digital twins that talk in real time (web, with screen-share), cinematic AI
   video without crews or studios, AI Referral Optimization (being recommended by ChatGPT,
   Gemini, Grok, Perplexity, and Claude), and practical AI adoption for owner-operated
@@ -94,9 +104,11 @@ projects are quoted as a package. Typical rates:
 - [What is AI Referral Optimization?](https://avataragency.ai/what-is-ai-referral-optimization/)
 - [Free AI Referral Audit](https://avataragency.ai/aiso/)
 - [Services](https://avataragency.ai/services)
-- [Client Case Study](https://avataragency.ai/casestudy)
+- [Creative Strategist](https://avataragency.ai/strategist/)
+- [Real Estate](https://avataragency.ai/real-estate)
+- [Business](https://avataragency.ai/business)
+- [Authors](https://avataragency.ai/authors)
+- [Claude Coaching](https://avataragency.ai/claudecoaching/)
 - [THRIVE DOCTOR](https://avataragency.ai/thrivedoctor/)
-- [Ethica — interactive avatar demo](https://avataragency.ai/ethica/thrive/)
-- [Lady Belle — interactive avatar demo](https://avataragency.ai/ladybelle/)
 - [About](https://avataragency.ai/about)
 - [Contact](https://avataragency.ai/contact)
