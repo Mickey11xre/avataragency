@@ -157,8 +157,8 @@
       node.setAttribute("controlslist", "nodownload noremoteplayback");
       if (it.poster) node.poster = it.poster;
       node.src = it.src;
-      node.style.width = it.v ? "auto" : "min(100%, calc((100vh - 150px) * 16 / 9))";
-      node.style.height = it.v ? "100%" : "auto";
+      // Size to fit the box whatever the shape: fill the height for 9:16, the width for 16:9.
+      if (it.v) node.style.height = "100%"; else node.style.width = "100%";
       track("video_start", { video_title: it.title, location: "portfolio_theater" });
     } else {
       node = document.createElement("img"); node.src = it.src; node.alt = it.title;

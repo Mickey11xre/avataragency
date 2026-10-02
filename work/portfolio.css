@@ -283,8 +283,8 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 .theater { position: fixed; inset: 0; z-index: 100; display: none; }
 .theater.open { display: block; }
 .theater-bg { position: absolute; inset: 0; background: rgba(6,6,6,.94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); animation: fadeIn .3s var(--ease); }
-.theater-box { position: absolute; inset: 64px clamp(12px, 5vw, 90px) 86px; display: grid; place-items: center; }
-.theater-box > * { max-width: 100%; max-height: 100%; border-radius: 10px; box-shadow: 0 40px 100px -30px rgba(0,0,0,.9); animation: popIn .4s var(--ease); }
+.theater-box { position: absolute; inset: 64px clamp(12px, 5vw, 90px) 86px; display: flex; align-items: center; justify-content: center; }
+.theater-box > * { display: block; width: auto; height: auto; max-width: 100%; max-height: 100%; border-radius: 10px; box-shadow: 0 40px 100px -30px rgba(0,0,0,.9); animation: popIn .4s var(--ease); }
 .theater-box video { background: #000; }
 .theater-cap { position: absolute; left: 0; right: 0; bottom: 26px; text-align: center; padding: 0 70px; font-size: 14px; color: var(--on-mid); }
 .theater-cap b { color: var(--on); font-weight: 500; }
