@@ -685,6 +685,11 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .ava-sound:hover { border-color: var(--gold); }
 .ava-sound[aria-pressed="true"] { color: var(--gold-light); border-color: rgba(201,168,76,.65); }
 .ava-sound:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
+/* "MUTED" under the icon while muted (4 Oct): says what the state is, so tapping to turn sound on is obvious.
+   Hidden once the intro plays (the icon turns gold and loses its strike-through). Part of the button, so it is tappable too. */
+.ava-sound-label { position: absolute; top: 100%; left: 50%; transform: translateX(-50%); margin-top: 6px; font: 600 10px/1 var(--f-display);
+  letter-spacing: .16em; text-transform: uppercase; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,.8); white-space: nowrap; }
+.ava-sound[aria-pressed="true"] .ava-sound-label { display: none; }
 .stage-av.live .ava-sound, .stage-av.live-ready .ava-sound { display: none; }
 .ava-btn { display: inline-flex; align-items: center; gap: 8px; height: 40px; padding: 0 15px; border-radius: 999px; font-size: 13.5px; font-weight: 600; color: var(--on-dark);
   background: rgba(10,10,10,.5); border: 1px solid rgba(255,255,255,.16); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: border-color .2s, background .2s, color .2s; }
@@ -696,6 +701,7 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .panel { display: flex; flex-direction: column; padding: 22px 22px 18px; background: linear-gradient(180deg, #151413, #0e0d0c); border-left: 1px solid var(--line-dark); min-height: 0; }
 .panel-top { display: flex; align-items: center; gap: 10px; min-height: 36px; margin-bottom: 14px; }
 .panel.is-home .panel-top { display: none; }   /* opening view: no "How can I help?" row (4 Oct) */
+@media (min-width: 901px) { .panel.is-home .panel-body { justify-content: center; } }   /* desktop: options centered in the video-height panel */
 .panel-back { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line-dark-strong); background: transparent; color: var(--on-dark); display: grid; place-items: center; }
 .panel-back svg { width: 16px; height: 16px; transform: rotate(180deg); }
 .panel-back:hover { border-color: var(--gold); color: var(--gold-light); }
