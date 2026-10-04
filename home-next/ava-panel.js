@@ -57,8 +57,8 @@
 
   /* ═════════ State + rendering ═════════ */
   var S = { mode: "home", hist: [], demo: false, slots: null, slotsAt: 0, slotsErr: null, day: null, slot: null, viewAll: false, booked: null,
-    book: { name: "", email: "", phone: "", notes: "" }, lead: { name: "", email: "", phone: "", need: "" }, pf: { name: "", email: "" }, svc: null, busy: false };
-  var TITLES = { home: "How can I help?", services: "Our services", service: "Service", days: "Book a strategy call", times: "Book a strategy call", details: "Book a strategy call", booked: "You're booked", lead: "Leave your details", leadDone: "Thank you", portfolio: "Private portfolio", portfolioDone: "Check your inbox" };
+    book: { name: "", email: "", phone: "", notes: "" }, lead: { name: "", email: "", phone: "", need: "", callback: false }, pf: { name: "", email: "" }, svc: null, busy: false };
+  var TITLES = { home: "How can I help?", services: "Our services", service: "Service", days: "Book a strategy call", times: "Book a strategy call", details: "Book a strategy call", booked: "You're booked", lead: "Leave your contact info", leadDone: "Thank you", portfolio: "Private portfolio", portfolioDone: "Check your inbox" };
   /* Tells the live twin what the visitor just did, so she never re-asks for something they typed.
      "[Booking panel]" is the prefix her instructions react to; speak=true only for moments she should
      answer aloud (a confirmed booking). The brand is written as two words — she says exactly what she reads. */
@@ -142,14 +142,14 @@
   function sigOf(k) {
     if (k === "book") return [S.slot ? S.slot.start_time : "", tr(S.book.name), tr(S.book.email).toLowerCase(), tr(S.book.phone), tr(S.book.notes)].join("|");
     if (k === "pf") return [tr(S.pf.name), tr(S.pf.email).toLowerCase()].join("|");
-    return [tr(S.lead.name), tr(S.lead.email).toLowerCase(), tr(S.lead.phone), tr(S.lead.need)].join("|");
+    return [tr(S.lead.name), tr(S.lead.email).toLowerCase(), tr(S.lead.phone), tr(S.lead.need), S.lead.callback ? "cb" : ""].join("|");
   }
   var inReview = function (k) { return !!(S.review && S.review.kind === k); };
   var reviewFresh = function (k) { return inReview(k) && S.review.sig === sigOf(k); };
   function reviewRows(k) {
     var r = k === "book" ? [["Time", S.slot ? info(S.slot).label + " " + tzShort() : ""], ["Name", S.book.name], ["Email", S.book.email], ["Phone", S.book.phone], ["Note", S.book.notes]]
       : k === "pf" ? [["First name", S.pf.name], ["Email", S.pf.email]]
-      : [["Name", S.lead.name], ["Email", S.lead.email], ["Phone", S.lead.phone], ["What you need", S.lead.need]];
+      : [["Name", S.lead.name], ["Email", S.lead.email], ["Phone", S.lead.phone], ["Callback", S.lead.callback ? "Yes, please call me" : ""], ["What you need", S.lead.need]];
     return r.filter(function (x) { return tr(x[1]); });
   }
   function reviewCard(k) {
@@ -175,7 +175,7 @@
       return '<p class="p-sub">Tap an option below — or press Talk to Ava to speak with me.</p><div class="p-actions">' +
         act("book", IC.cal, "Book a strategy call", "30 minutes with Michael · free") +
         act("services", IC.compass, "Find the right service", "See what fits your business") +
-        act("lead", IC.chat, "Leave my details", "Michael will be in touch") +
+        act("lead", IC.chat, "Leave my contact info", "Michael will be in touch") +
         act("portfolio", IC.lock, "See examples of client work", "Client films, by email link") + "</div>";
     },
     services: function () {
@@ -230,6 +230,8 @@
         field("lname", "Your name", "text", S.lead.name, false, 'autocomplete="name" required data-bind="lead.name"') +
         field("lemail", "Email", "email", S.lead.email, false, 'autocomplete="email" required data-bind="lead.email"') +
         field("lphone", "Phone", "tel", S.lead.phone, true, 'autocomplete="tel" data-bind="lead.phone"') +
+        // 4 Oct (Michael): ask for a phone call. Ticking it makes the phone number required.
+        '<label class="p-check"><input type="checkbox" id="ap-lcallback" data-bind="lead.callback"' + (S.lead.callback ? " checked" : "") + '><span>Request a callback</span></label>' +
         field("lneed", "What can we help with?", "textarea", S.lead.need, true, 'data-bind="lead.need"') + hp +
         '<button class="btn btn-gold btn-sm p-go" type="submit">Send to Michael ' + IC.arrow + '</button>' + CONSENT + '<p class="p-msg" role="status"></p></form>';
     },
@@ -264,7 +266,7 @@
   var WIRE = {
     service: wireFilm,
     details: function () { wireForm(function (f) { S.book.name = f("name"); S.book.email = f("email"); S.book.phone = f("phone"); S.book.notes = f("notes"); return TOOLS_IMPL.confirm_booking({}); }); },
-    lead: function () { wireForm(function (f) { S.lead.name = f("lname"); S.lead.email = f("lemail"); S.lead.phone = f("lphone"); S.lead.need = f("lneed"); return TOOLS_IMPL.submit_lead({}); }); },
+    lead: function () { wireForm(function (f) { S.lead.name = f("lname"); S.lead.email = f("lemail"); S.lead.phone = f("lphone"); S.lead.need = f("lneed"); S.lead.callback = !!($("#ap-lcallback", body) || {}).checked; return TOOLS_IMPL.submit_lead({}); }); },
     portfolio: function () { wireForm(function (f) { S.pf.name = f("pname"); S.pf.email = f("pemail"); return TOOLS_IMPL.submit_portfolio({}); }); },
   };
   function wireForm(onSubmit) {
@@ -300,7 +302,7 @@
   var BIND_LABEL = { "book.name": "name", "book.email": "email", "book.phone": "phone number", "book.notes": "note" };
   body.addEventListener("input", function (e) {
     var b = e.target.getAttribute && e.target.getAttribute("data-bind"); if (!b) return;
-    var p = b.split("."); S[p[0]][p[1]] = e.target.value;
+    var p = b.split("."); S[p[0]][p[1]] = e.target.type === "checkbox" ? e.target.checked : e.target.value;
   });
   body.addEventListener("change", function (e) {
     var b = e.target.getAttribute && e.target.getAttribute("data-bind"); if (!b || !BIND_LABEL[b] || !e.target.value.trim()) return;
@@ -438,10 +440,11 @@
     show_lead_form: function () { go("lead"); return { ok: true }; },
     submit_lead: function () {
       if (!S.lead.name.trim() || !validEmail(S.lead.email.trim())) { setMsg(!S.lead.name.trim() ? "Please add your name." : "Please enter a valid email.", true); return Promise.resolve({ ok: false }); }
+      if (S.lead.callback && S.lead.phone.replace(/\D/g, "").length < 7) { setMsg("Please add a phone number so Michael can call you back.", true); var ph = $("#ap-lphone", body); if (ph) { ph.setAttribute("aria-invalid", "true"); ph.focus(); } return Promise.resolve({ ok: false }); }
       if (!reviewFresh("lead") || !S.review.ok) { openReview("lead", false); return Promise.resolve({ ok: false, needs_confirmation: true }); }
       if (S.demo) { S.doneMsg = "Demo — nothing was sent."; go("leadDone"); return Promise.resolve({ ok: true }); }
       busy(true); setMsg("Sending…");
-      return post("/api/agent-lead", { name: S.lead.name.trim(), email: S.lead.email.trim(), phone: S.lead.phone.trim(), need: S.lead.need.trim(), source: "ava-panel", consent: true, consent_text: CONSENT_TEXT }).then(function (r) {
+      return post("/api/agent-lead", { name: S.lead.name.trim(), email: S.lead.email.trim(), phone: S.lead.phone.trim(), need: S.lead.need.trim(), callback: !!S.lead.callback, source: "ava-panel", consent: true, consent_text: CONSENT_TEXT }).then(function (r) {
         busy(false);
         if (r.ok) { S.doneMsg = r.message || "Michael has your details and will be in touch soon."; go("leadDone"); track("generate_lead", { lead_source: "ava_panel_lead" }); rememberName(S.lead.name); return r; }
         setMsg("", true, 'That didn\'t go through. Email <a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a> and we\'ll reply directly.'); return r;

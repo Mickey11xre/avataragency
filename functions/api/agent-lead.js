@@ -29,7 +29,7 @@ export async function onRequestPost(context) {
   if (b.hp) return json({ ok: true });                       // honeypot: pretend success
   const lead = {
     name: clip(b.name, 80), email: clip(b.email, 160).toLowerCase(), phone: clip(b.phone, 40),
-    need: clip(b.need, 1200), source: clip(b.source || "ava-panel", 40), createdAt: new Date().toISOString(),
+    need: clip(b.need, 1200), callback: b.callback === true, source: clip(b.source || "ava-panel", 40), createdAt: new Date().toISOString(),
     // Proof of marketing-email consent: the exact notice shown beside the button, and when they agreed.
     consent: b.consent === true ? { at: new Date().toISOString(), text: clip(b.consent_text, 600) } : null,
   };
@@ -47,17 +47,18 @@ export async function onRequestPost(context) {
   await env.AISO_KV.put("lead:agent:" + id, JSON.stringify(lead));
   if (lead.consent) context.waitUntil(env.AISO_KV.put("consent:email:" + lead.email, JSON.stringify({ ...lead.consent, name: lead.name, form: "agent-lead", source: lead.source })));
 
-  const rows = [["Name", lead.name], ["Email", lead.email], ["Phone", lead.phone || "—"], ["What they need", lead.need || "—"], ["Source", lead.source], ["Marketing email consent", lead.consent ? "yes" : "not given"]]
+  const rows = [["Name", lead.name], ["Email", lead.email], ["Phone", lead.phone || "—"], ["Callback requested", lead.callback ? "YES, call them" : "no"], ["What they need", lead.need || "—"], ["Source", lead.source], ["Marketing email consent", lead.consent ? "yes" : "not given"]]
     .map(([k, v]) => `<tr><td style="padding:6px 14px 6px 0;color:#8a8278;vertical-align:top">${k}</td><td style="padding:6px 0;color:#1c1a16">${esc(v).replace(/\n/g, "<br>")}</td></tr>`).join("");
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       from: FROM, to: [NOTIFY], reply_to: lead.email,
-      subject: `🔥 New lead from Ava's panel: ${lead.name}`,
-      html: `<p style="font-family:Arial,sans-serif;font-size:15px">A visitor left their details on the homepage.</p><table style="font-family:Arial,sans-serif;font-size:14px">${rows}</table><p style="font-family:Arial,sans-serif;font-size:13px;color:#8a8278">Reply to this email to reach them directly.</p>`,
+      subject: lead.callback ? `📞 CALLBACK REQUESTED (Ava's panel): ${lead.name}${lead.phone ? " · " + lead.phone : ""}` : `🔥 New lead from Ava's panel: ${lead.name}`,
+      html: `<p style="font-family:Arial,sans-serif;font-size:15px">${lead.callback ? "<b>This visitor asked for a phone call back.</b> " : ""}A visitor left their details on the homepage.</p><table style="font-family:Arial,sans-serif;font-size:14px">${rows}</table><p style="font-family:Arial,sans-serif;font-size:13px;color:#8a8278">Reply to this email to reach them directly.</p>`,
     }),
   });
   if (!r.ok) console.log("agent-lead resend:", r.status, await r.text().catch(() => ""));
-  return json({ ok: true, message: `Thanks, ${lead.name.split(/\s+/)[0]} — Michael has your details and will be in touch soon.` });
+  const first = lead.name.split(/\s+/)[0];
+  return json({ ok: true, message: lead.callback ? `Thanks, ${first} — Michael will call you back soon.` : `Thanks, ${first} — Michael has your details and will be in touch soon.` });
 }
