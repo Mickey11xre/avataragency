@@ -743,6 +743,8 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 /* "Request a callback" (4 Oct) */
 .p-check { display: flex; align-items: center; gap: 10px; font-size: 14.5px; color: var(--on-dark); cursor: pointer; padding: 2px 0; }
 .p-check input { width: 20px; height: 20px; margin: 0; accent-color: var(--gold); cursor: pointer; flex: none; }
+/* Callback ticked: the phone number is now required, so its "(optional)" note goes (CSS :has, iOS 15.4+). */
+.p-form:has(#ap-lcallback:checked) label[for="ap-lphone"] span { display: none; }
 .p-summary { display: flex; align-items: center; gap: 10px; padding: 11px 13px; border-radius: 12px; background: rgba(201,168,76,.1); border: 1px solid rgba(201,168,76,.3); font-size: 14px; }
 .p-summary b { color: var(--gold-light); }
 .p-go { margin-top: 4px; justify-self: start; }
