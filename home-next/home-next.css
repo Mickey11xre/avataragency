@@ -660,6 +660,9 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .stage { margin-top: clamp(44px, 6vw, 72px); display: grid; grid-template-columns: minmax(0, 1.12fr) minmax(0, .88fr); background: var(--ink); color: var(--on-dark);
   border-radius: 26px; overflow: hidden; box-shadow: 0 50px 100px -40px rgba(28,26,22,.55), 0 0 0 1px rgba(201,168,76,.18); min-height: 560px; }
 .stage-av { position: relative; background: #050505 url("media/ava-poster.jpg?v=1") center / cover no-repeat; min-height: 100%; }
+/* Direct link avataragency.ai/#ava-stage: the browser's own hash jump ignores the fixed header,
+   so without this the header covers the top of Ava's stage. In-page links already offset in JS. */
+#ava-stage { scroll-margin-top: calc(var(--hdr) + 12px); }
 .ava-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .stage-av::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10,10,10,.35), transparent 22%, transparent 62%, rgba(10,10,10,.7)); }
 .ava-badge { position: absolute; z-index: 2; top: 18px; left: 18px; display: inline-flex; align-items: center; gap: 9px; padding: 7px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 600; letter-spacing: .02em;
