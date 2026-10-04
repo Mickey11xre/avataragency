@@ -35,7 +35,7 @@
   var SESSION = Math.random().toString(36).slice(2) + Date.now().toString(36);
 
   var panel = $("#ava-panel"), body = $(".panel-body", panel), titleEl = $(".panel-title", panel), backBtn = $(".panel-back", panel), flag = $(".panel-flag", panel);
-  var avStage = $(".stage-av", stage), vid = $(".ava-video", stage), capBox = $(".ava-caption", stage), hearBtn = $(".ava-hear", stage), talkBtn = $(".ava-talk", stage), demoBtn = $(".panel-demo", stage), toast = $(".ava-toast", stage);
+  var avStage = $(".stage-av", stage), vid = $(".ava-video", stage), capBox = $(".ava-caption", stage), hearBtn = $(".ava-sound", stage), talkBtn = $(".ava-talk", stage), demoBtn = $(".panel-demo", stage), toast = $(".ava-toast", stage);
   var instance = null, liveState = "idle";   // idle | connecting | live
 
   var IC = {
@@ -510,7 +510,9 @@
   };
   AvaPanel.installModelContext();   // harmless until a session starts; guarantees it exists before any sdk.init()
 
-  /* ═════════ Ava's clip: muted loop (it's the cue to click), "Hear Ava" with captions ═════════ */
+  /* ═════════ Ava's clip: muted loop (it's the cue to click); the corner sound icon plays her intro with captions ═════════
+     4 Oct (Michael): the "Hear Ava" pill became a sound icon, top right. Turning sound on replays the intro from the
+     start (unmuting mid-loop would begin mid-sentence). Muted = white with a strike-through; playing = gold. */
   // Timed to her voice (ffmpeg silencedetect on media/ava-intro.mp4): each line appears just before she says it and holds through short pauses.
   var LINES = [[0.62, 4.05, "Hey there — I'm Ava, and I'm not real."], [4.05, 8.4, "I'm a digital avatar created by AvatarAgency."], [8.4, 13.42, "When someone lands on this website, I'm the first one to say hello."],
     [13.42, 17.12, "I answer questions, I explain how everything works,"], [17.12, 20.8, "and when you're ready, I can book a call with the team for you."], [21.32, 26.5, "So tell me — what brought you here today?"]];
@@ -520,13 +522,14 @@
   function caption(lines) { var k = JSON.stringify(lines || []); if (k === capKey) return; capKey = k; capBox.innerHTML = (lines || []).map(function (l) { return '<span class="cap' + (l.you ? " you" : "") + '">' + (l.you ? "<b>You</b>" : "") + esc(l.text) + "</span>"; }).join(""); }
   function ensureSrc() { if (!vid.getAttribute("src")) { vid.src = vid.getAttribute("data-src"); } }
   function playQuiet() { if (RM || hearing || liveState !== "idle") return; ensureSrc(); vid.muted = true; var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
-  function stopHearing() { hearing = false; vid.muted = true; hearBtn.setAttribute("aria-pressed", "false"); $("use", hearBtn).setAttribute("href", "#i-vol"); $("span", hearBtn).textContent = "Hear Ava"; if (!demoRun) caption([]); if (RM) vid.pause(); }
+  function soundIcon(on) { hearBtn.setAttribute("aria-pressed", on ? "true" : "false"); $("use", hearBtn).setAttribute("href", on ? "#i-vol" : "#i-sound-off"); var l = on ? "Mute Ava's introduction" : "Play Ava's introduction with sound"; hearBtn.setAttribute("aria-label", l); hearBtn.title = l; }
+  function stopHearing() { hearing = false; vid.muted = true; soundIcon(false); if (!demoRun) caption([]); if (RM) vid.pause(); }
   hearBtn.addEventListener("click", function () {
     if (liveState !== "idle") return;
     if (hearing) { stopHearing(); return; }
     stopDemo(); ensureSrc(); hearing = true; vid.currentTime = 0; vid.muted = false; lastT = 0;
     var p = vid.play(); if (p && p.catch) p.catch(function () { stopHearing(); });
-    hearBtn.setAttribute("aria-pressed", "true"); $("use", hearBtn).setAttribute("href", "#i-mute"); $("span", hearBtn).textContent = "Mute";
+    soundIcon(true);
     track("ava_hear", {});
   });
   vid.addEventListener("timeupdate", function () {
