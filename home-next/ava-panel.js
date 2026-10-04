@@ -174,7 +174,7 @@
         act("book", IC.cal, "Book a strategy call", "30 minutes with Michael · free") +
         act("services", IC.compass, "Find the right service", "See what fits your business") +
         act("lead", IC.chat, "Leave my details", "Michael will be in touch") +
-        act("portfolio", IC.lock, "See the private portfolio", "Client films, by email link") + "</div>";
+        act("portfolio", IC.lock, "See examples of client work", "Client films, by email link") + "</div>";
     },
     services: function () {
       return '<div class="p-svcs">' + SERVICES.map(function (s) { return '<button class="p-svc" type="button" data-svc="' + s.id + '"><span>' + esc(s.name) + "<small>" + esc(s.line) + "</small></span>" + IC.arrow + "</button>"; }).join("") + "</div>";
@@ -648,7 +648,8 @@
     el.classList.add("flash"); var i = 0;
     return new Promise(function (res) { (function tickType() { if (run !== demoRun) return res(); el.value = text.slice(0, ++i); if (i < text.length) setTimeout(tickType, 45); else { el.classList.remove("flash"); res(); } })(); });
   }
-  demoBtn.addEventListener("click", function () {
+  // 3 Oct (Michael): the demo button is off the page; the demo stays here, dormant, in case it returns.
+  if (demoBtn) demoBtn.addEventListener("click", function () {
     if (demoRun) { stopDemo(); return; }
     if (liveState !== "idle") return;
     if (hearing) stopHearing();
