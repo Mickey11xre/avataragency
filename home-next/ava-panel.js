@@ -114,6 +114,8 @@
   function render(opts) {
     opts = opts || {};
     titleEl.textContent = TITLES[S.mode] || "Ava";
+    // 4 Oct (Michael): the opening view drops its header row and greeting to save vertical space; deeper views keep the row (title + back).
+    panel.classList.toggle("is-home", S.mode === "home" && !S.demo);
     backBtn.hidden = S.mode === "home" || S.demo;
     flag.hidden = !S.demo;
     var v = VIEWS[S.mode] || VIEWS.home;
@@ -170,7 +172,7 @@
 
   var VIEWS = {
     home: function () {
-      return '<p class="p-greet">Hi, I\'m Ava. What brings you here today?</p><p class="p-sub">Tap an option below — or press Talk to Ava to speak with me.</p><div class="p-actions">' +
+      return '<p class="p-sub">Tap an option below — or press Talk to Ava to speak with me.</p><div class="p-actions">' +
         act("book", IC.cal, "Book a strategy call", "30 minutes with Michael · free") +
         act("services", IC.compass, "Find the right service", "See what fits your business") +
         act("lead", IC.chat, "Leave my details", "Michael will be in touch") +

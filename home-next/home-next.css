@@ -679,9 +679,9 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 /* Sound toggle for Ava's recorded intro (4 Oct, replaces the "Hear Ava" pill): top right, opposite the badge.
    White with a strike-through while muted; gold while her intro plays (from the start, with captions).
    Hidden during a live conversation, when it would look like it mutes the live Ava. */
-.ava-sound { position: absolute; z-index: 3; top: 12px; right: 14px; width: 44px; height: 44px; padding: 0; display: grid; place-items: center; border-radius: 50%; cursor: pointer;
+.ava-sound { position: absolute; z-index: 3; top: 10px; right: 14px; width: 52px; height: 52px; padding: 0; display: grid; place-items: center; border-radius: 50%; cursor: pointer;
   color: #fff; background: rgba(10,10,10,.45); border: 1px solid rgba(255,255,255,.16); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); transition: color .2s, border-color .2s; }
-.ava-sound svg { width: 22px; height: 22px; }
+.ava-sound svg { width: 28px; height: 28px; }
 .ava-sound:hover { border-color: var(--gold); }
 .ava-sound[aria-pressed="true"] { color: var(--gold-light); border-color: rgba(201,168,76,.65); }
 .ava-sound:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 2px; }
@@ -695,6 +695,7 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 /* The panel */
 .panel { display: flex; flex-direction: column; padding: 22px 22px 18px; background: linear-gradient(180deg, #151413, #0e0d0c); border-left: 1px solid var(--line-dark); min-height: 0; }
 .panel-top { display: flex; align-items: center; gap: 10px; min-height: 36px; margin-bottom: 14px; }
+.panel.is-home .panel-top { display: none; }   /* opening view: no "How can I help?" row (4 Oct) */
 .panel-back { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line-dark-strong); background: transparent; color: var(--on-dark); display: grid; place-items: center; }
 .panel-back svg { width: 16px; height: 16px; transform: rotate(180deg); }
 .panel-back:hover { border-color: var(--gold); color: var(--gold-light); }
