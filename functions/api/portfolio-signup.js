@@ -67,6 +67,14 @@ export async function onRequestPost(context) {
     JSON.stringify({ name, email, company, createdAt: new Date().toISOString(), accessKey: null, consent }),
     { expirationTtl: 60 * 60 * 24 * 7 });
 
+  // Permanent record of the request for the avatar dashboard's lead list: pf:confirm expires with the 7-day link,
+  // and a request that was never opened is still a lead. Keeps the first request date.
+  context.waitUntil((async () => {
+    const prev = await env.AISO_KV.get("pf:req:" + email, "json");
+    const now = new Date().toISOString();
+    await env.AISO_KV.put("pf:req:" + email, JSON.stringify({ name, email, company, createdAt: (prev && prev.createdAt) || now, lastAt: now, source: String(body.source || "").slice(0, 40) }));
+  })());
+
   const link = `${SITE}/api/portfolio-confirm?t=${token}`;
   const first = esc(name.split(/\s+/)[0]);
   const html = `<!DOCTYPE html><html><body style="margin:0;padding:0;background:#f4f1ea;font-family:Arial,Helvetica,sans-serif">
