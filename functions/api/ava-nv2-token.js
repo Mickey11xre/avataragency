@@ -1,9 +1,11 @@
 // Cloudflare Pages Function — mints a short-lived Napster session token for Ava NV2, the live talking
 // agent on the avataragency.ai homepage ("Talk to Ava", home-next/ava-panel.js → CFG.TOKEN_ENDPOINT).
 //
-// ✅ WIRED 2026-10-01 (Michael's go) to agent 5d72dc62 "Ava - Avatar Agency website (NV2-H)". Since 2026-10-02 the
-//    agent wears the SEEDANCE twin 93d5c657 (Michael's pick; was HeyGen b1df8c54) — swapped on the agent itself
-//    (PATCH /agents/{id} companionId), so this file did not change for it.
+// ✅ WIRED 2026-10-05 (Michael's go) to agent 1b0d0cb1 "Ava - Avatar Agency website (NV2-S) [en TEST]", created
+//    English-locked from birth (`language: "en"` at creation). Same Seedance twin 93d5c657, same knowledge base
+//    2c1980f2, same instructions and audio settings as before. Why: agent 5d72dc62 (2026-10-01 to 10-05, born WITHOUT a
+//    language, `en` PATCHed on 10-02) still answered English questions in Spanish and German. ROLLBACK = put
+//    '5d72dc62-ab7d-43b5-b781-0dc91e9a690b' back below; that agent is kept untouched.
 //    Which agent id is which: livebrand-ops/AGENT-ROSTER.md.
 //
 // Required env var (Cloudflare Pages → Settings → Environment variables):
@@ -13,7 +15,7 @@
 // Napster allows 5 concurrent sessions for the whole account, and every session is metered, so this
 // endpoint only answers requests from our own pages and limits how fast one visitor can open sessions.
 
-const AGENT_ID = '5d72dc62-ab7d-43b5-b781-0dc91e9a690b'; // Ava - Avatar Agency website (NV2-H)
+const AGENT_ID = '1b0d0cb1-231a-48fe-8f31-5cbaa317417d'; // Ava - Avatar Agency website (NV2-S) [en TEST], English from birth
 const ALLOWED_ORIGINS = ['https://avataragency.ai', 'https://www.avataragency.ai'];
 const PER_IP_PER_HOUR = 8;
 
