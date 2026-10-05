@@ -17,7 +17,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HC7T5LCR6L"></script>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());
-gtag('config','G-HC7T5LCR6L');
+gtag('config','G-HC7T5LCR6L',/^https:\/\/checkout\.stripe\.com\//.test(document.referrer)?{ignore_referrer:true}:{});
 (function(){try{var r=document.referrer;if(!r)return;var h=new URL(r).hostname;var L=["chatgpt.com","chat.openai.com","perplexity.ai","claude.ai","gemini.google.com","copilot.microsoft.com","bing.com/chat","you.com","phind.com"];
 for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('event','ai_referral',{ai_source:L[i],page_location:location.href});break;}}}catch(e){}})();
 </script>
@@ -185,6 +185,28 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
       });
       document.getElementById('receipt-total').textContent = money(s.amount_total, s.currency);
       document.getElementById('receipt').hidden = false;
+
+      // GA4 purchase, once per order: a reload or a revisit of this link
+      // must not count the sale twice. No buyer name or email is sent.
+      var seen = 'ga_purchase_' + s.id, sent = false;
+      try { sent = localStorage.getItem(seen) === '1'; } catch (e) {}
+      if (!sent && typeof gtag === 'function') {
+        gtag('event', 'purchase', {
+          transaction_id: s.id,
+          value: (s.amount_total || 0) / 100,
+          currency: (s.currency || 'usd').toUpperCase(),
+          payment_status: s.payment_status,
+          items: (s.items || []).map(function (i) {
+            return {
+              item_name: i.description,
+              item_category: (s.fields && s.fields.instrument) || '',
+              quantity: i.quantity,
+              price: (i.amount_total || 0) / 100 / (i.quantity || 1)
+            };
+          })
+        });
+        try { localStorage.setItem(seen, '1'); } catch (e) {}
+      }
     })
     .catch(function () {});
 })();

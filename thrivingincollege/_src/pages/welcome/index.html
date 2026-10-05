@@ -173,6 +173,28 @@
       });
       document.getElementById('receipt-total').textContent = money(s.amount_total, s.currency);
       document.getElementById('receipt').hidden = false;
+
+      // GA4 purchase, once per order: a reload or a revisit of this link
+      // must not count the sale twice. No buyer name or email is sent.
+      var seen = 'ga_purchase_' + s.id, sent = false;
+      try { sent = localStorage.getItem(seen) === '1'; } catch (e) {}
+      if (!sent && typeof gtag === 'function') {
+        gtag('event', 'purchase', {
+          transaction_id: s.id,
+          value: (s.amount_total || 0) / 100,
+          currency: (s.currency || 'usd').toUpperCase(),
+          payment_status: s.payment_status,
+          items: (s.items || []).map(function (i) {
+            return {
+              item_name: i.description,
+              item_category: (s.fields && s.fields.instrument) || '',
+              quantity: i.quantity,
+              price: (i.amount_total || 0) / 100 / (i.quantity || 1)
+            };
+          })
+        });
+        try { localStorage.setItem(seen, '1'); } catch (e) {}
+      }
     })
     .catch(function () {});
 })();

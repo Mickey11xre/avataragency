@@ -51,7 +51,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HC7T5LCR6L"></script>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());
-gtag('config','G-HC7T5LCR6L');
+gtag('config','G-HC7T5LCR6L',/^https:\/\/checkout\.stripe\.com\//.test(document.referrer)?{ignore_referrer:true}:{});
 (function(){try{var r=document.referrer;if(!r)return;var h=new URL(r).hostname;var L=["chatgpt.com","chat.openai.com","perplexity.ai","claude.ai","gemini.google.com","copilot.microsoft.com","bing.com/chat","you.com","phind.com"];
 for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('event','ai_referral',{ai_source:L[i],page_location:location.href});break;}}}catch(e){}})();
 </script>
@@ -292,6 +292,22 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   form.addEventListener('input', coverage);
   form.addEventListener('change', coverage);
 
+  // GA4 key event for an accepted request (no names or email sent), then on to
+  // the confirmation page. event_callback fires once GA has the hit; the timer
+  // covers ad blockers and a missing gtag.
+  function leadThenGo(data) {
+    var gone = false;
+    function go() { if (!gone) { gone = true; window.location.href = sentUrl; } }
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        form_name: 'invoice_request',
+        instruments: (data.instruments || []).join(','),
+        event_callback: go
+      });
+    }
+    setTimeout(go, 800);
+  }
+
   form.addEventListener('submit', function (ev) {
     ev.preventDefault();
     clearErrs();
@@ -316,7 +332,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     fetch(form.action, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
       .then(function (r) { return r.json().then(function (b) { return { ok: r.ok, body: b }; }); })
       .then(function (res) {
-        if (res.ok && res.body.ok) { window.location.href = sentUrl; return; }
+        if (res.ok && res.body.ok) { leadThenGo(data); return; }
         if (res.body && res.body.fields) {
           Object.keys(res.body.fields).forEach(function (k) { setErr(k, res.body.fields[k]); });
           return fail('Please check the highlighted fields.');

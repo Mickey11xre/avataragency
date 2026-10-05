@@ -102,13 +102,16 @@ const drawerTpl = fs.existsSync(path.join(SRC, 'templates', 'drawer.html'))
 
 // GA4 (when site.json carries the Measurement ID) + an ai_referral event for
 // visits arriving from AI assistants, so the monthly report can show them.
+// Buyers returning from Stripe Checkout keep their original source
+// (ignore_referrer = GA's "unwanted referral"), so a purchase is credited to
+// ChatGPT or Google, not to checkout.stripe.com.
 function ga4Snippet() {
   if (!site.ga4) return '';
   const hosts = JSON.stringify(site.ai_referrers || []);
   return `<script async src="https://www.googletagmanager.com/gtag/js?id=${site.ga4}"></script>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());
-gtag('config','${site.ga4}');
+gtag('config','${site.ga4}',/^https:\\/\\/checkout\\.stripe\\.com\\//.test(document.referrer)?{ignore_referrer:true}:{});
 (function(){try{var r=document.referrer;if(!r)return;var h=new URL(r).hostname;var L=${hosts};
 for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('event','ai_referral',{ai_source:L[i],page_location:location.href});break;}}}catch(e){}})();
 </script>`;

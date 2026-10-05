@@ -84,7 +84,7 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-HC7T5LCR6L"></script>
 <script>
 window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());
-gtag('config','G-HC7T5LCR6L');
+gtag('config','G-HC7T5LCR6L',/^https:\/\/checkout\.stripe\.com\//.test(document.referrer)?{ignore_referrer:true}:{});
 (function(){try{var r=document.referrer;if(!r)return;var h=new URL(r).hostname;var L=["chatgpt.com","chat.openai.com","perplexity.ai","claude.ai","gemini.google.com","copilot.microsoft.com","bing.com/chat","you.com","phind.com"];
 for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('event','ai_referral',{ai_source:L[i],page_location:location.href});break;}}}catch(e){}})();
 </script>
