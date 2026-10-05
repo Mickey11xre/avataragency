@@ -396,7 +396,7 @@
           avatarMount.style.display = 'block';
           instance = await sdk.init(data.token, {
             mountContainer: '#ava-napster-avatar',
-            avatarStyle: { view: 'circle' },
+            avatarStyle: { view: 'circle', borderWidth: '0px', borderStyle: 'none' },
             onDestroy: resetUI   // SDK hang-up/disconnect → reset our timer + placeholder
           });
           instance.showAvatar();

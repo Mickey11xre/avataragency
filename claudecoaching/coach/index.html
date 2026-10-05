@@ -246,7 +246,7 @@ footer a{color:inherit}
       if (!sdk) throw new Error('sdk missing');
       instance = await sdk.init(data.token, {
         mountContainer: '#coach-mount',
-        avatarStyle: { view: 'rectangle' },
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         features: SDK_FEATURES,
         onAvatarReady: function(){
           overlay.style.display = 'none';

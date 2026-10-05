@@ -611,7 +611,7 @@ function initCursorGlow() {
 
       instance = await sdk.init(data.token, {
         mountContainer: '#paulMount',
-        avatarStyle: { view: 'rectangle' }
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' }
       });
       instance.showAvatar();
 

@@ -874,7 +874,7 @@ html body { background:var(--bg) !important; }
       if (!sdk) throw new Error('sdk missing');
       instance = await sdk.init(data.token, {
         mountContainer: '#tm-mount',
-        avatarStyle: { view: 'rectangle' },
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
         onAvatarReady: function () { msg(''); },
         onDestroy: function () { instance = null; starting = false; }

@@ -1047,7 +1047,7 @@ html { scroll-snap-type:y mandatory; scroll-behavior:smooth; }
 
       var instance = await sdk.init(data.token, {
         mountContainer: '#ethica-avatar',
-        avatarStyle: { view: 'rectangle' },
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
       });
       instance.showAvatar();
       card.classList.add('live-on');

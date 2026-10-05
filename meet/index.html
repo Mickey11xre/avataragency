@@ -324,7 +324,7 @@
       pinBg();
       instance = await sdk.init(data.token, {
         mountContainer: '#mount',
-        avatarStyle: { view: 'rectangle' },
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         features: {
           showSDKLoader: { enabled: false },
           screenShare: { enabled: true },

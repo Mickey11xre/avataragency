@@ -321,7 +321,7 @@
       if (!sdk) throw new Error('sdk missing');
       instance = await sdk.init(data.token, {
         mountContainer: '#aat-mount',
-        avatarStyle: { view: 'rectangle' },
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         features: SDK_FEATURES,
         onAvatarReady: function () { avatarReady = true; },
         onStateChange: stateHandler,
@@ -491,7 +491,7 @@
       if (!sdk) throw new Error('sdk missing');
       instance = await sdk.init(data.token, {
         mountContainer: '#aat-mount',
-        avatarStyle: { view: 'rectangle' },
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         features: SDK_FEATURES,
         onAvatarReady: function () { avatarReady = true; },
         onStateChange: stateHandler,

@@ -445,7 +445,7 @@
       avatarMount.style.display = 'block';
       instance = await sdk.init(data.token, {
         mountContainer: '#paul-napster-avatar',
-        avatarStyle: { view: 'rectangle' },
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         onDestroy: resetUI
       });
       instance.showAvatar();

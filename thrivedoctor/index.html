@@ -554,7 +554,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
       pinBg();
       instance = await sdk.init(data.token, {
         mountContainer: '#td-mount',
-        avatarStyle: { view: 'rectangle' },
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
         onAvatarReady: function () { pinBg(); msg(''); },
         onDestroy: function () { instance = null; starting = false; restore(); }

@@ -294,7 +294,7 @@
       mount.style.display = 'block';
       instance = await sdk.init(data.token, {
         mountContainer: '#stage-mount',
-        avatarStyle: { view: 'rectangle' },
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         onDestroy: function () { backToPreview('Session ended — tap to talk again'); }
       });
       instance.showAvatar();

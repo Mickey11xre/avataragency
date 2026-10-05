@@ -2072,7 +2072,7 @@ function initCursorGlow() {
       if (!sdk) throw new Error("Napster SDK global not found");
       var instance = await sdk.init(data.token, {
         mountContainer: "#ethica-napster-avatar",
-        avatarStyle: { view: "rectangle" }
+        avatarStyle: { view: "rectangle", borderWidth: "0px", borderStyle: "none" }
       });
       instance.showAvatar();
       card.classList.add('live-on');

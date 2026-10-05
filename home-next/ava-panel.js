@@ -633,7 +633,9 @@
       if (!sdk) throw new Error("sdk missing");
       pinBg();
       instance = await sdk.init(data.token, {
-        mountContainer: "#ava-mount", avatarStyle: { view: "rectangle" }, debug: /[?&]debug\b/.test(location.search),
+        // borderWidth/borderStyle: SDK 1.5.0 draws a 4px silver (#C0C0C0) border on her video once the avatar is
+        // ready, red (#ec3e41) while muted or idle, for every view except "silhouette". Off (Michael, 5 Oct).
+        mountContainer: "#ava-mount", avatarStyle: { view: "rectangle", borderWidth: "0px", borderStyle: "none" }, debug: /[?&]debug\b/.test(location.search),
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
         onAvatarReady: armReveal, onDestroy: function () { endedState(""); },
       });

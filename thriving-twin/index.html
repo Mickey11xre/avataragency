@@ -728,7 +728,7 @@ var Session = (function(){
       pinBg();
       instance = await sdk.init(data.token, {
         mountContainer: '#mount',
-        avatarStyle: { view: 'rectangle' },
+        avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         debug: /[?&]debug\b/.test(location.search),
         features: {
           showSDKLoader: { enabled:false },

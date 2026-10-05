@@ -831,6 +831,10 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .ava-mount { position: absolute; inset: 0; z-index: 1; overflow: hidden; opacity: 0; transition: opacity .8s cubic-bezier(.4,0,.2,1); background: #050505; }
 .ava-mount > *, .ava-mount video, .ava-mount canvas { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; margin: 0 !important; border-radius: 0 !important; object-fit: cover; }
 .ava-mount, .ava-mount * { overflow: hidden !important; scrollbar-width: none; }
+/* 5 Oct: the SDK puts an INLINE 4px silver border (red while muted or idle) and 10px corners on its avatar box once
+   she is live; it read as a white frame around her. ava-panel.js passes borderWidth 0; this is the safety net
+   (a stylesheet !important beats an inline style without one). */
+.ava-mount #np_companion-avatar-container { border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
 .stage-av.live-ready .ava-mount { opacity: 1; }
 /* Hand-off (Michael, 2 Oct: "the video stops and the image is blurred… a little bit clunky"): her clip keeps
    PLAYING at full brightness while Napster connects; the live video fades in OVER it once it is sharp
