@@ -248,6 +248,7 @@
     backBtn.hidden = S.mode === "home";
     flag.hidden = S.mode === "home";                 // "Demo" on every view past the opening one
     body.innerHTML = (VIEWS[S.mode] || VIEWS.home)();
+    body.scrollTop = 0;                              // the panel scrolls on desktop (the stage keeps its size): start each view at the top
     body.style.animation = "none"; void body.offsetWidth; body.style.animation = "";
     var form = $("form", body);
     if (form) form.addEventListener("submit", function (e) {
@@ -258,7 +259,14 @@
     if (opts.focus) { var f = $("input, button", body); if (f) f.focus({ preventScroll: true }); }
   }
   function setMsg(text) { var m = $(".p-msg", body); if (m) { m.classList.add("err"); m.textContent = text; } }
-  function flash(el) { el.classList.add("flash"); setTimeout(function () { el.classList.remove("flash"); }, 1100); }
+  function flash(el) { el.classList.add("flash"); setTimeout(function () { el.classList.remove("flash"); }, 1100); reveal(el); }
+  // Scroll the panel (never the page) so a field Maya just filled is in view.
+  function reveal(el) {
+    if (!el || body.scrollHeight <= body.clientHeight + 1) return;
+    var b = body.getBoundingClientRect(), r = el.getBoundingClientRect();
+    if (r.top < b.top) body.scrollTop -= (b.top - r.top) + 8;
+    else if (r.bottom > b.bottom) body.scrollTop += (r.bottom - b.bottom) + 8;
+  }
 
   // The practice video plays in the panel, with controls, and never on top of another voice.
   function wireFilm() {

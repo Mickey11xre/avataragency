@@ -162,6 +162,21 @@
 }
 @media (max-width: 420px) { .p-times { grid-template-columns: repeat(2, 1fr); } }
 
+/* The stage keeps its size (Michael, 5 Oct: "keep the same stage size and just include a scrollbar"). On desktop a tall
+   panel view (the services list, the booking form, the review card) used to stretch the whole stage, and the avatar's
+   video with it (560 -> 670 px). Now the stage stays at its 560 px and the panel body scrolls. Phones are unchanged: the
+   panel sits under the video there, so a long view never resizes the avatar. Differs from the homepage stage. */
+@media (min-width: 901px) {
+  .stage { height: 560px; min-height: 0; grid-template-rows: minmax(0, 1fr); }
+  .panel { min-height: 0; overflow: hidden; }
+  .panel-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; margin-right: -4px;
+    scrollbar-width: thin; scrollbar-color: rgba(228,201,122,.45) transparent; }
+  .panel-body::-webkit-scrollbar { width: 8px; }
+  .panel-body::-webkit-scrollbar-track { background: transparent; }
+  .panel-body::-webkit-scrollbar-thumb { background: rgba(228,201,122,.35); border-radius: 8px; border: 2px solid transparent; background-clip: padding-box; }
+  .panel-body::-webkit-scrollbar-thumb:hover { background-color: rgba(228,201,122,.6); }
+}
+
 /* ═════════ Live session (home-next.css 825-877) ═════════ */
 .ava-btn.ava-talk { background: linear-gradient(180deg, var(--gold-light), var(--gold)); color: #120f08; border-color: transparent; }
 .ava-btn.ava-talk:hover { color: #120f08; filter: brightness(1.06); }
