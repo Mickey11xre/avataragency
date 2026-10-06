@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/work/portfolio.css?v=4">
-<link rel="stylesheet" href="/avatarstages/stages.css?v=2">
+<link rel="stylesheet" href="/avatarstages/stages.css?v=4">
 <script>
   (function (d) {
     var h = d.documentElement; h.className = h.className.replace('no-js', 'js');
@@ -65,7 +65,7 @@
       </div>
       <div class="hero-side">
         <p class="hello">Hi <span data-viewer>there</span> — this page is just for you.</p>
-        <p>Every stage below is live. Press Talk, allow your microphone, and have a real conversation: each avatar answers in its own voice, from its own knowledge, and the panel beside it does the work.</p>
+        <p>Ava and Maya are live. Press Talk, allow your microphone, and have a real conversation: each avatar answers in its own voice, from its own knowledge, and the panel beside it does the work. Paul's live conversation is coming soon.</p>
         <p class="priv"><svg><use href="#i-lock"/></svg><span>These are private demos. Please don't forward this page or record the conversations.</span></p>
       </div>
     </div>
@@ -152,6 +152,42 @@
       </div>
     </article>
 
+    <article class="st" id="st-paul" aria-labelledby="t-paul">
+      <header class="st-head rv">
+        <div class="st-num" aria-hidden="true">03</div>
+        <div>
+          <p class="eyebrow gold-deep">Paul Small · Compass · Client twin</p>
+          <h2 class="st-title" id="t-paul">Paul <em>a real estate advisor's digital twin.</em></h2>
+          <p class="st-line">Built for Paul Small, a Compass real estate advisor who specializes in West Los Angeles. His twin plays his two neighborhood films and shows how a no-pressure appointment is booked. His live conversation is coming soon.</p>
+        </div>
+        <ul class="tags"><li>Client twin</li><li>Two neighborhood films</li><li>Live soon</li></ul>
+      </header>
+
+      <!-- Run by /avatarstages/paul-stage.js. Intro = the 25 s Seedance 2.0 take (two halves, 2026-10-06). -->
+      <div class="stage" id="paul-stage">
+        <div class="stage-av">
+          <div id="paul-mount" class="ava-mount"></div>
+          <video class="ava-video" muted loop playsinline preload="none" poster="/avatarstages/media/paul-poster.jpg?v=2" data-src="/avatarstages/media/paul-intro.mp4?v=1" aria-label="Paul Small's digital twin, introducing Paul"></video>
+          <div class="ava-badge">Paul · digital twin</div>
+          <div class="ava-caption" aria-live="polite"></div>
+          <div class="ava-toast" role="status" hidden></div>
+          <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play Paul's introduction with sound" title="Play Paul's introduction with sound"><svg aria-hidden="true"><use href="#i-sound-off"/></svg><span class="ava-sound-label" aria-hidden="true">Muted</span></button>
+          <div class="ava-ctrls">
+            <button class="ava-btn ava-talk" type="button"><svg><use href="#i-mic"/></svg><span>Talk to Paul</span></button>
+          </div>
+        </div>
+        <aside class="panel is-home" id="paul-panel" aria-label="Paul's panel">
+          <div class="panel-top">
+            <button class="panel-back" type="button" hidden aria-label="Back"><svg><use href="#i-arrow"/></svg></button>
+            <span class="panel-title">How can I help?</span>
+            <span class="panel-flag" hidden>Demo</span>
+          </div>
+          <div class="panel-body" aria-live="polite"></div>
+          <p class="panel-note">Prefer to type? Demo panel: nothing is booked or sent.</p>
+        </aside>
+      </div>
+    </article>
+
   </div>
 </section>
 
@@ -195,5 +231,6 @@
 </script>
 <script src="/home-next/ava-panel.js?v=14"></script>
 <script src="/avatarstages/maya-stage.js?v=5"></script>
+<script src="/avatarstages/paul-stage.js?v=2"></script>
 </body>
 </html>
