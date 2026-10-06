@@ -8,19 +8,53 @@
  *  - /avatarstages/api/* (Maya's token route) answers 401 JSON instead of a redirect, and keeps its own
  *    Cache-Control: no-store (a session token must never be cached).
  *  - The viewer's record goes to the next handler as context.data.viewer, so Maya can greet them by first name.
+ *  - A pass link (?pass=<code>, see functions/_lib/passes.js) opens the page without the email form: it issues
+ *    the same cookie, emails Michael, and redirects to the clean URL.
  */
+import { findPass, passStillValid } from "../_lib/passes.js";
+
 const GATE = "/#work";
+const ACCESS_TTL = 60 * 60 * 24 * 180;   // same as /api/portfolio-confirm
+const NOTIFY = "michael@avataragency.ai";
 
 async function hasAccess(context) {
   const m = (context.request.headers.get("Cookie") || "").match(/(?:^|;\s*)aa_pf=([a-f0-9]{40,80})/i);
   if (!m || !context.env.AISO_KV) return null;
   const raw = await context.env.AISO_KV.get("pf:access:" + m[1]);
-  return raw ? JSON.parse(raw) : null;
+  const who = raw ? JSON.parse(raw) : null;
+  return who && passStillValid(who) ? who : null;
+}
+
+// ?pass=<code>: a known pass gets the portfolio cookie (an existing one is kept), then the clean URL.
+async function redeemPass(context, code, who) {
+  const pass = await findPass(code);
+  if (!pass || !context.env.AISO_KV) return null;
+  const headers = { Location: "/avatarstages/", "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" };
+  if (!who) {
+    const key = crypto.randomUUID().replace(/-/g, "") + crypto.randomUUID().replace(/-/g, "");
+    await context.env.AISO_KV.put("pf:access:" + key, JSON.stringify({ email: "", name: pass.name || "", pass: pass.label, at: new Date().toISOString() }), { expirationTtl: ACCESS_TTL });
+    headers["Set-Cookie"] = `aa_pf=${key}; Path=/; Max-Age=${ACCESS_TTL}; HttpOnly; Secure; SameSite=Lax`;
+    const cf = context.request.cf || {};
+    const where = [cf.city, cf.region, cf.country].filter(Boolean).join(", ");
+    if (context.env.RESEND_API_KEY) context.waitUntil(fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${context.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from: "AvatarAgency <studio@avataragency.ai>", to: [NOTIFY],
+        subject: `Avatar stages opened with the "${pass.label}" pass`,
+        html: `<p>Someone opened <b>avataragency.ai/avatarstages</b> with the <b>${pass.label}</b> pass link${where ? " (approx. " + where.replace(/[<>&]/g, "") + ")" : ""}.</p><p>No email was collected: pass links skip the form.</p>` }),
+    }).catch(() => {}));
+  }
+  return new Response(null, { status: 302, headers });
 }
 
 export async function onRequest(context) {
-  const api = new URL(context.request.url).pathname.startsWith("/avatarstages/api/");
+  const url = new URL(context.request.url);
+  const api = url.pathname.startsWith("/avatarstages/api/");
   const who = await hasAccess(context);
+  if (!api && url.searchParams.has("pass")) {
+    const redeemed = await redeemPass(context, url.searchParams.get("pass"), who);
+    if (redeemed) return redeemed;
+  }
   if (!who) {
     if (api) return new Response(JSON.stringify({ error: "Private page" }), { status: 401, headers: { "Content-Type": "application/json", "Cache-Control": "no-store" } });
     return new Response(null, { status: 302, headers: { Location: GATE, "Cache-Control": "no-store" } });

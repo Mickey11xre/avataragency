@@ -10,13 +10,16 @@
  *    functions/work/film/[[path]].js so client-portal URLs never reach a prospect
  *  - /work/media/<key> — the R2 bucket route (PORTFOLIO_R2), for when R2 is enabled
  */
+import { passStillValid } from "../_lib/passes.js";
+
 const GATE = "/#work";
 
 async function hasAccess(context) {
   const m = (context.request.headers.get("Cookie") || "").match(/(?:^|;\s*)aa_pf=([a-f0-9]{40,80})/i);
   if (!m || !context.env.AISO_KV) return null;
   const raw = await context.env.AISO_KV.get("pf:access:" + m[1]);
-  return raw ? JSON.parse(raw) : null;
+  const who = raw ? JSON.parse(raw) : null;
+  return who && passStillValid(who) ? who : null;   // a revoked pass link loses /work/ too
 }
 
 export async function onRequest(context) {
