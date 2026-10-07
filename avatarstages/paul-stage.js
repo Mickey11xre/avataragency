@@ -29,7 +29,7 @@
     TOKEN_ENDPOINT: "/avatarstages/api/paul-token",
     SDK_URL: "https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js",
     CAP_S: 600,          // ten-minute session cap, as for Ava and Maya
-    INTRO_END: 24.85,    // media/paul-intro.mp4 is 24.9 s (Seedance 2.0, two halves joined at 11.9 s)
+    INTRO_END: 26.1,     // media/paul-intro.mp4 is 26.2 s (Seedance 2.0, three pieces joined at 11.9 s and 22.2 s)
   };
 
   var avStage = $(".stage-av", stage), vid = $(".ava-video", stage), capBox = $(".ava-caption", stage), hearBtn = $(".ava-sound", stage),
@@ -457,11 +457,12 @@
 
   /* ═════════ His intro: muted loop; the sound icon replays it from the start with captions ═════════
      Until the approved 30 s intro is on the page (data-src on the video), the stage shows his still and no sound icon. */
-  // Timed to the intro's speech (ffmpeg silencedetect, 6 Oct): each line appears just before he says it.
+  // Timed to the intro's speech (ffmpeg silencedetect, 6 Oct; last line re-timed for the 26 s cut, 7 Oct): each line
+  // appears just before he says it.
   var LINES = [[0.25, 2.75, "Hi, I'm Paul Small's digital twin."], [2.75, 5.35, "Paul is a real estate advisor with Compass,"],
     [5.35, 8.1, "and he specializes in West Los Angeles:"], [8.1, 11.9, "Mar Vista, Santa Monica, Marina del Rey and Brentwood."],
     [12.15, 14.3, "Whether you're buying, selling,"], [14.3, 18.9, "or helping your parents downsize the family home,"],
-    [18.9, 21.9, "he'll guide you through every step, at your own pace, with no pressure."], [22.25, 24.6, "Click Talk to Paul to learn more."]];
+    [18.9, 21.9, "he'll guide you through every step, at your own pace, with no pressure."], [22.3, 24.6, "Click Talk to Paul to learn more."]];
   var hasIntro = !!vid.getAttribute("data-src");
   var hearing = false, lastT = 0, visible = false, capKey = "";
   function caption(lines) { var k = JSON.stringify(lines || []); if (k === capKey) return; capKey = k; capBox.innerHTML = (lines || []).map(function (l) { return '<span class="cap">' + esc(l) + "</span>"; }).join(""); }
