@@ -24,7 +24,8 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/work/portfolio.css?v=4">
+<link rel="stylesheet" href="/work/portfolio.css?v=5">
+<link rel="stylesheet" href="/avatarstages/stages.css?v=7">
 <script>
   (function (d) {
     var h = d.documentElement; h.className = h.className.replace('no-js', 'js');
@@ -43,6 +44,8 @@
   <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M8.5 10.5V7.8a3.5 3.5 0 0 1 7 0v2.7" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
   <symbol id="i-ext" viewBox="0 0 24 24"><path d="M14 5h5v5M19 5l-8 8M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
   <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-vol" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-sound-off" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4 21L20 3" stroke="rgba(10,10,10,.9)" stroke-width="4" stroke-linecap="round"/><path d="M4 21L20 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
 </svg>
 
 <header class="hdr" id="hdr">
@@ -62,6 +65,7 @@
   <a href="#case-guardian"><i></i>06 <span>The Enrollment Guardian</span></a>
   <a href="#case-softlips"><i></i>07 <span>Softlips</span></a>
   <a href="#case-plaud"><i></i>08 <span>PLAUD</span></a>
+  <a href="#case-matt"><i></i>09 <span>Matt (prototype)</span></a>
 </nav>
 
 <main id="main">
@@ -77,15 +81,15 @@
       </div>
       <div class="hero-side">
         <p class="hello">Hi <span data-viewer>there</span> — this link is just for you.</p>
-        <p>Here are eight selected productions, start to finish: the films, the cloning sessions behind them, and the talking avatars, websites and campaigns around them.</p>
+        <p>Here are nine selected projects, start to finish: the films, the cloning sessions behind them, and the talking avatars, websites and campaigns around them. Some of the avatars are live: press Talk and have a conversation.</p>
         <p class="priv"><svg><use href="#i-lock"/></svg><span>Our clients share this work with you privately. Please don't forward this page or download the films.</span></p>
       </div>
     </div>
 
     <div class="stats rv" aria-label="At a glance">
-      <div><b>8</b><span>Case studies</span></div>
+      <div><b>9</b><span>Case studies</span></div>
       <div><b>27</b><span>Films &amp; spots</span></div>
-      <div><b>12</b><span>Likenesses &amp; characters</span></div>
+      <div><b>13</b><span>Likenesses &amp; characters</span></div>
       <div><b>0</b><span>Film crews</span></div>
     </div>
 
@@ -100,7 +104,7 @@
         <button type="button" aria-pressed="false" data-filter="ads">Ads &amp; campaigns</button>
       </div>
       <div class="cards">
-        <a class="card rv" href="#case-paul" data-tags="film clone ads">
+        <a class="card rv" href="#case-paul" data-tags="film clone ads avatar">
           <img src="/work/assets/poster/paul-hermosa.webp" alt="" loading="eager" decoding="async">
           <video muted loop playsinline preload="none" data-src="/work/assets/preview/paul.mp4" aria-hidden="true"></video>
           <span class="card-num">01</span>
@@ -118,11 +122,11 @@
           <span class="card-num">03</span>
           <span class="card-meta"><b>Danny Gomes</b><span>Legacy Realty Partners</span><ul><li>3 films</li><li>Digital clone</li></ul></span>
         </a>
-        <a class="card rv" href="#case-alena" data-tags="film clone ads">
+        <a class="card rv" href="#case-alena" data-tags="film clone ads avatar">
           <img src="/work/assets/poster/alena-service.webp" alt="" loading="eager" decoding="async">
           <video muted loop playsinline preload="none" data-src="/work/assets/preview/alena.mp4" aria-hidden="true"></video>
           <span class="card-num">04</span>
-          <span class="card-meta"><b>Dr. Alena Nawrocki</b><span>Dental Arts San Diego</span><ul><li>Film</li><li>Spots</li><li>Digital clone</li></ul></span>
+          <span class="card-meta"><b>Dr. Alena Nawrocki</b><span>Dental Arts San Diego</span><ul><li>Film</li><li>Spots</li><li>Talking avatar</li></ul></span>
         </a>
         <a class="card rv" href="#case-ethica" data-tags="film character avatar">
           <img src="/work/assets/poster/ethica-teaser.webp" alt="" loading="lazy" decoding="async">
@@ -147,6 +151,12 @@
           <video muted loop playsinline preload="none" data-src="/work/assets/preview/plaud.mp4" aria-hidden="true"></video>
           <span class="card-num">08</span><span class="pitch">Spec</span>
           <span class="card-meta"><b>PLAUD</b><span>A UGC ad in 24 hours</span><ul><li>UGC ad</li><li>AI creator</li></ul></span>
+        </a>
+        <a class="card card-wide rv" href="#case-matt" data-tags="character avatar">
+          <img src="/avatarstages/media/matt-poster.jpg?v=2" alt="" loading="lazy" decoding="async">
+          <video muted loop playsinline preload="none" data-src="/avatarstages/media/matt-intro.mp4?v=2" aria-hidden="true"></video>
+          <span class="card-num">09</span><span class="pitch">Prototype</span>
+          <span class="card-meta"><b>Matt</b><span>Matt's Valley Plumbing · a talking avatar you can call</span><ul><li>Prototype</li><li>Fictional business</li><li>Talking avatar</li></ul></span>
         </a>
       </div>
     </div>
@@ -219,6 +229,40 @@
         <button class="clip v" type="button" data-src="/work/assets/film/paul-marvista-vertical-3.mp4" data-poster="/work/assets/poster/paul-marvista-vertical-3.webp" data-ratio="v" data-title="Mar Vista · vertical short No. 3 · 0:40"><img src="/work/assets/poster/paul-marvista-vertical-3.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 3</b><small>0:40 · 9:16</small></span></span></button>
       </div>
     </div>
+  </div>
+
+
+  <!-- Paul's stage, run by /avatarstages/paul-stage.js. A copy of its /avatarstages stage (same ids and script, 7 Oct): a change to one stage goes to both pages. -->
+  <div class="wrap more case-stage" id="talk-paul">
+    <div class="cs-head rv">
+      <p class="eyebrow gold">Talking avatar · Live conversation coming soon</p>
+      <h3>Talk to <em>Paul's twin.</em></h3>
+      <p>His twin plays his two neighborhood films and shows how a no-pressure appointment is booked. Paul's live conversation is coming soon: his new talking twin is being built now.</p>
+    </div>
+      <!-- Run by /avatarstages/paul-stage.js. Intro = the 26 s Seedance 2.0 cut (three pieces, framing and color locked
+           across the joins, approved 2026-10-07). -->
+      <div class="stage" id="paul-stage">
+        <div class="stage-av">
+          <div id="paul-mount" class="ava-mount"></div>
+          <video class="ava-video" muted loop playsinline preload="none" poster="/avatarstages/media/paul-poster.jpg?v=3" data-src="/avatarstages/media/paul-intro.mp4?v=2" aria-label="Paul Small's digital twin, introducing Paul"></video>
+          <div class="ava-badge">Paul · digital twin</div>
+          <div class="ava-caption" aria-live="polite"></div>
+          <div class="ava-toast" role="status" hidden></div>
+          <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play Paul's introduction with sound" title="Play Paul's introduction with sound"><svg aria-hidden="true"><use href="#i-sound-off"/></svg><span class="ava-sound-label" aria-hidden="true">Muted</span></button>
+          <div class="ava-ctrls">
+            <button class="ava-btn ava-talk" type="button"><svg><use href="#i-mic"/></svg><span>Talk to Paul</span></button>
+          </div>
+        </div>
+        <aside class="panel is-home" id="paul-panel" aria-label="Paul's panel">
+          <div class="panel-top">
+            <button class="panel-back" type="button" hidden aria-label="Back"><svg><use href="#i-arrow"/></svg></button>
+            <span class="panel-title">How can I help?</span>
+            <span class="panel-flag" hidden>Demo</span>
+          </div>
+          <div class="panel-body" aria-live="polite" data-lenis-prevent></div>
+          <p class="panel-note">Prefer to type? Demo panel: nothing is booked or sent.</p>
+        </aside>
+      </div>
   </div>
 
   <div class="wrap next"><a href="#case-laurie">Next case <b>Dr. Laurie Schreiner</b><svg><use href="#i-down"/></svg></a></div>
@@ -433,6 +477,38 @@
       <button class="clip v" type="button" data-src="/work/film/alena-vertical-1.mp4" data-poster="/work/assets/poster/alena-vertical-1.webp" data-ratio="v" data-title="Clear Aligners · vertical · 0:21"><img src="/work/assets/poster/alena-vertical-1.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Aligners</b><small>0:21 · 9:16</small></span></span></button>
       <button class="clip v" type="button" data-src="/work/film/alena-vertical-2.mp4" data-poster="/work/assets/poster/alena-vertical-2.webp" data-ratio="v" data-title="Scared of the Dentist · vertical · 0:24"><img src="/work/assets/poster/alena-vertical-2.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Scared?</b><small>0:24 · 9:16</small></span></span></button>
     </div>
+  </div>
+
+
+  <!-- Maya's stage, run by /avatarstages/maya-stage.js. A copy of its /avatarstages stage (same ids and script, 7 Oct): a change to one stage goes to both pages. -->
+  <div class="wrap more case-stage" id="talk-maya">
+    <div class="cs-head rv">
+      <p class="eyebrow gold">Talking avatar · Demo</p>
+      <h3>Talk to <em>Maya.</em></h3>
+      <p>Maya is the practice's AI assistant. She knows every service, the hours, insurance and comfort options, sends emergencies to the right place, and never diagnoses. Press Talk and ask her anything. The panel is a demo: nothing is booked or sent.</p>
+    </div>
+      <div class="stage" id="maya-stage">
+        <div class="stage-av">
+          <div id="maya-mount" class="ava-mount"></div>
+          <video class="ava-video" muted loop playsinline preload="none" poster="/avatarstages/media/maya-poster.jpg?v=1" data-src="/avatarstages/media/maya-intro.mp4?v=2" aria-label="Maya, Dental Arts San Diego's AI assistant, introducing herself"></video>
+          <div class="ava-badge"><span class="ava-dot"></span>Maya · AI assistant</div>
+          <div class="ava-caption" aria-live="polite"></div>
+          <div class="ava-toast" role="status" hidden></div>
+          <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play Maya's introduction with sound" title="Play Maya's introduction with sound"><svg aria-hidden="true"><use href="#i-sound-off"/></svg><span class="ava-sound-label" aria-hidden="true">Muted</span></button>
+          <div class="ava-ctrls">
+            <button class="ava-btn ava-talk" type="button"><svg><use href="#i-mic"/></svg><span>Talk to Maya</span></button>
+          </div>
+        </div>
+        <aside class="panel is-home" id="maya-panel" aria-label="Maya's panel">
+          <div class="panel-top">
+            <button class="panel-back" type="button" hidden aria-label="Back"><svg><use href="#i-arrow"/></svg></button>
+            <span class="panel-title">How can I help?</span>
+            <span class="panel-flag" hidden>Demo</span>
+          </div>
+          <div class="panel-body" aria-live="polite" data-lenis-prevent></div>
+          <p class="panel-note">Prefer to type? Demo panel: nothing is booked or sent.</p>
+        </aside>
+      </div>
   </div>
 
   <div class="wrap next"><a href="#case-ethica">Next case <b>Ethica</b><svg><use href="#i-down"/></svg></a></div>
@@ -651,6 +727,66 @@
       </figure>
     </div>
   </div>
+
+  <div class="wrap next"><a href="#case-matt">Next case <b>Matt (prototype)</b><svg><use href="#i-down"/></svg></a></div>
+</section>
+
+<!-- ═════════════ 09 · MATT (PROTOTYPE, FICTIONAL BUSINESS) ═════════════ -->
+<section class="case" id="case-matt" aria-labelledby="t-matt">
+  <div class="wrap case-head rv">
+    <div class="case-num" aria-hidden="true">09</div>
+    <div>
+      <p class="eyebrow gold">Home services · Talking avatar · Prototype</p>
+      <h2 class="case-title" id="t-matt">Matt <em>Matt's Valley Plumbing.</em></h2>
+      <p class="case-line">A fictional plumbing company in the San Fernando Valley, built to show what a plumber's avatar can do. He puts safety first in an emergency, explains leaks, drains and water heaters without guessing at a diagnosis, and schedules a visit without ever quoting a price.</p>
+      <ul class="tags"><li class="hl">Prototype</li><li class="hl">Fictional business</li><li>Talking avatar</li><li>Original character</li></ul>
+    </div>
+    <dl class="facts">
+      <div><dt>Business</dt><dd>Matt's Valley Plumbing, a fictional business built as a demo for the trades</dd></div>
+      <div><dt>Type</dt><dd>Prototype talking avatar, live on this page</dd></div>
+      <div><dt>Knows</dt><dd>The services, the service area and the questions a plumber hears every day; 50 checked answers</dd></div>
+      <div><dt>Panel</dt><dd>Demo scheduling: nothing is booked or sent</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap story">
+    <div class="rv"><h3>The idea</h3><p>Plumbing calls come in at all hours, often in a panic. Matt shows what an avatar can do for a local trade: answer right away, in a calm voice, and get a visit on the calendar.</p></div>
+    <div class="rv"><h3>The creation</h3><p>Matt is an <strong>original character</strong>: his look, his voice and his company were designed for this demo, and his knowledge base was written for a working plumbing business.</p></div>
+    <div class="rv"><h3>The craft</h3><p>Safety comes first: a gas smell gets "get outside" before anything else. He explains a problem without guessing at a diagnosis, never quotes a price, and fills in the scheduling panel beside him as you talk.</p></div>
+  </div>
+
+  <!-- Matt's stage, run by /avatarstages/matt-stage.js. A copy of its /avatarstages stage (same ids and script, 7 Oct): a change to one stage goes to both pages. -->
+  <div class="wrap more case-stage" id="talk-matt">
+    <div class="cs-head rv">
+      <p class="eyebrow gold">Talking avatar · Live</p>
+      <h3>Talk to <em>Matt.</em></h3>
+      <p>Press Talk, allow your microphone, and ask him about a leak, a clogged drain or a water heater. Try telling him you smell gas.</p>
+    </div>
+      <!-- Run by /avatarstages/matt-stage.js. Intro = Seedance 2.5 take 1 (job 01f61d3d, eye glow repaired in post, 2026-10-06);
+           its 0.33 s still lead-in and the poster are the start still WARPED into the take's framing (v2), so nothing jumps. -->
+      <div class="stage" id="matt-stage">
+        <div class="stage-av">
+          <div id="matt-mount" class="ava-mount"></div>
+          <video class="ava-video" muted loop playsinline preload="none" poster="/avatarstages/media/matt-poster.jpg?v=2" data-src="/avatarstages/media/matt-intro.mp4?v=2" aria-label="Matt, the AI version of a local plumber, introducing himself"></video>
+          <div class="ava-badge">Matt · AI demo</div>
+          <div class="ava-caption" aria-live="polite"></div>
+          <div class="ava-toast" role="status" hidden></div>
+          <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play Matt's introduction with sound" title="Play Matt's introduction with sound"><svg aria-hidden="true"><use href="#i-sound-off"/></svg><span class="ava-sound-label" aria-hidden="true">Muted</span></button>
+          <div class="ava-ctrls">
+            <button class="ava-btn ava-talk" type="button"><svg><use href="#i-mic"/></svg><span>Talk to Matt</span></button>
+          </div>
+        </div>
+        <aside class="panel is-home" id="matt-panel" aria-label="Matt's panel">
+          <div class="panel-top">
+            <button class="panel-back" type="button" hidden aria-label="Back"><svg><use href="#i-arrow"/></svg></button>
+            <span class="panel-title">How can I help?</span>
+            <span class="panel-flag" hidden>Demo</span>
+          </div>
+          <div class="panel-body" aria-live="polite" data-lenis-prevent></div>
+          <p class="panel-note">Prefer to type? Demo panel: nothing is booked or sent.</p>
+        </aside>
+      </div>
+  </div>
 </section>
 
 <!-- ═════════════ CLOSE ═════════════ -->
@@ -691,5 +827,28 @@
 <script src="/home-next/vendor/ScrollTrigger.min.js"></script>
 <script src="/home-next/vendor/lenis.min.js"></script>
 <script src="/work/portfolio.js?v=2"></script>
+<!-- The live avatar stages (also on /avatarstages). Each script coordinates with the others: one voice at a time. -->
+<script src="/avatarstages/maya-stage.js?v=5"></script>
+<script src="/avatarstages/paul-stage.js?v=3"></script>
+<script src="/avatarstages/matt-stage.js?v=4"></script>
+<script>
+  /* Stages and portfolio films on one page: never two voices. A stage's Talk or intro sound pauses any portfolio film
+     playing with sound; a portfolio film starting with sound ends a live avatar and quiets an intro. */
+  (function () {
+    var inStage = function (el) { return !!(el.closest && el.closest(".stage")); };
+    document.addEventListener("click", function (e) {
+      var t = e.target && e.target.closest ? e.target.closest(".stage .ava-talk, .stage .ava-sound") : null;
+      if (!t) return;
+      [].forEach.call(document.querySelectorAll("video"), function (v) { if (!inStage(v) && !v.paused && !v.muted) v.pause(); });
+    }, true);
+    document.addEventListener("play", function (e) {
+      var v = e.target; if (!v || v.tagName !== "VIDEO" || inStage(v) || v.muted) return;
+      [].forEach.call(document.querySelectorAll(".stage"), function (st) {
+        var talk = st.querySelector(".ava-talk.is-on"); if (talk) talk.click();
+        var snd = st.querySelector('.ava-sound[aria-pressed="true"]'); if (snd) snd.click();
+      });
+    }, true);
+  })();
+</script>
 </body>
 </html>

@@ -343,3 +343,13 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
   .logo-lockup { font-size: 22px; }
   .stats { display: grid; grid-template-columns: 1fr 1fr; gap: 22px 16px; }
 }
+
+/* ── Live avatar stages inside the case studies (7 Oct; also on /avatarstages). Stage rules: /avatarstages/stages.css ── */
+.case-stage .cs-head { max-width: 62ch; margin-bottom: clamp(20px, 2.6vw, 32px); }
+.case-stage .cs-head h3 { margin: 0; font-size: clamp(26px, 2.6vw, 38px); line-height: 1.05; letter-spacing: -.025em; font-weight: 600; }
+.case-stage .cs-head h3 em { color: var(--gold-light); }
+.case-stage .cs-head p:last-child { margin: 12px 0 0; color: var(--on-mid); }
+.case-stage .stage { box-shadow: 0 40px 90px -40px rgba(0,0,0,.8), 0 0 0 1px rgba(201,168,76,.22); }
+/* Matt, the ninth card, spans the row instead of sitting alone */
+@media (min-width: 861px) { .cards .card-wide { grid-column: 1 / -1; aspect-ratio: auto; height: clamp(220px, 22vw, 320px); } .cards .card-wide img, .cards .card-wide video { object-position: center 30%; } }
+@media (max-width: 860px) { .cards { grid-template-columns: repeat(9, 62vw); } }
