@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/work/portfolio.css?v=4">
-<link rel="stylesheet" href="/avatarstages/stages.css?v=4">
+<link rel="stylesheet" href="/avatarstages/stages.css?v=5">
 <script>
   (function (d) {
     var h = d.documentElement; h.className = h.className.replace('no-js', 'js');
@@ -188,6 +188,42 @@
       </div>
     </article>
 
+    <article class="st" id="st-matt" aria-labelledby="t-matt">
+      <header class="st-head rv">
+        <div class="st-num" aria-hidden="true">04</div>
+        <div>
+          <p class="eyebrow gold-deep">Matt's Valley Plumbing · Demo</p>
+          <h2 class="st-title" id="t-matt">Matt <em>a local plumber's digital twin.</em></h2>
+          <p class="st-line">A fictional plumbing company in the San Fernando Valley, built to show what a plumber's avatar can do. He puts safety first in an emergency, explains leaks, drains and water heaters without guessing at a diagnosis, and schedules a visit without ever quoting a price. His live conversation is coming soon.</p>
+        </div>
+        <ul class="tags"><li>Knowledge base</li><li>50 checked answers</li><li>Safety-first</li></ul>
+      </header>
+
+      <!-- Run by /avatarstages/matt-stage.js. Intro = Seedance 2.5 take 1 (job 01f61d3d, eye glow repaired in post, 2026-10-06). -->
+      <div class="stage" id="matt-stage">
+        <div class="stage-av">
+          <div id="matt-mount" class="ava-mount"></div>
+          <video class="ava-video" muted loop playsinline preload="none" poster="/avatarstages/media/matt-poster.jpg?v=1" data-src="/avatarstages/media/matt-intro.mp4?v=1" aria-label="Matt, the AI version of a local plumber, introducing himself"></video>
+          <div class="ava-badge">Matt · AI demo</div>
+          <div class="ava-caption" aria-live="polite"></div>
+          <div class="ava-toast" role="status" hidden></div>
+          <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play Matt's introduction with sound" title="Play Matt's introduction with sound"><svg aria-hidden="true"><use href="#i-sound-off"/></svg><span class="ava-sound-label" aria-hidden="true">Muted</span></button>
+          <div class="ava-ctrls">
+            <button class="ava-btn ava-talk" type="button"><svg><use href="#i-mic"/></svg><span>Talk to Matt</span></button>
+          </div>
+        </div>
+        <aside class="panel is-home" id="matt-panel" aria-label="Matt's panel">
+          <div class="panel-top">
+            <button class="panel-back" type="button" hidden aria-label="Back"><svg><use href="#i-arrow"/></svg></button>
+            <span class="panel-title">How can I help?</span>
+            <span class="panel-flag" hidden>Demo</span>
+          </div>
+          <div class="panel-body" aria-live="polite"></div>
+          <p class="panel-note">Prefer to type? Demo panel: nothing is booked or sent.</p>
+        </aside>
+      </div>
+    </article>
+
   </div>
 </section>
 
@@ -232,5 +268,6 @@
 <script src="/home-next/ava-panel.js?v=14"></script>
 <script src="/avatarstages/maya-stage.js?v=5"></script>
 <script src="/avatarstages/paul-stage.js?v=2"></script>
+<script src="/avatarstages/matt-stage.js?v=3"></script>
 </body>
 </html>
