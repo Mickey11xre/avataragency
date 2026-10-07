@@ -353,3 +353,8 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 /* Matt, the ninth card, spans the row instead of sitting alone */
 @media (min-width: 861px) { .cards .card-wide { grid-column: 1 / -1; aspect-ratio: auto; height: clamp(220px, 22vw, 320px); } .cards .card-wide img, .cards .card-wide video { object-position: center 30%; } }
 @media (max-width: 860px) { .cards { grid-template-columns: repeat(9, 62vw); } }
+
+/* Hero with the how-it-was-made paragraph (8 Oct): title block top-aligned with the side column, the paragraph under it */
+.hero-top--lede { align-items: start; }
+.hero-lede { margin: clamp(22px, 2.4vw, 34px) 0 0; max-width: 66ch; color: var(--on-mid); font-size: clamp(16px, 1.2vw, 18px); line-height: 1.65; }
+.hero-lede strong { color: var(--on); font-weight: 600; }
