@@ -8,7 +8,7 @@
  * THE PANEL IS A DEMO, like Maya's (Michael, 6 Oct). It shows sample times and the same "Is this correct?" card,
  * and nothing is booked or sent anywhere.
  *
- * "Talk to Paul" is COMING SOON (Michael, 6 Oct) until his NV2 twin and its stage agent exist. CFG.LIVE switches the
+ * "Talk to Paul" went LIVE on 7 Oct (Michael: "Paul's NV2 is now ready"); it was "coming soon" until then. CFG.LIVE switches the
  * live session on. That code mirrors Maya's: one live avatar at a time, and his own tools installed right before his
  * init. It has never run, so test it live on the day it is switched on.
  *
@@ -25,7 +25,7 @@
   var track = function (n, p) { try { if (window.gtag) gtag("event", n, p || {}); } catch (e) {} };
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var CFG = {
-    LIVE: false,         // "Talk to Paul" stays "coming soon" until his NV2 twin + stage agent exist
+    LIVE: true,          // Talk to Paul is live (7 Oct): NV2 twin 6a0f69cd + his stage agent, via /avatarstages/api/paul-token
     TOKEN_ENDPOINT: "/avatarstages/api/paul-token",
     SDK_URL: "https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js",
     CAP_S: 600,          // ten-minute session cap, as for Ava and Maya
@@ -237,8 +237,9 @@
     else if (r.bottom > b.bottom) body.scrollTop += (r.bottom - b.bottom) + 8;
   }
 
-  /* ═════════ The other two stages: never two voices at once ═════════ */
-  var OTHERS = [{ name: "Ava", stage: "ava-stage", mount: "ava-mount", panel: "ava-panel" }, { name: "Maya", stage: "maya-stage", mount: "maya-mount", panel: "maya-panel" }];
+  /* ═════════ The other three stages: never two voices at once ═════════ */
+  var OTHERS = [{ name: "Ava", stage: "ava-stage", mount: "ava-mount", panel: "ava-panel" }, { name: "Maya", stage: "maya-stage", mount: "maya-mount", panel: "maya-panel" },
+    { name: "Matt", stage: "matt-stage", mount: "matt-mount", panel: "matt-panel" }];
   var ownClick = false;                              // our own clicks on the other stages' buttons skip the guard below
   function clickOther(b) { ownClick = true; try { b.click(); } finally { ownClick = false; } }
   function otherState(o) {
@@ -260,13 +261,15 @@
   }
   // Clicks on the other stages while Paul is busy. Capture phase, so this runs before their own scripts see the click.
   document.addEventListener("click", function (e) {
-    var t = e.target && e.target.closest ? e.target.closest("#ava-stage .ava-talk, #ava-stage .ava-sound, #maya-stage .ava-talk, #maya-stage .ava-sound, #ava-panel .sv-play, #maya-panel .sv-play") : null;
+    var t = e.target && e.target.closest ? e.target.closest(OTHERS.map(function (o) { return "#" + o.stage + " .ava-talk, #" + o.stage + " .ava-sound, #" + o.panel + " .sv-play"; }).join(", ")) : null;
     if (!t || ownClick) return;
+    // Their sound button only turns their intro OFF when it is already on: nothing of Paul's needs to stop for that.
+    if (t.classList.contains("ava-sound") && t.getAttribute("aria-pressed") === "true") return;
     pauseFilm();                                     // another voice is about to start: Paul's film stops
-    if (hearing) stopHearing();
-    if (!t.classList.contains("ava-talk") || liveState === "idle") return;
+    if (hearing) stopHearing();                      // ...and his intro goes quiet
+    if (t.classList.contains("is-soon") || liveState === "idle") return;   // "coming soon" starts nobody
     if (liveState === "connecting") { e.stopPropagation(); e.preventDefault(); say_("Paul is still connecting — end his conversation first.", 5000); return; }
-    endLive("", true);                               // Paul live: end him, then their own handler starts them
+    endLive("", true);                               // Paul live: he steps aside for their Talk, intro or film
   }, true);
 
   // His films play in the panel, with controls, and never on top of another voice.
