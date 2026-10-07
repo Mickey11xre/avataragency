@@ -8,8 +8,8 @@
  * THE PANEL IS A DEMO, like Maya's and Paul's. It shows sample arrival windows and the same "Is this correct?" card,
  * and nothing is booked or sent anywhere. It asks for a neighborhood or city, never a street address.
  *
- * "Talk to Matt" is COMING SOON until his NV2 twin (417f2a8e, created 6 Oct) reaches v2 and his agent exists.
- * CFG.LIVE switches the live session on; set the agent id in functions/avatarstages/api/matt-token.js at the same time.
+ * "Talk to Matt" is LIVE since 7 Oct: agent 28428453 on twin r2 4296254a (V2; r1 417f2a8e is unused), through
+ * functions/avatarstages/api/matt-token.js. CFG.LIVE = false puts the button back to "coming soon".
  *
  * One live avatar at a time, across all four stages: Matt ends Ava, Maya or Paul before he starts, and his capture-
  * phase guard ends him before any of theirs starts. Their scripts are unchanged - this file does all the
@@ -25,7 +25,7 @@
   var track = function (n, p) { try { if (window.gtag) gtag("event", n, p || {}); } catch (e) {} };
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var CFG = {
-    LIVE: false,         // "Talk to Matt" stays "coming soon" until his NV2 twin reaches v2 and his agent exists
+    LIVE: true,          // agent 28428453 (7 Oct); false = "Talk to Matt · coming soon"
     TOKEN_ENDPOINT: "/avatarstages/api/matt-token",
     SDK_URL: "https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js",
     CAP_S: 600,          // ten-minute session cap, as for Ava, Maya and Paul
@@ -276,9 +276,11 @@
     var t = e.target && e.target.closest ? e.target.closest(OTHERS.map(function (o) { return "#" + o.stage + " .ava-talk, #" + o.stage + " .ava-sound, #" + o.panel + " .sv-play"; }).join(", ")) : null;
     if (!t || ownClick) return;
     if (hearing) stopHearing();                      // another voice is about to start: Matt's intro goes quiet
-    if (!t.classList.contains("ava-talk") || t.classList.contains("is-soon") || liveState === "idle") return;   // "coming soon" starts nobody
+    if (t.classList.contains("is-soon") || liveState === "idle") return;   // "coming soon" starts nobody
+    // Their sound button only turns their intro OFF when it is already on: that never needs Matt to step aside.
+    if (t.classList.contains("ava-sound") && t.getAttribute("aria-pressed") === "true") return;
     if (liveState === "connecting") { e.stopPropagation(); e.preventDefault(); say_("Matt is still connecting — end his conversation first.", 5000); return; }
-    endLive("", true);                               // Matt live: end him, then their own handler starts them
+    endLive("", true);                               // Matt live: he steps aside for their Talk, intro or film
   }, true);
 
   /* ═════════ Visitor clicks and typing (each one is reported to the live Matt) ═════════ */
@@ -461,6 +463,8 @@
   hearBtn.addEventListener("click", function () {
     if (!hasIntro || liveState !== "idle") return;
     if (hearing) { stopHearing(); return; }
+    var lo = liveOther();                            // another avatar is mid-conversation: his intro waits
+    if (lo) { say_(lo.name + " is live right now — end that conversation first.", 5000); return; }
     othersQuiet();                                   // never two voices at once
     ensureSrc(); hearing = true; vid.currentTime = 0; vid.muted = false; lastT = 0;
     var p = vid.play(); if (p && p.catch) p.catch(function () { stopHearing(); });

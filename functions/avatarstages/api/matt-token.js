@@ -9,12 +9,13 @@
 //
 // Required env var: NAPSTER_API_KEY. Optional binding: AISO_KV (per-IP rate limit; the gate needs it anyway).
 //
-// ⏳ AGENT NOT CREATED YET (2026-10-06). Twin 417f2a8e (created 19:50 PT) is baking v2. When it lands, Michael runs
-//    livebrand-ops/matt-nv2/build-matt-agent.ps1 -Mode agent; put the new id (matt-nv2/.agent-id) below and set
-//    CFG.LIVE = true in avatarstages/matt-stage.js. Until then this answers 503, which the stage shows as
-//    "arriving very soon". Knowledge collection 4cdf7121 (28 files), FAQ collection a8c1ff7f (50).
+// ✅ Agent 28428453 "Matt - Matt's Valley Plumbing (NV2)", created 2026-10-07 04:45 PT by
+//    livebrand-ops/matt-nv2/build-matt-agent.ps1: twin r2 4296254a (V2 at 7.4 h; frame 0 aligned to the take; r1
+//    417f2a8e is unused), language "en" from birth, knowledge collection 4cdf7121 (28 files), FAQ collection a8c1ff7f
+//    (50), web search off, nearField + turn detection 0.8/500/800, temperature 0.6. Instructions identical to
+//    matt-nv2/instructions.md (14,331 chars). His panel tools are DEMO only (matt-stage.js).
 
-const AGENT_ID = 'REPLACE_WITH_MATT_AGENT_ID'; // Matt - Matt's Valley Plumbing (NV2); livebrand-ops/matt-nv2/.agent-id
+const AGENT_ID = '28428453-3cd9-43b6-8537-e5238441e6bc'; // Matt - Matt's Valley Plumbing (NV2); livebrand-ops/matt-nv2/.agent-id
 const ALLOWED_ORIGINS = ['https://avataragency.ai', 'https://www.avataragency.ai'];
 const PER_IP_PER_HOUR = 8;
 const VISITOR_COOKIE = 'aa_matt_vid';
