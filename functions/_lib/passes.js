@@ -1,6 +1,8 @@
 /**
  * Pass links: direct access to the private pages for a prospect Michael invites personally, with no email form.
- *   https://avataragency.ai/avatarstages/?pass=<code>
+ *   https://avataragency.ai/avatarstages/?pass=<code>   (lands on /avatarstages/)
+ *   https://avataragency.ai/work/?pass=<code>           (lands on /work/, the portfolio; 8 Oct)
+ * Any pass works on either page: the URL decides where the visitor lands.
  * The gate checks the code, issues the same aa_pf cookie the portfolio email link does (so /work/ opens too),
  * emails Michael that the pass was used, and redirects to the clean URL.
  *
@@ -14,6 +16,8 @@
 export const PASSES = {
   // 2026-10-06: general VIP link for very important prospects (Michael)
   "04d7c98de91b0815a515dc170695a89198b47b14876986762d3c0994fde83f26": { label: "vip", name: "" },
+  // 2026-10-08: portfolio link for a very important potential partner whose email link went to spam (Michael texts it)
+  "1475a50a873d0776d5a6029c2356d7e4f89e2ba5880dd7c40ebc24cf7dc595f4": { label: "work-partner-1", name: "" },
 };
 
 async function sha256Hex(text) {
@@ -32,4 +36,33 @@ export async function findPass(code) {
 export function passStillValid(record) {
   if (!record || !record.pass) return true;
   return Object.values(PASSES).some((p) => p.label === record.pass && !p.off);
+}
+
+const ACCESS_TTL = 60 * 60 * 24 * 180;   // same as /api/portfolio-confirm
+const NOTIFY = "michael@avataragency.ai";
+
+/**
+ * ?pass=<code> on a gated page. A known pass gets the portfolio cookie (an existing valid one is kept, with no new
+ * cookie and no email), Michael is emailed, and the visitor goes to the clean URL. Returns null for an unknown code.
+ *   page: what to call the page in the email; location: where to send the visitor.
+ */
+export async function redeemPass(context, code, who, { location, page }) {
+  const pass = await findPass(code);
+  if (!pass || !context.env.AISO_KV) return null;
+  const headers = { Location: location, "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" };
+  if (!who) {
+    const key = crypto.randomUUID().replace(/-/g, "") + crypto.randomUUID().replace(/-/g, "");
+    await context.env.AISO_KV.put("pf:access:" + key, JSON.stringify({ email: "", name: pass.name || "", pass: pass.label, at: new Date().toISOString() }), { expirationTtl: ACCESS_TTL });
+    headers["Set-Cookie"] = `aa_pf=${key}; Path=/; Max-Age=${ACCESS_TTL}; HttpOnly; Secure; SameSite=Lax`;
+    const cf = context.request.cf || {};
+    const where = [cf.city, cf.region, cf.country].filter(Boolean).join(", ");
+    if (context.env.RESEND_API_KEY) context.waitUntil(fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: { Authorization: `Bearer ${context.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+      body: JSON.stringify({ from: "AvatarAgency <studio@avataragency.ai>", to: [NOTIFY],
+        subject: `${page} opened with the "${pass.label}" pass`,
+        html: `<p>Someone opened <b>avataragency.ai${location}</b> with the <b>${pass.label}</b> pass link${where ? " (approx. " + where.replace(/[<>&]/g, "") + ")" : ""}.</p><p>No email was collected: pass links skip the form.</p>` }),
+    }).catch(() => {}));
+  }
+  return new Response(null, { status: 302, headers });
 }

@@ -11,11 +11,9 @@
  *  - A pass link (?pass=<code>, see functions/_lib/passes.js) opens the page without the email form: it issues
  *    the same cookie, emails Michael, and redirects to the clean URL.
  */
-import { findPass, passStillValid } from "../_lib/passes.js";
+import { redeemPass, passStillValid } from "../_lib/passes.js";
 
 const GATE = "/#work";
-const ACCESS_TTL = 60 * 60 * 24 * 180;   // same as /api/portfolio-confirm
-const NOTIFY = "michael@avataragency.ai";
 
 async function hasAccess(context) {
   const m = (context.request.headers.get("Cookie") || "").match(/(?:^|;\s*)aa_pf=([a-f0-9]{40,80})/i);
@@ -25,34 +23,12 @@ async function hasAccess(context) {
   return who && passStillValid(who) ? who : null;
 }
 
-// ?pass=<code>: a known pass gets the portfolio cookie (an existing one is kept), then the clean URL.
-async function redeemPass(context, code, who) {
-  const pass = await findPass(code);
-  if (!pass || !context.env.AISO_KV) return null;
-  const headers = { Location: "/avatarstages/", "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" };
-  if (!who) {
-    const key = crypto.randomUUID().replace(/-/g, "") + crypto.randomUUID().replace(/-/g, "");
-    await context.env.AISO_KV.put("pf:access:" + key, JSON.stringify({ email: "", name: pass.name || "", pass: pass.label, at: new Date().toISOString() }), { expirationTtl: ACCESS_TTL });
-    headers["Set-Cookie"] = `aa_pf=${key}; Path=/; Max-Age=${ACCESS_TTL}; HttpOnly; Secure; SameSite=Lax`;
-    const cf = context.request.cf || {};
-    const where = [cf.city, cf.region, cf.country].filter(Boolean).join(", ");
-    if (context.env.RESEND_API_KEY) context.waitUntil(fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${context.env.RESEND_API_KEY}`, "Content-Type": "application/json" },
-      body: JSON.stringify({ from: "AvatarAgency <studio@avataragency.ai>", to: [NOTIFY],
-        subject: `Avatar stages opened with the "${pass.label}" pass`,
-        html: `<p>Someone opened <b>avataragency.ai/avatarstages</b> with the <b>${pass.label}</b> pass link${where ? " (approx. " + where.replace(/[<>&]/g, "") + ")" : ""}.</p><p>No email was collected: pass links skip the form.</p>` }),
-    }).catch(() => {}));
-  }
-  return new Response(null, { status: 302, headers });
-}
-
 export async function onRequest(context) {
   const url = new URL(context.request.url);
   const api = url.pathname.startsWith("/avatarstages/api/");
   const who = await hasAccess(context);
   if (!api && url.searchParams.has("pass")) {
-    const redeemed = await redeemPass(context, url.searchParams.get("pass"), who);
+    const redeemed = await redeemPass(context, url.searchParams.get("pass"), who, { location: "/avatarstages/", page: "Avatar stages" });
     if (redeemed) return redeemed;
   }
   if (!who) {

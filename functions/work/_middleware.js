@@ -1,7 +1,7 @@
 /**
  * Gate for everything under /work/ — the private client portfolio.
  * A valid aa_pf cookie (issued by /api/portfolio-confirm) passes; everyone else is sent
- * to the request form.
+ * to the request form. A pass link (?pass=<code>, functions/_lib/passes.js) opens it without the form (8 Oct).
  *
  * What lives behind it (2026-10-01):
  *  - work/index.html + work/portfolio.css/js — the case-study page
@@ -10,7 +10,7 @@
  *    functions/work/film/[[path]].js so client-portal URLs never reach a prospect
  *  - /work/media/<key> — the R2 bucket route (PORTFOLIO_R2), for when R2 is enabled
  */
-import { passStillValid } from "../_lib/passes.js";
+import { redeemPass, passStillValid } from "../_lib/passes.js";
 
 const GATE = "/#work";
 
@@ -24,6 +24,11 @@ async function hasAccess(context) {
 
 export async function onRequest(context) {
   const who = await hasAccess(context);
+  const url = new URL(context.request.url);
+  if (url.searchParams.has("pass")) {
+    const redeemed = await redeemPass(context, url.searchParams.get("pass"), who, { location: "/work/", page: "Private portfolio" });
+    if (redeemed) return redeemed;
+  }
   if (!who) return new Response(null, { status: 302, headers: { Location: GATE, "Cache-Control": "no-store" } });
   const res = await context.next();
   const type = res.headers.get("Content-Type") || "";
