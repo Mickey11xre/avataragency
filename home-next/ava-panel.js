@@ -25,11 +25,13 @@
   var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
   /* ── Live-session config. Ava's agent may switch after the HeyGen-vs-Seedance A/B, so the endpoint
      path lives in ONE place. The SDK is pinned: the tool bridge ships in 1.5.0. ── */
-  var CFG = {
+  // A page can override any of these (and add options, LINES, source, page) by defining window.AVA_STAGE_CONFIG BEFORE this
+  // script loads. The homepage defines none, so it behaves exactly as before. /profile/ is the first page that does (8 Oct).
+  var CFG = Object.assign({
     TOKEN_ENDPOINT: "/api/ava-nv2-token",
     SDK_URL: "https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js",
     CAP_S: 600,   // ten-minute session cap, as on Laurie's page
-  };
+  }, window.AVA_STAGE_CONFIG || {});
   var CAL = "https://calendly.com/michaelrivera007/free-consultation-meeting";
   var TZ = (function () { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles"; } catch (e) { return "America/Los_Angeles"; } })();
   var SESSION = Math.random().toString(36).slice(2) + Date.now().toString(36);
@@ -58,7 +60,8 @@
   /* ═════════ State + rendering ═════════ */
   var S = { mode: "home", hist: [], demo: false, slots: null, slotsAt: 0, slotsErr: null, day: null, slot: null, viewAll: false, booked: null,
     book: { name: "", email: "", phone: "", notes: "" }, lead: { name: "", email: "", phone: "", need: "", callback: false }, pf: { name: "", email: "" }, svc: null, busy: false };
-  var TITLES = { home: "How can I help?", services: "Our services", service: "Service", days: "Book a strategy call", times: "Book a strategy call", details: "Book a strategy call", booked: "You're booked", lead: "Leave your contact info", leadDone: "Thank you", portfolio: "Private portfolio", portfolioDone: "Check your inbox" };
+  var BOOK_TITLE = CFG.page === "profile" ? "Book a call with Michael" : "Book a strategy call";
+  var TITLES = { home: "How can I help?", services: "Our services", service: "Service", days: BOOK_TITLE, times: BOOK_TITLE, details: BOOK_TITLE, booked: "You're booked", lead: "Leave your contact info", leadDone: "Thank you", portfolio: "Private portfolio", portfolioDone: "Check your inbox" };
   /* Tells the live twin what the visitor just did, so she never re-asks for something they typed.
      "[Booking panel]" is the prefix her instructions react to; speak=true only for moments she should
      answer aloud (a confirmed booking). The brand is written as two words — she says exactly what she reads. */
@@ -172,6 +175,11 @@
 
   var VIEWS = {
     home: function () {
+      if (CFG.options && CFG.options.length) {      // a page's own home-view cards: {mode, title, line}
+        var ICONS = { book: IC.cal, services: IC.compass, lead: IC.chat, portfolio: IC.lock };
+        return '<p class="p-sub">Tap an option below — or press Talk to Ava to speak with me.</p><div class="p-actions">' +
+          CFG.options.map(function (o) { return act(o.mode, ICONS[o.mode] || IC.arrow, o.title, o.line); }).join("") + "</div>";
+      }
       return '<p class="p-sub">Tap an option below — or press Talk to Ava to speak with me.</p><div class="p-actions">' +
         act("book", IC.cal, "Book a strategy call", "30 minutes with Michael · free") +
         act("services", IC.compass, "Find the right service", "See what fits your business") +
@@ -403,7 +411,7 @@
         .then(function () { var f = (S.slots || []).filter(function (x) { return x.start_time === S.slot.start_time; })[0]; if (f) S.slot = f; return !f; })
         .then(function (gone) {
           if (gone) return { ok: false, retry: true, __status: 409, message: "That time is no longer held. Call show_booking_times again and offer fresh options." };
-          return post("/api/ava-booking", { start_time: S.slot.start_time, token: S.slot.token, name: S.book.name.trim(), email: S.book.email.trim(), phone: S.book.phone.trim(), notes: S.book.notes.trim(), timezone: TZ, sessionId: (instance && instance.sessionId) || SESSION });
+          return post("/api/ava-booking", { start_time: S.slot.start_time, token: S.slot.token, name: S.book.name.trim(), email: S.book.email.trim(), phone: S.book.phone.trim(), notes: S.book.notes.trim(), timezone: TZ, sessionId: (instance && instance.sessionId) || SESSION, source: CFG.source });
         })
         .then(function (r) {
           busy(false);
@@ -444,7 +452,7 @@
       if (!reviewFresh("lead") || !S.review.ok) { openReview("lead", false); return Promise.resolve({ ok: false, needs_confirmation: true }); }
       if (S.demo) { S.doneMsg = "Demo — nothing was sent."; go("leadDone"); return Promise.resolve({ ok: true }); }
       busy(true); setMsg("Sending…");
-      return post("/api/agent-lead", { name: S.lead.name.trim(), email: S.lead.email.trim(), phone: S.lead.phone.trim(), need: S.lead.need.trim(), callback: !!S.lead.callback, source: "ava-panel", consent: true, consent_text: CONSENT_TEXT }).then(function (r) {
+      return post("/api/agent-lead", { name: S.lead.name.trim(), email: S.lead.email.trim(), phone: S.lead.phone.trim(), need: S.lead.need.trim(), callback: !!S.lead.callback, source: CFG.source || "ava-panel", consent: true, consent_text: CONSENT_TEXT }).then(function (r) {
         busy(false);
         if (r.ok) { S.doneMsg = r.message || "Michael has your details and will be in touch soon."; go("leadDone"); track("generate_lead", { lead_source: "ava_panel_lead" }); rememberName(S.lead.name); return r; }
         setMsg("", true, 'That didn\'t go through. Email <a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a> and we\'ll reply directly.'); return r;
@@ -456,7 +464,7 @@
       if (!reviewFresh("pf") || !S.review.ok) { openReview("pf", false); return Promise.resolve({ ok: false, needs_confirmation: true }); }
       if (S.demo) { S.doneMsg = "Demo — nothing was sent."; go("portfolioDone"); return Promise.resolve({ ok: true }); }
       busy(true); setMsg("Sending your private link…");
-      return post("/api/portfolio-signup", { name: S.pf.name.trim(), email: S.pf.email.trim(), company: "", hp: "", consent: true, consent_text: CONSENT_TEXT, source: "ava-panel" }).then(function (r) {
+      return post("/api/portfolio-signup", { name: S.pf.name.trim(), email: S.pf.email.trim(), company: "", hp: "", consent: true, consent_text: CONSENT_TEXT, source: CFG.source || "ava-panel" }).then(function (r) {
         busy(false);
         if (r.ok && r.already) {
           S.doneMsg = "We already sent your private link to " + S.pf.email.trim() + " a few minutes ago — check your inbox, including promotions and spam."; go("portfolioDone"); rememberName(S.pf.name);
@@ -519,7 +527,7 @@
      4 Oct (Michael): the "Hear Ava" pill became a sound icon, top right. Turning sound on replays the intro from the
      start (unmuting mid-loop would begin mid-sentence). Muted = white with a strike-through; playing = gold. */
   // Timed to her voice (ffmpeg silencedetect on media/ava-intro.mp4): each line appears just before she says it and holds through short pauses.
-  var LINES = [[0.62, 4.05, "Hey there — I'm Ava, and I'm not real."], [4.05, 8.4, "I'm a digital avatar created by AvatarAgency."], [8.4, 13.42, "When someone lands on this website, I'm the first one to say hello."],
+  var LINES = CFG.LINES || [[0.62, 4.05, "Hey there — I'm Ava, and I'm not real."], [4.05, 8.4, "I'm a digital avatar created by AvatarAgency."], [8.4, 13.42, "When someone lands on this website, I'm the first one to say hello."],
     [13.42, 17.12, "I answer questions, I explain how everything works,"], [17.12, 20.8, "and when you're ready, I can book a call with the team for you."], [21.32, 26.5, "So tell me — what brought you here today?"]];
   var hearing = false, lastT = 0, visible = false, demoRun = 0;
   var capKey = "";

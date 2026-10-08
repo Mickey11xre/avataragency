@@ -18,6 +18,9 @@ export const PASSES = {
   "04d7c98de91b0815a515dc170695a89198b47b14876986762d3c0994fde83f26": { label: "vip", name: "" },
   // 2026-10-08: portfolio link for a very important potential partner whose email link went to spam (Michael texts it)
   "1475a50a873d0776d5a6029c2356d7e4f89e2ba5880dd7c40ebc24cf7dc595f4": { label: "work-partner-1", name: "" },
+  // 2026-10-08: the Boardsi profile (/profile/) links its work cards and portfolio button here, so Boardsi viewers skip the form.
+  // Every first open emails Michael (a lead signal). Revoke with off: true if the link spreads.
+  "21e1d46e7d908be32a615a077651f611bbc88a775dfe36b61a6ed37edc159aae": { label: "boardsi-profile", name: "" },
 };
 
 async function sha256Hex(text) {

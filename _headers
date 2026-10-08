@@ -21,3 +21,8 @@
   Cache-Control: public, max-age=31536000, immutable
 /thrivingincollege/assets/hires/*
   Cache-Control: public, max-age=31536000, immutable
+
+# Hidden board & advisory profile (8 Oct): keep every file under /profile/ out of search engines. ⛔ NEVER add X-Frame-Options or a
+# frame-blocking CSP to /profile/embed/*: that card is meant to be framed by LEADAFI / Boardsi.
+/profile/*
+  X-Robots-Tag: noindex, nofollow, noarchive

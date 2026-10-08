@@ -54,7 +54,7 @@ export async function onRequestPost(context) {
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       from: FROM, to: [NOTIFY], reply_to: lead.email,
-      subject: lead.callback ? `📞 CALLBACK REQUESTED (Ava's panel): ${lead.name}${lead.phone ? " · " + lead.phone : ""}` : `🔥 New lead from Ava's panel: ${lead.name}`,
+      subject: (lead.callback ? `📞 CALLBACK REQUESTED (Ava's panel): ${lead.name}${lead.phone ? " · " + lead.phone : ""}` : `🔥 New lead from Ava's panel: ${lead.name}`) + (lead.source === "Boardsi profile" ? " (Boardsi profile)" : ""),
       html: `<p style="font-family:Arial,sans-serif;font-size:15px">${lead.callback ? "<b>This visitor asked for a phone call back.</b> " : ""}A visitor left their details on the homepage.</p><table style="font-family:Arial,sans-serif;font-size:14px">${rows}</table><p style="font-family:Arial,sans-serif;font-size:13px;color:#8a8278">Reply to this email to reach them directly.</p>`,
     }),
   });

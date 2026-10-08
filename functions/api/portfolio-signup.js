@@ -102,7 +102,7 @@ export async function onRequestPost(context) {
   // Heads-up to Michael (not blocking the visitor if it fails).
   context.waitUntil(sendEmail(env, {
     from: FROM, to: [NOTIFY], reply_to: email,
-    subject: `Portfolio request: ${name}${company ? " — " + company : ""}`,
+    subject: `Portfolio request: ${name}${company ? " — " + company : ""}` + (body.source === "Boardsi profile" ? " (Boardsi profile)" : ""),
     html: `<p><b>${esc(name)}</b> &lt;${esc(email)}&gt; requested the private portfolio${company ? ` (${esc(company)})` : ""}.</p><p>Marketing email consent: ${consent ? "yes (" + esc(consent.source || "form") + ")" : "not given"}.</p><p>Status: link sent, not yet opened. You'll get a second note when they open it.</p>`,
   }));
   return json({ ok: true });

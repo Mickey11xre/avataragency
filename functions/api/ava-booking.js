@@ -128,7 +128,7 @@ async function alertMichael(env, lead, status, extra) {
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       from: FROM, to: [NOTIFY], reply_to: lead.email,
-      subject: booked ? `🔥 Speed-to-Lead — ${lead.name} booked ${lead.whenPT}` : `⚠️ Follow up — ${lead.name} tried to book (${lead.whenPT})`,
+      subject: (booked ? `🔥 Speed-to-Lead — ${lead.name} booked ${lead.whenPT}` : `⚠️ Follow up — ${lead.name} tried to book (${lead.whenPT})`) + (lead.tag || ""),
       html,
     }),
   });
@@ -152,6 +152,7 @@ export async function onRequestPost(context) {
     start_time: clip(b.start_time, 40),
     timezone: validZone(clip(b.timezone, 60)) ? clip(b.timezone, 60) : "America/Los_Angeles",
     sessionId: clip(b.sessionId, 80),
+    tag: b.source === "Boardsi profile" ? " (Boardsi profile)" : "",   // set by the /profile/ page (8 Oct); empty everywhere else
     twin: "ava", source: "avataragency.ai booking panel (Calendly)",
     createdAt: new Date().toISOString(),
   };
