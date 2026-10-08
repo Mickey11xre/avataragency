@@ -2,11 +2,17 @@
 // on the hidden profile page (avataragency.ai/profile/, which sets window.AVA_STAGE_CONFIG.TOKEN_ENDPOINT to this route).
 // A copy of ava-nv2-token.js: same memory cookies, same externalClientId logic, same 10-minute cap and per-IP limit.
 //
-// ⏳ PLACEHOLDER AGENT (Michael, 8 Oct): until the Boardsi agent is finished it uses the live homepage Ava, 1b0d0cb1. When the
-//    Napster agent hands over the new id ("Ava - Michael Rivera profile (Boardsi)", spec: BOARDSI_PROFILE/AVA_BOARDSI_AGENT_SPEC.md),
-//    change AGENT_ID below and redeploy. Nothing else needs to change. Agent ids: livebrand-ops/AGENT-ROSTER.md.
+// ✅ WIRED 2026-10-08 to agent 7eeaa7da "Ava - Michael Rivera profile (Boardsi)" (created 2026-10-08 11:28 PT by
+//    livebrand-ops/ava-boardsi/build-boardsi-agent.ps1): the website Ava's companion 93d5c657 (same face and voice), `en` at
+//    birth, its own knowledge collection a7ac59db + FAQ 6ff428f8, web search off. Until 10-08 this file used the homepage
+//    agent 1b0d0cb1 as a placeholder. Agent ids: livebrand-ops/AGENT-ROSTER.md.
 //
-// The ONE difference from the homepage file is her opening guidance (FIRST_VISIT / welcomeBack): it follows the Boardsi spec's
+// ⚠️ ITS OWN VISITOR COOKIE (aa_avap_vid, not the homepage's aa_ava_vid). Napster memory is scoped to companion +
+//    externalClientId, NOT to the agent, and this agent shares the homepage Ava's companion. With the same id, a board
+//    chair's conversation would surface in the homepage Ava's memory (and the other way round), and a homepage visitor
+//    would be welcomed "back" on their first visit here.
+//
+// The other differences from the homepage file are her opening guidance (FIRST_VISIT / welcomeBack): it follows the Boardsi spec's
 // introduction, because the visitor is on Michael's profile, not the AvatarAgency homepage.
 //
 // Required env var (Cloudflare Pages → Settings → Environment variables):
@@ -16,7 +22,7 @@
 // Napster allows 5 concurrent sessions for the whole account, and every session is metered, so this
 // endpoint only answers requests from our own pages and limits how fast one visitor can open sessions.
 
-const AGENT_ID = '1b0d0cb1-231a-48fe-8f31-5cbaa317417d'; // PLACEHOLDER: the homepage Ava, until the Boardsi agent id arrives
+const AGENT_ID = '7eeaa7da-3f26-4760-9c71-21c82a68d008'; // Ava - Michael Rivera profile (Boardsi), English from birth
 const ALLOWED_ORIGINS = ['https://avataragency.ai', 'https://www.avataragency.ai'];
 const PER_IP_PER_HOUR = 8;
 
@@ -25,7 +31,7 @@ const PER_IP_PER_HOUR = 8;
 // enough. We mint an anonymous random id in a first-party cookie — no name, no email, nothing personal —
 // so a returning visitor gets the same id and Ava picks up where they left off. The panel's same-origin
 // fetch sends and stores the cookie on its own; no page change needed.
-const VISITOR_COOKIE = 'aa_ava_vid';
+const VISITOR_COOKIE = 'aa_avap_vid'; // the profile's own id (see the warning at the top)
 const VISITOR_MAX_AGE = 60 * 60 * 24 * 365;
 
 export async function onRequest(context) {
@@ -56,10 +62,12 @@ export async function onRequest(context) {
   // known name goes to Napster as the session profile (the same shape Lisa's token Worker sends).
   const seen = /(?:^|;\s*)aa_ava_seen=1(?:;|$)/.test(cookies);
   const firstName = readFirstName(cookies);
+  // known = this browser has already had a session HERE (its own cookie), so the homepage's aa_ava_seen alone never makes a
+  // first profile visit sound like a return.
   const returning = Boolean(known && seen);
   const connection = { channelType: 'webrtc', externalClientId: visitorId, initialSpeech: returning ? welcomeBack(firstName) : FIRST_VISIT };
   if (firstName) {
-    connection.externalClientProfile = { name: firstName, context: 'Visitor on the Avatar Agency website' + (returning ? ' who has talked with Ava before.' : '.') };
+    connection.externalClientProfile = { name: firstName, context: "Visitor on Michael Rivera's board and advisory profile" + (returning ? ' who has talked with Ava here before.' : '.') };
   }
 
   try {
@@ -83,7 +91,7 @@ export async function onRequest(context) {
     const setCookie = `${VISITOR_COOKIE}=${visitorId}; Path=/; Max-Age=${VISITOR_MAX_AGE}; Secure; HttpOnly; SameSite=Lax`;
     return json({ token: data.token }, 200, { 'Set-Cookie': setCookie });
   } catch (err) {
-    console.error('Ava NV2 token function error:', err);
+    console.error('Ava profile token function error:', err);
     return json({ error: 'Internal error' }, 500);
   }
 }
