@@ -83,7 +83,9 @@
   if (!RM && window.gsap) {
     gsap.from(".hero h1 .ln > span", { yPercent: 110, duration: 1.2, ease: "power4.out", stagger: 0.12, delay: 0.1 });
     gsap.from(".hero-side > *", { y: 18, opacity: 0, duration: 1, ease: "power3.out", stagger: 0.08, delay: 0.45 });
-    if (window.ScrollTrigger) $$(".case-num").forEach(function (n) {
+    // The number drifts beside the case text; on phones (<= 520 px) it is stacked ABOVE the text, where the drift landed on
+    // the eyebrow line (Michael, iPhone, 8 Oct), so it stays still there.
+    if (window.ScrollTrigger && !(window.matchMedia && matchMedia("(max-width: 520px)").matches)) $$(".case-num").forEach(function (n) {
       gsap.fromTo(n, { y: 40 }, { y: -40, ease: "none", scrollTrigger: { trigger: n.closest(".case"), start: "top bottom", end: "bottom top", scrub: true } });
     });
   }
