@@ -21,6 +21,9 @@ export const PASSES = {
   // 2026-10-08: the Boardsi profile (/profile/) links its work cards and portfolio button here, so Boardsi viewers skip the form.
   // Every first open emails Michael (a lead signal). Revoke with off: true if the link spreads.
   "21e1d46e7d908be32a615a077651f611bbc88a775dfe36b61a6ed37edc159aae": { label: "boardsi-profile", name: "" },
+  // 2026-10-09: personal link for one dentist prospect (Michael emails it; lands on the Nawrocki case). His email is kept
+  // in the local notes only, never in this public repo. The page and Maya greet him as "Ron".
+  "ceefa461fb248daf5c51918373fa23fbde81caaa5f0f12f711f99c720c3376db": { label: "prospect-ron-nourian", name: "Ron" },
 };
 
 async function sha256Hex(text) {
