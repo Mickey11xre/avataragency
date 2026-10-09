@@ -351,7 +351,7 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 .case-stage .cs-head p:last-child { margin: 12px 0 0; color: var(--on-mid); }
 .case-stage .stage { box-shadow: 0 40px 90px -40px rgba(0,0,0,.8), 0 0 0 1px rgba(201,168,76,.22); }
 /* Matt, the ninth card, spans the row instead of sitting alone */
-@media (min-width: 861px) { .cards .card-wide { grid-column: 1 / -1; aspect-ratio: auto; height: clamp(220px, 22vw, 320px); } .cards .card-wide img, .cards .card-wide video { object-position: center 30%; } }
+@media (min-width: 861px) { .cards .card-wide { grid-column: span 2; aspect-ratio: auto; height: clamp(220px, 22vw, 320px); } .cards .card-wide img, .cards .card-wide video { object-position: center 30%; } }
 @media (max-width: 860px) { .cards { grid-template-columns: repeat(9, 62vw); } }
 
 /* Hero with the how-it-was-made paragraph (8 Oct): title block top-aligned with the side column, the paragraph under it */
