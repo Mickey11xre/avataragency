@@ -8,9 +8,9 @@
  * Values", "Join Our Mailing List" (for grown-ups; a DEMO like the other stages: nothing is sent anywhere).
  *
  * Intro: the photoreal NV2 take (Seedance 2.5 job 0977dd5c, approved 9 Oct); the poster is that take's own frame 0.
- * "Talk to Lady Belle" is LIVE on her existing NV1 avatar as a PLACEHOLDER (agent 8ef4a703, the illustrated Lady Belle
- * of /ladybelle, via the public /api/ladybelle-token) until her NV2 twin 876cbc62 and its agent exist. That agent has
- * no page tools: the tools below are installed for the NV2 agent and simply go unused until then.
+ * "Talk to Lady Belle" runs her NV2 avatar (twin 876cbc62, her own stage agent) through the gated
+ * functions/avatarstages/api/ladybelle-token.js. Until 9 Oct it borrowed the NV1 agent 8ef4a703 of /ladybelle as a
+ * placeholder; that agent and its public /api/ladybelle-token are untouched.
  *
  * One live avatar at a time, across all five stages: she ends Ava, Maya, Paul or Matt before she starts, and her
  * capture-phase guard ends her before any of theirs starts. Their scripts are unchanged.
@@ -25,8 +25,8 @@
   var track = function (n, p) { try { if (window.gtag) gtag("event", n, p || {}); } catch (e) {} };
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var CFG = {
-    LIVE: true,          // NV1 placeholder agent 8ef4a703 (9 Oct); false = "Talk to Lady Belle · coming soon"
-    TOKEN_ENDPOINT: "/api/ladybelle-token",
+    LIVE: true,          // her NV2 agent (9 Oct); false = "Talk to Lady Belle · coming soon"
+    TOKEN_ENDPOINT: "/avatarstages/api/ladybelle-token",   // gated; the public /api/ladybelle-token stays with /ladybelle (NV1)
     SDK_URL: "https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js",
     CAP_S: 600,          // ten-minute session cap, as on every stage
     INTRO_END: 26.9,     // media/ladybelle-intro.mp4 is 27.1 s: speech ends at 26.4 s
@@ -306,6 +306,7 @@
   function pinBg() { document.documentElement.style.setProperty("background-color", htmlBg, "important"); document.body.style.setProperty("background-color", bodyBg, "important"); }
   function say_(text, ms) { toast.textContent = text; toast.hidden = !text; if (text && ms) setTimeout(function () { if (toast.textContent === text) toast.hidden = true; }, ms); }
   function setTalk(lbl, on) { $("span", talkBtn).textContent = lbl; talkBtn.disabled = liveState === "connecting"; talkBtn.classList.toggle("is-on", !!on); }
+  function rememberSeen() { try { document.cookie = "aa_belle_seen=1; Path=/avatarstages; Max-Age=31536000; Secure; SameSite=Lax"; } catch (e) {} }
   function loadSdk() {
     if (window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk) return Promise.resolve();
     if (sdkLoading) return sdkLoading;
@@ -329,6 +330,7 @@
     if (revealed || !instance) return; revealed = true; liveState = "live";
     if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
     avStage.classList.add("live-ready"); say_("", 0); setTalk("End conversation", true); pinBg();
+    rememberSeen();
     setTimeout(function () { if (liveState === "live") vid.pause(); }, 900);
     track("ladybelle_live_session", {});
   }
@@ -355,6 +357,7 @@
   function liveError(e) {
     var st = e && e.status;
     endLive(st === 503 || st === 404 ? "Lady Belle's live conversation is arriving very soon. In the meantime, try the panel beside her." :
+      st === 401 ? "This private page needs your portfolio link — open it again from your email." :
       st === 429 || st >= 500 ? "Lady Belle is talking with other friends right now — try again in a few minutes." :
       "I couldn't start the live conversation just now. The panel beside me still works.", true);
   }
@@ -385,6 +388,7 @@
       instance.showAvatar(); pinBg();
       setTimeout(function () { if (instance) armReveal(); }, 3000);
       capTimer = setTimeout(function () { endLive("That's the ten-minute limit — press Talk to Lady Belle to keep going."); }, CFG.CAP_S * 1000);
+      emit("The panel beside you is showing: " + (TITLES[S.mode] || "the home view") + ".", false);
     } catch (e) { liveError(e); }
   }
   if (!CFG.LIVE) { talkBtn.classList.add("is-soon"); $("span", talkBtn).textContent = "Talk to Lady Belle · coming soon"; }
