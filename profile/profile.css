@@ -318,6 +318,13 @@ body.pf { background: var(--ink); }
 .pf-case-wide .pf-case-body { justify-content: center; padding: clamp(24px, 3vw, 40px); }
 .pf-case-wide h3 { font-size: clamp(22px, 2vw, 28px); }
 @media (max-width: 1100px) { .pf-cases { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* Two half-width cards share the last row (Matt + Lady Belle, 9 Oct): six columns on desktop, normal cards span two, half cards three.
+   At 2 columns and below, every card already takes one column, so nothing else changes. */
+@media (min-width: 1101px) {
+  .pf-cases { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .pf-cases li.pf-case { grid-column: span 2; }
+  .pf-cases li.pf-case-half { grid-column: span 3; }
+}
 @media (max-width: 900px) {
   .pf-cases li.pf-case { display: flex; }
   .pf-cases li.pf-case-wide { display: flex; }
