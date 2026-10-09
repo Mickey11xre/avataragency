@@ -98,7 +98,7 @@ projects are quoted as a package. Typical rates:
 
 ## Key facts
 
-- Founder: Michael Rivera — Los Angeles. 25+ years leading marketing at the intersection of
+- Founder: Michael Rivera — Los Angeles. 30+ years leading marketing at the intersection of
   consumer technology and real estate, including Activision; now operates as a fractional CMO
   building AI video, digital twins, and AI referral visibility for owner-operated businesses.
 - Homepage assistant: Ava, AvatarAgency's talking AI agent, greets visitors on the homepage,
