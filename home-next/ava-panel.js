@@ -32,7 +32,7 @@
     SDK_URL: "https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js",
     CAP_S: 600,   // ten-minute session cap, as on Laurie's page
   }, window.AVA_STAGE_CONFIG || {});
-  var CAL = "https://calendly.com/michaelrivera007/free-consultation-meeting";
+  var CAL = CFG.CAL || "https://calendly.com/michaelrivera007/free-consultation-meeting";   // a page may set its own booking link (the profile does, 9 Oct)
   var TZ = (function () { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || "America/Los_Angeles"; } catch (e) { return "America/Los_Angeles"; } })();
   var SESSION = Math.random().toString(36).slice(2) + Date.now().toString(36);
 
