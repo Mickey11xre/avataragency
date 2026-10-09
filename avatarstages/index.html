@@ -25,7 +25,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/work/portfolio.css?v=4">
-<link rel="stylesheet" href="/avatarstages/stages.css?v=7">
+<link rel="stylesheet" href="/avatarstages/stages.css?v=8">
 <script>
   (function (d) {
     var h = d.documentElement; h.className = h.className.replace('no-js', 'js');
@@ -65,7 +65,7 @@
       </div>
       <div class="hero-side">
         <p class="hello">Hi <span data-viewer>there</span> — this page is just for you.</p>
-        <p>Ava, Maya, Paul and Matt are live. Press Talk, allow your microphone, and have a real conversation: each avatar answers in its own voice, from its own knowledge, and the panel beside it does the work.</p>
+        <p>Ava, Maya, Paul, Matt and Lady Belle are live. Press Talk, allow your microphone, and have a real conversation: each avatar answers in its own voice, from its own knowledge, and the panel beside it does the work.</p>
         <p class="priv"><svg><use href="#i-lock"/></svg><span>These are private demos. Please don't forward this page or record the conversations.</span></p>
       </div>
     </div>
@@ -226,6 +226,43 @@
       </div>
     </article>
 
+    <article class="st" id="st-ladybelle" aria-labelledby="t-ladybelle">
+      <header class="st-head rv">
+        <div class="st-num" aria-hidden="true">05</div>
+        <div>
+          <p class="eyebrow gold-deep">Tales of Lady Belle: Fruit of the Spirit · Client character</p>
+          <h2 class="st-title" id="t-ladybelle">Lady Belle <em>a storybook puppy who talks with children.</em></h2>
+          <p class="st-line">The little white Snoodle from Adele Harrison's picture-book series, now photoreal. She greets children in her own voice, talks about kindness and the fruit of the Spirit, and invites grown-ups to hear about new books.</p>
+        </div>
+        <ul class="tags"><li>Client character</li><li>Child-safe</li><li>Photoreal intro</li></ul>
+      </header>
+
+      <!-- Run by /avatarstages/ladybelle-stage.js. Intro = the photoreal NV2 take (Seedance 2.5 job 0977dd5c, approved 2026-10-09);
+           the poster is that take's own frame 0. Talk = her NV1 avatar (agent 8ef4a703) as a placeholder until her NV2 twin is ready. -->
+      <div class="stage" id="ladybelle-stage">
+        <div class="stage-av">
+          <div id="ladybelle-mount" class="ava-mount"></div>
+          <video class="ava-video" muted loop playsinline preload="none" poster="/avatarstages/media/ladybelle-poster.jpg?v=1" data-src="/avatarstages/media/ladybelle-intro.mp4?v=1" aria-label="Lady Belle, a little white Snoodle puppy, introducing herself"></video>
+          <div class="ava-badge">Lady Belle · storybook character</div>
+          <div class="ava-caption" aria-live="polite"></div>
+          <div class="ava-toast" role="status" hidden></div>
+          <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play Lady Belle's introduction with sound" title="Play Lady Belle's introduction with sound"><svg aria-hidden="true"><use href="#i-sound-off"/></svg><span class="ava-sound-label" aria-hidden="true">Muted</span></button>
+          <div class="ava-ctrls">
+            <button class="ava-btn ava-talk" type="button"><svg><use href="#i-mic"/></svg><span>Talk to Lady Belle</span></button>
+          </div>
+        </div>
+        <aside class="panel is-home" id="ladybelle-panel" aria-label="Lady Belle's panel">
+          <div class="panel-top">
+            <button class="panel-back" type="button" hidden aria-label="Back"><svg><use href="#i-arrow"/></svg></button>
+            <span class="panel-title">Hi, friend!</span>
+            <span class="panel-flag" hidden>Demo</span>
+          </div>
+          <div class="panel-body" aria-live="polite"></div>
+          <p class="panel-note">Demo panel: the mailing list sends nothing.</p>
+        </aside>
+      </div>
+    </article>
+
   </div>
 </section>
 
@@ -271,5 +308,6 @@
 <script src="/avatarstages/maya-stage.js?v=5"></script>
 <script src="/avatarstages/paul-stage.js?v=4"></script>
 <script src="/avatarstages/matt-stage.js?v=4"></script>
+<script src="/avatarstages/ladybelle-stage.js?v=1"></script>
 </body>
 </html>

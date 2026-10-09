@@ -44,7 +44,8 @@
 #maya-stage .stage-av { background-image: url("/avatarstages/media/maya-poster.jpg?v=1"); }
 #paul-stage .stage-av { background-image: url("/avatarstages/media/paul-poster.jpg?v=3"); }
 #matt-stage .stage-av { background-image: url("/avatarstages/media/matt-poster.jpg?v=2"); }
-#ava-stage, #maya-stage, #paul-stage, #matt-stage { scroll-margin-top: calc(var(--hdr) + 12px); }
+#ladybelle-stage .stage-av { background-image: url("/avatarstages/media/ladybelle-poster.jpg?v=1"); }
+#ava-stage, #maya-stage, #paul-stage, #matt-stage, #ladybelle-stage { scroll-margin-top: calc(var(--hdr) + 12px); }
 .ava-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .stage-av::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(10,10,10,.35), transparent 22%, transparent 62%, rgba(10,10,10,.7)); }
 .ava-badge { position: absolute; z-index: 2; top: 18px; left: 18px; display: inline-flex; align-items: center; gap: 9px; padding: 7px 13px; border-radius: 999px; font-size: 12.5px; font-weight: 600; letter-spacing: .02em;
