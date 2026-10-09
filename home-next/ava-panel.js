@@ -329,7 +329,7 @@
   // Each slot's signed token lasts 30 minutes, so reuse a fetch only while it is fresh (default 2 minutes).
   function loadSlots(force, maxAgeMs) {
     if (!force && S.slots && Date.now() - S.slotsAt < (maxAgeMs || 120e3)) return Promise.resolve(S.slots);
-    return fetch("/api/ava-availability?days=7", { headers: { Accept: "application/json" } })
+    return fetch("/api/ava-availability?days=7" + (CFG.EVENT ? "&event=" + encodeURIComponent(CFG.EVENT) : ""), { headers: { Accept: "application/json" } })
       .then(function (r) { return r.json(); })
       .then(function (j) { if (!j || !j.ok) throw new Error((j && j.error) || "unavailable"); S.slots = j.slots || []; S.slotsAt = Date.now(); S.slotsErr = null; return S.slots; })
       .catch(function (e) { S.slotsErr = String(e.message || e); if (S.demo) { S.slots = sampleSlots(); S.slotsAt = Date.now(); return S.slots; } throw e; });
@@ -411,7 +411,7 @@
         .then(function () { var f = (S.slots || []).filter(function (x) { return x.start_time === S.slot.start_time; })[0]; if (f) S.slot = f; return !f; })
         .then(function (gone) {
           if (gone) return { ok: false, retry: true, __status: 409, message: "That time is no longer held. Call show_booking_times again and offer fresh options." };
-          return post("/api/ava-booking", { start_time: S.slot.start_time, token: S.slot.token, name: S.book.name.trim(), email: S.book.email.trim(), phone: S.book.phone.trim(), notes: S.book.notes.trim(), timezone: TZ, sessionId: (instance && instance.sessionId) || SESSION, source: CFG.source });
+          return post("/api/ava-booking", { start_time: S.slot.start_time, token: S.slot.token, name: S.book.name.trim(), email: S.book.email.trim(), phone: S.book.phone.trim(), notes: S.book.notes.trim(), timezone: TZ, sessionId: (instance && instance.sessionId) || SESSION, source: CFG.source, event: CFG.EVENT });
         })
         .then(function (r) {
           busy(false);

@@ -636,7 +636,8 @@
       { mode: "portfolio", title: "See examples of his work", line: "Client films, by private link" }
     ],
     PASS_URL: "/work/?pass=1acda241b3497689a7d07e3ef18fd5c9",   // the boardsi-profile pass (functions/_lib/passes.js): profile.js points every [data-pass-link] here
-    CAL: "https://calendly.com/michaelrivera007/michaelrivera-intro-meeting",   // Ava's fallback "pick a time on Calendly" links on this page
+    CAL: "https://calendly.com/michaelrivera007/michaelrivera-intro-meeting",
+    EVENT: "michaelrivera-intro-meeting",   // the in-panel booking books this Calendly event type (server allowlist: ava-availability/ava-booking)   // Ava's fallback "pick a time on Calendly" links on this page
     source: "Boardsi profile",                            // tag for booking + lead alert emails (HANDOFF §4)
     // Captions for the profile intro (media/ava-profile-intro.mp4, Seedance job cd64eb6a, 8 Oct), timed with ffmpeg silencedetect.
     LINES: [[0.3, 4.6, "Hi, I'm Ava, Michael Rivera's AI Agent Assistant —"], [4.6, 9.2, "a digital avatar built by his company, Avatar Agency."],
@@ -645,6 +646,6 @@
   };
 </script>
 <script src="profile.js?v=5"></script>
-<script src="../home-next/ava-panel.js?v=16"></script>
+<script src="../home-next/ava-panel.js?v=17"></script>
 </body>
 </html>

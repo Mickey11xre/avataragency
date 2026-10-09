@@ -17,6 +17,9 @@
  */
 const API = "https://api.calendly.com";
 const DEFAULT_SLUG = "free-consultation-meeting";
+// A page may ask for one of these Calendly event types (the profile asks for the intro meeting, 9 Oct). Anything else falls back to the default.
+const EVENT_SLUGS = ["free-consultation-meeting", "michaelrivera-intro-meeting"];
+const pickSlug = (env, requested) => EVENT_SLUGS.includes(requested) ? requested : (env.CALENDLY_EVENT_SLUG || DEFAULT_SLUG);
 const ALLOWED_ORIGINS = ["https://avataragency.ai", "https://www.avataragency.ai"];
 const SLOT_TTL_MIN = 30;
 const PER_IP_PER_HOUR = 60;
@@ -34,8 +37,7 @@ async function cal(env, path) {
   return { ok: r.ok, status: r.status, data };
 }
 
-async function eventType(env) {
-  const slug = env.CALENDLY_EVENT_SLUG || DEFAULT_SLUG;
+async function eventType(env, slug = env.CALENDLY_EVENT_SLUG || DEFAULT_SLUG) {
   const ck = "cal:evtype:" + slug;
   const cached = await env.AISO_KV.get(ck, "json");
   if (cached) return cached;
@@ -82,13 +84,15 @@ export async function onRequestGet(context) {
   if (count >= PER_IP_PER_HOUR) return json({ ok: false, error: "too many requests" }, 429);
   await env.AISO_KV.put(rlKey, String(count + 1), { expirationTtl: 3600 });
 
-  const days = Math.min(7, Math.max(1, parseInt(new URL(request.url).searchParams.get("days") || "7", 10) || 7));
+  const q = new URL(request.url).searchParams;
+  const days = Math.min(7, Math.max(1, parseInt(q.get("days") || "7", 10) || 7));
+  const slug = pickSlug(env, q.get("event"));
   let et;
-  try { et = await eventType(env); }
+  try { et = await eventType(env, slug); }
   catch (e) { console.log("ava-availability:", String(e)); return json({ ok: false, error: "calendar unavailable", detail: String(e.message || e) }, 502); }
 
   // Cache the slot list for 2 minutes so a busy page doesn't hammer Calendly.
-  const ck = "cal:avail:" + days + ":" + Math.floor(Date.now() / 120000);
+  const ck = "cal:avail:" + slug + ":" + days + ":" + Math.floor(Date.now() / 120000);
   let slots = await env.AISO_KV.get(ck, "json");
   if (!slots) {
     const start = new Date(Date.now() + 10 * 60 * 1000);                 // must be in the future

@@ -17,6 +17,9 @@
  */
 const API = "https://api.calendly.com";
 const DEFAULT_SLUG = "free-consultation-meeting";
+// A page may ask for one of these Calendly event types (the profile asks for the intro meeting, 9 Oct). Anything else falls back to the default.
+const EVENT_SLUGS = ["free-consultation-meeting", "michaelrivera-intro-meeting"];
+const pickSlug = (env, requested) => EVENT_SLUGS.includes(requested) ? requested : (env.CALENDLY_EVENT_SLUG || DEFAULT_SLUG);
 const FROM = "AvatarAgency <studio@avataragency.ai>";
 const NOTIFY = "michael@avataragency.ai";
 const ALLOWED_ORIGINS = ["https://avataragency.ai", "https://www.avataragency.ai"];
@@ -43,8 +46,7 @@ async function cal(env, path, init = {}) {
 }
 
 // Same lookup + cache key as ava-availability.js.
-async function eventType(env) {
-  const slug = env.CALENDLY_EVENT_SLUG || DEFAULT_SLUG;
+async function eventType(env, slug = env.CALENDLY_EVENT_SLUG || DEFAULT_SLUG) {
   const ck = "cal:evtype:" + slug;
   const cached = await env.AISO_KV.get(ck, "json");
   if (cached) return cached;
@@ -183,7 +185,7 @@ export async function onRequestPost(context) {
   lead.recordKey = "booking:ava:" + id;
 
   let et;
-  try { et = await eventType(env); }
+  try { et = await eventType(env, pickSlug(env, b.event)); }
   catch (e) {
     console.log("ava-booking eventType:", String(e));
     await env.AISO_KV.put(lead.recordKey, JSON.stringify({ ...lead, status: "failed", error: String(e) }));
