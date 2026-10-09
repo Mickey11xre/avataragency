@@ -22,7 +22,12 @@ async function hasAccess(context) {
   return who && passStillValid(who) ? who : null;   // a revoked pass link loses /work/ too
 }
 
+// The ONE file outside the gate: the stylesheet Lady Belle's stage embed needs on Adele Harrison's (ungated) client
+// portal, /clients/aharrison/lady-belle/ (2026-10-09). Styles only, nothing private. Exact path; the page stays gated.
+const PUBLIC_FILES = new Set(["/work/portfolio.css"]);
+
 export async function onRequest(context) {
+  if (PUBLIC_FILES.has(new URL(context.request.url).pathname)) return context.next();
   const who = await hasAccess(context);
   const url = new URL(context.request.url);
   if (url.searchParams.has("pass")) {

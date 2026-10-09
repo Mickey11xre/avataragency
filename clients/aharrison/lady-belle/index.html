@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- Lady Belle's talking stage, EMBEDDED in Adele Harrison's client portal (/clients/aharrison/, block 03) through an
+     iframe with microphone permission, so the stage's styles never touch the portal's. Same script as /work and
+     /avatarstages (avatarstages/ladybelle-stage.js); data-token points it at the public, origin-checked
+     /api/ladybelle-nv2-token because this portal has no portfolio gate. Unlisted: never link it elsewhere. -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<title>Lady Belle | AvatarAgency</title>
+<link rel="icon" href="/favicon.ico?v=1" sizes="48x48">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/work/portfolio.css?v=9">
+<link rel="stylesheet" href="/avatarstages/stages.css?v=8">
+<script>
+  (function (d) {
+    var h = d.documentElement; h.className = h.className.replace('no-js', 'js');
+    if ((window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) || /[?&]rm=1/.test(location.search)) h.classList.add('rm');
+  })(document);
+</script>
+<style>
+  /* Sits inside the portal's dark page: no header, no page padding, the portal's background color. */
+  html, body { background: #0a0a0c !important; margin: 0; padding: 0; overflow: hidden; }
+  .embed-wrap { padding: 2px; }
+  #ladybelle-stage { scroll-margin-top: 0; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-vol" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-sound-off" viewBox="0 0 24 24"><path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18 6a8.5 8.5 0 0 1 0 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M4 21L20 3" stroke="rgba(10,10,10,.9)" stroke-width="4" stroke-linecap="round"/><path d="M4 21L20 3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3.5" width="6" height="11" rx="3" fill="currentColor"/><path d="M5.5 11.5a6.5 6.5 0 0 0 13 0M12 18v3" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M5 12h13m-5-5.5L18.5 12 13 17.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<div class="embed-wrap">
+  <div class="stage" id="ladybelle-stage" data-token="/api/ladybelle-nv2-token" data-seen-path="/api">
+    <div class="stage-av">
+      <div id="ladybelle-mount" class="ava-mount"></div>
+      <video class="ava-video" muted loop playsinline preload="none" poster="/avatarstages/media/ladybelle-poster.jpg?v=1" data-src="/avatarstages/media/ladybelle-intro.mp4?v=1" aria-label="Lady Belle, a little white Snoodle puppy, introducing herself"></video>
+      <div class="ava-badge">Lady Belle · storybook character</div>
+      <div class="ava-caption" aria-live="polite"></div>
+      <div class="ava-toast" role="status" hidden></div>
+      <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play Lady Belle's introduction with sound" title="Play Lady Belle's introduction with sound"><svg aria-hidden="true"><use href="#i-sound-off"/></svg><span class="ava-sound-label" aria-hidden="true">Muted</span></button>
+      <div class="ava-ctrls">
+        <button class="ava-btn ava-talk" type="button"><svg><use href="#i-mic"/></svg><span>Talk to Lady Belle</span></button>
+      </div>
+    </div>
+    <aside class="panel is-home" id="ladybelle-panel" aria-label="Lady Belle's panel">
+      <div class="panel-top">
+        <button class="panel-back" type="button" hidden aria-label="Back"><svg><use href="#i-arrow"/></svg></button>
+        <span class="panel-title">Hi, friend!</span>
+        <span class="panel-flag" hidden>Demo</span>
+      </div>
+      <div class="panel-body" aria-live="polite"></div>
+      <p class="panel-note">Demo panel: the mailing list sends nothing.</p>
+    </aside>
+  </div>
+</div>
+
+<script>
+  /* Tell the portal how tall this page is, so its iframe always fits the stage (it stacks on phones). */
+  (function () {
+    var last = 0;
+    // Measure the stage itself: the document's own height would just echo the frame's height back.
+    function send() { var w = document.querySelector(".embed-wrap"), h = Math.ceil(w ? w.getBoundingClientRect().height : document.documentElement.scrollHeight); if (h !== last) { last = h; try { parent.postMessage({ ladybelleStageHeight: h }, location.origin); } catch (e) {} } }
+    if ("ResizeObserver" in window) new ResizeObserver(send).observe(document.body);
+    window.addEventListener("load", send); window.addEventListener("resize", send); setTimeout(send, 300);
+  })();
+</script>
+<script src="/avatarstages/ladybelle-stage.js?v=3"></script>
+</body>
+</html>

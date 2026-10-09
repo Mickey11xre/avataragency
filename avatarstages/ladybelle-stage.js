@@ -26,7 +26,10 @@
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var CFG = {
     LIVE: true,          // her NV2 agent (9 Oct); false = "Talk to Lady Belle · coming soon"
-    TOKEN_ENDPOINT: "/avatarstages/api/ladybelle-token",   // gated; the public /api/ladybelle-token stays with /ladybelle (NV1)
+    // Gated by default (/work, /avatarstages). A page can override both with data-token / data-seen-path on the stage:
+    // Adele's portal embed uses the public, origin-checked /api/ladybelle-nv2-token. /api/ladybelle-token stays NV1.
+    TOKEN_ENDPOINT: stage.getAttribute("data-token") || "/avatarstages/api/ladybelle-token",
+    SEEN_PATH: stage.getAttribute("data-seen-path") || "/avatarstages",
     SDK_URL: "https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js",
     CAP_S: 600,          // ten-minute session cap, as on every stage
     INTRO_END: 26.9,     // media/ladybelle-intro.mp4 is 27.1 s: speech ends at 26.4 s
@@ -306,7 +309,7 @@
   function pinBg() { document.documentElement.style.setProperty("background-color", htmlBg, "important"); document.body.style.setProperty("background-color", bodyBg, "important"); }
   function say_(text, ms) { toast.textContent = text; toast.hidden = !text; if (text && ms) setTimeout(function () { if (toast.textContent === text) toast.hidden = true; }, ms); }
   function setTalk(lbl, on) { $("span", talkBtn).textContent = lbl; talkBtn.disabled = liveState === "connecting"; talkBtn.classList.toggle("is-on", !!on); }
-  function rememberSeen() { try { document.cookie = "aa_belle_seen=1; Path=/avatarstages; Max-Age=31536000; Secure; SameSite=Lax"; } catch (e) {} }
+  function rememberSeen() { try { document.cookie = "aa_belle_seen=1; Path=" + CFG.SEEN_PATH + "; Max-Age=31536000; Secure; SameSite=Lax"; } catch (e) {} }
   function loadSdk() {
     if (window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk) return Promise.resolve();
     if (sdkLoading) return sdkLoading;

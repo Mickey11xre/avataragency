@@ -443,6 +443,48 @@
       </div>
     </div>
 
+<!-- ============ 03 — LADY BELLE TALKING AVATAR ============ -->
+    <!-- The stage lives in /clients/aharrison/lady-belle/ (iframe, microphone allowed) so its styles never touch this
+         page; it reports its height so the frame always fits. Same stage as /work case 10 (2026-10-09). -->
+    <div class="video-block" style="margin-top:44px">
+      <div class="deliv-no">03 &mdash; Lady Belle Talking Avatar</div>
+      <div class="block-head">
+        <h3>Lady Belle Talking Avatar</h3>
+        <span class="stage live">Live &mdash; say hello</span>
+      </div>
+      <div class="lede">
+        Lady Belle can now talk with children in her own voice. We took the approved illustration and created a
+        photoreal version of her &mdash; the same face, curly white coat and red collar &mdash; then gave her a short
+        video introduction and a live conversation, so children can meet her and talk with her about her family,
+        her books and the fruit of the Spirit.
+      </div>
+
+      <iframe id="ladybelle-frame" src="/clients/aharrison/lady-belle/" title="Lady Belle, talking avatar"
+        allow="microphone; autoplay; picture-in-picture" loading="lazy"
+        style="display:block;width:100%;height:620px;border:0;border-radius:16px;background:#0a0a0c;margin-top:22px"></iframe>
+
+      <div class="review-note" style="margin-top:22px">
+        <b>How to try her:</b> press the sound button on the video to hear her introduction, or press
+        <b>Talk to Lady Belle</b> and allow your microphone to have a real conversation. Ask about her family,
+        about kindness, or about her books. The panel beside her shows the book series, the nine fruit of the
+        Spirit, and a mailing-list sign-up for grown-ups.
+        <br><br>
+        <b>Made for children:</b> everything she says is gentle and child-safe. She never asks a child for a name
+        or any other details &mdash; the mailing list is for grown-ups only, and on this page it is a demonstration,
+        so nothing is sent.
+        <br><br>
+        <b>One detail to check:</b> she now calls her second cat brother <b>Butterball</b>, as in the latest
+        character notes.
+      </div>
+    </div>
+    <script>
+      /* Keep the Lady Belle frame exactly as tall as the stage inside it. */
+      window.addEventListener("message", function (e) {
+        if (e.origin !== location.origin || !e.data || !e.data.ladybelleStageHeight) return;
+        var f = document.getElementById("ladybelle-frame"); if (f) f.style.height = e.data.ladybelleStageHeight + "px";
+      });
+    </script>
+
     <div class="intake-cta">
       <a class="intake-btn" href="https://avataragency.ai/clients/harrison/intake/">Project Intake Form</a>
       <p>Your answers save as you go, and you can return to it from any device.</p>

@@ -23,7 +23,14 @@ async function hasAccess(context) {
   return who && passStillValid(who) ? who : null;
 }
 
+// The only files outside the gate: what Lady Belle's stage embed needs on Adele Harrison's (ungated) client portal,
+// /clients/aharrison/lady-belle/ (2026-10-09). Her script, the shared stage styles, her intro and poster: nothing
+// private. Exact paths only; every page and every /avatarstages/api/ token route stays gated.
+const PUBLIC_FILES = new Set(["/avatarstages/ladybelle-stage.js", "/avatarstages/stages.css",
+  "/avatarstages/media/ladybelle-intro.mp4", "/avatarstages/media/ladybelle-poster.jpg"]);
+
 export async function onRequest(context) {
+  if (PUBLIC_FILES.has(new URL(context.request.url).pathname)) return context.next();
   const url = new URL(context.request.url);
   const api = url.pathname.startsWith("/avatarstages/api/");
   const who = await hasAccess(context);
