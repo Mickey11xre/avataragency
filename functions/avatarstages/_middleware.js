@@ -26,8 +26,10 @@ async function hasAccess(context) {
 // The only files outside the gate: what Lady Belle's stage embed needs on Adele Harrison's (ungated) client portal,
 // /clients/aharrison/lady-belle/ (2026-10-09). Her script, the shared stage styles, her intro and poster: nothing
 // private. Exact paths only; every page and every /avatarstages/api/ token route stays gated.
+// 2026-10-09: the same for Maya's stage embed on Dr. Nawrocki's (ungated) landing page, /clients/dental-arts/maya/.
 const PUBLIC_FILES = new Set(["/avatarstages/ladybelle-stage.js", "/avatarstages/stages.css",
-  "/avatarstages/media/ladybelle-intro.mp4", "/avatarstages/media/ladybelle-poster.jpg"]);
+  "/avatarstages/media/ladybelle-intro.mp4", "/avatarstages/media/ladybelle-poster.jpg",
+  "/avatarstages/maya-stage.js", "/avatarstages/media/maya-intro.mp4", "/avatarstages/media/maya-poster.jpg"]);
 
 export async function onRequest(context) {
   if (PUBLIC_FILES.has(new URL(context.request.url).pathname)) return context.next();

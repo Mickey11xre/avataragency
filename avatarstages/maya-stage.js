@@ -33,7 +33,10 @@
   var esc = function (s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); };
   var wait = function (ms) { return new Promise(function (r) { setTimeout(r, ms); }); };
   var CFG = {
-    TOKEN_ENDPOINT: "/avatarstages/api/maya-token",
+    // Gated by default (/work, /avatarstages). A page without the portfolio gate (Dr. Nawrocki's landing page embed,
+    // /clients/dental-arts/maya/) overrides these with data-token / data-seen-path / data-film / data-film-poster on the stage.
+    TOKEN_ENDPOINT: stage.getAttribute("data-token") || "/avatarstages/api/maya-token",
+    SEEN_PATH: stage.getAttribute("data-seen-path") || "/avatarstages",
     SDK_URL: "https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js",
     CAP_S: 600,          // ten-minute session cap, as for Ava
     INTRO_END: 26.3,     // media/maya-intro.mp4 is 26.4 s (take 3, cut before its repeated last line)
@@ -56,7 +59,8 @@
   /* "Dental Arts San Diego Video" (Michael, 5 Oct): the practice's final 9-3-26 film. It is served by the private
      portfolio's film route (functions/work/film/[[path]].js, slug alena-practice = clients/anawrocki/service-video-02.mp4,
      the web encode of ALENA_NAWROCKI_VIDEO_9-3-26.mp4, matched frame by frame), behind the same aa_pf gate as this page. */
-  var FILM = { src: "/work/film/alena-practice.mp4", poster: "/work/assets/poster/alena-service.webp", dur: "1:13" };
+  var FILM = { src: stage.getAttribute("data-film") || "/work/film/alena-practice.mp4",
+    poster: stage.getAttribute("data-film-poster") || "/work/assets/poster/alena-service.webp", dur: "1:13" };
   /* "Explore our dental services" (Michael, 5 Oct): the same list, in the same order, as the Services menu on
      dentalartssandiego.com (read from the live site's navigation, 5 Oct). Each text is that page's own opening, kept to
      what Maya may say: the page's "best way" / "only solution" / "last a lifetime" claims are left out, and sedation,
@@ -515,7 +519,7 @@
   function pinBg() { document.documentElement.style.setProperty("background-color", htmlBg, "important"); document.body.style.setProperty("background-color", bodyBg, "important"); }
   function say_(text, ms) { toast.textContent = text; toast.hidden = !text; if (text && ms) setTimeout(function () { if (toast.textContent === text) toast.hidden = true; }, ms); }
   function setTalk(lbl, on) { $("span", talkBtn).textContent = lbl; talkBtn.disabled = liveState === "connecting"; talkBtn.classList.toggle("is-on", !!on); }
-  function rememberSeen() { try { document.cookie = "aa_maya_seen=1; Path=/avatarstages; Max-Age=31536000; Secure; SameSite=Lax"; } catch (e) {} }
+  function rememberSeen() { try { document.cookie = "aa_maya_seen=1; Path=" + CFG.SEEN_PATH + "; Max-Age=31536000; Secure; SameSite=Lax"; } catch (e) {} }
   function loadSdk() {
     if (window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk) return Promise.resolve();
     if (sdkLoading) return sdkLoading;
