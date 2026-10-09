@@ -360,4 +360,4 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 .hero-lede strong { color: var(--on); font-weight: 600; }
 
 /* The last case (Matt) has no "Next case" link under it: give it the same breathing room before the cream close (8 Oct) */
-#case-matt { padding-bottom: clamp(100px, 12vw, 180px); }
+#case-ladybelle { padding-bottom: clamp(100px, 12vw, 180px); }   /* the last case before the cream close (was #case-matt until Lady Belle, 9 Oct) */
