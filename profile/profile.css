@@ -31,6 +31,9 @@ body.pf { background: var(--ink); }
 .pf .pf-nav { display: flex; }
 .pf-nav a.is-active { color: var(--gold-light); background: rgba(201,168,76,.08); }
 .pf main section[id] { scroll-margin-top: calc(var(--hdr) + 8px); }
+/* The menu targets sit on each section's heading block (9 Oct), not the section, so a click lands the "03 —" line just under the
+   header instead of the section's top padding. The sections keep ids (sec-*) so the menu highlight still follows them. */
+.pf main .pf-sec-head[id], .pf main .pf-split[id] { scroll-margin-top: calc(var(--hdr) + 28px); }
 @media (max-width: 1180px) {
   .pf { --hdr: 118px; }
   .pf-hdr { height: var(--hdr); }
