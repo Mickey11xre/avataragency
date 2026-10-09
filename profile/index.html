@@ -183,7 +183,7 @@
     <div class="stage" id="ava-stage">
       <div class="stage-av">
         <div id="ava-mount" class="ava-mount"></div>
-        <video class="ava-video" muted loop playsinline preload="none" poster="../home-next/media/ava-poster.jpg?v=1" data-src="../home-next/media/ava-intro.mp4?v=1" aria-label="Ava, Michael Rivera's AI agent assistant, introducing herself"></video>
+        <video class="ava-video" muted loop playsinline preload="none" poster="media/ava-profile-poster.jpg?v=1" data-src="media/ava-profile-intro.mp4?v=1" aria-label="Ava, Michael Rivera's AI agent assistant, introducing herself"></video>
         <div class="ava-badge"><span class="ava-dot"></span>Ava · Michael's AI agent</div>
         <div class="ava-caption" aria-live="polite"></div>
         <div class="ava-toast" role="status" hidden></div>
@@ -633,7 +633,11 @@
       { mode: "portfolio", title: "See examples of his work", line: "Client films, by private link" }
     ],
     PASS_URL: "/work/?pass=1acda241b3497689a7d07e3ef18fd5c9",   // the boardsi-profile pass (functions/_lib/passes.js): profile.js points every [data-pass-link] here
-    source: "Boardsi profile"                             // tag for booking + lead alert emails (HANDOFF §4)
+    source: "Boardsi profile",                            // tag for booking + lead alert emails (HANDOFF §4)
+    // Captions for the profile intro (media/ava-profile-intro.mp4, Seedance job cd64eb6a, 8 Oct), timed with ffmpeg silencedetect.
+    LINES: [[0.3, 4.6, "Hi, I'm Ava, Michael Rivera's AI Agent Assistant —"], [4.6, 9.2, "a digital avatar built by his company, Avatar Agency."],
+      [9.2, 14.3, "Michael has spent more than thirty years building brands, teams and businesses,"], [14.3, 16.6, "from Activision to AI."],
+      [16.6, 21.6, "Ask me how he works with boards, or what AI could do for your company."], [21.6, 25.5, "Tap “Talk to Ava,” and I'll book an intro call with him."]]
   };
 </script>
 <script src="profile.js?v=5"></script>
