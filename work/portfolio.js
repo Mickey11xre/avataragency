@@ -31,8 +31,11 @@
   function goTo(target) {
     if (!target) return;
     revealNow(target);
-    if (lenis) lenis.scrollTo(target, { offset: -hdrH() - 8, duration: 1.4 });
-    else window.scrollTo({ top: target.getBoundingClientRect().top + scrollY - hdrH() - 8, behavior: RM ? "auto" : "smooth" });
+    // A case section starts with a deep band of padding; land on its heading instead (eyebrow just under the header).
+    var aim = target, gap = 8;
+    if (target.classList.contains("case")) { aim = $(".case-head", target) || target; gap = 28; }
+    if (lenis) lenis.scrollTo(aim, { offset: -hdrH() - gap, duration: 1.4 });
+    else window.scrollTo({ top: aim.getBoundingClientRect().top + scrollY - hdrH() - gap, behavior: RM ? "auto" : "smooth" });
   }
   document.addEventListener("click", function (e) {
     var a = e.target.closest('a[href^="#"]'); if (!a) return;

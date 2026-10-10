@@ -111,6 +111,10 @@ em { font-family: var(--serif); font-style: italic; font-weight: 400; }
 
 /* ── Case ── */
 .case { position: relative; padding: clamp(90px, 11vw, 160px) 0 0; border-top: 1px solid var(--line-d); }
+/* A direct link (/work/#case-alena) lands on the case's heading, not on the empty top padding above it (Michael, 9 Oct).
+   Cancels the padding, then leaves 16px under html's scroll-padding (header + 12px). Clicks go through goTo() in
+   portfolio.js, which aims at .case-head the same way. */
+.case { scroll-margin-top: calc(16px - clamp(90px, 11vw, 160px)); }
 .case-head { display: grid; grid-template-columns: auto minmax(0, 1fr) minmax(280px, .55fr); gap: clamp(20px, 4vw, 60px); align-items: start; }
 .case-num { font-size: clamp(64px, 9vw, 150px); font-weight: 600; letter-spacing: -.05em; line-height: .8; color: transparent; -webkit-text-stroke: 1px rgba(228,201,122,.55); font-variant-numeric: tabular-nums; }
 .case-title { font-size: clamp(36px, 5vw, 72px); line-height: 1; letter-spacing: -.03em; font-weight: 600; margin: 0; }
