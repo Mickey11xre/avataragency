@@ -8,6 +8,9 @@
  */
 const FILMS = {
   "paul-hermosa.mp4": "/clients/psmall/hermosa-beach-video-v4.mp4",
+  "paul-hermosa-vertical-1.mp4": "/clients/psmall/hermosa-vertical-01-v2.mp4",   // V2 (pulled back + HERMOSA title, 12 Oct)
+  "paul-hermosa-vertical-2.mp4": "/clients/psmall/hermosa-vertical-02.mp4",
+  "paul-hermosa-vertical-3.mp4": "/clients/psmall/hermosa-vertical-03-v2.mp4",   // V2
   "danny-recruiting.mp4": "/clients/dgomes/brand-video-10.mp4",
   "danny-probate.mp4": "/clients/dgomes/brand-video-05.mp4",
   "danny-brand.mp4": "/clients/dgomes/brand-video-06.mp4",
