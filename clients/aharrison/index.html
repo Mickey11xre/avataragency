@@ -249,6 +249,17 @@
   .logo-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:940px;margin:0 auto;align-items:start}
   .logo-pair .logo-plate{max-width:none;margin:0;padding:20px}
   @media(max-width:760px){.logo-pair{grid-template-columns:1fr;max-width:560px}}
+  /* Website color mood: the exact five colors from the intake form's "Fresh & Airy"
+     palette (clients/harrison/intake, PALETTES), on a light card so the pale tones
+     read the way they will on a real page rather than against this near-black one. */
+  .mood-plate{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:22px;max-width:940px;margin:0 auto}
+  .mood-strip{display:flex;height:120px;border-radius:12px;overflow:hidden;box-shadow:inset 0 0 0 1px rgba(0,0,0,.06)}
+  .mood-strip i{flex:1}
+  .mood-chips{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:16px}
+  .mood-chip{display:flex;align-items:center;gap:10px;color:#2b2f36;font-size:13px;line-height:1.3}
+  .mood-chip i{flex:0 0 26px;height:26px;border-radius:50%;box-shadow:inset 0 0 0 1px rgba(0,0,0,.12)}
+  .mood-chip span{display:block;color:#6b7280;font-size:11.5px;letter-spacing:.5px;font-family:ui-monospace,Menlo,Consolas,monospace}
+  @media(max-width:760px){.mood-chips{grid-template-columns:repeat(2,minmax(0,1fr))}.mood-strip{height:90px}.mood-plate{padding:16px}}
 </style><body>
 
 <div class="topbar">
@@ -443,11 +454,51 @@
       </div>
     </div>
 
-<!-- ============ 03 — LADY BELLE TALKING AVATAR ============ -->
+<!-- ============ 03 — WEBSITE COLOR MOOD ============ -->
+    <!-- Source: their saved intake answers (doc harrison-intake): q_palettes = "Fresh & Airy";
+         q_colors = whites, blues, greens, soft pinks; not the 70s palette. Hexes match the intake PALETTES. -->
+    <div class="video-block" style="margin-top:44px">
+      <div class="deliv-no">03 &mdash; Website Color Mood</div>
+      <div class="block-head">
+        <h3>Fresh &amp; Airy</h3>
+        <span class="stage prod">To confirm at our meeting</span>
+      </div>
+      <div class="lede">
+        This is the color mood you chose on your project intake form, and the one we plan to build the
+        Tales of Lady Belle website around.
+      </div>
+
+      <div class="mood-plate">
+        <div class="mood-strip" aria-hidden="true">
+          <i style="background:#FDFDFB"></i><i style="background:#A8DADC"></i><i style="background:#C9E4CA"></i><i style="background:#F7E9A0"></i><i style="background:#E4E7EB"></i>
+        </div>
+        <div class="mood-chips">
+          <div class="mood-chip"><i style="background:#FDFDFB"></i><div>Soft white<span>#FDFDFB</span></div></div>
+          <div class="mood-chip"><i style="background:#A8DADC"></i><div>Sky blue<span>#A8DADC</span></div></div>
+          <div class="mood-chip"><i style="background:#C9E4CA"></i><div>Mint green<span>#C9E4CA</span></div></div>
+          <div class="mood-chip"><i style="background:#F7E9A0"></i><div>Butter yellow<span>#F7E9A0</span></div></div>
+          <div class="mood-chip"><i style="background:#E4E7EB"></i><div>Cloud gray<span>#E4E7EB</span></div></div>
+        </div>
+      </div>
+
+      <div class="review-note" style="margin-top:22px">
+        <b>Why it fits:</b> Fresh &amp; Airy is light, calm and open: soft white, sky blue and mint green,
+        with a touch of butter yellow and a quiet gray. It matches what you told us you are drawn to
+        (<i>&ldquo;whites, blues, greens, soft pinks&rdquo;</i>), stays well away from the 70s palette you
+        wanted to avoid, and gives a clean, uncluttered page where Lady Belle, Shadow and Butterball can be
+        the brightest things on screen, with her red collar as the accent.
+        <br><br>
+        <b>One question for our meeting:</b> you also mentioned soft pinks, which this palette doesn&rsquo;t
+        include. Should we add a soft pink, perhaps in place of the butter yellow, or keep the palette
+        exactly as it is?
+      </div>
+    </div>
+
+<!-- ============ 04 — LADY BELLE TALKING AVATAR ============ -->
     <!-- The stage lives in /clients/aharrison/lady-belle/ (iframe, microphone allowed) so its styles never touch this
          page; it reports its height so the frame always fits. Same stage as /work case 10 (2026-10-09). -->
     <div class="video-block" style="margin-top:44px">
-      <div class="deliv-no">03 &mdash; Lady Belle Talking Avatar</div>
+      <div class="deliv-no">04 &mdash; Lady Belle Talking Avatar</div>
       <div class="block-head">
         <h3>Lady Belle Talking Avatar</h3>
         <span class="stage live">Live &mdash; say hello</span>
