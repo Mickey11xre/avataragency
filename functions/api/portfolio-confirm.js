@@ -1,7 +1,7 @@
 /**
  * GET /api/portfolio-confirm?t=<token>  — step 2: the link inside the portfolio email.
  * Validates the token, issues an access key (cookie, 180 days), logs the confirmed lead,
- * notifies Michael the first time, and redirects to the gated /work/ page.
+ * notifies Michael the first time, and redirects to the gated /casestudies/ page (3 cases; /work/ is internal since 2026-10-16).
  * Re-clicking the same email link within 7 days reuses the same access key.
  * Bindings: AISO_KV, RESEND_API_KEY (same as /api/portfolio-signup).
  */
@@ -46,7 +46,7 @@ export async function onRequestGet(context) {
   }
   await kv.put("pf:access:" + lead.accessKey, JSON.stringify({ email: lead.email, name: lead.name }), { expirationTtl: ACCESS_TTL });
   return new Response(null, { status: 302, headers: {
-    Location: "/work/",
+    Location: "/casestudies/",
     "Set-Cookie": `aa_pf=${lead.accessKey}; Path=/; Max-Age=${ACCESS_TTL}; HttpOnly; Secure; SameSite=Lax`,
     "Cache-Control": "no-store",
   } });

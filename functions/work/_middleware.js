@@ -10,9 +10,15 @@
  *    functions/work/film/[[path]].js so client-portal URLs never reach a prospect
  *  - /work/media/<key> — the R2 bucket route (PORTFOLIO_R2), for when R2 is enabled
  */
-import { redeemPass, passStillValid } from "../_lib/passes.js";
+import { redeemPass, passStillValid, findPass } from "../_lib/passes.js";
 
 const GATE = "/#work";
+// Since 2026-10-16 the /work/ PAGE (all 10 cases) is INTERNAL: only a visitor who came in through the "internal-work" pass
+// sees it; every other valid visitor (email link, prospect passes) is sent to /casestudies/ (3 cases). A #case-… fragment
+// survives the redirect, so Ron's #case-alena link still lands on Alena. The media under /work/ (assets, film, media)
+// stays open to any valid cookie, because /casestudies/ plays it from here.
+const INTERNAL = "internal-work";
+const PAGE = new Set(["/work", "/work/", "/work/index.html"]);
 
 async function hasAccess(context) {
   const m = (context.request.headers.get("Cookie") || "").match(/(?:^|;\s*)aa_pf=([a-f0-9]{40,80})/i);
@@ -31,10 +37,17 @@ export async function onRequest(context) {
   const who = await hasAccess(context);
   const url = new URL(context.request.url);
   if (url.searchParams.has("pass")) {
-    const redeemed = await redeemPass(context, url.searchParams.get("pass"), who, { location: "/work/", page: "Private portfolio" });
+    const code = url.searchParams.get("pass"), pass = await findPass(code);
+    if (pass && pass.label === INTERNAL) {                    // always a fresh internal cookie, even over an older one
+      const internal = await redeemPass(context, code, null, { location: "/work/", page: "Internal portfolio (/work/)" });
+      if (internal) return internal;
+    }
+    const redeemed = await redeemPass(context, code, who, { location: "/casestudies/", page: "Case studies" });
     if (redeemed) return redeemed;
   }
   if (!who) return new Response(null, { status: 302, headers: { Location: GATE, "Cache-Control": "no-store" } });
+  if (PAGE.has(url.pathname) && who.pass !== INTERNAL)
+    return new Response(null, { status: 302, headers: { Location: "/casestudies/", "Cache-Control": "no-store" } });
   const res = await context.next();
   const type = res.headers.get("Content-Type") || "";
   let out = new Response(res.body, res);

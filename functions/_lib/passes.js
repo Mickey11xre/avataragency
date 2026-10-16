@@ -1,7 +1,9 @@
 /**
  * Pass links: direct access to the private pages for a prospect Michael invites personally, with no email form.
  *   https://avataragency.ai/avatarstages/?pass=<code>   (lands on /avatarstages/)
- *   https://avataragency.ai/work/?pass=<code>           (lands on /work/, the portfolio; 8 Oct)
+ *   https://avataragency.ai/casestudies/?pass=<code>    (lands on /casestudies/, the 3-case page; 16 Oct)
+ *   https://avataragency.ai/work/?pass=<code>           (8 Oct; since 16 Oct a /work/ link lands on /casestudies/ too,
+ *                                                        except the "internal-work" pass, which opens /work/ itself)
  * Any pass works on either page: the URL decides where the visitor lands.
  * The gate checks the code, issues the same aa_pf cookie the portfolio email link does (so /work/ opens too),
  * emails Michael that the pass was used, and redirects to the clean URL.
@@ -24,6 +26,9 @@ export const PASSES = {
   // 2026-10-09: personal link for one dentist prospect (Michael emails it; lands on the Nawrocki case). His email is kept
   // in the local notes only, never in this public repo. The page and Maya greet him as "Ron".
   "ceefa461fb248daf5c51918373fa23fbde81caaa5f0f12f711f99c720c3376db": { label: "prospect-ron-nourian", name: "Ron" },
+  // 2026-10-16: INTERNAL link to /work/ (all 10 cases), Michael only. Every other pass and the email link now land on
+  // /casestudies/ (3 cases); functions/work/_middleware.js admits the /work/ page for this label only.
+  "b49f1621b12aec24c766e28de0af6ddeab912c97dd51e7f17d6b7c3a1c64c513": { label: "internal-work", name: "Michael" },
 };
 
 async function sha256Hex(text) {
