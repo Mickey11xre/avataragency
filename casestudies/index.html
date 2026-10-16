@@ -30,7 +30,9 @@
 <link rel="stylesheet" href="/avatarstages/stages.css?v=8">
 <style>/* three cases: three index cards across (the shared CSS is built for ten) */
 .cards { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
-@media (max-width: 860px) { .cards { grid-template-columns: repeat(3, 62vw) !important; } }</style>
+@media (max-width: 860px) { .cards { grid-template-columns: repeat(3, 62vw) !important; } }
+/* SHE THRIVES strip shows phone screenshots (portrait): taller frames than the 4:3 reference stills */
+.strip.phone-strip .frame img { height: clamp(420px, 38vw, 560px); }</style>
 <script>
   (function (d) {
     var h = d.documentElement; h.className = h.className.replace('no-js', 'js');
@@ -282,16 +284,16 @@
       <div>
         <p class="eyebrow gold-deep">Behind the character</p>
         <h3>One woman, <em>six seasons.</em></h3>
-        <p>Each portrait is eye-locked to the same point, so on the site she ages in place as you scroll. Her mole and the gold Thriving Tree pendant stay in the same spot from 18 to 75.</p>
+        <p>Each season as it appears on a phone: her portrait in color, the age card, and that season&rsquo;s black-and-white film behind her. She is eye-locked to the same point, so she ages in place as you swipe, with her mole and the gold Thriving Tree pendant unchanged from 18 to 75.</p>
         <div class="legend"><span><b>1</b> Woman</span><span><b>6</b> Ages, 18 to 75</span></div>
       </div>
-      <div class="strip" data-gal="she-ages">
-        <button class="frame" type="button" data-src="/casestudies/assets/she-age-18.webp" data-title="SHE · age 18"><img src="/casestudies/assets/she-age-18.webp" alt="The SHE THRIVES woman at 18" loading="lazy"><span class="cap"><b>Age</b>18</span></button>
-        <button class="frame" type="button" data-src="/casestudies/assets/she-age-21.webp" data-title="SHE · age 21"><img src="/casestudies/assets/she-age-21.webp" alt="The SHE THRIVES woman at 21" loading="lazy"><span class="cap"><b>Age</b>21</span></button>
-        <button class="frame" type="button" data-src="/casestudies/assets/she-age-30.webp" data-title="SHE · age 30"><img src="/casestudies/assets/she-age-30.webp" alt="The SHE THRIVES woman at 30" loading="lazy"><span class="cap"><b>Age</b>30</span></button>
-        <button class="frame" type="button" data-src="/casestudies/assets/she-age-45.webp" data-title="SHE · age 45"><img src="/casestudies/assets/she-age-45.webp" alt="The SHE THRIVES woman at 45" loading="lazy"><span class="cap"><b>Age</b>45</span></button>
-        <button class="frame" type="button" data-src="/casestudies/assets/she-age-60.webp" data-title="SHE · age 60"><img src="/casestudies/assets/she-age-60.webp" alt="The SHE THRIVES woman at 60" loading="lazy"><span class="cap"><b>Age</b>60</span></button>
-        <button class="frame" type="button" data-src="/casestudies/assets/she-age-75.webp" data-title="SHE · age 75"><img src="/casestudies/assets/she-age-75.webp" alt="The SHE THRIVES woman at 75" loading="lazy"><span class="cap"><b>Age</b>75</span></button>
+      <div class="strip phone-strip" data-gal="she-ages">
+        <button class="frame" type="button" data-src="/casestudies/assets/she-phone-18.webp" data-title="SHE THRIVES on a phone · age 18"><img src="/casestudies/assets/she-phone-18.webp" alt="shethrives.ai on a phone at age 18: her color portrait, the age card and the season film behind her" loading="lazy"><span class="cap"><b>Age</b>18</span></button>
+        <button class="frame" type="button" data-src="/casestudies/assets/she-phone-21.webp" data-title="SHE THRIVES on a phone · age 21"><img src="/casestudies/assets/she-phone-21.webp" alt="shethrives.ai on a phone at age 21: her color portrait, the age card and the season film behind her" loading="lazy"><span class="cap"><b>Age</b>21</span></button>
+        <button class="frame" type="button" data-src="/casestudies/assets/she-phone-30.webp" data-title="SHE THRIVES on a phone · age 30"><img src="/casestudies/assets/she-phone-30.webp" alt="shethrives.ai on a phone at age 30: her color portrait, the age card and the season film behind her" loading="lazy"><span class="cap"><b>Age</b>30</span></button>
+        <button class="frame" type="button" data-src="/casestudies/assets/she-phone-45.webp" data-title="SHE THRIVES on a phone · age 45"><img src="/casestudies/assets/she-phone-45.webp" alt="shethrives.ai on a phone at age 45: her color portrait, the age card and the season film behind her" loading="lazy"><span class="cap"><b>Age</b>45</span></button>
+        <button class="frame" type="button" data-src="/casestudies/assets/she-phone-60.webp" data-title="SHE THRIVES on a phone · age 60"><img src="/casestudies/assets/she-phone-60.webp" alt="shethrives.ai on a phone at age 60: her color portrait, the age card and the season film behind her" loading="lazy"><span class="cap"><b>Age</b>60</span></button>
+        <button class="frame" type="button" data-src="/casestudies/assets/she-phone-75.webp" data-title="SHE THRIVES on a phone · age 75"><img src="/casestudies/assets/she-phone-75.webp" alt="shethrives.ai on a phone at age 75: her color portrait, the age card and the season film behind her" loading="lazy"><span class="cap"><b>Age</b>75</span></button>
       </div>
     </div>
   </div>
