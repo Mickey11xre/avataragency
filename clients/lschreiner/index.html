@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>The Thriving Project — First-Month Website Report</title>
+<style>body{margin:0}img{max-width:100%}</style>
+<style>
+/* Layout: one calm reading column on the site's paper ground; each chapter opens with a plain-language answer, then the chart that proves it. */
+:root{
+  --paper:#F5F0E4; --paper-2:#EDE6D6; --raised:#FCFAF3;
+  --ink:#1C3327; --ink-soft:#3F5A49; --ink-mute:#5B7563;
+  --green:#2E5540; --green-deep:#244334; --gold:#9A7B3F; --gold-text:#806630;
+  --rule:rgba(28,51,39,.18); --rule-soft:rgba(28,51,39,.09);
+  --c1:#2E5540; --c2:#B08A45; --c3:#7FA08A; --c4:#A9644A; --c5:#5F7A8C; --c6:#CDBF9E;
+  --good:#2E6B45; --warn:#9A6A1F;
+  --font-display: Georgia, "Iowan Old Style", "Palatino Linotype", Palatino, serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#14211A; --paper-2:#1B2B22; --raised:#1F3127;
+  --ink:#ECE5D3; --ink-soft:#C9C1AC; --ink-mute:#A39C88;
+  --green:#8DBB9C; --green-deep:#A9CDB4; --gold:#D3B06A; --gold-text:#D9B978;
+  --rule:rgba(236,229,211,.18); --rule-soft:rgba(236,229,211,.08);
+  --c1:#8DBB9C; --c2:#D3B06A; --c3:#5E8A6E; --c4:#D08E73; --c5:#8EA9BC; --c6:#7D735C;
+  --good:#8FD0A5; --warn:#E3B868; color-scheme:dark }}
+:root[data-theme="dark"]{
+  --paper:#14211A; --paper-2:#1B2B22; --raised:#1F3127;
+  --ink:#ECE5D3; --ink-soft:#C9C1AC; --ink-mute:#A39C88;
+  --green:#8DBB9C; --green-deep:#A9CDB4; --gold:#D3B06A; --gold-text:#D9B978;
+  --rule:rgba(236,229,211,.18); --rule-soft:rgba(236,229,211,.08);
+  --c1:#8DBB9C; --c2:#D3B06A; --c3:#5E8A6E; --c4:#D08E73; --c5:#8EA9BC; --c6:#7D735C;
+  --good:#8FD0A5; --warn:#E3B868; color-scheme:dark }
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-ui);font-size:17px;line-height:1.6;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:880px;margin:0 auto;padding-block:40px 64px}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;color:var(--ink);text-wrap:balance;margin:0}
+h1{font-size:clamp(2rem,1.5rem + 2.4vw,3.1rem);line-height:1.1}
+h1 em,h2 em{color:var(--green);font-style:italic}
+h2{font-size:clamp(1.55rem,1.3rem + 1vw,2.05rem);line-height:1.2}
+h3{font-size:1.2rem;line-height:1.3}
+p{margin:0;max-width:66ch}
+.eyebrow{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-text);font-weight:600}
+.lede{font-size:1.12rem;color:var(--ink-soft)}
+.muted{color:var(--ink-mute)}
+.small{font-size:.88rem}
+.num{font-variant-numeric:tabular-nums}
+
+/* header */
+.mast{display:flex;flex-direction:column;gap:18px;padding-bottom:32px;border-bottom:1px solid var(--rule)}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);letter-spacing:.22em;text-transform:uppercase;font-size:.82rem;color:var(--green)}
+.brand svg{flex:none}
+.meta{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:.9rem;color:var(--ink-mute)}
+.meta b{color:var(--ink-soft);font-weight:600}
+
+/* headline numbers */
+.headline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:32px;border-block:1px solid var(--rule)}
+.stat{padding:20px 18px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.stat + .stat{border-left:1px solid var(--rule)}
+.stat .big{font-family:var(--font-display);font-size:clamp(1.8rem,1.4rem + 1.4vw,2.5rem);line-height:1;color:var(--ink);font-variant-numeric:tabular-nums}
+.stat .big.money{color:var(--green)}
+.stat .lbl{font-size:.88rem;color:var(--ink-soft);line-height:1.4}
+@media (max-width:760px){.headline{grid-template-columns:1fr 1fr}.stat:nth-child(3){border-left:0}.stat:nth-child(n+3){border-top:1px solid var(--rule)}}
+
+.summary{margin-top:28px;display:flex;flex-direction:column;gap:12px}
+.summary p{font-size:1.06rem}
+
+/* chapters */
+section{padding-top:56px;display:flex;flex-direction:column;gap:18px}
+.chap-head{display:flex;flex-direction:column;gap:8px}
+.answer{font-family:var(--font-display);font-size:1.18rem;line-height:1.5;color:var(--ink-soft);border-left:3px solid var(--gold);padding-left:16px;max-width:62ch}
+
+.panel{background:var(--raised);border:1px solid var(--rule-soft);border-radius:6px;padding:22px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.two > *{min-width:0}
+@media (max-width:760px){.two{grid-template-columns:1fr}}
+
+/* donut */
+.donut{display:flex;gap:22px;align-items:center;flex-wrap:wrap}
+.donut svg{flex:none;width:170px;height:170px}
+.legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:7px;flex:1;min-width:190px}
+.legend li{display:grid;grid-template-columns:12px minmax(0,1fr) auto;gap:10px;align-items:baseline;font-size:.93rem}
+.two .donut svg{width:132px;height:132px}
+.two .legend{min-width:200px}
+.two .legend li{font-size:.88rem;gap:8px}
+.legend .sw{width:12px;height:12px;border-radius:2px;transform:translateY(1px)}
+.legend .v{font-variant-numeric:tabular-nums;color:var(--ink-soft);text-align:right;white-space:nowrap}
+.panel-title{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-mute);font-weight:600;margin-bottom:14px}
+
+/* tables */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.94rem}
+th{text-align:left;font-weight:600;font-size:.76rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-mute);padding:8px 10px;border-bottom:1px solid var(--rule)}
+td{padding:11px 10px;border-bottom:1px solid var(--rule-soft);vertical-align:top}
+td.r,th.r{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tfoot td{font-weight:600;border-bottom:0;border-top:1px solid var(--rule)}
+.pill{display:inline-block;font-size:.74rem;font-weight:600;letter-spacing:.03em;padding:2px 9px;border-radius:999px;white-space:nowrap}
+.pill.paid{background:color-mix(in srgb,var(--good) 16%,transparent);color:var(--good)}
+.pill.wait{background:color-mix(in srgb,var(--warn) 16%,transparent);color:var(--warn)}
+.pill.done{background:var(--rule-soft);color:var(--ink-soft)}
+
+/* bars */
+.hbars{display:flex;flex-direction:column;gap:9px}
+.hbar{display:grid;grid-template-columns:minmax(120px,210px) 1fr 46px;gap:12px;align-items:center;font-size:.92rem}
+.hbar .track{height:14px;background:var(--rule-soft);border-radius:2px;overflow:hidden}
+.hbar .fill{height:100%;background:var(--c1);border-radius:2px}
+.hbar .fill.gold{background:var(--c2)}
+.hbar .v{text-align:right;font-variant-numeric:tabular-nums;color:var(--ink-soft)}
+@media (max-width:520px){.hbar{grid-template-columns:1fr 46px}.hbar .track{grid-column:1/-1;grid-row:2}}
+
+.chart-box{overflow-x:auto}
+.chart-box svg{display:block;width:100%;min-width:560px;height:auto}
+svg text{fill:var(--ink-mute);font-family:var(--font-ui)}
+
+/* explainer list */
+.defs{display:grid;grid-template-columns:1fr 1fr;gap:16px 28px}
+@media (max-width:640px){.defs{grid-template-columns:1fr}}
+.defs div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.defs dt{font-weight:600}
+.defs dd{margin:0;color:var(--ink-soft);font-size:.94rem}
+
+.did{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:14px 24px}
+@media (max-width:640px){.did{grid-template-columns:1fr}}
+.did li{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:.95rem;min-width:0}
+.did li svg{margin-top:4px}
+.did b{display:block;color:var(--ink)}
+.did span{color:var(--ink-soft)}
+
+.flow{overflow-x:auto}
+.flow svg{display:block;width:100%;min-width:620px;height:auto}
+
+.callout{background:var(--paper-2);border-radius:6px;padding:18px 20px;display:flex;flex-direction:column;gap:8px}
+.callout h3{font-size:1.08rem}
+
+.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.steps li{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;padding:14px 0;border-bottom:1px solid var(--rule-soft)}
+.steps li:last-child{border-bottom:0}
+.steps .who{grid-row:span 2;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:3px;height:fit-content;white-space:nowrap}
+.who.us{background:var(--rule-soft);color:var(--green)}
+.who.you{background:color-mix(in srgb,var(--gold) 20%,transparent);color:var(--gold-text)}
+.steps b{font-weight:600}
+.steps span{color:var(--ink-soft);font-size:.95rem}
+
+footer{margin-top:64px;padding-top:22px;border-top:1px solid var(--rule);font-size:.84rem;color:var(--ink-mute);display:flex;flex-direction:column;gap:8px}
+footer p{max-width:none}
+footer a{color:var(--green)}
+a:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+
+
+<div class="wrap">
+
+<header class="mast">
+  <div class="brand">
+    <svg width="26" height="26" viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="9" r="7" fill="var(--c3)"/><circle cx="8" cy="11" r="4.5" fill="var(--c1)"/><circle cx="18" cy="11" r="4.5" fill="var(--c1)"/><rect x="12" y="12" width="2" height="9" fill="var(--gold)"/><path d="M5 22h16" stroke="var(--gold)" stroke-width="1.5"/></svg>
+    The Thriving Project
+  </div>
+  <p class="eyebrow">Website report · first month after launch</p>
+  <h1>How the new website did in its <em>first month</em></h1>
+  <p class="lede">A plain-language look at who visited thrivingincollege.org, where they came from, what they bought, and how well AI tools like ChatGPT are pointing people to your work.</p>
+  <div class="meta">
+    <span><b>Period</b> Sept 16 – Oct 15, 2026</span>
+    <span><b>Prepared for</b> Dr. Laurie A. Schreiner</span>
+    <span><b>Prepared by</b> AvatarAgency</span>
+  </div>
+</header>
+
+<div class="headline">
+  <div class="stat"><span class="big money num">$19,200</span><span class="lbl">paid online through the new store, in 6 orders</span></div>
+  <div class="stat"><span class="big money num">$17,400</span><span class="lbl">more requested by invoice from 3 universities</span></div>
+  <div class="stat"><span class="big num">~780</span><span class="lbl">real people visited the site (about 1,400 visits)</span></div>
+  <div class="stat"><span class="big num">42</span><span class="lbl">visits sent by AI assistants, about 3× the typical rate</span></div>
+</div>
+
+<div class="summary">
+  <p>In its first month the new site did what it was built to do: it sold surveys on its own. Five universities paid online by card, without anyone needing to send an invoice, and three more asked for an invoice through the new form. Together that is <b>$36,600</b> in orders and requests.</p>
+  <p>Most visitors still arrive by typing the address or clicking a link in an email, which is normal for a site that just launched. Google search is growing into the second big source. AI assistants, mostly ChatGPT, are already recommending the site and sending people straight to the instrument pages.</p>
+</div>
+
+<!-- SALES -->
+<section id="sales">
+  <div class="chap-head">
+    <p class="eyebrow">1 · Sales</p>
+    <h2>What the website <em>sold</em></h2>
+  </div>
+  <p class="answer">Six paid orders from five universities, worth $19,200. The single largest was a $10,000 Thriving Campus Package from the University of Mary Hardin-Baylor.</p>
+
+  <div class="panel">
+    <p class="panel-title">Paid online orders</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>University</th><th>What they bought</th><th class="r">Amount</th></tr></thead>
+        <tbody>
+          <tr><td class="num">Sept 29</td><td>Southern Adventist University</td><td>Staff TQ · Survey Package + 5 custom questions</td><td class="r">$1,050</td></tr>
+          <tr><td class="num">Sept 29</td><td>Southern Adventist University</td><td>Faculty TQ · Survey Package + 5 custom questions</td><td class="r">$1,050</td></tr>
+          <tr><td class="num">Sept 29</td><td>Bethel University</td><td>Graduate TQ · Basic Report Package</td><td class="r">$1,500</td></tr>
+          <tr><td class="num">Oct 5</td><td>Univ. of Mary Hardin-Baylor</td><td>Undergraduate TQ · Thriving Campus Package with webinar</td><td class="r">$10,000</td></tr>
+          <tr><td class="num">Oct 6</td><td>University of Memphis</td><td>Undergraduate TQ · Expanded Report + 2 dashboard variables</td><td class="r">$3,100</td></tr>
+          <tr><td class="num">Oct 8</td><td>So. Calif. Univ. of Health Sciences</td><td>Graduate TQ · Expanded Report Package</td><td class="r">$2,500</td></tr>
+        </tbody>
+        <tfoot><tr><td></td><td colspan="2">Total paid online</td><td class="r">$19,200</td></tr></tfoot>
+      </table>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <p class="panel-title">Sales by package</p>
+      <div class="donut" data-donut="pkg" data-center="$19.2K" data-sub="paid"></div>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Sales by instrument</p>
+      <div class="donut" data-donut="inst" data-center="6" data-sub="orders"></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <p class="panel-title">Invoice requests (not yet paid online)</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Date</th><th>University</th><th>Request</th><th>Status</th><th class="r">Amount</th></tr></thead>
+        <tbody>
+          <tr><td class="num">Sept 21</td><td>George Fox University</td><td>Expanded Report Package, Net 30</td><td><span class="pill done">You invoiced directly</span></td><td class="r">$2,500</td></tr>
+          <tr><td class="num">Sept 30</td><td>Bushnell University</td><td>Thriving Campus Package (5 surveys); asked about the CCCU CAP discount</td><td><span class="pill wait">Awaiting invoice</span></td><td class="r">$10,000</td></tr>
+          <tr><td class="num">Oct 6</td><td>Southern Methodist University</td><td>Invoice / quote request</td><td><span class="pill wait">Awaiting invoice</span></td><td class="r">$4,900</td></tr>
+        </tbody>
+        <tfoot><tr><td></td><td colspan="3">Total requested by invoice</td><td class="r">$17,400</td></tr></tfoot>
+      </table>
+    </div>
+    <p class="small muted" style="margin-top:12px">Some orders sent two or three identical email notices. Each order is counted once here, by its payment ID. Our own test orders and spam messages are left out.</p>
+  </div>
+
+  <div class="callout">
+    <h3>How visitors turned into buyers</h3>
+    <p class="small muted">Each step shows how many people reached that point, out of everyone who visited.</p>
+    <div class="flow" role="img" aria-label="Funnel: about 780 people visited, 110 looked at Packages and Pricing, 47 opened the store or the invoice form, 8 universities ordered or asked for an invoice.">
+      <svg viewBox="0 0 760 150" id="funnel"></svg>
+    </div>
+    <p class="small">Roughly <b>1 in 100 visitors</b> placed an order or asked for an invoice. For surveys that cost $750 to $10,000, each sold to a whole institution, that is a healthy start.</p>
+  </div>
+</section>
+
+<!-- TRAFFIC SOURCES -->
+<section id="sources">
+  <div class="chap-head">
+    <p class="eyebrow">2 · Visitors</p>
+    <h2>Where visitors <em>came from</em></h2>
+  </div>
+  <p class="answer">More than half arrived directly, by typing the address or clicking a link in an email. About a third found you through Google or Bing search, and that share is rising.</p>
+
+  <div class="panel">
+    <p class="panel-title">How people arrived · about 1,400 visits</p>
+    <div class="donut" data-donut="src" data-center="1,400" data-sub="visits"></div>
+  </div>
+
+  <dl class="defs">
+    <div><dt>Direct</dt><dd>Typed the address, used a bookmark, or clicked a link in an email or document. Your launch announcements show up here.</dd></div>
+    <div><dt>Google &amp; Bing search</dt><dd>Searched for something and clicked your site in the results. These visitors stay the longest, about a minute per visit.</dd></div>
+    <div><dt>Other websites</dt><dd>Clicked a link on another site. Loyola Marymount, Indiana University, Dartmouth and Point Loma all link to you.</dd></div>
+    <div><dt>AI assistants</dt><dd>Asked ChatGPT or Gemini a question and clicked the link it gave. Covered in section 4.</dd></div>
+  </dl>
+
+  <div class="panel">
+    <p class="panel-title">Visits each day</p>
+    <div class="chart-box" role="img" aria-label="Daily visits, Sept 16 to Oct 15, split into search visits and all other visits, with order days marked.">
+      <svg viewBox="0 0 760 270" id="daily"></svg>
+    </div>
+    <p class="small muted" style="margin-top:10px">The spike on Sept 17–18 is launch week. The gold markers show the days orders came in. Dips on Oct 3–4 and Oct 9–11 fall on weekends.</p>
+  </div>
+</section>
+
+<!-- CONTENT -->
+<section id="pages">
+  <div class="chap-head">
+    <p class="eyebrow">3 · Interest</p>
+    <h2>What visitors <em>looked at</em></h2>
+  </div>
+  <p class="answer">After the home page, people go straight to the instruments, the research and the pricing. The Faculty Thriving Quotient is the most-viewed single instrument.</p>
+
+  <div class="panel">
+    <p class="panel-title">Most-viewed pages · page views</p>
+    <div class="hbars" id="pagebars"></div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <p class="panel-title">Device used</p>
+      <div class="donut" data-donut="dev" data-center="85%" data-sub="computer"></div>
+      <p class="small muted" style="margin-top:12px">Most visits come from a desktop or laptop, which fits buyers researching from a campus office.</p>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Where visitors are</p>
+      <div class="donut" data-donut="geo" data-center="77%" data-sub="U.S."></div>
+      <p class="small muted" style="margin-top:12px">Almost all of the visits from Singapore and China lasted zero seconds. These are automated programs that scan every website, and we leave them out of the "real people" count.</p>
+    </div>
+  </div>
+</section>
+
+<!-- AI -->
+<section id="ai">
+  <div class="chap-head">
+    <p class="eyebrow">4 · AI referrals</p>
+    <h2>Are AI assistants <em>recommending</em> you?</h2>
+  </div>
+  <p class="answer">Yes, and earlier than expected. ChatGPT and Gemini sent 42 visits in the first month. That is 3% of all visits, about three times the average for websites today.</p>
+
+  <div class="callout">
+    <h3>Why this matters</h3>
+    <p class="small">More and more people ask an AI assistant instead of searching Google: "How do I measure whether our students are thriving?" The assistant answers in a paragraph and, if it trusts a website, links to it. In our August review of the old site, AI tools often described your ideas but rarely linked to you or knew the surveys could be purchased. Your AI visibility score was 32 out of 100.</p>
+  </div>
+
+  <div class="panel">
+    <p class="panel-title">How an AI recommendation becomes a visit</p>
+    <div class="flow" role="img" aria-label="Diagram: a person asks an AI assistant; the assistant reads the site's AI guide, question-style pages and FAQs; it answers and links to the site; the person lands on an instrument page.">
+      <svg viewBox="0 0 760 170" id="aiflow"></svg>
+    </div>
+  </div>
+
+  <div class="chap-head" style="margin-top:6px">
+    <h3>What we built into the new site for AI</h3>
+  </div>
+  <ul class="did">
+    <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--c1)"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="var(--raised)" stroke-width="1.8" fill="none"/></svg><div><b>A guide written for AI tools</b><span>A plain summary file that tells AI what the seven instruments are, what each package costs and how to order.</span></div></li>
+    <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--c1)"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="var(--raised)" stroke-width="1.8" fill="none"/></svg><div><b>Headings phrased as questions</b><span>"What does it mean to thrive in college?" matches the way people ask AI, so it can quote your answer.</span></div></li>
+    <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--c1)"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="var(--raised)" stroke-width="1.8" fill="none"/></svg><div><b>Questions and answers on every instrument</b><span>Cost, sample size, IRB and permissions, answered right on each page.</span></div></li>
+    <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--c1)"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="var(--raised)" stroke-width="1.8" fill="none"/></svg><div><b>One price list everywhere</b><span>The old site showed three different prices. AI now sees one consistent answer.</span></div></li>
+    <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--c1)"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="var(--raised)" stroke-width="1.8" fill="none"/></svg><div><b>Comparison pages</b><span>Thriving Quotient vs. NSSE, and thriving vs. engagement, retention and belonging, for people who search using other words.</span></div></li>
+    <li><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="7" fill="var(--c1)"/><path d="M4.5 8.2l2.3 2.3 4.7-4.8" stroke="var(--raised)" stroke-width="1.8" fill="none"/></svg><div><b>AI visit tracking</b><span>The site now records every visit that arrives from an AI tool, which is how we can show you this section.</span></div></li>
+  </ul>
+
+  <div class="two">
+    <div class="panel">
+      <p class="panel-title">Which AI sent visitors</p>
+      <div class="donut" data-donut="aisrc" data-center="42" data-sub="AI visits"></div>
+      <p class="small muted" style="margin-top:12px">Perplexity, Claude and Microsoft Copilot have not sent visits yet. That is a goal for next month.</p>
+    </div>
+    <div class="panel">
+      <p class="panel-title">Share of visits from AI</p>
+      <div class="chart-box" role="img" aria-label="Bar comparison: Thriving Project 3.0 percent of visits from AI, versus a typical website at 1.1 percent.">
+        <svg viewBox="0 0 360 170" id="bench" style="min-width:0"></svg>
+      </div>
+      <p class="small muted" style="margin-top:8px">Typical rate: AI referrals across 13,770 websites in early 2026, from Conductor's benchmark study.</p>
+    </div>
+  </div>
+
+  <div class="two">
+    <div class="panel">
+      <p class="panel-title">Where AI sent people</p>
+      <div class="hbars" id="ailand"></div>
+      <p class="small muted" style="margin-top:12px">Two out of three AI visitors land on a specific instrument or research page, not just the home page. That means the AI is quoting a particular answer and linking to its source.</p>
+    </div>
+    <div class="panel">
+      <p class="panel-title">AI visits each week</p>
+      <div class="chart-box" role="img" aria-label="Weekly AI visits: 8, 9, 10, 10, and 4 in the final two days.">
+        <svg viewBox="0 0 360 200" id="aiweek" style="min-width:0"></svg>
+      </div>
+      <p class="small muted" style="margin-top:8px">Steady and edging up each week since launch.</p>
+    </div>
+  </div>
+
+  <div class="callout">
+    <h3>Our honest read</h3>
+    <p class="small">The early signs are good: AI tools are finding the new site, trusting it and linking to the right pages. The numbers are still small, so one month is too soon to call it a trend. We could not yet link any of the six online sales to an AI visit, because Google's tracking misses most purchases (see next steps). In mid-November we will repeat the August test, asking the same 22 questions to five AI assistants, and give you a new score to compare against the 32 from August.</p>
+  </div>
+</section>
+
+<!-- NEXT -->
+<section id="next">
+  <div class="chap-head">
+    <p class="eyebrow">5 · Next steps</p>
+    <h2>What happens <em>next</em></h2>
+  </div>
+  <ol class="steps">
+    <li><span class="who you">For you</span><b>Bushnell University, $10,000</b><span>If not already sent, they are waiting on an invoice and an answer about the CCCU CAP discount. We are happy to prepare the invoice for you.</span></li>
+    <li><span class="who you">For you</span><b>Southern Methodist University, $4,900</b><span>Invoice request from Oct 6, if not already handled.</span></li>
+    <li><span class="who you">For you</span><b>New question from Virginia Tech</b><span>Anna Lomascolo wrote through the contact form on Oct 14.</span></li>
+    <li><span class="who us">We'll do</span><b>Connect every sale to Google Analytics</b><span>Google saw only 2 of the 6 card payments, because payment finishes on Stripe's page. Fixing this lets future reports show which source, AI included, produced each sale.</span></li>
+    <li><span class="who us">We'll do</span><b>Redirect old web addresses</b><span>About 90 visits arrived through addresses from the old Wix site, such as an old product page and PDF links, and some of these now show "page not found." We will point each one to its new page.</span></li>
+    <li><span class="who us">We'll do</span><b>Block contact-form spam</b><span>Seven junk messages came through the form this month. We will add a filter so only real questions reach your inbox.</span></li>
+    <li><span class="who us">We'll do</span><b>AI visibility re-test in mid-November</b><span>Same questions, same five AI tools, compared side by side with the August results.</span></li>
+  </ol>
+</section>
+
+<footer>
+  <p><b>Where these numbers come from.</b> Visits, pages, devices and AI referrals: the site's Google Analytics account, Sept 16 – Oct 15, 2026. Sales and invoice requests: the order notification emails from the website store. "Real people" excludes visits with no activity from automated programs abroad. AI benchmark: <a href="https://remoteworkeurope.eu/news/2026/conductor-aeo-geo-benchmarks-ai-referrals-one-percent" target="_blank" rel="noopener">Conductor 2026 AEO/GEO Benchmarks, as reported</a>.</p>
+  <p>Prepared by AvatarAgency · Michael Rivera · michael@avataragency.ai · (310) 980-9378</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+  const C = ['--c1','--c2','--c3','--c4','--c5','--c6'];
+  const DATA = {
+    pkg:[['Thriving Campus Package',10000,'$10,000'],['Expanded Report (2)',5000,'$5,000'],['Basic Report',1500,'$1,500'],['Survey Package (2)',1500,'$1,500'],['Add-ons',1200,'$1,200']],
+    inst:[['Undergraduate TQ',2,'2 · $13,100'],['Graduate TQ',2,'2 · $4,000'],['Staff TQ',1,'1 · $1,050'],['Faculty TQ',1,'1 · $1,050']],
+    src:[['Direct',815,'815 · 58%'],['Google & Bing search',456,'456 · 32%'],['Other websites',55,'55 · 4%'],['AI assistants',42,'42 · 3%'],['Back from Stripe checkout',19,'19 · 1%'],['Unknown',24,'24 · 2%']],
+    dev:[['Desktop or laptop',812,'85%'],['Phone',140,'15%'],['Tablet',1,'<1%']],
+    geo:[['United States',728,'728'],['Singapore',77,'77'],['China',47,'47'],['Canada',9,'9'],['All others',89,'89']],
+    aisrc:[['ChatGPT',37,'37 · 88%'],['Google Gemini',5,'5 · 12%']]
+  };
+  const NS='http://www.w3.org/2000/svg';
+  function el(t,a,p){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+
+  function donut(host){
+    const key=host.dataset.donut, rows=DATA[key], tot=rows.reduce((s,r)=>s+r[1],0);
+    const svg=el('svg',{viewBox:'0 0 170 170','aria-hidden':'true'});
+    const cx=85,cy=85,R=78,r=50; let a=-Math.PI/2;
+    rows.forEach((row,i)=>{
+      const frac=row[1]/tot; if(frac<=0)return;
+      const a2=a+frac*Math.PI*2;
+      if(frac>=.9999){el('circle',{cx,cy,r:(R+r)/2,fill:'none',stroke:`var(${C[i]})`,'stroke-width':R-r},svg);}
+      else{
+        const lg=a2-a>Math.PI?1:0;
+        const p=`M${cx+R*Math.cos(a)} ${cy+R*Math.sin(a)} A${R} ${R} 0 ${lg} 1 ${cx+R*Math.cos(a2)} ${cy+R*Math.sin(a2)} L${cx+r*Math.cos(a2)} ${cy+r*Math.sin(a2)} A${r} ${r} 0 ${lg} 0 ${cx+r*Math.cos(a)} ${cy+r*Math.sin(a)} Z`;
+        el('path',{d:p,fill:`var(${C[i]})`,stroke:'var(--raised)','stroke-width':1.5},svg);
+      }
+      a=a2;
+    });
+    const t1=el('text',{x:cx,y:cy+2,'text-anchor':'middle','font-size':22,style:'fill:var(--ink);font-family:var(--font-display)'},svg);t1.textContent=host.dataset.center;
+    const t2=el('text',{x:cx,y:cy+20,'text-anchor':'middle','font-size':11},svg);t2.textContent=host.dataset.sub;
+    host.appendChild(svg);
+    const ul=document.createElement('ul');ul.className='legend';
+    rows.forEach((row,i)=>{const li=document.createElement('li');li.innerHTML=`<span class="sw" style="background:var(${C[i]})"></span><span></span><span class="v"></span>`;li.children[1].textContent=row[0];li.children[2].textContent=row[2];ul.appendChild(li);});
+    host.appendChild(ul);
+  }
+  document.querySelectorAll('[data-donut]').forEach(donut);
+
+  function hbars(id,rows,max,gold){
+    const host=document.getElementById(id);
+    rows.forEach(r=>{const d=document.createElement('div');d.className='hbar';d.innerHTML=`<span></span><div class="track"><div class="fill${gold?' gold':''}"></div></div><span class="v"></span>`;d.children[0].textContent=r[0];d.querySelector('.fill').style.width=(r[1]/max*100)+'%';d.children[2].textContent=r[1].toLocaleString();host.appendChild(d);});
+  }
+  hbars('pagebars',[['Home page',683],['All instruments',265],['Thriving Knowledge Center',227],['Packages & Pricing',203],['About Dr. Schreiner',195],['Faculty TQ',172],['Staff TQ',117],['Undergraduate TQ',89],['Graduate TQ',71],['Publications',67],['Store',52],['For Researchers',45]],683);
+  hbars('ailand',[['Instrument pages',14],['Home page',10],['Knowledge Center',7],['Packages & Pricing',3],['Old site link',1],['Not recorded',7]],14,true);
+
+  // daily chart
+  (function(){
+    const svg=document.getElementById('daily');
+    const days=['9/16','9/17','9/18','9/19','9/20','9/21','9/22','9/23','9/24','9/25','9/26','9/27','9/28','9/29','9/30','10/1','10/2','10/3','10/4','10/5','10/6','10/7','10/8','10/9','10/10','10/11','10/12','10/13','10/14','10/15'];
+    const tot=[18,77,100,35,30,59,50,68,37,33,20,23,56,81,68,64,38,22,26,52,54,76,54,26,14,14,47,45,60,61];
+    const srch=[1,22,13,1,12,22,19,19,16,16,6,5,12,37,23,19,18,15,13,23,27,17,16,8,4,4,21,16,23,6];
+    const sales={'9/29':1,'10/5':1,'10/6':1,'10/8':1};
+    const L=40,T=30,W=700,H=190,max=100,bw=W/days.length;
+    const y=v=>T+H-(v/max)*H;
+    [0,25,50,75,100].forEach(v=>{el('line',{x1:L,x2:L+W,y1:y(v),y2:y(v),stroke:'var(--rule-soft)'},svg);const t=el('text',{x:L-8,y:y(v)+4,'text-anchor':'end','font-size':11},svg);t.textContent=v;});
+    days.forEach((d,i)=>{
+      const x=L+i*bw+bw*.15,w=bw*.7;
+      el('rect',{x,y:y(tot[i]),width:w,height:(tot[i]-srch[i])/max*H,fill:'var(--c3)'},svg);
+      el('rect',{x,y:y(srch[i]),width:w,height:srch[i]/max*H,fill:'var(--c1)'},svg);
+      if(i%3===0){const t=el('text',{x:x+w/2,y:T+H+16,'text-anchor':'middle','font-size':11},svg);t.textContent=d;}
+      if(sales[d]){el('circle',{cx:x+w/2,cy:y(tot[i])-9,r:4.5,fill:'var(--gold)'},svg);}
+    });
+    const lg=[['var(--c1)','Google & Bing search'],['var(--c3)','All other visits'],['var(--gold)','Order received']];
+    lg.forEach((l,i)=>{const gx=L+i*190;if(i<2)el('rect',{x:gx,y:6,width:12,height:12,fill:l[0]},svg);else el('circle',{cx:gx+6,cy:12,r:5,fill:l[0]},svg);const t=el('text',{x:gx+18,y:16,'font-size':12,style:'fill:var(--ink-soft)'},svg);t.textContent=l[1];});
+  })();
+
+  // funnel
+  (function(){
+    const svg=document.getElementById('funnel');
+    const st=[['~780','visited the site'],['110','looked at Packages & Pricing'],['47','opened the store or invoice form'],['8','universities ordered or requested an invoice']];
+    const w=[1,.62,.4,.22], bw=180, gap=13;
+    st.forEach((s,i)=>{
+      const x=i*(bw+gap), h=110*w[i]+20, yy=(130-h)/2;
+      el('rect',{x,y:yy,width:bw,height:h,rx:4,fill:i===3?'var(--gold)':'var(--c1)'},svg);
+      const t=el('text',{x:x+bw/2,y:65,'text-anchor':'middle','font-size':24,style:'fill:var(--raised);font-family:var(--font-display)'},svg);t.textContent=s[0];
+      const lines=s[1].split(' ');let a='',b='';lines.forEach(wd=>{(a.length+wd.length<26&&!b)?a+=(a?' ':'')+wd:b+=(b?' ':'')+wd;});
+      const t1=el('text',{x:x+bw/2,y:140,'text-anchor':'middle','font-size':11.5,style:'fill:var(--ink-soft)'},svg);t1.textContent=a;
+      if(b){const t2=el('text',{x:x+bw/2,y:148+6,'text-anchor':'middle','font-size':11.5,style:'fill:var(--ink-soft)'},svg);t2.textContent=b;}
+    });
+    svg.setAttribute('viewBox','0 0 760 162');
+  })();
+
+  // AI flow
+  (function(){
+    const svg=document.getElementById('aiflow');
+    const steps=[['Someone asks','“How do I measure','student thriving?”'],['The AI reads your site','AI guide, question','headings and FAQs'],['It answers and links','“The Thriving Quotient','by Dr. Schreiner…”'],['They arrive ready','on the instrument page','that fits their campus']];
+    const bw=164,gap=34;
+    el('defs',{},svg).innerHTML='<marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="var(--gold)"/></marker>';
+    steps.forEach((s,i)=>{
+      const x=i*(bw+gap)+2;
+      el('rect',{x,y:22,width:bw,height:124,rx:6,fill:'var(--paper-2)',stroke:'var(--rule)'},svg);
+      el('circle',{cx:x+22,cy:46,r:12,fill:i===3?'var(--gold)':'var(--c1)'},svg);
+      const n=el('text',{x:x+22,y:50,'text-anchor':'middle','font-size':12,style:'fill:var(--raised);font-weight:700'},svg);n.textContent=i+1;
+      const h=el('text',{x:x+12,y:82,'font-size':13.5,style:'fill:var(--ink);font-weight:600'},svg);h.textContent=s[0];
+      const a=el('text',{x:x+12,y:104,'font-size':12,style:'fill:var(--ink-soft)'},svg);a.textContent=s[1];
+      const b=el('text',{x:x+12,y:121,'font-size':12,style:'fill:var(--ink-soft)'},svg);b.textContent=s[2];
+      if(i<3)el('line',{x1:x+bw+4,y1:84,x2:x+bw+gap-5,y2:84,stroke:'var(--gold)','stroke-width':2,'marker-end':'url(#arr)'},svg);
+    });
+  })();
+
+  // benchmark
+  (function(){
+    const svg=document.getElementById('bench');
+    const rows=[['Thriving Project',3.0,'var(--c1)'],['Typical website',1.1,'var(--c6)']];
+    const L=120,W=200,max=3.5;
+    [0,1,2,3].forEach(v=>{const x=L+v/max*W;el('line',{x1:x,x2:x,y1:20,y2:130,stroke:'var(--rule-soft)'},svg);const t=el('text',{x,y:150,'text-anchor':'middle','font-size':11},svg);t.textContent=v+'%';});
+    rows.forEach((r,i)=>{const yy=34+i*50;const t=el('text',{x:L-10,y:yy+21,'text-anchor':'end','font-size':12.5,style:'fill:var(--ink-soft)'},svg);t.textContent=r[0];el('rect',{x:L,y:yy,width:r[1]/max*W,height:30,rx:2,fill:r[2]},svg);const v=el('text',{x:L+r[1]/max*W+6,y:yy+20,'font-size':13,style:'fill:var(--ink);font-weight:600'},svg);v.textContent=r[1].toFixed(1)+'%';});
+  })();
+
+  // AI weekly
+  (function(){
+    const svg=document.getElementById('aiweek');
+    const w=[['Sep 16',8],['Sep 23',9],['Sep 30',10],['Oct 7',10],['Oct 14*',4]];
+    const L=30,T=20,H=130,W=320,max=12,bw=W/w.length;
+    [0,4,8,12].forEach(v=>{const yy=T+H-v/max*H;el('line',{x1:L,x2:L+W,y1:yy,y2:yy,stroke:'var(--rule-soft)'},svg);const t=el('text',{x:L-6,y:yy+4,'text-anchor':'end','font-size':11},svg);t.textContent=v;});
+    w.forEach((r,i)=>{const x=L+i*bw+bw*.2,bwid=bw*.6,h=r[1]/max*H;el('rect',{x,y:T+H-h,width:bwid,height:h,rx:2,fill:i===4?'var(--c6)':'var(--c2)'},svg);const v=el('text',{x:x+bwid/2,y:T+H-h-6,'text-anchor':'middle','font-size':12,style:'fill:var(--ink);font-weight:600'},svg);v.textContent=r[1];const parts=r[0].split(' ');const t=el('text',{x:x+bwid/2,y:T+H+16,'text-anchor':'middle','font-size':10},svg);t.textContent=r[0];});
+    const n=el('text',{x:L+W,y:196,'text-anchor':'end','font-size':10},svg);n.textContent='Weeks start on the date shown · * two days only';
+  })();
+})();
+</script>
+
+</body>
+</html>
