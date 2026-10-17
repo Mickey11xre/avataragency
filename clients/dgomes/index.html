@@ -73,7 +73,7 @@
   .meter-top{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:12px}
   .meter-top b{color:var(--txt)}
   .meter{height:14px;border-radius:999px;background:#0c0c10;border:1px solid var(--line);overflow:hidden}
-  .meter .fill{height:100%;width:60.4%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
+  .meter .fill{height:100%;width:72.9%;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px}
   .meter-legend{display:flex;gap:22px;margin-top:14px;font-size:12px;color:var(--muted)}
   .meter-legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:7px;vertical-align:middle}
   .lg-used{background:var(--gold-2)}
@@ -191,22 +191,22 @@
       </div>
       <div class="stat">
         <div class="k">Credit Used</div>
-        <div class="v">4:50 <small>min</small></div>
-        <div class="d">$483.33 · 5 creatives delivered</div>
+        <div class="v">5:50 <small>min</small></div>
+        <div class="d">$583.33 · 6 creatives delivered</div>
       </div>
       <div class="stat remaining">
         <div class="k">Remaining Balance</div>
-        <div class="v">3:10 <small>min</small></div>
-        <div class="d">$316.67 of production credit available</div>
+        <div class="v">2:10 <small>min</small></div>
+        <div class="d">$216.67 of production credit available</div>
       </div>
     </div>
 
     <div class="meter-card">
-      <div class="meter-top"><span>Usage</span><span><b>60.4%</b> of credit used</span></div>
+      <div class="meter-top"><span>Usage</span><span><b>72.9%</b> of credit used</span></div>
       <div class="meter"><div class="fill"></div></div>
       <div class="meter-legend">
-        <span><i class="lg-used"></i>Used — 4:50 ($483.33)</span>
-        <span><i class="lg-rem"></i>Remaining — 3:10 ($316.67)</span>
+        <span><i class="lg-used"></i>Used — 5:50 ($583.33)</span>
+        <span><i class="lg-rem"></i>Remaining — 2:10 ($216.67)</span>
       </div>
     </div>
   </div>
@@ -217,7 +217,7 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Creative Delivered</h2>
-      <div class="note">Rev. 4 delivered · vertical shorts delivered</div>
+      <div class="note">Attorney Outreach Video Rev. 1 delivered</div>
     </div>
 
     <div class="table">
@@ -227,6 +227,14 @@
         <div class="col-min">Resolution</div>
         <div>Length</div>
         <div>File</div>
+      </div>
+
+      <div class="trow">
+        <div class="name">Attorney Outreach Video Rev. 1<small>New delivery — your digital twin with cinematic B-roll, for estate attorneys</small></div>
+        <div class="col-format"><span class="badge h">Long Form 16:9</span></div>
+        <div class="col-min">1920×1080</div>
+        <div>1:00</div>
+        <a class="watch" href="/clients/dgomes/brand-video-11.mp4" download="Danny_Gomes_Attorney_Outreach_Video_Rev1.mp4">↓ Download</a>
       </div>
 
       <div class="trow">
@@ -271,9 +279,9 @@
 
       <div class="tfoot">
         <div>Total Billed</div>
-        <div class="col-format">5 creatives</div>
+        <div class="col-format">6 creatives</div>
         <div class="col-min"></div>
-        <div class="tot">4:50</div>
+        <div class="tot">5:50</div>
         <div></div>
       </div>
     </div>
@@ -285,10 +293,75 @@
   <div class="wrap">
     <div class="sec-head">
       <h2>Review Your Creative</h2>
-      <div class="note">Agent Recruiting Video Rev. 4 ready for your review</div>
+      <div class="note">Attorney Outreach Video Rev. 1 ready for your review</div>
     </div>
 
     <div class="video-block">
+      <h3>Attorney Outreach Video Rev. 1</h3>
+      <div class="vmeta">New delivery · 16:9 · 1920×1080 · 1:00</div>
+      <div class="frame wide">
+        <video id="review-video-11" controls preload="metadata" playsinline
+               src="/clients/dgomes/brand-video-11.mp4"></video>
+        <script>document.getElementById('review-video-11').volume = 0.5;</script>
+      </div>
+      <div class="review-note">
+        <b>What's new:</b> your attorney outreach script, delivered by your digital twin, with cinematic
+        B-roll for each part of your message: working alongside attorneys, guiding a family through the
+        process, and the estate sale, contractor, cleanout and attorney resources you coordinate. It closes
+        on your end card with your own "Give us a call" line. Review below, or approve it as-is and it's
+        yours to publish.
+      </div>
+
+      <div class="review-box">
+        <div class="rb-head">
+          <span class="rb-title">Your Notes &amp; Approval — Attorney Outreach Video Rev. 1</span>
+          <span class="rb-saved" id="rb11-saved">Saved ✓</span>
+        </div>
+        <textarea id="rb11-comments" placeholder="Type any revision notes here — timing, music, wording, anything. Your notes save automatically in this browser as you type."></textarea>
+        <div class="rb-actions">
+          <button class="btn approve" id="rb11-approve">✓ Approve Video</button>
+          <button class="btn primary" id="rb11-send">Send Notes to Michael</button>
+        </div>
+        <div class="rb-hint">Both buttons open an email to Michael with your notes attached — just press send.</div>
+      </div>
+      <script>
+      (function () {
+        var KEY = 'dgomes_attorney_outreach_rev1_review';
+        var ta, savedEl, savedTimer;
+        function showSaved() {
+          savedEl.classList.add('show');
+          clearTimeout(savedTimer);
+          savedTimer = setTimeout(function () { savedEl.classList.remove('show'); }, 1600);
+        }
+        function openMail(subject, status) {
+          var notes = (ta.value || '').trim() || '(no written notes)';
+          window.location.href = 'mailto:michael@avataragency.ai?subject=' + encodeURIComponent(subject) +
+            '&body=' + 'Video: Attorney Outreach Video Rev. 1 (1:00)%0D%0AStatus: ' + status +
+            '%0D%0A%0D%0ANotes:%0D%0A' + encodeURIComponent(notes) +
+            '%0D%0A%0D%0A— Sent from the Danny Gomes client portal';
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+          ta = document.getElementById('rb11-comments');
+          savedEl = document.getElementById('rb11-saved');
+          var stored = null;
+          try { stored = localStorage.getItem(KEY); } catch (e) {}
+          if (stored) ta.value = stored;
+          ta.addEventListener('input', function () {
+            try { localStorage.setItem(KEY, ta.value); } catch (e) {}
+            showSaved();
+          });
+          document.getElementById('rb11-approve').addEventListener('click', function () {
+            openMail('Danny Gomes — Attorney Outreach Video Rev. 1 APPROVED', 'APPROVED ✔');
+          });
+          document.getElementById('rb11-send').addEventListener('click', function () {
+            openMail('Danny Gomes — Attorney Outreach Video Rev. 1 notes', 'Revision notes');
+          });
+        });
+      })();
+      </script>
+    </div>
+
+    <div class="video-block" style="margin-top:34px">
       <h3>Real Estate Agent Recruiting Video Rev. 4</h3>
       <div class="vmeta">New delivery · tree and plants added at the front desk · 16:9 · 1920×1080 · 1:19</div>
       <div class="frame wide">
