@@ -477,6 +477,91 @@ html.home, .home body { background: #0B0F0C; }
 .home .home-faq .faq summary { color: var(--ink); }
 .home .site-footer { position: relative; z-index: 7; margin-block-start: 0; }
 
+/* ---- The Reach: the Thriving footprint map (js/reach.js) ----------------
+   Ordinary page flow like the FAQ, between the film and the questions. It
+   sits on --paper so the FAQ's --paper-2 ground below still reads as a new
+   section. Styles carried over from the approved review page
+   /review/reach-752cdf956f/ (rev 3); only the scoping is new. */
+.home .home-reach { --reach-foot: #3E6E51; --reach-land: #E6DECB; --reach-land-us: #ECE5D4;
+  position: relative; z-index: 7; background: var(--paper); color: var(--ink);
+  padding-block: clamp(38px, 5vw, 68px); border-block-start: 1px solid var(--rule); }
+.home-reach .reach-intro { max-width: 760px; margin-bottom: 26px; }
+.home-reach .eyebrow { font: 600 13px/1.2 var(--font-ui); letter-spacing: .14em; text-transform: uppercase; color: var(--gold-text); margin: 0 0 10px; }
+.home-reach h2 { font-family: var(--font-display); font-weight: 400; color: var(--ink);
+  font-size: clamp(24px, 2.5vw, 34px); line-height: 1.15; margin: 0; text-wrap: balance; }
+.home-reach .lede { margin: 12px 0 0; color: var(--ink-soft); font-size: var(--step-0); }
+.home-reach .stats { display: flex; flex-wrap: wrap; gap: 10px 34px; margin-top: 18px; }
+.home-reach .stat b { display: block; font: 400 clamp(1.875rem, 1.5rem + 1.4vw, 2.625rem)/1 var(--font-display); color: var(--green); }
+.home-reach .stat span { font-size: 14.5px; color: var(--ink-mute); }
+.home-reach .rcard { background: var(--surface-raised); border: 1px solid var(--rule-soft); border-radius: 14px; padding: 18px 16px 14px;
+  box-shadow: 0 1px 0 rgba(28,51,39,.04), 0 10px 30px rgba(28,51,39,.06); }
+.home-reach .rcard + .rcard { margin-top: 18px; }
+.home-reach h3 { font-family: var(--font-display); font-weight: 400; font-size: 1.35rem; line-height: 1.2; margin: 0 4px 10px; }
+.home-reach svg.map { display: block; width: 100%; height: auto; }
+.home-reach .world path { stroke: var(--surface-raised); stroke-width: .6; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.home-reach .world path.land { fill: var(--reach-land); }
+.home-reach .world path.foot { fill: var(--reach-foot); }
+.home-reach .us { max-width: 880px; margin: 0 auto; aspect-ratio: 975/610; }
+.home-reach .us path { stroke: var(--surface-raised); stroke-width: 1; stroke-linejoin: round; }
+.home-reach .us path.land { fill: var(--reach-land-us); }
+.home-reach .us path.foot { fill: var(--reach-foot); }
+/* markers: a gold point with a slow ring — "reach", not a click target */
+.home-reach .mk .dot { fill: var(--gold); stroke: var(--surface-raised); stroke-width: 1.6; }
+.home-reach .mk .ring { fill: none; stroke: var(--gold); stroke-width: 1.4; opacity: 0; transform-box: fill-box; transform-origin: center; }
+@media (prefers-reduced-motion: no-preference) {
+  .home-reach .mk .ring { animation: reach-ring 3.2s ease-out infinite; animation-delay: calc(var(--i) * 260ms); }
+  @keyframes reach-ring { 0% { opacity: .75; transform: scale(1); } 80%, 100% { opacity: 0; transform: scale(2.6); } }
+  .home-reach .map .fade { animation: reach-fade .8s ease both; animation-delay: calc(var(--x) * 1ms); }
+  @keyframes reach-fade { from { opacity: 0; } to { opacity: 1; } }
+}
+.home-reach .countries { display: flex; flex-wrap: wrap; gap: 6px; margin: 12px 4px 2px; }
+.home-reach .countries button { font: inherit; font-size: 14.5px; padding: 6px 12px; border: 0; border-radius: 999px; background: #DCE7DA; color: var(--green-deep);
+  cursor: pointer; min-height: 36px; transition: background .2s, color .2s; }
+.home-reach .countries button:hover { background: #CADCC7; }
+.home-reach .countries button[aria-pressed="true"] { background: var(--reach-foot); color: #FCFAF3; }
+.home-reach .hint { margin: 6px 4px 0; font-size: 14px; color: var(--ink-mute); }
+.home-reach .wmap { position: relative; }
+/* Fixed frame: zooming changes only what is inside it. Chrome's scroll
+   anchoring can pick a shape inside the map and then scroll the page to follow
+   it as the map zooms, so the buttons slide away under the pointer. Keep the
+   map out of anchor selection (f9c8688: 26-click sweep, 0 px of movement). */
+.home-reach svg.map.world { aspect-ratio: 975/470; overflow: hidden; }
+.home-reach .wmap, .home-reach .wmap * { overflow-anchor: none; }
+.home-reach .wreset { position: absolute; top: 6px; left: 6px; font: 600 14px var(--font-ui); color: var(--green-deep); background: rgba(252,250,243,.94);
+  border: 1px solid var(--rule); border-radius: 999px; padding: 7px 14px; cursor: pointer; box-shadow: 0 4px 14px rgba(28,51,39,.12); }
+.home-reach .wreset:hover { background: #fff; }
+.home-reach .wreset[hidden] { display: none; }
+@media (max-width: 560px) { .home-reach .wreset { top: 4px; left: 4px; font-size: 12.5px; padding: 5px 10px; } }
+/* Landscape phones (punch list B34): full width made the world map taller than
+   the screen, so the country buttons sat below the fold and a zoom happened out
+   of sight. Size the maps from the viewport HEIGHT there, leaving room for the
+   heading and the first row of buttons. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .home-reach .wmap { max-width: calc((100svh - 140px) * 975 / 470); margin-inline: auto; }
+  .home-reach .us { max-width: calc((100svh - 90px) * 975 / 610); }
+}
+.home-reach .world .pt { opacity: 0; visibility: hidden; transition: opacity .3s ease, visibility 0s linear .3s; }
+.home-reach .world .pt.on { opacity: 1; visibility: visible; transition: opacity .35s ease .4s, visibility 0s; }
+.home-reach .world path.sel { stroke: var(--gold); stroke-width: 1.6; }
+.home-reach .world .lbl { fill: var(--ink); font-family: var(--font-ui); font-weight: 700; paint-order: stroke; stroke: var(--surface-raised); stroke-linejoin: round; pointer-events: none; }
+.home-reach .legend { display: flex; flex-wrap: wrap; gap: 8px 20px; margin: 10px 4px 0; font-size: 14.5px; color: var(--ink-soft); }
+.home-reach .legend i { display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 7px; vertical-align: -2px; background: var(--reach-foot); }
+.home-reach .legend .g { display: inline-block; width: 11px; height: 11px; border-radius: 50%; background: var(--gold); margin-right: 7px; vertical-align: -1px;
+  box-shadow: 0 0 0 2px var(--surface-raised), 0 0 0 3px rgba(154,123,63,.5); }
+.home-reach .all { margin-top: 18px; }
+.home-reach .all summary { cursor: pointer; font-weight: 600; color: var(--green); padding: 6px 0; }
+.home-reach .all p { margin: 8px 0 0; font-size: 15.5px; color: var(--ink-soft); max-width: 900px; }
+.home-reach .src { margin: 20px 0 0; font-size: 14px; color: var(--ink-mute); }
+/* Before the geometry arrives (or with no JavaScript / if the fetch fails) the
+   map cards would be empty frames, so they stay hidden and the list opens: the
+   section still states the whole footprint in text. */
+.home-reach .rcard { display: none; }
+.home-reach.reach--ready .rcard { display: block; }
+.home-reach:not(.reach--ready) .all summary { display: none; }
+/* Card 05's teaser into this section */
+.leaf .reach-teaser { margin: 10px 0 6px; font-size: var(--step--1); }
+.leaf .reach-teaser a { color: inherit; text-underline-offset: 3px; }
+
 /* ---- STATIC MODE: no JavaScript, or prefers-reduced-motion -------------
    The six movements stack as a plain page (v6 §11.1). The film is replaced
    by the finished-tree still as a page background. --------------------- */

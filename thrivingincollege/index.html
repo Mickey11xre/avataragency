@@ -9,7 +9,7 @@
 <link rel="canonical" href="https://thrivingincollege.org/">
 <link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=0274542a">
 <link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=4611b0ac">
-<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=92e1ba16">
+<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=2c247dda">
 <!-- No frame preload: the engine picks the right set (desktop or frames-m)
      and requests frame 0 in its first sparse pass milliseconds later. A
      static preload would fetch the desktop frame on a phone and waste it. -->
@@ -353,6 +353,9 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
         <b>20</b><span>Dissertations</span></a>
     </div>
     <p class="note">Counts are the entries published on this site to 2019; later work is being added.</p>
+    <!-- Teaser into The Reach section below the film (planned placement, 28 Sept).
+         Countries first, then states, the order of the maps. -->
+    <p class="reach-teaser"><a href="#reach">11 countries &middot; 46 states &mdash; see where</a></p>
     <!-- A button, not the faint text link it was (Stephanie, 15 Sept: "that
          should be a button, like a nice big button"). This card exists to send
          a research office to the evidence, so the way there should not be the
@@ -443,6 +446,57 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
      definition of thriving verbatim from the hero, her biography verbatim
      from /about/. Nothing here is invented. That is the whole lesson of the
      11 Sept copy restore. -->
+<!-- The Reach: the Thriving footprint map, promoted from the internal review
+     page /review/reach-752cdf956f/ (rev 3 + Hong Kong close-up, b395a06).
+     Stephanie's rules, 28–29 Sept — do not change without asking:
+     ⛔ ONE footprint color: survey and speaking locations merged. Never split
+        them, never label anything "speaking".
+     ⛔ NO school names. Laurie has not agreed to naming campuses (4 Sept).
+     ⛔ "Reached", never "administered": Hawaii, Maine, Oklahoma, Washington,
+        D.C., Finland, Lithuania and Hong Kong are in it only because she spoke
+        there. The United Kingdom counts once; Hong Kong is a marker.
+     The lists are written into the HTML (not built by script) so crawlers, no-JS
+     and a failed map fetch all still get the whole footprint as text. Source:
+     her "List of Speaking Engagements and Geographic Location of TQ surveys",
+     8 Sept 2026. If the data changes, change these lists and the counts too. -->
+<section class="home-reach" id="reach" aria-labelledby="reach-h" data-assets="/thrivingincollege/assets/">
+  <div class="shell">
+    <div class="reach-intro">
+      <p class="eyebrow">The Reach</p>
+      <h2 id="reach-h">Where has the Thriving Project reached?</h2>
+      <p class="lede">The Thriving Project&rsquo;s research and teaching have reached campuses in 11 countries beyond the United States, and in 46 states and Washington, D.C.</p>
+      <div class="stats">
+        <div class="stat"><b>11</b><span>countries beyond the U.S.</span></div>
+        <div class="stat"><b>46</b><span>U.S. states, plus Washington, D.C.</span></div>
+      </div>
+    </div>
+
+    <div class="rcard">
+      <h3>Around the world</h3>
+      <div class="wmap">
+        <svg class="map world" id="reach-world" role="img" aria-labelledby="reach-world-t"><title id="reach-world-t">World map showing the Thriving footprint</title></svg>
+        <button class="wreset" id="reach-reset" type="button" hidden>&larr; Whole world</button>
+      </div>
+      <div class="legend" aria-hidden="true"><span><i></i>Thriving footprint</span><span><span class="g"></span>A country in the footprint</span></div>
+      <div class="countries" id="reach-countries" role="group" aria-label="Zoom the map to a country"></div>
+      <p class="hint">Select a country to zoom in.</p>
+    </div>
+
+    <div class="rcard">
+      <h3>Across the United States</h3>
+      <svg class="map us" id="reach-us" viewBox="0 0 975 610" role="img" aria-labelledby="reach-us-t"><title id="reach-us-t">Map of the United States showing the Thriving footprint</title></svg>
+      <div class="legend" aria-hidden="true"><span><i></i>Thriving footprint</span></div>
+    </div>
+
+    <details class="all" open>
+      <summary>View the footprint as a list</summary>
+      <p>Beyond the United States (11): Australia, Brazil, Canada, Finland, Hong Kong, Lithuania, Philippines, Qatar, South Africa, South Korea, United Kingdom.</p>
+      <p>United States (46 states and Washington, D.C.): Alabama, Alaska, Arizona, Arkansas, California, Colorado, Connecticut, Delaware, Florida, Georgia, Hawaii, Idaho, Illinois, Indiana, Iowa, Kansas, Kentucky, Louisiana, Maine, Maryland, Massachusetts, Michigan, Minnesota, Mississippi, Missouri, Nebraska, Nevada, New Jersey, New Mexico, New York, North Carolina, North Dakota, Ohio, Oklahoma, Oregon, Pennsylvania, Rhode Island, South Carolina, South Dakota, Tennessee, Texas, Utah, Virginia, Washington, West Virginia, Wisconsin.</p>
+    </details>
+    <p class="src">Source: Dr. Laurie A. Schreiner, September 2026.</p>
+  </div>
+</section>
+
 <section class="home-faq" aria-labelledby="faq-h">
   <div class="shell">
     <!-- "Common questions" was chosen because the block is tagged for AI
@@ -513,6 +567,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
 </dialog>
 
 <script src="/thrivingincollege/js/home.js?v=423c279e" defer></script>
+<script src="/thrivingincollege/js/reach.js?v=05cb3537" defer></script>
 <!-- Mobile navigation drawer (nav spec 2026-09-03 §3, corrected 09-04).
      Injected by build.js before </body> on every page that has a .hamburger.
      Progressive enhancement: the same links exist in the page nav + footer. -->
