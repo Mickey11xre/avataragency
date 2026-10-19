@@ -249,6 +249,10 @@
   .logo-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:940px;margin:0 auto;align-items:start}
   .logo-pair .logo-plate{max-width:none;margin:0;padding:20px}
   @media(max-width:760px){.logo-pair{grid-template-columns:1fr;max-width:560px}}
+  /* Three versions side by side (Version 3 added 2026-10-19) */
+  .logo-pair:has(> div:nth-child(3)){grid-template-columns:repeat(3,minmax(0,1fr));max-width:var(--max)}
+  .logo-pair:has(> div:nth-child(3)) .logo-plate{padding:14px}
+  @media(max-width:860px){.logo-pair:has(> div:nth-child(3)){grid-template-columns:1fr;max-width:560px}}
   /* Website color mood: the exact five colors from the intake form's "Fresh & Airy"
      palette (clients/harrison/intake, PALETTES), on a light card so the pale tones
      read the way they will on a real page rather than against this near-black one. */
@@ -424,6 +428,16 @@
             <a class="watch" href="/clients/aharrison/art/logo-v8-1-full.webp" download="Tales_Of_Lady_Belle_Logo_Light.webp">&darr; Download</a>
           </div>
         </div>
+        <div>
+          <div class="logo-plate">
+            <img src="/clients/aharrison/art/logo-v9-3.webp" alt="Tales of Lady Belle logo, version three — the golden light from version two, with the nine fruits now evenly spaced like the numbers on a clock and in the order the books will be published: the apple for Kindness at twelve o'clock, then lemon, pineapple, banana, cherries, pear, orange, grapes and strawberry. Lady Belle wears her red collar and Kindness tag, above the words Tales of Lady Belle, Fruit of the Spirit" width="1024" height="1024" loading="lazy" decoding="async">
+          </div>
+          <div class="vcap" style="text-align:center">
+            <h4>Version 3 &mdash; the light</h4>
+            <div class="vmeta">1024&times;1024 &middot; shown on white</div>
+            <a class="watch" href="/clients/aharrison/art/logo-v9-3-full.webp" download="Tales_Of_Lady_Belle_Logo_Version_3.webp">&darr; Download</a>
+          </div>
+        </div>
       </div>
 
       <div class="review-note">
@@ -439,6 +453,10 @@
         <b>Version two</b> takes the ribbon away and replaces it with warm light coming from
         behind her, so the fruits sit in the glow rather than on a ribbon. Belle herself stays
         white in both.
+        <br><br>
+        <b>Version 3</b> keeps the light from version two and puts the fruits the way you asked
+        on our October 15 call: evenly spaced like the numbers on a clock, in the order the
+        books will be published, with the apple for Kindness at twelve o&rsquo;clock.
         <br><br>
         <b>What to look at:</b> the fruits are the ring, so their choice and order are worth a
         careful look &mdash; whether these are the nine you want, and whether any of them
