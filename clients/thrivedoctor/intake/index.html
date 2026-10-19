@@ -46,6 +46,18 @@
   .pill{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
   .save-state{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s;white-space:nowrap}
   .save-state.show{opacity:1}
+  .savebar.warn{border-color:#d9822b;background:rgba(58,33,10,.95)}
+  .savebar.warn .txt{display:inline;color:#f0b866}
+  .savebar.warn .txt b{color:#ffc98a}
+  .savebar.warn button{background:linear-gradient(90deg,#d9822b,#f0a95c);color:#2a1704}
+  @media(max-width:600px){.savebar.warn .txt{display:inline;max-width:44vw;white-space:normal;line-height:1.3}}
+  .recover{margin:0 0 20px;border:1px solid #d9822b;border-left:3px solid #d9822b;border-radius:10px;
+    padding:15px 18px;background:rgba(217,130,43,.10);font-size:14px;color:var(--txt);line-height:1.5}
+  .recover b{color:#f0b866}
+  .recover button{margin-top:12px;padding:9px 17px;border-radius:999px;border:none;cursor:pointer;
+    font-family:inherit;font-weight:600;font-size:13px;
+    background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+  .recover button:hover{filter:brightness(1.08)}
 
   /* ---- Hero ---- */
   .hero{padding:54px 0 34px;border-bottom:1px solid var(--line)}
@@ -584,45 +596,51 @@
   }
 
   var fields = [].slice.call(document.querySelectorAll('[data-q]'));
-  var saveEl = document.getElementById('saveState');
-  var saveTimer = null, flashTimer = null, dirty = false;
+  var saveEl  = document.getElementById('saveState');
+  var saveBar = document.querySelector('.savebar');
+  var saveTxt = document.getElementById('saveTxt');
+  var btnSave = document.getElementById('btnSave');
+  var saveTimer = null, flashTimer = null, retryTimer = null;
+  var dirty = false, unsaved = false, saving = false, retryStep = 0;
+  var RETRY_MS = [2000, 5000, 15000, 30000, 60000];
 
   function flashSaved() {
     saveEl.classList.add('show');
     clearTimeout(flashTimer);
     flashTimer = setTimeout(function(){ saveEl.classList.remove('show'); }, 1600);
   }
+  function showSaved() {
+    unsaved = false; retryStep = 0;
+    clearTimeout(retryTimer);
+    saveBar.classList.remove('warn');
+    saveTxt.textContent = 'Saves automatically';
+    flashSaved();
+  }
+  function showUnsaved(msg) {
+    unsaved = true;
+    saveBar.classList.add('warn');
+    saveTxt.innerHTML = msg || '<b>Not saved yet.</b> Retrying — please keep this page open.';
+  }
 
-  // ---- load any previous answers ----
-  fetch('/api/review?doc=' + encodeURIComponent(DOC))
-    .then(function(r){ return r.json(); })
-    .then(function(state){
-      var items = (state && state.items) || {};
-      fields.forEach(function(el){
-        var v = items[el.id] && items[el.id].comment;
-        if (typeof v === 'string' && v) el.value = v;
-      });
-      if (state && state.done) markDone(true);
-      restorePals();
-    })
-    .catch(function(){ /* offline / first visit — local draft still protects them */ });
-
-  // ---- local mirror so nothing is lost if the network hiccups ----
-  try {
-    var local = JSON.parse(localStorage.getItem(DOC) || '{}');
-    fields.forEach(function(el){
-      if (!el.value && typeof local[el.id] === 'string') el.value = local[el.id];
-    });
-    restorePals();
-  } catch (e) {}
+  // ---- local mirror: always holds the newest text the client actually typed ----
+  function saveLocal() {
+    var d = { ts: Date.now(), items: {} };
+    fields.forEach(function(el){ d.items[el.id] = el.value; });
+    try { localStorage.setItem(DOC, JSON.stringify(d)); } catch (e) {}
+  }
+  function readLocal() {
+    try {
+      var raw = JSON.parse(localStorage.getItem(DOC) || 'null');
+      if (!raw) return null;
+      if (raw.items) return raw;        // current shape
+      return { ts: 0, items: raw };     // legacy flat shape
+    } catch (e) { return null; }
+  }
+  var localDraft = readLocal();
 
   function collect() {
-    var items = {}, local = {};
-    fields.forEach(function(el){
-      items[el.id] = { comment: el.value };
-      local[el.id] = el.value;
-    });
-    try { localStorage.setItem(DOC, JSON.stringify(local)); } catch (e) {}
+    var items = {};
+    fields.forEach(function(el){ items[el.id] = { comment: el.value }; });
     return items;
   }
 
@@ -636,43 +654,123 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(body)
-    }).then(function(r){ return r.json(); });
+    }).then(function(r){
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function(j){
+      if (j && j.error) throw new Error(j.error);
+      return j;
+    });
+  }
+
+  // ---- autosave with visible failure + backoff retry ----
+  function attempt() {
+    if (saving) return;
+    saving = true;
+    save(false).then(function(){
+      saving = false; dirty = false; showSaved();
+    }).catch(function(){
+      saving = false;
+      showUnsaved();
+      var wait = RETRY_MS[Math.min(retryStep, RETRY_MS.length - 1)];
+      retryStep++;
+      clearTimeout(retryTimer);
+      retryTimer = setTimeout(attempt, wait);
+    });
   }
 
   fields.forEach(function(el){
     el.addEventListener('input', function(){
       dirty = true;
+      saveLocal();
       clearTimeout(saveTimer);
-      saveTimer = setTimeout(function(){
-        save(false).then(function(){ dirty = false; flashSaved(); }).catch(function(){});
-      }, 900);
+      saveTimer = setTimeout(attempt, 900);
     });
   });
 
-  // last-chance save when leaving
-  window.addEventListener('beforeunload', function(){ if (dirty) { collect(); } });
+  // never lose work to a closed tab
+  window.addEventListener('beforeunload', function(e){
+    if (dirty) saveLocal();
+    if (dirty || unsaved) { e.preventDefault(); e.returnValue = ''; return ''; }
+  });
+  window.addEventListener('online', function(){
+    if (dirty || unsaved) { retryStep = 0; clearTimeout(retryTimer); attempt(); }
+  });
+
+  // ---- load: server first, then offer back anything the server never received ----
+  function offerRecovery(serverItems) {
+    if (!localDraft || !localDraft.items) return;
+    var missing = fields.filter(function(el){
+      var local  = localDraft.items[el.id];
+      var server = (serverItems[el.id] && serverItems[el.id].comment) || '';
+      return typeof local === 'string' && local.trim() && local !== server;
+    });
+    if (!missing.length) return;
+
+    var box = document.createElement('div');
+    box.className = 'recover';
+    box.innerHTML = '<b>We found answers saved on this device that we never received.</b><br>' +
+      'This can happen if your connection dropped while you were typing. Nothing is lost — ' +
+      'press the button below and we will put them back.' +
+      '<br><button type="button">Restore my answers</button>';
+    box.querySelector('button').addEventListener('click', function(){
+      missing.forEach(function(el){ el.value = localDraft.items[el.id]; });
+      restorePals();
+      if (box.parentNode) box.parentNode.removeChild(box);
+      dirty = true; retryStep = 0;
+      attempt();
+    });
+    var wrap = document.querySelector('section .wrap');
+    if (wrap) wrap.insertBefore(box, wrap.firstChild);
+  }
+
+  fetch('/api/review?doc=' + encodeURIComponent(DOC))
+    .then(function(r){ return r.json(); })
+    .then(function(state){
+      var items = (state && state.items) || {};
+      fields.forEach(function(el){
+        var v = items[el.id] && items[el.id].comment;
+        if (typeof v === 'string' && v) el.value = v;
+      });
+      if (state && state.done) markDone(true);
+      restorePals();
+      offerRecovery(items);
+    })
+    .catch(function(){
+      // server unreachable — fall back entirely to this device's draft
+      if (localDraft && localDraft.items) {
+        fields.forEach(function(el){
+          var v = localDraft.items[el.id];
+          if (typeof v === 'string' && v && !el.value) el.value = v;
+        });
+        restorePals();
+      }
+      showUnsaved('<b>Offline.</b> Your answers are safe on this device.');
+    });
 
   // ---- explicit Save Progress button ----
-  var btnSave = document.getElementById('btnSave');
-  var saveTxt = document.getElementById('saveTxt');
   btnSave.addEventListener('click', function(){
     btnSave.disabled = true;
     btnSave.textContent = 'Saving…';
-    clearTimeout(saveTimer);
+    clearTimeout(saveTimer); clearTimeout(retryTimer);
+    saving = false;
     save(false).then(function(){
       dirty = false;
+      showSaved();
       btnSave.textContent = 'Saved ✓';
       saveTxt.innerHTML = '<b>Saved.</b> You can close this page.';
-      flashSaved();
       setTimeout(function(){
         btnSave.disabled = false;
         btnSave.textContent = 'Save Progress';
-        saveTxt.textContent = 'Saves automatically';
+        if (!unsaved) saveTxt.textContent = 'Saves automatically';
       }, 3500);
     }).catch(function(){
       btnSave.disabled = false;
       btnSave.textContent = 'Try again';
-      saveTxt.textContent = 'Save failed — check connection';
+      showUnsaved('<b>Save failed.</b> Check your connection — we will keep retrying.');
+      retryStep = 0;
+      clearTimeout(retryTimer);
+      retryTimer = setTimeout(attempt, RETRY_MS[0]);
     });
   });
 
@@ -684,8 +782,13 @@
   }
   document.getElementById('btnDone').addEventListener('click', function(){
     var b = this; b.disabled = true; b.textContent = 'Sending…';
-    save(true).then(function(){ markDone(false); })
-      .catch(function(){ b.disabled = false; b.textContent = 'Try again'; });
+    clearTimeout(saveTimer); clearTimeout(retryTimer);
+    saving = false;
+    save(true).then(function(){ dirty = false; showSaved(); markDone(false); })
+      .catch(function(){
+        b.disabled = false; b.textContent = 'Try again';
+        showUnsaved('<b>Could not send.</b> Check your connection and try again.');
+      });
   });
 
   // ---- uploads (same API as the coaching intake) ----
