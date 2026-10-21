@@ -32,6 +32,10 @@ export async function onRequest(context) {
     await env.AISO_KV.put(key, String(n + 1), { expirationTtl: 3700 });
   }
 
+  // "Read to me" on Kindness Story Time starts the session with {mode: "story", page}: her first words begin the story.
+  let story = null;
+  try { const b = await request.clone().json(); if (b && b.mode === "story") story = { page: Math.min(4, Math.max(1, parseInt(b.page, 10) || 1)) }; } catch (e) {}
+
   const cookies = request.headers.get('Cookie') || '';
   const known = cookies.match(new RegExp('(?:^|;\\s*)' + VISITOR_COOKIE + '=([a-f0-9]{32})(?:;|$)'));
   const visitorId = known ? known[1] : crypto.randomUUID().replace(/-/g, '');
@@ -39,7 +43,7 @@ export async function onRequest(context) {
   const seen = /(?:^|;\s*)aa_belle_seen=1(?:;|$)/.test(cookies);
   const returning = Boolean(known && seen);
   const firstName = cleanName((context.data && context.data.viewer && context.data.viewer.name) || '');
-  const connection = { channelType: 'webrtc', externalClientId: visitorId, initialSpeech: returning ? welcomeBack(firstName) : firstVisit(firstName) };
+  const connection = { channelType: 'webrtc', externalClientId: visitorId, initialSpeech: story ? storyStart(story.page) : returning ? welcomeBack(firstName) : firstVisit(firstName) };
   if (firstName) {
     connection.externalClientProfile = { name: firstName, context: 'Visitor talking with Lady Belle, a storybook puppy character' + (returning ? ', who has talked with her before.' : '.') };
   }
@@ -70,6 +74,12 @@ function firstVisit(name) {
   return "Speak first, immediately, before the visitor says anything, in English. Greet them warmly and briefly" +
     (name ? " by their first name, " + name : "") + ", as Lady Belle the little Snoodle puppy, happy they came to talk " +
     "with you, then ask what their favorite thing to do is. Under ten seconds, gentle, cheerful and child-safe.";
+}
+
+function storyStart(page) {
+  return "Speak first, immediately, in English. The child just pressed Read to me. Say happily, in one short sentence, that you are " +
+    "going to read them your story, Lady Belle Finds a Forever Home. Then call start_story, then show_page with page " + page +
+    ", and read that page exactly as written. Keep going page by page. Gentle, warm and child-safe.";
 }
 
 function welcomeBack(name) {

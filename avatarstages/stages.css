@@ -228,3 +228,13 @@
 .p-svc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 20px; margin-top: 2px; }
 .rm .sv-play .ring { animation: none; }
 .rm .ava-dot { animation: none; }
+
+/* ═════════ Lady Belle · Kindness Story Time (prototype, 20 Oct) ═════════ */
+.lb-story { display: grid; gap: 12px; }
+.lb-art { margin: 0; position: relative; border-radius: 14px; aspect-ratio: 16 / 9; display: grid; align-content: center; gap: 8px; padding: 18px 20px;
+  background: linear-gradient(160deg, #3a3226, #241f18); border: 1px dashed rgba(228,201,122,.4); overflow: hidden; }
+.lb-art span { font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--gold-light); }
+.lb-art figcaption { font-family: var(--f-serif, "Cormorant Garamond", Georgia, serif); font-style: italic; font-size: 16px; line-height: 1.35; color: #e9dfcc; }
+.lb-text p { margin: 0 0 8px; font-size: 16px; line-height: 1.55; color: var(--on-dark); }
+.lb-ctrls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
+.lb-ctrls .btn[disabled] { opacity: .35; pointer-events: none; }

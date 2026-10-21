@@ -46,7 +46,26 @@
     heart: '<svg viewBox="0 0 24 24"><path d="M12 19.5s-7.5-4.4-7.5-9.6A4.1 4.1 0 0 1 12 7.4a4.1 4.1 0 0 1 7.5 2.5c0 5.2-7.5 9.6-7.5 9.6z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
     mail: '<svg viewBox="0 0 24 24"><rect x="3.5" y="5.5" width="17" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
     arrow: '<svg><use href="#i-arrow"/></svg>',
+    star: '<svg viewBox="0 0 24 24"><path d="M12 3.8l2.4 5 5.4.7-4 3.7 1 5.4L12 16l-4.8 2.6 1-5.4-4-3.7 5.4-.7z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
   };
+  /* ═════════ Kindness Story Time (PROTOTYPE, Michael 20 Oct): Lady Belle reads Book One to the child ═════════
+     Pages 1-4 of Adele Harrison's manuscript (Book_One_Kindness_V-8-26-2026.docx), text VERBATIM. The pictures are
+     not drawn yet: each page shows Adele's illustration note as a placeholder. Lady Belle turns the pages herself with
+     show_page (the page appears, and the tool hands her that page's exact text); the child can stop her at any time.
+     ⚠️ Prototype only: the real version serves the book from a paid, server-side endpoint, never from this file. */
+  var STORY = { title: "Lady Belle Finds a Forever Home", pages: [
+    { text: ["The little white dog watched the caretakers going up and down the hall all morning. She wagged her tail excitedly when she saw the caretakers getting closer to her kennel. “Oh, I hope one stops at my door!”, thought the little dog."],
+      art: "A bank of kennels in an animal shelter, with dogs of many breeds in black and white. In one kennel near the front, a little white dog, in color, sits watching expectantly. In front of the kennels, the legs and feet of several people go in different directions." },
+    { text: ["You see, when a caretaker stopped at your kennel it meant one of two things. If he went back up the hall to the door with the window, you were going for a walk. If he turned the opposite direction toward the big solid door, it meant you were going to the “visit” room and might get adopted.",
+      "At first, she jumped up every time someone came near her kennel, but as the morning wore on and no caretaker stopped, she just lay waiting for the day to go by."],
+      art: "The same bank of kennels. The little white dog, in color, lies down facing out, front paws crossed." },
+    { text: ["“What’s this?”, asked the little dog. A caretaker DID stop at her kennel, reached in, and clipped a leash to her collar. “Maybe this is it!” the dog thought. “Maybe this is the day I’ll be adopted to a new home rather than just go for a walk!”"],
+      art: "The same kennel. Lady Belle lies at the door, looking up as black-and-white hands clip a blue lead to her red collar." },
+    { text: ["“Turn toward the solid door! Turn toward the solid door!, begged the little white dog. The caretaker heard happy little barks."],
+      art: "Lady Belle leaving the kennel. The caretaker is seen from the knees down, in jeans and running shoes." },
+  ] };
+  var NPAGES = STORY.pages.length;
+  var pageText = function (n) { return STORY.pages[n - 1].text.join("\n\n"); };
   // From the approved /ladybelle page ("about the books") and the series bible: no invented titles, dates or prices.
   var SERIES = [
     "Tales of Lady Belle: Fruit of the Spirit is a Christian children's picture-book series by Adele Harrison.",
@@ -68,8 +87,9 @@
   ];
 
   /* ═════════ State + rendering ═════════ */
-  var S = { mode: "home", hist: [], review: null, list: { name: "", email: "", adult: false } };
-  var TITLES = { home: "Hi, friend!", books: "The book series", values: "Fruit of the Spirit", list: "Join our mailing list", listDone: "Demo" };
+  var S = { mode: "home", hist: [], review: null, list: { name: "", email: "", adult: false },
+    story: { page: 1, reading: false, paused: false, pendingRead: false } };
+  var TITLES = { home: "Hi, friend!", story: "Kindness Story Time", storyEnd: "Kindness Story Time", books: "The book series", values: "Fruit of the Spirit", list: "Join our mailing list", listDone: "Demo" };
   var emit = function (text, speak) {
     if (!instance || !instance.sendCommand) return;
     try { instance.sendCommand({ type: "send_message", data: { text: "[Booking panel] " + text, role: "system", trigger_response: !!speak } }); } catch (e) {}
@@ -108,9 +128,26 @@
   var VIEWS = {
     home: function () {
       return '<p class="p-sub">' + (CFG.LIVE ? "Tap an option below — or press Talk to Lady Belle to talk with me." : "Tap an option below. Lady Belle's live conversation is coming soon.") + '</p><div class="p-actions">' +
+        act("story", IC.star, "Kindness Story Time", "Lady Belle reads her story to you") +
         act("books", IC.book, "Tales of Lady Belle: Fruit of the Spirit Book Series", "Meet the books") +
         act("values", IC.heart, "Fruit of the Spirit Values", "Love, joy, peace and more") +
         act("list", IC.mail, "Join Our Mailing List", "For grown-ups: book news") + "</div>";
+    },
+    story: function () {
+      var n = S.story.page, p = STORY.pages[n - 1], st = S.story, live = liveState !== "idle";
+      var ctrl = st.reading && live
+        ? (st.paused ? '<button class="btn btn-gold btn-sm" type="button" data-act="story-continue">Keep reading ' + IC.arrow + "</button>"
+          : '<button class="btn btn-gold btn-sm" type="button" data-act="story-question">✋ I have a question</button>')
+        : '<button class="btn btn-gold btn-sm" type="button" data-act="story-read">' + (n === 1 ? "Read to me" : "Read from here") + " " + IC.arrow + "</button>";
+      return '<div class="lb-story"><p class="p-label">' + esc(STORY.title) + " · Page " + n + " of " + NPAGES + "</p>" +
+        '<figure class="lb-art"><span>Illustration coming soon</span><figcaption>' + esc(p.art) + "</figcaption></figure>" +
+        '<div class="lb-text">' + p.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</div>" +
+        '<div class="lb-ctrls"><button class="btn btn-ghost btn-sm" type="button" data-act="story-prev"' + (n === 1 ? " disabled" : "") + '>‹ Back</button>' + ctrl +
+        '<button class="btn btn-ghost btn-sm" type="button" data-act="story-next"' + (n === NPAGES ? " disabled" : "") + ">Next ›</button></div></div>";
+    },
+    storyEnd: function () {
+      return '<div class="p-done"><span class="tick">★</span><h4>The end — for now!</h4><p>That\'s the first four pages of ' + esc(STORY.title) + '. The rest of the story is coming soon.</p>' +
+        '<div class="p-rv-acts"><button class="btn btn-gold btn-sm" type="button" data-act="story-again">Read it again ' + IC.arrow + '</button><button class="btn btn-ghost btn-sm" type="button" data-act="home">Back to Lady Belle</button></div></div>';
     },
     books: function () {
       return '<div class="p-card"><div><h4>Tales of Lady Belle: Fruit of the Spirit</h4>' + SERIES.map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("") + "</div></div>" +
@@ -189,7 +226,15 @@
   body.addEventListener("click", function (e) {
     var t = e.target.closest("[data-act]"); if (!t) return;
     var a = t.getAttribute("data-act");
-    if (a === "books") { TOOLS_IMPL.show_book_series({}); emit("The visitor opened the book series.", false); }
+    if (a === "story") { S.story.page = S.story.page || 1; go("story"); emit("The visitor opened Kindness Story Time, on page " + S.story.page + ".", false); track("ladybelle_panel", { action: "story_open" }); }
+    else if (a === "story-prev" || a === "story-next") {
+      var to = Math.min(NPAGES, Math.max(1, S.story.page + (a === "story-next" ? 1 : -1))); S.story.page = to; render({});
+      if (S.story.reading && liveState !== "idle") { S.story.paused = false; render({}); emit("[Story time] The visitor turned to page " + to + ". Call show_page with page " + to + " and read it from the beginning.", true); }
+    }
+    else if (a === "story-read" || a === "story-again") { if (a === "story-again") { S.story.page = 1; go("story", { replace: true }); } readStory(); }
+    else if (a === "story-question") { askQuestion(); }
+    else if (a === "story-continue") { S.story.paused = false; render({}); emit("[Story time] The child pressed 'Keep reading'. Call get_story_position, then read that page again from its very first word and carry on with the story.", true); }
+    else if (a === "books") { TOOLS_IMPL.show_book_series({}); emit("The visitor opened the book series.", false); }
     else if (a === "values") { TOOLS_IMPL.show_fruit_of_the_spirit({}); emit("The visitor opened the Fruit of the Spirit values.", false); }
     else if (a === "list") { go("list", { focus: true }); emit("A grown-up opened the mailing-list form.", false); track("ladybelle_panel", { action: "list_open" }); }
     else if (a === "home") { S.hist = []; go("home", { replace: true }); }
@@ -201,6 +246,25 @@
     var p = b.split("."); S[p[0]][p[1]] = e.target.type === "checkbox" ? e.target.checked : e.target.value;
   });
 
+  /* ═════════ Story time: start, pause for a question ═════════ */
+  function readStory() {
+    track("ladybelle_story", { action: "read", page: S.story.page });
+    if (liveState === "live" && instance) {
+      S.story.reading = true; S.story.paused = false; render({});
+      emit("[Story time] The visitor pressed 'Read to me'. Read your story now, starting at page " + S.story.page + ": call show_page with page " + S.story.page + " and read it, then keep going page by page.", true);
+      return;
+    }
+    if (liveState === "connecting") return;
+    S.story.pendingRead = true; S.story.reading = true; S.story.paused = false; render({});
+    startLive();                                     // the token request carries mode "story": she opens by starting the story
+  }
+  function askQuestion() {
+    if (!instance) return;
+    try { instance.sendCommand({ type: "cancel" }); } catch (e) {}   // the SDK's own "stop talking" command
+    S.story.paused = true; render({}); track("ladybelle_story", { action: "question", page: S.story.page });
+    emit("[Story time] The child pressed 'I have a question'. Stop reading right away. In one short, warm sentence, ask what their question is, then listen. Answer gently and simply. Then ask if they are ready to keep reading; when they are, call get_story_position and read that page again from its first word.", true);
+  }
+
   /* ═════════ Her DEMO tools (for the NV2 agent; the NV1 placeholder has none) ═════════ */
   function stillNeeded() {
     var n = [];
@@ -209,7 +273,28 @@
     if (!S.list.adult) n.push("the grown-up checkbox");
     return n;
   }
+  var READ_RULE = "Read this page to the child EXACTLY as written, word for word, as a warm, expressive storyteller: never add, skip or change a word, and never read the page number or describe the picture. When you finish the page, take a short breath, then call show_page with the next page; after the last page, call finish_story. If the child interrupts, stop, answer them gently, then call get_story_position and read that page again from the beginning.";
   var TOOLS_IMPL = {
+    start_story: function () {
+      S.story.reading = true; S.story.paused = false; S.story.pendingRead = false;
+      if (S.mode !== "story") go("story"); else render({});
+      track("ladybelle_story", { action: "start" });
+      return { ok: true, title: STORY.title, pages: NPAGES, start_at: S.story.page, note: "Call show_page with page " + S.story.page + " now, then read it." };
+    },
+    show_page: function (a) {
+      var n = Math.round(+(a && a.page)); if (!(n >= 1 && n <= NPAGES)) return { ok: false, error: "There are " + NPAGES + " pages in this story so far.", pages: NPAGES };
+      S.story.page = n; S.story.reading = true; S.story.paused = false;
+      if (S.mode !== "story") go("story"); else render({});
+      track("ladybelle_story", { action: "page", page: n });
+      return { ok: true, page: n, of: NPAGES, text: pageText(n), next: n < NPAGES ? n + 1 : null, rule: READ_RULE };
+    },
+    get_story_position: function () {
+      return { ok: true, page: S.story.page, of: NPAGES, text: pageText(S.story.page), next: S.story.page < NPAGES ? S.story.page + 1 : null, rule: READ_RULE };
+    },
+    finish_story: function () {
+      S.story.reading = false; S.story.paused = false; go("storyEnd"); track("ladybelle_story", { action: "finish" });
+      return { ok: true, note: "Say, warmly, that this is the end for now and the rest of the story is coming soon. Then ask the child one gentle question, such as who was kind in the story." };
+    },
     show_book_series: function () { go("books"); track("ladybelle_panel", { action: "books" }); return { ok: true, about: SERIES.join(" "), note: "The book series is on the panel. Say one or two warm sentences about it." }; },
     show_fruit_of_the_spirit: function (a) {
       if (S.mode !== "values") go("values"); track("ladybelle_panel", { action: "values" });
@@ -241,6 +326,10 @@
   };
   var str = function (d) { return { type: "string", description: d }; };
   var TOOLS = [
+    { name: "start_story", description: "Start Kindness Story Time: open your storybook, Lady Belle Finds a Forever Home, on the panel beside you. Call it when the child wants you to read your story, then call show_page.", inputSchema: { type: "object", properties: {} } },
+    { name: "show_page", description: "Turn to a page of your storybook on the panel and get that page's exact words. Read the returned text EXACTLY, word for word, then call show_page with the next page (or finish_story after the last page).", inputSchema: { type: "object", properties: { page: { type: "integer", description: "Page number, starting at 1" } }, required: ["page"] } },
+    { name: "get_story_position", description: "Get the page you are on and its exact words. Call it after answering a child's question, then read that page again from the beginning.", inputSchema: { type: "object", properties: {} } },
+    { name: "finish_story", description: "Close the story after the last page.", inputSchema: { type: "object", properties: {} } },
     { name: "show_book_series", description: "Show the Tales of Lady Belle: Fruit of the Spirit book series on the panel beside you, when someone asks about your books.", inputSchema: { type: "object", properties: {} } },
     { name: "show_fruit_of_the_spirit", description: "Show the nine Fruit of the Spirit values on the panel beside you. Optionally highlight one.", inputSchema: { type: "object", properties: { fruit: { type: "string", enum: FRUITS.map(function (f) { return f.id; }) } } } },
     { name: "show_mailing_list_form", description: "Open the mailing-list form for GROWN-UPS (parents, grandparents, teachers) who want news about new books. Never for a child.", inputSchema: { type: "object", properties: {} } },
@@ -334,6 +423,7 @@
     if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
     avStage.classList.add("live-ready"); say_("", 0); setTalk("End conversation", true); pinBg();
     rememberSeen();
+    if (S.mode === "story") render({});               // story controls switch to "I have a question"
     setTimeout(function () { if (liveState === "live") vid.pause(); }, 900);
     track("ladybelle_live_session", {});
   }
@@ -344,6 +434,7 @@
     setTimeout(finish, ms + 120);
   }
   function endedState(msg, now) {
+    S.story.reading = false; S.story.paused = false; S.story.pendingRead = false; if (S.mode === "story") setTimeout(function () { render({}); }, 0);
     instance = null; revealed = false; liveState = "idle";
     [capTimer, readyTimer].forEach(function (t) { if (t) clearTimeout(t); }); capTimer = readyTimer = null;
     if (visible) playQuiet();
@@ -377,7 +468,7 @@
     try {
       installBelleTools();
       await loadSdk(); pinBg();
-      var res = await fetch(CFG.TOKEN_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: "{}" });
+      var res = await fetch(CFG.TOKEN_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(S.story.pendingRead ? { mode: "story", page: S.story.page } : {}) });
       if (!res.ok) { var err = new Error("token " + res.status); err.status = res.status; throw err; }
       var data = await res.json(); var sdk = window.napsterCompanionApiSDK || window.NapsterCompanionApiSdk;
       if (!sdk) throw new Error("sdk missing");
