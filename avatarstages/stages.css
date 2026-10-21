@@ -238,3 +238,20 @@
 .lb-text p { margin: 0 0 8px; font-size: 16px; line-height: 1.55; color: var(--on-dark); }
 .lb-ctrls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: space-between; }
 .lb-ctrls .btn[disabled] { opacity: .35; pointer-events: none; }
+
+/* Kindness Story Time: "Turn the page" glows once Lady Belle has finished a page and is waiting for the child. */
+.lb-turn-ready { animation: lbTurn 1.6s ease-in-out infinite; }
+@keyframes lbTurn { 0%, 100% { box-shadow: 0 0 0 0 rgba(212, 175, 95, .55); } 50% { box-shadow: 0 0 0 8px rgba(212, 175, 95, 0); } }
+.rm .lb-turn-ready { animation: none; }
+
+/* Kindness Story Time page turn: the leaf hinges on its left edge and folds right-to-left over the new page. */
+.lb-book { position: relative; perspective: 1600px; }
+.lb-page { display: grid; gap: 12px; }
+.lb-leaf { position: absolute; inset: 0; z-index: 3; pointer-events: none; transform-origin: left center; backface-visibility: hidden; background: linear-gradient(180deg, #151413, #0e0d0c); border-radius: 14px; box-shadow: 0 10px 30px rgba(0,0,0,.45); }
+.lb-leaf::after { content: ""; position: absolute; inset: 0; border-radius: inherit; background: linear-gradient(90deg, rgba(0,0,0,0) 40%, rgba(0,0,0,.55)); opacity: 0; animation: inherit; animation-name: lbLeafShade; }
+.lb-leaf.is-fwd { animation: lbLeafFwd .9s cubic-bezier(.45,.05,.3,1) forwards; }
+.lb-leaf.is-back { animation: lbLeafBack .9s cubic-bezier(.45,.05,.3,1) forwards; }
+@keyframes lbLeafFwd { from { transform: rotateY(0deg); } to { transform: rotateY(-180deg); } }
+@keyframes lbLeafBack { from { transform: rotateY(-180deg); } to { transform: rotateY(0deg); } }
+@keyframes lbLeafShade { 0% { opacity: 0; } 45% { opacity: 1; } 100% { opacity: 0; } }
+.rm .lb-leaf { display: none; }

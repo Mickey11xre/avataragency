@@ -66,6 +66,9 @@
   ] };
   var NPAGES = STORY.pages.length;
   var pageText = function (n) { return STORY.pages[n - 1].text.join("\n\n"); };
+  // What she READS: the same words, with "..." between sentences so her voice takes a breath (Michael, 21 Oct: she read too fast).
+  var readText = function (n) { return pageText(n).replace(/([.!?][”"]?)\s+(?=[“"A-Z])/g, "$1 ... "); };
+  var PAGE_PAUSE_MS = 2500;   // a turned page shows its picture this long before she starts reading it
   // From the approved /ladybelle page ("about the books") and the series bible: no invented titles, dates or prices.
   var SERIES = [
     "Tales of Lady Belle: Fruit of the Spirit is a Christian children's picture-book series by Adele Harrison.",
@@ -88,7 +91,7 @@
 
   /* ═════════ State + rendering ═════════ */
   var S = { mode: "home", hist: [], review: null, list: { name: "", email: "", adult: false },
-    story: { page: 1, reading: false, paused: false, pendingRead: false } };
+    story: { page: 1, reading: false, paused: false, pendingRead: false, waiting: false } };
   var TITLES = { home: "Hi, friend!", story: "Kindness Story Time", storyEnd: "Kindness Story Time", books: "The book series", values: "Fruit of the Spirit", list: "Join our mailing list", listDone: "Demo" };
   var emit = function (text, speak) {
     if (!instance || !instance.sendCommand) return;
@@ -134,16 +137,19 @@
         act("list", IC.mail, "Join Our Mailing List", "For grown-ups: book news") + "</div>";
     },
     story: function () {
-      var n = S.story.page, p = STORY.pages[n - 1], st = S.story, live = liveState !== "idle";
-      var ctrl = st.reading && live
+      var n = S.story.page, p = STORY.pages[n - 1], st = S.story, live = liveState !== "idle", reading = st.reading && live;
+      var ctrl = reading
         ? (st.paused ? '<button class="btn btn-gold btn-sm" type="button" data-act="story-continue">Keep reading ' + IC.arrow + "</button>"
-          : '<button class="btn btn-gold btn-sm" type="button" data-act="story-question">✋ I have a question</button>')
+          : '<button class="btn btn-ghost btn-sm" type="button" data-act="story-question">✋ I have a question</button>')
         : '<button class="btn btn-gold btn-sm" type="button" data-act="story-read">' + (n === 1 ? "Read to me" : "Read from here") + " " + IC.arrow + "</button>";
+      // While she reads, Next becomes "Turn the page" - it glows once she has finished the page and is waiting for the child.
+      var next = reading
+        ? '<button class="btn btn-sm ' + (st.waiting ? "btn-gold lb-turn-ready" : "btn-ghost") + '" type="button" data-act="story-next"' + (n === NPAGES ? " hidden" : "") + ">Turn the page ›</button>"
+        : '<button class="btn btn-ghost btn-sm" type="button" data-act="story-next"' + (n === NPAGES ? " disabled" : "") + ">Next ›</button>";
       return '<div class="lb-story"><p class="p-label">' + esc(STORY.title) + " · Page " + n + " of " + NPAGES + "</p>" +
-        '<figure class="lb-art"><span>Illustration coming soon</span><figcaption>' + esc(p.art) + "</figcaption></figure>" +
-        '<div class="lb-text">' + p.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</div>" +
-        '<div class="lb-ctrls"><button class="btn btn-ghost btn-sm" type="button" data-act="story-prev"' + (n === 1 ? " disabled" : "") + '>‹ Back</button>' + ctrl +
-        '<button class="btn btn-ghost btn-sm" type="button" data-act="story-next"' + (n === NPAGES ? " disabled" : "") + ">Next ›</button></div></div>";
+        '<div class="lb-book"><div class="lb-page"><figure class="lb-art"><span>Illustration coming soon</span><figcaption>' + esc(p.art) + "</figcaption></figure>" +
+        '<div class="lb-text">' + p.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</div></div></div>" +
+        '<div class="lb-ctrls"><button class="btn btn-ghost btn-sm" type="button" data-act="story-prev"' + (n === 1 ? " disabled" : "") + '>‹ Back</button>' + ctrl + next + "</div></div>";
     },
     storyEnd: function () {
       return '<div class="p-done"><span class="tick">★</span><h4>The end — for now!</h4><p>That\'s the first four pages of ' + esc(STORY.title) + '. The rest of the story is coming soon.</p>' +
@@ -228,12 +234,12 @@
     var a = t.getAttribute("data-act");
     if (a === "story") { S.story.page = S.story.page || 1; go("story"); emit("The visitor opened Kindness Story Time, on page " + S.story.page + ".", false); track("ladybelle_panel", { action: "story_open" }); }
     else if (a === "story-prev" || a === "story-next") {
-      var to = Math.min(NPAGES, Math.max(1, S.story.page + (a === "story-next" ? 1 : -1))); S.story.page = to; render({});
-      if (S.story.reading && liveState !== "idle") { S.story.paused = false; render({}); emit("[Story time] The visitor turned to page " + to + ". Call show_page with page " + to + " and read it from the beginning.", true); }
+      var to = Math.min(NPAGES, Math.max(1, S.story.page + (a === "story-next" ? 1 : -1))); S.story.waiting = false; showStoryPage(to);
+      if (S.story.reading && liveState !== "idle") turnPage(to);
     }
     else if (a === "story-read" || a === "story-again") { if (a === "story-again") { S.story.page = 1; go("story", { replace: true }); } readStory(); }
     else if (a === "story-question") { askQuestion(); }
-    else if (a === "story-continue") { S.story.paused = false; render({}); emit("[Story time] The child pressed 'Keep reading'. Call get_story_position, then read that page again from its very first word and carry on with the story.", true); }
+    else if (a === "story-continue") { S.story.paused = false; render({}); emit("[Story time] The child pressed 'Keep reading'. Call get_story_position, then read that page again, slowly, from its very first word. Then call page_finished and wait for the child to turn the page.", true); }
     else if (a === "books") { TOOLS_IMPL.show_book_series({}); emit("The visitor opened the book series.", false); }
     else if (a === "values") { TOOLS_IMPL.show_fruit_of_the_spirit({}); emit("The visitor opened the Fruit of the Spirit values.", false); }
     else if (a === "list") { go("list", { focus: true }); emit("A grown-up opened the mailing-list form.", false); track("ladybelle_panel", { action: "list_open" }); }
@@ -251,17 +257,47 @@
     track("ladybelle_story", { action: "read", page: S.story.page });
     if (liveState === "live" && instance) {
       S.story.reading = true; S.story.paused = false; render({});
-      emit("[Story time] The visitor pressed 'Read to me'. Read your story now, starting at page " + S.story.page + ": call show_page with page " + S.story.page + " and read it, then keep going page by page.", true);
+      emit("[Story time] The visitor pressed 'Read to me'. Read your story now, starting at page " + S.story.page + ": call show_page with page " + S.story.page + ", read that one page slowly, then call page_finished and wait for the child to turn the page.", true);
       return;
     }
     if (liveState === "connecting") return;
     S.story.pendingRead = true; S.story.reading = true; S.story.paused = false; render({});
     startLive();                                     // the token request carries mode "story": she opens by starting the story
   }
+  /* Page turn (Michael, 21 Oct): the old page lifts at its right edge and folds over to the left, revealing the new
+     one underneath. Going back, the earlier page folds in from the left. Off with reduced motion. */
+  function showStoryPage(to) {
+    var from = S.story.page, old = S.mode === "story" && $(".lb-page", body);
+    var oldHtml = old ? old.innerHTML : null;
+    S.story.page = to;
+    if (S.mode !== "story") { go("story"); return; }
+    render({});
+    if (!oldHtml || from === to || document.documentElement.classList.contains("rm")) return;
+    var book = $(".lb-book", body), cur = $(".lb-page", body); if (!book || !cur) return;
+    var fwd = to > from, leaf = document.createElement("div");
+    leaf.className = "lb-page lb-leaf " + (fwd ? "is-fwd" : "is-back");
+    leaf.innerHTML = fwd ? oldHtml : cur.innerHTML;          // forward: the old page turns away; back: the earlier page turns in
+    leaf.setAttribute("aria-hidden", "true");
+    book.appendChild(leaf);
+    leaf.addEventListener("animationend", function () { leaf.remove(); });
+    setTimeout(function () { leaf.remove(); }, 1500);
+  }
+  // The child turned the page: the new picture shows first, she is quiet for a moment, then she reads it.
+  var turnTimer = null;
+  function turnPage(to) {
+    try { instance && instance.sendCommand({ type: "cancel" }); } catch (e) {}   // if she was still talking, she stops
+    S.story.paused = false; S.story.waiting = false; render({}); track("ladybelle_story", { action: "turn", page: to });
+    clearTimeout(turnTimer);
+    turnTimer = setTimeout(function () {
+      if (liveState === "idle" || !S.story.reading || S.story.page !== to) return;
+      emit("[Story time] The child turned the page to page " + to + " and has looked at the picture. Call show_page with page " + to + " and read it, slowly, from its first word.", true);
+    }, PAGE_PAUSE_MS);
+  }
   function askQuestion() {
     if (!instance) return;
     try { instance.sendCommand({ type: "cancel" }); } catch (e) {}   // the SDK's own "stop talking" command
-    S.story.paused = true; render({}); track("ladybelle_story", { action: "question", page: S.story.page });
+    clearTimeout(turnTimer);
+    S.story.paused = true; S.story.waiting = false; render({}); track("ladybelle_story", { action: "question", page: S.story.page });
     emit("[Story time] The child pressed 'I have a question'. Stop reading right away. In one short, warm sentence, ask what their question is, then listen. Answer gently and simply. Then ask if they are ready to keep reading; when they are, call get_story_position and read that page again from its first word.", true);
   }
 
@@ -273,7 +309,10 @@
     if (!S.list.adult) n.push("the grown-up checkbox");
     return n;
   }
-  var READ_RULE = "Read this page to the child EXACTLY as written, word for word, as a warm, expressive storyteller: never add, skip or change a word, and never read the page number or describe the picture. When you finish the page, take a short breath, then call show_page with the next page; after the last page, call finish_story. If the child interrupts, stop, answer them gently, then call get_story_position and read that page again from the beginning.";
+  var READ_RULE = "Read ONLY this one page to the child, EXACTLY as written, word for word: never add, skip or change a word, and never read the page number or describe the picture. " +
+    "Read it SLOWLY, like a bedtime story - much slower than you normally talk - with a little pause at every comma and a full, quiet breath wherever you see '...' (the dots are pauses, never words). " +
+    "When you finish the page, STOP reading and call page_finished, then do what it says. Never read the next page until the child turns the page. " +
+    "If the child interrupts, stop, answer them gently, then call get_story_position and read that page again from the beginning.";
   var TOOLS_IMPL = {
     start_story: function () {
       S.story.reading = true; S.story.paused = false; S.story.pendingRead = false;
@@ -283,13 +322,19 @@
     },
     show_page: function (a) {
       var n = Math.round(+(a && a.page)); if (!(n >= 1 && n <= NPAGES)) return { ok: false, error: "There are " + NPAGES + " pages in this story so far.", pages: NPAGES };
-      S.story.page = n; S.story.reading = true; S.story.paused = false;
-      if (S.mode !== "story") go("story"); else render({});
+      S.story.reading = true; S.story.paused = false; S.story.waiting = false; clearTimeout(turnTimer);
+      if (S.story.page !== n) showStoryPage(n); else if (S.mode !== "story") go("story"); else render({});
       track("ladybelle_story", { action: "page", page: n });
-      return { ok: true, page: n, of: NPAGES, text: pageText(n), next: n < NPAGES ? n + 1 : null, rule: READ_RULE };
+      return { ok: true, page: n, of: NPAGES, text: readText(n), last_page: n === NPAGES, rule: READ_RULE };
     },
     get_story_position: function () {
-      return { ok: true, page: S.story.page, of: NPAGES, text: pageText(S.story.page), next: S.story.page < NPAGES ? S.story.page + 1 : null, rule: READ_RULE };
+      return { ok: true, page: S.story.page, of: NPAGES, text: readText(S.story.page), last_page: S.story.page === NPAGES, rule: READ_RULE };
+    },
+    page_finished: function () {
+      if (S.story.page >= NPAGES) return { ok: true, last_page: true, note: "That was the last page. Call finish_story now." };
+      S.story.waiting = true; render({}); track("ladybelle_story", { action: "wait", page: S.story.page });
+      return { ok: true, note: "The 'Turn the page' button is now glowing on the panel. Say warmly, in a few words, 'Ready? Turn the page!' Then STOP and wait quietly. " +
+        "When a message says the child turned the page, read the new page. If the child SAYS to turn the page (or 'next', or 'keep going'), call show_page with page " + (S.story.page + 1) + " yourself." };
     },
     finish_story: function () {
       S.story.reading = false; S.story.paused = false; go("storyEnd"); track("ladybelle_story", { action: "finish" });
@@ -327,7 +372,8 @@
   var str = function (d) { return { type: "string", description: d }; };
   var TOOLS = [
     { name: "start_story", description: "Start Kindness Story Time: open your storybook, Lady Belle Finds a Forever Home, on the panel beside you. Call it when the child wants you to read your story, then call show_page.", inputSchema: { type: "object", properties: {} } },
-    { name: "show_page", description: "Turn to a page of your storybook on the panel and get that page's exact words. Read the returned text EXACTLY, word for word, then call show_page with the next page (or finish_story after the last page).", inputSchema: { type: "object", properties: { page: { type: "integer", description: "Page number, starting at 1" } }, required: ["page"] } },
+    { name: "show_page", description: "Turn to a page of your storybook on the panel and get that page's exact words. Read the returned text EXACTLY, word for word and slowly, then call page_finished. Never read on to the next page by yourself.", inputSchema: { type: "object", properties: { page: { type: "integer", description: "Page number, starting at 1" } }, required: ["page"] } },
+    { name: "page_finished", description: "Call it as soon as you finish reading a page. It lights up the 'Turn the page' button for the child and tells you what to say; then wait for the child to turn the page.", inputSchema: { type: "object", properties: {} } },
     { name: "get_story_position", description: "Get the page you are on and its exact words. Call it after answering a child's question, then read that page again from the beginning.", inputSchema: { type: "object", properties: {} } },
     { name: "finish_story", description: "Close the story after the last page.", inputSchema: { type: "object", properties: {} } },
     { name: "show_book_series", description: "Show the Tales of Lady Belle: Fruit of the Spirit book series on the panel beside you, when someone asks about your books.", inputSchema: { type: "object", properties: {} } },
@@ -434,7 +480,7 @@
     setTimeout(finish, ms + 120);
   }
   function endedState(msg, now) {
-    S.story.reading = false; S.story.paused = false; S.story.pendingRead = false; if (S.mode === "story") setTimeout(function () { render({}); }, 0);
+    S.story.reading = false; S.story.paused = false; S.story.pendingRead = false; S.story.waiting = false; clearTimeout(turnTimer); if (S.mode === "story") setTimeout(function () { render({}); }, 0);
     instance = null; revealed = false; liveState = "idle";
     [capTimer, readyTimer].forEach(function (t) { if (t) clearTimeout(t); }); capTimer = readyTimer = null;
     if (visible) playQuiet();

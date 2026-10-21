@@ -84,7 +84,7 @@ function firstVisit(name) {
 function storyStart(page) {
   return "Speak first, immediately, in English. The child just pressed Read to me. Say happily, in one short sentence, that you are " +
     "going to read them your story, Lady Belle Finds a Forever Home. Then call start_story, then show_page with page " + page +
-    ", and read that page exactly as written. Keep going page by page. Gentle, warm and child-safe.";
+    ", and read that one page exactly as written, slowly, like a bedtime story. Then call page_finished and wait for the child to turn the page. Gentle, warm and child-safe.";
 }
 
 function welcomeBack(name) {
