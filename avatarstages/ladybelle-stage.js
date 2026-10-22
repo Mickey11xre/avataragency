@@ -148,7 +148,9 @@
         : '<button class="btn btn-ghost btn-sm" type="button" data-act="story-next"' + (n === NPAGES ? " disabled" : "") + ">Next ›</button>";
       return '<div class="lb-story"><p class="p-label">' + esc(STORY.title) + " · Page " + n + " of " + NPAGES + "</p>" +
         '<div class="lb-book"><div class="lb-page"><figure class="lb-art"><span>Illustration coming soon</span><figcaption>' + esc(p.art) + "</figcaption></figure>" +
-        '<div class="lb-text">' + p.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</div></div></div>" +
+        // The page's words are NOT shown on the panel (Michael, 21 Oct): Lady Belle reads them and live captions under her
+        // carry them on the stage. Kept in the page for screen readers only. Same as talesofladybelle 683f988.
+        '<div class="lb-text lb-sr">' + p.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</div></div></div>" +
         '<div class="lb-ctrls"><button class="btn btn-ghost btn-sm" type="button" data-act="story-prev"' + (n === 1 ? " disabled" : "") + '>‹ Back</button>' + ctrl + next + "</div></div>";
     },
     storyEnd: function () {
@@ -179,9 +181,11 @@
     panel.classList.toggle("is-home", S.mode === "home");
     backBtn.hidden = S.mode === "home";
     flag.hidden = !(S.mode === "list" || S.mode === "listDone");   // "Demo" on the mailing-list views
+    var samePageView = S.mode === "story" && body.classList.contains("is-story");   // turning pages: no fade-in, the page-flip is the transition
+    body.classList.toggle("is-story", S.mode === "story");   // Story Time: the buttons stay in view, only the page text scrolls
     body.innerHTML = (VIEWS[S.mode] || VIEWS.home)();
     body.scrollTop = 0;
-    body.style.animation = "none"; void body.offsetWidth; body.style.animation = "";
+    if (!samePageView) { body.style.animation = "none"; void body.offsetWidth; body.style.animation = ""; }
     var form = $("form", body);
     if (form) form.addEventListener("submit", function (e) { e.preventDefault(); TOOLS_IMPL.submit_mailing_list({}); });
     if (opts.focus) { var f = $("input, button", body); if (f) f.focus({ preventScroll: true }); }
@@ -438,6 +442,64 @@
     new IntersectionObserver(function (es) { visible = es[0].isIntersecting; if (liveState !== "idle") return; if (visible) playQuiet(); else { vid.pause(); if (hearing) stopHearing(); } }, { threshold: 0.25 }).observe(stage);
   }
 
+  /* ═════════ Live captions in Story Time (Michael, 21 Oct): her words under her, like the intro captions ═════════
+     Ported from talesofladybelle stage (683f988). The SDK hands every data-channel message to onData: her words arrive as
+     message_received {role "assistant", action "delta" | "completed", content}; talk_state_changed {state "started" |
+     "ended" | "canceled"} brackets her speech. Text streams in FASTER than her voice plays, so captions advance one
+     sentence at a time on a reading clock that starts when she starts talking and never shows a half-received sentence. */
+  var LC = { buf: "", done: false, chunks: [], idx: -1, talking: false, timer: null, clear: null, since: 0 };
+  var LC_CPS = 11;            // characters per second while she reads a story slowly (tune after a live listen)
+  function lcOn() { return S.mode === "story" || S.mode === "storyEnd"; }
+  function lcChunks(text) {
+    var clean = String(text || "").replace(/\s*(\.\.\.|…)\s*/g, " ").replace(/\s+/g, " ").trim();
+    var out = [];
+    // A sentence ends at . ! ? (plus a closing quote) only when a NEW sentence starts after it.
+    clean.split(/(?<=[.!?]["”’]?)\s+(?=["“‘A-Z])/).forEach(function (s) {
+      s = s.trim(); if (!s) return;
+      while (s.length > 95) {
+        var cut = s.lastIndexOf(",", 95); if (cut < 40) cut = s.lastIndexOf(" ", 95); if (cut < 1) cut = 95;
+        out.push(s.slice(0, cut + 1).trim()); s = s.slice(cut + 1).trim();
+      }
+      if (s) out.push(s);
+    });
+    return out;
+  }
+  function lcReset() { clearTimeout(LC.timer); clearTimeout(LC.clear); LC.buf = ""; LC.done = false; LC.chunks = []; LC.idx = -1; LC.talking = false; avStage.classList.remove("story-caps"); caption([]); }
+  function lcShow() { if (!lcOn() || LC.idx < 0 || !LC.chunks[LC.idx]) return; avStage.classList.add("story-caps"); caption([LC.chunks[LC.idx]]); }
+  function lcTick() {
+    clearTimeout(LC.timer);
+    if (!LC.talking) return;
+    LC.timer = setTimeout(function () {
+      if (LC.idx < 0) { if (LC.chunks.length) { LC.idx = 0; LC.since = Date.now(); lcShow(); } }
+      else {
+        var cur = LC.chunks[LC.idx] || "", need = Math.max(1400, cur.length / LC_CPS * 1000 + 450);
+        var nextReady = LC.idx < LC.chunks.length - 1 && (LC.done || LC.idx < LC.chunks.length - 2);
+        if (nextReady && Date.now() - LC.since >= need) { LC.idx++; LC.since = Date.now(); lcShow(); }
+      }
+      lcTick();
+    }, 200);
+  }
+  function lcData(e) {
+    if (!e || !e.event) return;
+    if (e.event === "message_received") {
+      var m = e.data && e.data.message; if (!m || m.role !== "assistant" || typeof m.content !== "string") return;
+      if (LC.done) { LC.buf = ""; LC.done = false; LC.chunks = []; LC.idx = -1; }
+      if (m.action === "completed") { LC.buf = m.content; LC.done = true; }
+      else LC.buf = m.content.indexOf(LC.buf) === 0 ? m.content : LC.buf + m.content;
+      LC.chunks = lcChunks(LC.buf);
+      if (LC.idx >= 0) lcShow();
+    } else if (e.event === "talk_state_changed") {
+      var st = e.data && e.data.state;
+      if (st === "started") { clearTimeout(LC.clear); LC.talking = true; LC.since = Date.now(); if (LC.chunks.length && LC.idx < 0) { LC.idx = 0; lcShow(); } lcTick(); }
+      else if (st === "ended" || st === "canceled") {
+        LC.talking = false; clearTimeout(LC.timer);
+        if (st === "ended" && LC.done && LC.idx < LC.chunks.length - 1) { LC.idx = LC.chunks.length - 1; lcShow(); }
+        LC.clear = setTimeout(lcReset, st === "canceled" ? 200 : 1600);
+      }
+    }
+  }
+  if (/[?&]debug\b/.test(location.search)) window.__lbCaptionTest = lcData;   // test hook (?debug only)
+
   /* ═════════ "Talk to Lady Belle": the live conversation ═════════ */
   var sdkLoading = null, capTimer = null, readyTimer = null, revealed = false;
   var htmlBg = getComputedStyle(document.documentElement).backgroundColor, bodyBg = getComputedStyle(document.body).backgroundColor;
@@ -481,7 +543,7 @@
   }
   function endedState(msg, now) {
     S.story.reading = false; S.story.paused = false; S.story.pendingRead = false; S.story.waiting = false; clearTimeout(turnTimer); if (S.mode === "story") setTimeout(function () { render({}); }, 0);
-    instance = null; revealed = false; liveState = "idle";
+    instance = null; revealed = false; liveState = "idle"; lcReset();
     [capTimer, readyTimer].forEach(function (t) { if (t) clearTimeout(t); }); capTimer = readyTimer = null;
     if (visible) playQuiet();
     avStage.classList.remove("live", "live-ready"); setTalk("Talk to Lady Belle", false);
@@ -524,6 +586,7 @@
         mountContainer: "#ladybelle-mount", avatarStyle: { view: "rectangle", borderWidth: "0px", borderStyle: "none" }, debug: /[?&]debug\b/.test(location.search),
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: false }, pictureInPicture: { enabled: true } },
         onAvatarReady: armReveal, onDestroy: function () { if (instance) endedState(""); },
+        onData: function (e) { try { lcData(e); } catch (err) {} },
       });
       instance.showAvatar(); pinBg();
       setTimeout(function () { if (instance) armReveal(); }, 3000);

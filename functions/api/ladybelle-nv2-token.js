@@ -6,7 +6,7 @@
 //
 // Required env var: NAPSTER_API_KEY. Optional binding: AISO_KV (per-IP rate limit).
 
-const AGENT_ID = '4bb4c9da-2959-4c0c-9949-aee16f379c93'; // livebrand-ops/lady-belle/nv2-real/.agent-id
+const AGENT_ID = 'dc267939-f623-44a7-90c1-8686a9541382'; // livebrand-ops/lady-belle/nv2-real/.agent-id - Emmaline twin 7f944410 (10-21). Rollback: agent 4bb4c9da / twin 876cbc62
 const ALLOWED_ORIGINS = ['https://avataragency.ai', 'https://www.avataragency.ai'];
 const PER_IP_PER_HOUR = 8;
 const VISITOR_COOKIE = 'aa_belle_vid';

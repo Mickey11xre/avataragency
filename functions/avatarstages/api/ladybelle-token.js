@@ -11,7 +11,7 @@
 // livebrand-ops/lady-belle/nv2-real/build-ladybelle-agent.ps1 on her NV2 twin 876cbc62: language en at birth, no KB,
 // FAQ collection, web search off, nearField + 0.8/500/800, temperature 0.6.
 
-const AGENT_ID = '4bb4c9da-2959-4c0c-9949-aee16f379c93'; // livebrand-ops/lady-belle/nv2-real/.agent-id
+const AGENT_ID = 'dc267939-f623-44a7-90c1-8686a9541382'; // livebrand-ops/lady-belle/nv2-real/.agent-id - Emmaline twin 7f944410 (10-21). Rollback: agent 4bb4c9da / twin 876cbc62
 const ALLOWED_ORIGINS = ['https://avataragency.ai', 'https://www.avataragency.ai'];
 const PER_IP_PER_HOUR = 8;
 const VISITOR_COOKIE = 'aa_belle_vid';
