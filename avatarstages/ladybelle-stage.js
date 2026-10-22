@@ -339,7 +339,7 @@
     page_finished: function () {
       if (S.story.page >= NPAGES) return { ok: true, last_page: true, note: "That was the last page. Call finish_story now." };
       S.story.waiting = true; render({}); track("ladybelle_story", { action: "wait", page: S.story.page });
-      return { ok: true, note: "The 'Turn the page' button is now glowing on the panel. Say warmly, in a few words, 'Ready? Turn the page!' Then STOP and wait quietly. " +
+      return { ok: true, note: "The 'Turn the page' button is now glowing on the panel. Ask softly and sweetly, in a gentle, happy voice (never loud, never like a command): 'Are you ready to turn the page?' Then STOP and wait quietly. " +
         "When a message says the child turned the page, read the new page. If the child SAYS to turn the page (or 'next', or 'keep going'), call show_page with page " + (S.story.page + 1) + " yourself." };
     },
     finish_story: function () {
