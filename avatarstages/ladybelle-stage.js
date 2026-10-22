@@ -146,7 +146,7 @@
       // While she reads, Next becomes "Turn the page" - it glows once she has finished the page and is waiting for the child.
       var next = reading
         ? '<button class="btn btn-sm ' + (st.waiting ? "btn-gold lb-turn-ready" : "btn-ghost") + '" type="button" data-act="story-next"' + (n === NPAGES ? " hidden" : "") + ">Turn the page ›</button>"
-        : '<button class="btn btn-ghost btn-sm" type="button" data-act="story-next"' + (n === NPAGES ? " disabled" : "") + ">Next ›</button>";
+        : '<button class="btn btn-ghost btn-sm" type="button" data-act="story-next"' + (n === NPAGES ? " disabled" : "") + ">Turn the page ›</button>";
       return '<div class="lb-story"><p class="p-label">' + esc(STORY.title) + " · Page " + n + " of " + NPAGES + "</p>" +
         '<div class="lb-book"><div class="lb-page"><figure class="lb-art"><span>Illustration coming soon</span><figcaption>' + esc(p.art) + "</figcaption></figure>" +
         // The page's words are NOT shown on the panel (Michael, 21 Oct): Lady Belle reads them and live captions under her
@@ -240,8 +240,10 @@
     var a = t.getAttribute("data-act");
     if (a === "story") { S.story.page = S.story.page || 1; go("story"); emit("The visitor opened Kindness Story Time, on page " + S.story.page + ".", false); track("ladybelle_panel", { action: "story_open" }); }
     else if (a === "story-prev" || a === "story-next") {
-      var to = Math.min(NPAGES, Math.max(1, S.story.page + (a === "story-next" ? 1 : -1))); S.story.waiting = false; showStoryPage(to);
-      if (S.story.reading && liveState !== "idle") turnPage(to);
+      var to = Math.min(NPAGES, Math.max(1, S.story.page + (a === "story-next" ? 1 : -1))); S.story.waiting = false; S.story.waitPending = false; showStoryPage(to);
+      // While she is connected, a page turn always asks her to read the new page, even if the panel had dropped out of
+      // reading mode (Michael, 10-21: she "just stood there" after Next).
+      if (liveState !== "idle" && instance) { S.story.reading = true; S.story.paused = false; turnPage(to); }
     }
     else if (a === "story-read" || a === "story-again") { if (a === "story-again") { S.story.page = 1; go("story", { replace: true }); } readStory(); }
     else if (a === "story-question") { askQuestion(); }
@@ -292,7 +294,7 @@
   var turnTimer = null;
   function turnPage(to) {
     try { instance && instance.sendCommand({ type: "cancel" }); } catch (e) {}   // if she was still talking, she stops
-    S.story.paused = false; S.story.waiting = false; render({}); track("ladybelle_story", { action: "turn", page: to });
+    S.story.paused = false; S.story.waiting = false; S.story.waitPending = false; render({}); track("ladybelle_story", { action: "turn", page: to });
     clearTimeout(turnTimer);
     turnTimer = setTimeout(function () {
       if (liveState === "idle" || !S.story.reading || S.story.page !== to) return;
@@ -303,7 +305,7 @@
     if (!instance) return;
     try { instance.sendCommand({ type: "cancel" }); } catch (e) {}   // the SDK's own "stop talking" command
     clearTimeout(turnTimer);
-    S.story.paused = true; S.story.waiting = false; render({}); track("ladybelle_story", { action: "question", page: S.story.page });
+    S.story.paused = true; S.story.waiting = false; S.story.waitPending = false; render({}); track("ladybelle_story", { action: "question", page: S.story.page });
     emit("[Story time] The child pressed 'I have a question'. Stop reading right away. In one short, warm sentence, ask what their question is, then listen. Answer gently and simply. Then ask if they are ready to keep reading; when they are, call get_story_position and read that page again from its first word.", true);
   }
 
@@ -328,7 +330,7 @@
     },
     show_page: function (a) {
       var n = Math.round(+(a && a.page)); if (!(n >= 1 && n <= NPAGES)) return { ok: false, error: "There are " + NPAGES + " pages in this story so far.", pages: NPAGES };
-      S.story.reading = true; S.story.paused = false; S.story.waiting = false; clearTimeout(turnTimer);
+      S.story.reading = true; S.story.paused = false; S.story.waiting = false; S.story.waitPending = false; clearTimeout(turnTimer);
       if (S.story.page !== n) showStoryPage(n); else if (S.mode !== "story") go("story"); else render({});
       track("ladybelle_story", { action: "page", page: n });
       return { ok: true, page: n, of: NPAGES, text: readText(n), last_page: n === NPAGES, rule: READ_RULE };
@@ -338,7 +340,7 @@
     },
     page_finished: function () {
       if (S.story.page >= NPAGES) return { ok: true, last_page: true, note: "That was the last page. Call finish_story now." };
-      S.story.waiting = true; render({}); track("ladybelle_story", { action: "wait", page: S.story.page });
+      S.story.waitPending = true; armWait(); track("ladybelle_story", { action: "wait", page: S.story.page });
       return { ok: true, note: "The 'Turn the page' button is now glowing on the panel. Ask softly and sweetly, in a gentle, happy voice (never loud, never like a command): 'Are you ready to turn the page?' Then STOP and wait quietly. " +
         "When a message says the child turned the page, read the new page. If the child SAYS to turn the page (or 'next', or 'keep going'), call show_page with page " + (S.story.page + 1) + " yourself." };
     },
@@ -474,6 +476,11 @@
   }
   // Captions live in the Story Time panel, between the illustration and the buttons (Michael, 10-21: on phones the
   // caption over the video covered her face, pushed up by Napster's control bar). LC.shown survives a panel re-render.
+  // "Turn the page" glows only once her voice has finished: page_finished arrives with her text, seconds before she has
+  // actually read the page aloud (measured 10-21). Fallback after 40 s in case no "ended" arrives.
+  var waitFallback = null;
+  function armWait() { clearTimeout(waitFallback); waitFallback = setTimeout(lightTurn, 40000); if (!LC.talking && !LC.q.length && !LC.fill) lightTurn(); }
+  function lightTurn() { clearTimeout(waitFallback); if (!S.story.waitPending) return; S.story.waitPending = false; S.story.waiting = true; render({}); }
   function lcHide() { LC.shown = ""; var el = $(".lb-cap", body); if (el) el.textContent = ""; }
   function lcReset() { clearTimeout(LC.timer); clearTimeout(LC.clear); LC.q = []; LC.fill = null; LC.cur = null; LC.idx = -1; LC.talking = false; lcHide(); }
   function lcShow() {
@@ -520,6 +527,7 @@
         lcTick();
       } else if (st === "ended" || st === "canceled") {
         LC.talking = false; clearTimeout(LC.timer);
+        if (st === "ended" && S.story.waitPending && !LC.q.length && !LC.fill) lightTurn();   // her last queued line has been spoken
         var c = LC.cur; LC.cur = null;
         if (st === "canceled") { LC.q = []; LC.fill = null; }   // "I have a question": everything queued is dropped too
         else if (c && c.done && c.chunks.length && LC.idx < c.chunks.length - 1) { LC.cur = c; LC.idx = c.chunks.length - 1; lcShow(); LC.cur = null; }
@@ -572,7 +580,7 @@
     setTimeout(finish, ms + 120);
   }
   function endedState(msg, now) {
-    S.story.reading = false; S.story.paused = false; S.story.pendingRead = false; S.story.waiting = false; clearTimeout(turnTimer); if (S.mode === "story") setTimeout(function () { render({}); }, 0);
+    S.story.reading = false; S.story.paused = false; S.story.pendingRead = false; S.story.waiting = false; S.story.waitPending = false; clearTimeout(turnTimer); if (S.mode === "story") setTimeout(function () { render({}); }, 0);
     instance = null; revealed = false; liveState = "idle"; lcReset();
     [capTimer, readyTimer].forEach(function (t) { if (t) clearTimeout(t); }); capTimer = readyTimer = null;
     if (visible) playQuiet();
