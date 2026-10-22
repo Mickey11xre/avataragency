@@ -66,8 +66,9 @@
   ] };
   var NPAGES = STORY.pages.length;
   var pageText = function (n) { return STORY.pages[n - 1].text.join("\n\n"); };
-  // What she READS: the same words, with "..." between sentences so her voice takes a breath (Michael, 21 Oct: she read too fast).
-  var readText = function (n) { return pageText(n).replace(/([.!?][”"]?)\s+(?=[“"A-Z])/g, "$1 ... "); };
+  // What she READS: the page words exactly. ⛔ No "..." pause markers: with the Emmaline twin voice every "…" came out as an
+  // audible inhale or cough after each sentence (Michael, 21 Oct). Pacing is asked for in READ_RULE instead.
+  var readText = function (n) { return pageText(n); };
   var PAGE_PAUSE_MS = 2500;   // a turned page shows its picture this long before she starts reading it
   // From the approved /ladybelle page ("about the books") and the series bible: no invented titles, dates or prices.
   var SERIES = [
@@ -315,7 +316,7 @@
     return n;
   }
   var READ_RULE = "Read ONLY this one page to the child, EXACTLY as written, word for word: never add, skip or change a word, and never read the page number or describe the picture. " +
-    "Read it SLOWLY, like a bedtime story - much slower than you normally talk - with a little pause at every comma and a full, quiet breath wherever you see '...' (the dots are pauses, never words). " +
+    "Read it SLOWLY, like a bedtime story - much slower than you normally talk - with a little pause at every comma and a short, natural pause between sentences. Never add sighs, breaths, gasps or other sounds. " +
     "When you finish the page, STOP reading and call page_finished, then do what it says. Never read the next page until the child turns the page. " +
     "If the child interrupts, stop, answer them gently, then call get_story_position and read that page again from the beginning.";
   var TOOLS_IMPL = {
