@@ -443,20 +443,26 @@
   }
 
   /* ═════════ Live captions in Story Time (Michael, 21 Oct): her words under her, like the intro captions ═════════
-     Ported from talesofladybelle stage (683f988). The SDK hands every data-channel message to onData: her words arrive as
-     message_received {role "assistant", action "delta" | "completed", content}; talk_state_changed {state "started" |
-     "ended" | "canceled"} brackets her speech. Text streams in FASTER than her voice plays, so captions advance one
-     sentence at a time on a reading clock that starts when she starts talking and never shows a half-received sentence. */
-  var LC = { buf: "", done: false, chunks: [], idx: -1, talking: false, timer: null, clear: null, since: 0 };
-  var LC_CPS = 11;            // characters per second while she reads a story slowly (tune after a live listen)
+     The SDK hands every data-channel message to onData. Measured in a real session (10-21):
+       - each reply's TEXT arrives in well under a second (message_received assistant/delta…/completed), long before
+         its audio: the page text was complete 4 s into the session but she spoke it from 8.6 s to 20.6 s;
+       - her AUDIO is bracketed per reply, in order: talk_state_changed "started" … "ended" ("preparing" and
+         "in_progress" also arrive and are ignored); empty assistant/completed messages belong to tool calls.
+     So replies QUEUE as their text arrives, and each "started" takes the next one off the queue. Inside a reply the
+     caption advances one sentence at a time on a reading clock (she reads ~18-20 characters a second). */
+  var LC = { q: [], fill: null, cur: null, idx: -1, talking: false, timer: null, clear: null, since: 0 };
+  var LC_CPS = 20;              // measured 10-21: page 1 (237 chars, pauses included) took 12 s
   function lcOn() { return S.mode === "story" || S.mode === "storyEnd"; }
   function lcChunks(text) {
-    var clean = String(text || "").replace(/\s*(\.\.\.|…)\s*/g, " ").replace(/\s+/g, " ").trim();
+    var clean = String(text || "")
+      .replace(/(\w)\s*(\.\.\.|…)\s+(?=["“‘A-Z])/g, "$1. ")   // a "…" breath between sentences stands for the full stop
+      .replace(/\s*(\.\.\.|…)\s*/g, " ").replace(/\s+/g, " ").trim();
     var out = [];
-    // A sentence ends at . ! ? (plus a closing quote) only when a NEW sentence starts after it.
+    // A sentence ends at . ! ? (plus a closing quote) only when a NEW sentence starts after it - so
+    // '“…at my door!”, thought the little dog.' stays one caption.
     clean.split(/(?<=[.!?]["”’]?)\s+(?=["“‘A-Z])/).forEach(function (s) {
       s = s.trim(); if (!s) return;
-      while (s.length > 95) {
+      while (s.length > 95) {                            // long sentence: break at the last comma (or space) before 95 chars
         var cut = s.lastIndexOf(",", 95); if (cut < 40) cut = s.lastIndexOf(" ", 95); if (cut < 1) cut = 95;
         out.push(s.slice(0, cut + 1).trim()); s = s.slice(cut + 1).trim();
       }
@@ -464,37 +470,57 @@
     });
     return out;
   }
-  function lcReset() { clearTimeout(LC.timer); clearTimeout(LC.clear); LC.buf = ""; LC.done = false; LC.chunks = []; LC.idx = -1; LC.talking = false; avStage.classList.remove("story-caps"); caption([]); }
-  function lcShow() { if (!lcOn() || LC.idx < 0 || !LC.chunks[LC.idx]) return; avStage.classList.add("story-caps"); caption([LC.chunks[LC.idx]]); }
+  function lcHide() { avStage.classList.remove("story-caps"); caption([]); }
+  function lcReset() { clearTimeout(LC.timer); clearTimeout(LC.clear); LC.q = []; LC.fill = null; LC.cur = null; LC.idx = -1; LC.talking = false; lcHide(); }
+  function lcShow() {
+    var c = LC.cur; if (!lcOn() || !c || LC.idx < 0 || !c.chunks[LC.idx]) return;
+    avStage.classList.add("story-caps"); caption([c.chunks[LC.idx]]);
+  }
+  // A 150 ms clock: the caption moves on once the current sentence has been up long enough for her to say it, and only
+  // to a sentence that has fully arrived (the last one is complete only once the reply is "completed").
   function lcTick() {
     clearTimeout(LC.timer);
-    if (!LC.talking) return;
+    if (!LC.talking || !LC.cur) return;
     LC.timer = setTimeout(function () {
-      if (LC.idx < 0) { if (LC.chunks.length) { LC.idx = 0; LC.since = Date.now(); lcShow(); } }
+      var c = LC.cur; if (!c) return;
+      if (LC.idx < 0) { if (c.chunks.length) { LC.idx = 0; LC.since = Date.now(); lcShow(); } }
       else {
-        var cur = LC.chunks[LC.idx] || "", need = Math.max(1400, cur.length / LC_CPS * 1000 + 450);
-        var nextReady = LC.idx < LC.chunks.length - 1 && (LC.done || LC.idx < LC.chunks.length - 2);
+        var s = c.chunks[LC.idx] || "", need = Math.max(1200, s.length / LC_CPS * 1000 + 300);
+        var nextReady = LC.idx < c.chunks.length - 1 && (c.done || LC.idx < c.chunks.length - 2);
         if (nextReady && Date.now() - LC.since >= need) { LC.idx++; LC.since = Date.now(); lcShow(); }
       }
       lcTick();
-    }, 200);
+    }, 150);
   }
   function lcData(e) {
     if (!e || !e.event) return;
     if (e.event === "message_received") {
-      var m = e.data && e.data.message; if (!m || m.role !== "assistant" || typeof m.content !== "string") return;
-      if (LC.done) { LC.buf = ""; LC.done = false; LC.chunks = []; LC.idx = -1; }
-      if (m.action === "completed") { LC.buf = m.content; LC.done = true; }
-      else LC.buf = m.content.indexOf(LC.buf) === 0 ? m.content : LC.buf + m.content;
-      LC.chunks = lcChunks(LC.buf);
-      if (LC.idx >= 0) lcShow();
+      var m = e.data && e.data.message;
+      if (!m || m.role !== "assistant" || typeof m.content !== "string" || (m.action !== "delta" && m.action !== "completed")) return;
+      if (!m.content) return;                          // empty completions belong to tool calls
+      if (!LC.fill) {                                  // the first text of a new reply
+        LC.fill = { text: "", done: false, chunks: [] };
+        if (LC.talking && !LC.cur) { LC.cur = LC.fill; LC.idx = -1; lcTick(); } else LC.q.push(LC.fill);
+      }
+      var f = LC.fill;
+      if (m.action === "completed") { f.text = m.content; f.done = true; LC.fill = null; }
+      else f.text = m.content.indexOf(f.text) === 0 ? m.content : f.text + m.content;   // cumulative or chunked deltas
+      f.chunks = lcChunks(f.text);
+      if (f === LC.cur && LC.idx >= 0) lcShow();       // the sentence on screen may have grown
     } else if (e.event === "talk_state_changed") {
       var st = e.data && e.data.state;
-      if (st === "started") { clearTimeout(LC.clear); LC.talking = true; LC.since = Date.now(); if (LC.chunks.length && LC.idx < 0) { LC.idx = 0; lcShow(); } lcTick(); }
-      else if (st === "ended" || st === "canceled") {
+      if (st === "started") {
+        clearTimeout(LC.clear); LC.talking = true;
+        LC.cur = LC.q.shift() || (LC.fill && !LC.fill.claimed ? LC.fill : null); LC.idx = -1;
+        if (LC.cur) LC.cur.claimed = true;
+        lcTick();
+      } else if (st === "ended" || st === "canceled") {
         LC.talking = false; clearTimeout(LC.timer);
-        if (st === "ended" && LC.done && LC.idx < LC.chunks.length - 1) { LC.idx = LC.chunks.length - 1; lcShow(); }
-        LC.clear = setTimeout(lcReset, st === "canceled" ? 200 : 1600);
+        var c = LC.cur; LC.cur = null;
+        if (st === "canceled") { LC.q = []; LC.fill = null; }   // "I have a question": everything queued is dropped too
+        else if (c && c.done && c.chunks.length && LC.idx < c.chunks.length - 1) { LC.cur = c; LC.idx = c.chunks.length - 1; lcShow(); LC.cur = null; }
+        clearTimeout(LC.clear);
+        LC.clear = setTimeout(function () { if (!LC.talking) lcHide(); }, st === "canceled" ? 200 : 1200);
       }
     }
   }
