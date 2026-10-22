@@ -151,6 +151,7 @@
         // The page's words are NOT shown on the panel (Michael, 21 Oct): Lady Belle reads them and live captions under her
         // carry them on the stage. Kept in the page for screen readers only. Same as talesofladybelle 683f988.
         '<div class="lb-text lb-sr">' + p.text.map(function (t) { return "<p>" + esc(t) + "</p>"; }).join("") + "</div></div></div>" +
+        '<p class="lb-cap" aria-live="polite">' + esc(LC.shown || "") + '</p>' +   // her words while she reads (live captions)
         '<div class="lb-ctrls"><button class="btn btn-ghost btn-sm" type="button" data-act="story-prev"' + (n === 1 ? " disabled" : "") + '>‹ Back</button>' + ctrl + next + "</div></div>";
     },
     storyEnd: function () {
@@ -450,7 +451,7 @@
          "in_progress" also arrive and are ignored); empty assistant/completed messages belong to tool calls.
      So replies QUEUE as their text arrives, and each "started" takes the next one off the queue. Inside a reply the
      caption advances one sentence at a time on a reading clock (she reads ~18-20 characters a second). */
-  var LC = { q: [], fill: null, cur: null, idx: -1, talking: false, timer: null, clear: null, since: 0 };
+  var LC = { q: [], fill: null, cur: null, idx: -1, talking: false, timer: null, clear: null, since: 0, shown: "" };
   var LC_CPS = 20;              // measured 10-21: page 1 (237 chars, pauses included) took 12 s
   function lcOn() { return S.mode === "story" || S.mode === "storyEnd"; }
   function lcChunks(text) {
@@ -470,11 +471,13 @@
     });
     return out;
   }
-  function lcHide() { avStage.classList.remove("story-caps"); caption([]); }
+  // Captions live in the Story Time panel, between the illustration and the buttons (Michael, 10-21: on phones the
+  // caption over the video covered her face, pushed up by Napster's control bar). LC.shown survives a panel re-render.
+  function lcHide() { LC.shown = ""; var el = $(".lb-cap", body); if (el) el.textContent = ""; }
   function lcReset() { clearTimeout(LC.timer); clearTimeout(LC.clear); LC.q = []; LC.fill = null; LC.cur = null; LC.idx = -1; LC.talking = false; lcHide(); }
   function lcShow() {
     var c = LC.cur; if (!lcOn() || !c || LC.idx < 0 || !c.chunks[LC.idx]) return;
-    avStage.classList.add("story-caps"); caption([c.chunks[LC.idx]]);
+    LC.shown = c.chunks[LC.idx]; var el = $(".lb-cap", body); if (el) el.textContent = LC.shown;
   }
   // A 150 ms clock: the caption moves on once the current sentence has been up long enough for her to say it, and only
   // to a sentence that has fully arrived (the last one is complete only once the reply is "completed").
