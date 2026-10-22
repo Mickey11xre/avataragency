@@ -494,18 +494,29 @@
     return sdkLoading;
   }
   function waitForVideo(tries, cb) { var v = $("video", mount); if (v || tries <= 0) return cb(v); setTimeout(function () { waitForVideo(tries - 1, cb); }, 120); }
+  /* Reveal ONLY when her video really has frames. Before the microphone is allowed (Incognito asks every time, often
+     with a small address-bar icon), the SDK's <video> exists but is EMPTY: the old 6 s fallback revealed that empty
+     frame as a black stage and cleared the "allow the microphone" hint (Michael, 10-22). Now we keep waiting with the
+     hint on screen, and after 45 s end the attempt with a clear message instead. */
+  var MEDIA_WAIT_MS = 45000;
+  function noMedia() { if (instance && !revealed) endLive("Ava couldn't start. Allow the microphone for this site (the icon in the address bar), then press Talk to Ava again.", true); }
   function onFirstFrame(v, cb) {
-    var fired = false, go_ = function () { if (!fired) { fired = true; cb(); } };
-    setTimeout(go_, 6000); if (!v) return go_();
-    if ("requestVideoFrameCallback" in v) { try { v.requestVideoFrameCallback(go_); return; } catch (e) {} }
-    if (v.readyState >= 3) return go_(); v.addEventListener("playing", go_, { once: true }); v.addEventListener("loadeddata", go_, { once: true });
+    var fired = false, t0 = Date.now(), go_ = function () { if (!fired) { fired = true; cb(); } };
+    if (!v) return noMedia();
+    (function poll() {
+      if (fired || !instance || revealed) return;
+      if (v.videoWidth > 0 && v.readyState >= 2) return go_();
+      if (Date.now() - t0 > MEDIA_WAIT_MS) { fired = true; return noMedia(); }
+      setTimeout(poll, 200);
+    })();
+    if ("requestVideoFrameCallback" in v) { try { v.requestVideoFrameCallback(function () { if (v.videoWidth > 0) go_(); }); } catch (e) {} }
   }
   function whenSharp(v, cb) {
     var t0 = Date.now(), fired = false, fin = function () { if (!fired) { fired = true; cb(); } };
     var want = Math.min(960, Math.round((mount.clientWidth || 640) * Math.min(window.devicePixelRatio || 1, 2) * 0.75));
     (function check() { if (fired) return; if (!v || (v.videoWidth || 0) >= want || Date.now() - t0 > 2000) return fin(); setTimeout(check, 120); })();
   }
-  function armReveal() { if (!revealed && instance) waitForVideo(45, function (v) { onFirstFrame(v, function () { whenSharp(v, revealLive); }); }); }
+  function armReveal() { if (!revealed && instance) waitForVideo(250, function (v) { onFirstFrame(v, function () { whenSharp(v, revealLive); }); }); }   // up to 30 s for the SDK's <video>
   function revealLive() {
     if (revealed || !instance) return; revealed = true; liveState = "live";
     if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
