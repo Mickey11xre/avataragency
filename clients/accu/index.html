@@ -50,8 +50,11 @@
   .accu-spot__player { display: block; margin: clamp(22px, 2.6vw, 32px) auto 0; width: 100%; max-width: 380px; aspect-ratio: 9 / 16; border-radius: 20px; background: #000; object-fit: cover;
     box-shadow: 0 40px 90px -40px rgba(0,0,0,.8), 0 0 0 1px rgba(201,168,76,.22); }
   .accu-spot__note { max-width: 380px; margin: 16px auto 0; color: var(--on-mute); font-size: 14px; line-height: 1.55; }
-  /* Paul Small case: the /casestudies/ case, without the big case number (one case on this page) */
-  .accu-paul { margin-top: clamp(80px, 10vw, 140px); padding-bottom: clamp(90px, 11vw, 150px); }
+  /* Paul Small case (Mar Vista): the /casestudies/ case, without the big case number; FIRST on the page (Michael, 10-23),
+     so it clears the fixed header itself */
+  .accu-paul { padding-top: calc(var(--hdr, 72px) + clamp(40px, 6vw, 90px)); padding-bottom: clamp(60px, 8vw, 110px); }
+  /* the hero now follows Paul's case, so it no longer needs room for the fixed header */
+  .accu-paul + .hero { padding-top: clamp(60px, 8vw, 110px); border-top: 1px solid var(--line-d); }
   .accu-paul .case-head { grid-template-columns: minmax(0, 1fr) minmax(280px, .55fr); }
   @media (max-width: 1100px) { .accu-paul .case-head { grid-template-columns: 1fr; } .accu-paul .case-head .facts { grid-column: auto; } }
   @media (max-width: 860px) { .story { grid-template-columns: 1fr; } }
@@ -85,6 +88,70 @@
 </header>
 
 <main id="main">
+
+<!-- ═════════════ CASE STUDY · PAUL SMALL (Mar Vista) ═════════════ -->
+<!-- Michael, 10-23: Paul's case moves to the very top of the page, Mar Vista only (Hermosa removed), with his cloning
+     session strip directly below the film. Copy follows his "My Mar Vista" script (CONTRACTS\Paul_Small\Mar_Vista_Video).
+     Films play through the PUBLIC /clients/accu/film/<slug>.mp4 proxy (functions/clients/accu/film/[[path]].js), so neither
+     his portal nor /work/ paths reach the browser; posters and references are copies in /clients/accu/media/paul/. -->
+<section class="case accu-paul" id="case-paul" aria-labelledby="t-paul">
+  <div class="wrap case-head rv">
+    <div>
+      <p class="eyebrow gold">Case study · Real estate · Compass · Los Angeles</p>
+      <h2 class="case-title" id="t-paul">Paul Small <em>Mar Vista</em></h2>
+      <p class="case-line">A neighborhood film that shows buyers why Mar Vista is one of the most approachable neighborhoods on LA's Westside — with Paul as their guide, and without a single day on set.</p>
+      <ul class="tags"><li class="hl">Cinematic film</li><li class="hl">Digital clone</li><li>Vertical shorts</li></ul>
+    </div>
+    <dl class="facts">
+      <div><dt>Client</dt><dd>Paul Small, real estate advisor with Compass, "The Art of Representation"</dd></div>
+      <div><dt>Market</dt><dd>West Los Angeles</dd></div>
+      <div><dt>Capture</dt><dd>One cloning session: 47 reference photographs, plus his own narration</dd></div>
+      <div><dt>Delivered</dt><dd>"Mar Vista" (1:32), his first neighborhood film, with three vertical shorts</dd></div>
+    </dl>
+  </div>
+
+  <div class="wrap feature">
+    <div class="more-h rv"><h3>Mar Vista, his first neighborhood film</h3><span>The film and its three vertical cuts · tap to play</span></div>
+    <div class="split">
+      <div class="clips rv" data-gal="paul-marvista" style="grid-template-columns:minmax(0,1fr)">
+        <button class="clip" type="button" data-src="/clients/accu/film/paul-marvista.mp4" data-poster="/clients/accu/media/paul/paul-marvista.webp" data-title="Mar Vista · 1:32"><img src="/clients/accu/media/paul/paul-marvista.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Mar Vista</b><small>1:32 · 16:9</small></span></span></button>
+      </div>
+      <div class="rail-v rv" data-gal="paul-marvista-verticals">
+        <button class="clip v" type="button" data-src="/clients/accu/film/paul-marvista-vertical-1.mp4" data-poster="/clients/accu/media/paul/paul-marvista-vertical-1.webp" data-ratio="v" data-title="Mar Vista · vertical short No. 1 · 0:21"><img src="/clients/accu/media/paul/paul-marvista-vertical-1.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 1</b><small>0:21 · 9:16</small></span></span></button>
+        <button class="clip v" type="button" data-src="/clients/accu/film/paul-marvista-vertical-2.mp4" data-poster="/clients/accu/media/paul/paul-marvista-vertical-2.webp" data-ratio="v" data-title="Mar Vista · vertical short No. 2 · 0:44"><img src="/clients/accu/media/paul/paul-marvista-vertical-2.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 2</b><small>0:44 · 9:16</small></span></span></button>
+        <button class="clip v" type="button" data-src="/clients/accu/film/paul-marvista-vertical-3.mp4" data-poster="/clients/accu/media/paul/paul-marvista-vertical-3.webp" data-ratio="v" data-title="Mar Vista · vertical short No. 3 · 0:40"><img src="/clients/accu/media/paul/paul-marvista-vertical-3.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 3</b><small>0:40 · 9:16</small></span></span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="capture rv">
+    <div class="wrap capture-in">
+      <div>
+        <p class="eyebrow gold-deep">Behind the likeness</p>
+        <h3>One session. <em>Every angle.</em></h3>
+        <p>Every clone starts here: a structured reference set, cleaned onto white and sorted by angle, so the AI learns the real person — not an idealized one. Eight of Paul's 47 references are shown.</p>
+        <div class="legend"><span><b>FB</b> Full body</span><span><b>CU</b> Close-up</span><span><b>TQ</b> Three-quarter</span><span><b>MS</b> Mid-speech</span></div>
+      </div>
+      <div class="strip" data-gal="paul-refs">
+        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-1.webp" data-title="Paul Small · Full body · front"><img src="/clients/accu/media/paul/ref-1.webp" alt="Paul Small reference, full body, front" loading="lazy"><span class="cap"><b>FB</b>01</span></button>
+        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-2.webp" data-title="Paul Small · Full body · profile"><img src="/clients/accu/media/paul/ref-2.webp" alt="Paul Small reference, full body, profile" loading="lazy"><span class="cap"><b>FB</b>05</span></button>
+        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-3.webp" data-title="Paul Small · Full body · back"><img src="/clients/accu/media/paul/ref-3.webp" alt="Paul Small reference, full body, back" loading="lazy"><span class="cap"><b>FB</b>08</span></button>
+        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-4.webp" data-title="Paul Small · Close-up · front"><img src="/clients/accu/media/paul/ref-4.webp" alt="Paul Small reference, close-up, front" loading="lazy"><span class="cap"><b>CU</b>01</span></button>
+        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-5.webp" data-title="Paul Small · Close-up · three-quarter"><img src="/clients/accu/media/paul/ref-5.webp" alt="Paul Small reference, close-up, three-quarter" loading="lazy"><span class="cap"><b>CU</b>04</span></button>
+        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-6.webp" data-title="Paul Small · Close-up · profile"><img src="/clients/accu/media/paul/ref-6.webp" alt="Paul Small reference, close-up, profile" loading="lazy"><span class="cap"><b>CU</b>08</span></button>
+        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-7.webp" data-title="Paul Small · Three-quarter"><img src="/clients/accu/media/paul/ref-7.webp" alt="Paul Small reference, three-quarter" loading="lazy"><span class="cap"><b>TQ</b>05</span></button>
+        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-8.webp" data-title="Paul Small · Mid-speech"><img src="/clients/accu/media/paul/ref-8.webp" alt="Paul Small reference, mid-speech" loading="lazy"><span class="cap"><b>MS</b>02</span></button>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap story">
+    <div class="rv"><h3>The client</h3><p>Paul Small is a native Angeleno, a former talent agent and a Certified Senior Advisor with Compass. He didn't want another listing video. He wanted a film that sells the neighborhood itself, the way a local would show it to a friend.</p></div>
+    <div class="rv"><h3>The capture</h3><p>It started with <strong>one cloning session</strong>: 47 reference photographs of Paul from every angle — full body, close-ups, three-quarter and mid-speech — and his own voice. From that set we built a private likeness model, so Paul could walk the Sunday farmers market, the back patio at Alana's Coffee and Mar Vista's tree-lined streets without a camera crew in sight.</p></div>
+    <div class="rv"><h3>The craft</h3><p>The film moves through Mar Vista the way Paul describes it: the hillside streets with ocean views, the tucked-away tree-lined blocks and the deep lots that give people breathing room; bungalows beside mid-century ranch homes and new builds; and the community at the farmers market, Alana's Coffee and Ocean View Farms. His on-camera lines are lip-synced to his own narration, then cut, graded and mixed in a professional edit.</p></div>
+  </div>
+</section>
+
 
 <!-- ═════════════ HERO ═════════════ -->
 <section class="hero" id="top" aria-labelledby="hero-title">
@@ -179,83 +246,6 @@
     <video class="accu-spot__player rv" src="/clients/accu/media/finance-office-spot-v8.mp4?v=1" poster="/clients/accu/media/finance-office-poster.jpg?v=1"
            controls preload="metadata" playsinline controlslist="nodownload noremoteplayback"></video>
     <p class="accu-spot__note rv">A 23-second social concept for ACCU auto-loan pre-approval — produced with AI by AvatarAgency.</p>
-  </div>
-</section>
-
-<!-- ═════════════ CASE STUDY · PAUL SMALL ═════════════ -->
-<!-- Michael, 10-22: replaces "The Enrollment Guardian". A copy of /casestudies/#case-paul (same markup and copy), minus the
-     case number, the "Next case" link and Paul's live stage (his token is behind the portfolio gate). Films play through
-     the PUBLIC /clients/accu/film/<slug>.mp4 proxy (functions/clients/accu/film/[[path]].js), so neither his portal nor
-     /work/ paths reach the browser; posters and references are copies in /clients/accu/media/paul/. -->
-<section class="case accu-paul" id="case-paul" aria-labelledby="t-paul">
-  <div class="wrap case-head rv">
-    <div>
-      <p class="eyebrow gold">Case study · Real estate · Compass · Los Angeles</p>
-      <h2 class="case-title" id="t-paul">Paul Small <em>My Hermosa Beach</em></h2>
-      <p class="case-line">A neighborhood film that shows buyers what it actually feels like to live in Hermosa Beach — with Paul as their guide, and without a single day on set.</p>
-      <ul class="tags"><li class="hl">Cinematic film</li><li class="hl">Digital clone</li><li>Vertical shorts</li><li>Storyboard</li></ul>
-    </div>
-    <dl class="facts">
-      <div><dt>Client</dt><dd>Paul Small, real estate advisor with Compass, "The Art of Representation"</dd></div>
-      <div><dt>Market</dt><dd>West Los Angeles and the South Bay</dd></div>
-      <div><dt>Capture</dt><dd>One cloning session: 47 reference photographs, plus his own narration</dd></div>
-      <div><dt>Delivered</dt><dd>"My Hermosa Beach" (1:49) and his first neighborhood film, "Mar Vista" (1:32), each with three vertical shorts</dd></div>
-    </dl>
-  </div>
-
-  <div class="wrap feature">
-    <div class="more-h rv"><h3>My Hermosa Beach, his second neighborhood film</h3><span>The film and its three vertical cuts · approved by Paul as delivered · tap to play</span></div>
-    <div class="split">
-      <div class="clips rv" data-gal="paul-hermosa" style="grid-template-columns:minmax(0,1fr)">
-        <button class="clip" type="button" data-src="/clients/accu/film/paul-hermosa.mp4" data-poster="/clients/accu/media/paul/paul-hermosa.webp" data-title="My Hermosa Beach · 1:49"><img src="/clients/accu/media/paul/paul-hermosa.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>My Hermosa Beach</b><small>1:49 · 16:9</small></span></span></button>
-      </div>
-      <div class="rail-v rv" data-gal="paul-hermosa-verticals">
-        <button class="clip v" type="button" data-src="/clients/accu/film/paul-hermosa-vertical-1.mp4" data-poster="/clients/accu/media/paul/paul-hermosa-vertical-1.webp" data-ratio="v" data-title="My Hermosa Beach · vertical short No. 1 · 0:43"><img src="/clients/accu/media/paul/paul-hermosa-vertical-1.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 1</b><small>0:43 · 9:16</small></span></span></button>
-        <button class="clip v" type="button" data-src="/clients/accu/film/paul-hermosa-vertical-2.mp4" data-poster="/clients/accu/media/paul/paul-hermosa-vertical-2.webp" data-ratio="v" data-title="My Hermosa Beach · vertical short No. 2 · 0:35"><img src="/clients/accu/media/paul/paul-hermosa-vertical-2.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 2</b><small>0:35 · 9:16</small></span></span></button>
-        <button class="clip v" type="button" data-src="/clients/accu/film/paul-hermosa-vertical-3.mp4" data-poster="/clients/accu/media/paul/paul-hermosa-vertical-3.webp" data-ratio="v" data-title="My Hermosa Beach · vertical short No. 3 · 0:43"><img src="/clients/accu/media/paul/paul-hermosa-vertical-3.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 3</b><small>0:43 · 9:16</small></span></span></button>
-      </div>
-    </div>
-  </div>
-
-  <div class="wrap story">
-    <div class="rv"><h3>The client</h3><p>Paul Small is a native Angeleno, a former talent agent and a Certified Senior Advisor with Compass. He didn't want another listing video. He wanted a film that sells the neighborhood itself, the way a local would show it to a friend.</p></div>
-    <div class="rv"><h3>The capture</h3><p>It started with <strong>one cloning session</strong>: 47 reference photographs of Paul from every angle — full body, close-ups, three-quarter and mid-speech — and his own voice. From that set we built a private likeness model, so Paul could walk the Strand, the Greenbelt and Pier Avenue without a camera crew in sight.</p></div>
-    <div class="rv"><h3>The craft</h3><p>We wrote and storyboarded the film in four acts — who Hermosa is for, its micro-neighborhoods, the local businesses and the pier — and Paul signed off on every frame before production. Real photographs of the homes, storefronts and rooftop views anchor each scene, relit for golden hour, with real-geography aerials carrying the camera between them. His on-camera lines are lip-synced exactly, then cut, graded and mixed in a professional edit.</p></div>
-  </div>
-
-  <div class="capture rv">
-    <div class="wrap capture-in">
-      <div>
-        <p class="eyebrow gold-deep">Behind the likeness</p>
-        <h3>One session. <em>Every angle.</em></h3>
-        <p>Every clone starts here: a structured reference set, cleaned onto white and sorted by angle, so the AI learns the real person — not an idealized one. Eight of Paul's 47 references are shown.</p>
-        <div class="legend"><span><b>FB</b> Full body</span><span><b>CU</b> Close-up</span><span><b>TQ</b> Three-quarter</span><span><b>MS</b> Mid-speech</span></div>
-      </div>
-      <div class="strip" data-gal="paul-refs">
-        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-1.webp" data-title="Paul Small · Full body · front"><img src="/clients/accu/media/paul/ref-1.webp" alt="Paul Small reference, full body, front" loading="lazy"><span class="cap"><b>FB</b>01</span></button>
-        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-2.webp" data-title="Paul Small · Full body · profile"><img src="/clients/accu/media/paul/ref-2.webp" alt="Paul Small reference, full body, profile" loading="lazy"><span class="cap"><b>FB</b>05</span></button>
-        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-3.webp" data-title="Paul Small · Full body · back"><img src="/clients/accu/media/paul/ref-3.webp" alt="Paul Small reference, full body, back" loading="lazy"><span class="cap"><b>FB</b>08</span></button>
-        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-4.webp" data-title="Paul Small · Close-up · front"><img src="/clients/accu/media/paul/ref-4.webp" alt="Paul Small reference, close-up, front" loading="lazy"><span class="cap"><b>CU</b>01</span></button>
-        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-5.webp" data-title="Paul Small · Close-up · three-quarter"><img src="/clients/accu/media/paul/ref-5.webp" alt="Paul Small reference, close-up, three-quarter" loading="lazy"><span class="cap"><b>CU</b>04</span></button>
-        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-6.webp" data-title="Paul Small · Close-up · profile"><img src="/clients/accu/media/paul/ref-6.webp" alt="Paul Small reference, close-up, profile" loading="lazy"><span class="cap"><b>CU</b>08</span></button>
-        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-7.webp" data-title="Paul Small · Three-quarter"><img src="/clients/accu/media/paul/ref-7.webp" alt="Paul Small reference, three-quarter" loading="lazy"><span class="cap"><b>TQ</b>05</span></button>
-        <button class="frame" type="button" data-src="/clients/accu/media/paul/ref-8.webp" data-title="Paul Small · Mid-speech"><img src="/clients/accu/media/paul/ref-8.webp" alt="Paul Small reference, mid-speech" loading="lazy"><span class="cap"><b>MS</b>02</span></button>
-      </div>
-    </div>
-  </div>
-
-  <div class="wrap more">
-    <div class="more-h rv"><h3>Mar Vista, his first neighborhood film</h3><span>The film and its three vertical cuts · tap to play</span></div>
-    <div class="split">
-      <div class="clips rv" data-gal="paul-marvista" style="grid-template-columns:minmax(0,1fr)">
-        <button class="clip" type="button" data-src="/clients/accu/film/paul-marvista.mp4" data-poster="/clients/accu/media/paul/paul-marvista.webp" data-title="Mar Vista · 1:32"><img src="/clients/accu/media/paul/paul-marvista.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Mar Vista</b><small>1:32 · 16:9</small></span></span></button>
-      </div>
-      <div class="rail-v rv" data-gal="paul-marvista-verticals">
-        <button class="clip v" type="button" data-src="/clients/accu/film/paul-marvista-vertical-1.mp4" data-poster="/clients/accu/media/paul/paul-marvista-vertical-1.webp" data-ratio="v" data-title="Mar Vista · vertical short No. 1 · 0:21"><img src="/clients/accu/media/paul/paul-marvista-vertical-1.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 1</b><small>0:21 · 9:16</small></span></span></button>
-        <button class="clip v" type="button" data-src="/clients/accu/film/paul-marvista-vertical-2.mp4" data-poster="/clients/accu/media/paul/paul-marvista-vertical-2.webp" data-ratio="v" data-title="Mar Vista · vertical short No. 2 · 0:44"><img src="/clients/accu/media/paul/paul-marvista-vertical-2.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 2</b><small>0:44 · 9:16</small></span></span></button>
-        <button class="clip v" type="button" data-src="/clients/accu/film/paul-marvista-vertical-3.mp4" data-poster="/clients/accu/media/paul/paul-marvista-vertical-3.webp" data-ratio="v" data-title="Mar Vista · vertical short No. 3 · 0:40"><img src="/clients/accu/media/paul/paul-marvista-vertical-3.webp" alt="" loading="lazy"><span class="ci"><span class="pb"><svg><use href="#i-play"/></svg></span><span><b>Short No. 3</b><small>0:40 · 9:16</small></span></span></button>
-      </div>
-    </div>
   </div>
 </section>
 

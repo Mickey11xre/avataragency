@@ -1,16 +1,12 @@
 /**
  * GET /clients/accu/film/<slug>.mp4 — Paul Small's films for the Paul Small case on the ACCU pitch page (/clients/accu/,
  * Michael 2026-10-22: "replace [the Enrollment Guardian] with the Paul Small case study" from /casestudies/#case-paul).
- * The Hermosa films live in his client portal (/clients/psmall/, which carries billing paperwork) and the Mar Vista films
- * in the gated portfolio (/work/assets/film/); this route fetches them server-side so neither path reaches a visitor's
- * browser. PUBLIC (the ACCU page has no gate), so it serves ONLY the eight slugs below. Same byte-range handling as
- * functions/work/film/[[path]].js, copied from functions/clients/dental-arts/film/[[path]].js.
+ * The Mar Vista films live in the gated portfolio (/work/assets/film/); this route fetches them server-side so that path
+ * never reaches a visitor's browser. PUBLIC (the ACCU page has no gate), so it serves ONLY the four slugs below.
+ * Michael, 10-23: the page shows Mar Vista only, so the Hermosa slugs (from his client portal) were removed.
+ * Same byte-range handling as functions/work/film/[[path]].js, copied from functions/clients/dental-arts/film/[[path]].js.
  */
 const FILMS = {
-  "paul-hermosa.mp4": "/clients/psmall/hermosa-beach-video-v4.mp4",
-  "paul-hermosa-vertical-1.mp4": "/clients/psmall/hermosa-vertical-01-v2.mp4",
-  "paul-hermosa-vertical-2.mp4": "/clients/psmall/hermosa-vertical-02.mp4",
-  "paul-hermosa-vertical-3.mp4": "/clients/psmall/hermosa-vertical-03-v2.mp4",
   "paul-marvista.mp4": "/work/assets/film/paul-marvista.mp4",
   "paul-marvista-vertical-1.mp4": "/work/assets/film/paul-marvista-vertical-1.mp4",
   "paul-marvista-vertical-2.mp4": "/work/assets/film/paul-marvista-vertical-2.mp4",
