@@ -50,6 +50,17 @@
   .accu-spot__player { display: block; margin: clamp(22px, 2.6vw, 32px) auto 0; width: 100%; max-width: 380px; aspect-ratio: 9 / 16; border-radius: 20px; background: #000; object-fit: cover;
     box-shadow: 0 40px 90px -40px rgba(0,0,0,.8), 0 0 0 1px rgba(201,168,76,.22); }
   .accu-spot__note { max-width: 380px; margin: 16px auto 0; color: var(--on-mute); font-size: 14px; line-height: 1.55; }
+  /* Two concept videos side by side (Michael, 10-23); subgrid lines the players up even if one title wraps. Stacked on phones. */
+  .accu-spot__grid { display: grid; grid-template-columns: repeat(2, minmax(0, 380px)); grid-template-rows: repeat(4, auto); justify-content: center; column-gap: clamp(28px, 5vw, 72px); }
+  .accu-spot__item { display: grid; grid-row: span 4; grid-template-rows: subgrid; align-content: start; }
+  .accu-spot__item .eyebrow { justify-content: center; }
+  .accu-spot__grid h2 { font-size: clamp(26px, 2.6vw, 36px); align-self: end; justify-self: center; white-space: nowrap; }
+  #concept-video-2 { scroll-margin-top: calc(var(--hdr, 72px) + 16px); }
+  @media (max-width: 760px) {
+    .accu-spot__grid { grid-template-columns: minmax(0, 380px); grid-template-rows: none; row-gap: clamp(56px, 12vw, 80px); }
+    .accu-spot__item { grid-row: auto; grid-template-rows: none; }
+    .accu-spot__grid h2 { white-space: normal; }
+  }
   /* Paul Small case (Mar Vista): the /casestudies/ case, without the big case number; FIRST on the page (Michael, 10-23),
      so it clears the fixed header itself */
   .accu-paul { padding-top: calc(var(--hdr, 72px) + clamp(40px, 6vw, 90px)); padding-bottom: clamp(60px, 8vw, 110px); }
@@ -239,13 +250,26 @@
 <!-- "The Finance Office": internal spec UGC for ACCU auto-loan pre-approval (v3, 10-22; clients\accu\ in CLAUDE_CODE_FILES).
      Higgsfield source re-encoded at CRF 21 +faststart (10.2 MB, under the 25 MiB Pages cap); poster = the 1.0 s frame.
      Copy is Michael's, word for word. Tap to play only; volume 0.5 on load (client-portal video playbook). -->
+<!-- "Where You Bank Matters": internal spec spot on ACCU's corporate priorities (2025 Annual Report figures), 10-23.
+     AI host + 3 B-roll scenes, ACCU end slate (logo, website, phone). Web encode CRF 21 +faststart (11.8 MB), -14 LUFS;
+     poster = the opening frame. Tap to play only; volume 0.5 comes from the page-level video script.
+     Michael, 10-23: side by side with The Finance Office (stacked on phones), not below it. -->
 <section class="accu-spot" id="concept-video" aria-labelledby="t-spot">
-  <div class="wrap">
-    <p class="eyebrow gold rv">Concept video</p>
-    <h2 class="rv" id="t-spot">The Finance Office</h2>
-    <video class="accu-spot__player rv" src="/clients/accu/media/finance-office-spot-v8.mp4?v=1" poster="/clients/accu/media/finance-office-poster.jpg?v=1"
-           controls preload="metadata" playsinline controlslist="nodownload noremoteplayback"></video>
-    <p class="accu-spot__note rv">A 23-second social concept for ACCU auto-loan pre-approval — produced with AI by AvatarAgency.</p>
+  <div class="wrap accu-spot__grid">
+    <div class="accu-spot__item">
+      <p class="eyebrow gold rv">Concept video</p>
+      <h2 class="rv" id="t-spot">The Finance Office</h2>
+      <video class="accu-spot__player rv" src="/clients/accu/media/finance-office-spot-v8.mp4?v=1" poster="/clients/accu/media/finance-office-poster.jpg?v=1"
+             controls preload="metadata" playsinline controlslist="nodownload noremoteplayback"></video>
+      <p class="accu-spot__note rv">A 23-second social concept for ACCU auto-loan pre-approval — produced with AI by AvatarAgency.</p>
+    </div>
+    <div class="accu-spot__item" id="concept-video-2" aria-labelledby="t-spot-2" role="group">
+      <p class="eyebrow gold rv">Concept video</p>
+      <h2 class="rv" id="t-spot-2">Where You Bank Matters</h2>
+      <video class="accu-spot__player rv" src="/clients/accu/media/where-you-bank-matters-spot.mp4?v=1" poster="/clients/accu/media/where-you-bank-matters-poster.jpg?v=1"
+             controls preload="metadata" playsinline controlslist="nodownload noremoteplayback"></video>
+      <p class="accu-spot__note rv">A 29-second social concept on ACCU's corporate priorities — produced with AI by AvatarAgency.</p>
+    </div>
   </div>
 </section>
 
