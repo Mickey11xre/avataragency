@@ -535,7 +535,7 @@
     instance = null; revealed = false; liveState = "idle";
     [capTimer, readyTimer].forEach(function (t) { if (t) clearTimeout(t); }); capTimer = readyTimer = null;
     if (visible) playQuiet();
-    avStage.classList.remove("live", "live-ready"); setTalk("Talk to Ava", false);
+    avStage.classList.remove("live", "live-ready"); setTalk("Talk in English", false);
     if (now) mount.innerHTML = "";
     else setTimeout(function () { if (liveState === "idle") mount.innerHTML = ""; }, 850);   // after the .8 s fade
     stage.classList.remove("is-live"); say_(msg || "", msg ? 9000 : 0); pinBg();
@@ -581,6 +581,13 @@
       emit(panelSummary(), false);
     } catch (e) { liveError(e); }
   }
+  /* "Hablar en español": VISUAL ONLY for the 10-23 pitch. No Spanish agent exists yet (it would be a second agent
+     on the same twin, born with language "es"); a tap only shows a short bilingual note. */
+  var esBtn = $(".ava-es", stage);
+  if (esBtn) esBtn.addEventListener("click", function () {
+    if (liveState !== "idle") return;
+    say_("Ava en español: muy pronto. Spanish is coming soon.", 5000); track("accu_panel", { action: "talk_es_soon" });
+  });
   talkBtn.addEventListener("click", function () {
     if (liveState === "live") { endLive(""); return; }
     startLive();

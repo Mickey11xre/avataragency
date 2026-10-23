@@ -32,6 +32,12 @@
 <link rel="stylesheet" href="/avatarstages/stages.css?v=8">
 <style>
   #accu-stage .stage-av { background-image: url("/clients/accu/media/accu-ava-poster.jpg?v=1"); }
+  /* The Spanish button only shows while Ava is idle: once the English conversation starts, the English button alone
+     carries "Connecting..." / "End conversation". */
+  #accu-stage .stage-av.live .ava-es { display: none; }
+  /* "Talk in English" + "Hablar en español" stay side by side, phones included (Michael, 10-23) */
+  #accu-stage .ava-ctrls { flex-wrap: nowrap; }
+  @media (max-width: 420px) { #accu-stage .ava-ctrls { left: 10px; right: 10px; gap: 6px; } #accu-stage .ava-ctrls .ava-btn { padding: 0 11px; font-size: 12.5px; gap: 6px; } }
   #accu-stage { scroll-margin-top: calc(var(--hdr) + 12px); }
   /* the stage sits right under the hero, so its section needs no case-style top rule */
   .accu-talk { padding: clamp(10px, 2vw, 24px) 0 0; }
@@ -209,7 +215,10 @@
         <div class="ava-toast" role="status" hidden></div>
         <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play Ava's introduction with sound" title="Play Ava's introduction with sound"><svg aria-hidden="true"><use href="#i-sound-off"/></svg><span class="ava-sound-label" aria-hidden="true">Muted</span></button>
         <div class="ava-ctrls">
-          <button class="ava-btn ava-talk" type="button"><svg><use href="#i-mic"/></svg><span>Talk to Ava</span></button>
+          <button class="ava-btn ava-talk" type="button"><svg><use href="#i-mic"/></svg><span>Talk in English</span></button>
+          <!-- Spanish: VISUAL ONLY for the 10-23 pitch (Michael: "just have the visual buttons that show that she can speak
+               English and Spanish"). No Spanish agent exists yet; a tap shows a "coming soon" note (accu-stage.js). -->
+          <button class="ava-btn ava-talk ava-es is-soon" type="button" lang="es" aria-label="Hablar en español (próximamente)"><svg><use href="#i-mic"/></svg><span>Hablar en español</span></button>
         </div>
       </div>
       <aside class="panel is-home" id="accu-panel" aria-label="Ava's panel">
@@ -313,7 +322,7 @@
 <script src="/home-next/vendor/ScrollTrigger.min.js"></script>
 <script src="/home-next/vendor/lenis.min.js"></script>
 <script src="/clients/accu/portfolio-public.js?v=1"></script>
-<script src="/clients/accu/accu-stage.js?v=3"></script>
+<script src="/clients/accu/accu-stage.js?v=4"></script>
 <script>
   /* Every video outside Ava's stage (the concept spot, and Paul's films in the shared theater, which portfolio.js creates
      on the fly): half volume on load (client-portal video playbook); playing one with sound pauses the others, ends a
@@ -331,7 +340,7 @@
       var snd = st.querySelector('.ava-sound[aria-pressed="true"]'); if (snd) snd.click();
     }, true);
     document.addEventListener("click", function (e) {
-      var t = e.target && e.target.closest ? e.target.closest("#accu-stage .ava-talk, #accu-stage .ava-sound") : null;
+      var t = e.target && e.target.closest ? e.target.closest("#accu-stage .ava-talk:not(.ava-es), #accu-stage .ava-sound") : null;
       if (t) others().forEach(function (v) { if (!v.paused) v.pause(); });
     }, true);
   })();
