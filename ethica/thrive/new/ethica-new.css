@@ -55,7 +55,6 @@ body { color: var(--on); }
 .eth-theme-ico svg { width: 15px; height: 15px; }
 .eth-theme-txt { display: flex; flex-direction: column; line-height: 1.15; }
 .eth-theme-txt b { font-size: 13px; font-weight: 600; letter-spacing: .01em; }
-.eth-theme-txt small { font-size: 11px; color: var(--on-mute); }
 .eth-theme-bars { display: none; align-items: flex-end; gap: 2px; height: 14px; margin-left: 2px; }
 .eth-theme-bars i { width: 3px; height: 100%; border-radius: 1px; background: var(--gold-light); transform-origin: bottom; animation: eth-eq 1s ease-in-out infinite; }
 .eth-theme-bars i:nth-child(2) { animation-delay: -.35s; } .eth-theme-bars i:nth-child(3) { animation-delay: -.7s; }
@@ -75,10 +74,11 @@ body { color: var(--on); }
   .eth-copy > p { font-size: 15px; }
   .eth-copy .eth-eyebrow { font-size: 11px; }
   .eth-copy-cta span { font-size: 13px; }
-  /* Phones/tablets: the banner is short, so the button leaves the image (it covered Ethica) and sits right-aligned under it */
-  .eth-theme { position: relative; top: auto; right: auto; display: flex; width: max-content; margin: 12px var(--g) 0 auto; padding: 5px 12px 5px 5px; gap: 8px; }
-  .eth-theme-ico { width: 28px; height: 28px; }
-  .eth-trailer { margin-top: 12px; }
+  /* Phones/tablets (Michael, 10-24): over the banner, bottom-right corner (over her legs, clear of her face and the logo).
+     The banner is 100vw × 6.9/16 tall, so its bottom edge is at 43.125vw. */
+  .eth-theme { top: calc(43.125vw - 42px); right: 12px; padding: 4px 12px 4px 4px; gap: 8px; }
+  .eth-theme-ico { width: 26px; height: 26px; }
+  .eth-theme-txt b { font-size: 12.5px; }
 }
 
 /* ── The stage ── */
