@@ -722,28 +722,33 @@
       st === 429 || st >= 500 ? "Ethica is talking with other visitors right now — try again in a few minutes." :
       "I couldn't start the live conversation just now. The panel beside me still works.", true);
   }
-  /* Pop-out (Michael 10-24, Ethica first, then global): Chrome floats the avatar by itself only on a TAB switch. While
-     the visitor shares their screen, a one-click button opens her in an always-on-top window above what they share
-     (Document Picture-in-Picture needs that click). Like the SDK's own PiP, it clones the SDK's video muted; her voice
-     keeps playing from the page. Closes when sharing stops or the session ends. */
-  var popBtn = null, popWin = null, sharing = false;
+  /* Pop-out (Michael 10-24; Ethica first, then global). DEFAULT: the moment the visitor starts sharing their screen,
+     Ethica opens in a small always-on-top window above what they share; when they come back to this page she returns
+     to the stage. Chrome only opens that window inside a click, so it opens in the SAME click as the SDK's Share Screen
+     button: getDisplayMedia is wrapped below, the picker starts first (the share never depends on the pop-out), and a
+     cancelled picker closes the window. Chrome cannot re-float her without a click, so while sharing with her back on
+     the stage a "Pop Ethica out" button stays as the manual way. Like the SDK's own PiP, the window clones the SDK's
+     video muted; her voice keeps playing from the page. */
+  var popBtn = null, popWin = null, sharing = false, leftPage = false, awayFrom = 0;
   var POP_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="12" y="12" width="7" height="5" rx="1" fill="currentColor"/></svg>';
   function sdkVideo() { var v = mount.querySelector(".np_companion-avatar-video"); return v && v.srcObject ? v : null; }
   function popOpen() { return !!(popWin || document.pictureInPictureElement); }
   function popSupported() { return !!window.documentPictureInPicture || !!document.pictureInPictureEnabled; }
   function closePop() {
+    leftPage = false;
     if (popWin) { try { popWin.close(); } catch (e) {} popWin = null; }
     else if (document.pictureInPictureElement) document.exitPictureInPicture().catch(function () {});
   }
-  async function openPop() {
-    var v = sdkVideo(); if (!v) return;
+  // The request must be made synchronously inside the click (nothing awaited before it).
+  async function openPop(auto) {
+    var v = sdkVideo(); if (!v || popOpen()) return;
     var videoPip = function () { return v.requestPictureInPicture().then(function () { v.addEventListener("leavepictureinpicture", showPopBtn, { once: true }); }); };
     try {
       if (window.documentPictureInPicture) {
         var w;
         // Embedded browsers can expose the API but refuse the window ("no window"): fall back to plain video PiP.
         try { w = await window.documentPictureInPicture.requestWindow({ width: 384, height: 216 }); }
-        catch (e1) { if (!document.pictureInPictureEnabled) throw e1; await videoPip(); track("ethica_popout", { kind: "video" }); showPopBtn(); return; }
+        catch (e1) { if (!document.pictureInPictureEnabled) throw e1; await videoPip(); track("ethica_popout", { kind: "video", auto: !!auto }); showPopBtn(); return; }
         popWin = w;
         var c = w.document.createElement("video");
         c.srcObject = v.srcObject; c.autoplay = true; c.muted = true; c.playsInline = true;
@@ -753,25 +758,42 @@
         w.document.body.appendChild(c);
         w.addEventListener("pagehide", function () { if (popWin === w) popWin = null; showPopBtn(); });
       } else await videoPip();
-      track("ethica_popout", {});
-    } catch (e) { say_("Your browser blocked the pop-out window. Switch to another tab and Ethica follows you.", 6000); }
+      track("ethica_popout", { auto: !!auto });
+    } catch (e) { if (!auto) say_("Your browser blocked the pop-out window. Switch to another tab and Ethica follows you.", 6000); }
     showPopBtn();
   }
   function showPopBtn() {
     if (!popBtn) {
       popBtn = document.createElement("button"); popBtn.type = "button"; popBtn.className = "ava-btn eth-popout";
-      popBtn.addEventListener("click", function () { if (popOpen()) closePop(); else openPop(); setTimeout(showPopBtn, 50); });
+      popBtn.innerHTML = POP_ICON + "<span>Pop Ethica out</span>";
+      popBtn.addEventListener("click", function () { openPop(false); });
       avStage.appendChild(popBtn);
     }
-    popBtn.hidden = !(sharing && popSupported());   // sharing is only ever true during a session (endedState resets it)
-    popBtn.innerHTML = POP_ICON + "<span>" + (popOpen() ? "Bring Ethica back" : "Pop Ethica out") + "</span>";
+    popBtn.hidden = !(sharing && !popOpen() && popSupported());   // sharing is only ever true during a session
   }
   function onShareChange(on) {
     sharing = !!on;
-    if (!sharing) closePop();
+    if (sharing) { awayFrom = Date.now() + 1200; track("ethica_screen_share", {}); }   // ignore focus noise as the picker closes
+    else closePop();
     showPopBtn();
-    if (sharing) track("ethica_screen_share", {});
   }
+  // Same click as Share Screen: start the picker, then open the window while Chrome still counts the click.
+  (function wrapShare() {
+    var md = navigator.mediaDevices;
+    if (!md || typeof md.getDisplayMedia !== "function" || md.__ethicaPop) return;
+    var orig = md.getDisplayMedia.bind(md);
+    md.getDisplayMedia = function (opts) {
+      var p = orig(opts);
+      if (liveState !== "idle" && !popOpen()) { openPop(true); p.then(null, function () { if (!sharing) closePop(); }); }
+      return p;
+    };
+    md.__ethicaPop = true;
+  })();
+  // Back on this page = back on the stage. Leaving = this window loses focus, or the tab is hidden, while she floats.
+  function backToPage() { if (leftPage && popOpen()) { closePop(); showPopBtn(); track("ethica_popout_return", {}); } leftPage = false; }
+  window.addEventListener("blur", function () { if (sharing && popOpen() && Date.now() > awayFrom) leftPage = true; });
+  window.addEventListener("focus", backToPage);
+  document.addEventListener("visibilitychange", function () { if (document.hidden) { if (popOpen()) leftPage = true; } else backToPage(); });
 
   async function startLive() {
     if (liveState !== "idle") return;
