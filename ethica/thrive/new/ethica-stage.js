@@ -1,3 +1,5 @@
+/* Stage-standard pop-out on screen share: /avatarstages/avatar-popout.js (Michael 10-24, AVATAR-STAGE-SPEC). */
+(function () { if (window.AvatarPopout || document.getElementById("av-popout-js")) return; var s = document.createElement("script"); s.id = "av-popout-js"; s.src = "/avatarstages/avatar-popout.js?v=1"; document.head.appendChild(s); })();
 /* ETHICA's stage on the redesigned landing page /ethica/thrive/new/ (preview; Michael, 2026-10-23). Built from
  * /clients/accu/accu-stage.js (same look, panel and live-session code), with Ethica's own panel and the current
  * /ethica/thrive/ free-minutes gate.
@@ -99,6 +101,12 @@
   var todayKey = function () { return new Date().toISOString().slice(0, 10); };
   var FREE_SECONDS = 900;   // Michael, 10-24: 15 free minutes (anonymous once; registered per day), was 300
   var GATE_V = 2;           // records without gateV 2 were written under the 5-minute gate: topped up once to 15
+  // Tester reset (Michael 10-24): ?ethica-reset clears THIS browser's free-time records (both pages share them). The
+  // gate is client-side anyway (a private window does the same), so this opens nothing new. Name memory is kept.
+  if (/[?&]ethica-reset\b/.test(location.search)) {
+    try { localStorage.removeItem("ethica_user"); localStorage.removeItem("ethica_anon"); } catch (e) {}
+    try { history.replaceState(null, "", location.pathname + location.hash); } catch (e) {}
+  }
   // { stage: "anonymous"|"registered", seconds } or { stage: "blocked", why: "free_used"|"trial_over"|"day_used" }
   function grantAccess() {
     var user = get("ethica_user");
@@ -703,7 +711,6 @@
     stopClock();
     instance = null; revealed = false; liveState = "idle";
     if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
-    if (sharing || popOpen()) onShareChange(false);
     if (visible) playQuiet();
     avStage.classList.remove("live", "live-ready"); setTalk("Talk to Ethica", false); showTimer();
     if (now) mount.innerHTML = "";
@@ -722,79 +729,6 @@
       st === 429 || st >= 500 ? "Ethica is talking with other visitors right now — try again in a few minutes." :
       "I couldn't start the live conversation just now. The panel beside me still works.", true);
   }
-  /* Pop-out (Michael 10-24; Ethica first, then global). DEFAULT: the moment the visitor starts sharing their screen,
-     Ethica opens in a small always-on-top window above what they share; when they come back to this page she returns
-     to the stage. Chrome only opens that window inside a click, so it opens in the SAME click as the SDK's Share Screen
-     button: getDisplayMedia is wrapped below, the picker starts first (the share never depends on the pop-out), and a
-     cancelled picker closes the window. Chrome cannot re-float her without a click, so while sharing with her back on
-     the stage a "Pop Ethica out" button stays as the manual way. Like the SDK's own PiP, the window clones the SDK's
-     video muted; her voice keeps playing from the page. */
-  var popBtn = null, popWin = null, sharing = false, leftPage = false, awayFrom = 0;
-  var POP_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="12" y="12" width="7" height="5" rx="1" fill="currentColor"/></svg>';
-  function sdkVideo() { var v = mount.querySelector(".np_companion-avatar-video"); return v && v.srcObject ? v : null; }
-  function popOpen() { return !!(popWin || document.pictureInPictureElement); }
-  function popSupported() { return !!window.documentPictureInPicture || !!document.pictureInPictureEnabled; }
-  function closePop() {
-    leftPage = false;
-    if (popWin) { try { popWin.close(); } catch (e) {} popWin = null; }
-    else if (document.pictureInPictureElement) document.exitPictureInPicture().catch(function () {});
-  }
-  // The request must be made synchronously inside the click (nothing awaited before it).
-  async function openPop(auto) {
-    var v = sdkVideo(); if (!v || popOpen()) return;
-    var videoPip = function () { return v.requestPictureInPicture().then(function () { v.addEventListener("leavepictureinpicture", showPopBtn, { once: true }); }); };
-    try {
-      if (window.documentPictureInPicture) {
-        var w;
-        // Embedded browsers can expose the API but refuse the window ("no window"): fall back to plain video PiP.
-        try { w = await window.documentPictureInPicture.requestWindow({ width: 384, height: 216 }); }
-        catch (e1) { if (!document.pictureInPictureEnabled) throw e1; await videoPip(); track("ethica_popout", { kind: "video", auto: !!auto }); showPopBtn(); return; }
-        popWin = w;
-        var c = w.document.createElement("video");
-        c.srcObject = v.srcObject; c.autoplay = true; c.muted = true; c.playsInline = true;
-        c.style.cssText = "position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center";
-        w.document.body.style.cssText = "margin:0;background:#000;overflow:hidden";
-        w.document.title = "Ethica";
-        w.document.body.appendChild(c);
-        w.addEventListener("pagehide", function () { if (popWin === w) popWin = null; showPopBtn(); });
-      } else await videoPip();
-      track("ethica_popout", { auto: !!auto });
-    } catch (e) { if (!auto) say_("Your browser blocked the pop-out window. Switch to another tab and Ethica follows you.", 6000); }
-    showPopBtn();
-  }
-  function showPopBtn() {
-    if (!popBtn) {
-      popBtn = document.createElement("button"); popBtn.type = "button"; popBtn.className = "ava-btn eth-popout";
-      popBtn.innerHTML = POP_ICON + "<span>Pop Ethica out</span>";
-      popBtn.addEventListener("click", function () { openPop(false); });
-      avStage.appendChild(popBtn);
-    }
-    popBtn.hidden = !(sharing && !popOpen() && popSupported());   // sharing is only ever true during a session
-  }
-  function onShareChange(on) {
-    sharing = !!on;
-    if (sharing) { awayFrom = Date.now() + 1200; track("ethica_screen_share", {}); }   // ignore focus noise as the picker closes
-    else closePop();
-    showPopBtn();
-  }
-  // Same click as Share Screen: start the picker, then open the window while Chrome still counts the click.
-  (function wrapShare() {
-    var md = navigator.mediaDevices;
-    if (!md || typeof md.getDisplayMedia !== "function" || md.__ethicaPop) return;
-    var orig = md.getDisplayMedia.bind(md);
-    md.getDisplayMedia = function (opts) {
-      var p = orig(opts);
-      if (liveState !== "idle" && !popOpen()) { openPop(true); p.then(null, function () { if (!sharing) closePop(); }); }
-      return p;
-    };
-    md.__ethicaPop = true;
-  })();
-  // Back on this page = back on the stage. Leaving = this window loses focus, or the tab is hidden, while she floats.
-  function backToPage() { if (leftPage && popOpen()) { closePop(); showPopBtn(); track("ethica_popout_return", {}); } leftPage = false; }
-  window.addEventListener("blur", function () { if (sharing && popOpen() && Date.now() > awayFrom) leftPage = true; });
-  window.addEventListener("focus", backToPage);
-  document.addEventListener("visibilitychange", function () { if (document.hidden) { if (popOpen()) leftPage = true; } else backToPage(); });
-
   async function startLive() {
     if (liveState !== "idle") return;
     access = grantAccess();
@@ -818,7 +752,7 @@
         mountContainer: "#ethica-mount", avatarStyle: { view: "rectangle", borderWidth: "0px", borderStyle: "none" }, debug: /[?&]debug\b/.test(location.search),
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
         onAvatarReady: armReveal, onDestroy: function () { if (instance) endedState(""); },
-        onScreenShareStateChange: onShareChange,
+        onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook("#ethica-mount", { name: "Ethica", top: "56px" }) : undefined,   // under the countdown
       });
       instance.showAvatar(); pinBg();
       setTimeout(function () { if (instance) armReveal(); }, 3000);
@@ -833,6 +767,6 @@
   window.addEventListener("pagehide", persist);
 
   // For the console and tests: what the live Ethica would see.
-  window.EthicaPanel = { tools: TOOLS, exec: execTool, state: function () { return S; }, access: grantAccess, shareChanged: onShareChange };
+  window.EthicaPanel = { tools: TOOLS, exec: execTool, state: function () { return S; }, access: grantAccess };
   render({});
 })();

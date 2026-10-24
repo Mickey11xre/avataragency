@@ -416,6 +416,7 @@ html body { background:var(--bg) !important; }
 .aa-help-svc li:first-child { border-top:1px solid var(--border); }
 .site-foot .fine { font-size:.72rem; color:var(--muted); line-height:1.7; max-width:760px; }
 </style>
+<script src="/avatarstages/avatar-popout.js?v=1"></script><!-- stage-standard pop-out on screen share (Michael 10-24) -->
 </head>
 <body>
 
@@ -876,6 +877,7 @@ html body { background:var(--bg) !important; }
         mountContainer: '#tm-mount',
         avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
+        onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook('#tm-mount', { name: sp.person.split(' ')[0] }) : undefined,
         onAvatarReady: function () { msg(''); },
         onDestroy: function () { instance = null; starting = false; }
       });

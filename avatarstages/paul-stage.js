@@ -1,3 +1,5 @@
+/* Stage-standard pop-out on screen share: /avatarstages/avatar-popout.js (Michael 10-24, AVATAR-STAGE-SPEC). */
+(function () { if (window.AvatarPopout || document.getElementById("av-popout-js")) return; var s = document.createElement("script"); s.id = "av-popout-js"; s.src = "/avatarstages/avatar-popout.js?v=1"; document.head.appendChild(s); })();
 /* Paul's stage: the third stage on the private /avatarstages page. Michael, 6 Oct: "place him on the avatar private
  * page underneath Maya". It has the same look, layout and demo panel as Maya's (maya-stage.js), worded for Paul
  * Small, a Compass real estate advisor who specializes in West Los Angeles (an AvatarAgency client).
@@ -580,6 +582,7 @@
         // The SDK's default 4px border (red while muted or idle) stays off on every stage (AVATAR-STAGE-SPEC §8).
         mountContainer: "#paul-mount", avatarStyle: { view: "rectangle", borderWidth: "0px", borderStyle: "none" }, debug: /[?&]debug\b/.test(location.search),
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
+        onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook("#paul-mount", { name: "Paul" }) : undefined,
         onAvatarReady: armReveal, onDestroy: function () { if (instance) endedState(""); },
       });
       instance.showAvatar(); pinBg();

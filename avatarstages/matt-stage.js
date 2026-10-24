@@ -1,3 +1,5 @@
+/* Stage-standard pop-out on screen share: /avatarstages/avatar-popout.js (Michael 10-24, AVATAR-STAGE-SPEC). */
+(function () { if (window.AvatarPopout || document.getElementById("av-popout-js")) return; var s = document.createElement("script"); s.id = "av-popout-js"; s.src = "/avatarstages/avatar-popout.js?v=1"; document.head.appendChild(s); })();
 /* Matt's stage: the fourth stage on the private /avatarstages page, below Paul. Matt is the AI version of the owner of
  * Matt's Valley Plumbing, a FICTIONAL local plumbing company in the San Fernando Valley (Michael, 5-6 Oct: "a local
  * plumber... Obviously, a fictitious business, but just for demonstration").
@@ -568,6 +570,7 @@
         // The SDK's default 4px border (red while muted or idle) stays off on every stage (AVATAR-STAGE-SPEC §8).
         mountContainer: "#matt-mount", avatarStyle: { view: "rectangle", borderWidth: "0px", borderStyle: "none" }, debug: /[?&]debug\b/.test(location.search),
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
+        onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook("#matt-mount", { name: "Matt" }) : undefined,
         onAvatarReady: armReveal, onDestroy: function () { if (instance) endedState(""); },
       });
       instance.showAvatar(); pinBg();

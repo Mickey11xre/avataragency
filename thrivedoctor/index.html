@@ -237,6 +237,7 @@ footer{background:#0C0F0E;color:#9AA8A1;padding:72px 0 44px;font-size:14.5px}
 .hero-logo-tm{position:absolute;top:84%;right:-0.3em;font-family:var(--label);font-weight:700;font-size:clamp(11px,1.3vw,15px);color:var(--thrive-gold);line-height:1}
 .on-leaf{background:#E9F2E0}
 </style>
+<script src="/avatarstages/avatar-popout.js?v=1"></script><!-- stage-standard pop-out on screen share (Michael 10-24) -->
 </head>
 <body>
 
@@ -556,6 +557,7 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
         mountContainer: '#td-mount',
         avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
+        onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook('#td-mount', { name: 'Stephanie' }) : undefined,
         onAvatarReady: function () { pinBg(); msg(''); },
         onDestroy: function () { instance = null; starting = false; restore(); }
       });

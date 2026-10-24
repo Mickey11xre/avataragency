@@ -129,6 +129,7 @@
     .mark img{height:28px}
   }
 </style>
+<script src="/avatarstages/avatar-popout.js?v=1"></script><!-- stage-standard pop-out on screen share (Michael 10-24) -->
 </head>
 <body>
 <div class="wrap">
@@ -329,6 +330,7 @@
           screenShare: { enabled: true },
           pictureInPicture: { enabled: true }
         },
+        onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook('#mount', { name: 'Michael' }) : undefined,
         onAvatarReady: armReveal,
         onDestroy: endedState
       });

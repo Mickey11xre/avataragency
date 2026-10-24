@@ -1,3 +1,5 @@
+/* Stage-standard pop-out on screen share: /avatarstages/avatar-popout.js (Michael 10-24, AVATAR-STAGE-SPEC). */
+(function () { if (window.AvatarPopout || document.getElementById("av-popout-js")) return; var s = document.createElement("script"); s.id = "av-popout-js"; s.src = "/avatarstages/avatar-popout.js?v=1"; document.head.appendChild(s); })();
 /* Maya's stage — the second stage on the private /avatarstages page. Ava's stage above it is run, unchanged, by
  * /home-next/ava-panel.js (the homepage template).
  *
@@ -597,6 +599,7 @@
         // The SDK's default 4px border (red while muted or idle) stays off on every stage (AVATAR-STAGE-SPEC §8).
         mountContainer: "#maya-mount", avatarStyle: { view: "rectangle", borderWidth: "0px", borderStyle: "none" }, debug: /[?&]debug\b/.test(location.search),
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
+        onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook("#maya-mount", { name: "Maya" }) : undefined,
         onAvatarReady: armReveal, onDestroy: function () { if (instance) endedState(""); },
       });
       instance.showAvatar(); pinBg();

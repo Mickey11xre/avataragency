@@ -1,3 +1,5 @@
+/* Stage-standard pop-out on screen share: /avatarstages/avatar-popout.js (Michael 10-24, AVATAR-STAGE-SPEC). */
+(function () { if (window.AvatarPopout || document.getElementById("av-popout-js")) return; var s = document.createElement("script"); s.id = "av-popout-js"; s.src = "/avatarstages/avatar-popout.js?v=1"; document.head.appendChild(s); })();
 /* ============================================================
    AvatarAgency founder concierge — Michael Rivera's digital twin.
    Drop on any page:  <script src="/assist.js" defer></script>
@@ -323,6 +325,7 @@
         mountContainer: '#aat-mount',
         avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         features: SDK_FEATURES,
+        onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook('#aat-mount', { name: 'Michael' }) : undefined,
         onAvatarReady: function () { avatarReady = true; },
         onStateChange: stateHandler,
         onDestroy: function () {
@@ -493,6 +496,7 @@
         mountContainer: '#aat-mount',
         avatarStyle: { view: 'rectangle', borderWidth: '0px', borderStyle: 'none' },
         features: SDK_FEATURES,
+        onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook('#aat-mount', { name: 'Michael' }) : undefined,
         onAvatarReady: function () { avatarReady = true; },
         onStateChange: stateHandler,
         onDestroy: function () {
