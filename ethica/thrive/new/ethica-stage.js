@@ -525,7 +525,27 @@
       track("ethica_name_saved", {});
       return { ok: true, saved: first, note: "Saved in this visitor's browser. Use their first name naturally from now on, and you will greet them by it next time." };
     },
-    // Panel-only (the contact form is NOT avatar-driven, per the stage template): the visitor types and confirms it.
+    // Michael, 10-24: Ethica fills the contact form by voice (like Ava's fill_lead_details). SENDING stays the visitor's
+    // tap on the review card (stage spec: contact info goes out only on the visitor's tap; the consent line sits there).
+    fill_lead_details: function (a) {
+      a = a || {}; var changed = [];
+      ["name", "email", "phone", "need"].forEach(function (k) { if (a[k] != null && String(a[k]).trim() !== "") { S.lead[k] = String(a[k]).trim(); changed.push(k); } });
+      if (typeof a.callback === "boolean" && a.callback !== S.lead.callback) { S.lead.callback = a.callback; changed.push("callback"); }
+      var ids = { name: "lname", email: "lemail", phone: "lphone", need: "lneed" };
+      if (S.mode !== "lead") go("lead");
+      else if (!inReview("lead")) changed.forEach(function (k) { var el = $("#ap-" + (ids[k] || "lcallback"), body); if (!el) return; if (k === "callback") el.checked = S.lead.callback; else el.value = S.lead[k]; });
+      if (!inReview("lead")) changed.forEach(function (k) { var el = $("#ap-" + (ids[k] || "lcallback"), body); if (el) flash(el); });   // the visitor sees Ethica writing
+      var missing = [];
+      if (!S.lead.name.trim()) missing.push("name");
+      if (!validEmail(S.lead.email.trim())) missing.push("email");
+      if (S.lead.callback && S.lead.phone.replace(/\D/g, "").length < 7) missing.push("phone (needed for a callback)");
+      var form = { name: S.lead.name, email: S.lead.email, phone: S.lead.phone, need: S.lead.need, callback: S.lead.callback };
+      if (missing.length) { if (inReview("lead")) { S.review = null; render({}); } return { ok: true, form: form, still_needed: missing }; }
+      if (!reviewFresh("lead")) openReview("lead", true);
+      return { ok: true, form: form, still_needed: [], sent: false,
+        note: "The review card is on the panel. Read back their name and email (spell the email), then ask them to check it and tap \"Yes, send to Michael\". You cannot send it yourself. If they correct something, call fill_lead_details again." };
+    },
+    // Panel tap only (never in TOOLS): the visitor sends from the review card.
     submit_lead: function () {
       if (!S.lead.name.trim() || !validEmail(S.lead.email.trim())) { setMsg(!S.lead.name.trim() ? "Please add your name." : "Please enter a valid email.", true); return Promise.resolve({ ok: false }); }
       if (S.lead.callback && S.lead.phone.replace(/\D/g, "").length < 7) { setMsg("Please add a phone number so Michael can call you back.", true); var ph = $("#ap-lphone", body); if (ph) { ph.setAttribute("aria-invalid", "true"); ph.focus(); } return Promise.resolve({ ok: false }); }
@@ -559,6 +579,8 @@
       inputSchema: { type: "object", properties: {} }, annotations: { destructiveHint: true } },
     { name: "remember_visitor_name", description: "Save the visitor's first name so you can greet them by name next time. After your first answer to a new visitor, ask once, warmly: \"By the way, what's your name?\" When they tell you, call this with their first name only, then use it naturally. If they would rather not say, carry on without it and never ask again. Never ask for a last name or any other personal detail.",
       inputSchema: { type: "object", properties: { name: { type: "string", description: "The visitor's first name, as they said it" } }, required: ["name"] } },
+    { name: "fill_lead_details", description: "Fill in the \"Leave my contact info\" form on the panel when the visitor wants Avatar Agency to get back to them (for example about an AI avatar for their business) but would rather not book a time. Call it each time you learn a detail; only include the fields you just learned. Set callback true if they want a phone call back (then a phone number is required). Never build, guess or complete an email: ask them to type it on the panel or spell it, and read it back letter by letter. When name and email are in, the panel shows a review card; the visitor checks it and taps send themselves. You never send it.",
+      inputSchema: { type: "object", properties: { name: { type: "string", description: "Full name" }, email: { type: "string", description: "Email address" }, phone: { type: "string", description: "Phone number" }, need: { type: "string", description: "A short note on what they want help with" }, callback: { type: "boolean", description: "true if they want a phone call back" } } } },
   ];
   function execTool(name, args) {
     var fn = TOOLS.some(function (t) { return t.name === name; }) && TOOLS_IMPL[name];   // the twin can only reach the listed tools
