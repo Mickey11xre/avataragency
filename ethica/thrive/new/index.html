@@ -50,7 +50,7 @@
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/work/portfolio.css?v=10">
 <link rel="stylesheet" href="/avatarstages/stages.css?v=8">
-<link rel="stylesheet" href="/ethica/thrive/new/ethica-new.css?v=4">
+<link rel="stylesheet" href="/ethica/thrive/new/ethica-new.css?v=5">
 <link rel="preload" as="image" href="/ethica/thrive/new/media/ethica-cape-poster.jpg?v=1">
 <!-- AISO: the FAQPage mirrors the visible FAQ below word for word; change both together. -->
 <script type="application/ld+json">
@@ -120,7 +120,11 @@
     <!-- ETHICA_TEASER.mov, web encode (CRF 20, -14 LUFS, 2:30, 55.8 MB) → R2 avataragency-twin-assets (over the 25 MiB
          Pages cap). Tap to play only; volume 0.5 from the page script. Poster (Michael, 10-24) = the villain at 0:42 + "MOVIE TRAILER"
          in Roboto Condensed 800 (closest match to the tagline lettering); source C:VideoProjectsETHICALANDING_PAGEPOSTER. -->
-    <video controls preload="none" playsinline controlslist="nodownload noremoteplayback"
+    <!-- No native controls until the visitor presses play (10-24): the control bar covered "MOVIE TRAILER" on phones. -->
+    <button class="eth-trailer-play" type="button" aria-label="Play the ETHICA movie trailer (2 minutes 30 seconds)">
+      <span class="pb"><svg aria-hidden="true"><use href="#i-play"/></svg></span><span class="len">2:30</span>
+    </button>
+    <video preload="none" playsinline controlslist="nodownload noremoteplayback"
            poster="/ethica/thrive/new/media/ethica-trailer-poster-movie.jpg?v=2"
            src="https://pub-8812afd3dad54ff08c2ff2f192b93321.r2.dev/ethica-trailer-4df56d7881f4.mp4"
            aria-label="The ETHICA teaser"></video>
@@ -265,6 +269,13 @@
     }
     var inStage = function (el) { return !!(el.closest && el.closest('.stage')); };
     var isMedia = function (el) { return el && (el.tagName === 'VIDEO' || el.tagName === 'AUDIO'); };
+    // Trailer: our play button first; the native controls appear once it has started.
+    var tBtn = document.querySelector('.eth-trailer-play'), tVid = document.querySelector('.eth-trailer video');
+    if (tBtn && tVid) tBtn.addEventListener('click', function () {
+      tBtn.hidden = true; tVid.controls = true;
+      var p = tVid.play(); if (p && p.catch) p.catch(function () {});
+      try { gtag('event', 'ethica_trailer', { action: 'play' }); } catch (e) {}
+    });
     var song = document.querySelector('.eth-theme-audio'), songBtn = document.querySelector('.eth-theme');
     document.addEventListener('loadedmetadata', function (e) { var v = e.target; if (isMedia(v) && !inStage(v) && v !== bg) v.volume = 0.5; }, true);
     document.addEventListener('play', function (e) {

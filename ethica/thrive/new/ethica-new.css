@@ -23,6 +23,16 @@ body { color: var(--on); }
 /* PSD "Layer 1" (141,878 → 1369,1569): the trailer */
 .eth-trailer { position: absolute; left: 5.508%; width: 47.969%; top: 54.875%; aspect-ratio: 16 / 9; background: #000; box-shadow: 0 30px 80px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(201,168,76,.22); }
 .eth-trailer video { display: block; width: 100%; height: 100%; object-fit: cover; background: #000; }
+/* Our play button (bottom left, clear of his face and the poster title); the whole poster is the hit area */
+.eth-trailer-play { position: absolute; inset: 0; z-index: 2; display: flex; align-items: flex-end; gap: 10px; padding: clamp(10px, 1.3vw, 22px);
+  border: 0; cursor: pointer; color: #fff; background: linear-gradient(to top, rgba(0,0,0,.42), transparent 34%); font-family: var(--f); }
+.eth-trailer-play .pb { width: clamp(40px, 3.6vw, 64px); height: clamp(40px, 3.6vw, 64px); border-radius: 50%; display: grid; place-items: center;
+  background: var(--gold); color: #000; box-shadow: 0 8px 24px -6px rgba(0,0,0,.6); transition: transform .3s var(--ease), background .3s var(--ease); }
+.eth-trailer-play .pb svg { width: 46%; height: 46%; margin-left: 8%; }
+.eth-trailer-play .len { font-size: clamp(12px, .9vw, 16px); font-weight: 500; letter-spacing: .04em; text-shadow: 0 1px 6px rgba(0,0,0,.7); padding-bottom: 4px; }
+.eth-trailer-play:hover .pb { transform: scale(1.06); background: var(--gold-light); }
+.eth-trailer-play:focus-visible { outline: 2px solid var(--gold-light); outline-offset: -4px; }
+.eth-trailer-play[hidden] { display: none; }
 /* PSD "GRAY_BOX" x (1407 → 2431): black at 54 % so the cape shows through. Michael, 10-24: top and bottom lined up with
    the trailer (was 722 → 1563 in the PSD, taller than it needed to be). */
 .eth-copy { position: absolute; left: 54.961%; width: 40%; top: 54.875%; height: 43.17%; background: rgba(1,1,1,.54);
@@ -65,9 +75,10 @@ body { color: var(--on); }
   .eth-copy > p { font-size: 15px; }
   .eth-copy .eth-eyebrow { font-size: 11px; }
   .eth-copy-cta span { font-size: 13px; }
-  .eth-theme { top: 10px; padding: 5px 10px 5px 5px; gap: 8px; }
-  .eth-theme-ico { width: 26px; height: 26px; }
-  .eth-theme-txt small { display: none; }
+  /* Phones/tablets: the banner is short, so the button leaves the image (it covered Ethica) and sits right-aligned under it */
+  .eth-theme { position: relative; top: auto; right: auto; display: flex; width: max-content; margin: 12px var(--g) 0 auto; padding: 5px 12px 5px 5px; gap: 8px; }
+  .eth-theme-ico { width: 28px; height: 28px; }
+  .eth-trailer { margin-top: 12px; }
 }
 
 /* ── The stage ── */
@@ -149,6 +160,7 @@ body { color: var(--on); }
   .eth-origin { grid-template-columns: 1fr; }
   .eth-faq details p { padding-right: 2px; }
 }
+@media (max-width: 400px) { .eth-copy .eth-eyebrow { letter-spacing: .12em; gap: 10px; } }
 @media (max-width: 520px) {
   .eth-hdr .btn { padding-inline: 14px; }
   .eth-logo { font-size: 19px; }
