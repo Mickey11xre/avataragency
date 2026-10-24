@@ -703,6 +703,7 @@
     stopClock();
     instance = null; revealed = false; liveState = "idle";
     if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
+    if (sharing || popOpen()) onShareChange(false);
     if (visible) playQuiet();
     avStage.classList.remove("live", "live-ready"); setTalk("Talk to Ethica", false); showTimer();
     if (now) mount.innerHTML = "";
@@ -721,6 +722,56 @@
       st === 429 || st >= 500 ? "Ethica is talking with other visitors right now — try again in a few minutes." :
       "I couldn't start the live conversation just now. The panel beside me still works.", true);
   }
+  /* Pop-out (Michael 10-24, Ethica first, then global): Chrome floats the avatar by itself only on a TAB switch. While
+     the visitor shares their screen, a one-click button opens her in an always-on-top window above what they share
+     (Document Picture-in-Picture needs that click). Like the SDK's own PiP, it clones the SDK's video muted; her voice
+     keeps playing from the page. Closes when sharing stops or the session ends. */
+  var popBtn = null, popWin = null, sharing = false;
+  var POP_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><rect x="12" y="12" width="7" height="5" rx="1" fill="currentColor"/></svg>';
+  function sdkVideo() { var v = mount.querySelector(".np_companion-avatar-video"); return v && v.srcObject ? v : null; }
+  function popOpen() { return !!(popWin || document.pictureInPictureElement); }
+  function popSupported() { return !!window.documentPictureInPicture || !!document.pictureInPictureEnabled; }
+  function closePop() {
+    if (popWin) { try { popWin.close(); } catch (e) {} popWin = null; }
+    else if (document.pictureInPictureElement) document.exitPictureInPicture().catch(function () {});
+  }
+  async function openPop() {
+    var v = sdkVideo(); if (!v) return;
+    try {
+      if (window.documentPictureInPicture) {
+        var w = await window.documentPictureInPicture.requestWindow({ width: 384, height: 216 });
+        popWin = w;
+        var c = w.document.createElement("video");
+        c.srcObject = v.srcObject; c.autoplay = true; c.muted = true; c.playsInline = true;
+        c.style.cssText = "position:fixed;inset:0;width:100%;height:100%;object-fit:cover;object-position:center";
+        w.document.body.style.cssText = "margin:0;background:#000;overflow:hidden";
+        w.document.title = "Ethica";
+        w.document.body.appendChild(c);
+        w.addEventListener("pagehide", function () { if (popWin === w) popWin = null; showPopBtn(); });
+      } else {
+        await v.requestPictureInPicture();
+        v.addEventListener("leavepictureinpicture", showPopBtn, { once: true });
+      }
+      track("ethica_popout", {});
+    } catch (e) { say_("Your browser blocked the pop-out window. Switch to another tab and Ethica follows you.", 6000); }
+    showPopBtn();
+  }
+  function showPopBtn() {
+    if (!popBtn) {
+      popBtn = document.createElement("button"); popBtn.type = "button"; popBtn.className = "ava-btn eth-popout";
+      popBtn.addEventListener("click", function () { if (popOpen()) closePop(); else openPop(); setTimeout(showPopBtn, 50); });
+      avStage.appendChild(popBtn);
+    }
+    popBtn.hidden = !(sharing && popSupported());   // sharing is only ever true during a session (endedState resets it)
+    popBtn.innerHTML = POP_ICON + "<span>" + (popOpen() ? "Bring Ethica back" : "Pop Ethica out") + "</span>";
+  }
+  function onShareChange(on) {
+    sharing = !!on;
+    if (!sharing) closePop();
+    showPopBtn();
+    if (sharing) track("ethica_screen_share", {});
+  }
+
   async function startLive() {
     if (liveState !== "idle") return;
     access = grantAccess();
@@ -744,6 +795,7 @@
         mountContainer: "#ethica-mount", avatarStyle: { view: "rectangle", borderWidth: "0px", borderStyle: "none" }, debug: /[?&]debug\b/.test(location.search),
         features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
         onAvatarReady: armReveal, onDestroy: function () { if (instance) endedState(""); },
+        onScreenShareStateChange: onShareChange,
       });
       instance.showAvatar(); pinBg();
       setTimeout(function () { if (instance) armReveal(); }, 3000);
@@ -758,6 +810,6 @@
   window.addEventListener("pagehide", persist);
 
   // For the console and tests: what the live Ethica would see.
-  window.EthicaPanel = { tools: TOOLS, exec: execTool, state: function () { return S; }, access: grantAccess };
+  window.EthicaPanel = { tools: TOOLS, exec: execTool, state: function () { return S; }, access: grantAccess, shareChanged: onShareChange };
   render({});
 })();
