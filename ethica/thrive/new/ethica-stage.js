@@ -4,7 +4,7 @@
  * /clients/accu/accu-stage.js (same look, panel and live-session code), with Ethica's own panel and the current
  * /ethica/thrive/ free-minutes gate.
  *
- * Panel (Michael, 10-24 order): The schemes she fights · The PDR Framework · Upload documents (screen share for now) ·
+ * Panel (Michael, 10-24 order): The schemes she fights · The PDR Framework · Upload documents (red-flag review, /api/ethica-doc-review) ·
  * Monthly Subscription · The Fraud Fighter Collection (merch) · Book a call with AvatarAgency (Michael's real Calendly,
  * Ava's engine). "Leave my contact info" is off on Ethica (Michael 10-24); its code stays dormant.
  * The visitor can tap them, and Ethica opens them herself when the conversation turns to them (page tools below).
@@ -252,6 +252,96 @@
   backBtn.addEventListener("click", goBack);
   function act(id, icon, title, sub) { return '<button class="p-act" type="button" data-act="' + id + '"><i>' + icon + "</i><span><b>" + title + "</b><small>" + sub + "</small></span>" + IC.arrow + "</button>"; }
 
+  /* ═════════ Upload documents (Michael 10-24) ═════════
+     One file per review. Images are downscaled to a JPEG in the browser (a phone photo becomes a few hundred KB); PDFs
+     go as they are, up to 4 MB. The page sends base64 text to /api/ethica-doc-review, which keeps nothing. */
+  var DOC_CONSENT = "I understand Ethica reviews this document for red flags only. It is deleted right after the review, it isn't legal, tax or forensic advice, and I've covered full account numbers.";
+  var DOC_MAX = 4 * 1024 * 1024;
+  var SEV = { high: "High", medium: "Medium", low: "Low" };
+  function docReset() { S.doc = { report: null, reading: false, err: "", name: "", consent: false, file: null }; }
+  docReset();
+  function docReport(r) {
+    var list = function (label, items) { return items && items.length ? '<p class="p-label">' + label + '</p><ul class="eth-list">' + items.map(function (x) { return "<li>" + esc(x) + "</li>"; }).join("") + "</ul>" : ""; };
+    var flags = r.red_flags || [];
+    return '<div class="eth-report"><p class="p-label">' + esc(r.doc_type || "Your document") + "</p><p>" + esc(r.summary || "") + "</p>" +
+      '<p class="p-label">' + (flags.length ? "Red flags worth a closer look" : "No red flags found") + "</p>" +
+      flags.map(function (f) {
+        return '<div class="eth-flag sev-' + esc(f.severity) + '"><b>' + esc(f.title) + ' <em>' + esc(SEV[f.severity] || "") + "</em></b><p>" + esc(f.why) + "</p><small>" + esc(f.evidence) + "</small></div>";
+      }).join("") +
+      list("Looks consistent", r.looks_consistent) + list("Next steps", r.next_steps) + list("What this file can't show", r.cannot_tell) +
+      '<p class="p-sub eth-fine">This report is not stored. It disappears when your conversation ends.</p>' +
+      '<button class="btn btn-ghost btn-sm" type="button" data-act="doc-again">Check another document</button></div>';
+  }
+  function docSummaryForEthica(r) {
+    var flags = (r.red_flags || []).map(function (f, i) { return (i + 1) + ") " + f.title + " (" + f.severity + "): " + f.why + " Evidence: " + f.evidence; }).join(" ");
+    return "Document review finished. It looks like: " + (r.doc_type || "a document") + ". Summary: " + (r.summary || "") + " " +
+      (flags ? "Red flags: " + flags : "No red flags found.") +
+      ((r.next_steps || []).length ? " Next steps: " + r.next_steps.join("; ") + "." : "") +
+      " The report is on the panel. Walk the visitor through it: lead with the most serious red flag, say what it could mean, never that it IS fraud, suggest the next step, and never read out a full account number. The document was not kept.";
+  }
+  function fileToBase64(file) {
+    return new Promise(function (res, rej) {
+      var fr = new FileReader();
+      fr.onload = function () { var s = String(fr.result || ""); res(s.slice(s.indexOf(",") + 1)); };
+      fr.onerror = function () { rej(fr.error); };
+      fr.readAsDataURL(file);
+    });
+  }
+  // Phone photos: downscale to 2000 px on the long side, JPEG ~0.85. HEIC and other formats the browser can't open fail here.
+  function imageToJpeg(file) {
+    return createImageBitmap(file).then(function (bmp) {
+      var k = Math.min(1, 2000 / Math.max(bmp.width, bmp.height)), c = document.createElement("canvas");
+      c.width = Math.round(bmp.width * k); c.height = Math.round(bmp.height * k);
+      c.getContext("2d").drawImage(bmp, 0, 0, c.width, c.height);
+      if (bmp.close) bmp.close();
+      return new Promise(function (res) { c.toBlob(res, "image/jpeg", 0.85); });
+    });
+  }
+  function docError(code) {
+    return {
+      not_configured: "Document review is being set up. Please try again soon.",
+      limit: "That's the limit for today. Try again tomorrow.",
+      too_large: "That file is too large. Please use a file under 4 MB.",
+      unsupported_type: "Please upload a PDF, JPG, PNG or WebP file.",
+      unreadable: "Ethica couldn't read that file. Try a clearer photo or a PDF.",
+      declined: "Ethica couldn't review that document. Try a different file.",
+      busy: "Ethica is busy reviewing other documents. Try again in a minute.",
+    }[code] || "Something went wrong. Please try again.";
+  }
+  async function docSubmit() {
+    var d = S.doc;
+    if (d.reading) return;
+    if (liveState === "idle") { d.err = "Start a conversation with Ethica first."; render({}); return; }
+    if (!d.file) { d.err = "Choose a file first."; render({}); return; }
+    if (!d.consent) { d.err = "Please tick the box to confirm."; render({}); return; }
+    var f = d.file, type = f.type, blob = f;
+    d.err = ""; d.reading = true; render({});
+    try {
+      if (/^image\//.test(type)) { blob = await imageToJpeg(f); type = "image/jpeg"; }
+      else if (type !== "application/pdf" && !/\.pdf$/i.test(f.name)) throw Object.assign(new Error("type"), { code: "unsupported_type" });
+      else type = "application/pdf";
+      if (!blob || blob.size > DOC_MAX) throw Object.assign(new Error("size"), { code: "too_large" });
+      var b64 = await fileToBase64(blob);
+      d.file = null;   // the page drops its copy as soon as it is encoded
+      emit("The visitor uploaded a document for review. It takes up to a minute. Tell them briefly that you're looking it over.", true);
+      track("ethica_doc_upload", { kind: type === "application/pdf" ? "pdf" : "image" });
+      var res = await fetch("/api/ethica-doc-review", { method: "POST", headers: { "Content-Type": "text/plain", "X-Doc-Type": type, "X-Doc-Consent": "yes" }, body: b64 });
+      b64 = null;
+      var r = await res.json().catch(function () { return { ok: false }; });
+      if (S.doc !== d) return;   // the conversation ended while it was reviewing: drop the result
+      if (!r.ok || !r.report) throw Object.assign(new Error("review"), { code: r.error });
+      d.reading = false; d.report = r.report; d.name = "";
+      if (S.mode !== "docs") go("docs"); else render({});
+      track("ethica_doc_report", { flags: (r.report.red_flags || []).length });
+      emit(docSummaryForEthica(r.report), true);
+    } catch (e) {
+      if (S.doc !== d) return;
+      d.reading = false; d.file = null; d.name = ""; d.err = docError(e && (e.code || (e.name === "InvalidStateError" || e.name === "EncodingError" ? "unreadable" : "")));
+      render({});
+      emit("The document review did not finish: " + d.err + " Help the visitor try again, or carry on.", false);
+    }
+  }
+
   var VIEWS = {
     home: function () {
       // Order and names: Michael 10-24. "Leave my contact info" is OFF on Ethica (Michael 10-24); its form code below stays
@@ -264,18 +354,22 @@
         act("merch", IC.shirt, "The Fraud Fighter Collection", "Official Ethica tees and hoodie") +
         act("book", IC.cal, "Book a call with AvatarAgency", "Want an avatar like Ethica? 30 min with Michael") + "</div>";
     },
-    // Upload documents, step one (Michael 10-24): Ethica reads a document the visitor shows her by screen share (proven
-    // 10-24: she read a statement's transactions). A real upload (options 2/3 in BRIEF_ETHICA_DOCUMENT_REVIEW.md) can
-    // replace this view later.
+    // Upload documents (Michael 10-24): the visitor uploads one document, /api/ethica-doc-review returns a red-flag report,
+    // Ethica walks them through it. The file is never stored; the report lives only in this page (S.doc) and is wiped
+    // when the conversation ends or the page closes. Uploading needs a live conversation.
     docs: function () {
+      var d = S.doc;
+      if (d.report) return docReport(d.report);
       var live = liveState !== "idle";
-      return '<p class="p-sub">Show Ethica a statement, invoice, letter or message, and she\'ll point out red flags worth a closer look.</p>' +
-        '<ol class="eth-steps">' +
-        (live ? "" : "<li><b>Start the conversation.</b> Press Talk to Ethica.</li>") +
-        "<li><b>Open your document</b> in another tab or window.</li>" +
-        "<li><b>Tap Share Screen</b> on Ethica's video and pick that tab or window. Ethica floats on top while you share.</li>" +
-        "<li><b>Ask her:</b> “Does anything here look off?”</li></ol>" +
-        '<p class="p-sub eth-fine">Cover full account numbers before you share. Ethica looks only while you share and keeps nothing. She shares general education, not legal, tax or forensic advice.</p>';
+      return '<p class="p-sub">Upload a statement, invoice, check, letter or pay stub. Ethica reviews it for red flags worth a closer look, then talks you through what she found.</p>' +
+        (live ? "" : '<p class="p-msg">Start a conversation first: press Talk to Ethica, then upload here.</p>') +
+        '<form class="p-form eth-doc" novalidate>' +
+        '<label class="eth-file"><input type="file" id="ap-docfile" accept="application/pdf,image/jpeg,image/png,image/webp,.pdf,.jpg,.jpeg,.png,.webp"' + (live && !d.reading ? "" : " disabled") + '>' +
+        "<span>" + IC.doc + "<b>" + (d.name ? esc(d.name) : "Choose a PDF or photo") + "</b><small>PDF, JPG, PNG or WebP · one file · up to 4 MB</small></span></label>" +
+        '<label class="p-check"><input type="checkbox" id="ap-docok"' + (d.consent ? " checked" : "") + (d.reading ? " disabled" : "") + "><span>" + esc(DOC_CONSENT) + "</span></label>" +
+        '<button class="btn btn-gold btn-sm p-go" type="submit"' + (live && !d.reading ? "" : " disabled") + ">" + (d.reading ? "Ethica is reviewing…" : "Review my document " + IC.arrow) + "</button>" +
+        '<p class="p-msg' + (d.err ? " err" : "") + '" role="status">' + esc(d.err || (d.reading ? "This takes up to a minute. Keep talking with Ethica meanwhile." : "")) + "</p></form>" +
+        '<p class="p-sub eth-fine">Not stored: the file is deleted right after the review, and the report disappears when your conversation ends. General education, not legal, tax or forensic advice.</p>';
     },
     days: function () {
       if (S.slotsErr && !S.slots) return '<p class="p-msg err">I couldn\'t load Michael\'s calendar just now.</p><a class="btn btn-gold btn-sm p-go" href="' + CAL + '" target="_blank" rel="noopener">Pick a time on Calendly ' + IC.arrow + "</a>";
@@ -371,6 +465,13 @@
     if (opts.focus) { var f = $("input, button, a", body); if (f) f.focus({ preventScroll: true }); }
   }
   var WIRE = {
+    docs: function () {
+      var form = $(".eth-doc", body); if (!form) return;
+      var fi = $("#ap-docfile", form), ok = $("#ap-docok", form);
+      if (fi) fi.addEventListener("change", function () { var f = fi.files && fi.files[0]; S.doc.file = f || null; S.doc.name = f ? f.name : ""; S.doc.err = ""; render({}); });
+      if (ok) ok.addEventListener("change", function () { S.doc.consent = ok.checked; });
+      form.addEventListener("submit", function (e) { e.preventDefault(); docSubmit(); });
+    },
     details: function () { wireForm(function (f) { S.book.name = f("name"); S.book.email = f("email"); S.book.phone = f("phone"); S.book.notes = f("notes"); return TOOLS_IMPL.confirm_booking({}); }); },
     lead: function () { wireForm(function (f) { S.lead.name = f("lname"); S.lead.email = f("lemail"); S.lead.phone = f("lphone"); S.lead.need = f("lneed"); S.lead.callback = !!($("#ap-lcallback", body) || {}).checked; return TOOLS_IMPL.submit_lead({}); }); },
   };
@@ -421,6 +522,7 @@
     var a = t.getAttribute("data-act");
     if (a === "book") { S.viewAll = false; S.booked = null; TOOLS_IMPL.show_booking_times({ view: "suggested" }); emit("The visitor opened the booking panel.", false); track("ethica_panel", { action: "book_open" }); return; }
     if (a === "week") { S.viewAll = true; render({}); emit("The visitor is looking at the whole week.", false); return; }
+    if (a === "doc-again") { docReset(); render({}); return; }
     if (a === "docs") { go("docs"); emit("The visitor opened Upload documents: it explains how to show you a document by screen share.", false); track("ethica_panel", { action: "docs" }); return; }
     if (a === "home") { S.hist = []; go("home", { replace: true }); return; }
     if (a === "review-yes") { if (!S.review || S.busy) return; S.review.ok = true; (S.review.kind === "book" ? TOOLS_IMPL.confirm_booking : TOOLS_IMPL.submit_lead)({}); return; }
@@ -549,7 +651,7 @@
       track("ethica_name_saved", {});
       return { ok: true, saved: first, note: "Saved in this visitor's browser. Use their first name naturally from now on, and you will greet them by it next time." };
     },
-    show_upload_documents: function () { go("docs"); return { ok: true, shown: "Upload documents", note: "The panel shows the steps: start the conversation, open the document, tap Share Screen on your video and pick it, then ask you. Walk them through it; once you can see it, point out red flags worth a closer look, never declare fraud, and never read a full account number aloud." }; },
+    show_upload_documents: function () { go("docs"); return { ok: true, shown: S.doc.report ? "the document report" : "Upload documents", note: S.doc.report ? "The report from their document is back on the panel." : "The panel shows the upload: one PDF or photo, a consent box, then Review my document. The review takes up to a minute and you get a summary to walk them through. Nothing is stored." }; },
     // DORMANT since Michael 10-24 took "Leave my contact info" off Ethica: not in TOOLS, so she cannot call it.
     // Michael, 10-24: Ethica fills the contact form by voice (like Ava's fill_lead_details). SENDING stays the visitor's
     // tap on the review card (stage spec: contact info goes out only on the visitor's tap; the consent line sits there).
@@ -605,7 +707,7 @@
       inputSchema: { type: "object", properties: {} }, annotations: { destructiveHint: true } },
     { name: "remember_visitor_name", description: "Save the visitor's first name so you can greet them by name next time. After your first answer to a new visitor, ask once, warmly: \"By the way, what's your name?\" When they tell you, call this with their first name only, then use it naturally. If they would rather not say, carry on without it and never ask again. Never ask for a last name or any other personal detail.",
       inputSchema: { type: "object", properties: { name: { type: "string", description: "The visitor's first name, as they said it" } }, required: ["name"] } },
-    { name: "show_upload_documents", description: "Show Upload documents on the panel beside you: how the visitor can show you a statement, invoice, letter or message by screen share. Call it when they want you to look at a document.", inputSchema: { type: "object", properties: {} } },
+    { name: "show_upload_documents", description: "Open Upload documents on the panel beside you, where the visitor can upload a statement, invoice, check, letter or pay stub for a red-flag review (or reopen their report). Call it when they want you to look at a document.", inputSchema: { type: "object", properties: {} } },
   ];
   function execTool(name, args) {
     var fn = TOOLS.some(function (t) { return t.name === name; }) && TOOLS_IMPL[name];   // the twin can only reach the listed tools
@@ -721,6 +823,7 @@
     if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
     avStage.classList.add("live-ready"); say_("", 0); setTalk("End conversation", true); pinBg(); showTimer();
     rememberSeen();
+    if (S.mode === "docs") render({});   // enable the upload
     setTimeout(function () { if (liveState === "live" && vid) vid.pause(); }, 900);
     track("ethica_live_session", { stage: access ? access.stage : "" });
   }
@@ -728,6 +831,7 @@
     stopClock();
     instance = null; revealed = false; liveState = "idle";
     if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
+    if (S.doc.report || S.doc.reading || S.doc.name) { docReset(); if (S.mode === "docs") render({}); }   // the report never outlives the conversation
     if (visible) playQuiet();
     avStage.classList.remove("live", "live-ready"); setTalk("Talk to Ethica", false); showTimer();
     if (now) mount.innerHTML = "";

@@ -126,10 +126,26 @@ html { scroll-padding-top: 0; }
 .eth-price b { font-family: var(--serif); font-size: 40px; font-weight: 500; line-height: 1; color: var(--gold-light); }
 .eth-price span { font-size: 13px; color: var(--on-mute); }
 #ethica-panel .eth-fine { font-size: 12px; color: var(--on-mute); }
-/* Upload documents (10-24): the screen-share steps */
-#ethica-panel .eth-steps { margin: 4px 0 14px; padding-left: 22px; display: grid; gap: 10px; font-size: 14px; line-height: 1.45; }
-#ethica-panel .eth-steps li::marker { color: var(--gold); font-weight: 700; }
-#ethica-panel .eth-steps b { color: var(--on-dark); }
+/* Upload documents (10-24): file picker + the red-flag report card */
+#ethica-panel .eth-file { display: block; cursor: pointer; }
+#ethica-panel .eth-file input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+#ethica-panel .eth-file span { display: grid; grid-template-columns: 34px 1fr; column-gap: 12px; align-items: center; padding: 14px;
+  border: 1px dashed rgba(255,255,255,.28); border-radius: 14px; }
+#ethica-panel .eth-file span svg { grid-row: span 2; width: 26px; height: 26px; color: var(--gold); }
+#ethica-panel .eth-file b { color: var(--on-dark); font-size: 14px; overflow-wrap: anywhere; }
+#ethica-panel .eth-file small { color: var(--on-mute); font-size: 12px; }
+#ethica-panel .eth-file:hover span, #ethica-panel .eth-file input:focus-visible + span { border-color: var(--gold); }
+#ethica-panel .eth-file input:disabled + span { opacity: .5; cursor: not-allowed; }
+#ethica-panel .eth-report p { margin: 0 0 12px; font-size: 14px; line-height: 1.5; }
+#ethica-panel .eth-flag { padding: 12px 14px; margin-bottom: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,.14);
+  border-left: 3px solid var(--gold); background: rgba(255,255,255,.03); }
+#ethica-panel .eth-flag.sev-high { border-left-color: #e5534b; }
+#ethica-panel .eth-flag.sev-low { border-left-color: rgba(255,255,255,.35); }
+#ethica-panel .eth-flag b { display: block; color: var(--on-dark); font-size: 14px; margin-bottom: 4px; }
+#ethica-panel .eth-flag em { font-style: normal; font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--on-mute); margin-left: 6px; }
+#ethica-panel .eth-flag p { margin: 0 0 6px; }
+#ethica-panel .eth-flag small { display: block; color: var(--on-mute); font-size: 12px; font-style: italic; }
+#ethica-panel .eth-list { margin: 0 0 14px; padding-left: 18px; display: grid; gap: 6px; font-size: 14px; line-height: 1.45; }
 
 /* ── Sections below the stage ── */
 .eth-sec { padding: clamp(64px, 8vw, 120px) 0; border-top: 1px solid var(--line-d); }
