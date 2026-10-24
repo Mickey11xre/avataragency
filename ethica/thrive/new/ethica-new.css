@@ -34,6 +34,26 @@ body { color: var(--on); }
 .eth-copy-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: clamp(14px, 1.5vw, 34px); }
 .eth-copy-cta span { font-size: clamp(12px, .8vw, 17px); color: var(--on-mute); }
 
+/* Theme song button: top right of the hero, right-aligned under "Book a call" (Michael, 10-24) */
+.eth-theme { position: absolute; z-index: 4; top: clamp(12px, 1.4vw, 24px); right: var(--g); display: inline-flex; align-items: center; gap: 10px;
+  padding: 7px 14px 7px 7px; border-radius: 999px; border: 1px solid rgba(201,168,76,.55); background: rgba(0,0,0,.55);
+  -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); color: #fff; font-family: var(--f); cursor: pointer; text-align: left;
+  transition: border-color .3s var(--ease), background .3s var(--ease), transform .3s var(--ease); }
+.eth-theme:hover { border-color: var(--gold); background: rgba(0,0,0,.72); transform: translateY(-1px); }
+.eth-theme:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
+.eth-theme-ico { flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--gold); color: #000; display: grid; place-items: center; }
+.eth-theme-ico svg { width: 15px; height: 15px; }
+.eth-theme-txt { display: flex; flex-direction: column; line-height: 1.15; }
+.eth-theme-txt b { font-size: 13px; font-weight: 600; letter-spacing: .01em; }
+.eth-theme-txt small { font-size: 11px; color: var(--on-mute); }
+.eth-theme-bars { display: none; align-items: flex-end; gap: 2px; height: 14px; margin-left: 2px; }
+.eth-theme-bars i { width: 3px; height: 100%; border-radius: 1px; background: var(--gold-light); transform-origin: bottom; animation: eth-eq 1s ease-in-out infinite; }
+.eth-theme-bars i:nth-child(2) { animation-delay: -.35s; } .eth-theme-bars i:nth-child(3) { animation-delay: -.7s; }
+.eth-theme.is-on { border-color: var(--gold); }
+.eth-theme.is-on .eth-theme-bars { display: inline-flex; }
+@keyframes eth-eq { 0%, 100% { transform: scaleY(.3); } 50% { transform: scaleY(1); } }
+.rm .eth-theme-bars i { animation: none; transform: scaleY(.7); }
+
 @media (max-width: 1149px) {
   .eth-hero { aspect-ratio: auto; overflow: visible; padding-bottom: 8px; }
   .eth-bg { position: relative; aspect-ratio: 16 / 6.9; }          /* logo, tagline and Ethica; the credit block is cropped off */
@@ -45,6 +65,9 @@ body { color: var(--on); }
   .eth-copy > p { font-size: 15px; }
   .eth-copy .eth-eyebrow { font-size: 11px; }
   .eth-copy-cta span { font-size: 13px; }
+  .eth-theme { top: 10px; padding: 5px 10px 5px 5px; gap: 8px; }
+  .eth-theme-ico { width: 26px; height: 26px; }
+  .eth-theme-txt small { display: none; }
 }
 
 /* ── The stage ── */
