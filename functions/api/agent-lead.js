@@ -34,6 +34,10 @@ export async function onRequestPost(context) {
     consent: b.consent === true ? { at: new Date().toISOString(), text: clip(b.consent_text, 600) } : null,
   };
   if (!lead.name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(lead.email)) return json({ ok: false, error: "a name and a valid email are required" }, 400);
+  // Which avatar's panel sent it (10-24: Ethica's page uses the same form). Anything unknown stays "Ava's panel".
+  const ethica = lead.source === "ethica-panel";
+  const PANEL = ethica ? "Ethica's panel" : "Ava's panel";
+  const PAGE = ethica ? "Ethica's page (/ethica/thrive/)" : "the homepage";
 
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const ipKey = "rl:agent-lead:ip:" + ip + ":" + lead.createdAt.slice(0, 13);
@@ -54,8 +58,8 @@ export async function onRequestPost(context) {
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
     body: JSON.stringify({
       from: FROM, to: [NOTIFY], reply_to: lead.email,
-      subject: (lead.callback ? `📞 CALLBACK REQUESTED (Ava's panel): ${lead.name}${lead.phone ? " · " + lead.phone : ""}` : `🔥 New lead from Ava's panel: ${lead.name}`) + (lead.source === "Boardsi profile" ? " (Boardsi profile)" : ""),
-      html: `<p style="font-family:Arial,sans-serif;font-size:15px">${lead.callback ? "<b>This visitor asked for a phone call back.</b> " : ""}A visitor left their details on the homepage.</p><table style="font-family:Arial,sans-serif;font-size:14px">${rows}</table><p style="font-family:Arial,sans-serif;font-size:13px;color:#8a8278">Reply to this email to reach them directly.</p>`,
+      subject: (lead.callback ? `📞 CALLBACK REQUESTED (${PANEL}): ${lead.name}${lead.phone ? " · " + lead.phone : ""}` : `🔥 New lead from ${PANEL}: ${lead.name}`) + (lead.source === "Boardsi profile" ? " (Boardsi profile)" : ""),
+      html: `<p style="font-family:Arial,sans-serif;font-size:15px">${lead.callback ? "<b>This visitor asked for a phone call back.</b> " : ""}A visitor left their details on ${PAGE}.</p><table style="font-family:Arial,sans-serif;font-size:14px">${rows}</table><p style="font-family:Arial,sans-serif;font-size:13px;color:#8a8278">Reply to this email to reach them directly.</p>`,
     }),
   });
   if (!r.ok) console.log("agent-lead resend:", r.status, await r.text().catch(() => ""));

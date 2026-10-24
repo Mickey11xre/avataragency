@@ -43,7 +43,12 @@ export async function onRequest(context) {
   // ethica-stage.js sets aa_ethica_seen once a live conversation has really started in this browser.
   const seen = /(?:^|;\s*)aa_ethica_seen=1(?:;|$)/.test(cookies);
   const returning = Boolean(known && seen);
-  const connection = { channelType: 'webrtc', externalClientId: visitorId, initialSpeech: returning ? WELCOME_BACK : FIRST_VISIT };
+  // aa_ethica_name = the first name the visitor typed into the panel's booking or contact form (fleet #2, like Ava).
+  const firstName = readFirstName(cookies);
+  const connection = { channelType: 'webrtc', externalClientId: visitorId, initialSpeech: returning ? welcomeBack(firstName) : FIRST_VISIT };
+  if (firstName) {
+    connection.externalClientProfile = { name: firstName, context: 'Visitor on the Ethica page at Avatar Agency' + (returning ? ', who has talked with Ethica before.' : '.') };
+  }
 
   try {
     const r = await fetch(`https://companion-api.napster.com/public/agents/${AGENT_ID}/connections`, {
@@ -70,10 +75,22 @@ const FIRST_VISIT = "Speak first, immediately, before the visitor says anything,
   "briefly: you're Ethica, the hero who fights fraud in accounting. Then ask what brings them here - protecting their " +
   "money, a scheme they're worried about, or something at work that doesn't add up. Under ten seconds, confident and warm.";
 
-const WELCOME_BACK = "Speak first, immediately, before the visitor says anything, in English. This visitor has talked " +
-  "with you before. Welcome them back warmly - do not repeat your introduction. If you remember what you talked about " +
-  "last time, mention it in a few words and offer to pick up there; otherwise ask what brings them back today. Under " +
-  "ten seconds, confident and warm.";
+function welcomeBack(name) {
+  return "Speak first, immediately, before the visitor says anything, in English. This visitor has talked with you " +
+    "before" + (name ? ", and their first name is " + name : "") + ". Welcome them back warmly" + (name ? " by name" : "") +
+    " - do not repeat your introduction. If you remember what you talked about last time, mention it in a few words and " +
+    "offer to pick up there; otherwise ask what brings them back today. Under ten seconds, confident and warm.";
+}
+
+// Letters only, 30 max: the cookie is written by our own page from the visitor's own form input, and this keeps
+// anything else out of the session's opening guidance. (Same as ava-nv2-token.js.)
+function readFirstName(cookies) {
+  const m = cookies.match(/(?:^|;\s*)aa_ethica_name=([^;]{1,90})/);
+  if (!m) return '';
+  let v = '';
+  try { v = decodeURIComponent(m[1]); } catch { return ''; }
+  return v.replace(/[^A-Za-zÀ-ÖØ-öø-ÿ'-]/g, '').slice(0, 30);
+}
 
 function json(body, status = 200, extraHeaders = {}) {
   return new Response(JSON.stringify(body), {

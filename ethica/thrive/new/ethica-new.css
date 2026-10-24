@@ -89,6 +89,12 @@ body { color: var(--on); }
   border: 1px solid var(--line-ds); color: var(--on); font-size: 12px; font-weight: 500; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
 .eth-timer.warn { color: var(--gold-light); border-color: rgba(201,168,76,.5); }
 .eth-timer.crit { color: #ff8a7a; border-color: rgba(255,138,122,.5); }
+/* Six home options (4 Ethica + the fleet-standard Book a call / Contact info): slightly tighter cards so all six fit the
+   560 px desktop panel without scrolling (10-24). */
+#ethica-panel .p-actions { gap: 7px; }
+#ethica-panel .p-act { padding-top: 9px; padding-bottom: 9px; }
+#ethica-panel .p-act i { width: 34px; height: 34px; }
+#ethica-panel .p-act { grid-template-columns: 34px 1fr 16px; }
 /* Panel views */
 .eth-pillars { display: grid; gap: 10px; }
 .eth-pillar { display: flex; gap: 14px; padding: 14px 16px; border: 1px solid var(--line-d); border-radius: 14px; transition: border-color .3s var(--ease), background .3s var(--ease); }
