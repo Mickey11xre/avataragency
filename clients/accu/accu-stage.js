@@ -1,5 +1,5 @@
-/* Stage-standard pop-out on screen share: /avatarstages/avatar-popout.js (Michael 10-24, AVATAR-STAGE-SPEC). */
-(function () { if (window.AvatarPopout || document.getElementById("av-popout-js")) return; var s = document.createElement("script"); s.id = "av-popout-js"; s.src = "/avatarstages/avatar-popout.js?v=1"; document.head.appendChild(s); })();
+/* Stage-standard pop-out on screen share: /avatar-popout.js (Michael 10-24, AVATAR-STAGE-SPEC). */
+(function () { if (window.AvatarPopout || document.getElementById("av-popout-js")) return; var s = document.createElement("script"); s.id = "av-popout-js"; s.src = "/avatar-popout.js?v=1"; document.head.appendChild(s); })();
 /* ACCU Ava's stage: the talking AI loan agent on the /clients/accu pitch page (a working prototype for America's
  * Christian Credit Union; Michael, 2026-10-22). Built from /avatarstages/matt-stage.js (same look, demo panel,
  * two-step confirmation and live-session code). This page has ONE stage, so the multi-stage coordination is gone.

@@ -14,7 +14,7 @@
  *
  * Use (one line per stage, inside sdk.init's options):
  *   onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook("#paul-mount", { name: "Paul" }) : undefined,
- * Load this file BEFORE the session can start (a plain <script src="/avatarstages/avatar-popout.js?v=1"> anywhere).
+ * Load this file BEFORE the session can start (a plain <script src="/avatar-popout.js?v=1"> anywhere).
  */
 (function () {
   if (window.AvatarPopout) return;
