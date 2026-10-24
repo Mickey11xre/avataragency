@@ -737,9 +737,13 @@
   }
   async function openPop() {
     var v = sdkVideo(); if (!v) return;
+    var videoPip = function () { return v.requestPictureInPicture().then(function () { v.addEventListener("leavepictureinpicture", showPopBtn, { once: true }); }); };
     try {
       if (window.documentPictureInPicture) {
-        var w = await window.documentPictureInPicture.requestWindow({ width: 384, height: 216 });
+        var w;
+        // Embedded browsers can expose the API but refuse the window ("no window"): fall back to plain video PiP.
+        try { w = await window.documentPictureInPicture.requestWindow({ width: 384, height: 216 }); }
+        catch (e1) { if (!document.pictureInPictureEnabled) throw e1; await videoPip(); track("ethica_popout", { kind: "video" }); showPopBtn(); return; }
         popWin = w;
         var c = w.document.createElement("video");
         c.srcObject = v.srcObject; c.autoplay = true; c.muted = true; c.playsInline = true;
@@ -748,10 +752,7 @@
         w.document.title = "Ethica";
         w.document.body.appendChild(c);
         w.addEventListener("pagehide", function () { if (popWin === w) popWin = null; showPopBtn(); });
-      } else {
-        await v.requestPictureInPicture();
-        v.addEventListener("leavepictureinpicture", showPopBtn, { once: true });
-      }
+      } else await videoPip();
       track("ethica_popout", {});
     } catch (e) { say_("Your browser blocked the pop-out window. Switch to another tab and Ethica follows you.", 6000); }
     showPopBtn();
