@@ -1,0 +1,130 @@
+/* ETHICA landing page redesign (/ethica/thrive/new/, Michael 2026-10-23). Loads after /work/portfolio.css (tokens,
+   .wrap, .btn) and /avatarstages/stages.css (the stage + panel). Black page; gold accents. */
+html, body { background: #000; }
+body { color: var(--on); }
+.sr-only { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.eth-eyebrow { margin: 0 0 14px; font-size: 12px; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; color: var(--gold); display: flex; align-items: center; gap: 12px; }
+.eth-eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--gold); }
+
+/* ── Header ── */
+.eth-hdr { position: relative; z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px var(--g); background: #000; border-bottom: 1px solid var(--line-d); }
+.eth-logo { font-weight: 700; font-size: 22px; letter-spacing: -.02em; text-decoration: none; }
+.eth-logo .c { color: #fff; } .eth-logo .l { color: var(--gold); }
+.eth-hdr .btn svg, .eth-cta .btn svg, .eth-copy .btn svg { vertical-align: -3px; margin-left: 4px; }
+
+/* ── Hero: the PSD's positions, as % of the page width / hero height (hero = the PSD's top 2560 × 1600) ── */
+.eth-hero { position: relative; width: 100%; aspect-ratio: 2560 / 1600; background: #000; overflow: hidden; }
+.eth-bg { position: absolute; inset: 0 0 auto 0; aspect-ratio: 16 / 9; background: #000 url("/ethica/thrive/new/media/ethica-cape-poster.jpg?v=1") center top / cover no-repeat; }
+.eth-bg-video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+.eth-bg::after { content: ""; position: absolute; inset: auto 0 0 0; height: 12%; background: linear-gradient(to bottom, transparent, #000); pointer-events: none; }
+/* PSD "BLACK_BOX" (120,1130 → 1354,1440): under the trailer, over the poster's credit block */
+.eth-mask { position: absolute; left: 5.508%; width: 47.969%; top: 70.625%; height: 19.375%; background: #010101; }   /* trimmed to the trailer's width: the PSD's 21 px overhang showed as a notch */
+/* PSD "Layer 1" (141,878 → 1369,1569): the trailer */
+.eth-trailer { position: absolute; left: 5.508%; width: 47.969%; top: 54.875%; aspect-ratio: 16 / 9; background: #000; box-shadow: 0 30px 80px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(201,168,76,.22); }
+.eth-trailer video { display: block; width: 100%; height: 100%; object-fit: cover; background: #000; }
+/* PSD "GRAY_BOX" (1407,722 → 2431,1563): black at 54 % so the cape shows through */
+.eth-copy { position: absolute; left: 54.961%; width: 40%; top: 45.125%; height: 52.5625%; background: rgba(1,1,1,.54);
+  padding: clamp(18px, 2.4vw, 64px); display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+.eth-copy h1 { margin: 0 0 clamp(10px, 1.1vw, 24px); font-size: clamp(22px, 2.3vw, 58px); line-height: 1.06; letter-spacing: -.025em; font-weight: 600; color: #fff; }
+.eth-copy h1 em { display: block; font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--gold-light); letter-spacing: -.01em; }
+.eth-copy > p { margin: 0; font-size: clamp(13px, 1.02vw, 24px); line-height: 1.55; color: var(--on-mid); }
+.eth-copy .eth-eyebrow { margin-bottom: clamp(8px, .9vw, 20px); font-size: clamp(10px, .72vw, 15px); }
+.eth-copy-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: clamp(14px, 1.5vw, 34px); }
+.eth-copy-cta span { font-size: clamp(12px, .8vw, 17px); color: var(--on-mute); }
+
+@media (max-width: 1100px) {
+  .eth-hero { aspect-ratio: auto; overflow: visible; padding-bottom: 8px; }
+  .eth-bg { position: relative; aspect-ratio: 16 / 6.9; }          /* logo, tagline and Ethica; the credit block is cropped off */
+  .eth-bg::after { height: 22%; }
+  .eth-mask { display: none; }
+  .eth-trailer, .eth-copy { position: relative; left: auto; top: auto; width: auto; height: auto; margin: 16px var(--g) 0; }
+  .eth-copy { background: #0d0c0b; border: 1px solid var(--line-d); border-radius: 18px; padding: 24px 22px; }
+  .eth-copy h1 { font-size: clamp(26px, 6.4vw, 40px); }
+  .eth-copy > p { font-size: 15px; }
+  .eth-copy .eth-eyebrow { font-size: 11px; }
+  .eth-copy-cta span { font-size: 13px; }
+}
+
+/* ── The stage ── */
+.eth-talk { padding: clamp(36px, 5vw, 80px) 0 clamp(60px, 8vw, 110px); }
+#talk-ethica { scroll-margin-top: 16px; }
+#ethica-stage .stage-av { background-image: url("/ethica/thrive/new/media/ethica-stage-poster.jpg?v=1"); }
+.eth-timer { position: absolute; z-index: 6; top: 16px; left: 50%; transform: translateX(-50%); padding: 6px 12px; border-radius: 999px; background: rgba(0,0,0,.6);
+  border: 1px solid var(--line-ds); color: var(--on); font-size: 12px; font-weight: 500; letter-spacing: .02em; font-variant-numeric: tabular-nums; }
+.eth-timer.warn { color: var(--gold-light); border-color: rgba(201,168,76,.5); }
+.eth-timer.crit { color: #ff8a7a; border-color: rgba(255,138,122,.5); }
+/* Panel views */
+.eth-pillars { display: grid; gap: 10px; }
+.eth-pillar { display: flex; gap: 14px; padding: 14px 16px; border: 1px solid var(--line-d); border-radius: 14px; transition: border-color .3s var(--ease), background .3s var(--ease); }
+.eth-pillar .n { flex: none; font-family: var(--mono); font-size: 12px; color: var(--gold); padding-top: 3px; }
+.eth-pillar h4 { margin: 0 0 4px; font-size: 16px; font-weight: 600; color: #fff; }
+.eth-pillar h4 b { color: var(--gold-light); }
+.eth-pillar p { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--on-mid); }
+.eth-pillar.on, .eth-prod.on, #ethica-panel .p-svc.on { border-color: rgba(201,168,76,.6); background: rgba(201,168,76,.06); }
+.eth-merch { display: grid; gap: 10px; }
+.eth-prod { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 14px; align-items: center; padding: 10px; border: 1px solid var(--line-d); border-radius: 14px; transition: border-color .3s var(--ease), background .3s var(--ease); }
+.eth-prod img { width: 88px; height: 88px; object-fit: cover; border-radius: 10px; background: #fff; }
+.eth-prod h4 { margin: 0 0 2px; font-size: 15px; font-weight: 600; color: #fff; }
+.eth-prod small { display: block; font-size: 12px; line-height: 1.4; color: var(--on-mute); }
+.eth-prod-row { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 8px; }
+.eth-prod-row b { font-family: var(--serif); font-size: 24px; font-weight: 500; color: var(--gold-light); }
+.eth-plans { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 4px 0 10px; }
+.eth-plan { position: relative; display: block; padding: 16px 16px 14px; border: 1px solid var(--line-d); border-radius: 14px; text-decoration: none; color: inherit;
+  transition: border-color .3s var(--ease), background .3s var(--ease), transform .3s var(--ease); }
+.eth-plan:hover { border-color: rgba(201,168,76,.6); background: rgba(201,168,76,.06); transform: translateY(-2px); }
+.eth-plan.top { border-color: rgba(201,168,76,.45); }
+.eth-plan h4 { margin: 0; font-size: 15px; font-weight: 600; color: #fff; }
+.eth-plan small { display: block; font-size: 12px; line-height: 1.45; color: var(--on-mute); }
+.eth-plan-tag { position: absolute; top: -9px; right: 12px; padding: 2px 8px; border-radius: 999px; background: var(--gold); color: #000; font-size: 10px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; }
+@media (max-width: 420px) { .eth-plans { grid-template-columns: 1fr; } }
+.eth-price { display: flex; align-items: baseline; gap: 8px; margin: 6px 0 6px; }
+.eth-price b { font-family: var(--serif); font-size: 40px; font-weight: 500; line-height: 1; color: var(--gold-light); }
+.eth-price span { font-size: 13px; color: var(--on-mute); }
+#ethica-panel .eth-fine { font-size: 12px; color: var(--on-mute); }
+
+/* ── Sections below the stage ── */
+.eth-sec { padding: clamp(64px, 8vw, 120px) 0; border-top: 1px solid var(--line-d); }
+.eth-sec h2 { margin: 0; font-size: clamp(28px, 3.4vw, 48px); line-height: 1.08; letter-spacing: -.025em; font-weight: 600; color: #fff; }
+.eth-sec h2 em { font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--gold-light); }
+.eth-teach { list-style: none; margin: clamp(28px, 3.5vw, 48px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.eth-teach li { display: flex; gap: 12px; padding: 18px 18px; border: 1px solid var(--line-d); border-radius: 16px; background: #0b0a09; font-size: 15px; line-height: 1.5; color: var(--on-mid); }
+.eth-teach svg { flex: none; width: 20px; height: 20px; color: var(--gold); margin-top: 1px; }
+.eth-fun { text-align: center; background: radial-gradient(ellipse at center, rgba(201,168,76,.08), transparent 70%); }
+.eth-fun-words { margin: 22px 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 18px; font-size: clamp(17px, 1.8vw, 24px); color: var(--on-mid); }
+.eth-fun-words b { color: var(--gold-light); font-weight: 600; }
+.eth-fun-words .dot { color: var(--on-mute); }
+.eth-origin { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(28px, 5vw, 80px); }
+.eth-origin p { margin: 0 0 16px; font-size: 16.5px; line-height: 1.65; color: var(--on-mid); }
+.eth-origin strong { color: #fff; font-weight: 600; }
+.eth-origin blockquote { margin: 6px 0 22px; padding-left: 20px; border-left: 2px solid var(--gold); font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2.2vw, 30px); line-height: 1.3; color: #fff; }
+.eth-origin blockquote em { color: var(--gold-light); }
+/* FAQ accordion: "+" turns to "×" when open (shethrives pattern) */
+.eth-faq-list { margin-top: clamp(26px, 3.5vw, 44px); border-top: 1px solid var(--line-d); }
+.eth-faq details { border-bottom: 1px solid var(--line-d); }
+.eth-faq summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 20px 2px; }
+.eth-faq summary::-webkit-details-marker { display: none; }
+.eth-faq summary h3 { margin: 0; font-size: clamp(16px, 1.4vw, 19px); font-weight: 500; line-height: 1.35; color: #fff; }
+.eth-faq summary::after { content: "+"; flex: none; width: 30px; height: 30px; border: 1px solid var(--line-ds); border-radius: 50%; display: grid; place-items: center;
+  font-size: 18px; line-height: 1; color: var(--gold); transition: transform .3s var(--ease), border-color .3s var(--ease); }
+.eth-faq details[open] summary::after { transform: rotate(45deg); border-color: rgba(201,168,76,.6); }
+.eth-faq summary:hover h3 { color: var(--gold-light); }
+.eth-faq details p { margin: 0; padding: 0 48px 22px 2px; font-size: 15.5px; line-height: 1.65; color: var(--on-mid); max-width: 860px; }
+.eth-cta { text-align: center; }
+.eth-cta .eth-eyebrow { justify-content: center; }
+.eth-cta p { max-width: 620px; margin: 16px auto 0; font-size: 16.5px; line-height: 1.6; color: var(--on-mid); }
+.eth-cta-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+.eth-foot { padding: 40px 0 48px; border-top: 1px solid var(--line-d); text-align: center; }
+.eth-foot p { margin: 12px 0 0; font-size: 13px; color: var(--on-mute); }
+.eth-foot a { color: var(--on-mid); text-decoration: none; }
+.eth-foot a:hover { color: var(--gold-light); }
+.eth-foot .eth-disclose { max-width: 760px; margin: 14px auto 0; font-size: 12px; line-height: 1.6; }
+
+@media (max-width: 900px) {
+  .eth-teach { grid-template-columns: 1fr; }
+  .eth-origin { grid-template-columns: 1fr; }
+  .eth-faq details p { padding-right: 2px; }
+}
+@media (max-width: 520px) {
+  .eth-hdr .btn { padding-inline: 14px; }
+  .eth-logo { font-size: 19px; }
+}
