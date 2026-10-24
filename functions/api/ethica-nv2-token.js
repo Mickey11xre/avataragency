@@ -1,16 +1,15 @@
 // Cloudflare Pages Function — PUBLIC token endpoint for ETHICA NV2, the fraud-fighting hero on the redesigned landing
 // page /ethica/thrive/new/ (preview; Michael, 2026-10-23). Built from accu-ava-token.js.
 // Anyone with the page link can talk to her, so it is ORIGIN-CHECKED and RATE-LIMITED per IP, with its own budget.
-// The page's own free-minutes gate (anonymous 5 min once, registered 5 min/day for 7 days, then subscribe) runs in
-// ethica/thrive/new/ethica-stage.js, exactly as on the current /ethica/thrive/ page.
+// The page's own free-minutes gate (anonymous 15 min once, registered 15 min/day for 7 days, then subscribe; Michael
+// 10-24, was 5) runs in ethica/thrive/new/ethica-stage.js.
 //
 // Required env var: NAPSTER_API_KEY. Optional binding: AISO_KV (per-IP rate limit).
 //
-// ⏳ AGENT_ID is EMPTY until the Napster agent build finishes the new NV2 Ethica (twin + agent created by the Napster
-//    Claude agent from livebrand-ops/ethica-nv2/HANDOFF_ETHICA_NV2_PAGE_TOOLS.md). While empty, this returns 503 and the
-//    stage says her live conversation is "arriving very soon". Her panel tool names must match ethica-stage.js.
+// Agent created 2026-10-24 09:00 by livebrand-ops/ethica-nv2/build-ethica-agent.ps1 -Mode agent, on twin e6777190 (v2,
+// persona fixed). Her 11 page tools must match ethica-stage.js `TOOLS`. Empty AGENT_ID = 503 ("arriving very soon").
 
-const AGENT_ID = ''; // ← paste the new NV2 Ethica agent id here (livebrand-ops/ethica-nv2/.agent-id)
+const AGENT_ID = 'c7578eeb-5d6c-4211-9e27-6e44889650d8'; // NV2 Ethica (livebrand-ops/ethica-nv2/.agent-id)
 const ALLOWED_ORIGINS = ['https://avataragency.ai', 'https://www.avataragency.ai'];
 const PER_IP_PER_HOUR = 8;
 const VISITOR_COOKIE = 'aa_ethica_vid';
