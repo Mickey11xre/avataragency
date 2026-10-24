@@ -129,7 +129,7 @@
   }
   function persist() {
     if (!access) return;
-    if (access.stage === "anonymous") put("ethica_anon", { secondsLeft: Math.max(0, secondsLeft), used: secondsLeft <= 0 });
+    if (access.stage === "anonymous") put("ethica_anon", { secondsLeft: Math.max(0, secondsLeft), used: secondsLeft <= 0, gateV: GATE_V });   // keep gateV, or every visit tops up again
     else if (access.stage === "registered") { var u = get("ethica_user"); if (u) { u.daySecondsLeft = Math.max(0, secondsLeft); put("ethica_user", u); } }
   }
   function startClock() {
