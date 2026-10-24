@@ -23,9 +23,10 @@ body { color: var(--on); }
 /* PSD "Layer 1" (141,878 → 1369,1569): the trailer */
 .eth-trailer { position: absolute; left: 5.508%; width: 47.969%; top: 54.875%; aspect-ratio: 16 / 9; background: #000; box-shadow: 0 30px 80px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(201,168,76,.22); }
 .eth-trailer video { display: block; width: 100%; height: 100%; object-fit: cover; background: #000; }
-/* PSD "GRAY_BOX" (1407,722 → 2431,1563): black at 54 % so the cape shows through */
-.eth-copy { position: absolute; left: 54.961%; width: 40%; top: 45.125%; height: 52.5625%; background: rgba(1,1,1,.54);
-  padding: clamp(18px, 2.4vw, 64px); display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+/* PSD "GRAY_BOX" x (1407 → 2431): black at 54 % so the cape shows through. Michael, 10-24: top and bottom lined up with
+   the trailer (was 722 → 1563 in the PSD, taller than it needed to be). */
+.eth-copy { position: absolute; left: 54.961%; width: 40%; top: 54.875%; height: 43.17%; background: rgba(1,1,1,.54);
+  padding: clamp(14px, 1.6vw, 44px) clamp(18px, 2.4vw, 64px); display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
 .eth-copy h1 { margin: 0 0 clamp(10px, 1.1vw, 24px); font-size: clamp(22px, 2.3vw, 58px); line-height: 1.06; letter-spacing: -.025em; font-weight: 600; color: #fff; }
 .eth-copy h1 em { display: block; font-family: var(--serif); font-style: italic; font-weight: 500; color: var(--gold-light); letter-spacing: -.01em; }
 .eth-copy > p { margin: 0; font-size: clamp(13px, 1.02vw, 24px); line-height: 1.55; color: var(--on-mid); }
@@ -33,7 +34,7 @@ body { color: var(--on); }
 .eth-copy-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; margin-top: clamp(14px, 1.5vw, 34px); }
 .eth-copy-cta span { font-size: clamp(12px, .8vw, 17px); color: var(--on-mute); }
 
-@media (max-width: 1100px) {
+@media (max-width: 1149px) {
   .eth-hero { aspect-ratio: auto; overflow: visible; padding-bottom: 8px; }
   .eth-bg { position: relative; aspect-ratio: 16 / 6.9; }          /* logo, tagline and Ethica; the credit block is cropped off */
   .eth-bg::after { height: 22%; }
