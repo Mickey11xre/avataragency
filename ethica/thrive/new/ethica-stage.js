@@ -6,8 +6,8 @@
  * plus the fleet-standard Book a call (Michael's real Calendly, Ava's engine) and Leave my contact info (10-24).
  * The visitor can tap them, and Ethica opens them herself when the conversation turns to them (page tools below).
  *
- * ACCESS (unchanged from /ethica/thrive/, build:v6): anonymous = 5 minutes once per browser → register;
- * registered = 5 minutes a day for 7 days → subscribe (Starter $9 / Guardian $19 a month, from subscribe.html). localStorage keys `ethica_user` / `ethica_anon`
+ * ACCESS (from /ethica/thrive/ build:v6; Michael 10-24: 15 minutes, was 5): anonymous = 15 minutes once per browser → register;
+ * registered = 15 minutes a day for 7 days → subscribe (Starter $9 / Guardian $19 a month, from subscribe.html). localStorage keys `ethica_user` / `ethica_anon`
  * are shared with the current page, register.html and subscribe.html. `?demo` seeds a throwaway registered session.
  *
  * Live: NV2 Ethica through the public, origin-checked /api/ethica-nv2-token (503 until her agent id is set there).
@@ -97,6 +97,8 @@
   var get = function (k) { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } };
   var put = function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} };
   var todayKey = function () { return new Date().toISOString().slice(0, 10); };
+  var FREE_SECONDS = 900;   // Michael, 10-24: 15 free minutes (anonymous once; registered per day), was 300
+  var GATE_V = 2;           // records without gateV 2 were written under the 5-minute gate: topped up once to 15
   // { stage: "anonymous"|"registered", seconds } or { stage: "blocked", why: "free_used"|"trial_over"|"day_used" }
   function grantAccess() {
     var user = get("ethica_user");
@@ -105,12 +107,14 @@
       var dayNum = Math.floor((Date.now() - start) / 86400000) + 1;
       if (dayNum > days) return { stage: "blocked", why: "trial_over" };
       var k = todayKey();
-      if (user.dayKey !== k) { user.dayKey = k; user.daySecondsLeft = user.dailySeconds || 300; put("ethica_user", user); }
+      // One-time top-up to the 15-minute allowance (records written under the old 5-minute gate have no gateV 2).
+      if (user.gateV !== GATE_V) { user.dailySeconds = FREE_SECONDS; user.dayKey = k; user.daySecondsLeft = FREE_SECONDS; user.gateV = GATE_V; put("ethica_user", user); }
+      if (user.dayKey !== k) { user.dayKey = k; user.daySecondsLeft = user.dailySeconds || FREE_SECONDS; put("ethica_user", user); }
       if ((user.daySecondsLeft || 0) <= 0) return { stage: "blocked", why: "day_used" };
       return { stage: "registered", seconds: user.daySecondsLeft, day: dayNum, days: days };
     }
     var anon = get("ethica_anon");
-    if (!anon) { anon = { secondsLeft: 300, used: false }; put("ethica_anon", anon); }
+    if (!anon || anon.gateV !== GATE_V) { anon = { secondsLeft: FREE_SECONDS, used: false, gateV: GATE_V }; put("ethica_anon", anon); }
     if (anon.used || anon.secondsLeft <= 0) return { stage: "blocked", why: "free_used" };
     return { stage: "anonymous", seconds: anon.secondsLeft };
   }
@@ -154,7 +158,13 @@
      by name (externalClientProfile). Path=/api so they reach the token endpoint; first-party, this browser only. */
   function rememberName(full) {
     var first = (String(full || "").trim().split(/\s+/)[0] || "").replace(/[^A-Za-zÀ-ÖØ-öø-ÿ'-]/g, "").slice(0, 30);
-    if (first) { try { document.cookie = "aa_ethica_name=" + encodeURIComponent(first) + "; Path=" + CFG.SEEN_PATH + "; Max-Age=31536000; Secure; SameSite=Lax"; } catch (e) {} }
+    // Path=/ (10-24): the page must READ it too (to know whether Ethica should ask), and /api still receives it.
+    if (first) { try { document.cookie = "aa_ethica_name=" + encodeURIComponent(first) + "; Path=/; Max-Age=31536000; Secure; SameSite=Lax"; } catch (e) {} }
+    return first;
+  }
+  function knownName() {
+    var m = document.cookie.match(/(?:^|;\s*)aa_ethica_name=([^;]{1,90})/); if (!m) return "";
+    try { return decodeURIComponent(m[1]).replace(/[^A-Za-zÀ-ÖØ-öø-ÿ'-]/g, "").slice(0, 30); } catch (e) { return ""; }
   }
 
   /* ═════════ Booking + contact helpers (from home-next/ava-panel.js) ═════════ */
@@ -309,8 +319,8 @@
     },
     subscribe: function () {
       var a = grantAccess(), note;
-      if (S.out === "free_used" || a.why === "free_used") note = "Your free session has ended. Register for free to talk with Ethica five minutes a day for seven days — or choose a plan.";
-      else if (S.out === "day_used" || a.why === "day_used") note = "That's today's five minutes. Come back tomorrow — or choose a plan.";
+      if (S.out === "free_used" || a.why === "free_used") note = "Your free session has ended. Register for free to talk with Ethica fifteen minutes a day for seven days — or choose a plan.";
+      else if (S.out === "day_used" || a.why === "day_used") note = "That's today's fifteen minutes. Come back tomorrow — or choose a plan.";
       else if (a.why === "trial_over") note = "Your seven-day trial is over. Subscribe to keep talking to Ethica.";
       else if (a.stage === "anonymous") note = "Your first conversation is free: " + mmss(a.seconds) + " left.";
       else note = "Day " + a.day + " of " + a.days + " of your free trial: " + mmss(a.seconds) + " left today.";
@@ -320,7 +330,7 @@
           return '<a class="eth-plan' + (p.top ? " top" : "") + '" href="' + CFG.SUBSCRIBE + '" data-sub="' + p.id + '">' + (p.top ? '<span class="eth-plan-tag">Most popular</span>' : "") +
             "<h4>" + p.name + '</h4><div class="eth-price"><b>' + p.price + "</b><span>per month</span></div><small>" + esc(p.minutes) + "</small></a>";
         }).join("") + "</div>" +
-        (anon ? '<div class="p-svc-actions"><a class="btn btn-ghost btn-sm" href="' + CFG.REGISTER + '" data-sub="register">Register free · 5 min a day for 7 days</a></div>' : "") +
+        (anon ? '<div class="p-svc-actions"><a class="btn btn-ghost btn-sm" href="' + CFG.REGISTER + '" data-sub="register">Register free · 15 min a day for 7 days</a></div>' : "") +
         '<p class="p-sub eth-fine">Minutes count only during a live conversation. Cancel anytime. Secured by Stripe.</p>';
     },
   };
@@ -508,6 +518,13 @@
           return bookingFallback(clean(r));
         });
     },
+    // Name memory (Michael, 10-24): she asks "By the way, what's your name?" once and saves the first name here.
+    remember_visitor_name: function (a) {
+      var first = rememberName(a && a.name);
+      if (!first) return { ok: false, error: "No usable first name. Ask once more, or carry on without it." };
+      track("ethica_name_saved", {});
+      return { ok: true, saved: first, note: "Saved in this visitor's browser. Use their first name naturally from now on, and you will greet them by it next time." };
+    },
     // Panel-only (the contact form is NOT avatar-driven, per the stage template): the visitor types and confirms it.
     submit_lead: function () {
       if (!S.lead.name.trim() || !validEmail(S.lead.email.trim())) { setMsg(!S.lead.name.trim() ? "Please add your name." : "Please enter a valid email.", true); return Promise.resolve({ ok: false }); }
@@ -540,6 +557,8 @@
       inputSchema: { type: "object", properties: { name: { type: "string", description: "Full name" }, email: { type: "string", description: "Email address" }, phone: { type: "string", description: "Phone number" }, notes: { type: "string", description: "A short note about their business and what they want to discuss" } } } },
     { name: "confirm_booking", description: "Book the strategy call. The first call never books: it shows the visitor their details for review and returns needs_confirmation. Then read back the time, name and email (spell the email), ask whether everything is correct, fix anything with fill_booking_details, and call confirm_booking again only after the visitor clearly says yes. Relay the returned message in your own words.",
       inputSchema: { type: "object", properties: {} }, annotations: { destructiveHint: true } },
+    { name: "remember_visitor_name", description: "Save the visitor's first name so you can greet them by name next time. After your first answer to a new visitor, ask once, warmly: \"By the way, what's your name?\" When they tell you, call this with their first name only, then use it naturally. If they would rather not say, carry on without it and never ask again. Never ask for a last name or any other personal detail.",
+      inputSchema: { type: "object", properties: { name: { type: "string", description: "The visitor's first name, as they said it" } }, required: ["name"] } },
   ];
   function execTool(name, args) {
     var fn = TOOLS.some(function (t) { return t.name === name; }) && TOOLS_IMPL[name];   // the twin can only reach the listed tools
@@ -568,7 +587,11 @@
       var have = [S.book.name && "name " + S.book.name, S.book.email && "email " + S.book.email, S.book.phone && "phone " + S.book.phone].filter(Boolean);
       if (have.length) bits.push("they have typed their " + have.join(", "));
     }
-    return bits.join("; ") + ". The visitor has " + mmss(secondsLeft) + (access && access.stage === "anonymous" ? " of free conversation." : " left today.");
+    // Name ask (Michael, 10-24): exact wording, once, only when the name is not known yet.
+    var nm = knownName();
+    var nameLine = nm ? " The visitor's first name is " + nm + "."
+      : " You don't know the visitor's name yet. After your first answer, ask once, warmly: \"By the way, what's your name?\" When they tell you, call remember_visitor_name with their first name. If they would rather not say, carry on and never ask again.";
+    return bits.join("; ") + ". The visitor has " + mmss(secondsLeft) + (access && access.stage === "anonymous" ? " of free conversation." : " left today.") + nameLine;
   }
 
   /* ═════════ Her intro: muted loop; the sound icon replays it from the start with captions ═════════ */
