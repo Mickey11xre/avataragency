@@ -18,7 +18,8 @@ body { color: var(--on); }
 .eth-bg-video { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center top; }
 .eth-bg::after { content: ""; position: absolute; inset: auto 0 0 0; height: 12%; background: linear-gradient(to bottom, transparent, #000); pointer-events: none; }
 /* PSD "BLACK_BOX" (120,1130 → 1354,1440): under the trailer, over the poster's credit block */
-.eth-mask { position: absolute; left: 5.508%; width: 47.969%; top: 70.625%; height: 19.375%; background: #010101; }   /* trimmed to the trailer's width: the PSD's 21 px overhang showed as a notch */
+/* The PSD's width; its left overhang fades in (a hard edge showed as a notch, trimming it let credit text peek out) */
+.eth-mask { position: absolute; left: 3.9%; width: 49.6%; top: 70.625%; height: 19.375%; background: linear-gradient(to right, rgba(1,1,1,0), #010101 3.4%); }
 /* PSD "Layer 1" (141,878 → 1369,1569): the trailer */
 .eth-trailer { position: absolute; left: 5.508%; width: 47.969%; top: 54.875%; aspect-ratio: 16 / 9; background: #000; box-shadow: 0 30px 80px -30px rgba(0,0,0,.9), 0 0 0 1px rgba(201,168,76,.22); }
 .eth-trailer video { display: block; width: 100%; height: 100%; object-fit: cover; background: #000; }
