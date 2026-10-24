@@ -4,8 +4,9 @@
  * /clients/accu/accu-stage.js (same look, panel and live-session code), with Ethica's own panel and the current
  * /ethica/thrive/ free-minutes gate.
  *
- * Panel (Michael, 10-23): The PDR Framework · The schemes she fights · The Fraud Fighter Collection (merch) · Subscribe,
- * plus the fleet-standard Book a call (Michael's real Calendly, Ava's engine) and Leave my contact info (10-24).
+ * Panel (Michael, 10-24 order): The schemes she fights · The PDR Framework · Upload documents (screen share for now) ·
+ * Monthly Subscription · The Fraud Fighter Collection (merch) · Book a call with AvatarAgency (Michael's real Calendly,
+ * Ava's engine). "Leave my contact info" is off on Ethica (Michael 10-24); its code stays dormant.
  * The visitor can tap them, and Ethica opens them herself when the conversation turns to them (page tools below).
  *
  * ACCESS (from /ethica/thrive/ build:v6; Michael 10-24: 15 minutes, was 5): anonymous = 15 minutes once per browser → register;
@@ -54,6 +55,7 @@
     ext: '<svg viewBox="0 0 24 24" width="14" height="14"><path d="M14 5h5v5M19 5l-8 8M18 14v4a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h4" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     arrow: '<svg><use href="#i-arrow"/></svg>',
     cal: '<svg viewBox="0 0 24 24"><rect x="4" y="5.5" width="16" height="14.5" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M4 10h16M8.5 3.5v4M15.5 3.5v4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
+    doc: '<svg viewBox="0 0 24 24"><path d="M7 3.5h7l4.5 4.5v11A1.5 1.5 0 0 1 17 20.5H7A1.5 1.5 0 0 1 5.5 19V5A1.5 1.5 0 0 1 7 3.5z M14 3.5V8h4.5" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="M8.5 12.5h7M8.5 16h5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>',
     chat: '<svg viewBox="0 0 24 24"><path d="M5 5.5h14a1.5 1.5 0 0 1 1.5 1.5v8A1.5 1.5 0 0 1 19 16.5h-7l-4.5 3.5v-3.5H5A1.5 1.5 0 0 1 3.5 15V7A1.5 1.5 0 0 1 5 5.5z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/></svg>',
   };
   var PDR = {
@@ -157,9 +159,9 @@
   var S = { mode: "home", hist: [], pillar: null, scheme: null, product: null, out: null,
     slots: null, slotsAt: 0, slotsErr: null, day: null, slot: null, viewAll: false, booked: null, review: null, busy: false, doneMsg: "",
     book: { name: "", email: "", phone: "", notes: "" }, lead: { name: "", email: "", phone: "", need: "", callback: false } };
-  var BOOK_TITLE = "Book a call with Avatar Agency";
+  var BOOK_TITLE = "Book a call with AvatarAgency";
   var TITLES = { home: "How can I help?", pdr: "The PDR Framework", schemes: "The schemes she fights", scheme: "The schemes she fights",
-    merch: "The Fraud Fighter Collection", subscribe: "Keep talking to Ethica",
+    merch: "The Fraud Fighter Collection", subscribe: "Monthly Subscription", docs: "Upload documents",
     days: BOOK_TITLE, times: BOOK_TITLE, details: BOOK_TITLE, booked: "You're booked", lead: "Leave your contact info", leadDone: "Thank you" };
   /* Memory (fleet #2): aa_ethica_seen (set when a live session really starts) + aa_ethica_name = the first name the
      visitor typed into the booking or contact form. /api/ethica-nv2-token reads both: a returning visitor is welcomed back
@@ -252,14 +254,28 @@
 
   var VIEWS = {
     home: function () {
+      // Order and names: Michael 10-24. "Leave my contact info" is OFF on Ethica (Michael 10-24); its form code below stays
+      // dormant (no menu entry, no voice tool) in case it comes back.
       return '<p class="p-sub">Tap an option below — or press Talk to Ethica to speak with her.</p><div class="p-actions">' +
-        act("pdr", IC.shield, "The PDR Framework", "Prevention · Detection · Remediation") +
         act("schemes", IC.alert, "The schemes she fights", "Laundering, pyramids, scams and more") +
+        act("pdr", IC.shield, "The PDR Framework", "Prevention · Detection · Remediation") +
+        act("docs", IC.doc, "Upload documents", "Get insights and analysis") +
+        act("subscribe", IC.star, "Monthly Subscription", "Plans from $9 a month") +
         act("merch", IC.shirt, "The Fraud Fighter Collection", "Official Ethica tees and hoodie") +
-        act("subscribe", IC.star, "Subscribe", "Plans from $9 a month") +
-        // Fleet #4 (standard on every stage): book + contact info.
-        act("book", IC.cal, "Book a call with Avatar Agency", "Want an avatar like Ethica? 30 min with Michael") +
-        act("lead", IC.chat, "Leave my contact info", "Avatar Agency gets back to you") + "</div>";
+        act("book", IC.cal, "Book a call with AvatarAgency", "Want an avatar like Ethica? 30 min with Michael") + "</div>";
+    },
+    // Upload documents, step one (Michael 10-24): Ethica reads a document the visitor shows her by screen share (proven
+    // 10-24: she read a statement's transactions). A real upload (options 2/3 in BRIEF_ETHICA_DOCUMENT_REVIEW.md) can
+    // replace this view later.
+    docs: function () {
+      var live = liveState !== "idle";
+      return '<p class="p-sub">Show Ethica a statement, invoice, letter or message, and she\'ll point out red flags worth a closer look.</p>' +
+        '<ol class="eth-steps">' +
+        (live ? "" : "<li><b>Start the conversation.</b> Press Talk to Ethica.</li>") +
+        "<li><b>Open your document</b> in another tab or window.</li>" +
+        "<li><b>Tap Share Screen</b> on Ethica's video and pick that tab or window. Ethica floats on top while you share.</li>" +
+        "<li><b>Ask her:</b> “Does anything here look off?”</li></ol>" +
+        '<p class="p-sub eth-fine">Cover full account numbers before you share. Ethica looks only while you share and keeps nothing. She shares general education, not legal, tax or forensic advice.</p>';
     },
     days: function () {
       if (S.slotsErr && !S.slots) return '<p class="p-msg err">I couldn\'t load Michael\'s calendar just now.</p><a class="btn btn-gold btn-sm p-go" href="' + CAL + '" target="_blank" rel="noopener">Pick a time on Calendly ' + IC.arrow + "</a>";
@@ -269,7 +285,7 @@
       if (!S.viewAll) {
         return steps(1) + '<p class="p-label">Suggested times · ' + esc(tzShort()) + '</p><div class="p-picks">' + pickSlots(3).map(function (s) {
           return '<button class="p-chip p-pick" type="button" data-slot="' + s.start_time + '">' + esc(fmtDay(s.start_time)) + "<small>" + esc(fmtTime(s.start_time)) + "</small></button>";
-        }).join("") + '</div><button class="link p-week" type="button" data-act="week">See the whole week ' + IC.arrow + '</button><p class="p-sub">A free 30-minute strategy call with Michael Rivera of Avatar Agency, about an AI avatar like Ethica for your business.</p>';
+        }).join("") + '</div><button class="link p-week" type="button" data-act="week">See the whole week ' + IC.arrow + '</button><p class="p-sub">A free 30-minute strategy call with Michael Rivera of AvatarAgency, about an AI avatar like Ethica for your business.</p>';
       }
       return steps(1) + '<p class="p-label">Pick a day · ' + esc(tzShort()) + '</p><div class="p-days">' + d.map(function (x) {
         return '<button class="p-chip' + (S.day === x.key ? " on" : "") + '" type="button" data-day="' + x.key + '">' + esc(x.label) + "<small>" + x.slots.length + (x.slots.length === 1 ? " time" : " times") + "</small></button>";
@@ -405,7 +421,7 @@
     var a = t.getAttribute("data-act");
     if (a === "book") { S.viewAll = false; S.booked = null; TOOLS_IMPL.show_booking_times({ view: "suggested" }); emit("The visitor opened the booking panel.", false); track("ethica_panel", { action: "book_open" }); return; }
     if (a === "week") { S.viewAll = true; render({}); emit("The visitor is looking at the whole week.", false); return; }
-    if (a === "lead") { go("lead", { focus: true }); emit("The visitor opened the leave-your-contact-info form.", false); track("ethica_panel", { action: "lead_open" }); return; }
+    if (a === "docs") { go("docs"); emit("The visitor opened Upload documents: it explains how to show you a document by screen share.", false); track("ethica_panel", { action: "docs" }); return; }
     if (a === "home") { S.hist = []; go("home", { replace: true }); return; }
     if (a === "review-yes") { if (!S.review || S.busy) return; S.review.ok = true; (S.review.kind === "book" ? TOOLS_IMPL.confirm_booking : TOOLS_IMPL.submit_lead)({}); return; }
     if (a === "review-edit") { S.review = null; render({ focus: true }); emit("The visitor chose to edit their details. Nothing has been booked or sent.", false); return; }
@@ -435,7 +451,7 @@
 
   /* ═════════ Ethica's page tools: the one way she changes the panel ═════════ */
   var TOOLS_IMPL = {
-    show_menu: function () { S.hist = []; go("home", { replace: true }); return { ok: true, options: ["The PDR Framework", "The schemes she fights", "The Fraud Fighter Collection", "Subscribe", "Book a call with Avatar Agency", "Leave my contact info"] }; },
+    show_menu: function () { S.hist = []; go("home", { replace: true }); return { ok: true, options: ["The schemes she fights", "The PDR Framework", "Upload documents", "Monthly Subscription", "The Fraud Fighter Collection", "Book a call with AvatarAgency"] }; },
     show_pdr_framework: function (a) {
       a = a || {}; var p = a.pillar && findIn(PDR, a.pillar);
       S.pillar = p ? p.id : null; if (S.mode === "pdr") render({}); else go("pdr"); track("ethica_tool_view", { view: "pdr", pillar: S.pillar || "" });
@@ -533,6 +549,8 @@
       track("ethica_name_saved", {});
       return { ok: true, saved: first, note: "Saved in this visitor's browser. Use their first name naturally from now on, and you will greet them by it next time." };
     },
+    show_upload_documents: function () { go("docs"); return { ok: true, shown: "Upload documents", note: "The panel shows the steps: start the conversation, open the document, tap Share Screen on your video and pick it, then ask you. Walk them through it; once you can see it, point out red flags worth a closer look, never declare fraud, and never read a full account number aloud." }; },
+    // DORMANT since Michael 10-24 took "Leave my contact info" off Ethica: not in TOOLS, so she cannot call it.
     // Michael, 10-24: Ethica fills the contact form by voice (like Ava's fill_lead_details). SENDING stays the visitor's
     // tap on the review card (stage spec: contact info goes out only on the visitor's tap; the consent line sits there).
     fill_lead_details: function (a) {
@@ -567,7 +585,7 @@
     },
   };
   var TOOLS = [
-    { name: "show_menu", description: "Return the panel beside you to its main menu (The PDR Framework, The schemes she fights, The Fraud Fighter Collection, Subscribe, Book a call with Avatar Agency, Leave my contact info).", inputSchema: { type: "object", properties: {} } },
+    { name: "show_menu", description: "Return the panel beside you to its main menu (The schemes she fights, The PDR Framework, Upload documents, Monthly Subscription, The Fraud Fighter Collection, Book a call with AvatarAgency).", inputSchema: { type: "object", properties: {} } },
     { name: "show_pdr_framework", description: "Show The PDR Framework (Prevention, Detection, Remediation) on the panel beside you, which the visitor can see. Call it the moment you start explaining how to fight fraud, or one of the three pillars. Pass pillar to highlight one.",
       inputSchema: { type: "object", properties: { pillar: { type: "string", enum: PDR.items.map(function (x) { return x.id; }) } } } },
     { name: "show_fraud_scheme", description: "Show the schemes you fight on the panel beside you. Pass scheme to open one (e.g. when the visitor mentions an investment that sounds too good to be true, open investment_scams). Without scheme, shows the list of all eight.",
@@ -587,8 +605,7 @@
       inputSchema: { type: "object", properties: {} }, annotations: { destructiveHint: true } },
     { name: "remember_visitor_name", description: "Save the visitor's first name so you can greet them by name next time. After your first answer to a new visitor, ask once, warmly: \"By the way, what's your name?\" When they tell you, call this with their first name only, then use it naturally. If they would rather not say, carry on without it and never ask again. Never ask for a last name or any other personal detail.",
       inputSchema: { type: "object", properties: { name: { type: "string", description: "The visitor's first name, as they said it" } }, required: ["name"] } },
-    { name: "fill_lead_details", description: "Fill in the \"Leave my contact info\" form on the panel when the visitor wants Avatar Agency to get back to them (for example about an AI avatar for their business) but would rather not book a time. Call it each time you learn a detail; only include the fields you just learned. Set callback true if they want a phone call back (then a phone number is required). Never build, guess or complete an email: ask them to type it on the panel or spell it, and read it back letter by letter. When name and email are in, the panel shows a review card; the visitor checks it and taps send themselves. You never send it.",
-      inputSchema: { type: "object", properties: { name: { type: "string", description: "Full name" }, email: { type: "string", description: "Email address" }, phone: { type: "string", description: "Phone number" }, need: { type: "string", description: "A short note on what they want help with" }, callback: { type: "boolean", description: "true if they want a phone call back" } } } },
+    { name: "show_upload_documents", description: "Show Upload documents on the panel beside you: how the visitor can show you a statement, invoice, letter or message by screen share. Call it when they want you to look at a document.", inputSchema: { type: "object", properties: {} } },
   ];
   function execTool(name, args) {
     var fn = TOOLS.some(function (t) { return t.name === name; }) && TOOLS_IMPL[name];   // the twin can only reach the listed tools
