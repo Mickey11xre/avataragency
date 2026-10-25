@@ -349,7 +349,7 @@
       return '<p class="p-sub">Tap an option below — or press Talk to Ethica to speak with her.</p><div class="p-actions">' +
         act("schemes", IC.alert, "The schemes she fights", "Laundering, pyramids, scams and more") +
         act("pdr", IC.shield, "The PDR Framework", "Prevention · Detection · Remediation") +
-        act("docs", IC.doc, "Upload documents", "Get insights and analysis") +
+        act("docs", IC.doc, "Upload documents <em class=\"eth-new\">New</em>", "Ethica checks it for red flags") +
         act("subscribe", IC.star, "Monthly Subscription", "Plans from $9 a month") +
         act("merch", IC.shirt, "The Fraud Fighter Collection", "Official Ethica tees and hoodie") +
         act("book", IC.cal, "Book a call with AvatarAgency", "Want an avatar like Ethica? 30 min with Michael") + "</div>";

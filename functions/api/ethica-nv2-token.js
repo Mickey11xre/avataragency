@@ -72,7 +72,7 @@ export async function onRequest(context) {
 // Guidance, not a script — the model paraphrases initialSpeech. Matches the OPENING in her instructions.
 const FIRST_VISIT = "Speak first, immediately, before the visitor says anything, in English. Greet them warmly and " +
   "briefly: you're Ethica, the hero who fights fraud in accounting. Then ask what brings them here - protecting their " +
-  "money, a scheme they're worried about, or something at work that doesn't add up. Under ten seconds, confident and warm.";
+  "money, a scheme they're worried about, or a document they'd like her to check. Under ten seconds, confident and warm.";
 
 function welcomeBack(name) {
   return "Speak first, immediately, before the visitor says anything, in English. This visitor has talked with you " +
