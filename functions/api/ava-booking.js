@@ -23,6 +23,7 @@ const pickSlug = (env, requested) => EVENT_SLUGS.includes(requested) ? requested
 const FROM = "AvatarAgency <studio@avataragency.ai>";
 const NOTIFY = "michael@avataragency.ai";
 const ALLOWED_ORIGINS = ["https://avataragency.ai", "https://www.avataragency.ai"];
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
 const PER_IP_PER_HOUR = 4;     // real calendar events: keep this tight
 const PER_EMAIL_PER_DAY = 2;
 
@@ -118,6 +119,7 @@ async function alertMichael(env, lead, status, extra) {
       ${row("Phone", esc(lead.phone))}
       ${row("Notes", esc(lead.notes))}
       ${row("Their time", esc(lead.whenVisitor))}
+      ${row("Came from", esc(Object.keys(lead.utm || {}).length ? UTM_KEYS.filter(k => lead.utm[k]).map(k => k.replace("utm_", "") + ": " + lead.utm[k]).join(" · ") : ""))}
       ${row("Status", esc(booked ? "Booked on Calendly" : "NOT booked — " + (extra || "Calendly refused the booking")))}
       ${row("Napster session", esc(lead.sessionId))}
       ${row("Record", esc(lead.recordKey))}
@@ -157,7 +159,9 @@ export async function onRequestPost(context) {
     tag: b.source === "Boardsi profile" ? " (Boardsi profile)" : b.source === "Ethica page" ? " (Ethica page)" : "",   // set by /profile/ (8 Oct) and Ethica's page (24 Oct); empty everywhere else
     twin: "ava", source: "avataragency.ai booking panel (Calendly)",
     createdAt: new Date().toISOString(),
+    utm: {},   // 26 Oct: the ad/post that brought them (aa-tracking.js → ava-panel.js), recorded here + sent to Calendly's tracking
   };
+  if (b.utm && typeof b.utm === "object") UTM_KEYS.forEach(k => { const v = clip(b.utm[k], 100); if (v) lead.utm[k] = v; });
   if (!lead.name || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(lead.email)) {
     return json({ ok: false, error: "a name and a valid email are required" }, 400);
   }
@@ -212,8 +216,16 @@ export async function onRequestPost(context) {
     return answer ? { question: q.name, answer, position: q.position } : null;
   }).filter(Boolean);
   if (qa.length) body.questions_and_answers = qa;
+  // Campaign attribution: Calendly's invitee `tracking` (utm_*). If Calendly ever rejects the field, book without it:
+  // the UTMs are still in the KV record and the alert, and a booking is worth more than its attribution.
+  if (Object.keys(lead.utm).length) body.tracking = { ...lead.utm };
 
-  const r = await cal(env, "/invitees", { method: "POST", body: JSON.stringify(body) });
+  let r = await cal(env, "/invitees", { method: "POST", body: JSON.stringify(body) });
+  if (!r.ok && body.tracking && r.status === 400 && /track|utm/i.test(JSON.stringify(r.data || {}))) {
+    console.log("ava-booking: Calendly refused tracking, retrying without:", JSON.stringify(r.data).slice(0, 300));
+    delete body.tracking;
+    r = await cal(env, "/invitees", { method: "POST", body: JSON.stringify(body) });
+  }
   if (!r.ok) {
     const why = (r.data && (r.data.message || r.data.title)) || ("HTTP " + r.status);
     console.log("ava-booking calendly:", r.status, JSON.stringify(r.data).slice(0, 500));

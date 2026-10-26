@@ -139,12 +139,27 @@ body {
 }
 .legal-footer a:hover { text-decoration: underline; }
 
+.optout-btn {
+  font-family: 'General Sans', Arial, sans-serif;
+  font-size: 14px;
+  color: #0b0b0b;
+  background: #fff;
+  border: 1px solid #c9a84c;
+  border-radius: 999px;
+  padding: 8px 18px;
+  cursor: pointer;
+}
+.optout-btn:hover { background: #fbf6e8; }
+.optout-btn:focus-visible { outline: 2px solid #c9a84c; outline-offset: 2px; }
+.optout-state { font-size: 14px; color: #6b6358; margin-left: 8px; }
+
 @media (max-width: 600px) {
   .topbar { padding: 0 24px; }
   .page { padding: 48px 24px 72px; }
   .legal-header h1 { font-size: 36px; }
 }
 </style>
+<script src="/aa-tracking.js?v=1" defer></script>
 </head>
 <body>
 
@@ -162,7 +177,7 @@ body {
 
   <header class="legal-header">
     <h1>Privacy Policy</h1>
-    <p>Effective date: June 30, 2026 &nbsp;·&nbsp; Last updated: June 30, 2026</p>
+    <p>Effective date: June 30, 2026 &nbsp;·&nbsp; Last updated: October 26, 2026</p>
   </header>
 
   <div class="legal-section">
@@ -177,6 +192,9 @@ body {
     <p><strong>Conversation data:</strong> We may log the content of your conversations with AI avatars to improve service quality, monitor for safety, and provide customer support. Conversation logs may be reviewed by authorized AvatarAgency personnel.</p>
     <p><strong>Usage data:</strong> We automatically collect information about how you interact with our service, including pages visited, session duration, browser type, operating system, and IP address.</p>
     <p><strong>Payment information:</strong> If you subscribe, payment details are handled directly by our payment processor. AvatarAgency does not store full credit card numbers.</p>
+    <p><strong>Lead forms in our ads:</strong> If you submit a lead form inside one of our ads on a social platform (for example, a LinkedIn Lead Gen Form or a Facebook or Instagram lead form), that platform sends us the information you submit. This may include your name, email address, phone number, company, and job title, some of which the platform may pre-fill from your profile.</p>
+    <p><strong>Scheduling and booking:</strong> When you book a call with us, through one of our scheduling links, the booking screen of a lead form, or our AI assistant Ava on this website, we collect your name, email address, time zone, the time you choose, and anything else you choose to provide (such as a phone number or notes). Bookings are made on our Calendly account, and Calendly sends your confirmation, calendar invitation, and reminders.</p>
+    <p><strong>Campaign information:</strong> If you arrive from one of our ads or social media posts, the link may include campaign tags (UTM parameters such as the source, medium, campaign, and ad). We keep these for your visit and may attach them to a booking or inquiry you make, so we know which campaign brought you.</p>
   </div>
 
   <div class="legal-section">
@@ -186,6 +204,8 @@ body {
       <li>Provide, operate, and improve the service</li>
       <li>Authenticate your identity and manage your account</li>
       <li>Send transactional emails (account confirmation, subscription receipts)</li>
+      <li>Schedule, confirm, and follow up on calls and inquiries you request</li>
+      <li>Measure how our advertising performs, including which ads and posts lead to inquiries and booked calls</li>
       <li>Respond to support requests</li>
       <li>Analyze usage patterns to improve product quality</li>
       <li>Detect and prevent fraud or abuse</li>
@@ -202,6 +222,10 @@ body {
       <li><strong>Cloudflare</strong> — content delivery, DDoS protection, and access control</li>
       <li><strong>Napster API</strong> — powers the real-time AI avatar conversation engine</li>
       <li><strong>Payment processor</strong> — handles subscription billing securely</li>
+      <li><strong>Calendly</strong> — scheduling: creates your booking and sends confirmations and reminders (<a href="https://calendly.com/legal/privacy-notice" target="_blank" rel="noopener">Calendly privacy notice</a>)</li>
+      <li><strong>LinkedIn</strong> — advertising, LinkedIn Lead Gen Forms, and the LinkedIn Insight Tag described below (<a href="https://www.linkedin.com/legal/privacy-policy" target="_blank" rel="noopener">LinkedIn privacy policy</a>)</li>
+      <li><strong>Meta (Facebook and Instagram)</strong> — advertising and lead forms, if you respond to one of our ads there (<a href="https://www.facebook.com/privacy/policy/" target="_blank" rel="noopener">Meta privacy policy</a>)</li>
+      <li><strong>Resend</strong> — delivers our email notifications</li>
     </ul>
     <p>Each third party operates under its own privacy policy and data practices. We encourage you to review their policies.</p>
   </div>
@@ -210,12 +234,16 @@ body {
     <h2>5. Cookies &amp; Tracking</h2>
     <p>We use cookies and similar tracking technologies to maintain your session, remember your preferences, and gather analytics data. You may disable cookies in your browser settings, though some features of the service may not function properly without them.</p>
     <p>We use Google Analytics, which sets cookies to track usage. You can opt out of Google Analytics tracking by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>.</p>
+    <p><strong>LinkedIn Insight Tag:</strong> Our public pages use the LinkedIn Insight Tag, a small piece of code from LinkedIn that sets cookies in your browser. It lets us measure how our LinkedIn ads perform (for example, whether a visitor who clicked an ad later booked a call), show our ads to people who have visited our website, and see aggregated, anonymous reports about the professional characteristics of our visitors. LinkedIn may collect information such as the page address, referring page, IP address, device and browser characteristics, and the time of your visit. We do not receive your LinkedIn identity from the Insight Tag. See LinkedIn's <a href="https://www.linkedin.com/legal/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a>, and manage how LinkedIn uses your data for ads in your <a href="https://www.linkedin.com/psettings/advertising" target="_blank" rel="noopener">LinkedIn advertising settings</a>.</p>
+    <p><strong>Your choices:</strong> If your browser sends a Global Privacy Control signal, we do not load the LinkedIn Insight Tag. You can also turn it off for this website in this browser:</p>
+    <p><button type="button" id="ads-optout" class="optout-btn">Turn off advertising tracking on this site</button> <span id="ads-optout-state" class="optout-state" aria-live="polite"></span></p>
   </div>
 
   <div class="legal-section">
     <h2>6. Data Retention</h2>
     <p>We retain your account information for as long as your account is active or as needed to provide the service. If you delete your account, we will delete or anonymize your personal data within 30 days, except where retention is required by law.</p>
     <p>Conversation logs may be retained for up to 12 months for quality assurance and safety purposes.</p>
+    <p>Lead form submissions, booking details, and the campaign information attached to them are kept for as long as we need them to respond to you, provide our services, and keep our business records. You can ask us to delete them at any time (see "Your Rights").</p>
   </div>
 
   <div class="legal-section">
@@ -258,5 +286,24 @@ body {
   </footer>
 
 </main>
+<script>
+// Advertising opt-out (aa-tracking.js reads localStorage aa_no_ads; a Global Privacy Control signal counts as an opt-out too).
+(function () {
+  var btn = document.getElementById("ads-optout"), state = document.getElementById("ads-optout-state");
+  if (!btn) return;
+  function off() { try { return navigator.globalPrivacyControl === true || localStorage.getItem("aa_no_ads") === "1"; } catch (e) { return navigator.globalPrivacyControl === true; } }
+  function paint() {
+    var gpc = navigator.globalPrivacyControl === true;
+    btn.textContent = off() ? "Turn advertising tracking back on" : "Turn off advertising tracking on this site";
+    btn.disabled = gpc;
+    state.textContent = gpc ? "Off: your browser sends Global Privacy Control." : off() ? "Off for this site in this browser." : "";
+  }
+  btn.addEventListener("click", function () {
+    try { if (off()) localStorage.removeItem("aa_no_ads"); else localStorage.setItem("aa_no_ads", "1"); } catch (e) {}
+    paint();
+  });
+  paint();
+})();
+</script>
 </body>
 </html>

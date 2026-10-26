@@ -413,7 +413,7 @@
         .then(function () { var f = (S.slots || []).filter(function (x) { return x.start_time === S.slot.start_time; })[0]; if (f) S.slot = f; return !f; })
         .then(function (gone) {
           if (gone) return { ok: false, retry: true, __status: 409, message: "That time is no longer held. Call show_booking_times again and offer fresh options." };
-          return post("/api/ava-booking", { start_time: S.slot.start_time, token: S.slot.token, name: S.book.name.trim(), email: S.book.email.trim(), phone: S.book.phone.trim(), notes: S.book.notes.trim(), timezone: TZ, sessionId: (instance && instance.sessionId) || SESSION, source: CFG.source, event: CFG.EVENT });
+          return post("/api/ava-booking", { start_time: S.slot.start_time, token: S.slot.token, name: S.book.name.trim(), email: S.book.email.trim(), phone: S.book.phone.trim(), notes: S.book.notes.trim(), timezone: TZ, sessionId: (instance && instance.sessionId) || SESSION, source: CFG.source, event: CFG.EVENT, utm: window.AA_UTM || {} });   // utm: set by /aa-tracking.js (26 Oct) so Calendly + the alert show which ad/post sent them
         })
         .then(function (r) {
           busy(false);
@@ -421,6 +421,7 @@
             var when = r.when || info(S.slot).label; S.booked = { when: when };
             S.doneMsg = "Your strategy call with Michael is confirmed for " + when + ". Calendly has emailed your confirmation and calendar invite to " + S.book.email.trim() + ".";
             go("booked"); track("ava_booking_confirmed", {}); track("generate_lead", { lead_source: "ava_panel_booking" }); rememberName(S.book.name);
+            if (window.aaTrackConversion) window.aaTrackConversion("booking");   // LinkedIn conversion (aa-tracking.js; no-op until the conversion ID is set)
             if (!fromTwin) emit("Booking confirmed for " + when + ". Calendly emailed " + S.book.email.trim() + ".", true);   // she reacts aloud
             return clean(r);
           }
