@@ -12,8 +12,8 @@
  *    LI_BOOKING_CONVERSION_ID is set. The Ava panel calls it after a confirmed booking.
  */
 (function () {
-  var LI_PARTNER_ID = "";             // Campaign Manager → Analyze → Insight Tag → "Partner ID" (digits only)
-  var LI_BOOKING_CONVERSION_ID = "";  // Campaign Manager → Analyze → Conversion tracking → the "Booked strategy call" conversion's ID
+  var LI_PARTNER_ID = "10248284";    // Campaign Manager → Measure → Signals manager → Insight Tag (created 26 Oct 2026, ad account 557831188)
+  var LI_BOOKING_CONVERSION_ID = "";  // Campaign Manager → Measure → Conversion tracking → the "Booked strategy call" conversion's ID
   var UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
   var KEY = "aa_utm", OPT_OUT = "aa_no_ads";
   function storage(kind) { try { return window[kind]; } catch (e) { return null; } }
