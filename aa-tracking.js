@@ -21,6 +21,16 @@
 
   // ---- 1. UTMs ----
   var utm = {}, params = new URLSearchParams(location.search);
+  // Ad platforms may append their parameters AFTER the anchor (/#ava-stage?utm_source=…). That anchor
+  // matches no element, so read the parameters from it, restore the clean anchor and jump to it.
+  var hash = location.hash, hq = hash.search(/[?&]/);
+  if (hq > 0) {
+    new URLSearchParams(hash.slice(hq + 1)).forEach(function (v, k) { if (!params.has(k)) params.set(k, v); });
+    var anchor = hash.slice(0, hq);
+    try { history.replaceState(history.state, "", location.pathname + location.search + anchor); } catch (e) {}
+    var jump = function () { var el = document.getElementById(anchor.slice(1)); if (el) el.scrollIntoView(); };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", jump); else jump();
+  }
   UTM_KEYS.forEach(function (k) { var v = params.get(k); if (v) utm[k] = v.slice(0, 100); });
   try {
     if (Object.keys(utm).length) { if (ss) ss.setItem(KEY, JSON.stringify(utm)); }
