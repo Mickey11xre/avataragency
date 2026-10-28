@@ -231,7 +231,27 @@
   .twin-film p{font-size:14px;color:var(--muted);line-height:1.7}
   .twin-film p b{color:var(--txt);font-weight:600}
   @media(max-width:820px){.twin-film{grid-template-columns:1fr;gap:24px}}
+
+  /* ---- cloning-session reference strips: the cream "paper" band from /work/ ---- */
+  .capture{background:#f6f2e8;color:#1c1a16;position:relative;overflow:hidden}
+  .capture::before{content:"";position:absolute;inset:0;opacity:.5;pointer-events:none;background-image:repeating-linear-gradient(0deg,rgba(28,26,22,.025) 0 1px,transparent 1px 4px)}
+  .capture-in{position:relative;display:grid;grid-template-columns:minmax(220px,.38fr) minmax(0,1fr);gap:clamp(26px,4vw,56px);padding-top:clamp(40px,5vw,64px);padding-bottom:clamp(40px,5vw,64px);align-items:center}
+  .cap-eyebrow{font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:#8a7330;font-weight:600;margin-bottom:10px}
+  .capture h3{font-size:clamp(26px,2.6vw,36px);line-height:1.08;letter-spacing:-.025em;font-weight:700;color:#1c1a16}
+  .capture h3 em{font-family:'Cormorant Garamond','Times New Roman',serif;font-style:italic;font-weight:500;color:#8a7330;letter-spacing:0}
+  .capture p{margin-top:14px;color:#4a4640;font-size:15px;line-height:1.65}
+  .capture .legend{margin-top:18px;display:flex;flex-wrap:wrap;gap:6px 14px;font:500 11px/1.4 ui-monospace,'SF Mono',Menlo,Consolas,monospace;letter-spacing:.08em;color:#8a8278;text-transform:uppercase}
+  .capture .legend b{color:#8a7330;font-weight:600}
+  .ref-strip{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 4px 16px;scrollbar-width:thin;scrollbar-color:rgba(28,26,22,.25) transparent;-webkit-overflow-scrolling:touch}
+  .ref{flex:none;scroll-snap-align:start;position:relative;background:#fff;padding:8px 8px 30px;border-radius:4px;box-shadow:0 1px 0 rgba(28,26,22,.06),0 14px 30px -18px rgba(28,26,22,.45)}
+  .ref img{display:block;height:clamp(210px,22vw,290px);width:auto;border-radius:2px;background:#fff}
+  .ref figcaption{position:absolute;left:10px;right:10px;bottom:8px;display:flex;justify-content:space-between;font:500 10.5px/1 ui-monospace,'SF Mono',Menlo,Consolas,monospace;letter-spacing:.1em;color:#8a8278;text-transform:uppercase}
+  .ref figcaption b{color:#8a7330;font-weight:600}
+  @media(max-width:820px){.capture-in{grid-template-columns:1fr}}
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -363,12 +383,12 @@
         <div class="reel-frame">
           <video controls preload="none" playsinline controlslist="nodownload noremoteplayback"
                  poster="/clients/rentalizer/media/paul-poster.jpg"
-                 src="/clients/rentalizer/media/paul-marvista-vertical.mp4"></video>
+                 src="/clients/rentalizer/media/paul-marvista-vertical-1.mp4"></video>
         </div>
         <h3>Paul Small, Real Estate Agent</h3>
-        <div class="cmeta">Compass &middot; Los Angeles &middot; 0:40 &middot; 9:16</div>
-        <p>A neighborhood short for Mar Vista: Paul at the farmers market, on a caf&eacute; patio and walking up
-          to a listing, with word-timed captions and his Compass end slate.</p>
+        <div class="cmeta">Compass &middot; Los Angeles &middot; 0:21 &middot; 9:16</div>
+        <p>A neighborhood short for Mar Vista: Paul speaks to camera outside a local coffee roaster about why
+          Mar Vista is something different, with word-timed captions and his Compass end slate.</p>
         <div class="real"><b>Paul is a real person.</b> We held a cloning session with him (47 reference
           photographs from every angle, plus his voice) and built his digital twin from his own likeness and
           voice. Every shot of Paul here is his twin, with no film crew and no location shoot.</div>
@@ -378,7 +398,30 @@
   </div>
 </section>
 
-<section style="padding-top:0">
+<div class="capture">
+  <div class="wrap capture-in">
+    <div>
+      <p class="cap-eyebrow">Behind the likeness &middot; Paul Small</p>
+      <h3>One session. <em>Every angle.</em></h3>
+      <p>Every digital twin starts here: a structured reference set from one cloning session, cleaned onto white
+        and sorted by angle, so the AI learns the real person, not an idealized one. Eight of Paul&rsquo;s 47
+        references are shown.</p>
+      <div class="legend"><span><b>FB</b> Full body</span><span><b>CU</b> Close-up</span><span><b>TQ</b> Three-quarter</span><span><b>MS</b> Mid-speech</span></div>
+    </div>
+    <div class="ref-strip">
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/paul-1.webp" alt="Paul Small reference, full body, front" loading="lazy"><figcaption><b>FB</b>01</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/paul-2.webp" alt="Paul Small reference, full body, profile" loading="lazy"><figcaption><b>FB</b>05</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/paul-3.webp" alt="Paul Small reference, full body, back" loading="lazy"><figcaption><b>FB</b>08</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/paul-4.webp" alt="Paul Small reference, close-up, front" loading="lazy"><figcaption><b>CU</b>01</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/paul-5.webp" alt="Paul Small reference, close-up, three-quarter" loading="lazy"><figcaption><b>CU</b>04</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/paul-6.webp" alt="Paul Small reference, close-up, profile" loading="lazy"><figcaption><b>CU</b>08</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/paul-7.webp" alt="Paul Small reference, three-quarter" loading="lazy"><figcaption><b>TQ</b>05</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/paul-8.webp" alt="Paul Small reference, mid-speech" loading="lazy"><figcaption><b>MS</b>02</figcaption></figure>
+    </div>
+  </div>
+</div>
+
+<section>
   <div class="wrap">
     <div class="sec-head"><h2>Digital Twin Case Study &middot; Cinematic Film</h2><div class="note">Sound on &mdash; 2:54</div></div>
     <div class="twin-film">
@@ -402,6 +445,26 @@
     </div>
   </div>
 </section>
+
+<div class="capture">
+  <div class="wrap capture-in">
+    <div>
+      <p class="cap-eyebrow">Behind the likeness &middot; Dr. Laurie Schreiner</p>
+      <h3>A scholar, <em>exactly as she is.</em></h3>
+      <p>Her reference set from the cloning session pairs clean stills with frames pulled from her talking takes,
+        so the twin keeps her real expressions and gestures: the warmth her students know.</p>
+      <div class="legend"><span><b>CU</b> Head angles</span><span><b>MS</b> From the 4K takes</span></div>
+    </div>
+    <div class="ref-strip">
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/laurie-1.webp" alt="Dr. Laurie Schreiner reference, front" loading="lazy"><figcaption><b>CU</b>Front</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/laurie-2.webp" alt="Dr. Laurie Schreiner reference, smiling" loading="lazy"><figcaption><b>CU</b>Smile</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/laurie-3.webp" alt="Dr. Laurie Schreiner reference, three-quarter" loading="lazy"><figcaption><b>CU</b>&frac34;</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/laurie-4.webp" alt="Dr. Laurie Schreiner reference, three-quarter, other side" loading="lazy"><figcaption><b>CU</b>&frac34; R</figcaption></figure>
+      <figure class="ref"><img src="/clients/rentalizer/media/ref/laurie-5.webp" alt="Dr. Laurie Schreiner reference, profile" loading="lazy"><figcaption><b>CU</b>Profile</figcaption></figure>
+    </div>
+  </div>
+</div>
+<div style="height:48px"></div>
 
 <section style="padding-top:0">
   <div class="wrap">
