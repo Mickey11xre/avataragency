@@ -195,6 +195,42 @@
   .reel-frame{max-width:340px}
   .spot-wrap .spec-note{max-width:340px}
   @media(max-width:820px){.spot-wrap{grid-template-columns:1fr}.reel-frame{margin:0 auto}}
+  /* header pill stays on one line on phones */
+  .pill{white-space:nowrap}
+  @media(max-width:480px){.pill{font-size:10px;letter-spacing:1px;padding:5px 10px}.brand{font-size:16px}}
+
+  /* ---- Sample UGC case studies: three verticals in one row ---- */
+  .kind-key{display:flex;flex-wrap:wrap;gap:10px 26px;margin:-8px 0 26px;font-size:13px;color:var(--muted);line-height:1.6}
+  .kind-key b{color:var(--txt);font-weight:600}
+  .kind{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-radius:999px;padding:5px 12px;margin-bottom:12px}
+  .kind.avatar{color:var(--gold-2);border:1px solid rgba(201,162,75,.45);background:rgba(201,162,75,.08)}
+  .kind.twin{color:var(--green);border:1px solid rgba(78,201,138,.45);background:rgba(78,201,138,.08)}
+  .cases{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+  .case .reel-frame{max-width:none}
+  .case h3{font-size:17px;font-weight:700;margin:16px 0 4px}
+  .case .cmeta{font-size:12px;color:var(--muted-2);margin-bottom:10px}
+  .case p{font-size:13.5px;color:var(--muted);line-height:1.65}
+  .case p b{color:var(--txt);font-weight:600}
+  .real{margin-top:12px;font-size:13px;color:var(--txt);line-height:1.6;border-left:3px solid var(--green);padding:2px 0 2px 14px}
+  /* phones: same single row, swiped sideways inside the section (the page itself never scrolls sideways) */
+  @media(max-width:820px){
+    .cases{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:16px;margin:0 -24px;padding:0 24px 8px;scrollbar-width:none}
+    .cases::-webkit-scrollbar{display:none}
+    .case{flex:0 0 78%;scroll-snap-align:center}
+    .swipe-hint{display:block}
+  }
+  .swipe-hint{display:none;font-size:12px;color:var(--muted-2);margin-top:10px;text-align:center}
+
+  /* ---- Laurie: 16:9 film beside its story ---- */
+  .twin-film{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:36px;align-items:start}
+  .wide-frame{position:relative;width:100%;aspect-ratio:16/9;border-radius:16px;overflow:hidden;background:#000;border:1px solid var(--line);
+    box-shadow:0 26px 60px rgba(0,0,0,.62),0 0 0 1px rgba(78,201,138,.16)}
+  .wide-frame video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .twin-film h3{font-size:22px;font-weight:800;letter-spacing:-.3px;margin-bottom:4px}
+  .twin-film .cmeta{font-size:13px;color:var(--muted-2);margin-bottom:14px}
+  .twin-film p{font-size:14px;color:var(--muted);line-height:1.7}
+  .twin-film p b{color:var(--txt);font-weight:600}
+  @media(max-width:820px){.twin-film{grid-template-columns:1fr;gap:24px}}
 </style>
 </head>
 <body>
@@ -209,7 +245,7 @@
 <div class="hero">
   <div class="wrap">
     <div class="kicker">Meta &amp; Instagram UGC &middot; Concept Spot</div>
-    <h1 class="spot-h1">Rentalizer, made for Meta and Instagram<br><em>no shoot, no studio, no camera crew.</em></h1>
+    <h1 class="spot-h1">Rentalizer Vertical Short Video for Meta and Instagram<br><em>no shoot, no studio, no camera crew.</em></h1>
     <div class="meta-row">
       <div class="item">Format<span>9:16 vertical &middot; 1080&times;1920</span></div>
       <div class="item">Runtime<span>0:30</span></div>
@@ -287,6 +323,88 @@
 
 <section style="padding-top:0">
   <div class="wrap">
+    <div class="sec-head"><h2>Sample UGC Case Studies</h2><div class="note">Sound on &mdash; tap to play</div></div>
+    <div class="kind-key">
+      <span><span class="kind avatar" style="margin:0 8px 0 0">Custom Avatar</span>a fictional presenter we design for the brand</span>
+      <span><span class="kind twin" style="margin:0 8px 0 0">Digital Twin</span>a real person, cloned from their own likeness and voice</span>
+    </div>
+
+    <div class="cases">
+      <div class="case">
+        <span class="kind avatar">Custom Avatar</span>
+        <div class="reel-frame">
+          <video controls preload="none" playsinline controlslist="nodownload noremoteplayback"
+                 poster="/clients/rentalizer/media/plaud-poster.jpg"
+                 src="/clients/rentalizer/media/plaud-ugc.mp4"></video>
+        </div>
+        <h3>PLAUD</h3>
+        <div class="cmeta">AI voice recorders &middot; 0:19 &middot; 9:16</div>
+        <p>A creator-style product spot for the Plaud Note Pro and Note Pin S. Our custom presenter shows the
+          recorder at her desk the way a real user would. Produced from the brief with <b>no shoot, no product
+          shipping and no casting</b>, and also cut in French from the same pipeline.</p>
+      </div>
+
+      <div class="case">
+        <span class="kind avatar">Custom Avatar</span>
+        <div class="reel-frame">
+          <video controls preload="none" playsinline controlslist="nodownload noremoteplayback"
+                 poster="/clients/rentalizer/media/accu-poster.jpg"
+                 src="/clients/rentalizer/media/accu-ugc.mp4"></video>
+        </div>
+        <h3>America&rsquo;s Christian Credit Union</h3>
+        <div class="cmeta">Financial services &middot; 0:29 &middot; 9:16</div>
+        <p>&ldquo;Where You Bank Matters&rdquo;: a social spot on the credit union&rsquo;s values. A custom host
+          speaks to camera on a sunlit main street, intercut with <b>three B-roll scenes</b>, and lands on the
+          ACCU end slate with logo, website and phone.</p>
+      </div>
+
+      <div class="case">
+        <span class="kind twin">Digital Twin</span>
+        <div class="reel-frame">
+          <video controls preload="none" playsinline controlslist="nodownload noremoteplayback"
+                 poster="/clients/rentalizer/media/paul-poster.jpg"
+                 src="/clients/rentalizer/media/paul-marvista-vertical.mp4"></video>
+        </div>
+        <h3>Paul Small, Real Estate Agent</h3>
+        <div class="cmeta">Compass &middot; Los Angeles &middot; 0:40 &middot; 9:16</div>
+        <p>A neighborhood short for Mar Vista: Paul at the farmers market, on a caf&eacute; patio and walking up
+          to a listing, with word-timed captions and his Compass end slate.</p>
+        <div class="real"><b>Paul is a real person.</b> We held a cloning session with him (47 reference
+          photographs from every angle, plus his voice) and built his digital twin from his own likeness and
+          voice. Every shot of Paul here is his twin, with no film crew and no location shoot.</div>
+      </div>
+    </div>
+    <div class="swipe-hint">Swipe for more &rarr;</div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head"><h2>Digital Twin Case Study &middot; Cinematic Film</h2><div class="note">Sound on &mdash; 2:54</div></div>
+    <div class="twin-film">
+      <div class="wide-frame">
+        <video controls preload="none" playsinline controlslist="nodownload noremoteplayback"
+               poster="/clients/rentalizer/media/laurie-poster.webp"
+               src="/clients/rentalizer/media/laurie-film.mp4"></video>
+      </div>
+      <div>
+        <span class="kind twin">Digital Twin</span>
+        <h3>Dr. Laurie Schreiner</h3>
+        <div class="cmeta">&ldquo;The Thriving Project&rdquo; &middot; homepage hero film &middot; 16:9</div>
+        <p>A cinematic film for the creator of the Thriving Quotient, Professor Emerita of Higher Education at
+          Azusa Pacific University. It places Laurie in her home office, a lecture hall, a library and a morning
+          on campus, intercut with the students her work is for. It now opens her website, thrivingincollege.org.</p>
+        <div class="real"><b>Dr. Schreiner is a real person.</b> We held a cloning session with her on site in
+          Upland, California (reference stills from every angle and two 4K talking takes) and built her digital
+          twin from her own likeness. She recorded the narration herself, so the film carries her real voice from
+          the first word to the last.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
     <div class="cta">
       <h2>Ready to put yourself in the chair?</h2>
       <p>One two-hour cloning session, and every Rentalizer ad after this one is you.</p>
@@ -306,8 +424,14 @@
 </footer>
 
 <script>
-/* opens at half volume so a pitch viewing never starts at full blast */
-(function(){ var v=document.getElementById('spot'); if(v){ v.volume=0.5; } })();
+/* every video opens at half volume so a pitch viewing never starts at full blast; starting one pauses the rest */
+(function(){
+  var vids=[].slice.call(document.querySelectorAll('video'));
+  vids.forEach(function(v){
+    v.volume=0.5;
+    v.addEventListener('play',function(){ vids.forEach(function(o){ if(o!==v && !o.paused){ o.pause(); } }); });
+  });
+})();
 </script>
 
 </body>
