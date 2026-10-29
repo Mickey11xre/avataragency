@@ -1,0 +1,145 @@
+/* Paid-ad landing pages (/sprint/*), built on the homepage stylesheet (brand tokens, buttons, Ava's stage).
+   One page per intro sprint; each keeps the ad's promise: the offer, the on-time promise, Ava live, and one booking CTA. */
+
+.sp { background: var(--ink); }
+.sp main { display: block; }
+
+/* header: the homepage bar, always solid here */
+.sp .hdr { background: rgba(10,10,10,.92); border-bottom: 1px solid var(--line-dark); backdrop-filter: blur(12px); }
+.sp-hdr-ctas { display: flex; align-items: center; gap: 18px; margin-left: auto; }
+.sp-hdr-ctas .link { font-size: 14.5px; }
+.sp-hdr-ctas .btn { padding: 11px 18px; font-size: 14px; }
+.sp-hdr-ctas .sp-short { display: none; }
+@media (max-width: 640px) { .sp-hdr-ctas .link, .sp-hdr-ctas .sp-full { display: none; } .sp-hdr-ctas .sp-short { display: inline; } }
+
+/* hero */
+.sp-hero { color: var(--on-dark); padding: calc(var(--hdr) + clamp(22px, 2.8vw, 40px)) 0 clamp(44px, 5vw, 72px);
+  background: radial-gradient(120% 80% at 85% 0%, rgba(201,168,76,.14), transparent 60%), var(--ink); }
+.sp-hero-grid { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: end; }
+.sp-h1 { font-size: clamp(38px, 5.8vw, 78px); line-height: 1.02; letter-spacing: -.03em; font-weight: 600; margin: 0; text-wrap: balance; }
+.sp-h1 em, .sp-h2 em { font-family: var(--f-serif); font-style: italic; font-weight: 400; color: var(--gold-light); letter-spacing: -.01em; }
+.sp-lede { font-size: clamp(17px, 1.5vw, 20px); line-height: 1.55; color: var(--on-dark-mid); max-width: 60ch; margin: 26px 0 0; }
+.sp-lede b { color: var(--on-dark); font-weight: 600; }
+.sp-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 34px; }
+.sp-ctas-note { width: 100%; margin: 4px 0 0; font-size: 13.5px; color: var(--on-dark-mute); }
+
+/* hero backdrop: faint gold line mesh (drawn by the build script), content above it */
+.sp-hero { position: relative; overflow: hidden; }
+.sp-mesh { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+.sp-hero .wrap { position: relative; z-index: 1; }
+
+/* offer card (Michael 10-28: "more attractive, the pricing emphasized"): chevron rows, the price as a gold coin */
+.sp-offer { position: relative; border: 1px solid rgba(201,168,76,.22); border-radius: calc(var(--r) + 6px); padding: clamp(24px, 2.8vw, 36px);
+  background: radial-gradient(90% 60% at 80% 45%, rgba(201,168,76,.07), transparent 70%), linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.012));
+  box-shadow: 0 30px 80px -30px rgba(0,0,0,.8), inset 0 1px 0 rgba(255,255,255,.06); }
+.sp-offer-tag { font-size: 13px; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); margin: 0 0 14px; }
+.sp-facts { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.sp-facts li { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 0; border-top: 1px solid var(--line-dark);
+  font-size: clamp(16px, 1.35vw, 19px); color: var(--on-dark-mid); }
+.sp-facts li:first-child { border-top: 0; padding-top: 6px; }
+.sp-facts li > span:first-child { display: inline-flex; align-items: center; gap: 14px; }
+.sp-facts li > span:first-child::before { content: ""; flex: none; width: 7px; height: 7px; margin-left: 2px; border-top: 1.5px solid var(--gold); border-right: 1.5px solid var(--gold); transform: rotate(45deg); }
+.sp-facts b { color: var(--on-dark); font-weight: 600; font-size: clamp(17px, 1.5vw, 21px); text-align: right; font-variant-numeric: tabular-nums; }
+
+/* the coin: overlaps the rows above and below (negative margin) so the price row stays the same height as the others */
+.sp-price { position: relative; }
+.sp-coin { position: relative; z-index: 1; flex: none; display: grid; place-items: center; width: clamp(150px, 13.5vw, 200px); aspect-ratio: 1; margin: -44px auto;
+  border-radius: 50%; color: #2b1e06; font-weight: 700; font-size: clamp(30px, 2.7vw, 40px); letter-spacing: -.02em; font-variant-numeric: tabular-nums;
+  background: radial-gradient(circle at 34% 28%, #fff6d2 0%, #f3d98a 16%, #dcb95a 42%, #b8913a 72%, #8a6a24 100%);
+  box-shadow: inset 0 2px 3px rgba(255,248,220,.75), inset 0 -6px 14px rgba(110,80,20,.45), 0 0 0 1px rgba(255,236,170,.4),
+    0 0 0 12px rgba(201,168,76,.07), 0 0 70px rgba(228,201,122,.38), 0 22px 44px rgba(0,0,0,.55); }
+.sp-coin::before { content: ""; position: absolute; inset: 9px; border-radius: 50%; border: 1.5px solid rgba(255,244,205,.6); box-shadow: inset 0 0 0 1px rgba(120,88,26,.3), 0 0 0 1px rgba(120,88,26,.25); }
+.sp-coin::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: linear-gradient(140deg, rgba(255,255,255,.42), rgba(255,255,255,0) 38%, rgba(255,255,255,0) 70%, rgba(255,255,255,.12)); pointer-events: none; }
+.sp-coin span { position: relative; text-shadow: 0 1px 0 rgba(255,244,210,.65), 0 -1px 0 rgba(100,70,15,.3); }
+
+.sp-promise { position: relative; margin: 22px 0 0; padding: 18px 20px; border-radius: 14px; text-align: center;
+  background: linear-gradient(180deg, rgba(201,168,76,.10), rgba(201,168,76,.04)); border: 1px solid rgba(201,168,76,.42);
+  box-shadow: 0 0 34px -12px rgba(228,201,122,.45), inset 0 0 18px rgba(201,168,76,.06);
+  color: var(--gold-light); font-size: clamp(15px, 1.25vw, 17px); line-height: 1.45; }
+.sp-promise::before { content: ""; position: absolute; left: 22%; right: 22%; top: -1px; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light), transparent); }
+.sp-terms-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; font-size: 13px; color: var(--on-dark-mute); border-bottom: 1px solid rgba(245,240,232,.18); padding-bottom: 1px; transition: color .2s, border-color .2s; }
+.sp-terms-link svg { width: 12px; height: 12px; transform: rotate(90deg); }
+.sp-terms-link:hover, .sp-terms-link:focus-visible { color: var(--gold-light); border-color: rgba(228,201,122,.45); }
+@media (max-width: 640px) { .sp-coin { margin: -30px 0 -30px auto; } }
+
+/* sections on cream */
+.sp-sec { background: var(--cream); color: var(--text); padding: clamp(44px, 5vw, 72px) 0; }
+.sp-sec.alt { background: var(--cream-2); }
+.sp-h2 { font-size: clamp(30px, 4.2vw, 56px); line-height: 1.05; letter-spacing: -.025em; font-weight: 600; margin: 0; text-wrap: balance; }
+.sp-sec .sp-h2 em { color: var(--gold-deep); }
+.sp-sec-lede { font-size: 17.5px; line-height: 1.6; color: var(--text-mid); max-width: 62ch; margin: 18px 0 0; }
+
+/* Ava section: the homepage .agents block, on the same rhythm as the other sections */
+.sp .agents { padding: clamp(44px, 5vw, 72px) 0; }
+.sp .agents .stage { margin-top: clamp(28px, 3.5vw, 44px); }
+
+/* Tight vertical rhythm (Michael 10-28): back-to-back cream sections share ONE gap instead of stacking
+   bottom + top padding. The darker hero, the .alt band and the closing band keep their own padding. */
+.sp-sec:not(.alt) + .sp-sec:not(.alt),
+.sp-sec:not(.alt) + .agents,
+.agents + .sp-sec:not(.alt),
+.agents + .agents { padding-top: 0; }
+#ava-stage { scroll-margin-top: calc(var(--hdr) + 12px); }
+
+/* what you get + how it works */
+.sp-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(32px, 5vw, 80px); margin-top: 32px; }
+.sp-list { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 0; }
+.sp-list li { padding: 15px 0 15px 30px; border-top: 1px solid var(--line); position: relative; font-size: 16.5px; line-height: 1.5; color: var(--text); }
+.sp-list li::before { content: ""; position: absolute; left: 4px; top: 23px; width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
+.sp-steps { list-style: none; margin: 18px 0 0; padding: 0; counter-reset: s; display: grid; gap: 0; }
+.sp-steps li { counter-increment: s; display: grid; grid-template-columns: 44px 1fr; gap: 6px 14px; padding: 16px 0; border-top: 1px solid var(--line); }
+.sp-steps li::before { content: counter(s); grid-row: span 2; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold-deep);
+  display: grid; place-items: center; font-weight: 600; font-size: 14px; }
+.sp-steps b { font-size: 16.5px; }
+.sp-steps span { color: var(--text-mid); font-size: 15.5px; line-height: 1.5; }
+.sp-h3 { font-size: 13px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; color: var(--gold-deep); margin: 0; }
+
+/* proof video */
+.sp-proof { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+.sp-video { width: 100%; max-width: 460px; aspect-ratio: 4 / 5; border-radius: var(--r); background: #000; display: block; box-shadow: 0 30px 60px rgba(0,0,0,.18); }
+.sp-video-note { font-size: 13.5px; color: var(--text-mute); margin: 12px 0 0; max-width: 460px; }
+
+/* before / after pairs (Listing Film) */
+.sp-ba { margin-top: 30px; display: grid; gap: 16px; }
+.sp-ba-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.sp-ba figure { margin: 0; position: relative; border-radius: 14px; overflow: hidden; background: #ddd; aspect-ratio: 4 / 3; }
+.sp-ba img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sp-ba figcaption { position: absolute; left: 10px; bottom: 10px; right: 10px; display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+  font-size: 12.5px; font-weight: 600; color: #fff; text-shadow: 0 1px 6px rgba(0,0,0,.6); }
+.sp-ba figcaption span { padding: 3px 8px; border-radius: 999px; background: rgba(10,10,10,.72); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; text-shadow: none; }
+.sp-ba figcaption span.gold { background: var(--gold); color: #120f08; }
+
+/* differentiators (Website Agent) */
+.sp-feat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 clamp(24px, 3vw, 44px); margin-top: 28px; }
+.sp-feat article { padding: 22px 0; border-top: 1px solid var(--line); }
+.sp-feat h3 { font-size: 19px; font-weight: 600; letter-spacing: -.01em; margin: 0 0 8px; }
+.sp-feat p { margin: 0; font-size: 15.5px; line-height: 1.55; color: var(--text-mid); }
+@media (max-width: 1000px) { .sp-feat { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .sp-feat { grid-template-columns: minmax(0, 1fr); } }
+
+/* homepage carousel + chapter film reused */
+.sp-roster .roster { margin-top: 0; }
+.sp-film-frame { margin-top: 28px; }
+.sp-film .player { width: 100%; max-height: none; }
+
+/* terms: plain-English fine print (Michael 10-28), a quiet cream band before the closing CTA */
+.sp-terms { padding: clamp(40px, 4.5vw, 64px) 0; }
+.sp-terms-h2 { font-size: clamp(26px, 3vw, 38px); margin-top: 10px; }
+.sp-terms-list { margin: 26px 0 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 0 clamp(24px, 3vw, 44px); }
+.sp-terms-list div { padding: 18px 0; border-top: 1px solid var(--line); }
+.sp-terms-list dt { font-size: 16px; font-weight: 600; margin: 0 0 6px; }
+.sp-terms-list dd { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--text-mid); max-width: 60ch; }
+#terms { scroll-margin-top: calc(var(--hdr) + 12px); }
+
+/* closing CTA band */
+.sp-close { background: var(--ink-2); color: var(--on-dark); padding: clamp(64px, 8vw, 104px) 0; text-align: center; }
+.sp-close .sp-h2 { color: var(--on-dark); }
+.sp-close .sp-ctas { justify-content: center; }
+.sp-close .sp-ctas-note { text-align: center; }
+
+@media (max-width: 880px) {
+  .sp-hero-grid, .sp-two, .sp-proof { grid-template-columns: minmax(0, 1fr); }
+  .sp-hero-grid { align-items: start; }
+  .sp-video { max-width: 100%; }
+}
+.sp-hero .eyebrow { margin-bottom: 10px; }
