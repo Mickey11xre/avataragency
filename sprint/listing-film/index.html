@@ -26,7 +26,7 @@
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
 <!-- Brand tokens, buttons and Ava's stage come from the homepage stylesheet; sprint.css adds these pages. -->
 <link rel="stylesheet" href="/home-next/home-next.css?v=23">
-<link rel="stylesheet" href="/sprint/sprint.css?v=13">
+<link rel="stylesheet" href="/sprint/sprint.css?v=14">
 <script>
   (function (d) {
     var h = d.documentElement; h.className = h.className.replace('no-js', 'js');
@@ -82,7 +82,14 @@
       </div>
     </div>
     <div class="sp-hero-media">
-      <video class="sp-video" controls playsinline preload="metadata" poster="/sprint/media/listing-film-sample-1x1-poster.jpg?v=1" src="/sprint/media/listing-film-sample-1x1.mp4?v=1"></video>
+      <!-- The sample film, played like Ava's stage clip (Michael 10-29): muted loop, MUTED button, Talk to Ava. Captions are burned in. -->
+      <div class="sp-mini-stage sp-mini-film" data-what="the sample film">
+        <video class="ava-video" muted loop playsinline preload="none" poster="/sprint/media/listing-film-sample-1x1-poster.jpg?v=1" data-src="/sprint/media/listing-film-sample-1x1.mp4?v=1" aria-label="Real Estate Listing Film Sprint: sample film"></video>
+        <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play the sample film with sound" title="Play the sample film with sound"><svg aria-hidden="true"><use href="#i-sound-off"/></svg><span class="ava-sound-label" aria-hidden="true">Muted</span></button>
+        <div class="ava-ctrls">
+          <button class="ava-btn ava-talk" type="button" data-talk><svg><use href="#i-mic"/></svg><span>Talk to Ava</span></button>
+        </div>
+      </div>
       <p class="sp-hero-note">A sample made entirely with AI: the presenter and the home in this video are AI-generated.</p>
       <p class="sp-promise">Not delivered in fourteen days? You don't pay.</p>
       <a class="sp-terms-link" href="#terms">What we need from you <svg><use href="#i-arrow"/></svg></a>
@@ -231,7 +238,7 @@
   };
 </script>
 <!-- The film players and the "Ready-to-go avatars" carousel (lifted from home-next.js, which needs the homepage's own menu/login). -->
-<script src="/sprint/sprint.js?v=3"></script>
+<script src="/sprint/sprint.js?v=4"></script>
 <script src="/home-next/ava-panel.js?v=20"></script>
 </body>
 </html>

@@ -75,10 +75,13 @@
 .sp-hero--media .sp-h1 { font-size: clamp(38px, min(5.8vw, 9.4svh), 78px); }
 .sp-hero-media { grid-area: media; }
 .sp-hero-media .sp-video { width: 100%; max-width: none; aspect-ratio: 1; box-shadow: 0 30px 70px -24px rgba(0,0,0,.85), 0 0 0 1px rgba(201,168,76,.24); }
-/* Website Agent: the left half of Ava's stage, recorded (the homepage .stage-av styles), square like the other heroes.
-   Desktop only (Michael 10-29): on phones the real stage below is the only Ava. */
-.sp-mini-stage { aspect-ratio: 1; min-height: 0; border-radius: var(--r); overflow: hidden; box-shadow: 0 30px 70px -24px rgba(0,0,0,.85), 0 0 0 1px rgba(201,168,76,.24); }
-@media (max-width: 880px) { .sp-mini-stage, .sp-mini-note { display: none; } }
+/* Hero players, square, built from the homepage stage pieces (.ava-video, .ava-sound, .ava-ctrls) and run by sprint.js
+   (Michael 10-29): a muted loop, the MUTED button top right, Talk to Ava at the bottom, no native controls.
+   Website Agent's is a copy of the left half of Ava's stage (.stage-av) and is desktop only: on phones the real stage
+   below is the only Ava. The sample films (.sp-mini-film) stay on phones. */
+.sp-mini-stage { position: relative; aspect-ratio: 1; min-height: 0; border-radius: var(--r); overflow: hidden; box-shadow: 0 30px 70px -24px rgba(0,0,0,.85), 0 0 0 1px rgba(201,168,76,.24); }
+.sp-mini-film { background: #050505; }
+@media (max-width: 880px) { .sp-desktop-only { display: none; } }
 .sp-hero-note { margin: 9px 0 0; font-size: 12px; line-height: 1.45; color: var(--on-dark-mute); }
 .sp-hero-media .sp-promise { margin-top: 12px; padding: 12px 16px; font-size: clamp(14.5px, 1.1vw, 16px); }
 .sp-hero-media .sp-terms-link { margin-top: 9px; }
