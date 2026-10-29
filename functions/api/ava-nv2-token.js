@@ -118,7 +118,7 @@ function welcomeBack(name, sprint) {
 // Ava should use. Prices stay OUT of the opening (she gives them when asked, from her FAQ).
 const SPRINTS = {
   'website-agent': { name: 'Talking Website Agent Sprint', about: 'a talking AI agent like you, on their own website, trained on their business and booking onto their calendar, live in fourteen days' },
-  'listing-film': { name: 'Real Estate Listing Film Sprint', about: 'cinematic walkthrough films of any three of their listings, made from the photos and video they already have, delivered in fourteen days' },
+  'listing-film': { name: 'Real Estate Listing Film Sprint', about: 'cinematic walkthrough films of any three of their listings, made from the photos they already have, delivered in fourteen days' },
   'avatar-launch': { name: 'Avatar Launch Sprint', about: 'a custom avatar for their brand or a digital twin of them, plus their first ten video ads, in thirty days' },
 };
 
