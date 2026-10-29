@@ -26,7 +26,7 @@
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
 <!-- Brand tokens, buttons and Ava's stage come from the homepage stylesheet; sprint.css adds these pages. -->
 <link rel="stylesheet" href="/home-next/home-next.css?v=23">
-<link rel="stylesheet" href="/sprint/sprint.css?v=11">
+<link rel="stylesheet" href="/sprint/sprint.css?v=12">
 <script>
   (function (d) {
     var h = d.documentElement; h.className = h.className.replace('no-js', 'js');
@@ -60,7 +60,7 @@
   <div class="hdr-inner">
     <a href="/" class="logo-lockup" aria-label="AvatarAgency home"><span class="c">Avatar</span><span class="l">Agency</span></a>
     <div class="sp-hdr-ctas">
-      <a class="link" href="#ava-stage">Talk to Ava <svg><use href="#i-arrow"/></svg></a>
+      <a class="link" href="#ava-stage" data-talk>Talk to Ava <svg><use href="#i-arrow"/></svg></a>
       <a class="btn btn-gold" href="https://calendly.com/michaelrivera007/free-strategy-call" target="_blank" rel="noopener" data-cta="sprint-book-hdr"><span class="sp-full">Book a free strategy call</span><span class="sp-short">Book a call</span> <svg><use href="#i-arrow"/></svg></a>
     </div>
   </div>
@@ -77,12 +77,14 @@
       <p class="sp-lede">We take any 3 of your new or current listings that need video and turn the photos and video you already have into cinematic walkthroughs, delivered in fourteen days.</p>
       <div class="sp-ctas">
         <a class="btn btn-gold" href="https://calendly.com/michaelrivera007/free-strategy-call" target="_blank" rel="noopener" data-cta="sprint-book">Book a free strategy call <svg><use href="#i-arrow"/></svg></a>
-        <a class="link" href="#ava-stage">Talk to Ava first <svg><use href="#i-arrow"/></svg></a>
+        <a class="link" href="#ava-stage" data-talk>Talk to Ava first <svg><use href="#i-arrow"/></svg></a>
         <p class="sp-ctas-note">You'll pick a time and answer three quick questions.</p>
       </div>
     </div>
     <div class="sp-hero-media">
-      <video class="sp-video" controls playsinline preload="metadata" poster="/sprint/media/listing-film-sample-1x1-poster.jpg?v=1" src="/sprint/media/listing-film-sample-1x1.mp4?v=1"></video>
+      <div class="sp-hero-film">
+        <video class="sp-video" controls playsinline preload="metadata" poster="/sprint/media/listing-film-sample-1x1-poster.jpg?v=1" src="/sprint/media/listing-film-sample-1x1.mp4?v=1"></video>
+      </div>
       <p class="sp-hero-note">A sample made entirely with AI: the presenter and the home in this video are AI-generated.</p>
       <p class="sp-promise">Not delivered in fourteen days? You don't pay.</p>
       <a class="sp-terms-link" href="#terms">What we need from you <svg><use href="#i-arrow"/></svg></a>
@@ -231,7 +233,7 @@
   };
 </script>
 <!-- The film players and the "Ready-to-go avatars" carousel (lifted from home-next.js, which needs the homepage's own menu/login). -->
-<script src="/sprint/sprint.js?v=1"></script>
+<script src="/sprint/sprint.js?v=2"></script>
 <script src="/home-next/ava-panel.js?v=20"></script>
 </body>
 </html>

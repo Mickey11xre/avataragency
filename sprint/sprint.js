@@ -186,4 +186,18 @@
     if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { CYL.setVisible(es[0].isIntersecting); }, { threshold: 0.15 }).observe($("#agents-cyl"));
     (function loop() { CYL.tick(); requestAnimationFrame(loop); })();
   }
+
+  /* ═════════════ "Talk to Ava" links (Michael 10-29): one click jumps to her stage AND starts the live conversation ═════════════
+     The link still scrolls to #ava-stage on its own; this presses the stage's own Talk button in the same click, so the
+     browser counts it as the visitor's gesture (mic + audio). Skipped while she's connecting or live: pressing the
+     button then would end the conversation. A hero film that's playing is paused so two Avas don't talk at once. */
+  document.addEventListener("click", function (e) {
+    var a = e.target && e.target.closest ? e.target.closest("a[data-talk]") : null;
+    if (!a) return;
+    var talk = $("#ava-stage .ava-talk"), av = $("#ava-stage .stage-av");
+    $$(".sp-hero-media video").forEach(function (v) { if (!v.paused) v.pause(); });
+    if (!talk || !av || av.classList.contains("live") || talk.disabled) return;
+    track("sprint_talk_link", { link: a.textContent.trim() });
+    talk.click();
+  });
 })();
