@@ -92,6 +92,10 @@
 .sp-coin.sp-coin-hero { text-align: center; gap: 5px; line-height: 1; }   /* small lines sit close above the amount (Michael 10-29) */
 .sp-coin-hero .sp-coin-pre { font-size: clamp(10.5px, .8vw, 12px); line-height: 1.3; }
 .sp-hero--media .sp-lede { text-wrap: pretty; }
+/* the monthly plan under the lede (Website Agent, Michael 10-29), so the price never surprises anyone on the call */
+.sp-price-note { margin: 14px 0 0; max-width: 60ch; font-size: clamp(14.5px, 1.1vw, 16px); line-height: 1.5; color: var(--on-dark-mid); text-wrap: pretty; }
+.sp-price-note b { color: var(--gold-light); font-weight: 600; }
+.sp-hero--media .sp-price-note + .sp-ctas { margin-top: 26px; }
 @media (max-width: 880px) {
   .sp-hero--media .sp-hero-grid { grid-template-columns: minmax(0, 1fr); grid-template-areas: "tag" "copy" "media"; }
   .sp-hero-media { margin-top: 36px; max-width: 460px; }
