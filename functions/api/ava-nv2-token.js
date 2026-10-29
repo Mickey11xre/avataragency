@@ -56,9 +56,17 @@ export async function onRequest(context) {
   const seen = /(?:^|;\s*)aa_ava_seen=1(?:;|$)/.test(cookies);
   const firstName = readFirstName(cookies);
   const returning = Boolean(known && seen);
-  const connection = { channelType: 'webrtc', externalClientId: visitorId, initialSpeech: returning ? welcomeBack(firstName) : FIRST_VISIT };
-  if (firstName) {
-    connection.externalClientProfile = { name: firstName, context: 'Visitor on the Avatar Agency website' + (returning ? ' who has talked with Ava before.' : '.') };
+  // Paid-ad landing pages (29 Oct, Michael): the three /sprint/ pages share this agent, so tell Ava which sprint the
+  // visitor is looking at, in her opening and in the session's visitor context. Every other page is unchanged.
+  const sprint = await sprintFor(request);
+  const opening = returning ? welcomeBack(firstName, sprint) : (sprint ? sprintFirstVisit(sprint) : FIRST_VISIT);
+  const connection = { channelType: 'webrtc', externalClientId: visitorId, initialSpeech: opening };
+  if (firstName || sprint) {
+    const where = sprint ? `Visitor on the ${sprint.name} landing page (avataragency.ai/sprint/${sprint.slug}/), most likely from a paid ad` : 'Visitor on the Avatar Agency website';
+    connection.externalClientProfile = {
+      ...(firstName ? { name: firstName } : {}),
+      context: where + (returning ? ', who has talked with Ava before.' : '.') + (sprint ? ` Focus on the ${sprint.name} unless they ask about something else.` : ''),
+    };
   }
 
   try {
@@ -96,12 +104,43 @@ const FIRST_VISIT =
   "can book a call with the team for them. Then ask what brought them here today. " +
   "Under fifteen seconds, friendly and natural. Do not mention pricing.";
 
-function welcomeBack(name) {
+function welcomeBack(name, sprint) {
   return "Speak first, immediately, before the visitor says anything, in English. This visitor has talked with you " +
     "before" + (name ? ", and their first name is " + name : "") + ". Welcome them back warmly" + (name ? " by name" : "") +
-    " - do not repeat your full introduction. If you remember what you talked about last time, mention it in a few " +
+    " - do not repeat your full introduction. " +
+    (sprint ? "They are now on the page for the " + sprint.name + ", so offer to answer anything about it. " : "") +
+    "If you remember what you talked about last time, mention it in a few " +
     "words and offer to pick up there; otherwise ask what brings them back today. Under ten seconds, friendly and " +
     "natural. Do not mention pricing.";
+}
+
+// The three paid-ad landing pages. Keyed by the slug in /sprint/<slug>/; `about` is what the page offers, in the words
+// Ava should use. Prices stay OUT of the opening (she gives them when asked, from her FAQ).
+const SPRINTS = {
+  'website-agent': { name: 'Talking Website Agent Sprint', about: 'a talking AI agent like you, on their own website, trained on their business and booking onto their calendar, live in fourteen days' },
+  'listing-film': { name: 'Real Estate Listing Film Sprint', about: 'cinematic walkthrough films of any three of their listings, made from the photos and video they already have, delivered in fourteen days' },
+  'avatar-launch': { name: 'Avatar Launch Sprint', about: 'a custom avatar for their brand or a digital twin of them, plus their first ten video ads, in thirty days' },
+};
+
+// Which sprint page asked for the session: the page's own label in the request body (AVA_STAGE_CONFIG.page, e.g.
+// "sprint-listing-film", if a future panel sends it), else the Referer path. Only the three known slugs are accepted,
+// so nothing a visitor controls reaches the session text.
+async function sprintFor(request) {
+  let slug = '';
+  try { const b = await request.clone().json(); slug = String((b && b.page) || '').replace(/^sprint-/, ''); } catch { /* "{}" or no body */ }
+  if (!SPRINTS[slug]) {
+    try { const m = new URL(request.headers.get('Referer') || '').pathname.match(/^\/sprint\/([a-z-]+)\/?/); slug = m ? m[1] : ''; } catch { slug = ''; }
+  }
+  return SPRINTS[slug] ? { slug, ...SPRINTS[slug] } : null;
+}
+
+function sprintFirstVisit(s) {
+  return "Speak first, immediately, before the visitor says anything, in English. Open warmly: you're Ava, a digital " +
+    "avatar created by Avatar Agency. This visitor is on the page for the " + s.name + ": " + s.about + ". " +
+    (s.slug === 'website-agent' ? "Mention in a few words that you're a live example of the agent this page is about. " : "") +
+    "Say you can answer anything about it and book their free strategy call with Michael when they're ready, then ask " +
+    "one short question about their business. Under fifteen seconds, friendly and natural. Do not mention pricing in " +
+    "this opening.";
 }
 
 // Letters only, 30 max: the cookie is written by our own page from the visitor's own form input, and this keeps
