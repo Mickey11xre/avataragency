@@ -75,9 +75,10 @@
 .sp-hero--media .sp-h1 { font-size: clamp(38px, min(5.8vw, 9.4svh), 78px); }
 .sp-hero-media { grid-area: media; }
 .sp-hero-media .sp-video { width: 100%; max-width: none; aspect-ratio: 1; box-shadow: 0 30px 70px -24px rgba(0,0,0,.85), 0 0 0 1px rgba(201,168,76,.24); }
-.sp-hero-film { position: relative; }
-.sp-hero-film .ava-badge { pointer-events: none; top: 14px; left: 14px; }
-.sp-hero-film video::cue { font-size: 15px; line-height: 1.4; background: rgba(10,10,10,.72); }
+/* Website Agent: the left half of Ava's stage, recorded (the homepage .stage-av styles), square like the other heroes.
+   Desktop only (Michael 10-29): on phones the real stage below is the only Ava. */
+.sp-mini-stage { aspect-ratio: 1; min-height: 0; border-radius: var(--r); overflow: hidden; box-shadow: 0 30px 70px -24px rgba(0,0,0,.85), 0 0 0 1px rgba(201,168,76,.24); }
+@media (max-width: 880px) { .sp-mini-stage, .sp-mini-note { display: none; } }
 .sp-hero-note { margin: 9px 0 0; font-size: 12px; line-height: 1.45; color: var(--on-dark-mute); }
 .sp-hero-media .sp-promise { margin-top: 12px; padding: 12px 16px; font-size: clamp(14.5px, 1.1vw, 16px); }
 .sp-hero-media .sp-terms-link { margin-top: 9px; }

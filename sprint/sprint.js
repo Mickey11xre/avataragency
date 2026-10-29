@@ -187,15 +187,56 @@
     (function loop() { CYL.tick(); requestAnimationFrame(loop); })();
   }
 
-  /* ═════════════ "Talk to Ava" links (Michael 10-29): one click jumps to her stage AND starts the live conversation ═════════════
-     The link still scrolls to #ava-stage on its own; this presses the stage's own Talk button in the same click, so the
-     browser counts it as the visitor's gesture (mic + audio). Skipped while she's connecting or live: pressing the
-     button then would end the conversation. A hero film that's playing is paused so two Avas don't talk at once. */
+  /* ═════════════ Website Agent hero: a recorded copy of the left half of Ava's stage (Michael 10-29) ═════════════
+     Same behaviour as the stage's idle state in home-next/ava-panel.js: her intro on a muted loop while on screen; the
+     MUTED button replays it from the start with sound and captions. Its Talk to Ava button is a [data-talk] (below).
+     Hidden on phones by CSS, and a hidden element never intersects, so there it never loads. */
+  var miniStop = function () {};
+  var mini = $("#sp-mini-stage");
+  if (mini) (function () {
+    var v = $(".ava-video", mini), cap = $(".ava-caption", mini), snd = $(".ava-sound", mini);
+    // The stage's caption timings (LINES in ava-panel.js) - keep in step if her intro changes.
+    var LINES = [[0.62, 4.05, "Hey there — I'm Ava, and I'm not real."], [4.05, 8.4, "I'm a digital avatar created by AvatarAgency."], [8.4, 13.42, "When someone lands on this website, I'm the first one to say hello."],
+      [13.42, 17.12, "I answer questions, I explain how everything works,"], [17.12, 20.8, "and when you're ready, I can book a call with the team for you."], [21.32, 26.5, "So tell me — what brought you here today?"]];
+    var hearing = false, lastT = 0, shown = null;
+    function src() { if (!v.getAttribute("src")) v.src = v.getAttribute("data-src"); }
+    function quiet() { if (RM || hearing) return; src(); v.muted = true; var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    function caption(t) { if (t === shown) return; shown = t; cap.textContent = ""; if (t) { var s = document.createElement("span"); s.className = "cap"; s.textContent = t; cap.appendChild(s); } }
+    function icon(on) {
+      snd.setAttribute("aria-pressed", on ? "true" : "false"); $("use", snd).setAttribute("href", on ? "#i-vol" : "#i-sound-off");
+      var l = on ? "Mute Ava's introduction" : "Play Ava's introduction with sound"; snd.setAttribute("aria-label", l); snd.title = l;
+    }
+    function stop() { hearing = false; v.muted = true; icon(false); caption(""); if (RM) v.pause(); }
+    miniStop = function () { if (hearing) stop(); };
+    snd.addEventListener("click", function () {
+      if (hearing) { stop(); return; }
+      src(); hearing = true; v.currentTime = 0; v.muted = false; lastT = 0;
+      var p = v.play(); if (p && p.catch) p.catch(stop);
+      icon(true); track("sprint_hero_hear", {});
+    });
+    v.addEventListener("timeupdate", function () {
+      var t = v.currentTime;
+      if (hearing) {
+        if (t + 0.3 < lastT || t > 29.3) stop();
+        else { var on = LINES.filter(function (l) { return t >= l[0] && t < l[1]; })[0]; caption(on ? on[2] : ""); }
+      }
+      lastT = t;
+    });
+    if ("IntersectionObserver" in window) new IntersectionObserver(function (es) { if (es[0].isIntersecting) quiet(); else { v.pause(); miniStop(); } }, { threshold: 0.25 }).observe(mini);
+  })();
+
+  /* ═════════════ "Talk to Ava" (Michael 10-29): one click jumps to her stage AND starts the live conversation ═════════════
+     Links scroll to #ava-stage on their own; buttons (the hero copy of her stage) scroll here. Either way this presses the
+     stage's own Talk button in the same click, so the browser counts it as the visitor's gesture (mic + audio). Skipped
+     while she's connecting or live: pressing the button then would end the conversation. Anything playing in the hero
+     is silenced so two Avas don't talk at once. */
   document.addEventListener("click", function (e) {
-    var a = e.target && e.target.closest ? e.target.closest("a[data-talk]") : null;
+    var a = e.target && e.target.closest ? e.target.closest("[data-talk]") : null;
     if (!a) return;
-    var talk = $("#ava-stage .ava-talk"), av = $("#ava-stage .stage-av");
-    $$(".sp-hero-media video").forEach(function (v) { if (!v.paused) v.pause(); });
+    var stage = $("#ava-stage"), talk = $("#ava-stage .ava-talk"), av = $("#ava-stage .stage-av");
+    miniStop();
+    $$(".sp-hero-media video.sp-video").forEach(function (v) { if (!v.paused) v.pause(); });
+    if (a.tagName !== "A" && stage) stage.scrollIntoView({ block: "start" });   // an instant jump, like the links' own
     if (!talk || !av || av.classList.contains("live") || talk.disabled) return;
     track("sprint_talk_link", { link: a.textContent.trim() });
     talk.click();
