@@ -271,14 +271,15 @@ const STAGE = {
   eyebrow: "Talk with us",
   title: ["Ask about investing,", "developing, or giving."],
   lede: "Press Talk to Harrison and ask what you would ask Greg’s office. Or tap an option on the panel.",
+  // `topic` = the value Harrison passes to show_topic (his instructions: investing · development · philanthropy · contact).
   cards: [
-    { icon: "chart", title: "Invest with Harvard Investment Group", sub: "Value-added real estate and early stage businesses", href: "/investments/" },
-    { icon: "building", title: "Development partnerships", sub: "Land, entitlements, construction and sales", href: "/developments/" },
-    { icon: "heart", title: "Hope for the Hurting", sub: "Learn about the charity and how to give", href: "/philanthropic/" },
-    { icon: "phone", title: "Contact Greg", sub: "Send a message or request a call", href: "/contact/" },
+    { icon: "chart", topic: "investing", title: "Invest with Harvard Investment Group", sub: "Value-added real estate and early stage businesses", href: "/investments/" },
+    { icon: "building", topic: "development", title: "Development partnerships", sub: "Land, entitlements, construction and sales", href: "/developments/" },
+    { icon: "heart", topic: "philanthropy", title: "Hope for the Hurting", sub: "Learn about the charity and how to give", href: "/philanthropic/" },
+    { icon: "phone", topic: "contact", title: "Contact Greg", sub: "Send a message or request a call", href: "/contact/" },
   ],
   home: "Tap an option below — or press Talk to speak with me.",
-  note: "Prefer to type? This panel takes you to the right page.",
+  note: "Prefer to type? This panel takes you to the right page, and Harrison can take your details for Greg’s office.",
   soon: "The live conversation is arriving very soon. In the meantime, the options beside me open the right page.",
 };
 

@@ -72,8 +72,18 @@ Bump `V` in build.js when css/js change (Cloudflare caches assets ~4 h; the page
   the poster as the `.stage-av` background, the sound icon replays from 0:00 with the captions in site.js `LINES`
   (source of truth `AVATAR\HARRISON\STAGE\harrison-intro.vtt`, `INTRO_END` 28.4), hearing stops when the clip wraps,
   passes the end or scrolls away, and the panel options pulse. Reduced motion: poster, one sounded pass on tap.
-  ⏳ Still to wire: the token endpoint + Talk (the live conversation) per the Ava stage, and the welcome film's
-  "Talk to Harrison" auto-start. Talk shows the "arriving soon" toast until then.
+  ✅ **Live session wired (10-30, Part A of `AVATAR\HARRISON\DELIVERY\_HANDOFF_harrison-live_v1.md`):**
+  `functions/api/hig-harrison-token.js` (origin-checked, 8 sessions/IP/hour, visitor cookie `aa_hig_vid` + seen cookie
+  `aa_hig_seen` on `/api`, first-visit / welcome-back `initialSpeech`); site.js `HigStage` (ACCU port: token → SDK →
+  `#hig-mount`, reveal on real frames, zero border, Connecting… / End conversation, ten-minute cap, pop-out from
+  `vendor/avatar-popout.js`); the panel = four cards (links when idle; while live they tell Harrison and Contact opens the
+  form) + the contact form + review card; his four tools `show_topic` · `show_contact_form` · `fill_contact_details` ·
+  `submit_contact_details` (first call = review card, second call or the visitor's Yes = ONE POST to `/api/contact`,
+  message prefixed "[Via Harrison, the website AI agent]"). The welcome film's "Talk to Harrison" starts the session in
+  the same click. Console harness: `HigStage.exec("show_topic",{topic:"philanthropy"})` etc.
+  ⏳ **Part B (switch on):** paste `livebrand-ops/hig-harrison/.agent-id` into `AGENT_ID` in the token function, bump `V`,
+  rebuild, `git add clients/harvard functions/api/hig-harrison-token.js`, push, then the fresh-visitor checklist in the
+  handoff. Until then the endpoint answers 503 and Talk shows the "arriving soon" toast.
   ⛔ The site must not mention the avatar platform anywhere (Michael, 10-29).
 - Netflix logo file → footer `.ftr-netflix` (currently a red "N" tile + the trademark line).
 - ✅ Donate buttons go to https://hopefth.org (`SITE.donateUrl`, 10-30).

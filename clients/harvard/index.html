@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/clients/harvard/assets/css/site.css?v=6">
+<link rel="stylesheet" href="/clients/harvard/assets/css/site.css?v=7">
 <script>(function(d){var h=d.documentElement;h.className=h.className.replace('no-js','js');if((window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||/[?&]rm=1/.test(location.search))h.classList.add('rm');})(document);</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://avataragency.ai/clients/harvard/#org","name":"Harvard Investment Group","url":"https://avataragency.ai/clients/harvard/","logo":"https://avataragency.ai/clients/harvard/assets/img/logo-h-navy.png","image":"https://avataragency.ai/clients/harvard/assets/img/b2201-beach-2000.webp","foundingDate":"1995","founder":{"@id":"https://avataragency.ai/clients/harvard/about/#greg"},"email":"greg@harvardinvestmentgroup.com","telephone":"+13107025252","address":{"@type":"PostalAddress","streetAddress":"6060 W Manchester Ave, Suite 304","addressLocality":"Los Angeles","addressRegion":"CA","postalCode":"90045","addressCountry":"US"},"areaServed":"Southern California","sameAs":["https://www.linkedin.com/in/greg-cullen-79938a28/"],"description":"Harvard Investment Group, founded in 1995 by Greg Cullen, invests in value-added real estate and early stage businesses and develops luxury residential real estate in Southern California."},{"@type":"Person","@id":"https://avataragency.ai/clients/harvard/about/#greg","name":"Greg Cullen","jobTitle":"Founder","worksFor":{"@id":"https://avataragency.ai/clients/harvard/#org"},"url":"https://avataragency.ai/clients/harvard/about/","email":"greg@harvardinvestmentgroup.com","telephone":"+13107025252","sameAs":["https://www.linkedin.com/in/greg-cullen-79938a28/"],"alumniOf":[{"@type":"CollegeOrUniversity","name":"Harvard Business School"},{"@type":"CollegeOrUniversity","name":"Rose-Hulman Institute of Technology"}],"knowsAbout":["Real estate development","Private equity","Finance","Negotiations","Value creation"]},{"@type":"WebSite","@id":"https://avataragency.ai/clients/harvard/#site","url":"https://avataragency.ai/clients/harvard/","name":"Harvard Investment Group","publisher":{"@id":"https://avataragency.ai/clients/harvard/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://avataragency.ai/clients/harvard/"}]}]}</script>
 </head>
@@ -177,9 +177,10 @@
       <h2 class="serif" id="t-stage">Ask about investing, <em>developing, or giving.</em></h2>
       <p class="lede">Press Talk to Harrison and ask what you would ask Greg’s office. Or tap an option on the panel.</p>
     </div>
-    <!-- Avatar stage per AVATAR-STAGE-SPEC v1.3. Placeholder poster and name until the avatar is built; the
-         Talk button shows the "arriving soon" toast (stage.js) and never starts a metered session. -->
-    <div class="stage rv" id="stage" data-name="Harrison" data-intro="/clients/harvard/assets/video/harrison-intro.mp4">
+    <!-- Avatar stage per AVATAR-STAGE-SPEC v1.3. Talk fetches a session from data-token (site.js); while the agent is
+         not live that endpoint answers 503 and the stage shows the "arriving soon" toast. The panel's four cards are
+         also driven by Harrison (topic highlight, contact form) and the form posts to data-contact. -->
+    <div class="stage rv" id="stage" data-name="Harrison" data-intro="/clients/harvard/assets/video/harrison-intro.mp4" data-token="/api/hig-harrison-token" data-seen-path="/api" data-contact="/clients/harvard/api/contact" data-popout="/clients/harvard/vendor/avatar-popout.js?v=7" data-office-phone="(310) 702-5252" data-office-email="greg@harvardinvestmentgroup.com">
       <div class="stage-av" style="background:#050505 url(/clients/harvard/assets/video/harrison-poster.jpg) center / cover no-repeat">
         <div class="ava-mount" id="hig-mount"></div>
         <video class="ava-video" muted loop playsinline preload="none" poster="/clients/harvard/assets/video/harrison-poster.jpg" aria-label="Harrison, Harvard Investment Group’s AI agent, introducing himself"></video>
@@ -190,17 +191,21 @@
         <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play Harrison’s introduction with sound" title="Play Harrison’s introduction with sound"><svg class="" aria-hidden="true"><use href="#i-sound-off"/></svg><span class="ava-sound-label" aria-hidden="true">Muted</span></button>
         <div class="ava-ctrls"><button class="ava-btn ava-talk" type="button"><svg class="" aria-hidden="true"><use href="#i-mic"/></svg><span>Talk to Harrison</span></button></div>
       </div>
-      <aside class="panel is-home" aria-label="Options">
-        <div class="panel-body">
+      <aside class="panel is-home" id="hig-panel" aria-label="Options">
+        <div class="panel-head">
+          <button class="panel-back" type="button" hidden aria-label="Back"><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <span class="panel-title"></span>
+        </div>
+        <div class="panel-body" aria-live="polite" data-lenis-prevent>
           <p class="p-sub">Tap an option below — or press Talk to speak with me.</p>
           <div class="p-actions">
-            <a class="p-act" href="/clients/harvard/investments/"><i><svg class="" aria-hidden="true"><use href="#i-chart"/></svg></i><span><b>Invest with Harvard Investment Group</b><small>Value-added real estate and early stage businesses</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-            <a class="p-act" href="/clients/harvard/developments/"><i><svg class="" aria-hidden="true"><use href="#i-building"/></svg></i><span><b>Development partnerships</b><small>Land, entitlements, construction and sales</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-            <a class="p-act" href="/clients/harvard/philanthropic/"><i><svg class="" aria-hidden="true"><use href="#i-heart"/></svg></i><span><b>Hope for the Hurting</b><small>Learn about the charity and how to give</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-            <a class="p-act" href="/clients/harvard/contact/"><i><svg class="" aria-hidden="true"><use href="#i-phone"/></svg></i><span><b>Contact Greg</b><small>Send a message or request a call</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="p-act" href="/clients/harvard/investments/" data-topic="investing"><i><svg class="" aria-hidden="true"><use href="#i-chart"/></svg></i><span><b>Invest with Harvard Investment Group</b><small>Value-added real estate and early stage businesses</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="p-act" href="/clients/harvard/developments/" data-topic="development"><i><svg class="" aria-hidden="true"><use href="#i-building"/></svg></i><span><b>Development partnerships</b><small>Land, entitlements, construction and sales</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="p-act" href="/clients/harvard/philanthropic/" data-topic="philanthropy"><i><svg class="" aria-hidden="true"><use href="#i-heart"/></svg></i><span><b>Hope for the Hurting</b><small>Learn about the charity and how to give</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="p-act" href="/clients/harvard/contact/" data-topic="contact"><i><svg class="" aria-hidden="true"><use href="#i-phone"/></svg></i><span><b>Contact Greg</b><small>Send a message or request a call</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
         </div>
-        <p class="panel-note">Prefer to type? This panel takes you to the right page.</p>
+        <p class="panel-note">Prefer to type? This panel takes you to the right page, and Harrison can take your details for Greg’s office.</p>
       </aside>
     </div>
   </div>
@@ -268,6 +273,6 @@
 <script src="/clients/harvard/vendor/gsap.min.js" defer></script>
 <script src="/clients/harvard/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/clients/harvard/vendor/lenis.min.js" defer></script>
-<script src="/clients/harvard/assets/js/site.js?v=6" defer></script>
+<script src="/clients/harvard/assets/js/site.js?v=7" defer></script>
 </body>
 </html>

@@ -447,6 +447,48 @@ body.menu-open .hdr { background: var(--ink); }
 .p-act > svg { width: 16px; height: 16px; color: var(--gold); }
 .panel-note { margin: 14px 0 0; font-size: 12px; line-height: 1.5; color: var(--on-dark-mute); }
 @media (min-width: 901px) { .stage { height: 560px; min-height: 0; grid-template-rows: minmax(0, 1fr); } }
+/* The panel's deeper views (Harrison's contact form and review card), per AVATAR-STAGE-SPEC §7 */
+.panel-head { display: flex; align-items: center; gap: 12px; min-height: 34px; margin-bottom: 10px; }
+.panel.is-home .panel-head { display: none; }
+.panel-back { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line-dark-strong); background: transparent; color: var(--on-dark); display: grid; place-items: center; }
+.panel-back svg { width: 16px; height: 16px; transform: rotate(180deg); }
+.panel-back:hover { border-color: var(--gold); color: var(--gold-light); }
+.panel-back[hidden] { display: none; }
+.panel-title { font: 600 13px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.panel-body { overflow-y: auto; overscroll-behavior: contain; }
+.p-act.is-on { border-color: var(--gold); background: rgba(184,151,90,.12); box-shadow: 0 0 0 1px var(--gold) inset; }
+.p-form { display: grid; gap: 10px; }
+.p-field { display: grid; gap: 5px; }
+.p-field label { font: 600 11.5px/1.2 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark-mute); }
+.p-field label span { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.p-field input, .p-field textarea, .p-field select { font: 400 15px/1.35 var(--sans); color: var(--on-dark); background: rgba(255,255,255,.04); border: 1px solid var(--line-dark-strong); border-radius: 11px; padding: 11px 13px; width: 100%; resize: vertical; }
+.p-field select { -webkit-appearance: none; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--gold) 50%), linear-gradient(135deg, var(--gold) 50%, transparent 50%); background-position: calc(100% - 18px) 50%, calc(100% - 13px) 50%; background-size: 5px 5px; background-repeat: no-repeat; padding-right: 34px; }
+.p-field select option { color: #111; }
+.p-field input:focus, .p-field textarea:focus, .p-field select:focus { outline: none; border-color: var(--gold); background-color: rgba(184,151,90,.06); }
+.p-field input.flash, .p-field textarea.flash, .p-field select.flash { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(184,151,90,.22); }
+.p-field input[aria-invalid="true"] { border-color: #e0493d; }
+.p-hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.p-form .btn, .p-rv-acts .btn { min-height: 44px; padding: 0 18px; font-size: 11px; letter-spacing: .18em; border-radius: 999px; }
+.p-msg { margin: 0; font-size: 14px; color: var(--gold-light); min-height: 1em; }
+.p-msg.err { color: #f08a80; }
+.p-msg a { color: var(--gold-light); border-bottom: 1px solid rgba(212,183,120,.4); }
+.p-label { margin: 0; font: 600 12px/1.3 var(--sans); letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark-mute); }
+.p-review { display: grid; gap: 12px; }
+.p-rv { margin: 0; display: grid; border-radius: 12px; border: 1px solid rgba(184,151,90,.3); background: rgba(184,151,90,.07); overflow: hidden; }
+.p-rv div { display: grid; grid-template-columns: 86px 1fr; gap: 10px; padding: 10px 13px; }
+.p-rv div + div { border-top: 1px solid rgba(184,151,90,.16); }
+.p-rv dt { font: 600 11.5px/1.3 var(--sans); letter-spacing: .08em; text-transform: uppercase; color: var(--on-dark-mute); padding-top: 2px; }
+.p-rv dd { margin: 0; font-size: 15px; color: #fff; overflow-wrap: anywhere; }
+.p-rv-acts { display: flex; flex-wrap: wrap; gap: 10px; }
+.p-done { display: grid; justify-items: start; gap: 12px; margin-top: 6px; }
+.p-done .tick { width: 54px; height: 54px; border-radius: 50%; display: grid; place-items: center; background: linear-gradient(180deg, var(--gold-light), var(--gold)); color: #120f08; font-size: 26px; font-weight: 700; }
+.p-done h4 { margin: 0; font: 500 24px/1.15 var(--serif); }
+.p-done p { margin: 0; color: var(--on-dark-mid); font-size: 14.5px; line-height: 1.5; }
+.p-done a { color: var(--gold-light); border-bottom: 1px solid rgba(212,183,120,.4); }
+/* live: the SDK's bar takes over the video; our caption strip and sound icon step aside */
+.stage-av.live .ava-caption, .stage-av.live .ava-sound, .stage-av.live-ready .ava-badge { display: none; }
+.stage-av.live-ready::after { display: none; }
+.ava-btn.is-on { background: rgba(10,10,10,.6); color: #fff; border-color: rgba(255,255,255,.3); }
 
 /* ── Responsive ─────────────────────────────────────────────────────────────────────────────────── */
 /* header: the wordmark and the six nav items must never collide (seen at ~1100 px with "Talk to Harrison") */

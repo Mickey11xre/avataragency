@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 6;                                                           // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 7;                                                          // ?v= for css/js (Cloudflare caches assets ~4 h)
 const OUT = path.resolve(__dirname, "..");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -218,9 +218,10 @@ function homePage() {
       <h2 class="serif" id="t-stage">${STAGE.title[0]} <em>${STAGE.title[1]}</em></h2>
       <p class="lede">${STAGE.lede}</p>
     </div>
-    <!-- Avatar stage per AVATAR-STAGE-SPEC v1.3. Placeholder poster and name until the avatar is built; the
-         Talk button shows the "arriving soon" toast (stage.js) and never starts a metered session. -->
-    <div class="stage rv" id="stage" data-name="${esc(STAGE.name)}"${STAGE.intro ? ` data-intro="${u(STAGE.intro)}"` : ""}>
+    <!-- Avatar stage per AVATAR-STAGE-SPEC v1.3. Talk fetches a session from data-token (site.js); while the agent is
+         not live that endpoint answers 503 and the stage shows the "arriving soon" toast. The panel's four cards are
+         also driven by Harrison (topic highlight, contact form) and the form posts to data-contact. -->
+    <div class="stage rv" id="stage" data-name="${esc(STAGE.name)}"${STAGE.intro ? ` data-intro="${u(STAGE.intro)}"` : ""} data-token="/api/hig-harrison-token" data-seen-path="/api" data-contact="${u("/api/contact")}" data-popout="${u("/vendor/avatar-popout.js")}?v=${V}" data-office-phone="${esc(SITE.phoneDisplay)}" data-office-email="${esc(SITE.email)}">
       <div class="stage-av${STAGE.intro ? "" : " is-placeholder"}"${STAGE.poster ? ` style="background:#050505 url(${u(STAGE.poster)}) center / cover no-repeat"` : ""}>
         <div class="ava-mount" id="hig-mount"></div>
         <video class="ava-video" muted loop playsinline preload="none"${STAGE.poster ? ` poster="${u(STAGE.poster)}"` : ""}${STAGE.intro ? ` aria-label="${esc(STAGE.name)}, Harvard Investment Group’s AI agent, introducing himself"` : " hidden"}></video>
@@ -231,11 +232,15 @@ function homePage() {
         <button class="ava-sound" type="button" aria-pressed="false" aria-label="Play ${esc(STAGE.name)}’s introduction with sound" title="Play ${esc(STAGE.name)}’s introduction with sound"${STAGE.intro ? "" : " hidden"}>${icon("sound-off")}<span class="ava-sound-label" aria-hidden="true">Muted</span></button>
         <div class="ava-ctrls"><button class="ava-btn ava-talk" type="button">${icon("mic")}<span>Talk to ${esc(STAGE.name)}</span></button></div>
       </div>
-      <aside class="panel is-home" aria-label="Options">
-        <div class="panel-body">
+      <aside class="panel is-home" id="hig-panel" aria-label="Options">
+        <div class="panel-head">
+          <button class="panel-back" type="button" hidden aria-label="Back">${icon("arrow")}</button>
+          <span class="panel-title"></span>
+        </div>
+        <div class="panel-body" aria-live="polite" data-lenis-prevent>
           <p class="p-sub">${STAGE.home}</p>
           <div class="p-actions">
-            ${STAGE.cards.map((c) => `<a class="p-act" href="${u(c.href)}"><i>${icon(c.icon)}</i><span><b>${c.title}</b><small>${c.sub}</small></span>${icon("arrow")}</a>`).join("\n            ")}
+            ${STAGE.cards.map((c) => `<a class="p-act" href="${u(c.href)}" data-topic="${c.topic}"><i>${icon(c.icon)}</i><span><b>${c.title}</b><small>${c.sub}</small></span>${icon("arrow")}</a>`).join("\n            ")}
           </div>
         </div>
         <p class="panel-note">${STAGE.note}</p>
