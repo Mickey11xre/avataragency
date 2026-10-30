@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 3;                                                           // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 4;                                                           // ?v= for css/js (Cloudflare caches assets ~4 h)
 const OUT = path.resolve(__dirname, "..");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -354,7 +354,7 @@ ${stage}
       <p class="eyebrow">Philanthropic</p>
       <h2 class="serif" id="t-phil">Hope for <em>the Hurting.</em></h2>
       <p class="lede">${PHILANTHROPIC.intro[0]}</p>
-      <div class="ctas"><a class="btn btn-dark" href="${SITE.donateUrl || u("/contact/")}">Donate</a><a class="tlink" href="${u("/philanthropic/")}">Our initiatives ${icon("arrow")}</a></div>
+      <div class="ctas"><a class="btn btn-dark" href="${SITE.donateUrl || u("/contact/")}"${SITE.donateUrl ? ' target="_blank" rel="noopener"' : ""}>Donate</a><a class="tlink" href="${u("/philanthropic/")}">Our initiatives ${icon("arrow")}</a></div>
     </div>
   </div>
 </section>
@@ -378,7 +378,6 @@ function aboutPage() {
          in the 2201 great room. For Greg's approval; OPTION_B/C are in the REVIEW folder. -->
     <figure class="portrait rv-img">
       <img src="${u("/assets/img/greg-portrait-1200.webp")}" srcset="${u("/assets/img/greg-portrait-800.webp")} 800w, ${u("/assets/img/greg-portrait-1200.webp")} 1200w" sizes="(max-width: 900px) 340px, 40vw" width="1200" height="1600" alt="Greg Cullen, founder of Harvard Investment Group, in the great room of 2201 Bayside Drive" loading="eager" fetchpriority="high">
-      <figcaption>Portrait · for Greg’s approval</figcaption>
     </figure>
     <div class="about-hero-copy">
       <p class="eyebrow gold">Founder · Harvard Investment Group</p>
@@ -547,7 +546,7 @@ function developmentsPage() {
 
 <section class="sec sec-dark proj" id="hollywood-hills" aria-labelledby="t-hh">
   <div class="wrap">
-    <div class="proj-head rv"><div><p class="eyebrow gold">Los Angeles</p><h2 class="serif caps" id="t-hh">${D.hollywood.title}</h2></div><p class="lede on-dark">${D.hollywood.text}</p></div>
+    <div class="proj-head rv"><div><p class="eyebrow gold">Los Angeles</p><h2 class="serif caps" id="t-hh">${D.hollywood.title}</h2><p class="serif sold">Sold</p></div><p class="lede on-dark">${D.hollywood.text}</p></div>
     <div class="gal gal-feature" data-gal="hh">
       ${range("hh", IMG.hh, (i) => `Hollywood Hills residence by Tag Front, photograph ${i} of ${IMG.hh}`, { sizes: "(max-width: 900px) 50vw, 33vw" })}
     </div>
@@ -556,7 +555,7 @@ function developmentsPage() {
 
 <section class="sec proj" id="hermosa-beach" aria-labelledby="t-hb">
   <div class="wrap">
-    <div class="proj-head rv"><div><p class="eyebrow">South Bay</p><h2 class="serif caps" id="t-hb">${D.hermosa.title}</h2></div><p class="lede">${D.hermosa.text}</p></div>
+    <div class="proj-head rv"><div><p class="eyebrow">South Bay</p><h2 class="serif caps" id="t-hb">${D.hermosa.title}</h2><p class="serif sold">Sold</p></div><p class="lede">${D.hermosa.text}</p></div>
     <div class="gal gal-feature" data-gal="hb">
       ${range("hb", IMG.hb, (i) => `Hermosa Beach four-unit development, photograph ${i} of ${IMG.hb}`, { sizes: "(max-width: 900px) 50vw, 33vw" })}
     </div>
@@ -565,7 +564,7 @@ function developmentsPage() {
 
 <section class="sec sec-dark proj" id="redondo-beach" aria-labelledby="t-rb">
   <div class="wrap">
-    <div class="proj-head rv"><div><p class="eyebrow gold">South Bay</p><h2 class="serif caps" id="t-rb">${D.redondo.title}</h2></div><p class="lede on-dark">${D.redondo.text}</p></div>
+    <div class="proj-head rv"><div><p class="eyebrow gold">South Bay</p><h2 class="serif caps" id="t-rb">${D.redondo.title}</h2><p class="serif sold">Sold</p></div><p class="lede on-dark">${D.redondo.text}</p></div>
     <div class="gal gal-feature" data-gal="rb">
       ${range("rb", IMG.rb, (i) => `Redondo Beach three-unit townhome development, photograph ${i} of ${IMG.rb}`, { sizes: "(max-width: 900px) 50vw, 33vw" })}
     </div>

@@ -19,9 +19,8 @@ const SITE = {
   linkedin: "https://www.linkedin.com/in/greg-cullen-79938a28/",
   hreao: "https://hreao.sigs.harvard.edu/",
   netflix: "https://www.netflix.com/title/81447330",
-  // Hope for the Hurting's own donation page (Michael, 10-29: "donations point to Hope for the Hurting's own site").
-  // URL still to come from Greg; until then the Donate buttons go to the contact page.
-  donateUrl: null,
+  // Hope for the Hurting's own site (Michael, 10-30): every Donate button goes here.
+  donateUrl: "https://hopefth.org",
   founded: 1995,
 };
 
@@ -35,7 +34,8 @@ const HOME = {
   eyebrow: "Newport Beach · Los Angeles · Est. 1995",
   tagline: "Three decades of investing in, and building, Southern California’s most coveted real estate.",
   aboutTitle: ["A multi-dimensional organization,", "built on value."],
-  about: "Harvard Investment Group is a multi-dimensional organization that has, along with its affiliated companies, been actively investing and developing real estate for over two and a half decades. The Company is led by Greg Cullen, who throughout his career, has been involved in hundreds of transactions – both debt and equity – with a combined value approaching half a billion dollars.",
+  // Michael, 10-30 revisions: "over three decades" (founded 1995) and "approaching a billion" (matches About, the film and Harrison)
+  about: "Harvard Investment Group is a multi-dimensional organization that has, along with its affiliated companies, been actively investing and developing real estate for over three decades. The Company is led by Greg Cullen, who throughout his career, has been involved in hundreds of transactions – both debt and equity – with a combined value approaching a billion dollars.",
   tiles: [
     { big: "1995", label: "Founded" },
     { big: "30", sup: "+", label: "Years in private equity & development" },
@@ -218,7 +218,7 @@ const IMG = {
 
 // ── FAQ (answers drawn only from the site's own copy; Greg approves before launch) ───────────────────
 const FAQ = [
-  { q: "What is Harvard Investment Group?", a: "Harvard Investment Group is a multi-dimensional organization, founded in 1995 by Greg Cullen, that has been actively investing in and developing real estate for over two and a half decades, along with its affiliated companies. It also makes direct investments in early stage businesses." },
+  { q: "What is Harvard Investment Group?", a: "Harvard Investment Group is a multi-dimensional organization, founded in 1995 by Greg Cullen, that has been actively investing in and developing real estate for over three decades, along with its affiliated companies. It also makes direct investments in early stage businesses." },
   { q: "Who leads Harvard Investment Group?", a: "Greg Cullen, the founder. He holds an MBA from Harvard Business School (1989) and a mechanical engineering degree from Rose-Hulman (1985), worked at Citibank and ING Capital before founding the company, and is a licensed contractor and real estate broker in California." },
   { q: "Where is Harvard Investment Group based?", a: "The office is at 6060 W Manchester Ave, Suite 304, Los Angeles, CA 90045. Development projects have been in Corona del Mar (Newport Beach), the Hollywood Hills, Hermosa Beach and Redondo Beach." },
   { q: "What does Harvard Investment Group invest in?", a: "Value-added real estate opportunities and early stage businesses that need capital and/or management expertise. Past investments span media, artificial intelligence, pharmaceutical, finance, medical devices, fast food, energy, real estate, entertainment and apparel." },
@@ -229,6 +229,16 @@ const FAQ = [
   { q: "Was a Harvard Investment Group project featured on Netflix?", a: "Yes. The Corona del Mar project appears in Selling the OC, Season 3, on Netflix." },
   { q: "Who designed 2201 Bayside Drive?", a: "Brandon Architects, with interiors by Brooke Wagner Design. The home has five bedrooms and nine bathrooms on four levels, a rooftop deck, wine room, elevator, outdoor fire pit, pool, jacuzzi and a 6-car garage." },
   { q: "What is Hope for the Hurting?", a: "A 501(c)(3) charitable organization Mr. Cullen formed in 2015 to assist the less fortunate and provide a foundation for people to improve their lives. It operates four facilities in California and Indiana for men and women facing mental illness and/or addiction, and runs the Strike Out Against Drugs school program." },
+  // Added 10-30 (Michael): questions Harrison already answers, worded from his knowledge files so the site and he agree.
+  { q: "I’m a founder looking for funding. Is Harvard Investment Group a fit?", a: "Possibly. Harvard Investment Group invests in early stage businesses that need capital and/or management expertise, typically from the mid-five figures to seven figures, depending on the transaction. It has invested in media, artificial intelligence, pharmaceuticals, finance, medical devices, fast food, energy, real estate, entertainment and apparel. Every opportunity is reviewed individually by Greg Cullen." },
+  { q: "How do I pitch my company?", a: "Send a short summary to Greg Cullen’s office through the contact page: the company name and what it does, the stage it is at, how much capital it is raising and what for, and the founder’s name, email and phone number. Every decision follows a review; nothing is promised in advance." },
+  { q: "Can Harvard Investment Group help beyond money?", a: "Yes. Its principal often supports companies at the board level and has stepped into interim executive and operational roles. The team brings expertise in deal structuring, valuation, financial engineering, corporate strategy and value creation." },
+  { q: "Do you buy land or underperforming properties?", a: "That is the company’s specialty: land with unrealized development potential and underperforming real estate assets, which it transforms into homes for sale or assets held for cash flow. A seller or broker with a property should share the address and details with Greg Cullen’s office through the contact page." },
+  { q: "Does Harvard Investment Group take on development partners?", a: "It works with partners on land, entitlements, construction and sales, and handles every part of the process itself: acquisition, deal structuring, finance, architectural design, entitlements, construction and real estate sales. Anyone with a site, a project or a partnership idea should send a short description through the contact page." },
+  { q: "Are any of your homes for sale right now?", a: "The homes on this site are completed projects, and the two Corona del Mar estates have sold. For current or upcoming opportunities, ask Greg Cullen’s office through the contact page." },
+  { q: "How do I donate to Hope for the Hurting, and is it tax deductible?", a: "Donate through Hope for the Hurting’s own website, hopefth.org. Hope for the Hurting is a 501(c)(3) charitable organization and all donations are tax deductible; confirm the details with your own tax advisor. Donations support its four facilities for men and women facing mental illness and/or addiction, and the Strike Out Against Drugs program in Los Angeles schools." },
+  { q: "Can I donate property or other assets?", a: "The charity has received property before: Oasis Recovery in Indiana was a donation from a generous couple. Anyone considering a gift like that should speak with Greg Cullen’s office." },
+  { q: "Is Greg Cullen available to speak at events?", a: "Yes. Mr. Cullen is a highly sought-after speaker and is considered an expert in real estate, finance, negotiations and value creation. Send speaking requests to his office through the contact page." },
   { q: "How can I contact Harvard Investment Group?", a: "Email greg@harvardinvestmentgroup.com, call (310) 702-5252, or send a message through the contact page. The office is at 6060 W Manchester Ave, Suite 304, Los Angeles, CA 90045." },
 ];
 
@@ -265,7 +275,7 @@ const STAGE = {
     { icon: "chart", title: "Invest with Harvard Investment Group", sub: "Value-added real estate and early stage businesses", href: "/investments/" },
     { icon: "building", title: "Development partnerships", sub: "Land, entitlements, construction and sales", href: "/developments/" },
     { icon: "heart", title: "Hope for the Hurting", sub: "Learn about the charity and how to give", href: "/philanthropic/" },
-    { icon: "phone", title: "Contact Greg", sub: "Send a message or book a call", href: "/contact/" },
+    { icon: "phone", title: "Contact Greg", sub: "Send a message or request a call", href: "/contact/" },
   ],
   home: "Tap an option below — or press Talk to speak with me.",
   note: "Prefer to type? This panel takes you to the right page.",

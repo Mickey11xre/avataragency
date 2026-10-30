@@ -222,6 +222,8 @@ body.menu-open .hdr { background: var(--ink); }
 .feat-head, .proj-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(36px, 4vw, 64px); }
 .feat-head h2, .proj-head h2 { font-size: clamp(36px, 4.6vw, 64px); line-height: 1; letter-spacing: .1em; }
 .sold { font-size: clamp(20px, 1.8vw, 26px); font-style: italic; font-weight: 400; color: var(--slate); }
+.proj-head > div > .sold { margin-top: 10px; font-size: clamp(18px, 1.5vw, 22px); }
+.sec:not(.sec-dark) .sold { color: var(--text-mute); }
 .proj-head .lede { max-width: 56ch; margin-top: 0; flex: 1 1 420px; }
 .proj-head > div { flex: 1 1 320px; }
 .feat-pin { position: relative; }
