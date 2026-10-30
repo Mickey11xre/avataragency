@@ -154,7 +154,9 @@
     // home hero: the fixed ambient layer breathes in slowly as the first screen scrolls away; copy and film drift up
     var hh = d.querySelector(".hero-home");
     if (hh && amb) {
-      gsap.to(amb, { scale: 1.07, ease: "none", scrollTrigger: { trigger: hh, start: "top top", end: "bottom top", scrub: true } });
+      // scale the pictures INSIDE the layer, never the layer itself: a scaled fixed layer is wider than the screen, and
+      // iPhone Safari then lets a pinch zoom out to that width (Michael saw the loop beside the page, 10-30)
+      gsap.to(amb.querySelectorAll(".amb-poster, .amb-v"), { scale: 1.07, ease: "none", scrollTrigger: { trigger: hh, start: "top top", end: "bottom top", scrub: true } });
       gsap.to(hh.querySelector(".hero-copy"), { yPercent: -10, opacity: 0, ease: "none", scrollTrigger: { trigger: hh, start: "45% top", end: "bottom top", scrub: true } });
       gsap.to(hh.querySelector(".hero-film-col"), { yPercent: -22, ease: "none", scrollTrigger: { trigger: hh, start: "top top", end: "bottom top", scrub: true } });
     }
