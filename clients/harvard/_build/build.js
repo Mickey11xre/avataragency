@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 8;                                                         // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 9;                                                         // ?v= for css/js (Cloudflare caches assets ~4 h)
 const OUT = path.resolve(__dirname, "..");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -74,9 +74,9 @@ function header(current) {
 </header>`;
 }
 
-function contactBlock(dark = false, home = false) {
+function contactBlock(dark = false, talk = true) {   // every page (Michael, 10-30): the Harrison line links to the Home stage
   const h = CONTACT_BLOCK.home;
-  const text = home ? `${h.lead}<a class="cb-talk" href="${u("/#stage")}">${h.talk}</a>${h.rest}` : CONTACT_BLOCK.text;
+  const text = talk ? `${h.lead}<a class="cb-talk" href="${u("/#stage")}">${h.talk}</a>${h.rest}` : CONTACT_BLOCK.text;
   return `<section class="cblock${dark ? " cblock-dark" : ""}" aria-labelledby="cb-t">
   <div class="wrap cblock-in">
     <div class="rv">
@@ -368,7 +368,7 @@ ${stage}
 
 ${peek(2)}
 
-${contactBlock(false, true)}`;
+${contactBlock(false)}`;
 
   return layout({
     path: "/", current: "/", title: "Harvard Investment Group | Real Estate Investment & Development, Southern California",
