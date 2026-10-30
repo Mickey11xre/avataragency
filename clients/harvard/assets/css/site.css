@@ -313,6 +313,9 @@ body.menu-open .hdr { background: var(--ink); }
 .yt-play svg { position: relative; }
 .awards-line { margin: clamp(40px, 5vw, 64px) 0 18px; font-size: 17px; }
 .phil-band { background: var(--sand); }
+/* small disclosure in the bottom-left corner of AI-enhanced photographs (Michael, 10-30) */
+.ai-tag { position: absolute; z-index: 3; left: 12px; bottom: 10px; padding: 4px 8px; border-radius: 2px; font: 500 9.5px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: rgba(244,239,230,.85); background: rgba(7,19,32,.45); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); pointer-events: none; }
+.phil-img { position: relative; }
 .phil-img { aspect-ratio: 4 / 3; overflow: hidden; border-radius: 2px; }
 .phil-img img { width: 100%; height: 100%; object-fit: cover; }
 

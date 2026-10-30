@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 5;                                                           // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 6;                                                           // ?v= for css/js (Cloudflare caches assets ~4 h)
 const OUT = path.resolve(__dirname, "..");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -197,9 +197,9 @@ ${footer()}
 }
 
 /** Page hero with a still image, title, optional lede */
-function pageHero({ eyebrow, title, lede, image, alt, pos = "center" }) {
+function pageHero({ eyebrow, title, lede, image, alt, pos = "center", tag }) {
   return `<section class="hero hero-page" aria-labelledby="h1">
-  <div class="hero-media">${img(image, alt, { widths: [800, 1600], sizes: "100vw", eager: true, style: `object-position:${pos}` })}</div>
+  <div class="hero-media">${img(image, alt, { widths: [800, 1600], sizes: "100vw", eager: true, style: `object-position:${pos}` })}${tag ? `<span class="ai-tag">${tag}</span>` : ""}</div>
   <div class="hero-shade" aria-hidden="true"></div>
   <div class="wrap hero-copy">
     <p class="eyebrow gold">${eyebrow}</p>
@@ -349,7 +349,7 @@ ${stage}
 
 <section class="sec phil-band" aria-labelledby="t-phil">
   <div class="wrap split-7-5">
-    <figure class="phil-img rv-img">${img("boh-team", "The Beacon of Hope team on the porch of the charity's Victorian residence west of downtown Los Angeles", { sizes: "(max-width: 900px) 100vw, 58vw" })}</figure>
+    <figure class="phil-img rv-img">${img("boh-team", "The Beacon of Hope team on the porch of the charity's Victorian residence west of downtown Los Angeles", { sizes: "(max-width: 900px) 100vw, 58vw" })}<span class="ai-tag">AI image enhanced</span></figure>
     <div class="rv">
       <p class="eyebrow">Philanthropic</p>
       <h2 class="serif" id="t-phil">Hope for <em>the Hurting.</em></h2>
@@ -593,7 +593,7 @@ function philanthropicPage() {
   // Header image: the Beacon of Hope team on the porch under the sign (AI composite from a team video frame + the house
   // photo, Nano Banana Pro job f85f2ae5, 10-30; for Greg's review, pending the team's consent). The untouched house
   // photo stays in the Beacon gallery below.
-  const body = `${pageHero({ eyebrow: "Philanthropic", title: ["Hope for", "the Hurting"], lede: "A 501(c)(3) charitable organization formed by Mr. Cullen in 2015 to assist the less fortunate among us.", image: "boh-team", alt: "The Beacon of Hope team on the porch of the house in Los Angeles, under the Beacon of Hope sign", pos: "center 40%" })}
+  const body = `${pageHero({ eyebrow: "Philanthropic", title: ["Hope for", "the Hurting"], lede: "A 501(c)(3) charitable organization formed by Mr. Cullen in 2015 to assist the less fortunate among us.", image: "boh-team", alt: "The Beacon of Hope team on the porch of the house in Los Angeles, under the Beacon of Hope sign", pos: "center 40%", tag: "AI image enhanced" })}
 
 <section class="sec" id="about-the-charity" aria-labelledby="t-ph">
   <div class="wrap split-5-7">
