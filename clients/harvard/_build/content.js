@@ -274,14 +274,18 @@ const STAGE = {
   title: ["Ask about investing,", "developing, or giving."],
   lede: "Press Talk to Harrison and ask what you would ask Greg’s office. Or tap an option on the panel.",
   // `topic` = the value Harrison passes to show_topic (his instructions: investing · development · philanthropy · contact).
+  // Order and "Contact Us" first: Michael, 10-30. Each card opens a short view of its page ON the panel (with a back
+  // arrow); `href` is the no-JavaScript fallback. Contact opens the panel's contact form.
   cards: [
+    { icon: "phone", topic: "contact", title: "Contact Us", sub: "Send a message or request a call", href: "/contact/" },
     { icon: "chart", topic: "investing", title: "Invest with Harvard Investment Group", sub: "Value-added real estate and early stage businesses", href: "/investments/" },
     { icon: "building", topic: "development", title: "Development partnerships", sub: "Land, entitlements, construction and sales", href: "/developments/" },
     { icon: "heart", topic: "philanthropy", title: "Hope for the Hurting", sub: "Learn about the charity and how to give", href: "/philanthropic/" },
-    { icon: "phone", topic: "contact", title: "Contact Greg", sub: "Send a message or request a call", href: "/contact/" },
   ],
+  // Titles of the panel views (the panel's header row)
+  viewTitles: { contact: "Contact Us", investing: "Investments", development: "Developments", philanthropy: "Hope for the Hurting" },
   home: "Tap an option below — or press Talk to speak with me.",
-  note: "Prefer to type? This panel takes you to the right page, and Harrison can take your details for Greg’s office.",
+  note: "Prefer to type? Tap an option to read about it here, or send Greg’s office a message.",
   soon: "The live conversation is arriving very soon. In the meantime, the options beside me open the right page.",
 };
 

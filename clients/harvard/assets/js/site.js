@@ -311,12 +311,16 @@
       d.addEventListener("visibilitychange", function () { if (liveState !== "idle") return; if (d.hidden) { vid.pause(); if (hearing) stopHearing(); } else if (visible) playQuiet(); });
     } else if (snd) snd.hidden = true;
 
-    /* ═════════ The panel: four cards (links), the contact form and the review card ═════════ */
+    /* ═════════ The panel: four cards, each opening a view ON the panel (Michael, 10-30): Contact Us = the contact form
+       and review card; the other three = a short version of their page, from the <template id="pv-…"> build.js renders
+       from the site's own copy. The back arrow walks back through the views. ═════════ */
     var HOME_HTML = body.innerHTML;   // the cards as built, restored whenever the panel goes home
-    var TOPICS = { investing: "Invest with Harvard Investment Group", development: "Development partnerships", philanthropy: "Hope for the Hurting", contact: "Contact Greg" };
+    var TOPICS = { contact: "Contact Us", investing: "Invest with Harvard Investment Group", development: "Development partnerships", philanthropy: "Hope for the Hurting" };
+    var VT = {}; try { VT = JSON.parse((d.getElementById("pv-titles") || {}).textContent || "{}"); } catch (e) {}
+    var PAGE_VIEWS = {}; ["investing", "development", "philanthropy"].forEach(function (k) { var tpl = d.getElementById("pv-" + k); if (tpl) PAGE_VIEWS[k] = tpl.innerHTML; });
     var INTERESTS = ["Investing", "Raising capital", "Real estate", "Development partnership", "Philanthropy", "Speaking", "Press", "Other"];
-    var S = { mode: "home", topic: null, form: { name: "", email: "", phone: "", interest: "", note: "" }, review: null, sent: null, fail: "" };
-    var TITLES = { home: "", form: "A message for Greg\u2019s office", done: "Sent", failed: "Not sent" };
+    var S = { mode: "home", hist: [], topic: null, form: { name: "", email: "", phone: "", interest: "", note: "" }, review: null, sent: null, fail: "" };
+    var TITLES = { home: "", form: VT.contact || "Contact Us", investing: VT.investing || "Investments", development: VT.development || "Developments", philanthropy: VT.philanthropy || "Hope for the Hurting", done: "Sent", failed: "Not sent" };
     var tr = function (v) { return String(v || "").trim(); };
     var validEmail = function (e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); };
     var arrow = '<svg aria-hidden="true"><use href="#i-arrow"/></svg>';
@@ -344,6 +348,9 @@
     function reviewRows() { var f = fields(); return [["Name", f.name], ["Email", f.email], ["Phone", f.phone], ["About", f.interest], ["Note", f.note]].filter(function (x) { return x[1]; }); }
     var VIEWS = {
       home: function () { return HOME_HTML; },
+      investing: function () { return PAGE_VIEWS.investing || HOME_HTML; },
+      development: function () { return PAGE_VIEWS.development || HOME_HTML; },
+      philanthropy: function () { return PAGE_VIEWS.philanthropy || HOME_HTML; },
       form: function () {
         if (inReview()) return '<div class="p-review"><p class="p-label">Is this correct?</p><dl class="p-rv">' +
           reviewRows().map(function (x) { return "<div><dt>" + x[0] + "</dt><dd>" + esc(x[1]) + "</dd></div>"; }).join("") +
@@ -370,9 +377,22 @@
       if (S.mode === "home") markTopic();
       var form = $("form", body);
       if (form) form.addEventListener("submit", function (e) { e.preventDefault(); TOOLS_IMPL.submit_contact_details({}); });
-      if (opts.focus) { var f = $("input, button", body); if (f) f.focus({ preventScroll: true }); }
+      if (opts.focus && window.innerWidth > 900) { var f = $("input, button", body); if (f) f.focus({ preventScroll: true }); }   // no keyboard pop-up on phones
     }
-    function go(mode, opts) { if (S.mode !== mode) S.review = null; S.mode = mode; render(opts); }
+    // replace: true for result views (Sent / Not sent), so Back never returns to a form that was already sent
+    function go(mode, opts) {
+      opts = opts || {};
+      if (S.mode !== mode) { S.review = null; if (mode === "home") S.hist = []; else if (!opts.replace && S.mode !== "done" && S.mode !== "failed") S.hist.push(S.mode); }
+      S.mode = mode; render(opts);
+    }
+    function goBack() { var m = S.hist.pop() || "home"; S.review = null; S.mode = m; if (m === "home") S.hist = []; render({}); }
+    // Open a card's view: Contact Us = the form; the rest = their page view
+    // fromTwin: a view Harrison opens doesn't stack, so Back always returns to the four options
+    function openTopic(t, fromTwin) {
+      S.topic = t; var m = t === "contact" ? "form" : t;
+      if (S.mode !== m) { if (fromTwin) { S.hist = []; go(m, { replace: true }); } else go(m); }
+      if (window.innerWidth <= 900) panel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
     function setMsg(text) { var m = $(".p-msg", body); if (m) { m.classList.add("err"); m.textContent = text; } }
     function markTopic() { $$(".p-act", body).forEach(function (c) { c.classList.toggle("is-on", !!S.topic && c.getAttribute("data-topic") === S.topic); }); }
     // Scroll the panel (never the page) so a field Harrison just filled is in view.
@@ -390,22 +410,30 @@
     }
     backBtn.addEventListener("click", function () {
       if (S.mode === "form" && inReview()) { S.review = null; render({ focus: true }); emit("The visitor chose to edit their details. Nothing has been sent.", false); return; }
-      go("home");
+      var from = S.mode; goBack();
+      if (from !== "home") emit("The visitor went back from " + (TITLES[from] || from) + " to " + (S.mode === "home" ? "the four options" : TITLES[S.mode]) + ".", false);
     });
     body.addEventListener("click", function (e) {
+      // While Harrison is talking, links out of a view open in a new tab, so the conversation keeps going
+      var link = e.target.closest("a.pv-row, a.pv-more");
+      if (link && liveState !== "idle") { e.preventDefault(); window.open(link.href, "_blank", "noopener"); return; }
       var t = e.target.closest("[data-act], [data-topic]"); if (!t) return;
       var a = t.getAttribute("data-act");
       if (a === "home") go("home");
-      else if (a === "retry") { S.review = null; go("form", { focus: true }); }
+      else if (a === "retry") { S.review = null; go("form", { focus: true, replace: true }); }
       else if (a === "review-yes") { if (!S.review) return; S.review.ok = true; TOOLS_IMPL.submit_contact_details({}); }
       else if (a === "review-edit") { S.review = null; render({ focus: true }); emit("The visitor chose to edit their details. Nothing has been sent.", false); }
-      else if (t.hasAttribute("data-topic")) {
-        var topic = t.getAttribute("data-topic");
-        if (liveState === "idle") return;             // not in a conversation: the card is a plain link to its page
-        e.preventDefault();                            // in a conversation: stay with Harrison; he answers, and Contact opens the form
-        S.topic = topic; markTopic();
-        if (topic === "contact") { go("form", { focus: true }); emit("The visitor opened Contact Greg: the contact form is now on the panel. Offer to take their details, one at a time.", true); }
-        else emit("The visitor opened " + TOPICS[topic] + ".", true);
+      else if (a === "note") {          // "Send Greg's office a note" / "Discuss a partnership" inside a view
+        var from = S.mode, it = t.getAttribute("data-interest");
+        if (it && !tr(S.form.interest)) S.form.interest = it;
+        S.topic = "contact"; go("form", { focus: true });
+        emit("From " + (TITLES[from] || "the panel") + ", the visitor tapped " + JSON.stringify(t.textContent.trim()) + ": the contact form is open" + (it ? " with the topic set to " + S.form.interest : "") + ". Offer to take their details, one at a time.", true);
+      }
+      else if (t.hasAttribute("data-topic")) {     // a card: open its view on the panel (the href is only the no-JavaScript fallback)
+        e.preventDefault();
+        var topic = t.getAttribute("data-topic"); openTopic(topic);
+        if (topic === "contact") emit("The visitor opened Contact Us: the contact form is now on the panel. Offer to take their details, one at a time.", true);
+        else emit("The visitor opened " + TOPICS[topic] + ": a short version of that page is on the panel. Say one or two sentences about it.", true);
       }
     });
     var BIND_LABEL = { name: "name", email: "email", phone: "phone number", interest: "topic", note: "note" };
@@ -434,9 +462,9 @@
       show_topic: function (a) {
         a = a || {}; var t = a.topic;
         if (!TOPICS[t]) return { ok: false, error: "Unknown topic", topics: Object.keys(TOPICS) };
-        S.topic = t;
-        if (S.mode === "home") { markTopic(); var card = $('.p-act[data-topic="' + t + '"]', body); flash(card, 1400); if (card && window.innerWidth <= 900) reveal(card); }
-        return { ok: true, topic: t, card: TOPICS[t] };
+        openTopic(t, true);
+        if (t === "contact") return { ok: true, topic: t, view: TITLES.form, note: "The contact form is open on the panel. Ask for their details one at a time and fill them in with fill_contact_details, or let them type; ask them to type their email." };
+        return { ok: true, topic: t, view: TITLES[t], note: "A short version of the " + TITLES[t] + " page is now on the panel beside you. Say one or two sentences about it; the visitor can tap back to the four options." };
       },
       show_contact_form: function () {
         if (S.mode !== "form") go("form"); else if (inReview()) { S.review = null; render({}); }
@@ -462,12 +490,12 @@
         var yes = $('[data-act="review-yes"]', body); if (yes) { yes.disabled = true; yes.textContent = "Sending\u2026"; }
         return sendForm().then(function (r) {
           if (r.ok) {
-            S.sent = fields(); S.review = null; go("done");
+            S.sent = fields(); S.review = null; go("done", { replace: true });
             if (!fromTwin) emit("The visitor pressed Yes on the review card and their message was sent to Greg Cullen's office. Tell them, briefly, that it is on its way and the office will reach out shortly.", true);
             return { status: "sent" };
           }
           var reason = (r.body && (r.body.error || (r.body.fields && Object.keys(r.body.fields).join(", ")))) || ("HTTP " + r.status);
-          S.fail = reason; S.review = null; go("failed");
+          S.fail = reason; S.review = null; go("failed", { replace: true });
           if (!fromTwin) emit("Sending the visitor's message failed (" + reason + "). The panel shows the office phone and email. Give them those instead.", true);
           return { status: "failed", reason: reason, office_phone: CFG.PHONE, office_email: CFG.EMAIL };
         });
@@ -475,7 +503,7 @@
     };
     var str = function (d_) { return { type: "string", description: d_ }; };
     var TOOLS = [
-      { name: "show_topic", description: "Highlight one of the four options on the panel beside you, which the visitor can see, the moment you start talking about that subject: \"investing\" (Invest with Harvard Investment Group), \"development\" (Development partnerships), \"philanthropy\" (Hope for the Hurting) or \"contact\" (Contact Greg).",
+      { name: "show_topic", description: "Open one of the four options on the panel beside you, which the visitor can see, the moment you start talking about that subject: \"contact\" (Contact Us: opens the contact form), \"investing\" (Invest with Harvard Investment Group), \"development\" (Development partnerships) or \"philanthropy\" (Hope for the Hurting). The last three open a short version of that page on the panel; the visitor can tap back.",
         inputSchema: { type: "object", properties: { topic: { type: "string", enum: Object.keys(TOPICS) } }, required: ["topic"] } },
       { name: "show_contact_form", description: "Open the contact form on the panel, to take a visitor's details for Greg Cullen's office: name, email, phone, what it is about, and a short note. Call it before you ask for any detail. The visitor can type into it too.",
         inputSchema: { type: "object", properties: {} } },
@@ -507,7 +535,7 @@
       var bits = ["The panel is visible beside you"]; var f = fields();
       if (S.sent) bits.push("a message was already sent to Greg's office from this page");
       else { var have = [f.name && "name " + f.name, f.email && "email " + f.email, f.phone && "phone " + f.phone, f.interest && "topic " + f.interest].filter(Boolean); if (have.length) bits.push("the visitor has entered their " + have.join(", ")); if (S.mode === "form") bits.push("the contact form is open"); }
-      if (S.topic) bits.push("they are looking at " + TOPICS[S.topic]);
+      if (PAGE_VIEWS[S.mode]) bits.push("the " + TITLES[S.mode] + " view is open on the panel");
       return bits.join("; ") + ".";
     }
 

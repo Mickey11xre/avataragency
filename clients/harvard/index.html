@@ -20,7 +20,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/clients/harvard/assets/css/site.css?v=9">
+<link rel="stylesheet" href="/clients/harvard/assets/css/site.css?v=10">
 <script>(function(d){var h=d.documentElement;h.className=h.className.replace('no-js','js');if((window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||/[?&]rm=1/.test(location.search))h.classList.add('rm');})(document);</script>
 <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Organization","@id":"https://avataragency.ai/clients/harvard/#org","name":"Harvard Investment Group","url":"https://avataragency.ai/clients/harvard/","logo":"https://avataragency.ai/clients/harvard/assets/img/logo-h-navy.png","image":"https://avataragency.ai/clients/harvard/assets/img/b2201-beach-2000.webp","foundingDate":"1995","founder":{"@id":"https://avataragency.ai/clients/harvard/about/#greg"},"email":"greg@harvardinvestmentgroup.com","telephone":"+13107025252","address":{"@type":"PostalAddress","streetAddress":"6060 W Manchester Ave, Suite 304","addressLocality":"Los Angeles","addressRegion":"CA","postalCode":"90045","addressCountry":"US"},"areaServed":"Southern California","sameAs":["https://www.linkedin.com/in/greg-cullen-79938a28/"],"description":"Harvard Investment Group, founded in 1995 by Greg Cullen, invests in value-added real estate and early stage businesses and develops luxury residential real estate in Southern California."},{"@type":"Person","@id":"https://avataragency.ai/clients/harvard/about/#greg","name":"Greg Cullen","jobTitle":"Founder","worksFor":{"@id":"https://avataragency.ai/clients/harvard/#org"},"url":"https://avataragency.ai/clients/harvard/about/","email":"greg@harvardinvestmentgroup.com","telephone":"+13107025252","sameAs":["https://www.linkedin.com/in/greg-cullen-79938a28/"],"alumniOf":[{"@type":"CollegeOrUniversity","name":"Harvard Business School"},{"@type":"CollegeOrUniversity","name":"Rose-Hulman Institute of Technology"}],"knowsAbout":["Real estate development","Private equity","Finance","Negotiations","Value creation"]},{"@type":"WebSite","@id":"https://avataragency.ai/clients/harvard/#site","url":"https://avataragency.ai/clients/harvard/","name":"Harvard Investment Group","publisher":{"@id":"https://avataragency.ai/clients/harvard/#org"}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://avataragency.ai/clients/harvard/"}]}]}</script>
 </head>
@@ -180,7 +180,7 @@
     <!-- Avatar stage per AVATAR-STAGE-SPEC v1.3. Talk fetches a session from data-token (site.js); while the agent is
          not live that endpoint answers 503 and the stage shows the "arriving soon" toast. The panel's four cards are
          also driven by Harrison (topic highlight, contact form) and the form posts to data-contact. -->
-    <div class="stage rv" id="stage" data-name="Harrison" data-intro="/clients/harvard/assets/video/harrison-intro.mp4" data-token="/api/hig-harrison-token" data-seen-path="/api" data-contact="/clients/harvard/api/contact" data-popout="/clients/harvard/vendor/avatar-popout.js?v=9" data-office-phone="(310) 702-5252" data-office-email="greg@harvardinvestmentgroup.com">
+    <div class="stage rv" id="stage" data-name="Harrison" data-intro="/clients/harvard/assets/video/harrison-intro.mp4" data-token="/api/hig-harrison-token" data-seen-path="/api" data-contact="/clients/harvard/api/contact" data-popout="/clients/harvard/vendor/avatar-popout.js?v=10" data-office-phone="(310) 702-5252" data-office-email="greg@harvardinvestmentgroup.com">
       <div class="stage-av" style="background:#050505 url(/clients/harvard/assets/video/harrison-poster.jpg) center / cover no-repeat">
         <div class="ava-mount" id="hig-mount"></div>
         <video class="ava-video" muted loop playsinline preload="none" poster="/clients/harvard/assets/video/harrison-poster.jpg" aria-label="Harrison, Harvard Investment Group’s AI agent, introducing himself"></video>
@@ -199,14 +199,47 @@
         <div class="panel-body" aria-live="polite" data-lenis-prevent>
           <p class="p-sub">Tap an option below — or press Talk to speak with me.</p>
           <div class="p-actions">
+            <a class="p-act" href="/clients/harvard/contact/" data-topic="contact"><i><svg class="" aria-hidden="true"><use href="#i-phone"/></svg></i><span><b>Contact Us</b><small>Send a message or request a call</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             <a class="p-act" href="/clients/harvard/investments/" data-topic="investing"><i><svg class="" aria-hidden="true"><use href="#i-chart"/></svg></i><span><b>Invest with Harvard Investment Group</b><small>Value-added real estate and early stage businesses</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             <a class="p-act" href="/clients/harvard/developments/" data-topic="development"><i><svg class="" aria-hidden="true"><use href="#i-building"/></svg></i><span><b>Development partnerships</b><small>Land, entitlements, construction and sales</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
             <a class="p-act" href="/clients/harvard/philanthropic/" data-topic="philanthropy"><i><svg class="" aria-hidden="true"><use href="#i-heart"/></svg></i><span><b>Hope for the Hurting</b><small>Learn about the charity and how to give</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
-            <a class="p-act" href="/clients/harvard/contact/" data-topic="contact"><i><svg class="" aria-hidden="true"><use href="#i-phone"/></svg></i><span><b>Contact Greg</b><small>Send a message or request a call</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
         </div>
-        <p class="panel-note">Prefer to type? This panel takes you to the right page, and Harrison can take your details for Greg’s office.</p>
+        <p class="panel-note">Prefer to type? Tap an option to read about it here, or send Greg’s office a message.</p>
       </aside>
+      <template id="pv-investing"><div class="pv">
+    <figure class="pv-strip"><img src="/clients/harvard/assets/img/b2201-15-800.webp" srcset="/clients/harvard/assets/img/b2201-15-800.webp 800w, /clients/harvard/assets/img/b2201-15-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 420px" alt="Floating staircase at 2201 Bayside Drive" decoding="async"></figure>
+    <p class="pv-text">Harvard Investment Group makes investments in both value-added real estate opportunities and early stage businesses. The Company directly, or through its affiliated organizations, invests capital in value-added real estate projects and early stage businesses that are in need of capital and/or management expertise.</p>
+    <dl class="pv-kv"><div><dt>Typical check</dt><dd>Mid-five figures to seven figures, depending on the transaction</dd></div><div><dt>What we bring</dt><dd>Deal structuring, valuation, financial engineering, corporate strategy, value creation</dd></div><div><dt>How we work</dt><dd>Board-level direction and corporate support; interim executive and operational roles when needed</dd></div></dl>
+    <p class="p-label">Sectors</p>
+    <ul class="pv-chips"><li>Media</li><li>Artificial intelligence</li><li>Pharmaceutical</li><li>Finance</li><li>Medical devices</li><li>Fast food</li><li>Energy</li><li>Real estate</li><li>Entertainment</li><li>Apparel</li></ul>
+    <div class="pv-acts"><button class="btn btn-gold pv-note" type="button" data-act="note" data-interest="Investing">Send Greg’s office a note <svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="pv-more" href="/clients/harvard/investments/">See the full page <svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+    </div></template>
+      <template id="pv-development"><div class="pv">
+    <p class="pv-text">Harvard Investment Group is a vertically integrated real estate development company. The Company directly, or through its affiliated entities, acquires real estate assets with value added potential.</p>
+    <div class="pv-rows">
+      <a class="pv-row" href="/clients/harvard/developments/#corona-del-mar"><img src="/clients/harvard/assets/img/b2201-beach-800.webp" alt="2201 Bayside Drive seen from its private beach: two stories of glass and warm wood open to the sand, the pool in the foreground under a clear sky" decoding="async"><span><b>Bayside 2201</b><small>Corona del Mar · Brandon Architects · Sold</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="pv-row" href="/clients/harvard/developments/#corona-del-mar"><img src="/clients/harvard/assets/img/b2209-40-800.webp" alt="2209 Bayside Drive, a Cape Cod estate, at twilight" decoding="async"><span><b>Bayside 2209</b><small>Corona del Mar · Cape Cod estate · Sold</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="pv-row" href="/clients/harvard/developments/#hollywood-hills"><img src="/clients/harvard/assets/img/hh-01-800.webp" alt="The Hollywood Hills home designed by Tag Front" decoding="async"><span><b>Hollywood Hills</b><small>Designed by Tag Front · Sold</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="pv-row" href="/clients/harvard/developments/#hermosa-beach"><img src="/clients/harvard/assets/img/hb-01-800.webp" alt="The Hermosa Beach development above the ocean" decoding="async"><span><b>Hermosa Beach</b><small>Four-unit development · Sold</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+      <a class="pv-row" href="/clients/harvard/developments/#redondo-beach"><img src="/clients/harvard/assets/img/rb-01-800.webp" alt="The Redondo Beach townhome development" decoding="async"><span><b>Redondo Beach</b><small>Three-unit townhomes · Sold</small></span><svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+    </div>
+    <p class="pv-text pv-small">The Corona del Mar project was featured on Netflix: <a href="https://www.netflix.com/title/81447330" target="_blank" rel="noopener">Selling the OC – Season 3</a>.</p>
+    <div class="pv-acts"><button class="btn btn-gold pv-note" type="button" data-act="note" data-interest="Development partnership">Discuss a partnership <svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></button><a class="pv-more" href="/clients/harvard/developments/">See the full page <svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+    </div></template>
+      <template id="pv-philanthropy"><div class="pv">
+    <figure class="pv-strip"><img src="/clients/harvard/assets/img/boh-team-800.webp" srcset="/clients/harvard/assets/img/boh-team-800.webp 800w, /clients/harvard/assets/img/boh-team-1600.webp 1600w" sizes="(max-width: 900px) 92vw, 420px" alt="The Beacon of Hope team on the porch of the house in Los Angeles, under the Beacon of Hope sign" decoding="async"><span class="ai-tag">AI image enhanced</span></figure>
+    <p class="pv-text">In 2015, Mr. Cullen formed Hope for the Hurting as a 501(c)(3) charitable organization with a mission to assist the less fortunate among us and provide a foundation for people to improve their lives.</p>
+    <ul class="pv-list">
+      <li><b>Beacon of Hope</b><small>Los Angeles</small></li>
+      <li><b>Wabash Recovery</b><small>Kokomo, Indiana</small></li>
+      <li><b>Oasis Recovery</b><small>Tipton, Indiana</small></li>
+      <li><b>Strike Out Against Drugs</b><small>Schools across the Los Angeles area</small></li>
+    </ul>
+    <p class="pv-text pv-small">Please consider donating to this worthy charity. All donations are tax deductible.</p>
+    <div class="pv-acts"><a class="btn btn-gold pv-note" href="https://hopefth.org" target="_blank" rel="noopener">Donate <svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a><a class="pv-more" href="/clients/harvard/philanthropic/">See the full page <svg class="" aria-hidden="true"><use href="#i-arrow"/></svg></a></div>
+    </div></template>
+      <script type="application/json" id="pv-titles">{"contact":"Contact Us","investing":"Investments","development":"Developments","philanthropy":"Hope for the Hurting"}</script>
     </div>
   </div>
 </section>
@@ -273,6 +306,6 @@
 <script src="/clients/harvard/vendor/gsap.min.js" defer></script>
 <script src="/clients/harvard/vendor/ScrollTrigger.min.js" defer></script>
 <script src="/clients/harvard/vendor/lenis.min.js" defer></script>
-<script src="/clients/harvard/assets/js/site.js?v=9" defer></script>
+<script src="/clients/harvard/assets/js/site.js?v=10" defer></script>
 </body>
 </html>

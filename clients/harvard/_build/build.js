@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 9;                                                         // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 10;                                                        // ?v= for css/js (Cloudflare caches assets ~4 h)
 const OUT = path.resolve(__dirname, "..");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -211,6 +211,50 @@ function pageHero({ eyebrow, title, lede, image, alt, pos = "center", tag }) {
 </section>`;
 }
 
+// ─────────────────── Stage panel views: a short version of each page, shown ON the panel ───────────────────
+// Rendered here from the same content as the pages, so the panel never says anything the site doesn't. site.js
+// clones these <template>s into the panel when a card is tapped or Harrison calls show_topic. No sale prices here:
+// Harrison gives a price only when asked, so the panel says "Sold".
+function panelViews() {
+  const D = DEVELOPMENTS, P = PHILANTHROPIC, I = INVESTMENTS;
+  const thumb = (name, alt) => `<img src="${u("/assets/img/")}${name}-800.webp" alt="${esc(alt)}" decoding="async">`;   // views are inserted on demand: load at once
+  const strip = (name, alt, tag) => `<figure class="pv-strip">${img(name, alt, { sizes: "(max-width: 900px) 92vw, 420px" }).replace(/ loading="lazy"/, "")}${tag ? `<span class="ai-tag">${tag}</span>` : ""}</figure>`;
+  const more = (href, label) => `<a class="pv-more" href="${u(href)}">${label} ${icon("arrow")}</a>`;
+  const note = (interest, label) => `<button class="btn btn-gold pv-note" type="button" data-act="note" data-interest="${interest}">${label} ${icon("arrow")}</button>`;
+  const row = (name, alt, title, sub, href) => `<a class="pv-row" href="${u(href)}">${thumb(name, alt)}<span><b>${title}</b><small>${sub}</small></span>${icon("arrow")}</a>`;
+  const investing = `
+    ${strip("b2201-15", IMG.b2201["15"])}
+    <p class="pv-text">${I.paragraphs[0]}</p>
+    <dl class="pv-kv">${I.ledger.slice(1, 4).map((x) => `<div><dt>${x.k}</dt><dd>${x.v}</dd></div>`).join("")}</dl>
+    <p class="p-label">Sectors</p>
+    <ul class="pv-chips">${I.sectors.map((s) => `<li>${s}</li>`).join("")}</ul>
+    <div class="pv-acts">${note("Investing", "Send Greg’s office a note")}${more("/investments/", "See the full page")}</div>`;
+  const development = `
+    <p class="pv-text">${D.intro[0].split(". ").slice(0, 2).join(". ")}.</p>
+    <div class="pv-rows">
+      ${row("b2201-beach", IMG.beach.alt, D.b2201.title, "Corona del Mar · Brandon Architects · Sold", "/developments/#corona-del-mar")}
+      ${row("b2209-40", IMG.b2209["40"], D.b2209.title, "Corona del Mar · Cape Cod estate · Sold", "/developments/#corona-del-mar")}
+      ${row("hh-01", "The Hollywood Hills home designed by Tag Front", D.hollywood.title, "Designed by Tag Front · Sold", "/developments/#hollywood-hills")}
+      ${row("hb-01", "The Hermosa Beach development above the ocean", D.hermosa.title, "Four-unit development · Sold", "/developments/#hermosa-beach")}
+      ${row("rb-01", "The Redondo Beach townhome development", D.redondo.title, "Three-unit townhomes · Sold", "/developments/#redondo-beach")}
+    </div>
+    <p class="pv-text pv-small">The Corona del Mar project was featured on Netflix: <a href="${SITE.netflix}" target="_blank" rel="noopener">${D.netflixLabel}</a>.</p>
+    <div class="pv-acts">${note("Development partnership", "Discuss a partnership")}${more("/developments/", "See the full page")}</div>`;
+  const philanthropy = `
+    ${strip("boh-team", "The Beacon of Hope team on the porch of the house in Los Angeles, under the Beacon of Hope sign", "AI image enhanced")}
+    <p class="pv-text">${P.intro[0].match(/^.*?improve their lives\./)[0]}</p>
+    <ul class="pv-list">
+      <li><b>${P.beacon.title}</b><small>${P.beacon.place}</small></li>
+      <li><b>${P.wabash.title}</b><small>${P.wabash.place}, Indiana</small></li>
+      <li><b>${P.oasis.title}</b><small>${P.oasis.place}, Indiana</small></li>
+      <li><b>${P.soad.title}</b><small>Schools across the Los Angeles area</small></li>
+    </ul>
+    <p class="pv-text pv-small">${P.donate}</p>
+    <div class="pv-acts"><a class="btn btn-gold pv-note" href="${SITE.donateUrl}" target="_blank" rel="noopener">Donate ${icon("arrow")}</a>${more("/philanthropic/", "See the full page")}</div>`;
+  return [["investing", investing], ["development", development], ["philanthropy", philanthropy]]
+    .map(([k, h]) => `<template id="pv-${k}"><div class="pv">${h}\n    </div></template>`).join("\n      ");
+}
+
 // ─────────────────────────────────────────────── HOME ───────────────────────────────────────────────
 function homePage() {
   const stage = `<section class="stage-sec" id="talk" aria-labelledby="t-stage">
@@ -247,6 +291,8 @@ function homePage() {
         </div>
         <p class="panel-note">${STAGE.note}</p>
       </aside>
+      ${panelViews()}
+      <script type="application/json" id="pv-titles">${JSON.stringify(STAGE.viewTitles)}</script>
     </div>
   </div>
 </section>`;

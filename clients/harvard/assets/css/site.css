@@ -457,7 +457,9 @@ body.menu-open .hdr { background: var(--ink); }
 .panel-back:hover { border-color: var(--gold); color: var(--gold-light); }
 .panel-back[hidden] { display: none; }
 .panel-title { font: 600 13px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
-.panel-body { overflow-y: auto; overscroll-behavior: contain; }
+.panel-body { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(184,151,90,.5) transparent; }
+.panel-body::-webkit-scrollbar { width: 6px; }
+.panel-body::-webkit-scrollbar-thumb { background: rgba(184,151,90,.45); border-radius: 3px; }
 .p-act.is-on { border-color: var(--gold); background: rgba(184,151,90,.12); box-shadow: 0 0 0 1px var(--gold) inset; }
 .p-form { display: grid; gap: 10px; }
 .p-field { display: grid; gap: 5px; }
@@ -487,6 +489,38 @@ body.menu-open .hdr { background: var(--ink); }
 .p-done h4 { margin: 0; font: 500 24px/1.15 var(--serif); }
 .p-done p { margin: 0; color: var(--on-dark-mid); font-size: 14.5px; line-height: 1.5; }
 .p-done a { color: var(--gold-light); border-bottom: 1px solid rgba(212,183,120,.4); }
+/* Page views on the panel (Investments · Developments · Hope for the Hurting): a short version of each page */
+.pv { display: grid; gap: 14px; }
+.pv-strip { position: relative; margin: 0; border-radius: 12px; overflow: hidden; aspect-ratio: 16 / 7; background: #1a1916; }
+.pv-strip img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pv-text { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--on-dark-mid); }
+.pv-small { font-size: 13.5px; color: var(--on-dark-mute); }
+.pv-text a, .pv-small a { color: var(--gold-light); border-bottom: 1px solid rgba(212,183,120,.4); }
+.pv-kv { margin: 0; display: grid; border-radius: 12px; border: 1px solid var(--line-dark-strong); overflow: hidden; }
+.pv-kv div { display: grid; grid-template-columns: 104px 1fr; gap: 12px; padding: 10px 13px; }
+.pv-kv div + div { border-top: 1px solid var(--line-dark); }
+.pv-kv dt { font: 600 11px/1.35 var(--sans); letter-spacing: .1em; text-transform: uppercase; color: var(--gold-light); padding-top: 2px; }
+.pv-kv dd { margin: 0; font-size: 14px; line-height: 1.5; color: var(--on-dark); }
+.pv-chips { list-style: none; margin: -4px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.pv-chips li { padding: 6px 11px; border: 1px solid var(--line-dark-strong); border-radius: 999px; font-size: 12.5px; color: var(--on-dark-mid); }
+.pv-rows { display: grid; gap: 8px; }
+.pv-row { display: grid; grid-template-columns: 76px 1fr 16px; align-items: center; gap: 12px; padding: 7px 12px 7px 7px; border-radius: 12px; border: 1px solid var(--line-dark-strong); background: rgba(255,255,255,.025); color: var(--on-dark); transition: border-color .2s, background .2s; }
+.pv-row:hover { border-color: var(--gold); background: rgba(184,151,90,.08); }
+.pv-row img { width: 76px; height: 54px; object-fit: cover; border-radius: 8px; display: block; }
+.pv-row b { display: block; font-size: 14.5px; font-weight: 600; }
+.pv-row small { display: block; font-size: 12px; color: var(--on-dark-mute); margin-top: 2px; }
+.pv-row > svg { width: 16px; height: 16px; color: var(--gold); }
+.pv-list { list-style: none; margin: 0; padding: 0; display: grid; border-radius: 12px; border: 1px solid var(--line-dark-strong); overflow: hidden; }
+.pv-list li { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; padding: 10px 13px; }
+.pv-list li + li { border-top: 1px solid var(--line-dark); }
+.pv-list b { font-size: 14.5px; font-weight: 600; }
+.pv-list small { font-size: 12.5px; color: var(--on-dark-mute); text-align: right; }
+.pv-acts { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 18px; padding-top: 2px; }
+.pv .pv-note { min-height: 44px; padding: 0 18px; font-size: 11px; letter-spacing: .18em; border-radius: 999px; }
+.pv-more { display: inline-flex; align-items: center; gap: 8px; font: 500 11px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-light); border-bottom: 1px solid var(--gold); padding-bottom: 6px; }
+.pv-more svg { width: 14px; height: 14px; }
+/* phones: a view scrolls inside the panel, so the page around the stage doesn't jump */
+@media (max-width: 900px) { .panel:not(.is-home) .panel-body { max-height: min(78vh, 640px); } }
 /* live: the SDK's bar takes over the video; our caption strip and sound icon step aside */
 .stage-av.live .ava-caption, .stage-av.live .ava-sound, .stage-av.live-ready .ava-badge { display: none; }
 .stage-av.live-ready::after { display: none; }
