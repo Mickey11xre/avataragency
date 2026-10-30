@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 7;                                                          // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 8;                                                         // ?v= for css/js (Cloudflare caches assets ~4 h)
 const OUT = path.resolve(__dirname, "..");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -74,13 +74,15 @@ function header(current) {
 </header>`;
 }
 
-function contactBlock(dark = false) {
+function contactBlock(dark = false, home = false) {
+  const h = CONTACT_BLOCK.home;
+  const text = home ? `${h.lead}<a class="cb-talk" href="${u("/#stage")}">${h.talk}</a>${h.rest}` : CONTACT_BLOCK.text;
   return `<section class="cblock${dark ? " cblock-dark" : ""}" aria-labelledby="cb-t">
   <div class="wrap cblock-in">
     <div class="rv">
       <p class="eyebrow">${CONTACT_BLOCK.title}</p>
       <h2 class="serif" id="cb-t">Looking for <em>more info?</em></h2>
-      <p class="lede">${CONTACT_BLOCK.text}</p>
+      <p class="lede">${text}</p>
       <a class="btn btn-gold" href="${u("/contact/")}">Contact Us ${icon("arrow")}</a>
     </div>
     <dl class="cl rv">
@@ -366,7 +368,7 @@ ${stage}
 
 ${peek(2)}
 
-${contactBlock(false)}`;
+${contactBlock(false, true)}`;
 
   return layout({
     path: "/", current: "/", title: "Harvard Investment Group | Real Estate Investment & Development, Southern California",

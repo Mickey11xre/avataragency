@@ -323,6 +323,8 @@ body.menu-open .hdr { background: var(--ink); }
 .cblock { background: var(--paper); border-top: 1px solid var(--line); padding: clamp(72px, 9vw, 120px) 0; }
 .cblock-in { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: clamp(32px, 5vw, 80px); align-items: start; }
 .cblock .lede { margin-bottom: 30px; }
+.cblock .cb-talk { color: var(--navy); border-bottom: 1px solid var(--gold); transition: color .25s, border-color .25s; }
+.cblock .cb-talk:hover { color: var(--gold-deep); border-color: var(--gold-deep); }
 .cl { display: grid; gap: 0; border-top: 1px solid var(--line); }
 .cl > div { display: grid; grid-template-columns: 90px 1fr; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; }
 .cl dt { font: 500 11px/1.6 var(--sans); letter-spacing: .22em; text-transform: uppercase; color: var(--text-mute); padding-top: 3px; }

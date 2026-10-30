@@ -28,6 +28,8 @@ const SITE = {
 const CONTACT_BLOCK = {
   title: "Contact Us",
   text: "Looking for more info? Reach out to us via phone or email to get answers to any questions you may have. Or submit a form on our Contact Page by clicking the link below.",
+  // Home page only (Michael, 10-30): the same sentence with Harrison first; `talk` becomes a link to #stage.
+  home: { lead: "Looking for more info? ", talk: "Talk to Harrison, our AI agent,", rest: " or reach out to us via phone or email to get answers to any questions you may have. Or submit a form on our Contact Page by clicking the link below." },
 };
 
 const HOME = {
