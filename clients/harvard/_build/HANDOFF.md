@@ -26,6 +26,11 @@ node clients/harvard/_build/build.js --final  # production build for harvardinve
 ```
 Bump `V` in build.js when css/js change (Cloudflare caches assets ~4 h; the pages reference `?v=N`).
 
+## Status
+- 🚀 **Preview LIVE 2026-10-30** at https://avataragency.ai/clients/harvard/ (commit `a270dc9`), verified by content:
+  all seven titles, css/js/video/image content-types, `data-intro`, the welcome film, noindex. A real form post returned ok.
+- Every later change: edit, rebuild, bump `V` if css/js changed, `git add clients/harvard functions/clients/harvard`, commit, push, curl-verify.
+
 ## Deploy to the preview (avataragency repo rules)
 1. `git add clients/harvard functions/clients/harvard` — specific paths only, never `-A` or `.`.
 2. Commit (end the message with `Co-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>`), push `main`.
