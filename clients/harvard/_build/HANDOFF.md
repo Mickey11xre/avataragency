@@ -76,7 +76,7 @@ Bump `V` in build.js when css/js change (Cloudflare caches assets ~4 h; the page
   "Talk to Harrison" auto-start. Talk shows the "arriving soon" toast until then.
   ⛔ The site must not mention the avatar platform anywhere (Michael, 10-29).
 - Netflix logo file → footer `.ftr-netflix` (currently a red "N" tile + the trademark line).
-- Hope for the Hurting donation URL → `SITE.donateUrl` in content.js (Donate buttons currently go to /contact/).
+- ✅ Donate buttons go to https://hopefth.org (`SITE.donateUrl`, 10-30).
 - Greg to approve the 12 FAQs (`content.js` → FAQ) and the two figures kept as written:
   Home says "approaching half a billion", About says "approaching a billion".
 - Optional: Higgsfield stills for Investments if Greg wants non-property imagery (quote first).

@@ -102,7 +102,8 @@
       fio.observe(film);
     }
     function filmQuiet() { fv.muted = true; fv.loop = true; fs.setAttribute("aria-pressed", "false"); fs.querySelector("use").setAttribute("href", "#i-sound-off"); fs.setAttribute("aria-label", "Play the welcome film with sound"); fs.title = fs.getAttribute("aria-label"); }
-    if (fs && fv) fs.addEventListener("click", function () {
+    // a tap anywhere on the frame toggles the sound (Michael, 10-30), not only the icon; the icon stays the accessible control
+    if (fs && fv) film.addEventListener("click", function () {
       var on = fs.getAttribute("aria-pressed") !== "true";
       if (!on) { filmQuiet(); return; }
       // a sounded pass plays from the top, once, then the silent loop resumes

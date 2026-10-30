@@ -108,12 +108,27 @@ body.menu-open .hdr { background: var(--ink); }
 .hero { position: relative; background: var(--ink); color: var(--on-dark); overflow: hidden; }
 .hero-home { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding: calc(var(--hdr) + 40px) 0 clamp(64px, 10vh, 120px); }
 .hero-home::before { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, rgba(7,19,32,.72) 0%, rgba(7,19,32,.42) 48%, rgba(7,19,32,.1) 100%); }
-.hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+.hero-grid { position: relative; z-index: 2; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 4vw, 72px); align-items: center; }
+/* The whole welcome film and its Talk button stay above the fold (Michael, 10-30): on shorter desktop viewports the
+   hero tightens its padding and type instead of pushing the film below the screen. */
+@media (min-width: 901px) and (max-height: 820px) {
+  .hero-home { padding-top: calc(var(--hdr) + 18px); padding-bottom: 44px; }
+  .hero-home .hero-title-xl { font-size: clamp(36px, 4.6vw, 64px); }
+  .hero-lede { margin-top: 16px; font-size: clamp(18px, 1.7vw, 24px); }
+  .hero-ctas { margin-top: 24px; }
+  .hero-home .scroll-cue { bottom: 14px; }
+}
+@media (min-width: 901px) and (max-height: 700px) {
+  .hero-home { padding-top: calc(var(--hdr) + 10px); padding-bottom: 32px; }
+  .hero-home .hero-title-xl { font-size: clamp(32px, 3.8vw, 52px); }
+  .hero-film-col { max-width: min(100%, calc((100svh - var(--hdr) - 150px) * 16 / 9)); justify-self: end; }
+  .hero-home .scroll-cue { display: none; }
+}
 .hero-home .hero-copy { position: static; height: auto; padding: 0; display: block; }
 .hero-home .hero-title-xl { font-size: clamp(42px, 5.4vw, 78px); letter-spacing: .12em; }
 /* the welcome-film frame: Harrison's loop, muted, with the stage's sound icon; the Talk button sits under it */
 .hero-film-col { display: grid; gap: 18px; }
-.hero-film { position: relative; margin: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 3px; background: #0d1620;
+.hero-film { position: relative; margin: 0; aspect-ratio: 16 / 9; overflow: hidden; border-radius: 3px; background: #0d1620; cursor: pointer;
   box-shadow: 0 60px 120px -40px rgba(0,0,0,.85), 0 0 0 1px rgba(184,151,90,.45); transform: translateZ(0); }
 .hero-film img, .hero-film video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .hero-film::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, rgba(7,19,32,.0) 55%, rgba(7,19,32,.7)); }
