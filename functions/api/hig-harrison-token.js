@@ -7,14 +7,14 @@
 //
 // Harrison (livebrand-ops/hig-harrison): companion db4a8897-ed1c-4ebc-94ba-f92b9a53d24e (his own face and voice),
 // knowledge collection 89a96d05-b675-49a6-ad05-657da1c1f671 (22 files), FAQ collection a88c2e3e-7e28-4972-bc79-b77bc6951847
-// (48 items), language "en" from birth, web search off. Agent: ⏳ NOT CREATED YET — paste the contents of
-// livebrand-ops/hig-harrison/.agent-id into AGENT_ID (Part B of the handoff). Until then this endpoint answers 503
-// {error:"not live"} and the stage shows the "arriving soon" toast.
+// (48 items), language "en" from birth, web search off. Agent: 51acf130-ee2a-4cf2-a576-69c99b82edf5
+// (created 10-30 20:31 PT, live since Part B). If AGENT_ID is ever blanked, this endpoint answers 503 {error:"not live"}
+// and the stage shows the "arriving soon" toast.
 //
 // ⚠️ The panel form beside him is LIVE: submit_contact_details posts to /clients/harvard/api/contact, which emails
 // Greg's office (HIG_CONTACT_TO; michael@ while the site is a preview).
 
-const AGENT_ID = ''; // ⏳ livebrand-ops/hig-harrison/.agent-id (Part B)
+const AGENT_ID = '51acf130-ee2a-4cf2-a576-69c99b82edf5'; // livebrand-ops/hig-harrison/.agent-id (created 10-30 20:31 PT)
 const ALLOWED_ORIGINS = ['https://avataragency.ai', 'https://www.avataragency.ai'];
 const PER_IP_PER_HOUR = 8;
 const VISITOR_COOKIE = 'aa_hig_vid';
