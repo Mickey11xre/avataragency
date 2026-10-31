@@ -92,27 +92,30 @@
   /* Harrison's welcome film in the hero: loops muted while on screen; the stage's sound icon replays it from 0:00
      with sound, and when that sounded pass ends it goes back to the silent loop. "Talk to Harrison" below it jumps to
      the stage (and will start the live conversation once the avatar is built). */
-  var filmCol = d.querySelector("[data-hero-film]"), film = d.querySelector("[data-film]");
+  // The same muted-loop + sound-icon treatment runs every [data-film]: the welcome film here and the 2209 film on
+  // Developments (Michael, 10-31). data-film-name words the icon's label.
+  var filmCol = d.querySelector("[data-hero-film]");
   if (filmCol) setTimeout(function () { filmCol.classList.add("is-in"); }, 60);
-  if (film) {
-    var fv = film.querySelector("video"), fs = film.querySelector(".film-sound");
-    if (fv && RM) { fv.removeAttribute("autoplay"); fv.pause(); }
-    else if (fv) {
+  d.querySelectorAll("[data-film]").forEach(function (film) {
+    var fv = film.querySelector("video"), fs = film.querySelector(".film-sound"), fname = film.getAttribute("data-film-name") || "the welcome film";
+    if (!fv) return;
+    if (RM) { fv.removeAttribute("autoplay"); fv.pause(); }
+    else {
       var fio = new IntersectionObserver(function (es) { es.forEach(function (en) { if (en.isIntersecting) { if (fv.paused) fv.play().catch(function () {}); } else if (!fv.muted) { /* keep a sounded pass going */ } else fv.pause(); }); }, { threshold: 0.2 });
       fio.observe(film);
     }
-    function filmQuiet() { fv.muted = true; fv.loop = true; fs.setAttribute("aria-pressed", "false"); fs.querySelector("use").setAttribute("href", "#i-sound-off"); fs.setAttribute("aria-label", "Play the welcome film with sound"); fs.title = fs.getAttribute("aria-label"); }
+    function filmQuiet() { fv.muted = true; fv.loop = true; fs.setAttribute("aria-pressed", "false"); fs.querySelector("use").setAttribute("href", "#i-sound-off"); fs.setAttribute("aria-label", "Play " + fname + " with sound"); fs.title = fs.getAttribute("aria-label"); }
     // a tap anywhere on the frame toggles the sound (Michael, 10-30), not only the icon; the icon stays the accessible control
-    if (fs && fv) film.addEventListener("click", function () {
+    if (fs) film.addEventListener("click", function () {
       var on = fs.getAttribute("aria-pressed") !== "true";
       if (!on) { filmQuiet(); return; }
       // a sounded pass plays from the top, once, then the silent loop resumes
       d.querySelectorAll("video").forEach(function (o) { if (o !== fv && !o.paused && !o.muted) o.pause(); });
       fv.muted = false; fv.loop = false; fv.currentTime = 0; fv.play().catch(function () {});
-      fs.setAttribute("aria-pressed", "true"); fs.querySelector("use").setAttribute("href", "#i-vol"); fs.setAttribute("aria-label", "Mute the welcome film"); fs.title = fs.getAttribute("aria-label");
+      fs.setAttribute("aria-pressed", "true"); fs.querySelector("use").setAttribute("href", "#i-vol"); fs.setAttribute("aria-label", "Mute " + fname); fs.title = fs.getAttribute("aria-label");
     });
-    if (fv) fv.addEventListener("ended", function () { filmQuiet(); fv.play().catch(function () {}); });
-  }
+    fv.addEventListener("ended", function () { if (fs) filmQuiet(); fv.play().catch(function () {}); });
+  });
   // Talk to Harrison (under the film): go to the stage and start the conversation in the same click (the browser's
   // activation for audio and the microphone comes from this tap); while the agent is not live the stage shows its toast.
   d.querySelectorAll("[data-talk]").forEach(function (a) {
@@ -141,7 +144,7 @@
     });
     // gallery grids: staggered rise
     d.querySelectorAll(".gal, .mosaic").forEach(function (g) {
-      var items = g.querySelectorAll(".gi"); if (!items.length) return;
+      var items = g.querySelectorAll(".gi, .m-film"); if (!items.length) return;
       gsap.set(items, { opacity: 0, y: 30 });
       ScrollTrigger.create({ trigger: g, start: "top 88%", once: true, onEnter: function () { gsap.to(items, { opacity: 1, y: 0, duration: .9, ease: "power3.out", stagger: { each: 0.06, from: "start" }, clearProps: "transform" }); } });
     });

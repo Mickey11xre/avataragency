@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 20;                                                        // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 21;                                                        // ?v= for css/js (Cloudflare caches assets ~4 h)
 const OUT = path.resolve(__dirname, "..");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -43,6 +43,8 @@ function gi(name, alt, o = {}) {
   return `<button class="gi${o.cls ? " " + o.cls : ""}" type="button" data-full="${full}" data-cap="${esc(alt)}" aria-label="${esc("Open: " + alt)}">${img(name, alt, { widths, sizes: o.sizes || "(max-width: 900px) 50vw, 25vw" })}</button>`;
 }
 const icon = (id, cls = "") => `<svg class="${cls}" aria-hidden="true"><use href="#i-${id}"/></svg>`;
+/** "As seen on Netflix" badge with the wordmark (Michael 10-31); the footer carries the trademark line */
+const asSeen = (cls) => `<a class="as-seen ${cls}" href="${SITE.netflix}" target="_blank" rel="noopener" aria-label="As seen on Netflix: Selling the OC, Season 3 (opens Netflix)"><span class="as-seen-k">As seen on</span><img src="${u("/assets/img/netflix-wordmark.svg")}" alt="Netflix" width="1024" height="277"><span class="as-seen-t">Selling the OC · Season 3 ${icon("ext", "ext")}</span></a>`;
 
 const NAV = [
   ["/", "Home"], ["/about/", "About"], ["/investments/", "Investments"], ["/developments/", "Developments"], ["/philanthropic/", "Philanthropic"], ["/contact/", "Contact"],
@@ -364,10 +366,12 @@ ${peek(0)}
     <div class="feat-head rv">
       <div><p class="eyebrow gold">Featured development · Corona del Mar</p><h2 class="serif caps" id="t-feat">2201 Bayside</h2></div>
       <p class="serif sold">${DEVELOPMENTS.b2201.sold}</p>
+      ${asSeen("as-seen-mob")}
     </div>
   </div>
   <div class="feat-pin" data-pin>
     <div class="wrap feat-layers">
+      ${asSeen("as-seen-desk")}
       <figure class="fl fl-a" data-from="left">${img("b2201-13", IMG.b2201["13"], { sizes: "(max-width: 900px) 100vw, 68vw" })}</figure>
       <figure class="fl fl-b" data-from="right">${img("b2201-26", IMG.b2201["26"], { sizes: "(max-width: 900px) 70vw, 38vw", style: "object-position: 62% 50%" })}</figure>
       <figure class="fl fl-c" data-from="bottom">${img("b2201-38", IMG.b2201["38"], { sizes: "(max-width: 900px) 50vw, 32vw" })}</figure>
@@ -583,8 +587,16 @@ function developmentsPage() {
   <div class="wrap">
     <div class="feat-head rv"><div><p class="eyebrow">Corona del Mar · Cape Cod</p><h2 class="serif caps" id="t-2209">${D.b2209.title}</h2></div><p class="serif sold">${D.b2209.sold}</p></div>
     <div class="mosaic mosaic-3" data-gal="b2209">
-      ${gi("b2209-40", IMG.b2209["40"], { cls: "m-a", sizes: "(max-width: 900px) 100vw, 60vw" })}
-      ${gi("b2209-28", IMG.b2209["28"], { cls: "m-b", sizes: "(max-width: 900px) 50vw, 20vw" })}
+      <!-- The 2209 film (Michael 10-31): loops muted like the welcome film; the sound icon, or a tap on the frame, plays it from 0:00 with sound -->
+      <figure class="m-a m-film" data-film data-film-name="the 2209 Bayside film">
+        <video autoplay muted loop playsinline preload="metadata" poster="${u("/assets/img/film-2209-poster-1600.webp")}" aria-label="2209 Bayside Drive, a one-minute film of the house">
+          <source media="(max-width: 900px)" src="${u("/assets/video/film-2209_720.mp4")}" type="video/mp4">
+          <source src="${u("/assets/video/film-2209_1080.mp4")}" type="video/mp4">
+        </video>
+        <button class="ava-sound film-sound" type="button" aria-pressed="false" aria-label="Play the 2209 Bayside film with sound" title="Play the 2209 Bayside film with sound">${icon("sound-off")}<span class="ava-sound-label" aria-hidden="true">Muted</span></button>
+        <figcaption class="film-cap">The film · 1:00</figcaption>
+      </figure>
+      ${gi("b2209-40", IMG.b2209["40"], { cls: "m-b", sizes: "(max-width: 900px) 50vw, 30vw" })}
       ${gi("b2209-33", IMG.b2209["33"], { cls: "m-c", sizes: "(max-width: 900px) 50vw, 20vw" })}
     </div>
     <div class="split-7-5 proj-copy">
