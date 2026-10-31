@@ -437,8 +437,12 @@ body.menu-open .hdr { background: var(--ink); }
 .ava-btn[disabled] { opacity: .7; pointer-events: none; }
 .ava-btn.flash { animation: talkFlash 1.3s var(--ease) 2; }
 @keyframes talkFlash { 0%, 100% { box-shadow: 0 0 0 0 rgba(212,183,120,.7); } 50% { box-shadow: 0 0 0 14px rgba(212,183,120,0); } }
+/* The live player mounts its own wrapper: without the fill rules it floats as a 340x400 box at the stage's bottom
+   right, shifted -170px, and the stage stays black (first live test, Part B, 10-30). Same rules as the Home stage. */
 .ava-mount { position: absolute; inset: 0; z-index: 1; overflow: hidden; opacity: 0; transition: opacity .8s cubic-bezier(.4,0,.2,1); background: #050505; }
-.ava-mount #np_companion-avatar-container { border: 0 !important; border-radius: 0 !important; box-shadow: none !important; }
+.ava-mount > *, .ava-mount video, .ava-mount canvas { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; max-width: none !important; max-height: none !important; margin: 0 !important; border-radius: 0 !important; object-fit: cover; }
+.ava-mount, .ava-mount * { overflow: hidden !important; scrollbar-width: none; }
+.ava-mount #np_companion-avatar-container { border: 0 !important; border-radius: 0 !important; box-shadow: none !important; transform: none !important; }
 .stage-av.live-ready .ava-mount { opacity: 1; }
 .panel { display: flex; flex-direction: column; padding: 22px 22px 18px; background: linear-gradient(180deg, #151413, #0e0d0c); border-left: 1px solid var(--line-dark); min-height: 0; }
 .panel-body { flex: 1; display: flex; flex-direction: column; gap: 12px; min-height: 380px; }
