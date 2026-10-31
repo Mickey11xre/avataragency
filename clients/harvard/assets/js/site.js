@@ -585,6 +585,25 @@
       var want = Math.min(960, Math.round((mount.clientWidth || 640) * Math.min(window.devicePixelRatio || 1, 2) * 0.75));
       (function check() { if (fired) return; if (!v || (v.videoWidth || 0) >= want || Date.now() - t0 > 2000) return fin(); setTimeout(check, 120); })();
     }
+    /* The panel follows what he SAYS (Michael, 10-30: "show_topic fires every time"). Measured: answers he pulls from
+       his knowledge (donating, the 2201 price) skip show_topic even with the instructions' no-exceptions rule. So each
+       finished reply is read here: when it is about exactly ONE of the three subjects, that view opens. Never while the
+       contact form, review card or sent card is up, and never on a reply touching several subjects (his greeting). */
+    var AUTO_TOPICS = [
+      ["philanthropy", /hope for the hurting|hope f t h|\bdonat|\bcharit|recovery|strike out against drugs|beacon of hope|wabash|oasis/i],
+      ["development", /\bdevelop|bayside|twenty-two oh|hollywood hills|hermosa|redondo|corona del mar|townhome/i],
+      ["investing", /\binvest|start-?ups?\b|early stage|raising capital|mid-five figures/i],
+    ];
+    function autoTopic(e) {
+      if (!e || e.event !== "message_received" || !instance) return;
+      var m = e.data && e.data.message;
+      if (!m || m.role !== "assistant" || m.action !== "completed" || typeof m.content !== "string" || !m.content) return;
+      if (S.mode !== "home" && !PAGE_VIEWS[S.mode]) return;          // form, review, sent: leave the visitor's form alone
+      var text = m.content.replace(/harvard investment group/gi, " ");
+      var hits = AUTO_TOPICS.filter(function (x) { return x[1].test(text); });
+      if (hits.length !== 1 || S.mode === hits[0][0]) return;
+      openTopic(hits[0][0], true);
+    }
     function armReveal() { if (!revealed && instance) waitForVideo(250, function (v) { onFirstFrame(v, function () { whenSharp(v, revealLive); }); }); }
     function revealLive() {
       if (revealed || !instance) return; revealed = true; liveState = "live";
@@ -645,6 +664,7 @@
           features: { showSDKLoader: { enabled: false }, screenShare: { enabled: true }, pictureInPicture: { enabled: true } },
           onScreenShareStateChange: window.AvatarPopout ? AvatarPopout.hook("#hig-mount", { name: name }) : undefined,
           onAvatarReady: armReveal, onDestroy: function () { if (instance) endedState(""); },
+          onData: function (e) { try { autoTopic(e); } catch (err) {} },
         });
         instance.showAvatar(); pinBg();
         setTimeout(function () { if (instance) armReveal(); }, 3000);
