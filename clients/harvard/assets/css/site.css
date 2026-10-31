@@ -532,8 +532,12 @@ body.menu-open .hdr { background: var(--ink); }
 .pv .pv-note { min-height: 44px; padding: 0 18px; font-size: 11px; letter-spacing: .18em; border-radius: 999px; }
 .pv-more { display: inline-flex; align-items: center; gap: 8px; font: 500 11px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--gold-light); border-bottom: 1px solid var(--gold); padding-bottom: 6px; }
 .pv-more svg { width: 14px; height: 14px; }
-/* phones: a view scrolls inside the panel, so the page around the stage doesn't jump */
-@media (max-width: 900px) { .panel:not(.is-home) .panel-body { max-height: min(78vh, 640px); } }
+/* phones: a view scrolls inside the panel, so the page around the stage doesn't jump. While he is live, site.js sets
+   --pv-max so Harrison and the view share one screen; a swipe past the end of a view carries on to the page. */
+@media (max-width: 900px) {
+  .panel:not(.is-home) .panel-body { max-height: var(--pv-max, min(78vh, 640px)); }
+  .panel-body { overscroll-behavior: auto; }
+}
 /* live: the SDK's bar takes over the video; our caption strip and sound icon step aside */
 .stage-av.live .ava-caption, .stage-av.live .ava-sound, .stage-av.live-ready .ava-badge { display: none; }
 .stage-av.live-ready::after { display: none; }

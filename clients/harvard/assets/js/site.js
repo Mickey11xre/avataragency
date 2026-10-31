@@ -393,7 +393,16 @@
     function openTopic(t, fromTwin) {
       S.topic = t; var m = t === "contact" ? "form" : t;
       if (S.mode !== m) { if (fromTwin) { S.hist = []; go(m, { replace: true }); } else go(m); }
-      if (window.innerWidth <= 900) panel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      if (window.innerWidth <= 900) { if (liveState !== "idle") fitStage(); else panel.scrollIntoView({ block: "nearest", behavior: "smooth" }); }
+    }
+    /* Phones while he is live (Michael, 10-31): scrolling to the panel pushed Harrison off the screen and the tall view
+       held every swipe. Now the stage sits just under the header and the view is capped to the room left below him. */
+    function fitStage() {
+      var hdr = parseInt(getComputedStyle(d.documentElement).getPropertyValue("--hdr")) || 68;
+      var chrome = panel.offsetHeight - body.offsetHeight;   // panel padding + title row
+      panel.style.setProperty("--pv-max", Math.max(200, window.innerHeight - hdr - av.offsetHeight - chrome - 24) + "px");
+      var y = stage.getBoundingClientRect().top + window.scrollY - hdr - 12;
+      if (lenis) lenis.scrollTo(y); else window.scrollTo({ top: y, behavior: "smooth" });
     }
     function setMsg(text) { var m = $(".p-msg", body); if (m) { m.classList.add("err"); m.textContent = text; } }
     function markTopic() { $$(".p-act", body).forEach(function (c) { c.classList.toggle("is-on", !!S.topic && c.getAttribute("data-topic") === S.topic); }); }
@@ -625,7 +634,7 @@
       av.classList.remove("live", "live-ready"); setTalk("Talk to " + name, false);
       if (now) mount.innerHTML = "";
       else setTimeout(function () { if (liveState === "idle") mount.innerHTML = ""; }, 850);   // after the .8 s fade
-      stage.classList.remove("is-live"); say(msg || "", msg ? 9000 : 0); pinBg();
+      stage.classList.remove("is-live"); panel.style.removeProperty("--pv-max"); say(msg || "", msg ? 9000 : 0); pinBg();
     }
     function endLive(msg, now) {
       var inst = instance; instance = null;
