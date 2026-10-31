@@ -464,6 +464,8 @@
       show_topic: function (a) {
         a = a || {}; var t = a.topic;
         if (!TOPICS[t]) return { ok: false, error: "Unknown topic", topics: Object.keys(TOPICS) };
+        // He calls it on EVERY reply about a subject (Michael, 10-30): a call for the view already open changes nothing.
+        if (S.mode === t || (t === "contact" && S.mode === "form")) return { ok: true, topic: t, view: t === "contact" ? TITLES.form : TITLES[t], note: "That view is already open on the panel. Answer the visitor." };
         openTopic(t, true);
         if (t === "contact") return { ok: true, topic: t, view: TITLES.form, note: "The contact form is open on the panel. Ask for their details one at a time and fill them in with fill_contact_details, or let them type; ask them to type their email." };
         return { ok: true, topic: t, view: TITLES[t], note: "A short version of the " + TITLES[t] + " page is now on the panel beside you. Say one or two sentences about it; the visitor can tap back to the four options." };
@@ -505,7 +507,7 @@
     };
     var str = function (d_) { return { type: "string", description: d_ }; };
     var TOOLS = [
-      { name: "show_topic", description: "Open one of the four options on the panel beside you, which the visitor can see, the moment you start talking about that subject: \"contact\" (Contact Us: opens the contact form), \"investing\" (Invest with Harvard Investment Group), \"development\" (Development partnerships) or \"philanthropy\" (Hope for the Hurting). The last three open a short version of that page on the panel; the visitor can tap back.",
+      { name: "show_topic", description: "REQUIRED before every answer about investing, developments or properties, or Hope for the Hurting, including follow-up questions: call it first, then speak. It opens that option on the panel beside you, which the visitor can see (a call for the view already open changes nothing): \"contact\" (Contact Us: opens the contact form), \"investing\" (Invest with Harvard Investment Group), \"development\" (Development partnerships) or \"philanthropy\" (Hope for the Hurting). The last three open a short version of that page on the panel; the visitor can tap back.",
         inputSchema: { type: "object", properties: { topic: { type: "string", enum: Object.keys(TOPICS) } }, required: ["topic"] } },
       { name: "show_contact_form", description: "Open the contact form on the panel, to take a visitor's details for Greg Cullen's office: name, email, phone, what it is about, and a short note. Call it before you ask for any detail. The visitor can type into it too.",
         inputSchema: { type: "object", properties: {} } },
