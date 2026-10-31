@@ -98,3 +98,7 @@ Bump `V` in build.js when css/js change (Cloudflare caches assets ~4 h; the page
 Home hero video + title rise, header solid/hide, reveals, 2201 layered drift, duo cards, stage placeholder, Netflix
 line + AvatarAgency credit in the footer; Developments heroes, mosaics, galleries, 39-photo drawer; About hero.
 `?rm=1` on any URL disables Lenis/GSAP (reduced-motion path).
+
+## Phones while Harrison is live (10-31, V 19)
+A view opens UNDER him: `fitStage()` in site.js keeps the stage under the header and caps the view (`--pv-max`) to the
+room left. `.panel-body` is `overscroll-behavior: auto` on phones; `contain` trapped visitors in the view.
