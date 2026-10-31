@@ -102,3 +102,13 @@ line + AvatarAgency credit in the footer; Developments heroes, mosaics, gallerie
 ## Phones while Harrison is live (10-31, V 19)
 A view opens UNDER him: `fitStage()` in site.js keeps the stage under the header and caps the view (`--pv-max`) to the
 room left. `.panel-body` is `overscroll-behavior: auto` on phones; `contain` trapped visitors in the view.
+
+## 10-31 revisions (V 21, f998dcd)
+- Home 2201 photo stack: staircase (b2201-26) top right, pool terrace at dusk (b2201-38) larger and higher.
+- Home: "As seen on Netflix" badge with the wordmark (`assets/img/netflix-wordmark.svg`, from Wikimedia Commons),
+  above the staircase on desktop, under "Sold for" on phones. Links to Selling the OC; the footer keeps the trademark line.
+- Developments 2209 mosaic: the big slot is the 60-second film (`assets/video/film-2209_{1080,720}.mp4` from
+  `property_images_and_video\Movies\60s_1.mp4`, poster frame 0:22). It loops muted like the welcome film; the sound icon
+  or a tap on the frame plays it from 0:00 with sound. The front of house (b2209-40) moved top right; b2209-28 (steel
+  doors) is no longer on the page. site.js now runs the film code for every `[data-film]` (`data-film-name` = label).
+- The film carries The File Group's logo near the start; Greg should confirm he is fine with it.
