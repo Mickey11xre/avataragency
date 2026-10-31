@@ -537,6 +537,7 @@ body.menu-open .hdr { background: var(--ink); }
 @media (max-width: 900px) {
   .panel:not(.is-home) .panel-body { max-height: var(--pv-max, min(78vh, 640px)); }
   .panel-body { overscroll-behavior: auto; }
+  .panel:not(.is-home) .panel-note { display: none; }   /* "tap an option" only means something on the four options */
 }
 /* live: the SDK's bar takes over the video; our caption strip and sound icon step aside */
 .stage-av.live .ava-caption, .stage-av.live .ava-sound, .stage-av.live-ready .ava-badge { display: none; }
