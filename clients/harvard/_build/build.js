@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 19;                                                        // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 20;                                                        // ?v= for css/js (Cloudflare caches assets ~4 h)
 const OUT = path.resolve(__dirname, "..");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -369,8 +369,8 @@ ${peek(0)}
   <div class="feat-pin" data-pin>
     <div class="wrap feat-layers">
       <figure class="fl fl-a" data-from="left">${img("b2201-13", IMG.b2201["13"], { sizes: "(max-width: 900px) 100vw, 68vw" })}</figure>
-      <figure class="fl fl-b" data-from="right">${img("b2201-03", IMG.b2201["03"], { sizes: "(max-width: 900px) 70vw, 38vw" })}</figure>
-      <figure class="fl fl-c" data-from="bottom">${img("b2201-20", IMG.b2201["20"], { sizes: "(max-width: 900px) 50vw, 26vw" })}</figure>
+      <figure class="fl fl-b" data-from="right">${img("b2201-26", IMG.b2201["26"], { sizes: "(max-width: 900px) 70vw, 38vw", style: "object-position: 62% 50%" })}</figure>
+      <figure class="fl fl-c" data-from="bottom">${img("b2201-38", IMG.b2201["38"], { sizes: "(max-width: 900px) 50vw, 32vw" })}</figure>
     </div>
   </div>
   <div class="wrap split-7-5 feat-copy">

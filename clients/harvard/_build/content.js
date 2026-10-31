@@ -194,6 +194,7 @@ const IMG = {
     "18": "Rooftop deck at 2201 Bayside Drive with seating and a view over the water",
     "19": "Rooftop deck at 2201 Bayside Drive with its outdoor lounge",
     "20": "Looking down from the roof of 2201 Bayside Drive onto the pool and the sand",
+    "26": "Two-story entry gallery at 2201 Bayside Drive with a stone wall and a floating glass staircase",
     "27": "Office at 2201 Bayside Drive",
     "29": "Dining room at 2201 Bayside Drive",
     "37": "The pivot front door at 2201 Bayside Drive",
