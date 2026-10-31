@@ -413,7 +413,9 @@
     backBtn.addEventListener("click", function () {
       if (S.mode === "form" && inReview()) { S.review = null; render({ focus: true }); emit("The visitor chose to edit their details. Nothing has been sent.", false); return; }
       var from = S.mode; goBack();
-      if (from !== "home") emit("The visitor went back from " + (TITLES[from] || from) + " to " + (S.mode === "home" ? "the four options" : TITLES[S.mode]) + ".", false);
+      // Measured 10-30: after Back he answered a follow-up ("How can I donate?") without reopening the view. Remind him here.
+      if (from !== "home") emit("The visitor went back from " + (TITLES[from] || from) + " to " + (S.mode === "home" ? "the four options" : TITLES[S.mode]) + "." +
+        (S.mode === "home" ? " That view is closed now: before your next answer about investing, developments or Hope for the Hurting, call show_topic again, even for a follow-up." : ""), false);
     });
     body.addEventListener("click", function (e) {
       // While Harrison is talking, links out of a view open in a new tab, so the conversation keeps going
