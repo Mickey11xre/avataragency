@@ -81,9 +81,10 @@ Bump `V` in build.js when css/js change (Cloudflare caches assets ~4 h; the page
   `submit_contact_details` (first call = review card, second call or the visitor's Yes = ONE POST to `/api/contact`,
   message prefixed "[Via Harrison, the website AI agent]"). The welcome film's "Talk to Harrison" starts the session in
   the same click. Console harness: `HigStage.exec("show_topic",{topic:"philanthropy"})` etc.
-  ⏳ **Part B (switch on):** paste `livebrand-ops/hig-harrison/.agent-id` into `AGENT_ID` in the token function, bump `V`,
-  rebuild, `git add clients/harvard functions/api/hig-harrison-token.js`, push, then the fresh-visitor checklist in the
-  handoff. Until then the endpoint answers 503 and Talk shows the "arriving soon" toast.
+  ✅ **Part B LIVE 10-30** (aed6e6a, agent 51acf130-ee2a-4cf2-a576-69c99b82edf5). Stage fix da021cf + 4d18d1f: the
+  `.ava-mount` fill rules (copied from home-next.css) plus an ID-level `#np_companion-avatar-container` override
+  (inset 0, transform none): without them the live player floats as a 340x400 box and the stage goes black. While live,
+  `.ava-ctrls` hides and the player's own bar (red hang-up) ends the session, per the stage spec.
   ⛔ The site must not mention the avatar platform anywhere (Michael, 10-29).
 - Netflix logo file → footer `.ftr-netflix` (currently a red "N" tile + the trademark line).
 - ✅ Donate buttons go to https://hopefth.org (`SITE.donateUrl`, 10-30).
