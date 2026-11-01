@@ -41,7 +41,7 @@ To unshare a chat:
 
 ## Manage shared chats
 
-Users on free, Pro, or Max plans can review a log of shared chats by navigating to **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)**. Find the **Privacy settings** section and click “Manage” next to **Shared chats:**
+Users on Free, Pro, Max, or Ultra plans can review a log of shared chats by navigating to **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)**. Find the **Privacy settings** section and click “Manage” next to **Shared chats:**
 
 
 
@@ -59,6 +59,8 @@ SOURCE: https://support.claude.com/en/articles/10684626-enable-and-use-web-searc
 # Enable and use web search
 
 You can have Claude search the internet to provide you with up-to-date information and insights when using the following models:
+
+- Haiku 5.5
 
 - Sonnet 5.5
 
@@ -209,23 +211,25 @@ SOURCE: https://support.claude.com/en/articles/11088861-use-research-on-claude
 
 # Use research on Claude
 
-Research is available for users with paid Claude plans (Pro, Max, Team, or Enterprise) using Claude on the web, Claude Desktop, or Claude Mobile.
+With research, Claude investigates your question in depth. It runs multiple searches that build on each other and decides what to look into next based on what it finds. It explores different angles of your question and works through open questions systematically.
 
-Research transforms how Claude finds and analyzes information. Claude operates agentically, conducting multiple searches that build on each other while determining exactly what to investigate next. It explores different angles of your question automatically and works through open questions systematically.
+Research is available for users with paid Claude plans (Pro, Max, Ultra, Team, or Enterprise) using Claude on the web, Claude Desktop, or Claude Mobile.
 
-With research, Claude delivers thorough answers in minutes, complete with easy-to-check citations so you can trust Claude's findings.
+## Enable or disable research
 
 **Important:**  You must have **[web search](https://support.claude.com/en/articles/10684626)** turned on for research to function.
-
-## How to enable or disable research
 
 Click the “+” button on the bottom left of your chat interface, then "Research." A blue indicator will appear on the bottom of the chat window. Click the indicator again to disable research.
 
 ## Use research
 
-Once research is turned on, you can ask Claude a question. Claude will kick off the research process across your internal context (such as **[Gmail, Google Calendar, and Google Docs when connected](https://support.claude.com/en/articles/10166901-use-google-workspace-connectors)**) and the web.
+Once research is turned on, you can ask Claude a question. Claude researches the web and your connected tools, including **[Google Workspace](https://support.claude.com/en/articles/10166901)** (Gmail, Google Calendar, and Google Docs) and any other connectors you’ve turned on for the chat. During research, Claude can use tools from your connectors automatically, without asking for approval each time. Learn more about **[custom connectors](https://support.claude.com/en/articles/11175166)**.
 
-To see an example of using Claude's Research feature to plan a team offsite, watch the video here: **[Using Research](https://claude.com/resources/tutorials/using-research)**.
+**Important:** When you start research in Claude Mobile, Claude only searches the web and doesn’t use your connectors. You won’t see an error or other sign that your connectors were skipped. To include your connectors, start research in Claude on the web or in Claude Desktop. Note that research can’t use tools from local MCP servers configured in Claude Desktop.
+
+To see an example of using Claude's research feature to plan a team offsite, watch the video here: **[Using research](https://claude.com/resources/tutorials/using-research)**.
+
+---
 
 ## Frequently asked questions
 
@@ -233,15 +237,19 @@ To see an example of using Claude's Research feature to plan a team offsite, wat
 
 In this case, you can steer and prompt Claude to use Research by saying “Claude, please use the research tool to…”
 
-### I have research on, which should be pulling against my internal documentation via the Google integrations I have turned on, but isn’t. What should I do?
+### Research isn’t pulling from my connectors. What should I do?
 
-In this case, you should steer and prompt Claude to “Pull relevant context from [relevant internal knowledge source].”
-
-To see an overview of Claude's research capabilities with the Google Workspace integration, watch the video here: **[Using research and Google Workspace](https://claude.com/resources/tutorials/using-research-and-google-workspace)**.
+If you started research in Claude Mobile, Claude only searches the web. Start research in Claude on the web or in Claude Desktop instead. Otherwise, steer and prompt Claude to “Pull relevant context from [relevant internal knowledge source].”
 
 ### Does research count against usage limits differently than normal conversations?
 
 Research is subject to the same limits as standard Claude conversations. However, research sessions can use up your limits faster due to Claude retrieving multiple sources and providing comprehensive responses.
+
+### Which model does research use?
+
+Research runs on Claude Opus 5.5 and falls back to Claude Opus 4.8 when needed. It uses these models no matter which model you’ve selected for your chat.
+
+On Team and Enterprise plans, if your admin has turned off both Claude Opus 5.5 and Claude Opus 4.8 for your role, research won’t work. Ask your admin to turn on at least one of these models.
 ---
 
 SOURCE: https://support.claude.com/en/articles/11095361-when-should-i-use-web-search-extended-thinking-and-research
@@ -289,13 +297,13 @@ SOURCE: https://support.claude.com/en/articles/12260368-use-incognito-chats
 
 Incognito chats are temporary conversations that aren't saved to your chat history or to **[Claude’s memory](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context)**.
 
-Incognito chats are available to all Claude users (Free, Pro, Max, Team, and Enterprise plans).
+Incognito chats are available to all Claude users (Free, Pro, Max, Ultra, Team, and Enterprise plans).
 
 These differ from regular chats in several ways:
 
 - Incognito chats are not used for training. See our Privacy Center for more information:
 
-  - **[Is my data used for model training?](https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training)** (for Free, Pro, and Max plans)
+  - **[Is my data used for model training?](https://privacy.claude.com/en/articles/10023580-is-my-data-used-for-model-training)** (for Free, Pro, Max, and Ultra plans)
 
   - **[Is my data used for model training?](https://privacy.claude.com/en/articles/7996868-is-my-data-used-for-model-training)** (for Team and Enterprise plans)
 
@@ -372,15 +380,17 @@ This article explains common error messages and warnings you may encounter when 
 
 ## Usage limit warnings and errors
 
-Usage limit warnings appear when you're approaching your plan’s limit within a five-hour session: *“Approaching 5-hour limit.”*
+Your plan has a weekly limit and, except on verified Ultra accounts, a five-hour session limit. Some plans have an additional weekly limit that applies specifically to Fable. Usage limit warnings appear when you’re approaching any of your plan's limits: *“Approaching session limit”* or "Approaching weekly limit." When the percentage is available, the warning shows how much of your limit you've used instead, for example "You've used X% of your weekly limit."
 
-If you hit your plan’s limit after the warning appears, you’ll see a blocking error message letting you know when you can use Claude again: *“5-hour limit reached - resets [time].”*
+If you reach a limit and don’t have usage credits enabled, you’ll see an error message letting you know when you can use Claude again: "5-hour limit reached - resets [time]" or "You've reached your weekly limit. It resets [day] at [time]."
 
 Looking for ways to maximize your Claude usage? Refer to **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)**.
 
 ### Usage credits
 
-Paid Claude users with usage credits enabled in Usage settings will see a slightly different usage limit error: *"5-hour limit resets [time] - continuing with usage credits."* Note that this will only appear for members with access to usage credits.
+If you’re on a paid Claude plan with usage credits enabled in Usage settings, reaching any five-hour session limit or any of your weekly limits doesn’t stop your work. Your requests switch to pay-as-you-go pricing on usage credits and keep working until you reach your monthly spend limit or your usage credit balance runs out with auto-reload off. Instead of the error above, you’ll see "5-hour limit resets [time] - continuing with usage credits" or "Now using credits. Your plan limit resets [day] at [time]".
+
+**Note:** The warning that you’re approaching your limit may still be showing at the moment your usage switches to usage credits. It can look like you’ve been cut off, but your work continues, and the message changes to “Now using credits” once your next request goes through.
 
 Refer to these articles for more information about this feature depending on your plan:
 
@@ -412,7 +422,7 @@ If you see a generic error message when attempting to log in to your Claude acco
 
 - Clear your browser’s cache and cookies.
 
-If you're still seeing an error, check **[our status page](http://status.claude.com)** for active incidents.
+If you're still seeing an error, check **[our status page](https://status.claude.com)** for active incidents.
 
 ## Capacity constraints
 
@@ -425,8 +435,6 @@ Capacity issues will not appear on our status page because they represent normal
 ## Service incidents and outages
 
 Service incidents are disruptions where Claude is unavailable or significantly degraded for all or most users. These represent actual technical problems with our systems. To check for confirmed incidents, visit status.claude.com, where you'll find real-time updates on scope, impact, and resolution progress for any active incidents.
-
-
 ---
 
 SOURCE: https://support.claude.com/en/articles/14503520-available-beta-and-research-preview-features
@@ -463,16 +471,12 @@ When you use a beta or research preview feature, keep the following in mind:
 
 This table below lists the beta and research preview features currently available across our products; click on the feature name to learn more.
 
-| **Feature**                                                                                                                  | **Category**      | **Status**       |
-| ---------------------------------------------------------------------------------------------------------------------------- | ----------------- | ---------------- |
-| **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**                                     | API and developer | Research preview |
-| **[Claude Code usage tracking](https://support.claude.com/en/articles/12157520-claude-code-usage-analytics)**                | Billing and usage | Beta             |
-| **[Claude Code Desktop](https://code.claude.com/docs/en/desktop#use-claude-code-desktop)**                                   | Claude Code       | Beta             |
-| **[Claude Code Security Center](https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code)** | Claude Code       | Research preview |
-| **[Claude Code web (CCR)](https://support.claude.com/en/articles/12618689-claude-code-on-the-web)**                          | Claude Code       | Research preview |
-| **[Code review](https://support.claude.com/en/articles/14233555-set-up-code-review-for-claude-code)**                        | Claude Code       | Research preview |
-| **[Claude for Word](https://support.claude.com/en/articles/14465370-use-claude-for-word)**                                   | Integrations      | Beta             |
-| **[GitHub integration](https://support.claude.com/en/articles/10167454-using-the-github-integration)**                       | Integrations      | Beta             |
+| **Feature**                                                                                                                  | **Category**      | **Status** |
+| ---------------------------------------------------------------------------------------------------------------------------- | ----------------- | ---------- |
+| **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**                                     | API and developer | Beta       |
+| **[Claude Code Security Center](https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code)** | Claude Code       | Beta       |
+| **[Claude Dashboards](https://support.claude.com/en/articles/17454700)**                                                     | Artifacts         | Beta       |
+| **[Claude Motion](https://support.claude.com/en/articles/17454997)**                                                         | Artifacts         | Beta       |
 
 **Note:** Availability varies by plan. Check each linked article to confirm which plans support the feature.
 
@@ -722,7 +726,7 @@ SOURCE: https://support.claude.com/en/articles/16761192-preserved-thinking-chang
 
 # Preserved thinking: changing how the Messages API handles thinking blocks to protect against distillation
 
-We're changing how the Messages API handles thinking blocks to protect against distillation. A thinking block is a record of the reasoning Claude may produce while working on a response. On Claude Fable 5.1, Claude Opus 5.5, and Claude Sonnet 5.5, new API accounts can no longer edit the context around a thinking block, such as the messages, tools, or system prompt, during a multi-turn conversation. We’ll expand the rollout to all users with upcoming model launches.
+We're changing how the Messages API handles thinking blocks to protect against distillation. A thinking block is a record of the reasoning Claude may produce while working on a response. On Claude Fable 5.1, Claude Opus 5.5, Claude Sonnet 5.5, and Claude Haiku 5.5, new API accounts can no longer edit the context around a thinking block, such as the messages, tools, or system prompt, during a multi-turn conversation. We’ll expand the rollout to all users with upcoming model launches.
 
 Modifying this prior context has legitimate applications, which we continue to support using the adjustments outlined below. However, such modifications are also a common and **[publicly documented technique](https://arxiv.org/abs/2608.09867)** for industrial-scale illicit distillation, which is prohibited by our **[Usage Policy](https://www.anthropic.com/legal/aup)** and Terms of Service.
 
@@ -775,6 +779,7 @@ Preserved thinking applies to these models and accounts:
 | Claude Fable 5.1  | Applies                                                          | Doesn't apply                    |
 | Claude Opus 5.5   | Applies                                                          | Doesn't apply                    |
 | Claude Sonnet 5.5 | Applies                                                          | Doesn't apply                    |
+| Claude Haiku 5.5  | Applies                                                          | Doesn’t apply                    |
 
 This covers Claude Platform organizations, Amazon Bedrock accounts, Google Cloud Vertex AI projects, and Microsoft Foundry projects.
 
@@ -801,7 +806,7 @@ SOURCE: https://support.claude.com/en/articles/16762437-public-links-for-shared-
 
 When you share a chat with a public link, anyone who has the link can view a snapshot of that chat. This article covers who can see it, what's included, and how public links interact with search engines like Google.
 
-Public links are available on Free, Pro, and Max plans. Team and Enterprise members can only share chats inside their organization. For how to share and unshare, see **[Share and unshare chats](https://support.claude.com/en/articles/10593882)**.
+Public links are available on Free, Pro, Max, and Ultra plans. Team and Enterprise members can only share chats inside their organization. For how to share and unshare, see **[Share and unshare chats](https://support.claude.com/en/articles/10593882)**.
 
 ## What a public link does
 
@@ -858,7 +863,7 @@ SOURCE: https://support.claude.com/en/articles/16762496-share-a-chat-with-specif
 
 You can share a chat with specific people by inviting them by email. This is the default way to share a chat and keeps it private to the people you choose. Invited people can view a snapshot of the chat but can't reply, copy it into their own account, or continue the conversation.
 
-Sharing with specific people is available on all plans (Free, Pro, Max, Team, and Enterprise) on claude.ai. If you want anyone with the link to be able to view a chat instead, see **[Public links for shared chats](https://support.claude.com/en/articles/16762437)**.
+Sharing with specific people is available on all plans (Free, Pro, Max, Ultra, Team, and Enterprise) on claude.ai. If you want anyone with the link to be able to view a chat instead, see **[Public links for shared chats](https://support.claude.com/en/articles/16762437)**.
 
 ## Invite people to a chat
 

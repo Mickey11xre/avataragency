@@ -11,15 +11,15 @@ The Claude desktop apps bring Claude's capabilities directly to your computer, a
 
 Claude Desktop is available on macOS, Windows, and Linux (beta). What you can do depends on your plan:
 
-| **Feature**   | **Free** | **Pro** | **Max** | **Team** | **Enterprise** |
-| ------------- | -------- | ------- | ------- | -------- | -------------- |
-| Chat          | ✅        | ✅       | ✅       | ✅        | ✅              |
-| Claude Code   |          | ✅       | ✅       | ✅        | ✅              |
-| Claude Cowork |          | ✅       | ✅       | ✅        | ✅              |
+| **Feature**   | **Free** | **Pro** | **Max** | **Ultra** | **Team** | **Enterprise** |
+| ------------- | -------- | ------- | ------- | --------- | -------- | -------------- |
+| Chat          | ✅        | ✅       | ✅       | ✅         | ✅        | ✅              |
+| Claude Code   |          | ✅       | ✅       | ✅         | ✅        | ✅              |
+| Claude Cowork |          | ✅       | ✅       | ✅         | ✅        | ✅              |
 
 ## System Requirements
 
-- macOS: macOS 11 (Big Sur) or higher
+- macOS: macOS 13 (Ventura) or higher
 
 - Windows: Windows 10 or higher
 
@@ -106,7 +106,7 @@ Desktop extensions transform how you connect Claude to your desktop applications
 
 - **Enjoy enterprise-ready security**: Extensions use code signing, encrypted storage for sensitive data like API keys, and enterprise policy controls.
 
-To explore desktop extensions, navigate to Settings > Extensions within the Claude Desktop app after installation.
+To explore desktop extensions, navigate to **Settings > Desktop app** and select "Manage" next to **Extensions** (or **Settings > Extensions** in the older Settings layout) within the Claude Desktop app after installation.
 
 **Note:** If you’re a developer who wants to list a desktop extension (a local MCP server for Claude Desktop) in the directory, submit it through the **[desktop extension submission form](https://clau.de/desktop-extention-submission)**. To submit a plugin or a remote connector instead, use the **[developer portal](https://claude.ai/directory/manage)**. See **[Submitting your plugin](https://claude.com/docs/plugins/submit)** for what each route accepts.
 
@@ -116,7 +116,7 @@ Read more about desktop extensions in our **[Getting Started with Local MCP Serv
 
 ## Claude Cowork
 
-Claude Cowork is available for all paid plans (Pro, Max, Team, Enterprise) using the Claude Desktop app on macOS, Windows, and Linux (beta).
+Claude Cowork is available for all paid plans (Pro, Max, Ultra, Team, Enterprise) using the Claude Desktop app on macOS, Windows, and Linux (beta).
 
 Users on paid Claude plans can access Cowork in Claude Desktop. Cowork brings Claude Code's agentic capabilities to a visual interface, allowing you to hand off complex, multi-step tasks without using a terminal.
 
@@ -155,7 +155,7 @@ SOURCE: https://support.claude.com/en/articles/10065434-use-dictation-on-claude-
 
 # Use dictation on Claude Mobile
 
-Dictation is available to all Claude users (Free, Pro, Max, Team, and Enterprise plans). Support for languages other than English is in beta.
+Dictation is available to all Claude users (Free, Pro, Max, Ultra, Team, and Enterprise plans). Support for languages other than English is in beta.
 
 Dictation allows you to speak your prompts instead of typing them when using Claude for iOS or Android.
 
@@ -486,6 +486,8 @@ If you aren’t seeing the latest features on Claude for iOS, you may need to up
 3. Scroll down to see pending updates.
 
 4. Tap "Update" next to Claude for iOS to update it to the newest version.
+
+**Note:** If you use Claude for Intune, the managed version of Claude for iOS for Enterprise plans, your IT team controls when it updates if your organization installed it through Intune. See **[Set up Claude for Intune](https://support.claude.com/en/articles/17203415)** for details.
 ---
 
 SOURCE: https://support.claude.com/en/articles/11825394-how-to-update-claude-for-android
@@ -511,7 +513,7 @@ SOURCE: https://support.claude.com/en/articles/11869619-use-claude-with-ios-apps
 
 Claude can now connect with your iOS device's system apps to help you take action directly from your conversations. When you chat with Claude, it can draft messages, emails, or calendar events, find locations, manage reminders, and analyze your health and fitness data — all seamlessly integrated with your mobile apps.
 
-This feature is supported on all Claude plans and works with iOS system apps (Messages, Mail, Calendar, Maps, Reminders, and Location Services), as well as compatible third-party apps. Health features are currently in beta, require a Pro or Max plan, and are available in the US only.
+This feature is supported on all Claude plans and works with iOS system apps (Messages, Mail, Calendar, Maps, Reminders, and Location Services), as well as compatible third-party apps. Health features are currently in beta, require a Pro, Max, or Ultra plan, and are available in the US only.
 
 ## What can Claude do with iOS apps?
 
@@ -529,7 +531,7 @@ Claude can help you:
 
 - **Create and manage reminders** to help you stay organized with tasks and lists.
 
-- **Read and analyze your health data** to help you understand fitness patterns, track progress toward goals, and visualize trends with native charts (Pro and Max plans only).
+- **Read and analyze your health data** to help you understand fitness patterns, track progress toward goals, and visualize trends with native charts (Pro, Max, and Ultra plans only).
 
 ### Limitations
 
@@ -541,7 +543,7 @@ Claude can help you:
 
 - **Contacts:** Claude does not have direct access to your contacts.
 
-- **Health:** Available in beta on Pro and Max plans only. Currently limited to users in the US. Claude can read health data but cannot write or modify entries in Apple Health.
+- **Health:** Available in beta on Pro, Max, and Ultra plans only. Currently limited to users in the US. Claude can read health data but cannot write or modify entries in Apple Health.
 
 ---
 
@@ -635,7 +637,7 @@ Note that when Claude uses tools to take these actions, their use is preserved i
 
 ## Access and analyze your health data
 
-**Note:** Health features are available in beta on Pro and Max plans only, and currently limited to users in the US.
+**Note:** Health features are available in beta on Pro, Max, and Ultra plans only, and currently limited to users in the US.
 
 Claude can read your health and fitness data from Apple Health to help you understand patterns, track progress, and make informed decisions about your wellbeing. When you ask Claude about your health data, it can display insights using native charts that feel integrated with iOS.
 
@@ -775,7 +777,7 @@ Claude will only request permissions if needed for specific features, and you ca
 
 ### Health data isn't appearing or seems incomplete
 
-- Verify that you have a Pro or Max plan and are located in the US.
+- Verify that you have a Pro, Max, or Ultra plan and are located in the US.
 
 - Check that you've granted Claude access to the relevant health data types in Settings > Health > Data Access & Devices > Claude.
 
@@ -794,7 +796,7 @@ SOURCE: https://support.claude.com/en/articles/11869629-use-claude-with-android-
 
 Claude can now connect with your Android device's system apps to help you take action directly from your conversations. When you chat with Claude, it can draft messages, emails, calendar events, set alarms and timers, find locations, and more—all through your everyday apps without copy-paste.
 
-This feature is supported on all Claude plans and works with your device's native and third-party apps, including messaging, email, calendar, alarms, timers, location services, maps, and Health Connect (in beta on Pro and Max plans only).
+This feature is supported on all Claude plans and works with your device's native and third-party apps, including messaging, email, calendar, alarms, timers, location services, maps, and Health Connect (in beta on Pro, Max, and Ultra plans only).
 
 ## What can Claude do with Android apps?
 
@@ -826,7 +828,7 @@ Claude can help you:
 
 - **Contacts:** Claude does not have direct access to your contacts.
 
-- **Health:** Available on Pro and Max plans only. Requires Android 14 or later and Health Connect. Currently limited to users in the US. Claude can read health data but cannot write or modify entries in Health Connect.
+- **Health:** Available on Pro, Max, and Ultra plans only. Requires Android 14 or later and Health Connect. Currently limited to users in the US. Claude can read health data but cannot write or modify entries in Health Connect.
 
 ---
 
@@ -912,7 +914,7 @@ When Claude determines that using one of these features would be helpful, it wil
 
 ## Access and analyze your health data
 
-**Note:** Health features are available in beta on Pro and Max plans only, require Android 14 or later, and are limited to users in the US.
+**Note:** Health features are available in beta on Pro, Max, and Ultra plans only, require Android 14 or later, and are limited to users in the US.
 
 Claude can read your health and fitness data from Health Connect to help you understand patterns, track progress, and make informed decisions about your wellbeing. When you ask Claude about your health data, it can display insights using native charts that feel integrated with Android.
 
@@ -1076,7 +1078,7 @@ Health Connect permissions are managed separately from other app permissions. Wh
 
 ### Health data isn't appearing or seems incomplete
 
-- Verify that you have a Pro or Max plan and are located in the US.
+- Verify that you have a Pro, Max, or Ultra plan and are located in the US.
 
 - Ensure you're running Android 14 or later.
 
@@ -1254,7 +1256,6 @@ Deploy configuration settings through your MDM solution using configuration prof
 Deploy configuration settings through your enterprise management solution using **[Group Policy](https://learn.microsoft.com/en-us/previous-versions/windows/desktop/policy/group-policy-objects)** or Intune policies. Settings can be configured at machine-wide (HKLM) or per-user (HKCU) level. Machine-level settings take priority over user-level settings when both are configured.
 
 ```
-```powershell
 # Set machine-wide settings (recommended)
 New-Item -Path "HKLM:\SOFTWARE\Policies\Claude" -Force
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Claude" -Name "disableAutoUpdates" -Value 0 -Type DWord
@@ -1264,24 +1265,49 @@ Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Claude" -Name "isDesktopExtensio
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Claude" -Name "isLocalDevMcpEnabled" -Value 1 -Type DWord
 Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Claude" -Name "isClaudeCodeForDesktopEnabled" -Value 1 -Type DWord
 ```
-```
 
 ---
 
 ## Enterprise policy options
 
-| **Key**                              | **Type**        | **Default**  | **Description**                                                                                                                                                                                                                                                                                                                                                               |
-| ------------------------------------ | --------------- | ------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `allowedWorkspaceFolders`            | string[] (JSON) | Unrestricted | Filepath or filepaths the user can mount to Cowork                                                                                                                                                                                                                                                                                                                            |
-| `autoUpdaterEnforcementHours`        | Integer (1-72)  | 72           | Hours before forcefully restarting Claude to apply a prepared update                                                                                                                                                                                                                                                                                                          |
-| `disableAutoUpdates`                 | Boolean         | false        | Disable automatic updates. Set this when your MDM manages Claude Desktop versions; leave unset to let the app self-update after a one-time provisioned install. See **[Deploy Claude Desktop for Windows](https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows)**.                                                                               |
-| `effortLevel`                        | string          | null         | Sets the default effort level (`low`, `medium`, `high`, `xhigh`, or `max`) for Claude Code sessions in Claude Desktop. The managed value applies fresh at the start of every session, even if someone changed the effort level from the picker in an earlier session. Requires Claude Desktop version 1.25927.0 or later. Doesn't apply to Cowork sessions in Claude Desktop. |
-| `forceLoginOrgUUID`                  | string / array  | null         | Require login to belong to a specific organization. Accepts a single UUID string, which also pre-selects that organization during login, or an array of UUIDs where any listed organization is accepted without pre-selection. Login fails if the authenticated account does not belong to a listed organization.                                                             |
-| `isClaudeCodeForDesktopEnabled`      | Boolean         | true         | Enable Claude code access in desktop                                                                                                                                                                                                                                                                                                                                          |
-| `isDesktopExtensionEnabled`          | Boolean         | true         | Enable/disable extensions                                                                                                                                                                                                                                                                                                                                                     |
-| `isDesktopExtensionDirectoryEnabled` | Boolean         | true         | Enable extension directory access                                                                                                                                                                                                                                                                                                                                             |
-| `isLocalDevMcpEnabled`               | Boolean         | true         | Enable local MCP servers                                                                                                                                                                                                                                                                                                                                                      |
-| `secureVmFeaturesEnabled`            | Boolean         | true         | Enable **[Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)** access in desktop                                                                                                                                                                                                                                                            |
+| **Key**                              | **Type**        | **Default**  | **Description**                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------------------------------ | --------------- | ------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `allowedWorkspaceFolders`            | string[] (JSON) | Unrestricted | Filepath or filepaths the user can mount to Cowork                                                                                                                                                                                                                                                                                                                                                                                     |
+| `autoUpdaterEnforcementHours`        | Integer (1-72)  | 72           | Hours before forcefully restarting Claude to apply a prepared update                                                                                                                                                                                                                                                                                                                                                                   |
+| `disableAutoUpdates`                 | Boolean         | false        | Disable automatic updates. Set this when your MDM manages Claude Desktop versions; leave unset to let the app self-update after a one-time provisioned install. See **[Deploy Claude Desktop for Windows](https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows)**.                                                                                                                                        |
+| `effortLevel`                        | string          | null         | Sets the default effort level (`low`, `medium`, `high`, `xhigh`, or `max`) for Claude Code sessions in Claude Desktop. The managed value applies fresh at the start of every session, even if someone changed the effort level from the picker in an earlier session. Requires Claude Desktop version 1.25927.0 or later. Doesn't apply to Cowork sessions in Claude Desktop.                                                          |
+| `forceLoginOrgUUID`                  | string / array  | null         | Require login to belong to a specific organization. Accepts a single UUID string, which also pre-selects that organization during login, or an array of UUIDs where any listed organization is accepted without pre-selection. Login fails if the authenticated account does not belong to a listed organization. To list more than one organization, see **[Set forceLoginOrgUUID for multiple organizations](#h_403de560dd)** below. |
+| `isClaudeCodeForDesktopEnabled`      | Boolean         | true         | Enable Claude code access in desktop                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `isDesktopExtensionEnabled`          | Boolean         | true         | Enable/disable extensions                                                                                                                                                                                                                                                                                                                                                                                                              |
+| `isDesktopExtensionDirectoryEnabled` | Boolean         | true         | Enable extension directory access                                                                                                                                                                                                                                                                                                                                                                                                      |
+| `isLocalDevMcpEnabled`               | Boolean         | true         | Enable local MCP servers                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `secureVmFeaturesEnabled`            | Boolean         | true         | Enable **[Cowork](https://support.claude.com/en/articles/13345190-getting-started-with-cowork)** access in desktop                                                                                                                                                                                                                                                                                                                     |
+
+---
+
+## Set `forceLoginOrgUUID` for multiple organizations
+
+To accept more than one organization, set `forceLoginOrgUUID` to a JSON array of organization UUIDs, saved as a single string value.
+
+**Windows**
+
+Use a string value (REG_SZ) whose data is the JSON text. Don’t use a multi-string value (REG_MULTI_SZ).
+
+```
+New-ItemProperty -Path 'HKLM:\SOFTWARE\Policies\Claude' -Name forceLoginOrgUUID
+-PropertyType String -Value '["<uuid-1>","<uuid-2>"]' -Force
+```
+
+**macOS**
+
+In your configuration profile for the `com.anthropic.claudefordesktop` domain, set the key as a string that contains the JSON text:
+
+```
+<key>forceLoginOrgUUID</key>
+<string>["<uuid-1>","<uuid-2>"]</string>
+```
+
+Claude Desktop reads this setting when it launches. After you change it, quit and reopen Claude Desktop. To check the value the app read, go to **Help > Troubleshooting > Generate Diagnostic Report**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/12622703-deploy-claude-desktop-for-windows
@@ -1301,7 +1327,6 @@ Administrators on Team or Enterprise plans can deploy Claude Desktop automatical
 Claude Desktop for Windows requires the **[Virtual Machine Platform](https://support.microsoft.com/en-us/windows/enable-virtualization-on-windows-c5578302-6e43-4b4b-a449-8ced115f58e1)** to use Cowork. You can automate installation of this feature via most endpoint management solutions, but you may also run the following command to install it manually:
 
 ```
-powershell
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All -NoRestart
 ```
 
@@ -1320,7 +1345,6 @@ The Claude MSIX is packaged as a per-user application. `Add-AppxPackage` registe
 ### Install for single user
 
 ```
-powershell
 Add-AppxPackage -Path "Claude.msix"
 ```
 
@@ -1329,7 +1353,6 @@ For more details, see Microsoft's **[Add-AppxPackage](https://learn.microsoft.co
 ### Install for all users (provisions machine-wide)
 
 ```
-powershell
 Add-AppxProvisionedPackage -Online -PackagePath "Claude.msix" -SkipLicense -Regions "all"
 ```
 
@@ -1375,13 +1398,31 @@ By default, packaged apps may be restricted by AppLocker policies. Ensure your A
 
 This usually means the in-app updater and your MDM have both registered the package, leaving duplicate entries under the `Claude` package family. Pick a single update owner using the guidance in **[Manage auto-updates alongside your MDM](#h_1297fb34f3)** above.
 
-### Intune install fails for standard users, or Cowork won't start on Claude Desktop?
+### Install fails: "Administrator access is required to install Claude with full features," or error 0x80073D28
 
-Both symptoms indicate the MSIX was installed in user context rather than provisioned machine-wide:
+Claude Desktop for Windows includes a background service that runs Cowork's virtual machine, and Windows registers that service only when Claude is installed with administrator privileges.
 
-- **Install fails for standard users:** An Intune LOB deployment of the MSIX runs in user context, so standard users without admin rights can't complete it. Redeploy by running `Add-AppxProvisionedPackage` through a Win32 app, PowerShell script wrapper, or pre-staged package.
+- **Claude Setup (ClaudeSetup.exe):** if the administrator prompt is declined or the elevated install fails, Claude Setup shows "Administrator access is required to install Claude with full features" and exits. Users who can't get administrator approval are offered the choice to install Claude without Cowork instead.
 
-- **Cowork unavailable on desktop after install:** A per-user `Add-AppxPackage` install can complete without registering the Cowork virtualization service, the Windows service Cowork depends on. Claude appears installed but Cowork won't start. Redeploy using `Add-AppxProvisionedPackage` so the service registers machine-wide.
+- **MSIX deployed per user (for example, an Intune line-of-business app assigned to users, or Add-AppxPackage run without administrator rights):** Windows refuses the install with error 0x80073D28.
+
+The MSIX package never installs without its Cowork service: either it registers completely, or the install fails.
+
+To fix it, run Claude Setup with administrator approval on that device, or provision Claude machine-wide in system context with `Add-AppxProvisionedPackage`, as described in **[Deploy via MDM](#h_124a24d394)**.
+
+### “Installation failed: AddPackage failed with HRESULT 0x80073CF6”
+
+This error means a previous Claude install or update on the device didn’t finish cleanly and left the package partially registered, so Windows can’t register the new one.
+
+**Warning:** On a device in this state, the installer’s automatic repair removes the previous package’s local app data, including app settings, the saved sign-in, and any files saved only inside Cowork. Chat history and files in the user’s own folders aren’t affected.
+
+To resolve it:
+
+1. Restart the device. A pending removal often completes on restart.
+
+2. Run the current installer elevated.
+
+3. If the install fails again with the same error, **[contact Support](https://support.claude.com/en/articles/9015913-how-to-get-support)** and include the `ClaudeSetup.log` file from the user’s Temp folder. IT needs to recover the device in system context, and Support will provide the steps.
 
 ### Cowork reports missing HCS services or virtualization errors
 
@@ -1392,14 +1433,12 @@ If Cowork fails to start with an error like "Missing HCS services: HNS, vmcomput
 Check whether the feature is enabled and its services exist:
 
 ```
-powershell
 Get-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform Get-Service vmcompute, hns
 ```
 
 If the feature shows as disabled or the services are missing, re-enable it:
 
 ```
-powershell
 Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform -All
 ```
 
@@ -1416,7 +1455,7 @@ SOURCE: https://support.claude.com/en/articles/12626668-use-quick-entry-with-cla
 
 Quick entry is a redesigned experience for Claude Desktop on Mac that lets you access Claude instantly from anywhere on your computer. With quick entry, you can start chats, capture screenshots, share application windows, and use voice dictation to interact with Claude without navigating away from your current task.
 
-Quick entry is available to all Claude users (free, Pro, Max, Team, and Enterprise plans) using Claude Desktop on macOS.
+Quick entry is available to all Claude users (Free, Pro, Max, Ultra, Team, and Enterprise plans) using Claude Desktop on macOS.
 
 ## Key features
 
@@ -1450,7 +1489,7 @@ When you first open the updated version of Claude Desktop, you'll see a prompt t
 
 3. Double-tap the Option key to test the shortcut.
 
-4. Moving forward, manage this in Settings > General (under **Desktop app**).
+4. Moving forward, manage this in **Settings > Desktop app** (or **Settings > System**, under **This computer**, in the older Settings layout).
 
 Once enabled, double-tapping Option will open a text box where you can type your message and start a new chat. You can also click "New chat" to see your five most recent conversations.
 
@@ -1522,7 +1561,7 @@ You can customize quick entry shortcuts in your Claude Desktop settings.
 
 1. Open Claude Desktop.
 
-2. Go to Settings > General (under **Desktop app**).
+2. Go to **Settings > Desktop app** (or **Settings > System**, under **This computer**, in the older Settings layout).
 
 3. Choose from the following next to **Quick access shortcut**:
 
@@ -1580,7 +1619,7 @@ Voice dictation transcribes your speech to text in real-time. The transcribed te
 
 ### Can I disable quick entry after enabling it?
 
-Yes. You can disable quick entry shortcuts at any time in Settings > General > Desktop App. You can turn off the quick access shortcut, voice shortcut, or both.
+Yes. You can disable quick entry shortcuts at any time in **Settings > Desktop app** (or **Settings > System**, under **This computer**, in the older Settings layout). You can turn off the quick access shortcut, voice shortcut, or both.
 
 ### What if the shortcuts conflict with other apps?
 
@@ -1749,21 +1788,35 @@ SOURCE: https://support.claude.com/en/articles/9266462-install-claude-for-ios
 
 ## How do I install the Claude for iOS app?
 
-You can install the Claude app onto your iOS device by navigating to the App Store and searching for “Claude by Anthropic”, or by navigating directly to our [App Store listing](https://apps.apple.com/us/app/claude/id6473753684). Click on “Get” from the app listing to prompt your download.
+You can install the Claude app onto your iOS device by navigating to the App Store and searching for “Claude by Anthropic”, or by navigating directly to our **[App Store listing](https://apps.apple.com/us/app/claude/id6473753684)**. Click on “Get” from the app listing to prompt your download.
+
+## Which Claude app should I install?
+
+Anthropic has two Claude apps on the App Store:
+
+- **[Claude by Anthropic](https://apps.apple.com/us/app/claude-by-anthropic/id6473753684)** is the standard Claude app.
+
+- **[Claude for Intune](https://apps.apple.com/us/app/claude-intune/id6812855318)** is a managed version of Claude for iOS for Enterprise plans that use Microsoft Intune.
+
+If your organization hasn't asked you to use Claude for Intune, install Claude by Anthropic.
+
+**Note:** If your organization uses Microsoft Intune, it may require you to use Claude for Intune instead of the standard Claude app. Check with your IT team before you install. Admins can learn more in **[Set up Claude for Intune](https://support.claude.com/en/articles/17203415)**.
 
 ## Why can’t I find Claude for iOS in the App Store?
 
-If you’re unable to locate Claude for iOS in your App Store, you may be located in an [unsupported region](https://support.claude.com/en/articles/8461763-where-can-i-access-claude), using an unsupported device, or using an unsupported version of iOS.
+If you’re unable to locate Claude for iOS or Claude for Intune in your App Store, you may be located in an **[unsupported region](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)**, using an unsupported device, or using an unsupported version of iOS.
+
+If your organization requires Claude for Intune and you can't find it, contact your IT administrator.
 
 ## What versions of iOS are supported?
 
-We currently support iOS version 18.0 and above, and iPadOS 18.0 and above.
+We currently support iOS version 18.0 and above, and iPadOS 18.0 and above. This applies to both the standard Claude app and Claude for Intune.
 
 ## How do I uninstall the Claude for iOS app?
 
 To uninstall the Claude for iOS from your device, hold down on the app from your home screen until you see the menu options. Click on “Remove App.” From the next series of options, select “Delete App.”
 
-Note that if you have an active paid Claude subscription and would like to uninstall the app, your subscription will not be automatically canceled. To cancel your subscription, follow the instructions here: [How do I cancel my paid Claude subscription?](https://support.claude.com/en/articles/8325617-how-do-i-cancel-my-paid-claude-subscription)
+Note that if you have an active paid Claude subscription and would like to uninstall the app, your subscription will not be automatically canceled. To cancel your subscription follow the instructions here: **[Cancel your Pro, Max, or Ultra subscription](https://support.claude.com/en/articles/8325617)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9266495-how-do-i-sign-up-for-claude-pro-on-the-claude-app-for-ios
@@ -1793,7 +1846,7 @@ We currently support Android 8.0 Oreo and above.
 
 To uninstall the Claude app from your Android device, hold down on the app from your screen until you see the menu options. Click on "App Info." From the next series of options, select "Uninstall."
 
-Note that if you have an active paid subscription and would like to uninstall the app, your subscription will not be automatically canceled. To cancel your subscription, follow the instructions here: **[Cancel your Pro or Max subscription on Claude for Android](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_916bc20742)**.
+Note that if you have an active paid subscription and would like to uninstall the app, your subscription will not be automatically canceled. To cancel your subscription, follow the instructions here: **[Cancel your Pro, Max, or Ultra subscription on Claude for Android](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_916bc20742)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9612892-how-do-i-sign-up-for-claude-pro-on-claude-for-android

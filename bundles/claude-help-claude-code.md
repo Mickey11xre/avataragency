@@ -1,15 +1,15 @@
 
 ---
 
-SOURCE: https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan
+SOURCE: https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-max-or-ultra-plan
 
-# Use Claude Code with your Pro or Max plan
+# Use Claude Code with your Pro, Max, or Ultra plan
 
-This article applies to individual consumers using Pro or Max plan subscriptions to access Claude Code. If you’re a member of a Team or Enterprise plan organization, see **[Use Claude Code with your Team or Enterprise plan](https://support.claude.com/en/articles/11845131)**.
+This article applies to individual consumers using Pro, Max, or Ultra plan subscriptions to access Claude Code. If you’re a member of a Team or Enterprise plan organization, see **[Use Claude Code with your Team or Enterprise plan](https://support.claude.com/en/articles/11845131)**.
 
 ## What is Claude Code?
 
-Claude Code is a coding tool that gives you access to Claude models directly in your terminal or supported IDE, allowing you to delegate complex coding tasks while maintaining transparency and control. With Pro and Max plans, you now have access to both Claude on the web, desktop, and mobile apps and Claude Code in your terminal with one unified subscription.
+Claude Code is a coding tool that gives you access to Claude models directly in your terminal or supported IDE, allowing you to delegate complex coding tasks while maintaining transparency and control. With Pro, Max, and Ultra plans, you now have access to both Claude on the web, desktop, and mobile apps and Claude Code in your terminal with one unified subscription.
 
 ### Why use Claude and Claude Code?
 
@@ -21,9 +21,9 @@ Use two powerful AI products in one simple subscription.
 
 ---
 
-## How to connect Claude Code to your Pro or Max plan
+## How to connect Claude Code to your Pro, Max, or Ultra plan
 
-1. **Ensure you have an active Pro or Max plan subscription**
+1. **Ensure you have an active Pro, Max, or Ultra plan subscription**
 
   - If you're not already subscribed, upgrade at **[claude.ai/upgrade](https://claude.ai/upgrade)**
 
@@ -37,27 +37,27 @@ Use two powerful AI products in one simple subscription.
 
   - When prompted during setup or first use, log in with the same credentials you use for Claude.
 
-  - This will connect your Pro or Max plan subscription to Claude Code.
+  - This will connect your Pro, Max, or Ultra plan subscription to Claude Code.
 
   - If you're already logged in to Claude Code via Claude Console PAYG, run /login from within Claude Code to switch to your subscription plan.
 
-### Having trouble using your Pro or Max plan to access Claude Code?
+### Having trouble using your Pro, Max, or Ultra plan to access Claude Code?
 
 If you're not seeing the option to authenticate with your preferred account, follow these steps to update Claude Code:
 
-1. Log out of your active session completely using the `/logout` command.
+1. Log out of your active session completely using the /logout command.
 
-2. Run `claude update`.
+2. Run claude update.
 
 3. Restart your terminal completely for the change to take effect.
 
-4. Run `claude` and select the correct account to use Claude Code.
+4. Run claude and select the correct account to use Claude Code.
 
-**Important:** If you have an ANTHROPIC_API_KEY environment variable set on your system, Claude Code will use this API key for authentication instead of your Claude subscription (Pro, Max, Team, or Enterprise plans), resulting in API usage charges rather than using your subscription's included usage. See this article for more information: **[Managing API key environment variables in Claude Code](https://support.claude.com/en/articles/12304248-managing-api-key-environment-variables-in-claude-code).**
+**Important:** If you have an ANTHROPIC_API_KEY environment variable set on your system, Claude Code will use this API key for authentication instead of your Claude subscription (Pro, Max, Ultra, Team, or Enterprise plans), resulting in API usage charges rather than using your subscription's included usage. See this article for more information: **[Managing API key environment variables in Claude Code](https://support.claude.com/en/articles/12304248-managing-api-key-environment-variables-in-claude-code).**
 
 ## Use Claude Code in your IDE
 
-Your Pro or Max plan also covers Claude Code in supported IDEs, including VS Code, Cursor and other VS Code forks, and JetBrains IDEs like IntelliJ and PyCharm. Log in with the same Claude credentials you use in the terminal. IDE usage counts toward the same usage limits shared across Claude and Claude Code.
+Your Pro, Max, or Ultra plan also covers Claude Code in supported IDEs, including VS Code, Cursor and other VS Code forks, and JetBrains IDEs like IntelliJ and PyCharm. Log in with the same Claude credentials you use in the terminal. IDE usage counts toward the same usage limits shared across Claude and Claude Code.
 
 To install and set up the extension for your IDE, see **[Platforms and integrations](https://code.claude.com/docs/en/platforms)** in our Claude Code Docs.
 
@@ -65,15 +65,23 @@ To install and set up the extension for your IDE, see **[Platforms and integrati
 
 ## What happens when you hit usage limits
 
-Both Pro and Max plans offer usage limits that are shared across Claude and Claude Code, meaning all activity in both tools counts against the same usage limits. To help you monitor your usage, you will see warning messages about remaining capacity.
+Pro and Max plans have a five-hour session limit and a weekly limit. Ultra plans have a weekly limit, and verified Ultra accounts don't have a five-hour session limit. Learn more.
+
+Max and Ultra plans also have a separate weekly limit for Fable. These limits are shared across Claude and Claude Code, meaning all activity in both tools counts against the same limits. To help you monitor your usage, you’ll see warning messages as you approach any limit.
+
+If you reach your five-hour session limit while Claude Code is partway through a response, it may keep working briefly so it can finish the step in progress instead of stopping mid-step. While this happens, you’ll see “Usage limit reached · wrapping up” in Claude Code. This wrap-up allowance is small and capped, and the usage counts toward your weekly limit. It applies only to a response that’s already in progress, not to a new message you send after reaching your limit.
+
+On the Pro plan, it applies up to once per weekly usage period. On the Max plan, it can apply each time you reach a five-hour session limit, within your weekly limit. Verified Ultra accounts don't have a five-hour limit, so the wrap-up allowance doesn't apply. If your Ultra account has a temporary limit, the wrap-up allowance works the same way as on the Max plan until the limit is removed.
+
+It’s rolling out gradually, so it may not be available on your account yet. Learn more about the **[Claude Code wrap-up allowance](https://support.claude.com/en/articles/17040437)**.
 
 When you reach your usage limits, you can select from a few options based on your needs:
 
 ### Pro plan users
 
-- Consider upgrading to the Max 5x plan if you consistently hit limits and need more capacity for larger repositories.
+- Consider upgrading to the Max plan if you consistently hit limits and need more capacity for larger repositories.
 
-- **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to continue using Claude with your Pro plan after hitting the included usage limit.
+- **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to keep using Claude with your Pro plan after you reach your five-hour session limit or your weekly limit.
 
 - Switch to a Claude Console account and **[purchase API usage credits](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage)** for intensive coding sprints.
 
@@ -81,11 +89,23 @@ When you reach your usage limits, you can select from a few options based on you
 
 ### Max plan users
 
-- If you're on the Max 5x plan, consider upgrading to the Max 20x plan if you consistently hit limits.
+- Consider upgrading to the Ultra plan if you consistently hit limits.
 
-- **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to continue using Claude with your Max plan after hitting the included usage limit.
+- **[Enable usage credits](https://support.claude.com/en/articles/12429409-)** to keep using Claude with your Max plan after you reach your five-hour session limit, your general weekly limit, or your separate weekly limit for Fable.
 
 - Switch to a Claude Console account and **[purchase API usage credits](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage)** for intensive coding sprints.
+
+- Monthly API credits included with the Max plan can’t be used in Claude Code or the Claude apps, including for usage credits. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
+
+- Wait until your usage limits reset.
+
+### Ultra plan users
+
+- Enable usage credits to keep using Claude with your Ultra plan after you reach your general weekly limit, or your separate weekly limit for Fable.
+
+- Switch to a Claude Console account and **[purchase API usage credits](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage)** for intensive coding sprints.
+
+- Monthly API credits included with the Ultra plan can’t be used in Claude Code or the Claude apps, including for usage credits. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 
 - Wait until your usage limits reset.
 
@@ -107,13 +127,13 @@ It's important to recognize these are separate systems:
 
 If you want to use API credits through Claude Code:
 
-- Usage will be billed at **[standard API rates](https://claude.com/pricing#api)** (distinct from Pro/Max Plan pricing).
+- Usage will be billed at **[standard API rates](https://claude.com/pricing#api)** (distinct from Pro/Max/Ultra plan pricing).
 
 - If auto-reload is enabled in your Console account, additional credits will be automatically added when your balance runs low.
 
 ### Staying within your plan
 
-To maintain usage strictly within your Pro or Max Plan allocation:
+To maintain usage strictly within your Pro, Max, or Ultra plan allocation:
 
 - Decline the API credit option when presented.
 
@@ -125,9 +145,9 @@ To maintain usage strictly within your Pro or Max Plan allocation:
 
 If you prefer to prevent the API credit option from appearing entirely:
 
-- Run `claude logout` in your terminal.
+- Run claude logout in your terminal.
 
-- Run `claude login` and authenticate using only your Pro or Max plan credentials.
+- Run claude login and authenticate using only your Pro, Max, or Ultra plan credentials.
 
 - Avoid adding any Claude Console credentials during the login process.
 
@@ -143,30 +163,28 @@ Auto-reload functionality is managed within your Claude Console account, not thr
 
 - Remember, auto-reload only applies when you've chosen to use API credits.
 
-### Summary
+## Summary
 
 - Claude Code maintains strict user control over billing decisions.
 
-- All transitions to API credit usage require explicit user consent.
-
 - Auto-reload is an independent Claude Console feature.
 
-- To maintain your Pro or Max plan budget, simply decline API credit options when offered.
+- To maintain your Pro, Max, or Ultra plan budget, simply decline API credit options when offered.
 ---
 
 SOURCE: https://support.claude.com/en/articles/11845131-use-claude-code-with-your-team-or-enterprise-plan
 
 # Use Claude Code with your Team or Enterprise plan
 
-This article applies to members of Team or Enterprise plan organizations using their subscription plans to access Claude Code. If you’re an individual consumer using a Pro or Max plan subscription, see **[Use Claude Code with your Pro or Max plan](https://support.claude.com/en/articles/11145838-use-claude-code-with-your-pro-or-max-plan)**.
+This article applies to members of Team or Enterprise plan organizations using their subscription plans to access Claude Code. If you’re an individual consumer using a Pro, Max, or Ultra plan subscription, see **[Use Claude Code with your Pro, Max, or Ultra plan](https://support.claude.com/en/articles/11145838)**.
 
 ## What is Claude Code?
 
-Claude Code is a coding tool that gives you access to Claude models directly in your terminal or supported IDE, allowing you to delegate complex coding tasks while maintaining transparency and control.
+Claude Code is a coding tool that lets you delegate complex coding tasks to Claude while keeping transparency and control. It’s included in Claude Desktop, and you can also run it in your terminal or a supported IDE.
 
 Claude Code is included with every Team plan seat. Premium seats offer more usage for team members with heavier workloads. For Enterprise plans, Claude Code is included with the single Enterprise seat on new and self-serve plans. On older Enterprise plans, Claude Code is available on Chat + Claude Code seats (usage-based billing) and Premium seats (seat-based billing).
 
-With a Team or Enterprise plan, you can access Claude on the web, desktop, and mobile apps, plus Claude Code in your terminal—all with one unified subscription.
+With a Team or Enterprise plan, you can access Claude on the web, desktop, and mobile apps, plus Claude Code, with one subscription.
 
 ### Why use Claude and Claude Code?
 
@@ -174,7 +192,7 @@ Combine two powerful AI products in one unified subscription:
 
 - Use Claude for writing, research, analysis, and collaboration across teams.
 
-- Use Claude Code for terminal-based coding workflows and development tasks.
+- Use Claude Code for coding and development tasks in Claude Desktop, your terminal, or your IDE.
 
 ---
 
@@ -184,19 +202,21 @@ Combine two powerful AI products in one unified subscription:
 
 If your organization is on a new or self-serve Enterprise plan, Claude Code is already included with every Enterprise seat—no additional purchase is needed. Proceed to Step 2.
 
-**Note:** If your organization has a HIPAA-ready Enterprise plan, Claude Code is included in your seat but is not covered under the HIPAA-ready offering. See **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans)** for details.
+**Note:** On a HIPAA-ready Enterprise plan, after the Primary Owner applies the HIPAA configuration to Claude Code (local mode) and Cowork (local mode), your Business Associate Agreement (BAA) covers Claude Code in the terminal and in the Code tab of Claude Desktop. Without that configuration or zero data retention (ZDR) for Claude Code, Claude Code is included in your seat, and it's available but not covered under your BAA. Don't use it with protected health information (PHI). See **[Use Claude Code (local mode) and Cowork (local mode) on a HIPAA-ready Enterprise plan](https://support.claude.com/en/articles/17318731)**.
 
 If your organization is on an older Enterprise plan with Chat and Chat + Claude Code seats, or Standard and Premium seats, you'll need to ensure you have a seat type that includes Claude Code. Owners can purchase or reassign **Chat + Claude Code / Premium seats** in **[Organization settings > Organization](https://claude.ai/admin-settings/organization)**. See **[Purchase and manage seats on Enterprise plans](https://support.claude.com/en/articles/13393991-purchase-and-manage-seats-on-enterprise-plans)** for details.
 
-### Step 2: Download and install Claude Code
+### Step 2: Open Claude Code
+
+**Recommended:** Download **Claude Desktop**, sign in with your Team or Enterprise account, and open the “Code” tab. Claude Desktop includes Claude Code, so there’s nothing else to install, and it uses the account you signed in with. Follow the **desktop quickstart** in the Claude Code docs for your first session. You can skip Step 3.
+
+To use the terminal instead, follow the installation instructions in our **[Claude Code Docs](https://code.claude.com/docs/en/quickstart#step-1-install-claude-code)** for the environment you’re using.
 
 **Note:** If you already have Claude Code installed on your computer, proceed to Step 3.
 
-Once you confirm you have access, follow the installation instructions in our **[Claude Code Docs](https://code.claude.com/docs/en/quickstart#step-1-install-claude-code)** for the environment you're using.
+### Step 3: Authenticate in the terminal
 
-### Step 3: Authenticate with the Team or Enterprise account
-
-1. Type `claude` within your Terminal window to start a Claude Code session.
+1. Type `claude` in your terminal to start a Claude Code session.
 
 2. When prompted during setup or first use, select a login method.
 
@@ -212,7 +232,7 @@ Once you're signed in, skills and plugins from your Claude account, including th
 
 ### Having trouble using your Team or Enterprise account to access Claude Code?
 
-If you're not seeing the option to authenticate with your preferred account, follow these steps to update Claude Code:
+If you’re not seeing the option to authenticate with your preferred account in the terminal, follow these steps to update Claude Code:
 
 1. Log out of your active session completely using the `/logout` command.
 
@@ -224,9 +244,11 @@ If you're not seeing the option to authenticate with your preferred account, fol
 
 ## Use Claude Code in your IDE
 
-Your seat also covers Claude Code in supported IDEs, including VS Code, Cursor and other VS Code forks, and JetBrains IDEs like IntelliJ and PyCharm. Log in with the same Team or Enterprise account you use in the terminal. IDE usage is limited and billed the same way as terminal usage on your plan.
+Your seat also covers Claude Code in supported IDEs, including VS Code, Cursor and other VS Code forks, and JetBrains IDEs like IntelliJ and PyCharm. Log in with the same Team or Enterprise account you use in Claude Desktop or the terminal. IDE usage is limited and billed the same way as terminal usage on your plan.
 
 To install and set up the extension for your IDE, see **[Platforms and integrations](https://code.claude.com/docs/en/platforms)** in our Claude Code Docs.
+
+**Note:** On a HIPAA-ready Enterprise plan, the Claude Code extensions for VS Code and JetBrains are available but not covered under your BAA, including with the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode). Don't use them to process protected health information (PHI).
 
 ---
 
@@ -235,13 +257,15 @@ To install and set up the extension for your IDE, see **[Platforms and integrati
 If your organization is on a **usage-based Enterprise plan** (including self-serve Enterprise), there are no per-seat usage limits—usage is based on consumption and billed at API rates. See **[How am I billed for my Enterprise plan?](https://support.claude.com/en/articles/11526368-how-am-i-billed-for-my-enterprise-plan)** for details on how usage billing works.
 
 If your organization is on a Team plan or a seat-based Enterprise plan, you can enable usage credits to allow team members to continue working with Claude, Cowork, and Claude Code after reaching their included usage limits. For more information, see **[Manage usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970-)**.
+
+Monthly API credits included with Team plans can’t be used in Claude Code or the Claude apps, including for extra usage. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code
 
-# Automated Security Reviews in Claude Code
+# Automated security reviews in Claude Code
 
-Claude Code now includes automated security review features to help you identify and fix vulnerabilities in your code. This guide explains how to use the /security-review command and GitHub Actions to improve your code security.
+Claude Code now includes automated security review features to help you identify and fix vulnerabilities in your code. This guide explains how to use the `/security-review` command and GitHub Actions to improve your code security.
 
 **Note:** While automated security reviews help identify many common vulnerabilities, they should complement, not replace, your existing security practices and manual code reviews.
 
@@ -249,41 +273,41 @@ Claude Code now includes automated security review features to help you identify
 
 Automated security reviews in Claude Code help developers catch vulnerabilities before they reach production. These features check for common security issues including SQL injection risks, cross-site scripting (XSS) vulnerabilities, authentication flaws, insecure data handling, and dependency vulnerabilities.
 
-You can use security reviews in two ways: through the /security-review command for on-demand checks in your terminal, or through GitHub Actions for automatic review of pull requests.
+You can use security reviews in two ways: through the `/security-review` command for on-demand checks in a Claude Code session, or through GitHub Actions for automatic review of pull requests.
 
 ## Availability
 
 These features are available for all Claude Code users, including:
 
-- Users on individual paid plans (Pro or Max).
+- Users on individual paid plans (Pro, Max, or Ultra).
 
 - Individual users or enterprises with pay-as-you-go API Console accounts.
 
-## Using the /security-review command
+## Use the /security-review command
 
-The /security-review command lets you run security analysis directly from your terminal before committing code.
+The `/security-review` command lets you run security analysis directly from Claude Code before committing code.
 
-### Running a Security Review
+### Run a security review
 
 To check your code for vulnerabilities:
 
-1. Open Claude Code in your project directory.
+1. Open a Claude Code session in your project, in the “Code” tab of Claude Desktop or by running `claude` in your project directory in the terminal.
 
-2. Run /security-review in the terminal.
+2. Run `/security-review`.
 
 3. Claude will analyze your codebase and identify potential security concerns.
 
 4. Review the detailed explanations provided for each issue found.
 
-### Implementing Fixes
+### Implement fixes
 
 After Claude identifies vulnerabilities, you can ask it to implement fixes directly. This keeps security reviews integrated into your development workflow, allowing you to address issues when they're easiest to resolve.
 
-### Customizing the Command
+### Customize the command
 
-You can customize the /security-review command for your specific needs. See the[security review documentation](https://github.com/anthropics/claude-code-security-review/tree/main?tab=readme-ov-file#security-review-slash-command) for configuration options.
+You can customize the `/security-review` command for your specific needs. See the[security review documentation](https://github.com/anthropics/claude-code-security-review/tree/main?tab=readme-ov-file#security-review-slash-command) for configuration options.
 
-## Setting up GitHub Actions for automated PR reviews
+## Set up GitHub Actions for automated PR reviews
 
 After installing and configuring the GitHub action, it will automatically review every pull request for security vulnerabilities when it's opened.
 
@@ -297,7 +321,7 @@ To set up automated security reviews for your repository:
 
 3. Configure the action according to your team's security requirements
 
-### How It Works
+### How it works
 
 Once configured, the GitHub action:
 
@@ -311,13 +335,13 @@ Once configured, the GitHub action:
 
 This creates a consistent security review process across your entire team, ensuring code is checked for vulnerabilities before merging.
 
-### Customization Options
+### Customization options
 
 You can customize the GitHub action to match your team's security policies, including setting specific rules for your codebase and adjusting sensitivity levels for different vulnerability types.
 
 ## What security issues can be detected?
 
-Both the /security-review command and GitHub action check for common vulnerability patterns:
+Both the `/security-review` command and GitHub action check for common vulnerability patterns:
 
 - **SQL injection risks**: Identifies potential database query vulnerabilities.
 
@@ -329,19 +353,19 @@ Both the /security-review command and GitHub action check for common vulnerabili
 
 - **Dependency vulnerabilities**: Checks for known issues in third-party packages.
 
-## Getting Started
+## Get started
 
 To start using automated security reviews:
 
-- **For the /security-review command**: Update Claude Code to the latest version (run), then run `/security-review` in your project directory.
+- **For the `/security-review` command**: Update Claude Code to the latest version (run), then run `/security-review` in your project directory.
 
   - Claude Code automatically keeps itself up to date to ensure you have the latest features and security fixes, but you can also run `claude update` to update manually.
 
 - **For the GitHub actions**: Visit our[documentation](https://github.com/anthropics/claude-code-security-review) for installation and configuration instructions.
 
-## Best Practices
+## Best practices
 
-For optimal results, we recommend running /security-review before committing significant changes and configuring the GitHub action for all repositories containing production code. Consider adjusting the filtering rules based on your team's specific security requirements and codebase characteristics.
+For optimal results, we recommend running `/security-review` before committing significant changes and configuring the GitHub action for all repositories containing production code. Consider adjusting the filtering rules based on your team's specific security requirements and codebase characteristics.
 ---
 
 SOURCE: https://support.claude.com/en/articles/11940350-claude-code-model-configuration
@@ -352,9 +376,9 @@ This guide shows you three ways to change which Claude model you're using with C
 
 ## Easiest method: Use /model command
 
-The simplest way to change models is to use the /model command directly within Claude Code. This works immediately without restarting your terminal.
+The simplest way to change models is to use the `/model` command directly within Claude Code. It works in Claude Desktop and in the terminal, and takes effect immediately.
 
-1. Start Claude Code: `claude`
+1. Start a Claude Code session: open the “Code” tab in Claude Desktop, or run `claude` in your terminal.
 
 2. Type `/model` and choose your desired model from the interactive menu.
 
@@ -363,6 +387,8 @@ The simplest way to change models is to use the /model command directly within C
 **Note:** You can check your current model anytime by running `/status` in Claude Code.
 
 ## Supported models
+
+- Haiku 5.5, `claude-haiku-5-5`
 
 - Sonnet 5.5, `claude-sonnet-5-5`
 
@@ -392,11 +418,13 @@ The simplest way to change models is to use the /model command directly within C
 
 ## Change model for current session only
 
-Use the `--model` flag when starting Claude Code.
+Use the `--model` flag when starting Claude Code. The `--model` flag and the environment variables in the next section apply to terminal sessions.
 
 1. Start a fresh Terminal session.
 
 2. Enter the following commands (depending on the model you’d like to use for that session):
+
+  - **For Haiku 5.5**: `claude --model claude-haiku-5-5`
 
   - **For Sonnet 5.5**: `claude --model claude-sonnet-5-5`
 
@@ -436,6 +464,8 @@ Use the `--model` flag when starting Claude Code.
 
 ### For ZSH users (macOS)
 
+- Haiku 5.5: `echo 'export ANTHROPIC_MODEL="claude-haiku-5-5"' >> ~/.zshrc`
+
 - Sonnet 5.5: `echo 'export ANTHROPIC_MODEL="claude-sonnet-5-5"' >> ~/.zshrc`
 
 - Opus 5.5: `echo 'export ANTHROPIC_MODEL="claude-opus-5-5"' >> ~/.zshrc`
@@ -463,6 +493,8 @@ Use the `--model` flag when starting Claude Code.
 - Sonnet 4.5: `echo 'export ANTHROPIC_MODEL="claude-sonnet-4-5-20250929"' >> ~/.zshrc`
 
 ### For BASH users (Linux)
+
+- Haiku 5.5: `echo 'export ANTHROPIC_MODEL="claude-haiku-5-5"' >> ~/.bashrc`
 
 - Sonnet 5.5: `echo 'export ANTHROPIC_MODEL="claude-sonnet-5-5"' >> ~/.bashrc`
 
@@ -533,11 +565,7 @@ Claude Code usage analytics are available to:
 
 1. Log in to your **[Claude Console account](https://platform.claude.com)**.
 
-2. Expand the left side panel.
-
-3. Click “Claude Code” under **Analytics**.
-
-4. View Claude Code usage analytics on **[Settings > Claude Code](https://platform.claude.com/claude-code)**.
+2. Go to the **Claude Code** page (platform.claude.com/claude-code).
 
 ---
 
@@ -583,7 +611,7 @@ Every formula used on this tab is shown inline. Click any input to adjust it to 
 
 Contribution metrics are a new feature in public beta that helps Team and Enterprise organizations measure how Claude Code affects engineering velocity. By connecting to your organization's GitHub account, these metrics track code shipping activity with and without Claude Code, so you can see where it's making a difference.
 
-Contribution metrics require GitHub Cloud and are not available to Console users at this time.
+Contribution metrics require GitHub Cloud. They aren't available to Console users or to organizations with zero data retention (ZDR) enabled for Claude Code.
 
 For a more in-depth look at contribution metrics, see **[our Claude Code docs](https://code.claude.com/docs/en/analytics#enable-contribution-metrics)**.
 
@@ -639,7 +667,7 @@ Track activity trends to understand when your team uses Claude Code most effecti
 
 ### I'm using an individual paid plan; how can I access usage analytics for Claude Code?
 
-Claude Code usage analytics are not available to individual Pro or Max plans at this time.
+Claude Code usage analytics are not available to individual Pro, Max, or Ultra plans at this time.
 
 ### I'm looking for a specific user but they're missing from the reports.
 
@@ -846,13 +874,13 @@ No current Visual Studio 2022 integration exists. Claude Code currently supports
 
 While there isn't a turnkey PR reviewer solution yet, you can use the **[Claude Code GitHub Actions integration](https://support.claude.com/en/articles/11932705-automated-security-reviews-in-claude-code)** for automated reviews. For now, you can use the security review action as a template and customize it for general PR reviews. This is also a good use case for the **[Claude Code SDK](https://docs.claude.com/en/docs/claude-code/sdk/sdk-overview)**.
 
-## I’m getting an error message that “Claude Max or Pro is required to connect to Claude Code” but I should have access through my organization’s Team or Enterprise plan. How can I troubleshoot?
+## I’m getting an error message that Claude Max, Ultra, or Pro is required to connect to Claude Code but I should have access through my organization’s Team or Enterprise plan. How can I troubleshoot?
 
 This indicates that you selected the wrong login method from the Claude Code setup screen. Try running /login again and selecting the account associated with your primary work email address. If you’re still unable to connect, see **[Having trouble using your Team or Enterprise account to access Claude Code?](https://support.claude.com/en/articles/11845131-using-claude-code-with-your-team-or-enterprise-plan#h_540f9e65d8)**
 
 ## What data is sent to Anthropic when using Claude Code with Bedrock/Vertex API keys?
 
-When configured with Bedrock/Vertex and CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC is set, only essential telemetry is sent. All model API requests go directly to your Bedrock/Vertex endpoints. Review the [d**ata flow documentation**](https://docs.claude.com/en/docs/claude-code/security) for complete details.
+When configured with Bedrock/Vertex and CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC is set, only essential telemetry is sent. All model API requests go directly to your Bedrock/Vertex endpoints. Review the **[data flow documentation](https://docs.claude.com/en/docs/claude-code/security)** for complete details.
 
 ## Is there a way to access Claude Code via Bedrock/Vertex without exposing a secret key/access key?
 
@@ -908,30 +936,32 @@ Yes, Claude Code integrates with GitHub Actions for CI/CD, supports git operatio
 
 ## Why am I seeing "Workflow validation failed" errors in GitHub Actions?
 
-This typically occurs with reusable workflows. Check that your workflow syntax is correct and that all required parameters are passed. If the error persists, file an issue here with your workflow configuration: **[github.com/anthropics/claude-code-action](http://github.com/anthropics/claude-code-action)**.
+This typically occurs with reusable workflows. Check that your workflow syntax is correct and that all required parameters are passed. If the error persists, file an issue here with your workflow configuration: **[github.com/anthropics/claude-code-action](https://github.com/anthropics/claude-code-action)**.
 ---
 
-SOURCE: https://support.claude.com/en/articles/12618689-claude-code-on-the-web
+SOURCE: https://support.claude.com/en/articles/12618689-use-claude-code-in-the-cloud
 
-# Claude Code on the web
+# Use Claude Code in the cloud
 
-Claude Code on the web runs Claude Code tasks remotely, working with code from your GitHub repositories. This article explains how it works, when to use it instead of running Claude Code in your terminal or IDE, and what workflows it enables.
+A cloud session is a Claude Code session that runs on cloud infrastructure instead of on your machine, working with code from your GitHub repositories. You can start one from Claude Desktop, from Claude Code on the web at claude.ai/code, from Claude Mobile, or from your terminal with `claude --cloud`. This article explains how cloud sessions work, when to use them instead of a local session in Claude Desktop, your terminal, or your IDE, and what workflows they enable.
 
-## What Claude Code on the web provides
+## What cloud sessions provide
 
-Claude Code on the web lets you delegate tasks to Claude that run without your active supervision. In your browser, you select a GitHub repository, describe what you want done, and Claude works on the task in a remote environment. Once Claude Code has started working on a task, you can leave the page completely; Claude will continue its work. When finished, Claude will automatically create a pull request with changes for you to review.
+Cloud sessions let you delegate tasks to Claude that run without your active supervision. You select a GitHub repository, describe what you want done, and Claude works on the task in the cloud. Once Claude Code has started working on a task, you can leave the page completely; Claude will continue its work. When finished, Claude will automatically create a pull request with changes for you to review.
 
 This feature works with repositories you may not have on your local machine. You can kick off tasks on any GitHub repository you have access to without needing to clone it locally or set up a development environment. This makes it useful for projects you contribute to occasionally or for exploring codebases you're still learning about.
 
-Claude Code for web enables asynchronous development workflows. With Claude Code in your terminal or editor, you typically work synchronously: you make a request, wait for Claude to respond, review the changes, then make another request. Synchronous work like this gives you fine-grained control but requires your attention throughout the process. Claude Code on the web handles this differently: you can assign a larger task, let Claude work independently, and return later to review the completed work.
+Cloud sessions enable asynchronous development workflows. In a local session in your terminal or editor, you typically work synchronously: you make a request, wait for Claude to respond, review the changes, then make another request. Synchronous work like this gives you fine-grained control but requires your attention throughout the process. A cloud session handles this differently: you can assign a larger task, let Claude work independently, and return later to review the completed work.
 
 
 
 You can also run multiple tasks in parallel. Since each task runs in its own isolated environment, you can have Claude working on several different issues or repositories simultaneously. Each task proceeds independently and creates its own pull request when complete. More than one task can work on the same repository at the same time.
 
-## How It Works
+---
 
-When you start a task, Claude Code on the web creates an isolated virtual machine for your work. Your GitHub repository is cloned into this environment, which comes pre-configured with common development tools and language ecosystems.
+## How it works
+
+When you start a cloud session, Claude Code creates an isolated virtual machine for your work. Your GitHub repository is cloned into this environment, which comes pre-configured with common development tools and language ecosystems.
 
 
 
@@ -945,33 +975,37 @@ When Claude completes the task, it pushes the changes to a new branch in your Gi
 
 Each task runs in complete isolation. The virtual machine exists only for that specific task and includes security controls like restricted network access and protected credential handling. Your GitHub authentication is managed through a secure proxy, so credentials never exist directly in the environment where Claude is working.
 
-## When to use Claude Code on the web vs. terminal
+---
 
-Claude Code on the web is a new way of working with Claude Code. Some tasks are well-suited for asynchronous execution on the web, while others will continue to be best run with Claude Code via your terminal or IDE.
+## When to use cloud sessions vs. local sessions
 
-### Use Claude Code on the web for:
+Some tasks are well suited to running asynchronously in the cloud, while others are best run locally in Claude Desktop, your terminal, or your IDE.
 
-- **Well-defined tasks with clear requirements:** When you can describe exactly what needs to be done and don't expect to need to steer Claude mid-task, the web interface lets you start the work and return when it's complete.
+### Use cloud sessions for:
+
+- **Well-defined tasks with clear requirements:** When you can describe exactly what needs to be done and don't expect to need to steer Claude mid-task, a cloud session lets you start the work and return when it's complete.
 
 - **Background work on bug backlogs:** You can assign Claude multiple issues from your backlog and let them run in parallel. Each task proceeds independently, allowing you to tackle several fixes at once without monitoring each one individually.
 
-- **Repositories you don't have locally:** If you need to make changes to a repository you haven't cloned or don't want to set up on your machine, Claude Code on the web handles the environment setup for you.
+- **Repositories you don't have locally:** If you need to make changes to a repository you haven't cloned or don't want to set up on your machine, a cloud session handles the environment setup for you.
 
-- **Tasks you want to queue up:** When you have a list of changes to make but don't want to work on them right now, you can start tasks on the web and review the results later. This lets you batch similar work or delegate tasks during times when you're focused on something else.
+- **Tasks you want to queue up:** When you have a list of changes to make but don't want to work on them right now, you can start them in the cloud and review the results later. This lets you batch similar work or delegate tasks during times when you're focused on something else.
 
-### Use Claude Code in your terminal/IDE for:
+### Use local sessions in Claude Desktop, your terminal, or your IDE for:
 
-- **Tasks needing frequent course correction:** When you're not sure exactly what the right approach is or expect you'll need to redirect Claude based on what you see, working in your terminal gives you immediate feedback. You can adjust direction as Claude works rather than waiting for a complete result.
+- **Tasks needing frequent course correction:** When you're not sure exactly what the right approach is or expect you'll need to redirect Claude based on what you see, a local session gives you immediate feedback. You can adjust direction as Claude works rather than waiting for a complete result.
 
-- **Exploratory work with unclear requirements:** If you're figuring out how to solve a problem or investigating different approaches, the terminal lets you refine your request as you learn. The back-and-forth helps clarify requirements that weren't obvious at the start.
+- **Exploratory work with unclear requirements:** If you're figuring out how to solve a problem or investigating different approaches, a local session lets you refine your request as you learn. The back-and-forth helps clarify requirements that weren't obvious at the start.
 
-- **Local development with uncommitted changes:** When you're actively developing and have uncommitted work in your local repository, using Claude Code in your terminal keeps everything in one place. You can iterate quickly on changes without needing to commit or push work that isn't ready yet.
+- **Local development with uncommitted changes:** When you're actively developing and have uncommitted work in your local repository, using Claude Code locally keeps everything in one place. You can iterate quickly on changes without needing to commit or push work that isn't ready yet.
 
-- **Tasks requiring immediate feedback:** If you need to see results quickly and want to iterate rapidly, the terminal provides lower latency. You can watch Claude work in real-time and stop or redirect if something goes wrong early in the process.
+- **Tasks requiring immediate feedback:** If you need to see results quickly and want to iterate rapidly, a local session provides lower latency. You can watch Claude work in real-time and stop or redirect if something goes wrong early in the process.
 
-## Example Use Cases
+---
 
-### Backend Changes with Test-Driven Development
+## Example use cases
+
+### Backend changes with test-driven development
 
 Let Claude write tests that define the expected behavior, then implement the code to make those tests pass. This works particularly well for backend changes where behavior can be validated through automated testing.
 
@@ -989,11 +1023,11 @@ The rate limiter should:
 Use a TDD approach: write comprehensive tests first, then implement the rate limiting logic to pass them.
 ```
 
-**When to use this approach:** This works well on the web because the tests give Claude clear validation criteria to work towards. You don't need to monitor Claude's progress since the tests will catch issues and guide iteration toward a working solution. The self-contained nature of the task, where Claude writes tests then makes them pass, doesn't require your input once started.
+**When to use this approach:** This works well in a cloud session because the tests give Claude clear validation criteria to work towards. You don't need to monitor Claude's progress since the tests will catch issues and guide iteration toward a working solution. The self-contained nature of the task, where Claude writes tests then makes them pass, doesn't require your input once started.
 
 **What makes this effective:** Claude can iterate on the implementation without your supervision, using test failures to identify and fix problems. The task runs longer than a simple code change, but you can let it complete in the background. When you review the pull request, both the tests and implementation are ready, and you have confidence the solution works because the tests pass.
 
-### Documentation Updates
+### Documentation updates
 
 Generate or update technical documentation such as README files, API documentation, code comments, or user guides.
 
@@ -1006,11 +1040,11 @@ Update CHANGELOG.md with all changes since the v2.3.0 release:
   - Include the commit hash for each entry.
 ```
 
-**When to use this approach:** Changelog updates are well-suited for the web because Claude can review commit history independently and format entries without guidance. The task is tedious to do manually but straightforward enough that Claude can complete it without questions about which commits to include or how to categorize them.
+**When to use this approach:** Changelog updates are well suited to a cloud session because Claude can review commit history independently and format entries without guidance. The task is tedious to do manually but straightforward enough that Claude can complete it without questions about which commits to include or how to categorize them.
 
 **What makes this effective:** You can delegate the entire changelog update and review the result when complete. Claude reads through commits, extracts meaningful changes, and follows your existing changelog format.
 
-### Refactoring with Clear Scope
+### Refactoring with clear scope
 
 Restructure code to improve organization or readability when you can define clear boundaries for the change. This includes extracting code, splitting up large files, or organizing module structure.
 
@@ -1026,11 +1060,13 @@ Split it into three focused services:
 Ensure all tests still pass.
 ```
 
-**When to use this approach:** Refactoring with clear constraints works well on the web because you can set clear boundaries for Claude to follow. Test suites can provide validation, allowing Claude to verify the refactor didn't break any existing functionality.
+**When to use this approach:** Refactoring with clear constraints works well in a cloud session because you can set clear boundaries for Claude to follow. Test suites can provide validation, allowing Claude to verify the refactor didn't break any existing functionality.
 
 **What makes this effective:** The task takes time, but doesn't need your active input once the structure is defined. You can start the refactor and review the organized result later, rather than monitoring Claude as it works through the task. The clear scope means Claude is unlikely to need guidance mid-task.
 
-## Tips for Effective Use
+---
+
+## Tips for effective use
 
 - Consider adding a test suite to your repository so Claude more easily verify that it has successfully completed a task
 
@@ -1040,7 +1076,7 @@ Ensure all tests still pass.
 
 - Scope tasks with clear boundaries so Claude doesn't need guidance mid-task
 
-- If you're thinking "I'll need to see how this goes first," consider using your terminal instead
+- f you’re thinking “I’ll need to see how this goes first,” consider a local session instead
 
 - Use "Open in CLI" if you realize mid-task that you need to provide guidance
 ---
@@ -1057,32 +1093,32 @@ This guide is built for teams migrating from Console-based Claude Code access to
 
 Claude Code on the Console API is a fast way to get developers started, but it leaves governance up to each individual machine. Claude Enterprise puts the same Claude Code your developers already use behind the controls that security, IT, and finance teams need to run it at scale. You get centralized identity and access through your existing IdP, server-managed settings that enforce tool, file, and MCP policies on every client without MDM, and granular spend caps that cascade from the org down to individual users.
 
-Claude Enterprise adds rich analytics and audit logs (including contribution metrics like PRs and lines committed), custom data retention controls, and additional product surfaces—Claude Code on the web, mobile, and Slack (Claude Tag), plus Code Review—that aren't available on Console. And because Claude Enterprise is available via AWS Marketplace, procurement can run through the channel you already have.
+Claude Enterprise adds rich analytics and audit logs (including contribution metrics like PRs and lines committed), custom data retention controls, and additional product surfaces—Claude Code cloud sessions, Claude Mobile, and Slack (Claude Tag), plus Code Review—that aren't available on Console. And because Claude Enterprise is available via AWS Marketplace, procurement can run through the channel you already have.
 
 ---
 
 ## Claude Enterprise compared to Console
 
-| **Capability**                           | **Claude Console/API**                                                                                                                                                 | **Claude Enterprise**                                                                                                                                                                                                                                                                                                                                        |
-| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Claude Code on the web and mobile app    | ❌                                                                                                                                                                      | ✅                                                                                                                                                                                                                                                                                                                                                            |
-| Claude Tag                               | ❌                                                                                                                                                                      | ✅                                                                                                                                                                                                                                                                                                                                                            |
-| Code Review                              | ❌                                                                                                                                                                      | ✅                                                                                                                                                                                                                                                                                                                                                            |
-| Enforce which tools Claude Code can use  | ❌ No native UI<br>*\*Settings can be pushed to developer machines via MDM (Jamf, Intune) or config management (Ansible, Puppet, etc.)*                                 | ✅ Native UI to set managed-settings.json allow/deny rules                                                                                                                                                                                                                                                                                                    |
-| Block specific bash commands             | ❌ No native UI\*                                                                                                                                                       | ✅ Bash(curl:\*), Bash(sudo:\*), etc.                                                                                                                                                                                                                                                                                                                         |
-| Prevent access to sensitive files        | ❌ No native UI\*                                                                                                                                                       | ✅ Read(.env), Read(./secrets/\*\*)                                                                                                                                                                                                                                                                                                                           |
-| Control which MCP servers are allowed    | ❌ No native UI\*                                                                                                                                                       | ✅ allowedMcpServers / deniedMcpServers                                                                                                                                                                                                                                                                                                                       |
-| Deploy pre-approved MCP servers org-wide | ❌ No native UI\*                                                                                                                                                       | ✅ managed-mcp.json                                                                                                                                                                                                                                                                                                                                           |
-| Force sandbox mode                       | ❌ No native UI\*                                                                                                                                                       | ✅ sandbox.enabled                                                                                                                                                                                                                                                                                                                                            |
-| Disable --dangerously-skip-permissions   | ❌ No native UI\*                                                                                                                                                       | ✅ permissions.disableBypassPermissionsMode: disable                                                                                                                                                                                                                                                                                                          |
-| Disable auto mode                        | ❌ No native UI\*                                                                                                                                                       | ✅ disableAutoMode: disable                                                                                                                                                                                                                                                                                                                                   |
-| Custom roles (RBAC)                      | ❌                                                                                                                                                                      | ✅ Scope feature access by group and delegate specific admin areas like billing, user management, and identity without granting the Owner role. **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**                                                                        |
-| Model governance                         | ❌ No native UI\*                                                                                                                                                       | ✅ Set an organization default model for chat and Cowork from the admin console, and restrict Claude Code model selection with `availableModels` in managed settings. **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**                                              |
-| Audit logs                               | ❌ No audit log support<br>🟡 Claude Code does have support for **[OpenTelemetry](https://code.claude.com/docs/en/monitoring-usage)**                                    | 🟡 Audit logs and the **[Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**, which includes audit log events. Transcripts of local CLI and Desktop sessions are available through the Compliance API for Enterprise plans.                                                                                          |
-| Usage analytics                          | ✅ Lines of code written, acceptance rate, daily active users, daily spend.<br>**[Docs](https://code.claude.com/docs/en/analytics#access-analytics-for-api-customers)** | ✅ Lines of code written, acceptance rate, daily active users, and month-to-date spend per member in **Organization settings** → **Usage.**<br>**[Docs](https://code.claude.com/docs/en/analytics#access-analytics-for-teams-and-enterprise)**                                                                                                                |
-| Programmatic usage and cost reporting    | ✅ **[Claude Code Analytics API](https://platform.claude.com/docs/en/manage-claude/claude-code-analytics-api)**                                                         | ✅ The **[Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api)** returns per-user engagement and Claude Code metrics (commits, pull requests, lines of code) plus usage and cost endpoints. The **[Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api)** covers programmatic org management. |
-| Contribution metrics                     | ✅ Via the Claude Code Analytics API                                                                                                                                    | ✅ PRs created and lines of code committed with Claude Code assistance.                                                                                                                                                                                                                                                                                       |
-| Granular spend controls                  | ✅ Org and workspace limits, plus per-developer limits in Claude Code workspaces                                                                                        | ✅ Org → Group → Individual, integrated with RBAC groups                                                                                                                                                                                                                                                                                                      |
+| **Capability**                                           | **Claude Console/API**                                                                                                                                                 | **Claude Enterprise**                                                                                                                                                                                                                                                                                                                                        |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Claude Code cloud sessions, including from Claude Mobile | ❌                                                                                                                                                                      | ✅                                                                                                                                                                                                                                                                                                                                                            |
+| Claude Tag                                               | ❌                                                                                                                                                                      | ✅                                                                                                                                                                                                                                                                                                                                                            |
+| Code Review                                              | ❌                                                                                                                                                                      | ✅                                                                                                                                                                                                                                                                                                                                                            |
+| Enforce which tools Claude Code can use                  | ❌ No native UI<br>*\*Settings can be pushed to developer machines via MDM (Jamf, Intune) or config management (Ansible, Puppet, etc.)*                                 | ✅ Native UI to set managed-settings.json allow/deny rules                                                                                                                                                                                                                                                                                                    |
+| Block specific bash commands                             | ❌ No native UI\*                                                                                                                                                       | ✅ Bash(curl:\*), Bash(sudo:\*), etc.                                                                                                                                                                                                                                                                                                                         |
+| Prevent access to sensitive files                        | ❌ No native UI\*                                                                                                                                                       | ✅ Read(.env), Read(./secrets/\*\*)                                                                                                                                                                                                                                                                                                                           |
+| Control which MCP servers are allowed                    | ❌ No native UI\*                                                                                                                                                       | ✅ allowedMcpServers / deniedMcpServers                                                                                                                                                                                                                                                                                                                       |
+| Deploy pre-approved MCP servers org-wide                 | ❌ No native UI\*                                                                                                                                                       | ✅ managed-mcp.json                                                                                                                                                                                                                                                                                                                                           |
+| Force sandbox mode                                       | ❌ No native UI\*                                                                                                                                                       | ✅ sandbox.enabled                                                                                                                                                                                                                                                                                                                                            |
+| Disable --dangerously-skip-permissions                   | ❌ No native UI\*                                                                                                                                                       | ✅ permissions.disableBypassPermissionsMode: disable                                                                                                                                                                                                                                                                                                          |
+| Disable auto mode                                        | ❌ No native UI\*                                                                                                                                                       | ✅ disableAutoMode: disable                                                                                                                                                                                                                                                                                                                                   |
+| Custom roles (RBAC)                                      | ❌                                                                                                                                                                      | ✅ Scope feature access by group and delegate specific admin areas like billing, user management, and identity without granting the Owner role. **[Manage custom roles on Enterprise plans](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**                                                                        |
+| Model governance                                         | ❌ No native UI\*                                                                                                                                                       | ✅ Set an organization default model for chat and Cowork from the admin console, and restrict Claude Code model selection with `availableModels` in managed settings. **[Set a default model for your organization](https://support.claude.com/en/articles/15330088-set-a-default-model-for-your-organization)**                                              |
+| Audit logs                                               | ❌ No audit log support<br>🟡 Claude Code does have support for **[OpenTelemetry](https://code.claude.com/docs/en/monitoring-usage)**                                    | 🟡 Audit logs and the **[Compliance API](https://support.claude.com/en/articles/13015708-access-the-compliance-api)**, which includes audit log events. Transcripts of local CLI and Desktop sessions are available through the Compliance API for Enterprise plans.                                                                                          |
+| Usage analytics                                          | ✅ Lines of code written, acceptance rate, daily active users, daily spend.<br>**[Docs](https://code.claude.com/docs/en/analytics#access-analytics-for-api-customers)** | ✅ Lines of code written, acceptance rate, daily active users, and month-to-date spend per member in **Organization settings** → **Usage.**<br>**[Docs](https://code.claude.com/docs/en/analytics#access-analytics-for-teams-and-enterprise)**                                                                                                                |
+| Programmatic usage and cost reporting                    | ✅ **[Claude Code Analytics API](https://platform.claude.com/docs/en/manage-claude/claude-code-analytics-api)**                                                         | ✅ The **[Claude Enterprise Analytics API](https://platform.claude.com/docs/en/manage-claude/analytics-api)** returns per-user engagement and Claude Code metrics (commits, pull requests, lines of code) plus usage and cost endpoints. The **[Admin API](https://platform.claude.com/docs/en/manage-claude/admin-api)** covers programmatic org management. |
+| Contribution metrics                                     | ✅ Via the Claude Code Analytics API                                                                                                                                    | ✅ PRs created and lines of code committed with Claude Code assistance.                                                                                                                                                                                                                                                                                       |
+| Granular spend controls                                  | ✅ Org and workspace limits, plus per-developer limits in Claude Code workspaces                                                                                        | ✅ Org → Group → Individual, integrated with RBAC groups                                                                                                                                                                                                                                                                                                      |
 
 **Docs: [Roles and permissions](https://support.claude.com/en/articles/9267276-roles-and-permissions)**, **[Purchasing and managing seats on Enterprise plans](https://support.claude.com/en/articles/13393991-purchasing-and-managing-seats-on-enterprise-plans), [How am I billed for my Enterprise plan?](https://support.claude.com/en/articles/11526368-how-am-i-billed-for-my-enterprise-plan)**, **[Using Claude Code with your Enterprise plan](https://support.claude.com/en/articles/11845131-using-claude-code-with-your-team-or-enterprise-plan)**
 
@@ -1281,7 +1317,7 @@ Code Review analyzes your GitHub pull requests and posts findings as inline comm
 
 This article covers how to enable Code Review, configure review triggers, customize what gets flagged, and troubleshoot common setup issues.
 
-**Note:** Code Review is in research preview and available on Team and Enterprise plans. It isn’t available for organizations with zero data retention enabled. Code Review usage is billed separately through usage credits and doesn’t count against your plan’s included usage.
+**Note:** Code Review is available on Team and Enterprise plans. It isn’t available for organizations with zero data retention enabled. Code Review usage is billed separately through usage credits and doesn’t count against your plan’s included usage.
 
 ---
 
@@ -1459,7 +1495,7 @@ Common GHES setup issues:
 
 - **"Public cannot be private" error during setup:** Your GHES hostname must resolve to a publicly routable IP address. Code Review reaches your server over the internet, so internal or private network addresses won't work. Update DNS or your network configuration so the hostname resolves to a public IP, then retry.
 
-- **GitHub Enterprise Cloud with Data Residency is a different product.** Data Residency tenants (hostnames matching `*.ghe.com`) aren't supported by Code Review. Only self-hosted GitHub Enterprise Server and standard github.com repositories are supported.
+- **GitHub Enterprise Cloud with Data Residency is a different product.** GitHub Enterprise Cloud with data residency (.ghe.com) is also supported. An Owner follows the GitHub Enterprise Server admin setup and enters the `ghe.com` hostname.
 
 ---
 
@@ -1484,13 +1520,15 @@ SOURCE: https://support.claude.com/en/articles/14552382-your-first-day-in-claude
 
 # Your first day in Claude Code
 
-**Goal:** In about 15 minutes, you will install Claude Code, sign in, and complete your first AI-assisted change. This guide covers only what is needed on day one; links to deeper material appear at the end.
+**Goal:** In about 15 minutes, you’ll open Claude Code, sign in, and complete your first AI-assisted change. This guide covers only what you need on day one; links to deeper material appear at the end.
 
 ---
 
-## Step 1: Install Claude Code (2 minutes)
+## Step 1: Open Claude Code (2 minutes)
 
-Pick the command that matches your machine and paste it into a terminal.
+**Recommended:** Download **Claude Desktop**, sign in with your paid plan, and open the “Code” tab. Claude Desktop includes Claude Code, so there’s nothing else to install. Follow the **desktop quickstart** in the Claude Code docs for your first session, then skip to Step 3.
+
+To use the terminal instead, pick the command that matches your machine and paste it into a terminal.
 
 | **Your setup**       | **Command**                                |
 | -------------------- | ------------------------------------------ |
@@ -1511,11 +1549,13 @@ claude --version
 
 ## Step 2: Sign in (2 minutes)
 
-How you authenticate depends on how your organization has provisioned access. Pick one of the following:
+If you’re using Claude Desktop, you’re already signed in and Claude Code uses the same account. Skip to Step 3.
+
+In the terminal, how you authenticate depends on how your organization has provisioned access. Pick one of the following:
 
 | **If your organization uses…** | **Do this**                                                                                                                    |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------------------------ |
-| Claude Enterprise seats        | Run `claude`, then `/login` and approve the request in your browser (including SSO if prompted). This is the most common path. |
+| A paid Claude plan             | Run `claude`, then `/login` and approve the request in your browser (including SSO if prompted). This is the most common path. |
 | An Anthropic Console API key   | Run `export ANTHROPIC_API_KEY=sk-ant-…`, then run `claude`.                                                                    |
 | Amazon Bedrock                 | Run `export CLAUDE_CODE_USE_BEDROCK=1`, configure your AWS credentials, then run `claude`.                                     |
 | Google Vertex AI               | Run `export CLAUDE_CODE_USE_VERTEX=1`, configure your GCP credentials, then run `claude`.                                      |
@@ -1526,11 +1566,14 @@ If you are unsure which method applies, check with your administrator or try `/l
 
 ## Step 3: Open a project (1 minute)
 
+In Claude Desktop, start a new session in the “Code” tab and choose the folder for the repository you want to work on. In the terminal, start Claude Code from inside the repository:
+
 ```
-cd path/to/your/project claude
+cd path/to/your/project
+claude
 ```
 
-Claude Code reads your files on demand, so there is nothing to upload or attach. Simply start it from inside the repository you want to work on.
+Claude Code reads your files on demand, so there’s nothing to upload or attach.
 
 ---
 
@@ -1608,7 +1651,7 @@ This generates a `CLAUDE.md` file at your project root that captures your codeba
 
 ## Next steps
 
-You have now installed Claude Code, authenticated, made an edit, and set up project memory. When you are ready to go further, the official documentation covers **[memory and CLAUDE.md](https://code.claude.com/docs/en/memory)**, **[built-in commands](https://code.claude.com/docs/en/commands)**, and **[interactive-mode shortcuts](https://code.claude.com/docs/en/interactive-mode)** in depth.
+You have now opened Claude Code, signed in, made an edit, and set up project memory. When you are ready to go further, the official documentation covers **[memory and CLAUDE.md](https://code.claude.com/docs/en/memory)**, **[built-in commands](https://code.claude.com/docs/en/commands)**, and **[interactive-mode shortcuts](https://code.claude.com/docs/en/interactive-mode)** in depth.
 
 If you ran into problems during install or login, see the **[troubleshooting guide](https://code.claude.com/docs/en/troubleshooting)**.
 ---
@@ -1619,7 +1662,9 @@ SOURCE: https://support.claude.com/en/articles/14552646-troubleshoot-claude-code
 
 These ten issues account for the large majority of installation and authentication support tickets related to Claude Code. Each entry includes the most reliable fix.
 
-## 1. **claude: command not found** right after installing.
+**Note:** If you’re using Claude Code in Claude Desktop, there’s nothing to install. Sign in to the app with your paid Claude plan and open the “Code” tab. If a terminal install is giving you trouble, Claude Desktop is also the quickest way to get unblocked.
+
+## 1. claude: command not found right after installing.
 
 The installer added `claude` to your PATH, but your current shell has not picked it up yet. Open a new terminal, or run `source ~/.zshrc` (or `~/.bashrc`). On Windows, close and reopen PowerShell.
 
@@ -1676,10 +1721,10 @@ This guide explains which model you are using, how usage is metered, and how to 
 
 How you signed in determines how usage is metered. Everything else about Claude Code behaves the same way regardless.
 
-| **You signed in with…**                                  | **You get**                                                                      | **What "running out" looks like**                      |
-| -------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ |
-| Claude Enterprise seat (via `/login`)                    | A pool of usage included in your organization's plan, reset on a rolling window. | A "limit reached, resets at *time*" message.           |
-| API key (Console, Bedrock, Vertex, or Microsoft Foundry) | Pay-as-you-go, billed per token to that cloud or Console account.                | No hard stop; the account is charged for what it uses. |
+| **You signed in with…**                                                                | **You get**                                                                      | **What "running out" looks like**                      |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | ------------------------------------------------------ |
+| Claude Enterprise seat (signed in through Claude Desktop, or `/login` in the terminal) | A pool of usage included in your organization's plan, reset on a rolling window. | A "limit reached, resets at *time*" message.           |
+| API key (Console, Bedrock, Vertex, or Microsoft Foundry)                               | Pay-as-you-go, billed per token to that cloud or Console account.                | No hard stop; the account is charged for what it uses. |
 
 If you signed in with an Enterprise seat, you generally do not need to think about tokens until you reach a limit. If you are using an API key, the **`/cost`** command shows your running spend for the current session.
 
@@ -1737,7 +1782,7 @@ Almost every "I burned through my limit by lunchtime" report traces back to one 
 
 Every previous message is resent on every turn, so a session that has wandered through three unrelated problems pays for all three on each new message.
 
-**In practice:** you just finished debugging a login redirect and now want to write a database migration. Run `/clear` first. A simple test: if your next prompt would make perfect sense in a brand-new terminal, clear before sending it. Your `CLAUDE.md` and project files stay put; only the chat history goes.
+**In practice:** you just finished debugging a login redirect and now want to write a database migration. Run `/clear` first. A simple test: if your next prompt would make perfect sense in a brand-new session, clear before sending it. Your `CLAUDE.md` and project files stay put; only the chat history goes.
 
 **One warning:** `/clear` cannot be undone. If you might still need something from the history, copy it out first or run `/compact` instead, which preserves a summary rather than wiping everything.
 
@@ -1878,7 +1923,7 @@ SOURCE: https://support.claude.com/en/articles/14553517-claude-code-common-devel
 
 # Claude Code: Common developer use cases
 
-Claude Code is a command-line agent that runs in your terminal, reads your repository, edits files, executes commands, and requests confirmation before performing potentially destructive actions. It is designed to assist at every stage of the software development lifecycle—from exploring an unfamiliar codebase to shipping and maintaining production code.
+Claude Code is a coding agent that reads your repository, edits files, runs commands, and asks for confirmation before performing potentially destructive actions. It’s built into Claude Desktop, and it also runs in your terminal and supported IDEs. It’s designed to assist at every stage of the software development lifecycle, from exploring an unfamiliar codebase to shipping and maintaining production code.
 
 The table below summarizes where Claude Code fits across the development lifecycle. The remainder of this article walks through the ten tasks developers most frequently use it for, with a sample prompt and expected result for each.
 
@@ -2419,7 +2464,7 @@ Move sessions back and forth between mobile, web, desktop, and terminal:
 
 - `/remote-control` lets you control a local session from your phone or the web.
 
-- `claude remote-control` lets you spawn a new local session from the mobile app. *Availability: Pro, Max, Team, and Enterprise plans on CLI v2.1.51+.*
+- `claude remote-control` lets you spawn a new local session from the mobile app. *Availability: Pro, Max, Ultra, Team, and Enterprise plans on CLI v2.1.51+.*
 
 You can also enable **“Enable Remote Control for all sessions”** in `/config`.
 
@@ -2473,9 +2518,9 @@ Voice mode is available to all users, including Claude Code Desktop and Cowork. 
 
 - **macOS native:** hit fn×2 for system dictation in any terminal
 
-### Web sessions
+### Cloud sessions
 
-Beyond the terminal, run additional sessions on [claude.ai/code](https://claude.ai/code). Use the `&` command to background a session, or the `--teleport` flag to switch contexts between local and web.
+Beyond the terminal, run additional sessions in the cloud from claude.ai/code. Use the `&` command to send a session to the cloud, or the `--teleport` flag to switch contexts between local and cloud sessions.
 
 ### Output styles
 
@@ -2518,7 +2563,7 @@ To branch off an existing session, run `/branch` from inside it, or `claude --re
 
 ### Setup scripts for cloud environments
 
-In Claude Code on web and desktop, add a **setup script** that runs before each new cloud session—install dependencies, configure settings, set environment variables. The script is skipped on resume.
+In Claude Code cloud sessions and Claude Desktop, add a setup script that runs before each new cloud session—install dependencies, configure settings, set environment variables. The script is skipped on resume.
 
 ---
 
@@ -2564,36 +2609,36 @@ Five sections follow the arc of a developer’s first weeks: getting started, da
 
 ## 1. Getting started
 
-| **Question**                                                    | **Answer**                                                                                                                                                                                                                                                                                                                                                                                                              |
-| --------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **1.1 How do I install it?**                                    | **macOS/Linux:** `curl -fsSL <https://claude.ai/install.sh> | bash`
+| **Question**                                                    | **Answer**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **1.1 How do I install it?**                                    | **Easiest:** download Claude Desktop, sign in with your plan, and open the “Code” tab. Claude Code is built in, so there’s nothing else to install.<br>**Terminal:**<br>**macOS/Linux:** `curl -fsSL <https://claude.ai/install.sh> | bash`
 ​**Windows PowerShell:** `irm <https://claude.ai/install.ps1> | iex`
 ​**Homebrew:** `brew install --cask claude-code`
 ​**WinGet:** `winget install Anthropic.ClaudeCode`
 Then run `claude` from any repo.<br>
-Reference: **[Quickstart](https://code.claude.com/docs/en/quickstart)**                                                     |
+Reference: **[Quickstart](https://code.claude.com/docs/en/quickstart)** |
 | **1.2 Installed, but “claude: command not found”**              | The native installer puts the binary at `~/.local/bin/claude` (Windows: `%USERPROFILE%\.local\bin`). Add that directory to your PATH, e.g. `export PATH="$PATH:$HOME/.local/bin"` in `~/.zshrc` or `~/.bashrc`, then restart your terminal.<br>
-Reference: **[Troubleshooting: PATH](https://code.claude.com/docs/en/troubleshooting)**                                                                               |
+Reference: **[Troubleshooting: PATH](https://code.claude.com/docs/en/troubleshooting)**                                                                                                                                                                                                   |
 | **1.3 Login opens a browser on the wrong machine / I’m on SSH** | Press `c` at the login prompt to copy the auth URL. Open it in a local browser, then paste the code back into the terminal.<br>
-Reference: **[Troubleshooting: auth](https://code.claude.com/docs/en/troubleshooting)**                                                                                                                                                                                               |
+Reference: **[Troubleshooting: auth](https://code.claude.com/docs/en/troubleshooting)**                                                                                                                                                                                                                                                                                                                   |
 | **1.4 Auth errors right after login, but I have access**        | **400 “organization disabled”:** a stray `ANTHROPIC_API_KEY` env var is overriding your login. Unset it, remove from your shell profile, restart. Run `/status` to confirm which auth is active.
 ​**403 Forbidden:** your admin hasn’t enabled Claude Code for your workspace yet, or a corporate proxy is interfering.<br>
-Reference: **[Troubleshooting: auth](https://code.claude.com/docs/en/troubleshooting)** |
-| **1.5 Is Claude Code included in my plan?**                     | Yes. It’s included with Team and Enterprise seats and with Console (API) access. Log in with your work account; SSO is handled automatically. A 403 after login usually means your admin still needs to enable it for the workspace.<br>
-Reference: **[Authentication](https://code.claude.com/docs/en/authentication)**                                                                                              |
-| **1.6 Claude Code vs. desktop app vs. claude.ai?**              | **Claude Code:** terminal agent that reads your repo, edits files, runs commands.
-​**Desktop / claude.ai:** chat interfaces for conversations and one-off questions.
-Same model family underneath, different shape of tool.<br>
-Reference: **[Overview](https://code.claude.com/docs/en/overview)**                                                                                                               |
+Reference: **[Troubleshooting: auth](https://code.claude.com/docs/en/troubleshooting)**                                                                                                                     |
+| **1.5 Is Claude Code included in my plan?**                     | Yes. It’s included with paid Claude plans and with Console (API) access. Sign in with your work account; SSO is handled automatically. A 403 after login usually means your admin still needs to enable it for the workspace.<br>
+Reference: **[Authentication](https://code.claude.com/docs/en/authentication)**                                                                                                                                                                                                                         |
+| **1.6 Claude Code vs. chat in Claude?**                         | **Claude Code:** a coding agent that reads your repo, edits files, and runs commands. It’s the “Code” tab in Claude Desktop, and also runs in your terminal or IDE.
+**Chat in Claude** (web, Claude Desktop, or mobile): chat for conversations and one-off questions.
+Same models underneath, different shape of tool.<br>
+Reference: **[Overview](https://code.claude.com/docs/en/overview)**                                                                                                                                       |
 | **1.7 Does it work in my IDE?**                                 | Yes. Extensions are available for VS Code and JetBrains IDEs (IntelliJ, PyCharm, etc.). Same features, embedded in the editor instead of a separate terminal.<br>
-Reference: **[VS Code](https://code.claude.com/docs/en/vs-code)** · **[JetBrains](https://code.claude.com/docs/en/jetbrains)**                                                                                                                      |
+Reference: **[VS Code](https://code.claude.com/docs/en/vs-code)** · **[JetBrains](https://code.claude.com/docs/en/jetbrains)**                                                                                                                                                                                                                                          |
 | **1.8 How is this different from Copilot/Cursor autocomplete?** | Autocomplete suggests the next few lines. Claude Code is an agent: give it a task (“fix the failing tests”) and it reads files, runs commands, and makes multi-file edits until done. Less “finish my sentence,” more “here’s a problem, go work it.”<br>
-Reference: **[Overview](https://code.claude.com/docs/en/overview)**                                                                                         |
+Reference: **[Overview](https://code.claude.com/docs/en/overview)**                                                                                                                                                                                                             |
 | **1.9 What should I try first?**                                | Point it at a tedious-but-not-hard bug you’ve been putting off. Example: *“the test in [file] is flaky, figure out why.”* Let it read the code instead of you explaining the code.<br>
-Reference: **[Common use cases](https://code.claude.com/docs/en/common-workflows)**                                                                                                                                            |
+Reference: **[Common use cases](https://code.claude.com/docs/en/common-workflows)**                                                                                                                                                                                                                                                                |
 | **1.10 How do I update it?**                                    | Native installs auto-update in the background. To force one now, run `claude update`.
 Homebrew/WinGet don’t auto-update: run `brew upgrade claude-code` or `winget upgrade Anthropic.ClaudeCode` periodically.<br>
-Reference: **[Setup: updates](https://code.claude.com/docs/en/setup)**                                                                                                                           |
+Reference: **[Setup: updates](https://code.claude.com/docs/en/setup)**                                                                                                                                                                                                                                               |
 
 ---
 
@@ -2828,7 +2873,7 @@ The table below covers the questions champions are asked most frequently, along 
 | -------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
 | “What should I try it on first?”                   | Recommend a real but contained task — ideally a bug or chore the person has been postponing because it is tedious rather than difficult.                                                                                     | **[Common workflows](https://code.claude.com/docs/en/common-workflows)**                                                |
 | “How do I trust it with my code?”                  | Introduce plan mode: pressing Shift+Tab cycles into it, Claude proposes exactly what it intends to change, and nothing is modified until the user approves.                                                                  | **[Permission modes](https://code.claude.com/docs/en/permission-modes)**                                                |
-| “Is the setup worth the effort?”                   | Installation takes roughly two minutes, runs in the terminal, and requires no IDE extension. Running `/init` once is sufficient to begin working.                                                                            | **[Quickstart](https://code.claude.com/docs/en/quickstart)**                                                            |
+| “Is the setup worth the effort?”                   | If they have Claude Desktop, there’s nothing to install: sign in and open the “Code” tab. A terminal install takes roughly two minutes. Running `/init` once is sufficient to begin working.                                 | **[Quickstart](https://code.claude.com/docs/en/quickstart)**                                                            |
 | “It produced an incorrect result.”                 | Encourage them to provide the failure back to Claude — pasting the error message or failing test is far more effective than rephrasing the original request.                                                                 | **[Common workflows](https://code.claude.com/docs/en/common-workflows)**                                                |
 | “It does not understand our codebase conventions.” | Suggest running `/init` to generate a `CLAUDE.md` file, then adding the team’s conventions, test commands, and any directories that should be avoided.                                                                       | **[CLAUDE.md documentation](https://code.claude.com/docs/en/memory)**                                                   |
 | “Is this just autocomplete?”                       | Offer a brief demonstration in which Claude explains an unfamiliar file, traces a bug across services, or drafts a migration plan — tasks that require reasoning across the repository rather than completing a single line. | A two-minute live demonstration                                                                                         |
@@ -2871,13 +2916,13 @@ You are the warm introduction rather than the onboarding program. When a colleag
 
 Healthy skepticism is to be expected; engineers should be cautious about new tools. The most effective response is rarely to argue the general case. Instead, acknowledge the concern, offer a brief reframe, and propose one concrete demonstration on the person’s own code. Most concerns are resolved by a single successful experience.
 
-| **Concern**                                   | **Suggested response**                                                                                                                                                                               | **Evidence to offer**                                     |
-| --------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| “I am faster without it.”                     | That is likely true for code the person writes routinely. Suggest trying it on the work they tend to avoid — legacy files, unfamiliar services, or test scaffolding — where the leverage is highest. | Time one tedious task both ways and compare.              |
-| “I do not trust AI to touch production code.” | Agree that no change should land unread. Plan mode combined with normal diff review means nothing is applied that the engineer has not inspected — the same standard as any pull request.            | Demonstrate plan mode on a real file.                     |
-| “It will make junior engineers weaker.”       | Used well, it is an effective explainer. Encourage junior engineers to ask Claude to explain a file and its call sites before asking it to change anything.                                          | Run “Explain @file and where it is called from” together. |
-| “I tried it once and it hallucinated.”        | This is usually a context problem rather than a model problem. @-mentioning the relevant files, running `/init`, and providing the actual error output typically resolves it.                        | Re-run their original prompt with proper @-context.       |
-| “We do not have time to learn another tool.”  | Claude Code is a terminal command rather than a platform. If it does not return value within the first session, it is reasonable to set it aside.                                                    | A two-minute install followed by one real bug.            |
+| **Concern**                                   | **Suggested response**                                                                                                                                                                                       | **Evidence to offer**                                                      |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------- |
+| “I am faster without it.”                     | That is likely true for code the person writes routinely. Suggest trying it on the work they tend to avoid — legacy files, unfamiliar services, or test scaffolding — where the leverage is highest.         | Time one tedious task both ways and compare.                               |
+| “I do not trust AI to touch production code.” | Agree that no change should land unread. Plan mode combined with normal diff review means nothing is applied that the engineer has not inspected — the same standard as any pull request.                    | Demonstrate plan mode on a real file.                                      |
+| “It will make junior engineers weaker.”       | Used well, it is an effective explainer. Encourage junior engineers to ask Claude to explain a file and its call sites before asking it to change anything.                                                  | Run “Explain @file and where it is called from” together.                  |
+| “I tried it once and it hallucinated.”        | This is usually a context problem rather than a model problem. @-mentioning the relevant files, running `/init`, and providing the actual error output typically resolves it.                                | Re-run their original prompt with proper @-context.                        |
+| “We do not have time to learn another tool.”  | Claude Code is a tab in the Claude app they may already use, or a terminal command, rather than a platform to learn. If it does not return value within the first session, it is reasonable to set it aside. | Open the “Code” tab (or a two-minute terminal install), then one real bug. |
 
 ---
 
@@ -2930,22 +2975,22 @@ One announcement in two formats, plus two optional variants. Pick whichever fits
 
 ### 1.1 Before you send
 
-| **Item**                                                                                                                     | **Why it matters**                                                                  |
-| ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
-| **`#claude-code` channel created** and linked in the message                                                                 | Gives questions one place to land                                                   |
-| **Install command tested** on at least one machine in your environment                                                       | Catches proxy/firewall issues before 200 people hit them                            |
-| **Security/data-handling link** ready — [Data Usage](https://code.claude.com/docs/en/data-usage) or your internal equivalent | “Where does my code go?” will be the first reply                                    |
-| **One concrete first task** chosen — a real bug or file in *your* codebase                                                   | Generic examples don’t convert; “fix the flaky test in `auth_test.go`” does         |
-| **A named owner** for the channel for the first 48 hours                                                                     | Unanswered launch-day questions kill momentum                                       |
-| **A C-suite sponsor** lined up to send (or co-sign) the announcement                                                         | Exec-sent launches consistently see higher first-week adoption than admin-sent ones |
+| **Item**                                                                                                                                | **Why it matters**                                                                  |
+| --------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- |
+| **`#claude-code` channel created** and linked in the message                                                                            | Gives questions one place to land                                                   |
+| **Claude Desktop sign-in tested** on at least one machine in your environment (and the terminal install command, if you’re offering it) | Catches proxy/firewall issues before 200 people hit them                            |
+| **Security/data-handling link** ready — [Data Usage](https://code.claude.com/docs/en/data-usage) or your internal equivalent            | “Where does my code go?” will be the first reply                                    |
+| **One concrete first task** chosen — a real bug or file in *your* codebase                                                              | Generic examples don’t convert; “fix the flaky test in `auth_test.go`” does         |
+| **A named owner** for the channel for the first 48 hours                                                                                | Unanswered launch-day questions kill momentum                                       |
+| **A C-suite sponsor** lined up to send (or co-sign) the announcement                                                                    | Exec-sent launches consistently see higher first-week adoption than admin-sent ones |
 
 ### 1.2 The announcement
 
-Use this as your standard org-wide rollout message. It covers what Claude Code is, gives a two-minute install, hands readers one concrete task to try, and answers “where does my code go?” before anyone has to ask.
+Use this as your standard org-wide rollout message. It covers what Claude Code is, gets readers running in two minutes, hands them one concrete task to try, and answers “where does my code go?” before anyone has to ask.
 
 **Email**
 
-- **Subject:** Claude Code is live for [Engineering / your team]Team —As of today you have access to **Claude Code** — an AI coding agent that runs in your terminal, reads your actual codebase, and works through real tasks end-to-end: debugging, refactors, tests, PRs. It’s not autocomplete and it’s not a chat window. It edits files, runs your commands, and asks permission before anything risky.**Get running in two minutes:**```
+- **Subject:** Claude Code is live for [Engineering / your team]Team —As of today you have access to **Claude Code** — an AI coding agent that reads your actual codebase and works through real tasks end-to-end: debugging, refactors, tests, PRs. It’s not autocomplete and it’s not a chat window. It edits files, runs your commands, and asks permission before anything risky.Get running in two minutes: download Claude Desktop, sign in with your company account, and open the Code tab. Claude Code is built in. Prefer the terminal?```
 curl -fsSL https://claude.ai/install.sh | bash
 cd <your-repo>
 claude
@@ -2959,11 +3004,11 @@ Then run `/init` once — Claude reads your project and writes a `CLAUDE.md` wit
 
 - *“Look at my working diff and tell me what’s risky before I push”*
 
-**Where your code goes.** Claude Code runs in your terminal and talks directly to Anthropic’s API — no third-party servers in the loop. It asks before editing files or running commands. Under our Enterprise agreement, Anthropic does not use your code or prompts to train its models. Details: **[Data Usage](https://code.claude.com/docs/en/data-usage)** · **[Security](https://code.claude.com/docs/en/security)****Where to go with questions:** `#claude-code`. [Owner name] is watching it this week.— [Name]**P.S.** Prefer your editor? There’s a **[VS Code extension](https://code.claude.com/docs/en/vs-code)** and **[JetBrains plugin](https://code.claude.com/docs/en/jetbrains)** — same agent, no terminal.
+**Where your code goes.** Where your code goes. Claude Code runs on your machine and talks directly to Anthropic’s API — no third-party servers in the loop. It asks before editing files or running commands. Under our Enterprise agreement, Anthropic does not use your code or prompts to train its models. Details: **[Data Usage](https://code.claude.com/docs/en/data-usage)** · **[Security](https://code.claude.com/docs/en/security)****Where to go with questions:** `#claude-code`. [Owner name] is watching it this week.— [Name]**P.S.** Prefer your editor or terminal? There’s a **[VS Code extension](https://code.claude.com/docs/en/vs-code)**, a **[JetBrains plugin](https://code.claude.com/docs/en/jetbrains)**, and a terminal CLI — same agent.
 
 **Slack / Teams**
 
-- 🚀 **Claude Code is live for [team]**AI coding agent, runs in your terminal, reads your repo, does real work — bugs, refactors, tests, PRs. Asks before it touches anything.```
+- 🚀 **Claude Code is live for [team]**AI coding agent, reads your repo, does real work — bugs, refactors, tests, PRs. Asks before it touches anything.Get started: download Claude Desktop, sign in with your [company] account, open the Code tab. Terminal instead?```
 curl -fsSL https://claude.ai/install.sh | bash
 cd <your-repo>
 claude
@@ -2979,7 +3024,7 @@ This version is deliberately stripped to **one ask**: install it and run it on o
 
 **Email**
 
-| **Subject:** One thing I’d like every engineer to try this week<br>Team —<br>We’ve turned on **Claude Code** for all of engineering. It’s an AI agent that works directly in your terminal, on your actual codebase — and the early results from teams already using it are strong enough that I want everyone on it this week.<br>I’m asking for ten minutes:
+| **Subject:** One thing I’d like every engineer to try this week<br>Team —<br>We’ve turned on **Claude Code** for all of engineering. It’s an AI agent that works directly on your actual codebase — and the early results from teams already using it are strong enough that I want everyone on it this week.<br>I’m asking for ten minutes: download Claude Desktop, sign in with your [company] account, and open the Code tab. Or, if you prefer the terminal:
 
 ```
 curl -fsSL https://claude.ai/install.sh | bash
@@ -2989,11 +3034,11 @@ claude
 
 <br>Then hand it one real task — the bug you’ve been putting off, or *“walk me through how [module] works.”*<br>That’s the whole ask. [Owner name] and team are in `#claude-code` for anything you hit along the way.<br>— [Exec Name]
 [Title]<br> |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Slack / Teams**
 
-| 📣 **From [Exec Name]: one thing to try this week**<br>We’ve turned on **Claude Code** for all of engineering. Early results are strong enough that I’m asking everyone to give it ten minutes on real work this week.<br>
+| 📣 **From [Exec Name]: one thing to try this week**<br>We’ve turned on **Claude Code** for all of engineering. Early results are strong enough that I’m asking everyone to give it ten minutes on real work this week.<br>I’m asking for ten minutes: download Claude Desktop, sign in with your [company] account, and open the Code tab. Or, if you prefer the terminal:
 
 ```
 curl -fsSL https://claude.ai/install.sh | bash
@@ -3002,7 +3047,7 @@ claude
 ```
 
 <br>→ hand it one real task.<br>That’s it. Questions → `#claude-code`.<br> |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ### 1.4 Variant: Pilot / early-access group
 
@@ -3015,8 +3060,8 @@ Use for a phased rollout. Send to the pilot cohort only.
 
 After launch, DM the two or three people who are most active in `#claude-code`.
 
-| Hey [name] — your `#claude-code` posts are doing more for adoption than my announcement did. A couple of people told me your [thread / screenshot] was why they actually tried it.<br>Want to make that semi-official? Low lift — mostly keep posting what you’re posting, plus first crack at new features and a direct line to the Anthropic team. I can share a short playbook for that if you’re in.<br> |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Hey [name] — your `#claude-code` posts are doing more for adoption than my announcement did. A couple of people told me your [thread / screenshot] was why they actually tried it.<br>Want to make that semi-official? Low lift — mostly keep posting what you’re posting, plus first crack at new features and a direct line to the Anthropic team. I can share a short playbook for that if you’re in. |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ---
 
@@ -3043,8 +3088,8 @@ Copy the message body from each table below directly into Slack or Teams. Replac
 
 **Message 2 — Quick wins to try first**
 
-| 🚀 **Tip: Three things to try in your first 10 minutes**<br>Installed Claude Code but not sure what to actually ask it? Start with the stuff that’s been bugging you all week.<br>     Fix something annoying — *“the test in [file] is flaky — figure out why”*<br>Get oriented in code you didn’t write — *“walk me through how [module] works”*<br>Sanity-check before you push — *“look at my working diff and tell me what looks risky”*<br>None of these need setup. Just `cd` into your repo and run `claude`.<br>**Try it now:** pick the bug you’ve been avoiding and paste the error message in. That’s it.<br>📖 **[Quickstart](https://code.claude.com/docs/en/quickstart)**<br> |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 🚀 **Tip: Three things to try in your first 10 minutes**<br>Installed Claude Code but not sure what to actually ask it? Start with the stuff that’s been bugging you all week.<br>     Fix something annoying — *“the test in [file] is flaky — figure out why”*<br>Get oriented in code you didn’t write — *“walk me through how [module] works”*<br>Sanity-check before you push — *“look at my working diff and tell me what looks risky”*<br>None of these need setup. Just open the Code tab in Claude Desktop and pick your repo, or `cd` into it and run `claude`.<br>**Try it now:** pick the bug you’ve been avoiding and paste the error message in. That’s it.<br>📖 **[Quickstart](https://code.claude.com/docs/en/quickstart)**<br> |
+| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 ### 2.2 Project memory
 
@@ -3090,8 +3135,8 @@ Copy the message body from each table below directly into Slack or Teams. Replac
 
 **Message 9 — IDE integrations**
 
-| 💻 **Tip: You don’t have to leave your editor**<br>Terminal not your thing? The same agent runs inside VS Code and JetBrains.<br>VS Code extension and JetBrains plugin available now — same model, same features, embedded in your editor. No alt-tabbing to the terminal.<br>**Try it now:** search “Claude Code” in your editor’s extension marketplace and hit install. You’ll be running in under a minute.<br>📖 **[VS Code extension](https://code.claude.com/docs/en/vs-code)**<br> |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 💻 **Tip: You don’t have to leave your editor**<br>Prefer your editor? The same agent runs inside VS Code and JetBrains.<br>VS Code extension and JetBrains plugin available now — same model, same features, embedded in your editor. No alt-tabbing to the terminal.<br>**Try it now:** search “Claude Code” in your editor’s extension marketplace and hit install. You’ll be running in under a minute.<br>📖 **[VS Code extension](https://code.claude.com/docs/en/vs-code)**<br> |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 
 ### 2.5 Automate Your Workflows
 
@@ -3148,8 +3193,8 @@ Copy the message body from each table below directly into Slack or Teams. Replac
 
 **Message 19 — Security architecture**
 
-| 🔐 **Tip: The answer to “is this safe?” — for the next time you’re asked**<br>Someone on your team is going to ask “wait, where does my code go?” Here’s the short version you can paste.<br>Permission-first by design. Every file edit, shell command, and external call is gated by your approval. The CLI runs in your terminal and talks directly to Anthropic’s API — no third-party servers — with optional OS-level sandboxing for shell commands. Under our Enterprise plan, Anthropic does not use your code or prompts to train its models.<br>**Try it now:** save these two links for the next time the question comes up — they answer most security-review questions.<br>📖 **[Security and permissions](https://code.claude.com/docs/en/security)** · **[Data usage](https://code.claude.com/docs/en/data-usage)**<br> |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 🔐 **Tip: The answer to “is this safe?” — for the next time you’re asked**<br>Someone on your team is going to ask “wait, where does my code go?” Here’s the short version you can paste.<br>Permission-first by design. Every file edit, shell command, and external call is gated by your approval. Claude Code runs on your machine and talks directly to Anthropic’s API — no third-party servers — with optional OS-level sandboxing for shell commands. Under our Enterprise plan, Anthropic does not use your code or prompts to train its models.<br>**Try it now:** save these two links for the next time the question comes up — they answer most security-review questions.<br>📖 **[Security and permissions](https://code.claude.com/docs/en/security)** · **[Data usage](https://code.claude.com/docs/en/data-usage)**<br> |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 **Message 20 — Best practices**
 
@@ -3164,14 +3209,14 @@ Copy the message body from each table below directly into Slack or Teams. Replac
 
 One-line Slack replies for the questions you’ll get asked most.
 
-| **Question**                             | **Response**                                                                                                                                                                                                                                            |
-| ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| “Does it work in VS Code?”               | Yes — VS Code extension and JetBrains plugin. Same features, embedded in your editor. **[Docs →](https://code.claude.com/docs/en/vs-code)**                                                                                                             |
-| “Do I have to configure anything first?” | No — install, then `claude` in any repo. Run `/init` once and you’re set. **[Quickstart →](https://code.claude.com/docs/en/quickstart)**                                                                                                                |
-| “Where does my code go?”                 | The CLI runs in your terminal and sends context to Anthropic’s API for inference — no third-party servers. Under our Enterprise plan, your code and prompts aren’t used to train models. **[Data Usage →](https://code.claude.com/docs/en/data-usage)** |
-| “Can it see my whole repo?”              | It reads what you give it access to. File reads inside your working directory don’t prompt; permission prompts gate edits, shell commands, and anything outside that directory. **[Permissions →](https://code.claude.com/docs/en/permissions)**        |
-| “How is this different from Copilot?”    | Copilot autocompletes lines. Claude Code is an agent — reads files, runs commands, makes multi-file edits. **[Overview →](https://code.claude.com/docs/en/overview)**                                                                                   |
-| “What should I try first?”               | A bug you’ve been putting off because it’s tedious. *“the test in [file] is flaky — figure out why.”* **[Quickstart →](https://code.claude.com/docs/en/quickstart)**                                                                                    |
+| **Question**                             | **Response**                                                                                                                                                                                                                                               |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| “Does it work in VS Code?”               | Yes — VS Code extension and JetBrains plugin. Same features, embedded in your editor. **[Docs →](https://code.claude.com/docs/en/vs-code)**                                                                                                                |
+| “Do I have to configure anything first?” | No — sign in to Claude Desktop and open the Code tab, or install the CLI and run `claude` in any repo. Run `/init` once and you’re set. **[Quickstart →](https://code.claude.com/docs/en/quickstart)**                                                     |
+| “Where does my code go?”                 | Claude Code runs on your machine and sends context to Anthropic’s API for inference — no third-party servers. Under our Enterprise plan, your code and prompts aren’t used to train models. **[Data Usage →](https://code.claude.com/docs/en/data-usage)** |
+| “Can it see my whole repo?”              | It reads what you give it access to. File reads inside your working directory don’t prompt; permission prompts gate edits, shell commands, and anything outside that directory. **[Permissions →](https://code.claude.com/docs/en/permissions)**           |
+| “How is this different from Copilot?”    | Copilot autocompletes lines. Claude Code is an agent — reads files, runs commands, makes multi-file edits. **[Overview →](https://code.claude.com/docs/en/overview)**                                                                                      |
+| “What should I try first?”               | A bug you’ve been putting off because it’s tedious. *“the test in [file] is flaky — figure out why.”* **[Quickstart →](https://code.claude.com/docs/en/quickstart)**                                                                                       |
 
 ### 3.2 Prompt templates
 
@@ -3215,75 +3260,6 @@ One-line Slack replies for the questions you’ll get asked most.
 Claude Code ships frequently—verify version-specific details against **[code.claude.com/docs](https://code.claude.com/docs)** before distributing internally.
 ---
 
-SOURCE: https://support.claude.com/en/articles/15282265-claude-enterprise-activation-promo-for-claude-code-and-cowork
-
-# Claude Enterprise activation promo for Claude Code and Cowork
-
-We're issuing $1,000 in usage credits to every user in a Claude Enterprise organization—up to $10M per organization—who activates Claude Code or Claude Cowork for the first time. Credits are issued automatically and are scoped to the activating seat.
-
-Available on usage-based Claude Enterprise plans only.
-
-This article explains who’s eligible for the promo, how it works, and where admins can see activations in their organization. Additional offer terms apply and are available here: **[Claude Promotional Credit Offer Terms](https://www.anthropic.com/legal/promotion-credit-terms)**.
-
-## Eligibility
-
-## Plan eligibility
-
-The promo is available on new and existing usage-based Claude Enterprise organizations, both sales-assisted and self-serve.
-
-The promo isn’t available on:
-
-- Legacy seat-based Claude Enterprise plans
-
-- Team plans
-
-- Pro and Max plans
-
-Your organization’s subscription must be active and in good standing when a credit is issued and when it’s consumed.
-
-### Seat eligibility
-
-A seat earns a credit on its first successful message in Claude Code or Cowork, provided that:
-
-- The user hasn’t previously sent a message in Claude Code or Cowork on any Claude Enterprise plan.
-
-- The seat is in an eligible organization
-
-- The seat is not associated with a free email domain (e.g. Gmail).
-
-Each user can earn the credit on at most one Claude Enterprise organization, so a user who’s a member of multiple organizations earns the credit once.
-
-## How the credit works
-
-When a user in your Claude Enterprise organization sends their first successful message in Claude Code or Cowork, $1,000 in usage credits is issued automatically to that seat. There’s nothing for admins or users to claim.
-
-Once a credit is issued:
-
-- It applies only to that user’s Claude Code and Cowork usage, not to Claude chat or any other product.
-
-- It expires 90 days after issuance. Any unused portion is forfeited at expiration, with no expiration notification.
-
-- Up to 10,000 seats per organization can earn a credit ($10M maximum per organization). Once 10,000 seats in your organization have earned a credit, additional first-time activations don't earn one.
-
-## Track activations in your organization
-
-Admins can see who’s eligible by going to the **[usage page in organization settings](https://claude.ai/admin-settings/usage)** or:
-
-- For Claude Code, go to **[Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code)**
-
-- For Cowork, go to **[Organization settings > Cowork](https://claude.ai/admin-settings/cowork)**
-
-## Activation window
-
-The activation window opens June 2, 2026 and ends on July 2, 2026 at 11:59:59 PM PT. Anthropic may contract or extend the window at its discretion.
-
-Seats that activate during the window earn the credit. Credits issued during the window remain valid for 90 days from issuance, even if the window has closed by then.
-
-## Temporary holds on eligibility
-
-If we detect abuse, we may put the promotion on hold and hide the promotion admin panel. Your admin will also receive an email if that is the case. You can fill out **[this form](https://docs.google.com/forms/d/e/1FAIpQLSdVQd-gfK63yowPR0PfTZs74PuYcB1qJUHh3VxGdR7tN9rYQg/viewform)** to request a review of your organization’s recent activation activity.
----
-
 SOURCE: https://support.claude.com/en/articles/15924927-use-claude-code-cli-with-a-screen-reader
 
 # Use Claude Code CLI with a screen reader
@@ -3319,3 +3295,194 @@ To explore comprehensive documentation regarding line markers, list navigation, 
 ​​If something doesn't work with your screen reader or terminal, open an issue at **[the Claude Code GitHub repository](https://github.com/anthropics/claude-code/issues)** and mention your screen reader in the title. Please include your operating system, terminal application, and screen reader name and version.
 
 **Note:** One setting that's easy to mix up: `CLAUDE_CODE_ACCESSIBILITY=1` is a different, unrelated setting—it keeps the terminal cursor visible for screen magnifiers and does not turn on screen reader mode. For a screen reader, use the methods above.
+---
+
+SOURCE: https://support.claude.com/en/articles/17318731-use-claude-code-local-mode-and-claude-cowork-local-mode-on-a-hipaa-ready-enterprise-plan
+
+# Use Claude Code \(local mode\) and Claude Cowork \(local mode\) on a HIPAA-ready Enterprise plan
+
+The HIPAA configuration is an organization setting on Enterprise plans. It brings local Claude Code and Claude Cowork sessions under your Business Associate Agreement (BAA) with Anthropic. Cloud sessions, including Claude Code sessions in the cloud and Cowork in the cloud, aren't covered. This article calls them Claude Code (local mode) and Cowork (local mode). They run in one of these places:
+
+- Claude Code in the terminal
+
+- Claude Code in the Code section of Claude Desktop
+
+- Cowork in Claude Desktop
+
+With the configuration applied, members can use both products with protected health information (PHI), on the conditions in **[Check what your BAA covers](#h_eba343b314)**. Applying it also turns off certain features across your organization.
+
+Available on Enterprise plans with an Anthropic account team. Only the Primary Owner can apply the HIPAA configuration.
+
+This article is for the Primary Owner, who applies the configuration, and for any Owner who helps decide whether to apply it, prepare for it, and confirm it.
+
+"HIPAA-ready" means the product is configured to support your HIPAA obligations under the BAA. Compliance remains your organization's responsibility.
+
+**Note:**
+
+- If your organization hasn't enabled HIPAA, start with **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans)**. Enabling HIPAA brings chat under your BAA. That step alone doesn't bring Claude Code (local mode) or Cowork (local mode) under your BAA.
+
+- If you prepare members' computers, see **[Set up Claude Code (local mode) for a HIPAA-ready organization](https://code.claude.com/docs/en/hipaa-setup)** and **[Set up Cowork (local mode) for a HIPAA-ready organization](https://claude.com/docs/cowork/hipaa-setup)**.
+
+- If you want to check whether a specific feature is covered under your BAA, see the list of Eligible Services in the **[Implementation Guide for HIPAA Entities](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide)** and **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)**.
+
+## Check what your BAA covers
+
+After you apply the HIPAA configuration, your BAA covers each product in the table, on the condition in the second column. Applying the configuration turns off Cowork and the Code section of Claude Desktop, even if they were on, so an Owner has to turn each one on afterward.
+
+| **Product**                                       | **Covered under your BAA when**                                                                                                               |
+| ------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Code in the terminal                       | Members sign in with their Claude Enterprise account, and Claude Code connects directly to Anthropic, not through a cloud provider or gateway |
+| Claude Code in the Code section of Claude Desktop | An Owner has turned on the "Desktop" toggle in **Organization settings > Claude Code**                                                        |
+| Cowork in Claude Desktop                          | An Owner has turned on the "Enable for your organization" toggle in **Organization settings > Cowork**                                        |
+
+You don't need zero data retention (ZDR) to apply the configuration. If your organization has ZDR for Claude Code, see **[Replace ZDR with the configuration](#h_a6b761685a)**.
+
+### Products and features your BAA doesn't cover
+
+Keep PHI out of these products and features. Your BAA doesn't cover them, even with the configuration applied:
+
+- The Claude Code extensions for VS Code and JetBrains, which keep working after you apply the configuration
+
+- Any feature labeled beta or research preview
+
+- Claude Code sessions that connect through a cloud provider such as Amazon Bedrock, an LLM gateway, or a custom base URL
+
+- Claude Code sessions that use a Claude Console API key, unless the Claude Console organization has ZDR enabled
+
+- Connectors, MCP servers, plugins, desktop extensions, Claude in Chrome, and skills, including after an Owner turns them on
+
+- Cloud and remote features such as Claude Code cloud sessions, which the configuration makes unavailable
+
+Ask your IT team to **[deploy managed settings](https://code.claude.com/docs/en/hipaa-setup#deploy-managed-settings)**, a policy file on each computer that directs members to sign in with a Claude Enterprise account and refuses cloud providers and gateways. For a full list of Eligible Services, please review the **[Implementation Guide](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide)** and **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)**.
+
+## Ask Anthropic to turn on the HIPAA configuration
+
+You apply the configuration with the "Apply HIPAA configuration" button in **Organization settings > Data and privacy**. The button is grayed out until Anthropic turns it on for your organization. Ask your Anthropic account team to turn it on. The HIPAA configuration is only available to organizations with an Anthropic account team at this time. Anthropic Support can’t turn it on for your organization.
+
+See **[Coverage until you apply the configuration](#h_415ff36247)** and **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)** for what your BAA covers if you haven't applied it.
+
+### Coverage until you apply the configuration
+
+Until you apply the configuration, members can still use Claude Code (local mode) and Cowork (local mode) where an Owner has them turned on, but your BAA may not cover their use. Coverage differs for organizations with and without zero data retention (ZDR) for Claude Code:
+
+- **Without ZDR for Claude Code:** Your BAA doesn't cover Claude Code or Cowork, so don't use them to process PHI.
+
+- **With ZDR for Claude Code:** Your BAA covers Claude Code through ZDR. It doesn't cover Cowork, so don't use Cowork to process PHI.
+
+Your account team can tell you whether your organization has ZDR for Claude Code.
+
+### Replace ZDR with the configuration
+
+The configuration is meant to replace ZDR for Claude Code (local mode). Applying it doesn't turn ZDR off. Don't apply the configuration if you wish to keep your existing access through ZDR.
+
+If you have ZDR enabled for Claude Code within Claude for Enterprise, email your account team for help switching to the HIPAA configuration.
+
+Once ZDR is removed, Anthropic keeps Claude Code data under standard retention, as it does for your organization's chat data.
+
+## Prepare your organization
+
+Complete these tasks before you apply the configuration.
+
+### Review what changes for members
+
+The table shows the changes members are most likely to notice, and what to do about each one before you apply the configuration. The **[Implementation Guide for HIPAA Entities](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide)** and **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)** list the Eligible Services under your BAA.
+
+| **What changes**                                                                                                                                                     | **What to do before you apply**                                                                                                     |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Cowork, the Code section of Claude Desktop, skills, and Claude in Chrome turn off, even if an Owner had turned them on                                               | List the ones you want back and who approves each one                                                                               |
+| Every other setting that enabling HIPAA turns off by default turns off again, including chat settings                                                                | List the settings an Owner has turned on since you enabled HIPAA                                                                    |
+| Each connector turns off, and its tool permissions change to **Blocked**, unless an Owner accepted the terms when they added or enabled it                           | Record each connector's tool permissions, because turning the connector back on doesn't restore them                                |
+| The built-in GitHub integration turns off                                                                                                                            | Note whether you want it back                                                                                                       |
+| Each desktop extension is removed from your organization's allowlist, unless an Owner accepted the terms when they added it                                          | List the extensions you want to add again                                                                                           |
+| Within minutes, members can't start Claude Code cloud sessions or use Cowork in the cloud. Sessions that are already running stop. Members will lose access to them. | Ask members to finish that work and save what they need                                                                             |
+| Claude Code Remote Control and Claude Tag aren't available. Claude Design turns off until an Owner turns it on                                                       | Ask members who use them to finish that work                                                                                        |
+| Computer access in Claude Cowork isn't available for sessions and scheduled tasks that run in the cloud                                                              | Ask members who use them to finish that work, and tell them that scheduled tasks in Cowork (local mode) still run on their computer |
+| Approvals that members gave to scheduled tasks in Cowork and the Code section of Claude Desktop expire                                                               | Tell members to expect to approve their scheduled tasks again                                                                       |
+
+Chat uses the same connectors, skills, and Claude in Chrome settings, so when these turn off, they turn off in chat too.
+
+### Have your team review the terms
+
+When you apply the configuration, you accept the BAA and confirm that you reviewed the **[Implementation Guide for HIPAA Entities](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide)**, which includes a list of Eligible Services under your BAA. Ask your legal and compliance teams to review both documents before you apply the configuration.
+
+### Ask your IT team to prepare computers
+
+Ask your IT team to follow **[Set up Claude Code (local mode) for a HIPAA-ready organization](https://code.claude.com/docs/en/hipaa-setup)**. If members use Cowork, ask the team to follow **[Set up Cowork (local mode) for a HIPAA-ready organization](https://claude.com/docs/cowork/hipaa-setup)** too. They update Claude Code and Claude Desktop to the latest versions, allow network access to Anthropic's servers, and deploy managed settings and the Claude Desktop policy.
+
+The update matters because once the configuration is applied, Anthropic's servers reject requests from versions older than the minimum.
+
+### Choose a time and tell members
+
+Apply the configuration at a quiet time for your organization because Cowork, the Code section of Claude Desktop, and some connectors stay off until an Owner turns them on. Keep an Owner available afterward, and plan time to turn on each connector separately.
+
+Tell members the date and time, which features turn off, and which ones you plan to turn back on.
+
+## Apply the HIPAA configuration
+
+To apply the configuration, you must be the Primary Owner and have a verified email address. Other Owners and Admins can't apply it, because applying it includes accepting the BAA for your organization.
+
+The configuration applies to your existing Claude Enterprise organization, the same one your members use for chat, not to a separate account. It applies to Claude Code and Cowork together, and to every member.
+
+**Warning:** When you apply the HIPAA configuration, certain features start turning off across your organization as soon as you confirm. An Owner can turn some features back on, but cloud features such as Claude Code cloud sessions stay unavailable.
+
+To apply the configuration:
+
+1. Sign in to Claude as the Primary Owner and go to **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)**.
+
+2. In the "Compliance" section, find the row for Claude Code (local mode) and Cowork (local mode).
+
+3. Select "Apply HIPAA configuration." A dialog opens.
+
+4. In the dialog, review what changes, then download the Implementation Guide for HIPAA Entities, and the BAA if your organization has none on file. The "Apply HIPAA configuration" button in the dialog stays grayed out until you download them. Selecting it accepts Anthropic's updated BAA.
+
+5. Select "Apply HIPAA configuration" to confirm. A message confirms that the configuration is applied.
+
+If the button is grayed out, check that you're signed in as the Primary Owner and that your email address is verified. If it's still grayed out, **[ask Anthropic to turn it on](#h_a54ff1eb7a)**.
+
+## Turn features back on
+
+Cowork, the Code section of Claude Desktop, skills, and Claude in Chrome are off after you apply the configuration, and so is each connector whose terms no Owner had accepted. An Owner turns on the ones your organization approved. The **[Implementation Guide for HIPAA Entities](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide)** and **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)** list the Eligible Services under your BAA.
+
+Turning a feature on doesn't change whether your BAA covers it.
+
+Connectors take more steps, because you turn on each one separately. Go to **Organization settings > Connectors**, open the connector, select "Enable" in the banner, select the checkbox to accept the terms, and click "Continue." Then set the connector's tool permissions again.
+
+## Confirm the configuration is applied
+
+Ask members to restart Claude Code and Claude Desktop, so that both get the configuration right away. Without a restart, a running Claude Code session gets it within about an hour. Claude Desktop might not get it until a member restarts or reloads the app.
+
+Organization settings, Claude Code, and Claude Desktop each show the configuration once it's applied:
+
+- **Organization settings:** Go to **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)**. Confirm that the row for Claude Code (local mode) and Cowork (local mode) says they're HIPAA configured for this organization, and shows the date you applied the configuration.
+
+- **Claude Code:** Ask a member to run `/status` in a session. Confirm that the **Status** tab lists `HIPAA` on the `Organization configuration` line.
+
+- **Claude Desktop:** Confirm that the title bar shows a **HIPAA configured** label. On a Mac, open the sidebar to see it.
+
+Tell members not to process PHI until they see `HIPAA` in `/status`, or the **HIPAA configured** label, on their own computer.
+
+If either one is missing on a member's computer, ask your IT team to follow **[Confirm the configuration on a computer](https://code.claude.com/docs/en/hipaa-setup#confirm-the-configuration-on-a-computer)**, which lists the likely causes in order. For the Claude Desktop label, see **[The HIPAA configured label is missing](https://claude.com/docs/cowork/hipaa-setup#the-hipaa-configured-label-is-missing)**. If it's still missing, contact your account team.
+
+## Manage data on members' computers
+
+Claude Code (local mode) and Cowork (local mode) store session data, such as transcripts, on each member's computer. Securing and deleting that data is your organization's responsibility.
+
+Removing a member from your organization deletes nothing on their computer, so wipe the computer when a member leaves. Keep full-disk encryption turned on.
+
+**[Manage local session data](https://code.claude.com/docs/en/hipaa-setup#manage-local-session-data)** lists where the data is stored, what Claude Code (local mode) and Claude Desktop delete automatically, and how to delete the rest. For Cowork data, see **[Manage Cowork data on each computer](https://claude.com/docs/cowork/hipaa-setup#manage-cowork-data-on-each-computer)**.
+
+## Monitor sessions
+
+These tools show what happens in Claude Code (local mode) and Cowork (local mode). They differ in whether they include session content:
+
+- **Compliance API:** With the **[Compliance API](https://support.claude.com/en/articles/13015708)** turned on for your organization, Anthropic captures session activity and content from both products so that your organization can read it through the API. Sessions are readable for 30 days, or for your organization's retention period if it's shorter. While your organization has ZDR for Claude Code, Anthropic doesn't capture Claude Code sessions.
+
+- **Audit logs and data exports:** Audit logs and data exports don't include session content. The audit log records administrative changes, such as enabling HIPAA and applying the configuration.
+
+- **OpenTelemetry:** You can send events from both products to your own monitoring tools. The data you export is your organization's responsibility. Set the destination for Cowork in **Organization settings > Data and privacy > Monitoring**. Your IT team sets the destination for Claude Code in **[managed settings](https://code.claude.com/docs/en/monitoring-usage#administrator-configuration)**.
+
+**Important:** Cowork's OpenTelemetry events can include prompt text, Claude's responses, and tool inputs, so PHI in a session may reach your monitoring tools. Current versions of Claude Desktop only send metadata unless content capture is turned on, but some older versions send content such as prompt text and tool inputs by default. No organization setting turns that content off. Ask your IT team to set `otlpContentCapture` to `[]` so that every version that supports the policy sends metadata only, as described in **[Content capture](https://claude.com/docs/cowork/monitoring#content-capture)**. Metadata still includes the paths of connected folders, user email addresses, and API error messages, and an API error message can sometimes repeat part of the request. If these can contain PHI, filter or redact them at your collector.
+
+## Get help
+
+For questions about the BAA, the Implementation Guide for HIPAA Entities, or the configuration, contact your Anthropic account team. If your organization doesn’t have an account team, contact **[our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**. Do not include PHI in a support request.

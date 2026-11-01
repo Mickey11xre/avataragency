@@ -34,21 +34,45 @@ SOURCE: https://support.claude.com/en/articles/10440198-configure-custom-data-re
 
 # Configure custom data retention controls for Enterprise plans
 
+*This article is about our commercial products, specifically Claude Enterprise. For our consumer products such as Claude Free, Pro, Max, Ultra, and when accounts from those plans use Claude Code, see **[here](https://privacy.claude.com/en/collections/10663362-consumers)**.*
+
+Custom data retention controls allow organizations to manage how long Claude stores conversation, project, and artifact data. This article explains how to set up and manage data retention periods for your organization.
+
 This feature is available to Enterprise plan customers. To set custom retention periods for your organization, you must have either a Primary Owner or Owner role.
-
-*This article is about our commercial products, specifically Claude Enterprise. For our consumer products such as Claude Free, Pro, Max and when accounts from those plans use Claude Code, see **[here](https://privacy.claude.com/en/collections/10663362-consumers)**.*
-
-Custom data retention controls allow organizations to manage how long Claude stores conversation and project data. This article explains how to set up and manage data retention periods for your organization.
 
 ## How data retention works
 
 Data retention is based on the last observed activity:
 
-- **For chats:** Retention period starts from the time of the last message in the conversation.
+- **For chats:** The period is measured from the most recent activity in the conversation or in any cloud session Claude started from it.
 
-- **For projects:** Retention period starts from the time the project was last updated (this includes chat creation or project knowledge base modifications).
+- **For projects:** Retention period starts from the time of the most recent action that resets it.
+
+  - These actions reset the retention period:
+
+    - Sending a message in an existing chat in the project
+
+    - Creating a new chat in the project
+
+    - Editing the project's knowledge files, instructions, or sharing settings
+
+    - Starting a Claude Cowork session in the cloud from the project, or moving a cloud session into the project (this resets the period once, when the session starts or is moved)
+
+    - Connecting or disconnecting a local folder for Cowork
+
+    - Editing the project's knowledge files from a Cowork session
+
+  - These actions don't reset the retention period:
+
+    - Viewing a project or opening a chat in it
+
+    - Starting a *local* Cowork session
+
+    - Other work in a Cowork session, whether it runs in the cloud or on your computer
 
   - Project retention always takes precedence over chat retention for chats inside a project. This applies even if you haven’t set a custom project retention period: by default, projects are retained indefinitely, so chats inside projects are not deleted by your chat retention period.
+
+- **For artifacts:** Retention period starts from the last time someone opened or edited the artifact.
 
 The minimum retention period is 30 days, and each month is counted as 30 days. For example, a three-month retention period equals 90 days.
 
@@ -56,13 +80,17 @@ The minimum retention period is 30 days, and each month is counted as 30 days. F
 
 When data reaches the end of its retention period:
 
-- **For chats:** All standalone chats (chats not inside a project) and any artifacts within those chats will be deleted. Chats inside a project follow the project’s retention period. Moving a chat into a project places it under the project’s retention period; moving a chat out of a project makes it standalone again, and it becomes eligible for deletion under the chat retention period based on its last activity.
+- **For chats:** All standalone chats (chats not inside a project) will be deleted. Chats inside a project follow the project’s retention period. Moving a chat into a project places it under the project’s retention period; moving a chat out of a project makes it standalone again, and it becomes eligible for deletion under the chat retention period based on its last activity.
 
-- **For projects:** All projects will be deleted, including any chats and artifacts within those projects.
+- **For projects:** All projects will be deleted, including any chats within those projects.
+
+- **For artifacts:** Artifacts are deleted under a retention period that covers artifacts, not with the chat or project they were made in. This includes artifacts Claude creates in chats, with some exceptions. For example, Research reports and artifacts in some older chats are deleted with their chat, along with any link published from them. A retention period that covers artifacts doesn't delete artifacts published with a public link.
+
+- If your organization has the new unified Claude experience, see “Data retention and deletion” in **Set up and manage the new unified Claude experience for your Enterprise organization** for what custom data retention covers there.
 
 ## Important considerations
 
-- Deletion occurs at midnight UTC on the scheduled day.
+- Deletion happens after the period ends rather than at an exact moment, and deleted data is removed from our back-end systems. As with chat, we may retain content flagged by our trust and safety systems or as required by law.
 
 - By default, data is retained indefinitely unless a custom retention period is set.
 
@@ -72,9 +100,9 @@ When data reaches the end of its retention period:
 
 - If your chat is flagged by our automated trust and safety systems as violating our Usage Policy, we retain inputs and outputs as described here: **[How long do you store my organization’s data?](https://privacy.claude.com/en/articles/7996866)**
 
-## Setting up data retention
+## Set up data retention
 
-## To set custom retention periods:
+To set custom retention periods:
 
 1. Log in to your Owner Enterprise plan account.
 
@@ -84,13 +112,13 @@ When data reaches the end of its retention period:
 
 4. Save your changes.
 
-**Important:** Custom retention periods apply to content in chats and projects. They do not apply to **[Claude Design](https://support.claude.com/en/articles/14604416-get-started-with-claude-design)**, **[Claude Tag](https://support.claude.com/en/articles/15594475-what-is-claude-tag)**, **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**, or any other features built on **[Claude Code on the web](https://support.claude.com/en/articles/12618689-claude-code-on-the-web)**.
+**Important:** Custom retention periods apply to content in chats, projects, and artifacts. They don't apply to standalone **[Claude Design](https://support.claude.com/en/articles/14604416-get-started-with-claude-design)** at claude.ai/design,[**Claude Tag**](https://support.claude.com/en/articles/15594475-what-is-claude-tag), **[Claude Managed Agents](https://platform.claude.com/docs/en/managed-agents/overview)**, or any other feature that runs **[Claude Code in the cloud](https://support.claude.com/en/articles/12618689)**. Cloud sessions Claude starts from a chat are deleted with that chat. A Claude Design project or design system that moves, or has already moved, to Claude becomes an artifact. If your organization has a retention period that covers artifacts (a single period for all data, or the private or shared artifact period if you use separate periods), that artifact can be permanently deleted if nobody opens it for that period. The period starts on the day of the move and restarts when someone opens or edits the artifact.
 
 ## Example retention calculation
 
-If a conversation’s last message is at 3PM UTC on March 1 with a 30-day retention period, the deletion will occur at midnight UTC on March 31.
+If a conversation’s last message is at 3PM UTC on March 1 with a 30-day retention period, the conversation is deleted after March 31.
 
-## Monitoring retention-related activities
+## Monitor retention-related activities
 
 All retention-related actions and changes are automatically tracked in **[audit logs](https://support.claude.com/en/articles/9970975-how-to-access-audit-logs)**. You can access these logs to monitor changes to retention settings and data deletion events.
 ---
@@ -120,11 +148,9 @@ The Max plan is designed for users who collaborate with Claude frequently and ne
 
 ## Key benefits
 
-- **More usage capacity**: Get 5x or 20x the Pro plan's usage allowance, depending on your selected tier.
+- **More usage capacity**: Get five times the Pro plan's usage every five hours and every week.
 
 - **Fewer interruptions**: Stay in flow when it matters most with higher usage limits that allow for deeper, more extensive work with Claude.
-
-- **Scale as needed**: Choose the usage tier that matches your workflow, with the flexibility to adjust as your needs change.
 
 - **Priority access**: Be among the first to experience new models, features, and products.
 
@@ -132,19 +158,19 @@ The Max plan is designed for users who collaborate with Claude frequently and ne
 
 - **Longer, multi-step tasks:** Hand Claude work like reports, spreadsheets, and presentations, and it keeps going in the background. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
+- **Monthly API credits:** Claude Max, Ultra, and Team plans include monthly credits for the Claude API. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
+
+**Need more usage?** Learn more about the **[Ultra plan](https://support.claude.com/en/articles/17728952)**.
+
 ---
 
 ## How much does the Max plan cost?
 
-### Pricing tiers
+### Pricing
 
-The Max plan is available in two tiers to match your usage needs:
+The Max plan is available for $100 per month.
 
-- **Max 5x**: $100 per month
-
-- **Max 20x**: $200 per month
-
-**Note:** These prices are for web subscriptions only. Mobile pricing may vary depending on your app platform.
+**Note:** This price is for web subscriptions only. Mobile pricing may vary depending on your app platform.
 
 Price and plans are subject to change at Anthropic's discretion.
 
@@ -152,7 +178,7 @@ Price and plans are subject to change at Anthropic's discretion.
 
 - The Max plan is currently available as a monthly subscription only.
 
-- When upgrading from a lower to a higher tier, your account will be charged on a prorated basis for the remainder of your billing cycle.
+- When upgrading from Max to Ultra, your account will be charged on a prorated basis for the remainder of your billing cycle. If you've claimed monthly API credits, you receive prorated credits right away, then the higher amount each billing cycle after that.
 
 - When moving from an annual Pro plan to a Max plan, if the remaining balance on your annual Pro plan is greater than your Max plan price, you will receive a credit to your account for the remaining balance. This credit will be applied to future subscription costs.
 
@@ -164,25 +190,25 @@ Price and plans are subject to change at Anthropic's discretion.
 
 ### How can I get a free or discounted Max plan?
 
-We do not offer standard discounted pricing any of our paid plans, including Max 5x and 20x plans. With that said, anyone in a supported location can access the free version of Claude by navigating to claude.ai and signing up using an email address.
+We don't offer standard discounted pricing for individual plans (Pro, Max, and Ultra), but anyone in a supported location can access the free version of Claude by navigating to[**claude.ai**](https://claude.ai/) and signing up using an email address.
 
 We occasionally run limited-time promotions, but we don't have any standing discounts available upon request. These promotional offers are typically announced through our official channels when available. If you're interested in potential future promotions, we recommend following our official social media accounts or signing up for our newsletter to be notified of any special offers. Our Support team cannot issue one-off discounts or coupons.
+
+Eligible nonprofit organizations can get discounted pricing on Team and Enterprise plans. Learn more about **[Claude for Nonprofits](https://claude.com/solutions/nonprofits)**.
+
+**Note:** Eligible nonprofit organizations can get discounted pricing on Team and Enterprise plans. Learn more about[**Claude for Nonprofits**](https://claude.com/solutions/nonprofits).
 
 ---
 
 ## Does the Max plan have any usage limits?
 
-Yes. The Max plan offers substantially higher usage compared to our Pro plan and is available in two tiers:
+Yes. The Max plan includes five times the Pro plan's usage every five hours and every week. If you need more usage, learn more about the **[Ultra plan](https://support.claude.com/en/articles/17728952)**.
 
-**Max 5x** includes five times the Pro plan's per-session usage allowance. This tier is ideal for frequent users who work with Claude on a variety of tasks.
+Max plans have a five-hour limit, a weekly usage limit that applies across all models, and a separate weekly limit for Fable. The weekly limit resets at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/new#settings/usage)**.
 
-**Max 20x** includes 20 times the Pro plan's per-session usage allowance. This tier is ideal for daily users who collaborate often with Claude for most tasks.
+Additional usage limits may apply to manage capacity and ensure fair access to all users. For example, we may limit your usage in other ways, such as weekly and monthly caps or model and feature usage, at our discretion. We don't guarantee uninterrupted service.
 
-Your session-based usage limit will reset every five hours. Max plans also have a weekly usage limit that applies across all models. The weekly limit resets at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/new#settings/usage)**.
-
-In addition, to manage capacity and ensure fair access to all users, we may limit your usage in other ways, such as weekly and monthly caps or model and feature usage, at our discretion.
-
-For more information about usage and length limits, refer to **[Understanding usage and length limits](https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits)**. For guidance on using your Max capacity efficiently, we also have **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)**.
+For more information about usage and length limits, refer to **[Understanding usage and length limits](https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits)**. For guidance on using your Max or Ultra capacity efficiently, we also have **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)**.
 
 **Note:** If you have a limit reset, you can use it to reset your five-hour session limit or weekly usage limits back to full. Learn more **[about limit resets](https://support.claude.com/en/articles/17007452)**.
 ---
@@ -193,7 +219,7 @@ SOURCE: https://support.claude.com/en/articles/11049752-how-do-i-sign-up-for-the
 
 This article applies to individual consumers signing up for paid Max plans. If you're part of an organization looking to use Claude with your team, refer to **[Team and Enterprise plans](https://support.claude.com/en/collections/9387370-team-and-enterprise-plans)**.
 
-## Instructions for new users
+## **Instructions for new users**
 
 1. Visit **[claude.ai](https://claude.ai/)**.
 
@@ -201,11 +227,10 @@ This article applies to individual consumers signing up for paid Max plans. If y
 
 3. During the onboarding process, select the Max plan option.
 
-4. Choose your preferred usage tier (5x or 20x).
+4. Enter your payment information.
 
-5. Enter your payment information.
-
-6. Confirm your subscription.
+5. Confirm your subscription.
+​
 
 ## Instructions for existing free users
 
@@ -215,11 +240,10 @@ This article applies to individual consumers signing up for paid Max plans. If y
 
 3. Select "Upgrade to Max."
 
-4. Choose your preferred usage tier (5x or 20x).
+4. Enter your payment information.
 
-5. Enter your payment information.
-
-6. Confirm your subscription.
+5. Confirm your subscription.
+​
 
 ## Instructions for existing Pro users
 
@@ -229,11 +253,9 @@ This article applies to individual consumers signing up for paid Max plans. If y
 
 3. Select "Upgrade to Max."
 
-4. Choose your preferred usage tier (5x or 20x).
+4. Confirm your upgrade.
 
-5. Confirm your upgrade.
-
-Your Pro plan will be upgraded to Max immediately, with billing adjusted on a prorated basis for the remainder of your current billing cycle.
+Your Pro plan is upgraded to Max immediately. Your billing cycle restarts on the day you upgrade: you're charged for a full billing cycle of Max, minus a prorated credit for the unused time left on your Pro plan. Your usage also starts fresh on the Max limits right away, so if you've reached your Pro limit, you can keep using Claude without waiting for your session to reset.
 
 If you're moving from an annual Pro plan to a Max plan and the remaining balance on your annual Pro plan is greater than your Max plan price, you will receive a credit to your account for the remaining balance. This credit will be applied to future subscription costs.
 
@@ -294,7 +316,7 @@ Usage is purchased **upfront in credits**. Your credits draw down as your team u
 
 - All credits are shared across your organization—any team member can draw from the same pool.
 
-**Note:** If you purchased your Enterprise plan through AWS Marketplace, billing works like sales-assisted plans. You're billed monthly in arrears based on your organization's consumption rather than purchasing credits upfront.
+**Note:** If you purchased your Enterprise plan through AWS Marketplace, billing works like sales-assisted plans, except that you pay through AWS. You're billed monthly in arrears based on your organization's consumption rather than purchasing credits upfront.
 
 **Payment methods**
 
@@ -310,7 +332,11 @@ Usage is **billed monthly in arrears** based on your organization's actual consu
 
 **Payment methods**
 
-Sales-assisted Enterprise organizations can pay by bank transfer (ACH or wire) or, for smaller invoices, by credit card. Invoices of $50,000 or more can only be paid by bank transfer (ACH or wire). The credit card option won't appear on the payment page for invoices at or above this amount.
+On sales-assisted Enterprise plans, invoices aren’t charged automatically to a saved card. Each invoice, including your seat invoice and each monthly usage invoice, is emailed to your organization’s billing contact with a secure payment link. The payment terms are shown on the invoice.
+
+You can pay by bank transfer (ACH or wire) or by credit card. Invoices of $50,000 or more can only be paid by bank transfer. The credit card option won’t appear on the payment page for invoices at or above this amount.
+
+To have future invoices charged automatically to a card, contact your Anthropic account manager, who will arrange it with our billing team. With automatic payment, your card is charged on the invoice date instead of at the end of your payment term. You can’t set this up in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)** because those payment method settings only apply to self-serve Enterprise plans.
 
 ---
 
@@ -464,6 +490,24 @@ Team plans offer two seat types:
 Organizations can mix and match seat types based on team needs. Assign Premium seats to power users who need more capacity, while keeping other team members on Standard seats.
 
 Your plan has a total seat allocation (e.g., 30 Standard seats and 10 Premium seats). Within that allocation, you can assign and reassign users to different seat types as needed.
+
+**Note:** Only Admins and above can see each user’s seat type, shown in the **Tier** column in **[Organization settings > Members](https://claude.ai/admin-settings/member)**. Other users can’t see their own seat type anywhere in Claude. If you need to confirm whether your seat is Standard or Premium, ask an Owner or Admin in your organization.
+
+---
+
+## Who can use a seat
+
+Each seat on a Team plan is assigned to one named individual, and only that person may use it. This means:
+
+- Only the assigned user may sign in to the account. Users can't share login credentials or let others use their account.
+
+- Users can't route their work through another user's account to use that user's remaining usage.
+
+- Unused usage on one seat can't be transferred to another user.
+
+If a user regularly needs more capacity, an owner can move them to a Premium seat or turn on usage credits. Learn more about **[managing usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970)**.
+
+Reassigning a seat is meant for normal team changes, such as a user joining, leaving, or changing roles. It isn't designed for rotating one seat among several active users.
 
 ---
 
@@ -794,6 +838,8 @@ To request a refund for a payment defined as refundable in our Terms of Service,
 
 7. If eligible, continue in the support messenger to cancel and refund your plan.
 
+**Note:** If you’ve claimed monthly API credits on a Max, Ultra, or Team plan, new credits stop when your plan is refunded. Credits you already have stay usable until they expire and can’t be refunded.
+
 ---
 
 ## Refunds for customers in the European Economic Area (EEA) and the United Kingdom (UK)
@@ -823,7 +869,7 @@ To request a refund from Apple:
 
 Apple will review your request and notify you of their decision. You can check the status of your request any time by returning to reportaproblem.apple.com. Refunds for App Store purchases are granted at Apple's discretion.
 
-**Note:** Requesting a refund doesn't cancel your subscription. To avoid future charges, you'll also need to cancel. For instructions, see **[Cancel your Pro or Max subscription](https://support.claude.com/en/articles/8325617)**.
+**Note:** Requesting a refund doesn't cancel your subscription. To avoid future charges, you'll also need to cancel. For instructions, see **[Cancel your Pro, Max, or Ultra subscription](https://support.claude.com/en/articles/8325617)**.
 
 For more details, see Apple's guide: **[Request a refund for apps or content that you bought from Apple](https://support.apple.com/en-us/118223)**.
 
@@ -833,11 +879,13 @@ If you have an active subscription purchased on **[Claude for Android](https://s
 
 If you're requesting a refund for an inactive subscription, you'll need to **[contact our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)** with the email address associated with your Google Play account or your GPA order number (found on your Google Play receipt, formatted GPA.xxxx-xxxx-xxxx-xxxxx) to further review the charge and refund eligibility.
 
-### I upgraded from Pro or Max to Team—when do I get my refund?
+### I upgraded from Pro, Max, or Ultra to Team—when do I get my refund?
 
-When you upgrade to a Team plan from a Pro or Max plan, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. You don't need to request it manually. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. Google Play purchases don't have this wait, but the refund can take a few days to appear. Any prepaid usage credits on your individual account are refunded.
+When you upgrade to a Team plan from a Pro, Max, or Ultra plan, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. You don't need to request it manually. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. Google Play purchases don't have this wait, but the refund can take a few days to appear. Any prepaid usage credits on your individual account are refunded.
 
-If you signed up for Pro or Max through the Apple App Store, you can't upgrade to Team in place. **[Cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** through your Apple ID settings first, then start the Team upgrade. App Store subscription refunds need to be requested through Apple directly, as described above.
+If you claimed monthly API credits on your Max or Ultra plan, your Max/Ultra link ends. A Team Owner or Primary Owner can claim the team’s credits once the Team plan has been active for seven days.
+
+If you signed up for Pro, Max, or Ultra through the Apple App Store, you can't upgrade to Team in place. **[Cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** through your Apple ID settings first, then start the Team upgrade. App Store subscription refunds need to be requested through Apple directly, as described above.
 
 For full upgrade details, see **[Get started with the Team plan](https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan#h_830eec632d)**.
 
@@ -850,11 +898,13 @@ SOURCE: https://support.claude.com/en/articles/12429409-manage-usage-credits-for
 
 # Manage usage credits for paid Claude plans
 
-This article explains how usage credits work on your paid Claude plan (Pro, Max 5x, or Max 20x), allowing you to continue working with Claude after reaching your plan's usage limits by switching to pay-as-you-go pricing.
+This article explains how usage credits work on your paid Claude plan (Pro, Max, or Ultra), allowing you to continue working with Claude after reaching your plan's usage limits by switching to pay-as-you-go pricing.
 
 ## What are usage credits?
 
-Usage credits allow individuals subscribed to paid Claude plans (Pro, Max 5x, and Max 20x) to continue using Claude seamlessly after reaching their included usage limits. Instead of being blocked when you hit your session limits, you can switch to consumption-based pricing at standard API rates and continue your work without interruption.
+Usage credits allow individuals subscribed to paid Claude plans (Pro, Max, and Ultra) to continue using Claude after reaching their included usage limits. Most paid plans have a session limit that resets every five hours and a weekly limit. The Ultra plan has a weekly limit, and verified Ultra accounts don't have a five-hour limit (**[learn more](https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan#h_ff4fcea367)**). Max and Ultra plans also have a separate weekly limit for Fable. Instead of being blocked when you reach one of your plan's limits, you can switch to consumption-based pricing at standard API rates and continue your work without interruption.
+
+Usage credits are separate from the monthly API credits included with Max and Ultra plans. Monthly API credits don’t apply to usage credits in Claude, Claude Code, or Claude Cowork. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 
 **Note:** If you subscribed through one of the Claude mobile apps, you can only enable usage credits on the web version of Claude. You will need to add your payment method before enabling and purchasing usage credits on the web.
 
@@ -862,15 +912,17 @@ Usage credits allow individuals subscribed to paid Claude plans (Pro, Max 5x, an
 
 ## How usage credits work
 
-When you reach your plan’s usage limit with usage credits enabled:
+When you fully use your plan’s included usage limits (any five-hour session limit, your weekly limit, or your Fable weekly limit on Max and Ultra plans) with usage credits enabled:
 
-- You’ll see a notification that you’ve reached your session usage limit.
+- Your requests switch to pay-as-you-go pricing on usage credits and keep working.
 
-- If usage credits are enabled and you have funds available, you can choose to continue working.
+- You may briefly still see the notification that you’re approaching your usage limit. Once your next request goes through on usage credits, it changes to “Now using credits.” You haven’t been cut off; your work continues.
 
 - Your subsequent usage will be billed at standard API pricing rates.
 
-- Your session limits reset every five hours as usual.
+- Your usage continues until you reach your monthly spend limit, or your balance runs out with auto-reload off.
+
+- Any session limit resets every five hours and your weekly limits reset once a week, as usual.
 
 **Note:** Usage credits are charged separately from your paid Claude subscription and appear as additional charges on your bill.
 
@@ -894,11 +946,7 @@ To enable usage credits on your paid Claude plan:
 
 7. You’ll then need to prepay to cover usage beyond your plan limits. Click “Add funds,” enter the amount you want to purchase in the modal, then click “Purchase.”
 
-8. You can also enable auto-reload to automatically make a purchase when your balance falls below a threshold you set:
-
-
-
-**Note:** There is a daily redemption limit of $2000.
+8. You can also enable auto-reload to automatically make a purchase when your balance falls below a threshold you set.
 
 ---
 
@@ -940,7 +988,7 @@ To manage usage credit costs while maintaining productivity:
 
 - **Choose efficient models:** Use our most efficient Haiku model, or the most recent Sonnet model for most tasks. These provide excellent performance at lower token costs than Opus models.
 
-- **Use your plan’s included usage first:** Plan intensive work sessions around your five-hour usage windows.
+- **Use your plan’s included usage first:** If your plan has a session limit, plan intensive work sessions around your five-hour usage windows.
 
 - **Start new conversations:** Begin fresh chats for new topics to minimize the size of your context window.
 
@@ -974,7 +1022,11 @@ Yes, you can disable usage credits at any time through **[Settings > Usage](http
 
 ### How quickly do my regular usage limits reset?
 
-Your plan’s included usage limit will reset every five hours once you reach it. Usage credits don’t affect this reset timing.
+Most paid plans include two usage limits: a session limit that resets every five hours, and a weekly limit that resets once a week. Verified Ultra accounts don't have a five-hour limit (**[learn more](https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan#h_ff4fcea367)**). Max and Ultra plans also have a separate weekly limit for Fable that resets once a week. Usage credits don’t affect the reset timing of any of these limits.
+
+### Can I keep using Claude after I reach my weekly limit?
+
+Yes. With usage credits enabled, once one of your included limits is fully used (any five-hour session limit or one of your weekly limits), your requests switch to pay-as-you-go pricing on usage credits and keep working. Your usage continues until you reach your monthly spend limit or your usage credit balance runs out with auto-reload off.
 
 ### I subscribed to a paid Claude plan on the App or Play store; how can I access usage credits?
 
@@ -986,7 +1038,7 @@ Yes, the usage dashboard clearly distinguishes between your included plan usage 
 
 ### Will I get a warning before switching to usage credits?
 
-Yes, you’ll see a clear notification when approaching and reaching your included usage limits, with a confirmation that you’ll continue with usage credits.
+Yes. You’ll see a notification when you’re approaching your session limit or one of your weekly limits. That notification may still be showing at the moment your usage switches to usage credits, so it can look like you’ve been cut off. If usage credits are enabled and you have funds available, your next request goes through on usage credits and the notification changes to “Now using credits.”
 
 ### Do usage credits expire?
 
@@ -1324,53 +1376,31 @@ SOURCE: https://support.claude.com/en/articles/12938627-how-to-gift-a-claude-sub
 
 # How to gift a Claude subscription
 
-Give the gift of Claude to friends, family, or colleagues.
+**Important:** Gift subscriptions are currently unavailable to purchase. This applies to all accounts, so there’s nothing you need to fix on your end. We don’t have a date to share yet for when purchasing will be available again.
 
 ## What's included?
 
-Gift subscriptions include full access to all features of the selected plan. Refer to the below articles for full details for each plan:
+Gift subscriptions purchased when they were available include full access to all features of the selected plan. Refer to the below articles for full details for each plan:
 
 - **[What is the Pro plan?](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan)**
 
-- **[What is the Max plan?](https://support.claude.com/en/articles/11049741-what-is-the-max-plan)**
-
-## Who can purchase gifts?
-
-Gift subscriptions are available for most Pro and Max plan users to purchase. Free users and members of Team and Enterprise organizations can't purchase gift subscriptions at this time.
+- **[What are the Max and Ultra plans?](https://support.claude.com/en/articles/11049741)**
 
 ## How to purchase a gift
 
-1. Log in to your Claude account and click your initials in the lower left corner.
+It's not possible to purchase a gift at this time.
 
-2. Select “Gift Claude” from the menu, or visit claude.ai/gift.
-
-3. Choose a plan (Pro, Max 5x, or Max 20x) and duration (1, 3, 6, or 12 months).
-
-4. Personalize your gift:
-
-  - Pick a card color
-
-  - Add an optional message
-
-  - Choose to send via email or generate a shareable link
-
-5. If sending by email, enter the recipient's name and email address.
-
-6. Complete checkout with your payment information.
-
-After purchase, you'll receive a confirmation email with your order details.
-
-**Important:** The gift will expire 365 days after the purchase date. Recipients cannot redeem multiple gifts at one time or stack redemptions.
+**Important:** Previously purchased gifts will expire 365 days after the purchase date. Recipients cannot redeem multiple gifts at one time or stack redemptions.
 
 ## Delivery options
 
-**Email delivery:** The recipient receives the gift directly in their inbox. The email includes your personalized message and a redemption button.
+These apply to gift subscriptions purchased while they were still available:
 
-**Shareable link:** You receive a link that you can share however you'd like—in a card, text message, or in person.
+- **Email delivery:** The recipient received the gift directly in their inbox. The email include your personalized message and a redemption button.
+
+- **Shareable link:** You received a link that you could share however you liked—in a card, text message, or in person.
 
 ## Good to know
-
-- Gift subscriptions are available globally.
 
 - Recipients redeem gifts on the web at **[claude.ai/gift/redeem](https://claude.ai/gift/redeem)**. For more information, see **[How to redeem a Claude gift subscription](https://support.claude.com/en/articles/12938695-how-to-redeem-a-claude-gift-subscription)**.
 
@@ -1407,13 +1437,13 @@ Your experience depends on your current subscription status:
 
 **If you're a Pro subscriber (web) and receive a Pro gift:** Your Pro subscription is extended by the gift duration.
 
-**If you're a Pro subscriber (web) and receive a Max gift:** You're upgraded to the Max plan for the gift duration. When the gift ends, your Pro subscription resumes. Any unused time from your Pro billing cycle is added as account credit.
+**If you're a Pro subscriber (web) and receive a Max or Ultra gift:** You're upgraded to the Max or Ultra plan for the gift duration. When the gift ends, your Pro subscription resumes. Any unused time from your Pro billing cycle is added as account credit.
 
-**If you're a Max subscriber (web) and receive a lower-tier gift:** The gift value is converted to account credit, which is automatically applied to your future invoices.
+**If you're a Max or Ultra subscriber (web) and receive a lower-tier gift:** The gift value is converted to account credit, which is automatically applied to your future invoices.
 
-**If you're a Max subscriber (web) and receive the same or higher Max tier:** Your Max subscription is extended or upgraded accordingly.
+**If you're a Max subscriber (web) and receive a Max or Ultra gift:** Your Max subscription is extended or upgraded to Ultra accordingly.
 
-## Mobile Subscribers
+## Mobile subscribers
 
 If you have an active subscription through the iOS App Store or Google Play Store, you'll need to wait until that subscription ends before you can redeem a gift subscription. Gift subscriptions can only be redeemed on the web.
 
@@ -1442,7 +1472,7 @@ Your billing address determines how taxes are calculated on your Claude purchase
 
 ## How billing addresses work by plan type
 
-### Pro, Max, self-serve Team, and self-serve Enterprise plans
+### Pro, Max, Ultra, self-serve Team, and self-serve Enterprise plans
 
 Your billing address is automatically set to match your payment method's billing address. To update it, navigate to **[Settings > Billing](https://claude.ai/settings/billing)** and click “Update” to the right of your current payment method.
 
@@ -1462,7 +1492,7 @@ You can update your billing address directly in the Claude Console under Setting
 
 If your billing address doesn't match your payment method's address—for example, you're on a self-serve plan and need it to reflect a different business location for VAT purposes—you have two options:
 
-- **Update your payment method's address.** Self-serve plans (Pro, Max, self-serve Team, self-serve Enterprise, and API usage tiers) take their billing address from the payment method, so updating the address on your card or Link wallet updates your billing address too.
+- **Update your payment method's address.** Self-serve plans (Pro, Max, Ultra, self-serve Team, self-serve Enterprise, and API usage tiers) take their billing address from the payment method, so updating the address on your card or Link wallet updates your billing address too.
 
 - **Contact support to lock a fixed address.** If you need an address that stays the same even when you change payment methods, contact our Support team with documentation verifying your primary business location:
 
@@ -1503,6 +1533,10 @@ Your payment method on file will be charged at the beginning of your billing cyc
 
 See **[How is my Team plan bill calculated?](https://support.claude.com/en/articles/9267289-how-is-my-team-plan-bill-calculated)** for more information about Team plan pricing.
 
+## Where can I see my monthly API credits?
+
+In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
+
 ## Where can I find the invoice or receipt for my Team plan payment?
 
 An organization owner can follow these steps to access invoices:
@@ -1529,11 +1563,11 @@ Please click on the message icon in the bottom right of our Help Center to conta
 
 An organization owner can resubscribe for Team plan access by navigating to **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**.
 
-## What happens to my Pro or Max subscription when I upgrade to Team?
+## What happens to my Pro, Max, or Ultra subscription when I upgrade to Team?
 
-When you upgrade from Pro or Max to Team in place, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. Google Play purchases don't have this wait, but the refund can take a few days to appear. Any prepaid usage credits on your individual account are refunded
+When you upgrade from Pro, Max, or Ultra to Team in place, your individual subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement. Google Play purchases don't have this wait, but the refund can take a few days to appear. Any prepaid usage credits on your individual account are refunded
 
-If you signed up for Pro or Max through the Apple App Store, in-place upgrades work differently. For more information, refer to **[Get started with the Team plan](https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan#h_5d142d3f45)**.
+If you signed up for Pro, Max, or Ultra through the Apple App Store, in-place upgrades work differently. For more information, refer to **[Get started with the Team plan](https://support.claude.com/en/articles/9267247-get-started-with-the-team-plan#h_5d142d3f45)**.
 
 If you'd rather keep your personal subscription active, check the opt-out box (**Keep your personal account separate**)  in the team-creation flow when you upgrade.
 ---
@@ -1544,7 +1578,7 @@ SOURCE: https://support.claude.com/en/articles/13133750-manage-members-on-team-a
 
 This guide covers how to add, remove, and manage the people on your Team or Enterprise plan.
 
-**Permissions note:** Organization Admins can manage members in **[Organization settings > Members](https://claude.ai/admin-settings/members)**, but only Owners and Primary Owners can access **[Organization](https://claude.ai/admin-settings/organization)[settings > Billing](https://claude.ai/admin-settings/billing)**. For more information, see our article about **[roles and permissions](https://support.claude.com/en/articles/9267276-roles-and-permissions)**.
+**Permissions note:** Organization Admins can manage members in **[Organization settings > Members](https://claude.ai/admin-settings/members)**, but only Owners and Primary Owners can access **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**. For more information, see our article about **[roles and permissions](https://support.claude.com/en/articles/9267276-roles-and-permissions)**.
 
 For information on purchasing seats or adjusting your plan's seat allocation, see our guides for **[Team plans](https://support.claude.com/en/articles/12004354-purchasing-and-managing-seats)** and **[Enterprise plans](https://support.claude.com/en/articles/13393991-purchasing-and-managing-seats-on-enterprise-plans)**.
 
@@ -1602,9 +1636,9 @@ For more details on how the joining flow works, see **[Join an organization via 
 
 Organizations with single sign-on (SSO) configured can automate member provisioning. Learn more about **[setting up SSO](https://support.claude.com/en/articles/13132885-setting-up-single-sign-on-sso-for-claude-and-claude-console)**.
 
-- **Just-in-time (JIT) provisioning:** Members assigned to the Anthropic app in your Identity Provider will have accounts created automatically the first time they log in. On plans with multiple seat types, users are assigned to the highest-available seat type upon first login. On single-seat Enterprise plans, users are automatically assigned the Enterprise seat. Admins and above can manually reassign seat types afterward in **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**.
+- **Just-in-time (JIT) provisioning:** Members assigned to the Anthropic app in your Identity Provider will have accounts created automatically the first time they log in. On plans with multiple seat types, users are assigned to the highest-available seat type upon first login. On single-seat Enterprise plans, users are automatically assigned the Enterprise seat. Admins and above can manually reassign seat types afterward in **[Organization settings > Members](https://claude.ai/admin-settings/members)**.
 
-- **SCIM provisioning (Enterprise plan only):** With SCIM directory sync enabled, members assigned to the Anthropic app in your Identity Provider are provisioned automatically, up to the number of total seats on your plan. On plans with multiple seat types, seat types are distributed from highest to lowest available. On single-seat Enterprise plans, all users are automatically assigned the Enterprise seat. Primary Owners and Owners can reassign seat types afterward in **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)**.
+- **SCIM provisioning (Enterprise plan only):** With SCIM directory sync enabled, members assigned to the Anthropic app in your Identity Provider are provisioned automatically, up to the number of total seats on your plan. On plans with multiple seat types, seat types are distributed from highest to lowest available. On single-seat Enterprise plans, all users are automatically assigned the Enterprise seat. Admins and above can manually reassign seat types afterward in **[Organization settings > Members](https://claude.ai/admin-settings/members)**.
 
 **Important:** An Owner or Primary Owner must ensure seats are available before new users can be provisioned. We recommend monitoring your seat usage and adding seats proactively to ensure uninterrupted access for your team. You can **[enable group mappings with JIT or SCIM](https://support.claude.com/en/articles/13133195-setting-up-jit-or-scim-provisioning#h_adee31eeba) to provision users directly to a specific role and seat tier**.
 
@@ -1709,6 +1743,10 @@ The current Primary Owner can transfer ownership by:
 ### What happens to the initial invitation for a new Enterprise organization?
 
 When Anthropic provides a new Enterprise organization and invites the Primary Owner, the same 21-day expiration period applies to that initial invitation. If your invitation has expired, please reach out to your account manager.
+
+### How can I check whether my seat is Standard or Premium?
+
+Only Admins and above can see seat types, in the **Tier** column in **[Organization settings > Members](https://claude.ai/admin-settings/members)**. If you don’t have an Admin, Owner, or Primary Owner role, you can’t see your own seat type in Claude. To confirm your seat type, ask an Owner or Admin in your organization.
 ---
 
 SOURCE: https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans
@@ -1743,9 +1781,13 @@ If you're unsure whether your organization benefits from a HIPAA-ready product, 
 
 The HIPAA-ready Enterprise offering includes many of the features available on **[standard Enterprise plans](https://support.claude.com/en/articles/9797531-what-is-the-enterprise-plan)**—but enabling HIPAA doesn't bring every feature under your BAA. Features fall into three categories: covered by your BAA, available but not covered, and disabled. PHI should only be processed through covered features, so it's important for administrators to know which features fall in which category and to configure their workspace accordingly. The **[Implementation Guide for HIPAA Entities](https://trust.anthropic.com/resources?s=rgirr4qe8u7ek8c2igx3&name=claude-for-enterprise-hipaa-ready-offering-implementation-guide)** on the Anthropic Trust Center lists every feature's status and is the authoritative source.
 
-**Important:** Enabling HIPAA readiness alone doesn't bring Claude Code under your BAA. Claude Code is covered under your BAA only with zero data retention (ZDR) enabled, and only on qualified accounts. Without ZDR, Claude Code remains available to use but isn't covered—including when Claude Code access is bundled into your Enterprise seats. To explore Claude Code coverage, contact your Anthropic account team or our **[Sales team](https://www.anthropic.com/contact-sales)**.
+**Important:** Enabling HIPAA alone doesn't bring Claude Code or Cowork under your BAA. The Primary Owner must also apply the HIPAA configuration to Claude Code (local mode) and Cowork (local mode). This configuration is currently only available to organizations with an Anthropic account team. Claude Code (local mode) is Claude Code in the terminal and in the Code tab of Claude Desktop. Cowork (local mode) is Cowork in Claude Desktop.
 
-Additionally, Cowork is not yet covered under Anthropic’s BAA.
+- **Before the Primary Owner applies the configuration:** Cowork is available but not covered under your BAA. Claude Code is covered only with zero data retention (ZDR) enabled, which is available on qualified accounts only. Without ZDR, Claude Code is also available but not covered. Don't use PHI with a product that isn't covered.
+
+- **After the Primary Owner applies the configuration:** Your BAA covers Claude Code (local mode) and Cowork (local mode). Cloud features such as Claude Code cloud sessions, Claude Code Remote Control, and Cowork in the cloud aren't available. The Primary Owner can't remove the configuration.
+
+Learn how to get the configuration and how to prepare in **[Use Claude Code (local mode) and Cowork (local mode) on a HIPAA-ready Enterprise plan](https://support.claude.com/en/articles/17318731)**.
 
 ## Additional resources
 
@@ -1757,11 +1799,11 @@ For detailed implementation requirements and technical specifications, review th
 
 ## Get started
 
-Eligible Enterprise organizations can enable HIPAA-ready configuration directly from organization settings—no sales or legal cycle required. The Business Associate Agreement (BAA) is included in the flow as click-to-accept, so there's no separate document to sign and return. Clicking “Accept and Enable HIPAA” constitutes acceptance of the BAA.
+Eligible Enterprise organizations can enable HIPAA directly from organization settings—no sales or legal cycle required. The Business Associate Agreement (BAA) is included in the flow as click-to-accept, so there's no separate document to sign and return. Clicking “Accept and Enable HIPAA” constitutes acceptance of the BAA.
 
 ### Eligibility
 
-You can enable the HIPAA configuration from organization settings if your organization is on an Enterprise plan. Team plans and individual plans (Free, Pro, and Max) can't enable HIPAA.
+You can enable HIPAA from organization settings if your organization is on an Enterprise plan. Team plans and individual plans (Free, Pro, Max, and Ultra) can't enable HIPAA.
 
 Only the **Primary Owner** of the organization can accept the BAA and enable HIPAA. Other Owners or Admins can't complete this flow on the org's behalf. If you're an admin but not the Primary Owner of the Enterprise organization, ask your Primary Owner to sign in and complete enablement.
 
@@ -1793,7 +1835,7 @@ You must review the BAA and the Implementation Guide before accepting, as this i
 
 ### Confirmation
 
-Once enabled, you'll see a checkmark in the **HIPAA Compliance** section of organization settings, confirming your organization has been configured to process PHI through Claude in accordance with HIPAA. If you don't see this checkmark, your organization isn't enabled.
+Once enabled, you'll see a checkmark in the **HIPAA Compliance** section of organization settings, confirming your organization has been configured to process PHI through Claude in accordance with HIPAA. If you don't see this checkmark, your organization isn't enabled. Enabling HIPAA alone doesn't bring Claude Code or Cowork under your BAA. The Primary Owner must also apply the HIPAA configuration to Claude Code (local mode) and Cowork (local mode). See **[Use Claude Code (local mode) and Cowork (local mode) on a HIPAA-ready Enterprise plan](https://support.claude.com/en/articles/17318731)**.
 
 The onboarding modal will guide you through next steps for your team.
 
@@ -1837,6 +1879,18 @@ For information on adding and removing members from your organization, see **[Ma
 Usage-based Enterprise plans use a single seat type: the **Enterprise seat**, priced per user per month (billed annually). This seat includes access to Claude on web, desktop, and mobile, as well as Claude Code.
 
 Enterprise plans require a minimum of 20 seats.
+
+---
+
+## Who can use a seat
+
+Each Enterprise seat is assigned to one named individual, and only that person may use it. This applies to every Enterprise seat type, including legacy Chat, Chat + Claude Code, Standard, and Premium seats. This means:
+
+- Only the assigned user may sign in to the account. Users can't share login credentials or let others use their account.
+
+- Users can't use another user's account to get around their own spend limits or usage limits.
+
+Reassigning a seat is meant for normal team changes, such as a user joining, leaving, or changing roles. It isn't designed for rotating one seat among several active users. To give someone else access, assign them their own seat.
 
 ---
 
@@ -1983,6 +2037,8 @@ Some Enterprise organizations are on older seat-based plans with a different bil
 | ------------- | ------------------------------------------------ |
 | Standard      | Core Enterprise features and usage limits        |
 | Premium       | Everything in Standard, plus higher usage limits |
+
+**Note:** Only Admins and above can see each user’s seat type, shown in the **Tier** column in **[Organization settings > Members](https://claude.ai/admin-settings/member)**. Other users can’t see their own seat type anywhere in Claude. If you need to confirm whether your seat is Standard or Premium, ask an Owner or Admin in your organization.
 
 ### Reassign users between seat types
 
@@ -2247,7 +2303,9 @@ Custom roles are available for Enterprise plan organizations. Owners, Primary Ow
 
 ## What are custom roles?
 
-Custom roles let you define which features your members can access. Each custom role contains a set of permissions that grant or restrict access to specific capabilities like chat, Claude Cowork, Claude Code, and web search, plus the connectors your organization has added, such as Slack or Google Drive. Custom roles can also grant admin permissions, which give members access to specific administrative areas like billing, identity, or privacy without making them Owners.
+Custom roles let you define which features your members can access. Each custom role contains a set of permissions that grant or restrict access to specific capabilities like chat, Claude Cowork, Claude Code, and web search, plus the connectors your organization has added, such as Slack or Google Drive.
+
+Custom roles can also grant admin permissions, which give members access to specific administrative areas like billing, identity, or privacy without making them Owners. A custom role can also grant all of an Owner's admin permissions with the **Owner access** permission.
 
 Custom roles work alongside groups. The typical workflow is: create custom roles, assign them to groups, and then set members' roles to “Custom” so their access is governed entirely by the custom roles assigned to their groups.
 
@@ -2279,31 +2337,37 @@ The key takeaway: the organization-level toggle is a main switch. Custom roles a
 
 Each custom role can grant or restrict access to the following capabilities:
 
-| **Capability**                            | **Description**                                                                                                                                                                                                                                          |
-| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Chat                                      | Access to chat on web, desktop, and mobile apps.                                                                                                                                                                                                         |
-| Code execution and file creation          | Ability to run code and create files in conversations.                                                                                                                                                                                                   |
-| Memory                                    | Ability to use memory across conversations.                                                                                                                                                                                                              |
-| Web search                                | Ability to use web search in conversations.                                                                                                                                                                                                              |
-| Share projects                            | Ability to share projects with other users, groups, or your organization. Turning this off doesn't change existing shares.                                                                                                                               |
-| Public projects                           | Ability to share projects with everyone in your organization.                                                                                                                                                                                            |
-| Create skills                             | Ability to create or upload custom skills.                                                                                                                                                                                                               |
-| Share skills and plugins with org members | Ability to share skills and plugins with specific people in your organization.                                                                                                                                                                           |
-| Share skills with the full organization   | Ability to share skills with everyone in your organization at once.                                                                                                                                                                                      |
-| Share skills and plugins with groups      | Ability to share skills and plugins with a group in your organization.                                                                                                                                                                                   |
-| Skill and plugin security scanning        | Ability to run a scan on skills and plugins when they’re uploaded to catch possible security concerns.                                                                                                                                                   |
-| Claude Code                               | Access to Claude Code.                                                                                                                                                                                                                                   |
-| Fast mode                                 | Access to faster model options for Claude Code.                                                                                                                                                                                                          |
-| Claude Code dynamic workflows\*           | Access to dynamic workflows in Claude Code, which let Claude run large engineering tasks—migrations, audits, codebase-wide bug hunts—from start to finish in a single session. These runs can last for hours and use more tokens than a typical session. |
-| Claude Security                           | Find and fix security vulnerabilities in your code with Claude.                                                                                                                                                                                          |
-| Claude Code artifacts                     | Ability to create artifacts in Claude Code, which turn a session's work into a live, shareable page built from the session's context.                                                                                                                    |
-| Claude Design [standalone]                | Access to standalone Claude Design at claude.ai/design. This doesn't control Claude Design in conversations and the Artifacts tab, which has its own capability, Design (under **Artifacts**).                                                           |
-| Design                                    | Ability to create designs with Claude Design in conversations and the Artifacts tab, including creating and editing design systems. Users without it can still open, comment on, and use designs shared with them.                                       |
-| Slides                                    | Ability to create slide decks with Claude Slides. Users without it can still open decks shared with them.                                                                                                                                                |
-| Docs                                      | Ability to create docs with Claude Docs. Users without it can still open docs shared with them.                                                                                                                                                          |
-| Claude Cowork                             | Access to Claude Cowork.                                                                                                                                                                                                                                 |
-| Cowork in the cloud (beta)                | Lets members run Cowork tasks on Anthropic's infrastructure instead of their own computer, so tasks can keep running across desktop, web, and mobile.                                                                                                    |
-| Claude for Chrome                         | Access to Claude for Chrome, the browser extension that lets Claude browse and act on web pages on the user's behalf.                                                                                                                                    |
+| **Capability**                            | **Description**                                                                                                                                                                                                                                                                                                                                                      |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Chat                                      | Access to chat on web, desktop, and mobile apps.                                                                                                                                                                                                                                                                                                                     |
+| Code execution and file creation          | Ability to run code and create files in conversations.                                                                                                                                                                                                                                                                                                               |
+| Memory                                    | Ability to use memory across conversations.                                                                                                                                                                                                                                                                                                                          |
+| Web search                                | Ability to use web search in conversations.                                                                                                                                                                                                                                                                                                                          |
+| Share projects                            | Ability to share projects with other users, groups, or your organization. Turning this off doesn't change existing shares.                                                                                                                                                                                                                                           |
+| Public projects                           | Ability to share projects with everyone in your organization.                                                                                                                                                                                                                                                                                                        |
+| Create skills                             | Ability to create or upload custom skills.                                                                                                                                                                                                                                                                                                                           |
+| Share skills and plugins with org members | Ability to share skills and plugins with specific people in your organization.                                                                                                                                                                                                                                                                                       |
+| Share skills with the full organization   | Ability to share skills with everyone in your organization at once.                                                                                                                                                                                                                                                                                                  |
+| Share skills and plugins with groups      | Ability to share skills and plugins with a group in your organization.                                                                                                                                                                                                                                                                                               |
+| Skill and plugin security scanning        | Ability to run a scan on skills and plugins when they’re uploaded to catch possible security concerns.                                                                                                                                                                                                                                                               |
+| Claude Code                               | Access to Claude Code.                                                                                                                                                                                                                                                                                                                                               |
+| Cloud sessions                            | Ability to run Claude Code sessions in the cloud. When this is off, users also can't use Claude Code remote control or start fixes in Claude Security.                                                                                                                                                                                                               |
+| Claude Code remote control                | Ability to control Claude Code sessions running on their own computer from claude.ai/code or Claude Mobile. Requires Cloud sessions.                                                                                                                                                                                                                                 |
+| Fast mode                                 | Access to faster model options for Claude Code.                                                                                                                                                                                                                                                                                                                      |
+| Claude Code dynamic workflows\*           | Access to dynamic workflows in Claude Code, which let Claude run large engineering tasks—migrations, audits, codebase-wide bug hunts—from start to finish in a single session. These runs can last for hours and use more tokens than a typical session.                                                                                                             |
+| Claude Security                           | Find and fix security vulnerabilities in your code with Claude.                                                                                                                                                                                                                                                                                                      |
+| Artifacts                                 | Ability to create and publish artifacts from Claude Code and Cowork, and share artifacts within your organization. Users without it can still open artifacts shared with them, comment on them, and change their data, up to Contributor access. They can't create, edit, publish, or share artifacts.                                                               |
+| Design                                    | Ability to create designs with Claude Design in conversations and the Artifacts tab. Users without it can still open, comment on, and use designs shared with them.                                                                                                                                                                                                  |
+| Docs                                      | Ability to create docs with Claude Docs. Users without it can still open docs shared with them.                                                                                                                                                                                                                                                                      |
+| Slides                                    | Ability to create slide decks with Claude Slides. Users without it can still open decks shared with them.                                                                                                                                                                                                                                                            |
+| Design systems                            | Ability to create and edit design systems.                                                                                                                                                                                                                                                                                                                           |
+| Motion                                    | Ability to make short motion pieces that play in place and export as video.                                                                                                                                                                                                                                                                                          |
+| Claude Design [standalone]                | Access to standalone Claude Design at claude.ai/design. This doesn't control Claude Design in conversations and the Artifacts tab, which has its own capability, Design (under **Artifacts**).                                                                                                                                                                       |
+| Cowork                                    | Access to Claude Cowork.                                                                                                                                                                                                                                                                                                                                             |
+| Cowork in the cloud                       | Lets members run Cowork tasks on Anthropic's infrastructure instead of their own computer, so tasks can keep running across desktop, web, and mobile.                                                                                                                                                                                                                |
+| Claude in Chrome                          | Access to Claude in Chrome, the browser extension that lets Claude browse and act on web pages on the user's behalf.                                                                                                                                                                                                                                                 |
+| Computer access                           | Ability to access their computer’s files, apps, and browser from scheduled tasks, Claude on the web, or Claude Mobile. This also applies to chats in the new unified Claude experience that connect to a user’s computer. Sessions run from Claude Desktop on that computer aren’t affected. Claude Code remote control is a separate capability and isn’t affected. |
+| Scheduled tasks (Was Routines)            | Ability to create scheduled and webhook-triggered routines that run Claude Code autonomously in the cloud. Turning this off also turns off scheduled tasks for Cowork in the cloud and scheduled routines in the new unified Claude experience.                                                                                                                      |
 
 *Claude Code dynamic workflows are on for your whole organization by default. Because a single run can last for hours and use more tokens than a typical session, decide which roles should have access. For members on custom roles, this capability follows the additive model like any other—a role must grant it for those members to use it. To restrict a specific group, leave this capability off in their role.
 
@@ -2314,6 +2378,10 @@ An owner can turn it off across your entire organization by going to **[Organiza
 Custom roles also govern admin permissions, connectors, and model access, which are configured on separate **Permissions**, **Connectors**, and **Models** tabs in the role editor. See **[Admin permissions](#h_fde60b08bd)**, **[Connector permissions](#h_979e558d00)**, and **[Model access](#h_fca0f9a6b5)** below.
 
 **Note:** Chat is enabled by default for all custom roles, including ones created before this capability was added. If you want to restrict chat for a specific role, toggle it off when editing the role.
+
+Custom roles that already granted Claude Code have Cloud sessions and Claude Code remote control turned on, so users' access doesn't change. To restrict either one, turn it off under **Claude Code** on the role's **Capabilities** tab.
+
+If **Computer access** or **Routines** is on for your organization, custom roles that include Chat, Claude Code, Cowork, Chat and Cowork unified, or Claude in Chrome have that capability turned on, so users’ access doesn’t change. Roles set to “All capabilities” or “All generally available” include both automatically. To restrict either one, turn it off under **Remote sessions** on the role’s **Capabilities** tab.
 
 ### Grant all capabilities at once
 
@@ -2444,11 +2512,29 @@ There are eight admin permission areas:
 | Analytics            | Usage analytics, Claude Code analytics, feature adoption metrics, and surveys (create and view)                                                                  | Not available                                                                                                                        |
 | Privacy              | Data retention settings, export configuration, sharing settings, geolocation settings, US-only inference setting, and encryption-key status                      | Edit retention periods, run data exports, change sharing settings, and configure geolocation, US-only inference, and encryption      |
 | User Management      | Not available                                                                                                                                                    | Invite members, change member roles, remove members, and manage pending invitations                                                  |
-| Libraries            | Not available                                                                                                                                                    | Add, edit, and remove organization-shared skills, plugins, and connectors. Also includes directory management.                       |
+| Libraries            | Organization plugins and skills, marketplaces, publish requests, and connectors                                                                                  | Add, edit, and remove organization-shared skills, plugins, and connectors. Also includes directory management.                       |
 | Directory management | Not available                                                                                                                                                    | Submit and manage directory listings, and view observability for listings your organization has published                            |
 | Claude Design Admin  | Not available                                                                                                                                                    | Publish design systems, set the organization's default design system, and delete design systems                                      |
 
-**Note:** A role with **Identity & Access** set to "Can manage" can create and edit groups and roles, including its own role definition. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
+**Note:** A role with **Identity & Access** set to "Can manage" can create and edit groups and roles, including its own role definition, and can turn on Owner access. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
+
+### Owner access (beta)
+
+The **Owner access** permission gives a custom role all the admin permissions of an Owner. Owners get their permissions from the Owner role directly and skip custom roles, so until now you had to choose between making someone an Owner and managing their access with custom roles. With Owner access, a user can have full admin access while their capabilities, connectors, and models are still governed by the custom roles assigned to their groups.
+
+Owners, Primary Owners, and custom roles with **Identity & Access** set to "Can manage" can turn on Owner access. It matches the Owner role, not the Primary Owner role.
+
+To give a role Owner access:
+
+1. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**.
+
+2. Open the role you want to edit, or click "Add role" to create one.
+
+3. On the **Permissions** tab, turn on **Owner access**.
+
+4. Click "Save role."
+
+Owner access applies only to users whose role is set to "Custom" and who are in a group assigned to the role. Changing an Owner's role to "Custom" removes their built-in Owner access, so add them to the group before you change their role. If roles come from directory sync with group mappings, map the user's identity provider group to "Custom" rather than Owner.
 
 ### Available organization settings pages for each permission
 
@@ -2463,9 +2549,8 @@ There are eight admin permission areas:
 | Organization and access (partial) | Identity & Access (View or Manage) | Unlocks single sign-on (SSO/SAML, group mappings, provisioning), verified domains and domain memberships, IP allowlist, session settings, restrict organization creation, and organization merger requests. Other sections on this page, like the organization name, default capability settings, and the organization-wide system prompt, still require the Owner role |
 | Data and privacy                  | Privacy (View or Manage)           |                                                                                                                                                                                                                                                                                                                                                                         |
 | Analytics                         | Analytics (View)                   | Reached through Analytics in the user menu, not organization settings                                                                                                                                                                                                                                                                                                   |
-| Skills                            | Libraries (Manage)                 |                                                                                                                                                                                                                                                                                                                                                                         |
-| Plugins                           | Libraries (Manage)                 |                                                                                                                                                                                                                                                                                                                                                                         |
-| Connectors                        | Libraries (Manage)                 |                                                                                                                                                                                                                                                                                                                                                                         |
+| Plugins & skills                  | Libraries (View or Manage)         | With View, the page is read-only: no **Add** menu, no availability settings, and no approving or denying publish requests                                                                                                                                                                                                                                               |
+| Connectors                        | Libraries (View or Manage)         |                                                                                                                                                                                                                                                                                                                                                                         |
 | Directory                         | Directory management (Manage)      |                                                                                                                                                                                                                                                                                                                                                                         |
 
 ### What admin permissions don't cover
@@ -2639,7 +2724,7 @@ Create roles that map to departments: "Engineering" with chat, Cowork, Claude Co
 
 ### Admin delegation roles
 
-Create roles that delegate parts of administration without granting the Owner role. A custom role with admin permissions does not need any user capabilities, and vice versa. You could create a "Finance" role that grants Billing access but no chat or Claude Code capability, or an "Engineering Lead" role that grants Claude Code plus Analytics view access. Learn more **[about admin permissions for custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_536123d968)**.
+Create roles that delegate parts of administration without granting the Owner role. A custom role with admin permissions does not need any user capabilities, and vice versa. You could create a "Finance" role that grants Billing access but no chat or Claude Code capability, or an "Engineering Lead" role that grants Claude Code plus Analytics view access. To give a role every admin permission an Owner has, turn on **Owner access** (beta). Learn more **[about admin permissions for custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_536123d968)**.
 
 ---
 
@@ -2709,7 +2794,9 @@ The **Permissions** tab lists each admin area: Identity & Access, Billing, Analy
 
 Within an area, you grant all of View or all of Manage. You can't grant or restrict individual pages or settings.
 
-**Note:** A role with Identity & Access set to Manage can create and edit groups and roles, including its own role definition. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
+The **Permissions** tab also includes **Owner access** (beta), which gives the role all the admin permissions of an Owner. Only Owners, Primary Owners, and custom roles with Identity & Access set to Manage can turn it on. Learn more about **Owner access**.
+
+**Note:** A role with Identity & Access set to Manage can create and edit groups and roles, including its own role definition, and can turn on **Owner access**. Members with this permission can expand their own access, so reserve it for trusted security and IT administrators.
 
 ### Verify enforcement
 
@@ -2851,7 +2938,7 @@ Before migrating members to custom roles, confirm that every member you plan to 
 
 For custom role capabilities to take effect, members must have their role set to "Custom." Members with the User, Admin, or Owner roles get their permissions from those roles directly, not from custom roles.
 
-**Important:** Complete this step only after you’ve created your custom roles, configured admin and connector permissions if you’re using them, created your groups, and verified all members are assigned to groups. Members moved to custom roles before setup is complete will immediately lose access to all governed features and their previous role. Switching an Owner or Admin to custom roles removes their Owner or Admin access, so don't migrate Owners or Admins unless you intend to replace that access with custom role permissions.
+**Important:** Complete this step only after you’ve created your custom roles, configured admin and connector permissions if you’re using them, created your groups, and verified all members are assigned to groups. Members moved to custom roles before setup is complete will immediately lose access to all governed features and their previous role. Switching an Owner or Admin to custom roles removes their Owner or Admin access, so don't migrate Owners or Admins unless you intend to replace that access with custom role permissions. To keep an Owner's admin access, add them to a group whose role has **Owner access** turned on before you change their role.
 
 Choose the migration path based on whether your organization already enabled group mappings:
 
@@ -2913,7 +3000,7 @@ For any feature you want to control per-group:
 
 Enabling a feature at the organization level doesn't mean everyone gets it—custom role permissions are already in place to control who can use it. Think of the organization-level toggle as making the feature "available for role-based assignment" rather than "on for everyone."
 
-**Note:** This includes the Design, Slides, and Docs settings in Organization settings > Artifacts. Members outside the roles that grant them can still open, comment on and use artifacts shared with them.
+**Note:** This includes the Design, Slides, and Docs settings in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. Users without the **Artifacts** capability can still open artifacts shared with them, comment on them, and change their data, up to Contributor access. They can't create, edit, publish, or share artifacts.
 
 ---
 
@@ -2979,9 +3066,19 @@ Role changes may take up to 15 minutes to take effect across the platform. Membe
 
 ---
 
-## Using SCIM with role-based capabilities
+## Use SCIM with role-based capabilities
 
 SCIM connects to your role-based capabilities through two mechanisms that work together.
+
+**Important:** Set these up in this order. Members in groups mapped to “Custom” have no permissions until their groups are assigned to custom roles.
+
+1. Save SCIM directory sync with **Enable group mappings** off and let the initial sync finish.
+
+2. In **[Organization settings > Groups](https://claude.ai/admin-settings/groups)**, click “Check for updates” and sync Groups only.
+
+3. Assign the synced groups to your custom roles, and to group spend limits if you use them.
+
+4. Turn on **Enable group mappings** and map the groups to “Custom.”
 
 ### IdP group-to-role mapping
 
@@ -3121,7 +3218,11 @@ Only if their role includes Identity & Access set to Manage, which covers editin
 
 ### Can I give admin permissions to a member on the User, Admin, Owner, or Primary Owner role?
 
-No. Admin permissions only apply to members in a custom role. Members on a built-in role keep the access that role grants. To give someone specific admin permissions, change the member to a custom role and add them to a group assigned to a role with the permissions they need. Keep in mind this removes their previous built-in role access.
+No. Admin permissions only apply to members in a custom role. Members on a built-in role keep the access that role grants. To give someone specific admin permissions, change the member to a custom role and add them to a group assigned to a role with the permissions they need. Keep in mind this removes their previous built-in role access. To keep the full admin access of an Owner, use a role with **Owner access** turned on.
+
+### Can an Owner get capabilities or model access from custom roles?
+
+Not while their role is Owner, because Owners get their permissions from that role directly. Instead, change their role to "Custom" and add them to groups whose roles grant **Owner access** plus the capabilities and models they need. They keep an Owner's admin permissions, and their feature access follows their custom roles. Owner access doesn't cover the Primary Owner role.
 
 ### What does someone see when they don’t have permissions for a certain setting?
 
@@ -3142,9 +3243,9 @@ SOURCE: https://support.claude.com/en/articles/14604406-claude-design-admin-guid
 
 Claude Design lets your team create on-brand designs, prototypes, and interactive microsites through conversation with Claude. Presentations now have their own tool, Claude Slides.
 
-Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It's on by default on Team plans. On Enterprise plans, it's off by default until an owner turns it on.
+Claude Design is available on Free, Pro, Max, Ultra, Team, and Enterprise plans. It's on by default on Team plans. On Enterprise plans, it turns on by default on October 15, 2026, and owners can turn it on before then.
 
-**Note:** Settings for artifacts, templates (including **Design**), design systems, and sharing live in one place now. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**. This guide covers standalone Claude Design at **claude.ai/design** and how to roll out Claude Design with a design system in place.
+**Note:** Settings for artifacts, templates (including **Design**), design systems, and sharing live in one place now. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**. This guide covers how to roll out Claude Design with a design system in place, and what to do before standalone Claude Design at **claude.ai/design** closes.
 
 Claude Design works best when a **design system** is set up for your organization first. This ensures every project your team creates stays true to your brand, typography, color palette, and component patterns. This guide walks you through enabling Claude Design, setting up the right foundation, and rolling it out to your team.
 
@@ -3167,6 +3268,8 @@ To turn on the **Design** template, see the instructions in **[Artifacts admin g
 2. Find the **Enable for your organization** toggle under **Claude Design [standalone]** and switch it on.
 
 On Enterprise plans, you can control access to standalone Claude Design with **[custom roles](https://support.claude.com/en/articles/13930452)**.
+
+**Important:** Standalone Claude Design closes on December 14, 2026. Before then, check that **Artifacts** and **Design systems** are on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**, so users can move their projects and design systems. On Enterprise plans, **Design systems** is off by default. If your organization has a retention period that covers artifacts, a project or design system that moves, or has already moved, to Claude can be permanently deleted if nobody opens it for that period. Learn more in[**Move from standalone Claude Design to Claude**](https://support.claude.com/en/articles/17440474) and **[Configure custom data retention controls for Enterprise plans](https://support.claude.com/en/articles/10440198)**.
 
 Before you turn on broad access, read through the rollout approach below. Turning on Claude Design without a design system in place means your team gets functional but generic output.
 
@@ -3198,7 +3301,7 @@ Any member with Claude Design access can create and edit design systems. On the 
 
 ## Recommended rollout phases
 
-A phased rollout lets you validate your design system and build internal expertise before broad adoption. On Enterprise plans, you can phase access to standalone Claude Design using **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**. You can phase access to Claude Design in conversations and the Artifacts tab the same way, with the Design capability (under **Artifacts**).
+On Enterprise plans, you can phase access to standalone Claude Design using **[custom roles](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans)**, with the Design capability (under **Artifacts**).
 
 ### Phase 1: Design system setup
 
@@ -3288,106 +3391,16 @@ There are no strict limits, but we recommend the phased approach outlined above 
 
 ### Can we export or archive generated designs?
 
-Claude Design currently supports export to HTML bundles, PPTX, and PDF, hand-off to Claude Code, and sending designs to the partner tools listed in **[Get started with Claude Design](https://support.claude.com/en/articles/14604416)**.
+Claude Design supports export to HTML bundles, PPTX, PDF, and Google Slides, hand-off to Claude Code, and sending designs to the partner tools listed in **[Get started with Claude Design](https://support.claude.com/en/articles/14604416)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/15036540-use-the-claude-agent-sdk-with-your-claude-plan
 
 # Use the Claude Agent SDK with your Claude plan
 
-**Update June 15:** We're pausing the changes to Claude Agent SDK usage described below. For now, nothing has changed: Claude Agent SDK, `claude -p`, and third-party app usage still draw from your subscription's usage limits. The previously announced monthly credit, which would have been available to eligible claimants in connection with these changes, isn't available. We’re working to update the plan to better support how users build with Claude subscriptions. When we have an update, we'll share it before anything takes effect.
+**Update October 7, 2026:** Claude Max, Ultra, and Team plans now include **[monthly API credits](https://support.claude.com/en/articles/17154008)**. They cover the Claude API, Claude Managed Agents, and the Claude Agent SDK and `claude -p` when you run them with an API key from your linked Claude Console organization. Nothing changes for your plan: when you’re signed in with your Claude plan, the Claude Agent SDK and `claude -p` still draw from your subscription limits.
 
----
-
-**The content below reflects the page before June 15. It's preserved for reference but is no longer taking effect on June 15.**
-
-Claude subscription plans are now eligible to receive a monthly Agent SDK credit. This credit covers Claude Agent SDK usage, the `claude -p` command, and third-party apps built on the Agent SDK. This article explains what the credit covers, how it works, and how to claim it.
-
-Available on Pro, Max, Team, and Enterprise plans starting on June 15, 2026. Claude Platform accounts using an API key don’t receive a credit. Pay-as-you-go billing continues as before.
-
-## What’s changing
-
-Starting **June 15, 2026**, Claude Agent SDK and `claude -p` usage no longer counts toward your Claude plan’s usage limits. Your subscription usage limits stay the same and stay reserved for interactive use of Claude Code, Claude Cowork, and Claude.
-
-To support Agent SDK use, eligible Pro, Max, Team, and Enterprise plan users can claim a separate monthly credit. The credit applies only to Agent SDK usage and refreshes with your billing cycle.
-
-## Monthly credit by plan
-
-| **Plan**                                | **Monthly credit** |
-| --------------------------------------- | ------------------ |
-| Pro                                     | $20                |
-| Max 5x                                  | $100               |
-| Max 20x                                 | $200               |
-| Team (Standard seats)                   | $20                |
-| Team (Premium seats)                    | $100               |
-| Enterprise (usage-based)                | $20                |
-| Enterprise (seat-based Premium seats\*) | $200               |
-
-*Members of seat-based Enterprise plans on Standard seats aren’t eligible to claim the Agent SDK monthly credit.
-
----
-
-## What the credit covers
-
-The Agent SDK monthly credit applies to:
-
-- Claude Agent SDK usage in your own projects (Python or TypeScript)
-
-- The `claude -p` command in Claude Code (non-interactive mode)
-
-- The Claude Code GitHub Actions integration
-
-- Third-party apps that authenticate with your Claude subscription through the Agent SDK
-
-The credit doesn’t apply to:
-
-- Interactive Claude Code in the terminal or IDE
-
-- Claude conversations on the web, desktop, or mobile apps
-
-- Claude Cowork
-
-- Other features that draw from usage credits
-
----
-
-## How the credit works
-
-**Per-user, not pooled.** Credits belong to individual accounts. They can’t be shared or pooled across teammates.
-
-**Refreshes monthly.** Your credit resets at the start of each billing cycle. Unused credits don't roll over to the next billing cycle.
-
-**One-time opt-in.** You claim your credit through your Claude account once. After that, it refreshes automatically each cycle.
-
-**Drains first.** Agent SDK usage draws from your monthly credit before any other source.
-
-**Past the credit, usage moves to usage credits.** When your monthly credit runs out, additional Agent SDK usage flows to usage credits at standard API rates—but only if you've enabled usage credits. If usage credits aren't enabled, Agent SDK requests stop until your credit refreshes.
-
----
-
-## What stays the same
-
-This change doesn’t affect:
-
-- **Subscription usage limits.** Your plan usage limits haven’t changed as part of this update.
-
-- **Interactive Claude Code.** Using Claude Code in the terminal or your IDE continues to use your subscription usage limits exactly as before.
-
-- **Claude conversations.** Web, desktop, and mobile chat continue to use subscription usage limits.
-
-- **API key users.** If you use the Agent SDK with an API key from the Claude Platform, nothing changes. Pay-as-you-go billing continues, and you don’t receive an Agent SDK monthly credit.
-
----
-
-## For Team and Enterprise admins
-
-If you administer a Team or Enterprise account, here’s what to know:
-
-**Credits are per-user.** Each eligible user on your team claims their own credit. Credits can’t be pooled, transferred, or shared across the organization.
-
-**Production automation at scale.** The Agent SDK monthly credit is sized for individual experimentation and automation. Teams running shared production automation should use Claude Platform with an API key for predictable pay-as-you-go billing.
-
-**What you need to do.** Nothing right now. Eligible users on your team will receive an email with details and instructions to claim their credit before June 15, 2026.
+**Update June 15, 2026:** We’ve paused the previously-announced changes to Claude Agent SDK usage. For now, nothing has changed: Claude Agent SDK, `claude -p`, and third-party app usage still draw from your subscription limits.
 ---
 
 SOURCE: https://support.claude.com/en/articles/15424964-claude-fable-models-on-your-plan
@@ -3396,13 +3409,13 @@ SOURCE: https://support.claude.com/en/articles/15424964-claude-fable-models-on-y
 
 We previously ran a promotion that allowed you to use up to 50% of your weekly subscription limit on Claude Fable 5 at no extra cost. That promotion ended on July 19, 2026 at 11:59:59 PM PT, and it applied to Fable 5 only. Claude Fable 5.1 was never part of it.
 
-Fable 5 and Fable 5.1 work the same way on your plan. On Max plans, premium seats on Team plans, and premium seats on legacy seat-based Enterprise plans, both are a standard part of your plan. On Pro plans, standard seats on Team plans, and standard seats on legacy seat-based Enterprise plans, both models run on pay-as-you-go usage credits. This article explains how they work on each plan, how to access them, and what happens when you reach your usage limits.
+Fable 5 and Fable 5.1 work the same way on your plan. On Max and Ultra plans, premium seats on Team plans, and premium seats on legacy seat-based Enterprise plans, both are a standard part of your plan. On Pro plans, standard seats on Team plans, and standard seats on legacy seat-based Enterprise plans, both models run on pay-as-you-go usage credits. This article explains how they work on each plan, how to access them, and what happens when you reach your usage limits.
 
-Claude Fable 5 and Claude Fable 5.1 are available on all paid plans (Pro, Max, Team, and Enterprise).
+Claude Fable 5 and Claude Fable 5.1 are available on all paid plans (Pro, Max, Ultra, Team, and Enterprise).
 
 ## How Fable models work on each plan
 
-- **Max plans, premium seats on Team plans, and premium seats on seat-based Enterprise plans:** Fable 5 and Fable 5.1 are included as a standard part of your plan. You can use up to 50% of your weekly usage limits on Fable models at no extra cost. They draw from your plan's regular weekly usage limits and use them faster than other Claude models. When you reach your Fable limit, you can keep using Fable models with usage credits, or switch to another model to stay within your plan's usage limits.
+- **Max and Ultra plans, premium seats on Team plans, and premium seats on seat-based Enterprise plans:** Fable 5 and Fable 5.1 are included as a standard part of your plan. You can use up to 50% of your weekly usage limits on Fable models at no extra cost. They draw from your plan's regular weekly usage limits and use them faster than other Claude models. When you reach your Fable limit, you can keep using Fable models with usage credits, or switch to another model to stay within your plan's usage limits.
 
 - **Pro plans and standard seats on Team plans:** Fable 5 and Fable 5.1 aren’t included in your plan's usage limits. You can use them with usage credits, which let you pay for usage beyond what your plan includes. Eligible Pro and Team standard seats qualified for a one-time credit when Fable 5 moved to usage credits in July 2026. That credit applied to the Fable 5 change only, and there's no equivalent credit for Fable 5.1. Learn more about the **[Claude Fable 5 one-time free credits promotion](https://support.claude.com/en/articles/15862783)**.
 
@@ -3436,7 +3449,7 @@ In Claude on the web, Claude Desktop, and Claude Mobile, select "Fable 5" or “
 
 ## When you reach your Fable usage limit
 
-On Max plans, premium seats on Team plans, and premium seats on seat-based Enterprise plans, once you use up to 50% of your weekly usage limits on Fable models, you can continue in one of two ways: keep using Fable models with usage credits, or switch to another Claude model to keep working within your plan's usage limits.
+On Max and Ultra plans, premium seats on Team plans, and premium seats on seat-based Enterprise plans, once you use up to 50% of your weekly usage limits on Fable models, you can continue in one of two ways: keep using Fable models with usage credits, or switch to another Claude model to keep working within your plan's usage limits.
 
 On Pro plans, standard seats on Team plans, and standard seats on seat-based Enterprise plans, Fable models run on pay-as-you-go usage credits from the start, since they aren’t included in your plan's usage limits.
 
@@ -3458,15 +3471,15 @@ Check the following:
 
 ### Will this use my regular usage limits?
 
-It depends on your plan. On the Max plan, premium seats on the Team plan, and premium seats on the seat-based Enterprise plan, Fable models count toward your plan's usage limits, and you can use up to 50% of your weekly usage limits on Fable models at no extra cost. On the Pro plan, standard seats on the Team plan, and standard seats on the seat-based Enterprise plan, Fable models run on usage credits rather than your plan's usage limits.
+It depends on your plan. On the Max and Ultra plans, premium seats on the Team plan, and premium seats on the seat-based Enterprise plan, Fable models count toward your plan's usage limits, and you can use up to 50% of your weekly usage limits on Fable models at no extra cost. On the Pro plan, standard seats on the Team plan, and standard seats on the seat-based Enterprise plan, Fable models run on usage credits rather than your plan's usage limits.
 
-### Will I get 50% more for my weekly limit for Fable models if I’m on the Max plan, Team plan with premium seats, or a seat-based Enterprise plan with premium seats?
+### Will I get 50% more for my weekly limit for Fable models if I’m on the Max or Ultra plan, Team plan with premium seats, or a seat-based Enterprise plan with premium seats?
 
 No. You can use up to 50% of your weekly limit on Fable models, but your use of other models draws from the same usage limits and you can never use more than your weekly limit. You can track both in your usage settings.
 
 ### I'm on the Pro or Team plan. Why is Fable 5 no longer included?
 
-The earlier promotion that included Fable 5 in your plan's weekly usage limits ended on July 19, 2026 at 11:59:59 PM PT. On the Pro plan and standard seats on the Team plan, you can keep using Fable 5 with usage credits or by upgrading to the Max plan. You may also be eligible for a one-time credit. Learn more about the **[Claude Fable 5 one-time free credits promotion](https://support.claude.com/en/articles/15862783)**.
+The earlier promotion that included Fable 5 in your plan's weekly usage limits ended on July 19, 2026 at 11:59:59 PM PT. On the Pro plan and standard seats on the Team plan, you can keep using Fable 5 with usage credits or by upgrading to the Max or Ultra plan. You may also be eligible for a one-time credit. Learn more about the **[Claude Fable 5 one-time free credits promotion](https://support.claude.com/en/articles/15862783)**.
 
 Fable 5.1 works the same way on these plans: it isn't included in your plan's usage limits, and it wasn't part of the earlier promotion.
 ---
@@ -3491,7 +3504,11 @@ Every seat includes everything in Claude Team:
 
 - Single sign-on (SSO)
 
+This plan has Claude Science on by default. An Owner or Primary Owner can turn it off at any time in **[Organization settings > Claude Science](https://claude.ai/admin-settings/claude-science)**.
+
 Premium seats add five times more usage and higher limits for long-running analyses.
+
+Claude Max, Ultra, and Team plans include monthly credits for the Claude API. On the Team plan for scientists, you’ll receive $20 USD per Standard seat and $100 USD per Premium seat. Credits for all seats are pooled into one monthly balance, capped at $500. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 
 ## What does it cost?
 
@@ -3509,7 +3526,7 @@ If you’re at a for-profit company, contract research organization, or industry
 
 ## How do I sign up?
 
-1. Go to **[the program page](http://claude.com/programs/team-plan-for-scientists)** and start an application as the PI or lab lead.
+1. Go to **[the program page](https://claude.com/programs/team-plan-for-scientists)** and start an application as the PI or lab lead.
 
 2. Verify your eligibility. You’ll confirm your institutional affiliation. Most applications are reviewed within seven business days.
 
@@ -3523,7 +3540,7 @@ From 1 to 25 seats per group.
 
 ### I’m already on the discounted Team plan. What changes?
 
-Your plan moves to the new pricing automatically for billing charges after August 27, 2026—no action needed. Prior charges, including prepaid annual seats, aren’t refunded or prorated. Any seats you add to your plan after August 27, 2026 will be billed at the new pricing. Your workspace admin will get an email with the details.
+This applies only to workspaces that were already on the discounted Team plan before August 27, 2026. If you’re applying the discount to a standard Team plan for the first time, see **[Can I apply the discounted Team plan pricing to my existing Team plan?](#h_80d427d957)** below. Your plan moves to the new pricing automatically for billing charges after August 27, 2026—no action needed. Any seats you add to your plan after August 27, 2026 will be billed at the new pricing. Your workspace admin will get an email with the details.
 
 ### My university already has a Claude Enterprise agreement. Should I use this?
 
@@ -3544,6 +3561,10 @@ By default, Anthropic doesn’t train its models on user data from Team and Ente
 ### Can I apply the discounted Team plan pricing to my existing Team plan?
 
 First, you must complete the **[application flow](https://claude.ai/labs-verification/attestation)** to verify your eligibility for the discounted plan. Once you are verified, you can apply the discounted pricing to an existing plan that you manage in **Settings > Account** under **Program verifications**.
+
+If your existing Team plan is billed annually and you apply the discounted pricing partway through your annual term, your plan switches to monthly billing at the discounted rate. The unused portion of your prepaid annual term becomes a credit on your workspace’s billing account, and it’s applied automatically to your future monthly invoices until it’s used up. This is an account credit, not a refund to your original payment method.
+
+**Note:** If all your seats are Standard seats ($0 per user per month), your monthly invoices will be $0. The credit stays on your account until a charge is generated, for example when you add Premium seats.
 ---
 
 SOURCE: https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans
@@ -3649,6 +3670,303 @@ Requests from users appear under **Review requests**. Users never see the group'
 - Pooled budgets can only be managed in **Organization settings**. They aren't available through the Admin API.
 ---
 
+SOURCE: https://support.claude.com/en/articles/17118092-assign-a-program-to-custom-roles-on-enterprise-plans
+
+# Assign a program to custom roles on Enterprise plans
+
+This article explains how to assign an Anthropic-issued program to users through custom roles on Enterprise plans.
+
+Anthropic offers several verification programs, such as the Cyber Verification Program (CVP), or access to models that might not be generally available. To gain access to these programs, go to our **[Verification Portal](https://portal.anthropic.com/)** to see what programs are available to you, and apply.
+
+Once you’ve applied and been approved for a program, Anthropic issues a "program" or "grant" to your organization. To use the program or grant, you must assign it to a group of people within the organization. In Claude Enterprise, a program applies to members through a custom role: you add the grant to a role, and assign the role to groups of members.
+
+Available on Claude Enterprise plans.
+
+## Before you begin
+
+- Your organization must already have a grant. You’ll see grants only after Anthropic issues one to your organization. To apply to a specific program, go to our **[Verification Portal](https://portal.anthropic.com/)** to see what programs are available.
+
+- You need to be an Owner or Primary Owner in a Claude Enterprise organization to assign grants.
+
+- Members who should get access need the role type "Custom" on the **Members** page. Owners, Primary Owners, and Admins who keep their built-in role are not covered by custom roles.
+
+- If your organization uses SCIM with group mappings, your identity provider (IdP) sets each user’s role type. To get the grant, a user needs to be in an IdP group that’s mapped to the custom role.
+
+## Give members access with a custom role
+
+In Claude Enterprise, Programs and Grants are issued to your organization and apply to members through roles. For some programs, Anthropic creates a role for you: you can’t change its grants, but you can assign groups to it. For others, you add the grant to a role of your own.
+
+To assign a program or grant to a custom role:
+
+1. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)** on claude.ai or in the Claude Desktop app.
+
+2. Create a new role by selecting “Add role.” Edit an existing role by opening the three-dot menu at the end of its row and selecting “Edit role.”
+
+3. Select the **Details** tab, then enter a **Role name**. Under **Groups**, choose the groups whose members should get access.
+
+4. Select the **Models** tab and scroll to the **Grants** section.
+
+5. Check the box for each grant this role should have, then select “Save.”
+
+To check that you’ve successfully given members access to your program:
+
+1. Navigate to **[Organization settings > Grants](https://claude.ai/admin-settings/grants)**. The section for your grant lists its requirements (for example, data retention or a member cap, depending on the grant).
+
+2. Navigate to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)**. The role shows **Grant role**.
+
+To remove access, clear the box in the **Grants** section in the custom role and save. To remove one person, take them out of the role's groups.
+
+## Where the model appears
+
+Users get access to the model through the grant. Once the role has the grant, users whose role type is "Custom" and who are in one of the role’s groups can use the model. A model that comes with a grant isn’t listed on the **Models** page or in a role’s **Add model** list, and you don’t add it there.
+
+Owners, Primary Owners, and Admins who keep their built-in role don’t get the model, even if they’re in one of the role’s groups.
+
+## Troubleshooting
+
+### The model doesn’t appear for an Owner, Primary Owner, or Admin
+
+Custom roles don’t apply to Owners, Primary Owners, and Admins who keep their built-in role, so a grant on a custom role doesn’t reach them. To check that the grant works, test with a user whose role type is "Custom" and who is in one of the role’s groups.
+
+### The Grants page, or the Grants section in the Models tab of the role, is missing
+
+Your organization doesn’t have a grant yet, or your role can’t view it. These pages are only available for Enterprise plans. Contact your Anthropic account team or an Owner of your organization.
+
+### The checkboxes are grey
+
+Hovering over a box shows "Only organization owners can change which grants this role has." Ask an Owner or Primary Owner.
+
+### The role says "Granted by Anthropic and managed centrally. These grants are read-only."
+
+Anthropic created this role. Assign your groups to it to give them access to your program.
+
+### The role shows "Grant withheld", or the Grants page shows "Action required."
+
+The grant isn’t in effect for a role, or is on hold. Open **Grants** and fix the requirements that aren’t met. If there’s nothing to fix, contact your Anthropic account team.
+
+### The grant is over its member cap
+
+Some grants have a member cap. The role editor shows a warning message: "This role will exceed the member cap of … for the … grant. Everyone in this role will lose access until the member cap is restored." Reduce the members in the groups of the roles that have this grant.
+---
+
+SOURCE: https://support.claude.com/en/articles/17154008-monthly-api-credits-for-max-ultra-and-team-plans
+
+# Monthly API credits for Max, Ultra, and Team plans
+
+Max, Ultra, and Team plans include monthly credits for the Claude Platform. Use them to build Claude into your own apps and agents with the Claude API. This article explains who's eligible, how to claim your credit, what it covers, and what happens when it runs out.
+
+Available on Max, Ultra, and Team plans, including discounted Team plans. Free, Pro, and Enterprise plans aren't eligible.
+
+## Monthly credits by plan
+
+| **Plan**                                      | **Monthly credit**                                        |
+| --------------------------------------------- | --------------------------------------------------------- |
+| Max                                           | $100                                                      |
+| Ultra                                         | $200                                                      |
+| Team (Standard seats)                         | $20 per seat\*                                            |
+| Team (Premium seats)                          | $100 per seat\*                                           |
+| Discounted Team plans (Nonprofit, Scientists) | $20 USD per Standard seat and $100 USD per Premium seat\* |
+
+*On Team plans, credits for all seats are pooled into one monthly balance, capped at $500. For example, a team with three Standard seats and two Premium seats receives $260 a month. The pool is calculated from the seats on the plan when the credits are granted.
+
+## Eligibility
+
+- **Active plan.** Your Max, Ultra, or Team subscription must be active and in good standing.
+
+- **Seven days on the plan.** New subscribers can claim once they've been on an eligible plan for seven days.
+
+- **Mobile subscriptions.** You can subscribe on the web, iOS, or Android. Claim your credits on claude.ai in a web browser.
+
+- **No payment method needed.** You don't need to add a card on Claude Platform to claim or use the credit.
+
+## How to claim your credit
+
+To claim your credit, you link a Claude Console organization to your plan. Credits go to that organization each month.
+
+Before you begin, you need:
+
+- **On your Claude plan:**
+
+  - **Max or Ultra:** to be the subscriber
+
+  - **Team:** to be a Primary Owner or Owner
+
+- **In the Console organization:** the Owner, Admin, or Billing role. If you don't have a Console organization yet, you can create one during the claim flow or at **[platform.claude.com](https://platform.claude.com)**.
+
+To claim your credit:
+
+1. On claude.ai, go to **[Settings > Billing](https://claude.ai/settings/billing)** as a Max or Ultra subscriber, or **[Organization settings > Billing](https://claude.ai/admin-settings/billing)** as a Team Owner or Primary Owner.
+
+2. In the **API credits** section, select "Link organization."
+
+3. Choose the Console organization you want to receive the credits, or create a new one.
+
+4. Review the **[Supplemental Credit Terms](https://www.anthropic.com/legal/credit-terms)**, then Link organization.
+
+Your credits appear in that organization's balance, ready to use.
+
+**Important:** You can link only one Console organization, and each Console organization can receive credits from only one plan. You can't change the linked organization yourself, so choose the one you plan to build in. To change it later, **[contact support](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+
+**Tip:** Sign in to the Claude Console with the same email you use on claude.ai. If you’re seeing errors during the linking flow, please try again in a few hours.
+
+## What the credits cover
+
+The credits work with any available Claude model on the Claude Platform, including:
+
+- The Claude API (Messages API and Message Batches API)
+
+- The Playground in the Claude Console
+
+- Claude Managed Agents
+
+- The Claude Agent SDK
+
+The credits don’t apply to:
+
+- Interactive Claude Code in the terminal, IDE, desktop, or web
+
+- Extra usage in Claude, Claude Code, or Claude Cowork
+
+- Claude on Amazon Bedrock, Google Cloud Vertex AI, or Microsoft Foundry
+
+## How the credits work
+
+- **Refreshes each billing cycle.** New credits arrive shortly after your plan payment goes through. On annual plans, credits arrive monthly.
+
+- **Doesn't roll over.** Unused credits expire at the end of each billing cycle.
+
+- **Used first.** Your monthly credits are spent before any credits you've purchased.
+
+- **Shared across the organization.** Everyone with an API key in the linked organization draws from the same balance.
+
+- **Separate from your plan limits.** The credits don’t change your usage limits in Claude, Claude Code, or Claude Cowork.
+
+- **Visible in the Console.** All credits appear on the **Billing** page (platform.claude.com/settings/billing) in the Claude Console with their amount and expiry date.
+
+## What happens when your credits run out
+
+- **If the organization has purchased credits or auto-reload,** usage continues and draws from those.
+
+- **If the organization has no other credits,** API requests stop until your next monthly credits arrive. Usage is never charged to your Claude plan. To keep going, buy credits or turn on auto-reload in the Console.
+
+- **If your organization is invoiced through Anthropic sales,** usage beyond the credits is billed as usual.
+
+## If your plan changes
+
+- **Cancel, downgrade to an ineligible plan, or refund.** New credits stop. Credits you already have stay usable until they expire.
+
+- **Upgrade from Max to Ultra.** You receive prorated credits right away, then $200 each billing cycle after that.
+
+- **Move from Max or Ultra to Team.** Your Max or Ultra link ends. A Team Owner or Primary Owner can claim the team's credits once the Team plan has been active for seven days.
+
+## For Team Owners and Primary Owners
+
+**One claim for the whole team.** One owner links a Console organization and claims the pooled credit, up to $500 a month.
+
+**The pool follows your seat count.** It's calculated from the seats on your plan each time credits are deposited. For example, a team with three Standard seats and two Premium seats receives $260 a month. Adding another Premium seat would increase the next cycle’s credits to $360.
+
+**Control who spends it.** Everyone with an API key in the linked organization can use the balance. To limit usage by project or teammate, set **[workspace spend limits](https://platform.claude.com/docs/en/api/rate-limits#setting-lower-limits-for-workspaces)** in the Console.
+
+---
+
+## Frequently asked questions
+
+### Why can't I use the credits for Claude Code?
+
+The credits are for building your own apps and agents on the Claude Platform. They don't cover interactive Claude Code sessions or extra usage after you hit your plan's limits.
+
+### Why don't I see the offer yet?
+
+We’re rolling out API credits over a few days so we might not have gotten to you yet. The offer appears after you've been on an eligible plan for seven days. If you're past seven days and still don't see it, check that you're on a Max, Ultra, or Team plan and that you have one of the required roles. If you think you should be eligible but don’t see the API credits, **[contact support](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+
+### Is this the same as the Agent SDK credits announced in June?
+
+No. That credit isn't available. API credits cover the Claude API, Claude Managed Agents, and the Claude Agent SDK, and you claim it into a Console organization.
+
+### Can I split my credits across multiple organizations?
+
+No. Credits go to a single Console organization.
+
+### I'm on a Pro plan. Can I get this credit?
+
+No. The credits are available on Max, Ultra, and Team plans only.
+
+### Does this cover `claude -p` ?
+
+API credits cover `claude -p` and the Claude Agent SDK when you run them yourself with an API key from your linked Claude Console organization, because that usage is billed as Agent SDK usage. When you're signed in with your Claude plan instead, `claude -p` and Agent SDK usage still draw from your plan's usage limits and don't use your API credits. Runs started by the Claude Code GitHub Action, an IDE extension or the Claude desktop app count as Claude Code usage, so API credits don't cover them, even with `-p`.
+---
+
+SOURCE: https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan
+
+# What is the Ultra plan?
+
+This article explains what the Ultra plan includes, how much it costs, and how its usage limits work.
+
+This article is about paid Ultra plans for individual consumers. If you're part of an organization looking to use Claude with your team, refer to **[Team and Enterprise plans](https://support.claude.com/en/collections/9387370-team-and-enterprise-plans)**.
+
+## Key benefits
+
+- **More usage capacity:** Get 10 times the Pro plan's usage every week.
+
+- **No five-hour limit for verified accounts:** Work at your own pace within your weekly limit. For more information, see **[What is a verified account?](#h_ff4fcea367)**
+
+- **Priority access:** Be among the first to experience new models, features, and products.
+
+- **Access to Claude Code:** Use Claude Code for your terminal-based coding workflows with one unified subscription.
+
+- **Longer, multi-step tasks:** Hand Claude work like reports, spreadsheets, and presentations, and it keeps going in the background. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
+
+- **Monthly API credits:** Ultra plans include monthly credits for the Claude API. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
+
+## What changed from Max 20x?
+
+The Max 20x plan is now called the Ultra plan. Existing Max 20x subscribers move to Ultra automatically, with no price change.
+
+Ultra includes 10 times the Pro plan’s usage every week and has no five-hour limit, for verified accounts.
+
+## How much does the Ultra plan cost?
+
+The Ultra plan is available for $200 per month.
+
+**Note:** This price is for web subscriptions only. Mobile pricing may vary depending on your app platform.
+
+Price and plans are subject to change at Anthropic's discretion.
+
+## Billing information
+
+- The Ultra plan is currently available as a monthly subscription only.
+
+- When moving from an annual Pro plan to an Ultra plan, if the remaining balance on your annual Pro plan is greater than your Ultra plan price, you will receive a credit to your account for the remaining balance. This credit will be applied to future subscription costs.
+
+  - To receive your credit, the billing address used to purchase your Ultra plan must be the same as your previous subscription’s billing address.
+
+  - If your billing address has changed, you will need to cancel your Pro subscription and wait for the subscription end date before signing up for a new Ultra subscription with a new billing address.
+
+  - If you subscribed through Google Play, you're charged the full price of your new plan when you upgrade. The unused value of your previous plan is converted into extra days on your new plan, so your renewal date will land a few days later than a full month.
+
+## Does the Ultra plan have any usage limits?
+
+Yes. The Ultra plan includes 10 times the Pro plan's usage every week.
+
+Verified Ultra accounts don't have a five-hour limit. If your account isn't verified yet, a temporary limit applies. For more information, see **[What is a verified account?](#h_ff4fcea367)**
+
+Ultra plans have a weekly usage limit that applies across all models, and a separate weekly limit for Fable.
+
+Additional usage limits may apply to manage capacity and ensure fair access to all users. For example, we may limit your usage in other ways, such as weekly and monthly caps or model and feature usage, at our discretion. We don't guarantee uninterrupted service.
+
+Learn more about **[usage and length limits](https://support.claude.com/en/articles/11647753)** and **[usage limit best practices](https://support.claude.com/en/articles/9797557)**.
+
+**Note:** If you have a limit reset, you can use it to reset your weekly usage limits back to full. Learn more **[about limit resets](https://support.claude.com/en/articles/17007452)**.
+
+## What is a verified Ultra account?
+
+To help prevent fraud and abuse, we automatically verify Ultra accounts using factors like your account and payment history. Verified accounts don't have a five-hour limit.
+
+If your account isn't verified yet, a temporary limit applies. We remove it automatically once your account is verified, so there's nothing you need to do. Verifying your phone number at checkout is a separate step and doesn't remove this limit.
+
+To check, go to **Settings > Usage**. If you don't see a Current session bar, your account is verified.
+---
+
 SOURCE: https://support.claude.com/en/articles/8241216-i-m-planning-to-launch-a-product-using-the-claude-api-what-steps-should-i-take-to-ensure-i-m-not-violating-anthropic-s-usage-policy
 
 # I’m planning to launch a product using the Claude API. What steps should I take to ensure I’m not violating Anthropic’s Usage Policy?
@@ -3706,19 +4024,21 @@ Price and plans are subject to change at Anthropic's discretion.
 
 ## How can I get a free or discounted Pro plan?
 
-We do not offer standard discounted pricing for any of our paid plans, including Pro plans. With that said, anyone in a supported location can access the free version of Claude by navigating to claude.ai and signing up using an email address.
+We don’t offer standard discounted pricing for individual plans (Pro, Max, and Ultra), but anyone in a supported location can access the free version of Claude by navigating to **[claude.ai](https://claude.ai/)** and signing up using an email address.
 
 We occasionally run limited-time promotions, but we don't have any standing discounts available upon request. These promotional offers are typically announced through our official channels when available. If you're interested in potential future promotions, we recommend following our official social media accounts or signing up for our newsletter to be notified of any special offers. Our Support team cannot issue one-off discounts or coupons.
+
+Eligible nonprofit organizations can get discounted pricing on Team and Enterprise plans. Learn more about **[Claude for Nonprofits](https://claude.com/solutions/nonprofits)**.
 
 ---
 
 ## Does the Pro plan have any usage limits?
 
-Yes. The Pro plan offers more usage per session than the Free plan. The number of messages you can send will vary based on message length, including the length of files you attach, the length of your current conversation, and the model or feature you use. Your session-based usage limit will reset every five hours.
+Yes. The Pro plan offers more usage per session than the Free plan. The number of messages you can send will vary based on message length, including the length of files you attach, the length of your current conversation, and the model or feature you use.
 
-Pro plans also have a weekly usage limit that applies across all models. Weekly limits reset at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/new#settings/usage)**.
+Pro plans have a five-hour limit and a weekly usage limit that applies across all models. Weekly limits reset at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/new#settings/usage)**.
 
-In addition, to manage capacity and ensure fair access to all users, we may limit your usage in other ways, such as weekly and monthly caps or model and feature usage, at our discretion.
+Additional usage limits may apply to manage capacity and ensure fair access to all users. For example, we may limit your usage in other ways, such as weekly and monthly caps or model and feature usage, at our discretion. We don't guarantee uninterrupted service.
 
 For more information about usage and length limits, refer to **[Understanding usage and length limits](https://support.claude.com/en/articles/11647753-understanding-usage-and-length-limits)**. For guidance on using your Pro capacity efficiently, we also have **[Usage limit best practices](https://support.claude.com/en/articles/9797557-usage-limit-best-practices)**.
 
@@ -3726,7 +4046,7 @@ For more information about usage and length limits, refer to **[Understanding us
 
 ### How do I increase my Pro plan usage limits?
 
-Our Max plans offer more usage for individuals than Pro plans. For additional information, see **[What is the Max plan?](https://support.claude.com/en/articles/11049741-what-is-the-max-plan)**
+Our Max and Ultra plans offer more usage for individuals than Pro plans. For additional information, see **[What is the Max plan?](https://support.claude.com/en/articles/11049741-what-is-the-max-plan)** and **[What is the Ultra plan?](https://support.claude.com/en/articles/17728952)**
 
 Pro subscribers can also enable usage credits to continue working with Claude beyond the plan’s included usage limits. For more information and instructions for enabling this feature, see **[Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-)**.
 ---
@@ -3782,44 +4102,48 @@ No. Paid plans are only available for users physically located in one of our **[
 Yes. You can still access the free version of Claude without subscribing for a paid plan. Note that like Pro, the free version of Claude is only available to customers physically located in one of our **[supported regions](https://support.claude.com/en/articles/8461763-where-can-i-access-claude)**.
 ---
 
-SOURCE: https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription
+SOURCE: https://support.claude.com/en/articles/8325617-cancel-your-pro-max-or-ultra-subscription
 
-# Cancel your Pro or Max subscription
+# Cancel your Pro, Max, or Ultra subscription
 
-You may cancel your Pro or Max plan subscription at any time by following the cancellation instructions for the platform you signed up on. Your cancellation will take effect at the end of your current billing period and you can continue using your paid plan until then.
+You may cancel your Pro, Max, or Ultra plan subscription at any time by following the cancellation instructions for the platform you signed up on. Your cancellation will take effect at the end of your current billing period and you can continue using your paid plan until then.
 
-**Note:** To avoid being charged for your next billing period, cancel your subscription at least 24 hours before your next billing date.
+**Note:**
 
-## Cancel your Pro or Max subscription on Claude and Claude Desktop
+- To avoid being charged for your next billing period, cancel your subscription at least 24 hours before your next billing date.
+
+- Monthly API credits included with Max, Ultra, and Team plans aren’t purchased, so they can’t be refunded. They expire at the end of each billing cycle. If you cancel or get a refund for your plan, new monthly credits stop, and credits you already have stay usable until they expire.
+
+## Cancel your Pro, Max, or Ultra subscription on Claude and Claude Desktop
 
 If you signed up for a paid plan on the web version of Claude (**[claude.ai](https://claude.ai)**) or Claude Desktop (Mac, Windows, or Linux), start by logging into your account on a web browser or opening the desktop app. Click on your initials or name in the lower left corner and select “Settings” from the menu. Navigate to **[Settings > Billing](https://claude.ai/settings/billing)** and click the “Cancel” button.
 
-## Cancel your Pro or Max subscription on Claude for iOS
+## Cancel your Pro, Max, or Ultra subscription on Claude for iOS
 
-If you subscribed to a Pro or Max plan via Claude for iOS, your subscription and payment will be handled directly on your iOS device.
+If you subscribed to a Pro, Max, or Ultra plan via Claude for iOS, your subscription and payment will be handled directly on your iOS device.
 
 To cancel your subscription, click on your initials in the top right corner of Claude for iOS, and then click “Billing” from the menu options. Select “Manage subscription” and follow the prompts for cancellation. If you’ve already removed the app from your device, you can also follow the instructions located in this App Store resource to unsubscribe: **[If you want to cancel a subscription from Apple](https://support.apple.com/en-us/118428)**.
 
-You may cancel your Pro or Max subscription at any time from the platform you signed up on. To avoid being charged for your next billing period, cancel your subscription at least 24 hours before your next billing date.
+You may cancel your Pro, Max, or Ultra subscription at any time from the platform you signed up on. To avoid being charged for your next billing period, cancel your subscription at least 24 hours before your next billing date.
 
-## Cancel your Pro or Max subscription on Claude for Android
+## Cancel your Pro, Max, or Ultra subscription on Claude for Android
 
-If you subscribed to a Pro or Max plan via Claude for Android, your subscription and payment will be handled directly on your Android device.
+If you subscribed to a Pro, Max, or Ultra plan via Claude for Android, your subscription and payment will be handled directly on your Android device.
 
 To cancel your subscription, click on your initials in the top right corner of Claude for Android, and then click “Billing” from the menu options. Select “Manage subscription” and follow the prompts for cancellation. If you’ve already removed the app from your device, you can also follow the instructions located in this Play Store resource to unsubscribe: **[Cancel, pause, or change a subscription on Google Play](https://support.google.com/googleplay/answer/7018481?hl=en&co=GENIE.Platform%3DAndroid)**.
 
-You may cancel your Pro or Max subscription at any time from the platform you signed up on. To avoid being charged for your next billing period, cancel your subscription at least 24 hours before your next billing date.
+You may cancel your Pro, Max, or Ultra subscription at any time from the platform you signed up on. To avoid being charged for your next billing period, cancel your subscription at least 24 hours before your next billing date.
 ---
 
 SOURCE: https://support.claude.com/en/articles/8325618-paid-plan-billing-faqs
 
 # Paid plan billing FAQs
 
-This article covers Pro and Max subscriptions purchased on the web. If you subscribed through Claude for iOS or Claude for Android, your payment is handled by the Apple App Store or Google Play, and you'll manage your payment method and receipts through your app store account. To cancel or manage an app store subscription, see **[Cancel your Pro or Max subscription](https://support.claude.com/en/articles/8325617)**.
+This article covers Pro, Max, and Ultra subscriptions purchased on the web. If you subscribed through Claude for iOS or Claude for Android, your payment is handled by the Apple App Store or Google Play, and you'll manage your payment method and receipts through your app store account. To cancel or manage an app store subscription, see **[Cancel your Pro, Max, and Ultra subscription](https://support.claude.com/en/articles/8325617)**.
 
-## Where can I find the invoice or receipt for my Pro or Max plan payment?
+## Where can I find the invoice or receipt for my Pro, Max, or Ultra plan payment?
 
-If you are subscribed to a paid plan (Pro or Max), follow these steps to access your invoices:
+If you are subscribed to a paid plan (Pro, Max, or Ultra), follow these steps to access your invoices:
 
 1. Click on your initials or name in the lower left corner and select “Settings” from the menu.
 
@@ -3845,9 +4169,9 @@ Additionally, all invoices are automatically emailed to your billing email addre
 
 6. Your updated payment method will be charged the next time your subscription renews.
 
-## How can I change or remove the card on my Pro or Max subscription?
+## How can I change or remove the card on my Pro, Max, or Ultra subscription?
 
-To change the card on your Pro or Max subscription:
+To change the card on your Pro, Max, or Ultra subscription:
 
 1. Navigate to **[Settings > Billing](https://claude.ai/settings/billing)**.
 
@@ -3871,7 +4195,7 @@ If you want to use a name other than the one tied to your payment method, check 
 
 Once an invoice is paid, there isn't a way to edit the information on the finalized invoice. Additionally, our internal teams cannot reissue paid invoices or modify information on previous invoices.
 
-## Can I change the date I'm charged for my Pro or Max subscription?
+## Can I change the date I'm charged for my Pro, Max, or Ultra subscription?
 
 No, there isn't a direct way to change your subscription billing date. However, you can unsubscribe from your current plan, then resubscribe on your preferred billing date to establish your new monthly billing cycle on a different date.
 
@@ -3881,18 +4205,22 @@ For subscriptions purchased on the web, we only accept credit or debit cards. If
 
 ## I have a paid plan, but my account is showing as free; how can I access my paid account?
 
-If you've paid for a Pro or Max plan but are not seeing this reflected in your account, there are two things you should check:
+If you've paid for a Pro, Max, or Ultra plan but are not seeing this reflected in your account, there are two things you should check:
 
 1. You've logged in with a different email. We recommend trying to sign in with any alternative emails you may have used to create your paid account.
 
 2. Your payment method failed and your account was downgraded. To check this, navigate to **[Settings > Billing](https://claude.ai/settings/billing)** to confirm your recent payment status and update your payment method or billing details if needed.
+
+## Where can I see my monthly API credits?
+
+In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/8606394-how-large-is-the-context-window-on-paid-claude-plans
 
 # How large is the context window on paid Claude plans?
 
-This article explains how large the context window is on paid Claude plans (Pro, Max, Team, Enterprise) when you chat with Claude, or use Claude Code or Claude Cowork.
+This article explains how large the context window is on paid Claude plans (Pro, Max, Ultra, Team, Enterprise) when you chat with Claude, or use Claude Code or Claude Cowork.
 
 ## Chatting with Claude
 
@@ -3908,6 +4236,7 @@ This article explains how large the context window is on paid Claude plans (Pro,
 | Claude Sonnet 5.5 | 1M tokens          |
 | Claude Sonnet 5   | 1M tokens          |
 | Claude Sonnet 4.6 | 500K tokens        |
+| Claude Haiku 5.5  | 1M tokens          |
 
 Outside of these models, Claude’s context window size is 200K, meaning it can ingest 200K+ tokens (about 500 pages of text or more) when using a paid Claude plan to chat with Claude.
 
@@ -3925,6 +4254,7 @@ Outside of these models, Claude’s context window size is 200K, meaning it can 
 | Claude Sonnet 5.5 | 1M tokens                                                                                                                                                                                |
 | Claude Sonnet 5   | 1M tokens                                                                                                                                                                                |
 | Claude Sonnet 4.6 | 1M tokens<br>**Note:** 1M context window available by selecting `claude-sonnet-4-6[1m]` with `/model`; usage credits must be enabled to access (except for usage-based Enterprise plans) |
+| Claude Haiku 5.5  | 1M tokens                                                                                                                                                                                |
 
 ## Claude Cowork
 
@@ -3940,6 +4270,7 @@ Outside of these models, Claude’s context window size is 200K, meaning it can 
 | Claude Sonnet 5.5 | 1M tokens                                                                              |
 | Claude Sonnet 5   | 1M tokens<br>**Note:** Sonnet 5 automatically compacts the conversation at 500K tokens |
 | Claude Sonnet 4.6 | 200K tokens                                                                            |
+| Claude Haiku 5.5  | 500K tokens                                                                            |
 | Haiku 4.5         | 200K tokens                                                                            |
 
 ## Automatic context management
@@ -3950,7 +4281,7 @@ Your full chat history is preserved so Claude can reference it, even after earli
 
 **Note:** Code execution must be enabled for automatic context management to work. In rare edge cases (such as very large first messages or system errors), you may still encounter context window limits.
 
-## Maximizing your context window
+## Maximize your context window
 
 While context is managed automatically for most conversations, you can still optimize how you use your available context space:
 
@@ -4104,7 +4435,7 @@ To get started with the Team plan, navigate to **[claude.ai/login](https://claud
 
 ## Upgrade from an individual plan to the Team plan
 
-If you already have a Free, Pro, or Max account on your work email and want to upgrade to Team, sign in to your account and visit **[claude.ai/upgrade](https://claude.ai/upgrade)**. Follow the steps to create your Team.
+If you already have a Free, Pro, Max, or Ultra account on your work email and want to upgrade to Team, sign in to your account and visit **[claude.ai/upgrade](https://claude.ai/upgrade)**. Follow the steps to create your Team.
 
 If you see the **Keep your personal account separate** checkbox, then upgrading to Team upgrades your existing organization in place by default. Your organization ID stays the same and some of your content carries over to your new Team plan. For a full list of what does and doesn’t migrate, see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_4e63ef6e87)**.
 
@@ -4114,17 +4445,19 @@ If you don’t see the **Keep your personal account separate** checkbox, then th
 
 What else happens during an in-place upgrade:
 
-- Your individual Pro or Max subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement.
+- Your individual Pro, Max, or Ultra subscription is cancelled automatically and you receive a prorated refund for the unused portion of your billing period. The refund is issued about 24 hours after your Team payment goes through, and depending on your bank, it can take several more business days to appear on your statement.
 
 - Any prepaid usage credits on your individual account are refunded.
 
 - Public projects in your account become private once the upgrade is complete. Project owners can give others in their organization access to the project from its **Share** menu. For details, see **[Manage project visibility and sharing](https://support.claude.com/en/articles/9519189-manage-project-visibility-and-sharing)**.
 
+- If you’ve claimed monthly API credits on your Max or Ultra plan, your Max or Ultra link ends. A Team Owner or Primary Owner can claim the team’s credits once the Team plan has been active for seven days.
+
 **Note:** If you'd rather keep your personal Claude account active alongside your new Team plan, check this box in the team-creation flow before completing your upgrade: **Keep your personal account separate**. We’ll set up a new workspace for this team and your existing chats and projects stay in your personal account. If you check this, your individual subscription stays active and your personal data stays in your individual account instead of moving into the Team org.
 
 ### Apple App Store subscribers
 
-Because Apple doesn't allow third-party cancellation of App Store subscriptions, in-place upgrades work differently if you signed up for Pro or Max through the Apple App Store. By default, you will upgrade to a new, separate Team organization. If you'd prefer to upgrade in place, you’ll need to **[cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** first and wait for the billing period to end.
+Because Apple doesn't allow third-party cancellation of App Store subscriptions, in-place upgrades work differently if you signed up for Pro, Max, or Ultra through the Apple App Store. By default, you will upgrade to a new, separate Team organization. If you'd prefer to upgrade in place, you’ll need to **[cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** first and wait for the billing period to end.
 
 ### Google Play Store subscribers
 
@@ -4135,6 +4468,22 @@ Subscriptions purchased through the Google Play Store are eligible for in-place 
 If you choose to keep your personal account, your Team plan creates a separate Claude organization. You can switch between your personal account and the Team org by clicking your initials or name in the lower left corner and selecting the account you want to access. Data isn't shared between separate accounts.
 
 To use only your Team plan after upgrading separately, you'll need to **[cancel your paid subscription](https://support.claude.com/en/articles/8325617-how-do-i-cancel-my-paid-claude-subscription)** and **[delete your individual Claude account](https://support.claude.com/en/articles/9028421-how-can-i-delete-my-claude-account)**.
+
+## Claim your team’s API credits
+
+Claude Max, Ultra, and Team plans include monthly credits for the Claude API. One owner links a Claude Console organization and claims the pooled credit, up to $500 a month. New subscribers can claim once they’ve been on an eligible plan for seven days.
+
+To claim, you need to be a Primary Owner or Owner on your Team plan and have the Owner, Admin, or Billing role in the Console organization.
+
+1. Go to **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**.
+
+2. In the **API credits** section, select "Link organization."
+
+3. Choose the Console organization you want to receive the credits, or create a new one.
+
+4. Review the **[Supplemental Credit Terms](https://www.anthropic.com/legal/credit-terms)**, then select "Link organization."
+
+Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9267289-how-is-my-team-plan-bill-calculated
@@ -4205,7 +4554,7 @@ SOURCE: https://support.claude.com/en/articles/9796617-can-you-delete-data-that-
 
 # Can you delete data that I sent via Team and Enterprise plans?
 
-*This article is about our commercial products such as Claude for Work and the Anthropic API. For our consumer products such as Claude Free, Pro, Max and when accounts from those plans use Claude Code, see* *[here](https://privacy.claude.com/en/collections/10663362-consumers).*
+*This article is about our commercial products such as Claude for Work and the Anthropic API. For our consumer products such as Claude Free, Pro, Max, Ultra and when accounts from those plans use Claude Code, see [here](https://privacy.claude.com/en/collections/10663362-consumers).*
 
 While using Team and Enterprise plans, prompts and conversations in the product are maintained so you can see your conversation history in the product. You can [delete your chats](https://privacy.claude.com/en/articles/11117329-how-can-i-delete-or-rename-a-conversation) to remove them from your visible history.
 
@@ -4370,9 +4719,9 @@ Seat-based Enterprise plans haven't changed; your seat types, usage limits, and 
 If you're interested in migrating to the current usage-based model, reach out to your Anthropic Contact or **[our Sales team](https://claude.com/contact-sales)**.
 ---
 
-SOURCE: https://support.claude.com/en/articles/9876003-i-have-a-paid-claude-subscription-pro-max-team-or-enterprise-plans-why-do-i-have-to-pay-separately-to-use-the-claude-api-and-console
+SOURCE: https://support.claude.com/en/articles/9876003-why-is-claude-api-usage-billed-separately-from-my-paid-claude-plan
 
-# I have a paid Claude subscription \(Pro, Max, Team, or Enterprise plans\). Why do I have to pay separately to use the Claude API and Console?
+# Why is Claude API usage billed separately from my paid Claude plan?
 
 Claude paid plans and the Claude Console are separate products designed for different purposes:
 
@@ -4380,11 +4729,11 @@ Claude paid plans and the Claude Console are separate products designed for diff
 
 - The Claude Console is our developer platform providing API keys and access to Claude models for building applications and integrations.
 
-A paid Claude subscription enhances your chat experience but doesn't include access to the Claude API or Console.
+A paid Claude subscription enhances your chat experience, and the Claude API is billed separately. Claude Max, Ultra, and Team plans include monthly credits for the Claude API. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 
-If you're interested in both enhanced chat features and API access, you'll need to sign up for a paid Claude plan and separately [set up Console access](https://support.claude.com/en/articles/8114521-how-can-i-access-the-anthropic-api) for API usage. This allows you to benefit from both offerings based on your specific needs.
+If you're interested in both enhanced chat features and API access, you'll need to sign up for a paid Claude plan and separately **[set up Console access](https://support.claude.com/en/articles/8114521-how-can-i-access-the-anthropic-api)** for API usage. This allows you to benefit from both offerings based on your specific needs.
 
-Refer to this article to learn more about Claude Console billing: [How do I pay for my API usage?](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-api-usage)
+Refer to this article to learn more about Claude Console billing: **[How do I pay for my API usage?](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-api-usage)**
 ---
 
 SOURCE: https://support.claude.com/en/articles/9927624-add-or-update-your-team-plan-s-tax-or-vat-id

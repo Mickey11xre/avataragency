@@ -7,7 +7,7 @@ SOURCE: https://support.claude.com/en/articles/11101966-use-voice-mode
 
 Voice mode allows you to have complete spoken conversations with Claude. Instead of typing a prompt and reading a written response, you can speak to Claude and listen to its responses, making it easier to use when your hands are busy but your mind isn't.
 
-Voice mode is a beta feature available to all plans (Free, Pro, Max, Team, and Enterprise) on Claude Mobile (iOS and Android), Claude Desktop, and the web, but is built to work best from your phone.
+Voice mode is a beta feature available to all plans (Free, Pro, Max, Ultra, Team, and Enterprise) on Claude Mobile (iOS and Android), Claude Desktop, and the web, but is built to work best from your phone.
 
 ## What is voice mode?
 
@@ -79,7 +79,7 @@ Claude offers several voice options you can choose from when you first start voi
 
 To change the voice later:
 
-- **On the web and desktop:** Go to **[Settings > General](https://claude.ai/new#settings/general)** and scroll down to **Voice settings**. Select your preferred voice from the options. You’ll hear a preview when you click each option; click it again to stop the preview.
+- **On the web and desktop:** Go to **Settings > Capabilities** and scroll down to **Voice settings**. If **Voice** isn't there, go to **Settings > General** instead. Select your preferred voice from the options. You’ll hear a preview when you click each option; click it again to stop the preview.
 
 - **On mobile:** Click the settings button in the bottom left corner while chatting with Claude in voice mode, then tap your preferred voice and pace:
 
@@ -187,7 +187,7 @@ Dictation converts your speech to text so you can type prompts by speaking. Voic
 
 Yes. Voice mode supports many more languages, on all plans and on Claude Mobile, Claude Desktop, and web. Support for languages other than English is in beta.
 
-To set your voice language, go to **[Settings > General](https://claude.ai/new#settings/general)**, then find **Voice > Language** and choose a language. Changing your app's display language doesn't change your voice language, so set it here. You can also ask Claude to switch languages during a voice conversation.
+To set your voice language, go to **Settings > Capabilities**, then find **Voice > Spoken language** and choose a language. If **Voice** isn't there, go to **Settings > General**, then **Voice > Language**. Changing your app's display language doesn't change your voice language, so set it here. You can also ask Claude to switch languages during a voice conversation.
 
 ### Can I use voice mode with Claude Cowork or Claude Code?
 
@@ -198,13 +198,13 @@ In the new Claude experience, voice mode works in any conversation, including on
 If you are an Enterprise owner and would like to disable voice mode for your organization, please **[reach out to Support](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
 ---
 
-SOURCE: https://support.claude.com/en/articles/16607638-understanding-your-pro-or-max-plan-invoices
+SOURCE: https://support.claude.com/en/articles/16607638-understanding-your-pro-max-or-ultra-plan-invoices
 
-# Understanding your Pro or Max plan invoices
+# Understanding your Pro, Max, or Ultra plan invoices
 
-This article explains the invoices you'll receive for a Pro or Max plan, where to find them, and how to read the charges on them.
+This article explains the invoices you'll receive for a Pro, Max, or Ultra plan, where to find them, and how to read the charges on them.
 
-This article covers Pro and Max plans purchased on the web. If you subscribed through Claude for iOS or Claude for Android, Anthropic doesn't issue your invoices. The Apple App Store or Google Play bills you directly, and your receipts are available in your app store account.
+This article covers Pro, Max, and Ultra plans purchased on the web. If you subscribed through Claude for iOS or Claude for Android, Anthropic doesn't issue your invoices. The Apple App Store or Google Play bills you directly, and your receipts are available in your app store account.
 
 ## Types of invoices you may receive
 
@@ -212,7 +212,7 @@ This article covers Pro and Max plans purchased on the web. If you subscribed th
 
 **Plan change invoices.** If you upgrade your plan in the middle of a billing cycle, you'll reset your billing cycle and receive an immediate invoice for the change rather than waiting for your next renewal. For example, upgrading from Pro to Max charges you one full month of Max, less the unused value in your current billing cycle on your old plan.
 
-Learn more about **[signing up for the Max plan](https://support.claude.com/en/articles/11049752)**.
+Learn more about **[signing up for the Max or Ultra plan](https://support.claude.com/en/articles/11049752)**.
 
 **Usage credit receipts.** If you've enabled usage credits, each purchase of funds is charged separately from your subscription and has its own receipt. This includes purchases made automatically by auto-reload and any usage bundles you buy.
 
@@ -270,7 +270,11 @@ No. Issued invoices can't be changed. Update your billing details in **[Settings
 
 ### Can I be invoiced in a different currency?
 
-Some subscribers pay their subscriptions using a different currency than the currency (or currencies) new subscribers would be offered in their region. To change your subscription currency, you must first mark your plan to cancel at the end of the current term, and wait for the end of term. Then when you re-purchase a new Pro or Max plan, you will use the same currency (or currency options) as new subscribers would in your region.
+Some subscribers pay their subscriptions using a different currency than the currency (or currencies) new subscribers would be offered in their region. To change your subscription currency, you must first mark your plan to cancel at the end of the current term, and wait for the end of term. Then when you re-purchase a new Pro, Max, or Ultra plan, you will use the same currency (or currency options) as new subscribers would in your region.
+
+### Where can I see my monthly API credits?
+
+In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/16607668-understanding-your-team-plan-invoices
@@ -350,6 +354,10 @@ If your organization uses usage credits, those purchases are billed separately f
 ### Can you correct the details on an invoice we already received?
 
 No. Issued invoices can't be changed. An owner can update your billing details in **[Organization settings > Billing](https://claude.ai/admin-settings/billing)**, and the changes will appear on your next invoice.
+
+### Where can I see our team’s monthly API credits?
+
+In the Claude Console. All credits appear under **[Settings > Billing](https://platform.claude.com/settings/billing)** in your linked Console organization, with their amount and expiry date. Usage is never charged to your Claude plan. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/16608069-understanding-your-claude-api-invoices
@@ -374,7 +382,7 @@ Invoices are also available in the Console to users with the Admin or Billing ro
 
 1. Log in to the Console with an Admin or Billing role.
 
-2. Go to **[Console Settings > Billing](https://platform.claude.com/settings/billing)**.
+2. Go to the **Billing** page (platform.claude.com/settings/billing) in the Console.
 
 3. Find the **Invoice history** section.
 
@@ -394,7 +402,9 @@ Expired credit grants also appear in **Invoice history**, even though they aren'
 
 ## Billing details on your invoice
 
-The name, address, and tax information on an invoice come from your billing details at the time the invoice was issued. If you update your billing details, the changes apply to future invoices—issued invoices can't be modified. To update your details, go to **[Console Settings > Billing](https://platform.claude.com/settings/billing)**.
+The name, address, and tax information on an invoice come from your billing details at the time the invoice was issued. If you update your billing details, the changes apply to future invoices—issued invoices can't be modified. To update your details, go to the **Billing** page (platform.claude.com/settings/billing) in the Console.
+
+---
 
 ## Frequently asked questions
 
@@ -408,4 +418,4 @@ Invoices below $0.50 aren't charged on their own. The amount rolls forward and a
 
 ### Can you correct the details on an invoice I already received?
 
-No. Issued invoices can't be changed. Update your billing details in **[Console Settings > Billing](https://platform.claude.com/settings/billing)** and the changes will appear on future invoices.
+No. Issued invoices can't be changed. Update your billing details on the **Billing** page (platform.claude.com/settings/billing) in the Console and the changes will appear on future invoices.

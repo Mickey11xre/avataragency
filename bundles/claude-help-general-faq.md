@@ -52,11 +52,19 @@ This action will immediately sign you out of your account across all devices whe
 
 - Desktop applications
 
+- Claude Code, including tokens created with `setup-token` for continuous integration (CI)
+
+- Claude in your tools, such as Claude in Chrome, Claude in Slack, and [placeholder: public names for what the thread calls “Claude for Sheets” and “Claude for Teams”]
+
 To regain access to your account on any device, you'll need to authenticate again using either Google login or a login link sent to your email address.
 
-## How to log out from Claude Code
+**Note:** Logging out of all active sessions doesn’t affect your API keys.
 
-If you used your Claude account to authenticate into Claude Code, you can manage your authorization tokens by navigating to **[Settings > Claude Code](https://claude.ai/settings/claude-code)**. To remove a token and log out of Claude Code, click the trash can icon.
+## How to log out from Claude Code only
+
+Logging out of all active sessions also logs you out of Claude Code. To log out of Claude Code and stay signed in everywhere else, remove its authorization token instead.
+
+If you used your Claude account to authenticate into Claude Code, you can see and log out of those sign-ins in **Settings > Account**, where they're listed with your other sessions. If they aren't listed there, manage your authorization tokens in **Settings > Claude Code**. To remove a token and log out of Claude Code, click the trash can icon.
 
 
 
@@ -169,7 +177,7 @@ Claude is available in multiple languages on web and desktop applications.
 
 ## Voice mode languages
 
-Voice mode has its own language setting, separate from your display language. To change the language Claude speaks and listens to in voice mode, go to **[Settings > General](https://claude.ai/settings/general)**, then find **Voice > Language** and choose a language. Learn more in **[Use voice mode](https://support.claude.com/en/articles/11101966-use-voice-mode)**.
+Voice mode has its own language setting, separate from your display language. To change the language Claude speaks and listens to in voice mode, go to **Settings > Capabilities**, then find **Voice > Spoken language** and choose a language. If **Voice** isn't there, go to **Settings > General**, then **Voice > Language**. Learn more in **[Use voice mode](https://support.claude.com/en/articles/11101966-use-voice-mode)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/11139144-use-claude-for-education-at-your-university
@@ -274,7 +282,7 @@ You can access Claude through multiple platforms to suit your needs:
 
 - Download Claude for Desktop for macOS or Windows.
 
-- For macOS: Requires macOS 11 (Big Sur) or higher.
+- For macOS: Requires macOS 13 (Ventura) or higher.
 
 - For Windows: Requires Windows 10 or higher.
 
@@ -426,9 +434,9 @@ If you are an admin and are authorized by your organization to enter into agreem
 
 To opt in to the Development Partner Program:
 
-1. From your Claude Console account, navigate to **[Settings > Privacy controls](https://platform.claude.com/settings/privacy)**.
+1. From your Claude Console account, go to the **Data retention** page (platform.claude.com/settings/privacy) and find **Usage data and feedback**.
 
-2. Locate the Development Partner Program section
+2. Find **Join our Development Partner Program to help improve Claude**.
 
 3. Click “Join.”
 
@@ -436,9 +444,9 @@ After clicking join, you will be asked to agree to our Service Specific Terms fo
 
 To opt out of the Development Partner Program:
 
-1. From your Claude Console account, navigate to **[Settings > Privacy controls](https://platform.claude.com/settings/privacy)**.
+1. From your Claude Console account, go to the **Data retention** page (platform.claude.com/settings/privacy) and find **Usage data and feedback**.
 
-2. Locate the Development Partner Program section.
+2. Find **Join our Development Partner Program to help improve Claude**.
 
 3. Click “Leave.”
 
@@ -447,6 +455,21 @@ To opt out of the Development Partner Program:
 ### For organizations on invoice billing
 
 Please contact your Anthropic account executive to see if you are eligible for the Development Partner Program. These organizations will not see the option to join the Development Partner Program in their settings.
+---
+
+SOURCE: https://support.claude.com/en/articles/11174660-point-of-contact-for-authorities-and-regulators
+
+# Point of Contact for Authorities and Regulators
+
+# Designated Point of Contact for Authorities and Regulators
+
+Government authorities and regulators can contact Anthropic directly by emailing <regulator-inquiries@anthropic.com>. This is reserved for government authorities and regulators seeking a point of contact, for official requests for information or documentation, and for governmental submissions to remove content.
+
+For other types of inquiries, please use the mechanisms described below. ￼
+
+# **Illegal Content Reporting**
+
+For user requests for content removal, please use the mechanisms described **[here](https://support.anthropic.com/en/articles/10684638-blocking-and-removing-content-from-claude)**. ￼
 ---
 
 SOURCE: https://support.claude.com/en/articles/11199177-anthropic-s-ai-for-science-program
@@ -766,7 +789,7 @@ SOURCE: https://support.claude.com/en/articles/12111783-create-and-edit-files-wi
 
 Claude can execute code to create and work with files directly in your conversations. Prompt Claude using natural language to generate Excel spreadsheets, PowerPoint presentations, Word documents, and PDF files that you can download and use immediately.
 
-Code execution and file creation is available to all Claude users (Free, Pro, Max, Team, and Enterprise) on the web, Claude Desktop, and Claude Mobile.
+Code execution and file creation is available to all Claude users (Free, Pro, Max, Ultra, Team, and Enterprise) on the web, Claude Desktop, and Claude Mobile.
 
 These capabilities make it easy to produce professional documents by simply chatting with Claude. You can create financial models in Excel with working formulas, perform advanced analyses on uploaded data, produce reports with charts and visualizations, and generate presentations from your documents—all without specialized software skills.
 
@@ -774,7 +797,7 @@ These capabilities make it easy to produce professional documents by simply chat
 
 ## Availability
 
-**Free, Pro, and Max plans:**
+**Free, Pro, Max, and Ultra plans:**
 
 - Code execution and file creation is enabled by default
 
@@ -808,7 +831,7 @@ These capabilities make it easy to produce professional documents by simply chat
 
 **Team plans:** This capability is enabled by default at the organization level with **Allow network egress** toggled on with access to package managers only. An organization owner can manually disable this for the organization in **[Organization settings > Capabilities](https://claude.ai/admin-settings/capabilities)** if needed.
 
-**Free, Pro, and Max plans:** Enable file creation from **[Settings > Capabilities](https://claude.ai/settings/capabilities)** by toggling **Code execution and file creation** on.
+**Free, Pro, Max, and Ultra plans:** Enable file creation from **Settings > Capabilities** by toggling **Code execution and file creation** (called **Create and edit files** in the updated Settings layout) on.
 
 To give Claude access to external data sources, toggle **Allow network egress** on:
 
@@ -946,7 +969,7 @@ In line with our **[safe and trustworthy agents framework](https://www.anthropic
 
 - Given you the ability to review and audit actions taken by Claude within the sandbox environment.
 
-- Disabled public sharing of conversations that include any file artifacts from the code execution and file creation feature for free, Pro, and Max users.
+- Disabled public sharing of conversations that include any file artifacts from the code execution and file creation feature for Free, Pro, Max, and Ultra users.
 
 - Limited the duration of tasks that can be completed by Claude and the length of time you can use a single sandbox container to avoid loops of malicious activity.
 
@@ -1078,6 +1101,24 @@ SOURCE: https://support.claude.com/en/articles/12138966-release-notes
 
 # Release notes
 
+## October 2026
+
+### October 21, 2026
+
+**Claude Duet research preview for Pro and Max plans**
+
+We just opened a research preview for users on Pro and Max plans: Claude Duet, a new app where Claude works as a proactive agent. For more information, see our blog post: **[Introducing Claude Duet](https://claude.com/resources/articles/claude-duet)**.
+
+### October 7, 2026
+
+**Claude Haiku 5.5 launch**
+
+We just launched Claude Haiku 5.5, the cheapest, fastest, and most capable small model we’ve released, designed for high-volume, cost-sensitive tasks. For more information, see our blog post: **[Claude Haiku 5.5](https://www.anthropic.com/claude-haiku-5-5)**.
+
+**Monthly API credits for Max and Team plans**
+
+Max and Team plans now include monthly API credits for running your own apps and agents on the Claude Platform. They roll out over a few days. Claim them by linking a Claude Console organization in **Settings > Billing** (Max) or **Organization settings > Billing** (Team). Learn more about **[monthly API credits for Max and Team plans](https://support.claude.com/en/articles/17154008)**.
+
 ## September 2026
 
 ### September 28, 2026
@@ -1106,13 +1147,13 @@ We're rolling out a new Claude experience that makes everything Claude Cowork do
 
 **Create designs, decks, and docs in any conversation**
 
-You can now ask for a design, deck, or document in any conversation with Claude, including in Claude Code and the **Artifacts** tab, and edit it with Claude or directly as you work. Claude Design works inside your conversations with all of its features, including on-canvas editing and importing your design system. Claude Slides gives presentations their own starting point, and Claude Docs is a new way to write living documents with Claude and your team. Artifacts, including Claude Design, Claude Slides, and Claude Docs, are available on every plan, including Free. On Enterprise plans, Claude Design, Claude Slides, and Claude Docs are in beta and off by default until an owner turns them on. Learn more in **[What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992)** and **[Get started with Claude Docs](https://support.claude.com/en/articles/16923645)**.
+You can now ask for a design, deck, or document in any conversation with Claude, including in Claude Code and the **Artifacts** tab, and edit it with Claude or directly as you work. Claude Design works inside your conversations with all of its features, including on-canvas editing and importing your design system. Claude Slides gives presentations their own starting point, and Claude Docs is a new way to write living documents with Claude and your team. Artifacts, including Claude Design, Claude Slides, and Claude Docs, are available on every plan, including Free. On Enterprise plans, Claude Design, Claude Slides, and Claude Docs are in beta. Learn more in **[What are artifacts and how do I use them?](https://support.claude.com/en/articles/17153992)** and **[Get started with Claude Docs](https://support.claude.com/en/articles/16923645)**.
 
 ### September 15, 2026
 
 **Launching Salesforce in Claude (beta)**
 
-We've launched Salesforce in Claude, a plugin that brings a seller’s accounts, opportunities, and pipeline into Claude with 37 pre-built sales skills. Prep a call, review a deal, create a pipeline dashboard, and send your forecast all from Claude. It’s now available in beta on all paid plans for organizations Salesforce approves through its beta sign-up. For more information, see our blog post: **[Bringing Salesforce into Claude](http://claude.com/blog/salesforce-in-claude)**.
+We've launched Salesforce in Claude, a plugin that brings a seller’s accounts, opportunities, and pipeline into Claude with 37 pre-built sales skills. Prep a call, review a deal, create a pipeline dashboard, and send your forecast all from Claude. It’s now available in beta on all paid plans for organizations Salesforce approves through its beta sign-up. For more information, see our blog post: **[Bringing Salesforce into Claude](https://claude.com/blog/salesforce-in-claude)**.
 
 ### September 10, 2026
 
@@ -1132,7 +1173,7 @@ We just launched Claude Fable 5.1 and Claude Mythos 5.1, the world’s most adva
 
 **Memory in Claude Cowork, editable topics, and a sensitive topics setting**
 
-Memory now works across chat and Cowork in the cloud. Everything Claude remembers is listed under **Topics** in **[Settings > Memory](https://claude.ai/settings/memory)**, where you can edit or delete any item. Topics such as health or beliefs stay out of memory unless you turn on **Include sensitive topics in memory**. Memory is on by default for Free, Pro, and Max plans and off by default for Team and Enterprise organizations. See **[Use Claude's chat search and memory to build on previous context](https://support.claude.com/en/articles/11817273)**.
+Memory now works across chat and Cowork in the cloud. Everything Claude remembers is listed under **Topics** in **[Settings > Memory](https://claude.ai/settings/memory)**, where you can edit or delete any item. Topics such as health or beliefs stay out of memory unless you turn on **Include sensitive topics in memory**. See **[Use Claude's chat search and memory to build on previous context](https://support.claude.com/en/articles/11817273)**.
 
 ### August 6, 2026
 
@@ -1381,7 +1422,7 @@ Previously, Enterprise plans were only available to customers working with our S
 
 **Claude Opus 4.6 launch**
 
-We’ve upgraded our smartest model and improved its coding skills. Read our blog post for more information: **[Introducing Claude Opus 4.6](http://anthropic.com/news/claude-opus-4-6)**.
+We’ve upgraded our smartest model and improved its coding skills. Read our blog post for more information: **[Introducing Claude Opus 4.6](https://anthropic.com/news/claude-opus-4-6)**.
 
 **Introducing Claude for PowerPoint**
 
@@ -1694,9 +1735,9 @@ SOURCE: https://support.claude.com/en/articles/12293051-use-claude-in-xcode
 
 # Use Claude in Xcode
 
-Claude in Xcode is available for individuals with Pro and Max plans, and users with premium seats on Team and Enterprise plans.
+Claude in Xcode is available for individuals with Pro, Max, and Ultra plans, and users with premium seats on Team and Enterprise plans.
 
-Claude Sonnet 4 is now available in Xcode 26, bringing AI-powered coding assistance directly to Apple's integrated development environment (IDE).
+Claude Sonnet 4 is available in Xcode 26, bringing AI-powered coding assistance directly to Apple's integrated development environment (IDE).
 
 ## What you can do with Claude in Xcode
 
@@ -1732,7 +1773,7 @@ To start using Claude in Xcode:
 
 ## Usage limits
 
-Your Claude usage limits are shared across all platforms, so your chats with Claude and coding work in Xcode will draw from the same limits with a five-hour reset period, and will count towards your weekly usage limits. You will see the following message upon reaching either of your limits: “You've reached your rate limit, please try again later.”
+Your Claude usage limits are shared across all platforms, so your chats with Claude and coding work in Xcode will draw from the same limits, including any five-hour session limit, and will count towards your weekly usage limits. You will see the following message upon reaching any of your limits: “You've reached your rate limit, please try again later.”
 ---
 
 SOURCE: https://support.claude.com/en/articles/12326764-can-i-use-my-outputs-to-train-an-ai-model
@@ -1863,11 +1904,7 @@ SOURCE: https://support.claude.com/en/articles/13015708-access-the-compliance-ap
 
 The Compliance API lets your organization programmatically pull activity feed events, chat data, and file content across all your Claude deployments. Use it to monitor, audit, and meet compliance requirements with your own tools.
 
-The Compliance API is available to Enterprise plan organizations, excluding Public Sector organizations, and to Claude Platform customers in Claude chats.
-
-Coverage also includes Cowork (via Claude, Claude Desktop, and Claude Mobile) and Claude Code (via CLI and Claude Desktop). Coverage for the Claude for Microsoft 365 add-ins (Excel, Word, PowerPoint, and Outlook) and Claude Science is available in beta. All of these use your organization's existing Compliance Access Key and settings, so no additional integration is required.
-
-Coverage doesn't include cloud sessions in Claude Code, Claude Code accessed through the Claude Platform, other Microsoft 365 apps, or sessions run on Amazon Bedrock or Google Vertex AI.
+The Compliance API is available to Enterprise plan organizations and to Claude Platform customers in Claude chats. Organizations on Anthropic’s dedicated government deployments, such as Claude for Government, use **[a separate Compliance API](https://claude.com/docs/government/org-admin/compliance-api)**.
 
 **Important:** For Claude Enterprise organizations, only your organization's Primary Owner can enable the Compliance API, from **[Organization settings > API](https://claude.ai/admin-settings/api-access)**. You can create a key on the same page by clicking "+Create key" under **Keys**: the Primary Owner can create a key covering every linked organization, and Owners can create keys limited to their own organization. Owners see this page but not the **Compliance API** toggle—only the Primary Owner can turn the API on or off. Admins don't see the page at all. If your organization is linked to a parent organization, the parent organization's Primary Owner enables it and the setting applies to every linked organization.
 
@@ -1890,7 +1927,7 @@ SOURCE: https://support.claude.com/en/articles/13047024-how-to-get-support-for-c
 
 **Please note:** This page is hosted outside of Claude for Government's FedRAMP boundary. Don't share sensitive information with our AI support bot.
 
-This article explains how Claude for Government Admins can contact Anthropic Support. We've designed a specialized process to ensure your sensitive information remains secure while providing you with the help you need.
+This article explains how Claude for Government Admins can contact Anthropic Support. We've designed a specialized process to ensure your sensitive information remains secure while providing you with the help you need. Learn more about setting up and managing your agency’s deployment in the **[Claude for Government documentation](https://claude.com/docs/government/overview)**.
 
 ## How to get started
 
@@ -1936,7 +1973,7 @@ Each active session displays the following information:
 
 - **Location** — The approximate geographic location based on IP address
 
-- **Updated** — When this session was last used or modified by a policy change
+- Updated (called Last active in the updated Settings layout) — When this session was last used or modified by a policy change
 
 - **Current session** — A badge indicating which session you're using right now
 
@@ -1946,7 +1983,7 @@ Each active session displays the following information:
 
 2. Navigate to [Settings > Account](https://claude.ai/settings/account).
 
-3. Scroll to the **Active sessions** section.
+3. Scroll to the **Active sessions** section (called **Where you're logged in** in the updated Settings layout).
 
 ## Terminate a session
 
@@ -2024,7 +2061,7 @@ Claude may show a banner with connections to crisis support resources when your 
 
 These resources are there to make it easier to get help if you want it. You decide whether to use these resources, and there are no consequences for your account based on your decision to access resources.
 
-If the banner doesn't feel relevant to your situation, that's completely okay - you can simply dismiss it. We'd rather offer support when it's not needed than miss an opportunity to help someone who could use it. After you see the banner, it won't appear again for about two hours, but you can always access crisis resources at [claude.findahelpline.com](http://claude.findahelpline.com) anytime.
+If the banner doesn't feel relevant to your situation, that's completely okay - you can simply dismiss it. We'd rather offer support when it's not needed than miss an opportunity to help someone who could use it. After you see the banner, it won't appear again for about two hours, but you can always access crisis resources at [claude.findahelpline.com](https://claude.findahelpline.com) anytime.
 
 ## What is a crisis helpline?
 
@@ -2090,7 +2127,7 @@ Crisis helplines don't charge anything. Standard phone or texting rates from you
 
 ### Where can I find a helpline?
 
-If you're in the United States, the 988 Suicide & Crisis Lifeline is available by call or text. For other countries, a directory of services worldwide maintained by ThroughLine can be found at [claude.findahelpline.com](http://claude.findahelpline.com).
+If you're in the United States, the 988 Suicide & Crisis Lifeline is available by call or text. For other countries, a directory of services worldwide maintained by ThroughLine can be found at [claude.findahelpline.com](https://claude.findahelpline.com).
 
 ### Does talking to a helpline actually make a difference?
 
@@ -2114,7 +2151,7 @@ Generally, no. Conversations with support personnel are kept confidential. The m
 
 ### What about non-English speakers or people outside the United States?
 
-Helplines exist in countries around the globe, many offering support in local languages. You can locate services in your region on [claude.findahelpline.com](http://claude.findahelpline.com).
+Helplines exist in countries around the globe, many offering support in local languages. You can locate services in your region on [claude.findahelpline.com](https://claude.findahelpline.com).
 
 ### Is it okay to contact a helpline multiple times?
 
@@ -2126,7 +2163,7 @@ No. Your interactions with Claude remain with Anthropic. Helpline personnel have
 
 ### What if I have to wait to speak with someone?
 
-High demand sometimes means wait times. If that happens, you can stay on the line, try reaching out via a different method (chat instead of phone, for instance), or contact an alternative helpline. [claude.findahelpline.com](http://claude.findahelpline.com) lists multiple options for most locations.
+High demand sometimes means wait times. If that happens, you can stay on the line, try reaching out via a different method (chat instead of phone, for instance), or contact an alternative helpline. [claude.findahelpline.com](https://claude.findahelpline.com) lists multiple options for most locations.
 
 ### I feel nervous about reaching out.
 
@@ -2143,7 +2180,7 @@ SOURCE: https://support.claude.com/en/articles/13198485-enforce-network-level-ac
 
 Tenant Restrictions are available for members of Enterprise plans and Console organizations.
 
-Tenant Restrictions enable IT administrators on Enterprise plans to enforce network-level access control for Claude. This feature ensures that users on corporate networks can only access approved organizational accounts, preventing unauthorized use of personal accounts.
+Tenant Restrictions enable IT administrators on Enterprise plans to enforce network-level access control for Claude. Tenant Restrictions also apply to artifacts, including Claude Docs. This feature ensures that users on corporate networks can only access approved organizational accounts, preventing unauthorized use of personal accounts.
 
 ## How it works
 
@@ -2151,7 +2188,7 @@ When enabled, your network proxy injects an HTTP header into requests to Claude.
 
 **Supported authentication methods:**
 
-- Web access ([claude.ai](http://claude.ai))
+- Web access ([claude.ai](https://claude.ai))
 
 - Desktop / App Access
 
@@ -2313,6 +2350,24 @@ IP allowlisting enables Enterprise plan administrators to control which IP addre
 When enabled, we validate the source IP address of every authenticated request against your organization's configured allowlist. Requests from IP addresses not added to the allowlist will be blocked.
 
 IP allowlisting supports CIDR ranges. For example: `10.0.0.0/8, 2001:db8::/32`.
+
+## What IP allowlisting covers
+
+When IP allowlisting is on, the following are only available from your allowlisted IP addresses:
+
+- Chats and projects
+
+- Artifacts, including Claude Docs and other artifact types
+
+- Artifact links shared within your organization
+
+- Live editing and collaboration in Claude Docs
+
+- Access to Claude Docs from connected tools
+
+If someone in your organization opens an artifact from an IP address that isn't on your allowlist, they see an access-denied message instead of the content.
+
+**Important:** Artifacts shared outside your organization aren't limited by your allowlist. To keep artifacts behind your allowlist, turn off **External sharing** and **Email invitations outside your organization** in **Organization settings > Artifacts**. Artifacts you've allowed for external sharing individually stay available outside your allowlist. Learn more about **[managing sharing outside your organization](https://support.claude.com/en/articles/16994751-artifacts-admin-guide-for-team-and-enterprise-plans#h_fd0c095985)**.
 
 ## How to configure IP allowlisting
 
@@ -2642,150 +2697,11 @@ Claude searches for the most relevant connectors based on your request, so it wo
 In “On demand” mode, Claude searches for the right tool before using it. This search step adds one interaction, but keeps your conversation from hitting length limits when you have many tools connected.
 ---
 
-SOURCE: https://support.claude.com/en/articles/13756069-public-sector-faqs
-
-# Public Sector FAQs
-
-## 1. Products and features
-
-### What products are available to Public Sector customers?
-
-Select your product based on both your technical/functional requirements, and also your compliance/security/deployment environment requirements. Here is a list of options:
-
-
-
-### What is Claude for Government (C4G)?
-
-Claude for Government is Anthropic's FedRAMP-High authorized product, which is available to both government customers and contractors.
-
-Learn more here: **[Offering expanded Claude access across all three branches of the U.S. government](https://www.anthropic.com/news/offering-expanded-claude-access-across-all-three-branches-of-government)**
-
-### How do I access Claude for Government?
-
-Submit a request here: **[Contact Sales](https://claude.com/contact-sales)**
-
-### What is the difference between Claude Enterprise and Claude for Government?
-
-Claude Enterprise (CE) has robust enterprise-level security features that meet many standards of highly regulated industry and is appropriate for the majority of State and Local government uses. Claude for Government (C4G) is our standalone application that is FedRAMP-High authorized. C4G does not yet include Claude Code or Cowork (though they are on the roadmap to be released this year).
-
-### Does Claude for Government include Claude Code?
-
-Not yet; though it’s coming this year. Until then, customers can use Claude Code through Bedrock or Vertex if they need a FedRAMP authorized environment.
-
-### Can I use Claude API in government environments?
-
-Yes. Claude API is available via Amazon Bedrock (in AWS GovCloud - FedRAMP High, and in IL5+) and Google Vertex with Assured Workloads (FedRAMP-High).
-
-For more information, see our **[Claude Code product page](https://claude.com/product/claude-code)**.
-
-### What models are available in Claude for Government?
-
-Our Claude for Government application is updated with our latest commercial model releases.
-
----
-
-## 2. FedRAMP, Impact Levels, and compliance
-
-### What types of data can be used in Claude?
-
-CUl and FIPS 199 High Impact data are authorized in Claude for Government, which is FedRAMP High authorized. Additionally, per our third-party NIST attestation, Claude Enterprise meets compliance requirements for CUl as well. The third-party NIST attestation is available under NDA here: **[[Anthropic] 2026 NIST 800-171r3 Attestation Letter](https://trust.anthropic.com/resources?s=zfucqt7j6yandbrsvlk2&name=[anthropic]-2026-nist-800-171-r-3-attestation-letter)**
-
-ITAR data can only be processed in Claude via AWS Bedrock, which is IL5 accredited.
-
-For most other government agencies like State and Local handling PHI or PII:, Anthropic offers a HIPAA-ready configuration for Enterprise and API customers, including the ability to sign a Business Associate Agreement (BAA). A couple of key points:
-
-- The BAA is available for Enterprise plans and direct API customers—not consumer (Free, Pro, Max) or Team plans.
-
-- It requires a Zero Data Retention (ZDR) agreement, meaning Anthropic does not store your inputs or outputs.
-
-- Certain features/integrations have limitations under the BAA (e.g., web search is excluded).
-
-You can learn more here:
-
-- BAA details: **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)**
-
-- Certifications overview (HIPAA, SOC 2, ISO 27001): **[What Certifications has Anthropic obtained?](https://support.claude.com/en/articles/10015870-what-certifications-has-anthropic-obtained)**
-
-- **[Trust Portal](https://trust.anthropic.com)**
-
-### What is Claude's FedRAMP authorization level?
-
-Claude for Government (C4G), and Claude via Amazon Bedrock in AWS GovCloud and Google Vertex with Assured Workloads are all FedRAMP-High.
-
-Learn more here: **[Claude in Amazon Bedrock: Approved for use in FedRAMP High and DoD IL4/5 workloads](https://www.anthropic.com/news/claude-in-amazon-bedrock-fedramp-high)**
-
-### Are Claude's models themselves FedRAMP authorized?
-
-FedRAMP and DoD Impact Levels are certifications for cloud services (IaaS, PaaS, SaaS). AI models are software components, not cloud services. Claude models deploy within authorized environments, and customers maintain their compliance posture through the hosting platform.
-
-### How can I get access to your FedRAMP authorization information and other associated documentation?
-
-Please submit a request for the package directly to FedRAMP using this **[FedRAMP Package Access Request Form](https://www.fedramp.gov/resources/documents/Agency_Package_Request_Form.pdf)**.
-
-### Can I use Claude for CUI (Controlled Unclassified Information)?
-
-Yes. Claude Enterprise has received a third-party NIST attestation for use of CUI data. Alternatively, CUI data can be processed in a FedRAMP High environment via Claude for Government, Bedrock, or Vertex. The third-party NIST attestation is available under NDA here: **[[Anthropic] 2026 NIST 800-171r3 Attestation Letter](https://trust.anthropic.com/resources?s=zfucqt7j6yandbrsvlk2&name=[anthropic]-2026-nist-800-171-r-3-attestation-letter)**
-
-### Can I use Claude in IL6/Secret environments?
-
-Yes. Claude is available in the AWS Secret region (IL6) via Amazon Bedrock.
-
-### If a customer purchases Claude Enterprise via AWS Marketplace, is that FedRAMP?
-
-No. At present, our only product offering on AWS Marketplace is Claude Enterprise which is not FedRAMP authorized. Customers requiring FedRAMP compliance must use Claude for Government (C4G) or access Claude models through FedRAMP-authorized CSPs (Bedrock GovCloud or Vertex Assured Workloads).
-
-Learn more here: **[Claude in Amazon Bedrock: Approved for use in FedRAMP High and DoD IL4/5 workloads](https://www.anthropic.com/news/claude-in-amazon-bedrock-fedramp-high)**
-
----
-
-## 3. Cloud service providers and deployment
-
-### How do I deploy Claude in Amazon Bedrock on AWS GovCloud / GCP Vertex in Assured Workloads?
-
-Work with your AWS / GCP account teams. Claude is available as a managed service through Bedrock/Vertex. These links can help to get you started:
-
-- **[Access Amazon Bedrock foundation models in AWS GovCloud (US)](https://docs.aws.amazon.com/bedrock/latest/userguide/model-access.html#model-access-govcloud)**
-
-- **[Claude on Vertex AI](https://platform.claude.com/docs/en/build-with-claude/claude-on-vertex-ai)**
-
-### What is the pricing and commitment information for Claude on Vertex/Bedrock?
-
-Contact AWS directly for pricing and commitment requirements. Usage is typically pay-per-token through standard Bedrock pricing.
-
-Learn more here: **[Claude in Amazon Bedrock: Approved for use in FedRAMP High and DoD IL4/5 workloads](https://www.anthropic.com/news/claude-in-amazon-bedrock-fedramp-high)**
-
-**AWS Bedrock: [Amazon Bedrock pricing](https://aws.amazon.com/bedrock/pricing/)**
-
-**Google Cloud Vertex AI:** **[Cost of building and deploying AI models in Vertex AI](https://cloud.google.com/vertex-ai/generative-ai/pricing)**
-
----
-
-## 4. Pricing and procurement
-
-### What is the $1/month government offer and who qualifies?
-
-The $1/month offer is specifically for federal, judicial, and legislative agencies for C4G only. It does not extend to defense contractors, FFRDCs, or state/local governments, which receive standard pricing.
-
-### Can we purchase directly from Anthropic or only through Carahsoft?
-
-Both options are available. Anthropic can sell directly, and/or resell / distribute via Carahsoft to specific government customers.
-
-### How much does Claude cost?
-
-C4G is $60/seat/month with usage limits and no additional consumption charges.
-
-Claude Enterprise is $20/seat/month with additional charges for token consumption (PAYG).
-
-Other pricing plans are available here: **[Team and Enterprise plan pricing](https://claude.com/pricing#team-&-enterprise)**
-
-Learn more here: **[Offering expanded Claude access across all three branches of the U.S. government](https://www.anthropic.com/news/offering-expanded-claude-access-across-all-three-branches-of-government)**
----
-
 SOURCE: https://support.claude.com/en/articles/13837440-use-plugins-in-claude
 
 # Use plugins in Claude
 
-Plugins are available to all paid plans (Pro, Max, Team, Enterprise).
+Plugins are available to all paid plans (Pro, Max, Ultra, Team, Enterprise).
 
 Plugins customize how Claude works for your role, team, and company. Each plugin bundles skills, connectors, and sub-agents into a single package, so you get a ready-to-go setup from your first conversation instead of configuring each piece yourself.
 
@@ -2841,7 +2757,7 @@ For the full collection of Anthropic-built plugins, visit **[GitHub](https://git
 
 In Cowork, open the "Cowork" tab first, then open **Customize**.
 
-You can also upload a custom plugin file if you built one yourself. On Team and Enterprise plans, a colleague can share a plugin with you directly instead of sending you the file. See **[Use a plugin shared with you](#h_ef985546b4)** below. Plugins you add in Claude on the web or in Claude Desktop are saved to your account, not to your computer, so they follow you to chat, Cowork, and Claude Code.
+You can also upload a custom plugin file if you built one yourself. On Team and Enterprise plans, a colleague can share a plugin with you directly instead of sending you the file. See **[Use a plugin shared with you](https://support.claude.com/en/articles/13837440-use-plugins-in-claude#h_ef985546b4)** below. Plugins you add in Claude on the web or in Claude Desktop are saved to your account, not to your computer, so they follow you to chat, Cowork, and Claude Code.
 
 
 
@@ -2970,6 +2886,8 @@ To add a marketplace:
   - **Browse Anthropic sources:** Pick from marketplaces curated by Anthropic, such as Knowledge Work, Life Sciences, Financial Services, and Legal. Click "Add" next to the one you want, then click "Done."
 
   - **Add from a repository:** Enter a repository URL, or owner/repo for GitHub. Repositories on github.com work, and so do public repositories on gitlab.com and bitbucket.org.
+
+If your organization limits which marketplaces can be added, Claude refuses a repository your organization doesn’t allow. Ask an Owner which sources are permitted.
 
 To remove a marketplace, including the default Knowledge Work marketplace:
 
@@ -3340,109 +3258,6 @@ The add-in has no Claude.ai user identity in this mode, so spans carry no `user.
 This produces a complete, ordered transcript of the interaction in both deployment modes.
 ---
 
-SOURCE: https://support.claude.com/en/articles/14503590-get-started-with-claude-for-government
-
-# Get started with Claude for Government
-
-**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
-
-## What is Claude for Government?
-
-Claude for Government brings Anthropic's Claude AI to environments requiring the highest security authorization levels. It delivers the same frontier reasoning, writing, and analysis capabilities that power Claude—deployed inside a FedRAMP High–authorized environment with the security controls, compliance authorizations, and procurement pathways that government agencies and high-security public sector enterprises require. Claude for Government gives teams direct access to Claude's most capable models for drafting, research, analysis, and coding, while meeting the stringent data handling and auditability standards of federal and state government missions.
-
-## How do I access Claude for Government?
-
-Claude for Government is available to U.S. federal, state, and local government agencies and qualifying public sector organizations. To learn more or get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government/overview)** or contact **[our Sales team](https://claude.com/solutions/government)**.
----
-
-SOURCE: https://support.claude.com/en/articles/14503794-model-availability-in-claude-for-government
-
-# Model availability in Claude for Government
-
-**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
-
-Claude is a family of state-of-the-art large language models developed by Anthropic. This guide introduces the models available for customers using Claude for Government. For the most up to date information about the model’s general capabilities, please visit our **[Model Overview page](https://platform.claude.com/docs/en/about-claude/models/overview)**.
-
-## How model availability differs in Claude for Government
-
-Claude for Government routes all inference through Google Cloud Vertex AI's FedRAMP High authorized environment rather than Anthropic's commercial endpoints. This is what keeps model traffic inside the authorization boundary.
-
-### New models arrive shortly after commercial launch
-
-New models are typically available in Claude for Government the same day or within one to two days of their commercial release. The gating factor is Vertex availability—once a model is serving on Vertex, Anthropic completes the Claude for Government and the models become available to users.
-
-**Note:** There is **no separate FedRAMP audit per model**. Vertex's authorization is infrastructure-level, not per-model. Once the Claude for Government environment is authorized, new models inherit that authorization automatically. Your agency does not need to re-engage Anthropic's FedRAMP process when a new model ships.
-
-### Opus access is gated by seat tier
-
-Unlike Enterprise, Claude for Government restricts Opus-class models to certain seat tiers. Lite seats—the default tier in the federal agency offer—have full access to Sonnet and Haiku but not Opus.
-
-## Seat types and model access
-
-**Lite seats** are the tier included in the federal agency offer and are designed for agency-wide deployment at minimal per-seat cost. Lite seats have full access to Sonnet-class models and Haiku models. Lite seats have capped usage per 5-hour window.
-
-**Standard seats** provide access to all available models, including Claude Opus, with full-capacity rate limits. Standard seats are best for power users whose work benefits from Opus-class reasoning, such as complex analysis, advanced coding, and long-horizon research.
-
-## How admins manage model access
-
-**Seat tier assignment.** Admins can assign seat tiers to users via SCIM group mappings in **Organization settings > Identity**. Create groups in your identity provider for each tier (e.g., `claude-standard-users` and `claude-lite-users`), push them via SCIM, and map each group to a seat tier in Claude for Government. Users inherit the seat tier of their group.
-
-**Default model selection.** Admins can set the organization's default model in Admin Settings. New conversations will start on this model unless the user selects a different one.
-
-**Changing a user's seat tier.** Move the user between groups in your identity provider; the change syncs to Claude for Government on the next SCIM cycle.
-
-## When new models arrive
-
-Agencies don't take any action to receive new models—they show up in the model picker once enabled. Anthropic announces availability through your public sector account contact and in release notes.
-
-If your agency policy requires advance notice or opt-in before new models reach users, contact your Anthropic public sector representative to discuss configuration options.
----
-
-SOURCE: https://support.claude.com/en/articles/14503804-classification-banner-in-claude-for-government
-
-# Classification banner in Claude for Government
-
-**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
-
-The classification banner displays a persistent marking at the top of every page for every user in your organization. Use it to communicate the classification level of data approved for your Claude for Government environment or any custom handling instruction your agency requires.
-
-## When to use a classification banner
-
-Set a classification banner whenever your agency's policy requires a persistent, page-level reminder of what data is and isn't appropriate to enter into Claude. The banner is visible on every screen, so users never lose sight of the environment's classification ceiling—even deep in a long conversation.
-
-## Common configurations
-
-- **CUI environments** — remind users that Controlled Unclassified Information is permitted but classified data is not
-
-- **UNCLASSIFIED environments** — make the boundary explicit for users who also work in classified systems
-
-- **Custom handling caveats** — agency-specific instructions beyond standard markings (e.g., "ITAR — No export-controlled technical data")
-
-**Note:** The banner is a visual reminder, not an enforcement control. It does not inspect or filter what users type. Pair it with organization instructions if you want Claude to apply handling guidance in conversations.
-
-## Configure the classification banner
-
-You must be the Primary Owner to configure the banner.
-
-1. Navigate to **[claude.fedstart.com/admin-settings/organization](https://claude.fedstart.com/admin-settings/organization)**
-
-2. Scroll to the **Classification banner** section
-
-3. Fill in the banner fields:
-
-  - Banner text — the marking that appears on the banner
-
-  - Background color — the banner's fill color
-
-  - Text color — the marking text color
-
-  - Link URL (optional) — if provided, the banner text becomes a clickable link. You can point it at your agency's classification policy page or handling guide.
-
-4. Click "Save." The banner appears for all users in your organization.
-
-You can update the banner at any time by returning to the same settings page.
----
-
 SOURCE: https://support.claude.com/en/articles/14553240-give-claude-context-claude-md-and-better-prompts
 
 # Give Claude context: CLAUDE.md and better prompts
@@ -3584,7 +3399,7 @@ SOURCE: https://support.claude.com/en/articles/14604397-set-up-your-design-syste
 
 A design system captures your colors, typography, components, and layout patterns, so Claude applies them to every new design and deck. Claude extracts them from the assets you provide, like codebases, slide decks, or other design references.
 
-Design systems are available in beta on Pro, Max, Team, and Enterprise plans. They're on by default on Pro, Max, and Team plans. On Enterprise plans, they're off until an owner turns on **Design systems** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. Standalone Claude Design at claude.ai/design has its own separate setting.
+Design systems are available in beta on Pro, Max, Ultra, Team, and Enterprise plans. They're on by default on Pro, Max, Ultra, and Team plans. On Enterprise plans, they're off until an owner turns on **Design systems** in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. Standalone Claude Design at claude.ai/design has its own separate setting.
 
 This guide is for the designer or brand owner who will set up the design system. On Team and Enterprise plans, you only need to do this once, and everyone's work picks it up after that.
 
@@ -3616,13 +3431,23 @@ If your design system already exists as React components, run /design-sync in Cl
 
 1. Open the "Design" tab at the bottom of the sidebar.
 
-2. Click "Migrate team design systems" in the banner.
+2. Click "Move team design systems" in the banner.
 
-Each design system becomes an artifact Claude can use in any chat, including in Claude Code. Migrated design systems may need some cleanup, so each one shows a banner where you can click "Let Claude clean it up," and Claude tidies its guide, tokens, and components.
+Each design system becomes an artifact Claude can use in any chat, including in Claude Code. Design systems may need some cleanup after you move them, so each one shows a banner where you can click "Let Claude clean it up," and Claude tidies its guide, tokens, and components. If your organization has a retention period that covers artifacts, a design system you moved can be permanently deleted if nobody opens it for that period. Opening a design or deck that uses the design system doesn't count as opening it.
 
 ## Manage your design systems
 
-Manage your design systems in **[Settings > Design systems](https://claude.ai/settings/design-systems)**. On Enterprise plans, admins can reserve publishing, setting the organization default, and deleting design systems for specific users. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
+Manage your design systems in Settings > Capabilities by selecting Manage next to Design systems. If Design systems isn't there, go to Settings > Design systems. On Enterprise plans, admins can reserve publishing, setting the organization default, and deleting design systems for specific users. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
+
+---
+
+## Use a design system with a keyboard
+
+To get into and out of the artifact panel, see **[Use artifacts with a keyboard or screen reader](https://support.claude.com/en/articles/17457950)**. That article also explains what focus means, what to do on a Mac laptop or in Safari, and how shortcuts are written.
+
+A design system opens as a list of sections beside the section you're reading. Return on a section in the list moves into it, Cmd+F6 (Ctrl+F6 on Windows) moves between the list and the section, and Cmd+Z (Ctrl+Z on Windows) undoes a change when you're not in a text box.
+
+**Note:** Live component previews in a design system can't be reached with Tab, so they can't be operated from the keyboard. Each component's name and notes can be read.
 
 ---
 
@@ -3697,7 +3522,7 @@ SOURCE: https://support.claude.com/en/articles/14604416-get-started-with-claude-
 
 **[Claude Design](https://claude.com/product/design)** lets you create designs, interactive prototypes, one-pagers, and other visual work by chatting with Claude. It's one of the templates you can start an artifact from, so you can use it in any chat, in Claude Code, and from the **Artifacts** tab, with on-canvas editing and your design system included. This guide walks you through creating your first design, iterating on it, and getting the most out of it. Learn more about **[what artifacts are and how to use them](https://support.claude.com/en/articles/9487310)**.
 
-Claude Design is available in beta on Pro, Max, Team, and Enterprise plans. It's on by default on Pro, Max, and Team plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. The standalone Claude Design experience at claude.ai/design keeps working and has its own separate setting.
+Claude Design is available on Free, Pro, Max, Ultra, Team, and Enterprise plans, and it's on by default. On Enterprise plans, it turns on by default on October 15, 2026, and owners can turn it on before then in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. The standalone version at claude.ai/design closes on December 14, 2026. Learn more in **[Move from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
 
 This guide assumes your organization’s design system has already been set up, so everything you create will automatically use your brand’s colors, typography, and component patterns. If you’re a design lead who needs to set up or modify the design system itself, see **[Set up your design system in Claude Design](https://support.claude.com/en/articles/14604397-set-up-your-design-system-in-claude-design)**.
 
@@ -3711,9 +3536,9 @@ This guide assumes your organization’s design system has already been set up, 
 
 - **In Claude Code:** Ask Claude to turn your idea into a design, or use /design to create, edit, and sync designs, on desktop or in the terminal.
 
-- **In the Claude app for iOS and Android:** Ask for a design in any conversation and check back later for the result, then view it full screen in the **Artifacts** tab. To start from a template, edit on the canvas, or change sharing settings, use Claude on web or desktop.
+- **In the Claude app for iOS and Android:** Ask for a design in any conversation and check back later for the result, then view it full screen in the **Artifacts** tab. You can also edit a design. To change sharing settings, use Claude on web or desktop.
 
-- **At claude.ai/design:** The standalone experience keeps working, and your existing projects stay where they are.
+- **At claude.ai/design:** The standalone version keeps working until it closes on December 14, 2026. Your existing projects stay there until then, and moving them to Claude is rolling out gradually to paid plans. Move your design systems to Claude before it closes. Learn more in **[Move from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
 
 ---
 
@@ -3723,7 +3548,7 @@ Claude Design pairs a conversation with a canvas. You describe what you want, an
 
 The typical flow is:
 
-1. Start a design from a conversation, the Artifacts tab, or claude.ai/design.
+1. Start a design from a conversation or the "Artifacts" tab.
 
 2. Attach or import the design system you want Claude to build with.
 
@@ -3757,7 +3582,7 @@ On Enterprise plans, admins can reserve publishing, setting the default, and del
 
 ### Bring over a design system from claude.ai/design
 
-Design systems you made at claude.ai/design can move over, so Claude can use them in any chat, including in Claude Code. Learn more about **[setting up your design system](https://support.claude.com/en/articles/14604397)**.
+Design systems you made in the standalone version at claude.ai/design can move over, so Claude can use them in any chat, including in Claude Code. Move them before the standalone version closes on December 14, 2026. Learn more in **[Move from standalone Claude Design to Claude](https://support.claude.com/en/articles/17440474)**.
 
 ### Add context to your project
 
@@ -3829,6 +3654,81 @@ Use rich layout controls for quick visual and aesthetic shifts, specifically to 
 
 Use **comments** for targeted, component-level changes (“fix this button,” “adjust this spacing”). Use **chat** for structural changes, new sections, or anything that requires explanation or context. **Edit directly** for quick visual and aesthetic changes.
 
+---
+
+## Use Claude Design with a keyboard
+
+To get into and out of the artifact panel, and to comment from the panel's header, see **[Use artifacts with a keyboard or screen reader](https://support.claude.com/en/articles/17457950)**. That article also explains what focus means, what to do on a Mac laptop or in Safari, and how the tables show keys.
+
+A design is a canvas of artboards. Each artboard holds layers, such as text, shapes, and images, and a layer can hold other layers inside it.
+
+### Move between the editor's areas
+
+Press F6 to move to the next area and Shift+F6 to move to the previous one. Cmd+F6 (Ctrl+F6 on Windows) works in place of F6, with or without Shift. The areas are the top bar, the canvas, and the properties panel. When something is selected and the properties panel is closed, F6 also stops at the toolbar that floats over the selection.
+
+**Note:** Finish editing text before you press F6. Press Escape or Tab to end the edit first. F6 moves you out of a text edit without ending it.
+
+### Work inside an artboard
+
+Press Tab until you reach an artboard's title. Its name includes its position, such as artboard 1 of 7. From the title, Space selects the artboard, and Return goes inside it, to its layers. Once inside:
+
+- Tab and Shift+Tab move between layers. Home and End move to the first and last layer.
+
+- Return on a layer that holds other layers moves inside it. On a text layer, Return starts editing.
+
+- Shift+Return goes up one level.
+
+- Escape leaves the artboard, and the artboard stays selected. Escape again clears the selection.
+
+When you're editing a text layer, press Escape or Tab when you're done. As you move, the editor tells screen readers what's selected and its position, such as 1 of 5.
+
+### Move, duplicate, and delete
+
+To move an artboard, select it (Space on its title) and press the arrow keys. It moves one pixel at a time, or 10 with Shift. Inside an artboard, the arrow keys do something else: with or without Shift, they move you to the next or previous layer and never move the layer itself. To move the layer you're on, hold Option (Alt on Windows) and press an arrow key. A freely placed layer moves one pixel, or 10 with Shift. A layer that's part of a row, column, or grid swaps places with its neighbor instead: Up or Left moves it earlier, and Down or Right moves it later. The editor sends a short confirmation of the move to screen readers.
+
+With an artboard or layer selected, press Cmd+D (Ctrl+D on Windows) to duplicate it, and Delete or Backspace to delete it. Press Cmd+Z (Ctrl+Z on Windows) to undo. The editor sends a short confirmation of each of these to screen readers.
+
+### Use the toolbar over a selection
+
+The toolbar that floats over a selection is there only while the properties panel is closed, and F6 reaches it. In it, the arrow keys move between its controls, Home and End move to the first and last, and Escape goes back to the canvas with your selection kept. You can also reach each control with Tab.
+
+### Use the properties panel and the list of layers
+
+Cmd+\ (Ctrl+\ on Windows) opens the properties panel and moves focus into it. Pressing it again closes the panel, and focus returns to the "Properties" button in the top bar. Color, font, and other pop-ups in the panel take focus when they open, and Escape closes them. When you choose a text color, the color picker tells you whether its contrast against the background is good or poor.
+
+In the properties panel's list of layers: the Up arrow and Down arrow keys move between rows, the Right arrow key expands a row and then moves inside it, the Left arrow key collapses it and then moves out, Return or Space selects that layer on the canvas, and Return again on a text layer edits it.
+
+**Warning:** In the list of layers, Delete, Backspace, and Cmd+X (Ctrl+X on Windows) act on whatever is selected on the canvas, which might not be the row you moved to. Press Return on the row first.
+
+### Claude Design keyboard shortcuts
+
+| **Action**                                               | **Mac**                           | **Windows**                       |
+| -------------------------------------------------------- | --------------------------------- | --------------------------------- |
+| Next area                                                | F6 or Cmd+F6                      | F6 or Ctrl+F6                     |
+| Previous area                                            | Shift+F6 or Cmd+Shift+F6          | Shift+F6 or Ctrl+Shift+F6         |
+| Move to an artboard's title                              | Tab                               | Tab                               |
+| Select the artboard (on its title)                       | Space                             | Space                             |
+| Go into the artboard, move inside a layer, or edit text  | Return                            | Enter                             |
+| Next layer, previous layer (inside an artboard)          | Tab, Shift+Tab, or the arrow keys | Tab, Shift+Tab, or the arrow keys |
+| First layer, last layer                                  | Home, End                         | Home, End                         |
+| Up one level (inside an artboard)                        | Shift+Return                      | Shift+Enter                       |
+| Leave the artboard                                       | Escape                            | Escape                            |
+| Move the selected artboard (on its title)                | Arrow keys (Shift for 10 pixels)  | Arrow keys (Shift for 10 pixels)  |
+| Move or reorder the layer you're on (inside an artboard) | Option+arrow keys                 | Alt+arrow keys                    |
+| Duplicate                                                | Cmd+D                             | Ctrl+D                            |
+| Delete                                                   | Delete or Backspace               | Delete or Backspace               |
+| Copy, paste                                              | Cmd+C, Cmd+V                      | Ctrl+C, Ctrl+V                    |
+| Cut (a layer)                                            | Cmd+X                             | Ctrl+X                            |
+| Group, ungroup (layers)                                  | Cmd+G, Cmd+Shift+G                | Ctrl+G, Ctrl+Shift+G              |
+| Flip horizontally, flip vertically                       | Shift+H, Shift+V                  | Shift+H, Shift+V                  |
+| Select all                                               | Cmd+A                             | Ctrl+A                            |
+| Undo, redo                                               | Cmd+Z, Cmd+Shift+Z                | Ctrl+Z, Ctrl+Shift+Z              |
+| Open or close the properties panel                       | Cmd+\                             | Ctrl+\                            |
+| Zoom in, zoom out, fit to the window                     | Cmd+Plus, Cmd+Minus, Cmd+0        | Ctrl+Plus, Ctrl+Minus, Ctrl+0     |
+| Show or hide layout guides                               | Shift+G                           | Shift+G                           |
+
+---
+
 ## Manage versions and revisions
 
 If you want to explore a different direction without losing your current work, tell Claude: “Save what we have and try a completely different approach.” Claude will save your current project and confirm where it’s saved, so you can reference earlier iterations in the conversation easily.
@@ -3847,7 +3747,7 @@ Use the “Export” button in the upper right corner when viewing your project 
 
 - Export as PPTX
 
-- Export to Google Slides (available only at claude.ai/design)
+- Export to Google Slides
 
 - Export as standalone HTML
 
@@ -3893,7 +3793,7 @@ If you reach your usage limits, Claude Design is unavailable until your limits r
 
 ## Known limitations
 
-Claude Design is now available in beta. A few things to be aware of:
+A few things to be aware of:
 
 - **Comment persistence:** Inline comments occasionally don't appear on the page, but you can still see them by opening the comments view.
 
@@ -3901,13 +3801,17 @@ Claude Design is now available in beta. A few things to be aware of:
 
 - **Chat errors:** If you hit a "chat upstream error," try starting a new chat tab within the same project.
 
-- **Mobile:** In the Claude app for iOS and Android, you can ask for a design and view it in the Artifacts tab. Editing on the canvas and changing sharing settings need Claude on web or desktop.
+- **Mobile:** It's not possible to change sharing settings on the Claude app for iOS and Android, so you'll need to use Claude on web or desktop for this.
 
 - **Multi-person editing:** Two or more people editing a design project at the same time is still basic and may not work reliably.
 
 - **Design system import:** Design system import is only as good as its source. A messy codebase or an incomplete file will show up in the output.
 
 - **Version history:** Claude Design doesn't have version history yet.
+
+- **Deleting from the list of layers:** In the properties panel's list of layers, Delete, Backspace, and cut act on what's selected on the canvas, not the row you moved to. Press Return on the row first.
+
+- **Adding to a design with a keyboard:** Placing a new text layer, artboard, shape, or note on the canvas needs a mouse or trackpad. Ask Claude to add it.
 ---
 
 SOURCE: https://support.claude.com/en/articles/14730684-how-claude-suggests-connected-apps
@@ -3990,7 +3894,7 @@ SOURCE: https://support.claude.com/en/articles/15183774-connect-to-microsoft-365
 
 Connecting Microsoft 365 lets Claude search and analyze content across SharePoint, OneDrive, Outlook, and Teams in your work account. If your admin has enabled write tools, Claude can also draft and send emails, manage calendar events, create and update files, and send Teams messages. Ask Claude for what you need, and it pulls the right information or takes the action.
 
-The Microsoft 365 connector is available on all Claude plans: Free, Pro, Max, Team, and Enterprise.
+The Microsoft 365 connector is available on all Claude plans: Free, Pro, Max, Ultra, Team, and Enterprise.
 
 ## Before you connect
 
@@ -4490,13 +4394,13 @@ SOURCE: https://support.claude.com/en/articles/15672559-see-your-monthly-recap
 
 Your monthly recap shows you how you’ve been using Claude—the topics you spent time on, when you tend to reach for it, and where you might try something new. It’s designed to reflect your patterns back without judgment so you can decide what, if anything, you’d like to change.
 
-The monthly recap is in beta for users with Free, Pro, and Max plans using Claude on the web or Claude Desktop. It only appears when memory is turned on, and isn't available on Team or Enterprise plans. It's available in all regions where Claude is offered.
+The monthly recap is in beta for users with Free, Pro, Max, and Ultra plans using Claude on the web or Claude Desktop. It only appears when memory is turned on, and isn't available on Team or Enterprise plans. It's available in all regions where Claude is offered.
 
 ## Open your recap
 
 1. Open Claude on the web or Claude Desktop.
 
-2. Go to **[Settings > Reflect](https://claude.ai/settings/reflect)**.
+2. Go to **Settings > Wellbeing** and, under **Reflect**, select "View" (or go to **Settings > Reflect** in the older Settings layout).
 
 3. Your recap loads for the past month. Click the “Past month” dropdown at the top and select another option to load your recap for a different range (this month so far, past 3 months, past 6 months, past year).
 
@@ -4516,7 +4420,7 @@ A short headline and paragraph describing your month with Claude. It names the a
 
 Three headline stats: your **most active day**, your **peak hour**, and your **total conversations**. Below them, a daily activity chart shows how your conversations were spread across the period.
 
-Below the chart, click “Set quiet hours and breaks” to open your **Time and focus** settings. See **[Set break reminders and quiet hours](https://support.claude.com/en/articles/15672868)** for details.
+To set quiet hours and breaks, go to **Settings > Wellbeing** (in the older Settings layout, click "Set quiet hours and breaks" below the chart). See **[Set break reminders and quiet hours](https://support.claude.com/en/articles/15672868)** for details.
 
 ### What you spent time on
 
@@ -4578,9 +4482,9 @@ People bring all kinds of things to Claude, and some conversations touch on diff
 
 Your recap is available by default for eligible accounts where memory is on.
 
-You can disable it by turning **Generate memory from chat history** off in **[Settings > Capabilities](https://claude.ai/settings/capabilities)**. There is no dedicated toggle for the recap, so if the memory setting is on, the recap will also be enabled. Even with memory enabled, your recap is only generated when you navigate to the **[Settings > Reflect](https://claude.ai/settings/reflect)** page; if you don’t land on that page, Claude won’t create a recap for you.
+You can disable it by turning **Generate memory from chat history** off in **Settings > Your Claude**. There is no dedicated toggle for the recap, so if the memory setting is on, the recap will also be enabled. Even with memory enabled, your recap is only generated when you open it (**Settings > Wellbeing**, then "View" under **Reflect**, or the **Settings > Reflect** page in the older Settings layout); if you don't open it, Claude won't create a recap for you.
 
-Turning the recap off doesn’t affect your chat history or any break reminders or quiet hours you’ve already set in **[Settings > Time and focus](https://claude.ai/settings/time-limits)**.
+Turning the recap off doesn't affect your chat history or any break reminders or quiet hours you've already set in **Settings > Wellbeing** (or **Settings > Time and focus** in the older Settings layout).
 
 ---
 
@@ -4592,7 +4496,9 @@ Viewing your recap doesn’t count toward your usage limits. If you start a conv
 
 ### Why don’t I see Reflect in Settings?
 
-Check that memory is toggled on under **[Settings > Capabilities](https://claude.ai/settings/capabilities)**, that you’re on a Free, Pro, or Max plan, and that you’re using Claude on the web or Claude Desktop. The recap isn't available on Team or Enterprise plans or on Claude Mobile.
+Check that memory is toggled on under **Settings > Your Claude**, that you're on a Free, Pro, Max, or Ultra plan, and that you're using Claude on the web or Claude Desktop. The recap isn't available on Team or Enterprise plans or on Claude Mobile.
+​
+In the updated Settings layout, your recap is under **Settings > Wellbeing**.
 
 ### Why does a percentage or stat look off?
 
@@ -4605,11 +4511,11 @@ SOURCE: https://support.claude.com/en/articles/15672868-set-break-reminders-and-
 
 Break reminders and quiet hours are optional controls you can enable in your Claude settings. A break reminder gives you a gentle nudge after you’ve spent a set amount of time with Claude in a day. Quiet hours add light friction during windows you’ve set aside for something else. Neither is a hard lock, so you can always continue past them.
 
-Break reminders and quiet hours are in beta on Free, Pro, and Max plans. You set them in Claude on the web or Claude Desktop, and they apply across the web, Claude Desktop, and Claude Mobile.
+Break reminders and quiet hours are in beta on Free, Pro, Max, and Ultra plans. You set them in Claude on the web or Claude Desktop, and they apply across the web, Claude Desktop, and Claude Mobile.
 
 ## Set a break reminder
 
-1. Go to **[Settings > Time and focus](https://claude.ai/settings/time-limits)**.
+1. Go to **Settings > Wellbeing** (or **Settings > Time and focus** in the older Settings layout).
 
 2. Under **Break reminders**, use the dropdowns to choose how much daily time with Claude should pass before you get a nudge.
 
@@ -4617,7 +4523,7 @@ When you reach the amount you set, Claude shows a reminder. You can stop, snooze
 
 ## Set quiet hours
 
-1. Go to **[Settings > Time and focus](https://claude.ai/settings/time-limits)**.
+1. Go to **Settings > Wellbeing** (or **Settings > Time and focus** in the older Settings layout).
 
 2. Under **Quiet hours**, click the days of the week you want quiet hours to apply.
 
@@ -4627,11 +4533,11 @@ If you open Claude during your quiet hours, you’ll see a reminder that you set
 
 ## Change or remove a setting
 
-Return to **[Settings > Time and focus](https://claude.ai/settings/time-limits)** to edit your break reminder or quiet hours. To remove a break reminder, clear the dropdowns. To remove quiet hours from a day, click that day to deselect it.
+Return to **Settings > Wellbeing** (or **Settings > Time and focus** in the older Settings layout) to edit your break reminder or quiet hours. To remove a break reminder, clear the dropdowns. To remove quiet hours from a day, click that day to deselect it.
 
 ## How these relate to your monthly recap
 
-These controls also appear as a "Set quiet hours and breaks" link on your monthly recap (**[Settings > Reflect](https://claude.ai/settings/reflect)**), but they work independently. You can set them without ever opening your recap, and turning the recap off doesn't clear them. Learn more about **[the monthly recap](https://support.claude.com/en/articles/15672559)**.
+In the older Settings layout, these controls also appear as a "Set quiet hours and breaks" link on your monthly recap (**Settings > Reflect**), but they work independently. You can set them without ever opening your recap, and turning the recap off doesn't clear them. Learn more about **[the monthly recap](https://support.claude.com/en/articles/15672559)**.
 
 **Note:** Break reminders and quiet hours are boundaries you choose for yourself. They’re separate from your plan’s usage limits. For information on plan usage, see **[How do usage and length limits work?](https://support.claude.com/en/articles/11647753)**
 ---
@@ -4642,9 +4548,9 @@ SOURCE: https://support.claude.com/en/articles/16059458-inference-hooks-overview
 
 Inference hooks lets your compliance team inspect and enforce policy on every prompt, tool call response, and uploaded file text before it reaches Claude.
 
-Inference hooks are available in beta to Enterprise plans and cover Claude, Claude Code, Cowork, and all other Claude Enterprise products. They can be turned on and managed by Owners and Primary Owners.
+Inference hooks are generally available to Enterprise plans and cover Claude, Claude Code, Cowork, and all other Claude Enterprise products. They can be turned on and managed by Owners and Primary Owners.
 
-When you turn on inference hooks, Claude sends every prompt to a server you host before it starts generating a response. Your server checks the prompt against your policy, then answers **allow** or **deny**. Claude only continues once it has that answer.
+When you turn on inference hooks, Claude sends every prompt to a server you host before it starts generating a response. It also sends every tool call to that server before the tool runs. Your server checks the prompt against your policy, then answers **allow** or **deny**. Claude only continues once it has that answer.
 
 Because this check happens inside Claude’s infrastructure rather than on someone's device, it doesn't rely on anything installed on employees' devices. One setup covers your whole organization: Claude, Claude Code, Cowork, and more, including tool calls made through skills, plugins, and connected tools.
 
@@ -4681,7 +4587,7 @@ US K-12 schools and districts qualify. The person applying must be authorized to
 
 You'll need your school or district email, a document showing your role (such as an employee ID), access to your domain's DNS records, and access to your identity provider.
 
-1. **Apply and accept the K-12 terms**. Go to[**claude.ai/k12districts**](https://claude.ai/k12districts), confirm you're authorized, and accept the **[US K-12 Terms of Service](https://www.anthropic.com/legal/k12-terms)**, **[US K-12 Public Sector Addendum](http://anthropic.com/legal/k12-addendum),** and **[US K-12 Data Processing Agreement](https://www.anthropic.com/legal/k12-dpa)**.
+1. **Apply and accept the K-12 terms**. Go to **[claude.ai/k12districts](https://claude.ai/k12districts)**, confirm you're authorized, and accept the **[US K-12 Terms of Service](https://www.anthropic.com/legal/k12-terms)**, **[US K-12 Public Sector Addendum](https://anthropic.com/legal/k12-addendum),** and **[US K-12 Data Processing Agreement](https://www.anthropic.com/legal/k12-dpa)**.
 
 2. **Verify your school or district.** Our partner Goodstack confirms your affiliation. When approved, you'll get an email link to your new organization.
 
@@ -4708,9 +4614,9 @@ SOURCE: https://support.claude.com/en/articles/16563838-get-started-with-claude-
 
 Claude Science is Anthropic's desktop app for scientific research, currently in beta.
 
-Claude Science is available in beta for Pro, Max, Team, and Enterprise plans; on Team and Enterprise plans, an Owner or Primary Owner must first turn it on in **[Organization settings > Claude Science](https://claude.ai/admin-settings/claude-science)**.
+Claude Science is available in beta for Pro, Max, Ultra, Team, and Enterprise plans; on Team and Enterprise plans, an Owner or Primary Owner must first turn it on in **[Organization settings > Claude Science](https://claude.ai/admin-settings/claude-science)**, except on the **[Claude Team plan for scientists](https://support.claude.com/en/articles/16634237)**, where it's on by default.
 
-The Claude Science app runs on macOS 13 or later, and Linux x64.
+The Claude Science app runs on macOS 13 or later, Windows 11 (x64), and Linux x64.
 
 Claude Science pairs Claude with a research and analysis environment on your computer: you describe a research task in plain language, and Claude writes and runs code in a sandbox, reads the folders you give it, pulls data from scientific databases through connectors, connects to your own compute clusters, performs long data analyses, and saves results as versioned artifacts with a full provenance record.
 
@@ -4723,17 +4629,21 @@ SOURCE: https://support.claude.com/en/articles/16893491-get-started-with-smart-r
 
 # Get started with smart reports
 
-Smart reports analyze how a team uses Claude and report on the work getting done, what it costs, where sessions run into friction, and which repeated patterns are worth packaging as shared skills. This guide explains how smart reports work, what appears in a smart report, and how to create, share, and delete them.
+Smart reports analyze how a team uses Claude and report on the work getting done, what it costs at list price, where sessions run into friction, and which repeated patterns are worth packaging as shared skills. This guide explains how smart reports work, what appears in a smart report, and how to create, share, and delete them.
 
-During beta, each organization can run up to 10 reports per month for free, and the limit resets on the first day of every calendar month. If you need more reports during beta, please reach out to your account team or submit a request in the smart report page once you've hit the 10 report limit.
+Each organization can run up to 10 reports per month at no charge. Reports that are queued or in progress count toward this limit, and reports that fail don't.
 
-Smart reports are available in beta on Claude Enterprise plans and aren’t available for organizations using customer-managed encryption keys (CMEK) or HIPAA configurations. Smart reports are also unavailable for Claude Code for Claude Enterprise organizations that use zero data retention.
+When your organization reaches its limit, you can’t create new reports. The smart reports page shows the date your limit resets, which is the first day of the next calendar month. If you need more reports before then, contact your account team.
+
+Smart reports are available on Claude Enterprise plans and are off by default, so they must be turned on in your organization's settings.
+
+Claude Enterprise organizations can’t use smart reports if they use customer-managed encryption keys (CMEK), a HIPAA configuration, or a hybrid deployment that runs inference on their own cloud provider. If your organization uses zero data retention for Claude Code, smart reports cover chat and Claude Cowork and leave out Claude Code.
 
 **Important:** Smart reports help you understand adoption and plan your investment in Claude. They aren't designed and should not be used for evaluating individual performance or making employment decisions.
 
 ## How smart reports work
 
-First, a Primary Owner, Owner, Admin, or someone with a custom role with analytics view access chooses what the report covers: a team, a time range of up to the last 28 days, one or more products (chat, Claude Code, or Claude Cowork), the focus areas for the analysis, and any custom questions you’d like Claude to answer while analyzing the transcripts.
+First, a Primary Owner, Owner, Admin, or someone with a custom role with analytics view access chooses what the report covers: a team, a time range of up to the last 28 days, one or more products (chat, Claude Code, Claude Cowork, or the unified chat and Cowork experience), the focus areas for the analysis, and any custom questions you’d like Claude to answer while analyzing the transcripts.
 
 Claude then reads a sample of transcripts in that scope, groups them into workstreams and types of outputs, attaches spend to each group, and writes up what it found. Every chart is interactive. Click a workstream to open the sessions inside it, ranked by cost, each with a one-paragraph summary, the product used, the date, and the output type. You can filter by subcategory and download the report as HTML with drilldowns intact.
 
@@ -4763,9 +4673,9 @@ Cost per session by type of output  shows the average spend per session for each
 
 Task outcomes  shows what each session produced.
 
-### Most common frictions
+### Most common pain points
 
-Most common frictions shows what got in the way, by category. For example, a connector that wasn’t set up, output that didn’t match the ask, approval or sign-in gating, tool failures, or rework loops.
+Most common pain points shows what got in the way, by category. For example, a connector that wasn’t set up, output that didn’t match the ask, approval or sign-in gating, tool failures, or rework loops.
 
 
 
@@ -4779,9 +4689,19 @@ Inefficiencies counts sessions that produced nothing usable and sessions that we
 
 
 
-### Reusable skills and workflows to build
+### Complex, autonomous work
 
-Reusable skills and workflows to build identifies repeated patterns that could be packaged as a shared skill so the whole team gets the same result faster. For example, turning call notes into follow-ups, building account briefs, and drafting QBR outlines. Each card includes a suggested prompt you can copy to set up the skill.
+Complex, autonomous work shows  sessions scoring highest on task complexity, time saved, how long Claude worked on its own, and the expertise required.
+
+
+
+### New to the organization
+
+This section shows work that was new to your organization.
+
+### Automating their own work
+
+This section shows work that people have automated for themselves.
 
 ### Most expensive sessions
 
@@ -4789,15 +4709,19 @@ Most expensive sessions lists where spend concentrates.
 
 
 
-### Complex, autonomous work
-
-Complex, autonomous work shows  sessions scoring highest on task complexity, time saved, how long Claude worked on its own, and the expertise required.
-
-
-
 ### Answers to custom questions
 
-Before running a smart report, you can select specific pre-built templates to steer the analysis towards those questions, and customize those questions to your specific requirements. If you added custom questions, the answers appear in their own section with the sessions that informed them. You can't ask questions about restricted topics (see **[Privacy guardrails](#h_7b22bb48c1)**).
+Before running a smart report, you can select a pre-built template or one you’ve saved to steer the analysis towards those questions, and customize those questions to your specific requirements. If you added custom questions, the answers appear in their own section with the sessions that informed them. You can't ask questions about restricted topics (see **[Privacy guardrails](#h_7b22bb48c1)**).
+
+### Custom insights
+
+Custom insights shows the answers to the questions your organization added, which Claude answers for every analyzed session. Each answer shows its share of sessions and spend. Select a bar to see its sessions.
+
+### Recommendations
+
+Recommendations brings the report's suggestions together in one list, including recurring workflows to turn into skills, examples of complex work from across the team, and rules to add to your code repository. To send a finding to the people who can act on it, share it as an artifact.
+
+This section also identifies people whose work is being held back by their spend limit. If you have billing permission and you're using the report's attributed view, you can raise their spend limit from the report.
 
 ## Before you begin
 
@@ -4815,7 +4739,7 @@ An Owner or Primary Owner can take the following steps to enable smart reports f
 
 2. Find the **Analytics** section.
 
-3. Turn on the "Smart reports (beta)" toggle, which is off by default. This makes smart reports available to your organization’s admins with analytics access.
+3. Turn on the "Smart reports" toggle, which is off by default. This makes smart reports available to your organization’s admins with analytics access.
 
 4. (Optional) Turn on the "Allow attribution to individual users" toggle, which is off by default. This toggle controls whether report viewers can ever see who ran a given session, and each time a viewer reveals names, that action is logged.
 
@@ -4843,7 +4767,7 @@ Once smart reports have been turned on for your organization, Primary Owners, Ow
 
 To create a smart report:
 
-1. Navigate to **[Analytics > Smart reports (beta)](https://claude.ai/analytics/insights)**.
+1. Navigate to **[Analytics > Smart reports](https://claude.ai/analytics/insights)**.
 
 2. Click "New report."
 
@@ -4855,17 +4779,37 @@ To create a smart report:
 
 6. Select the products to include in your report.
 
-7. Click "Add files" to add documents to help Claude tailor the report.
+7. Preview how many sessions will be sampled in your report.
 
-8. Choose who you want to share the report with.
+8. Click "Add files" to add documents to help Claude tailor the report.
 
-9. (Optional) Turn on the "Allow attributed view for people you share with" toggle. Note that this option is only available when the org-level "Allow attribution to individual users" toggle is on.
+9. Choose who you want to share the report with.
 
-10. Choose a report template and the questions Claude will answer. You can customize the questions to your specific requirements.
+10. (Optional) Turn on the "Allow attributed view for people you share with" toggle. Note that this option is only available when the org-level "Allow attribution to individual users" toggle is on.
 
-11. Click "Create report."
+11. Choose a report template, the questions Claude will answer, and any custom insights. You can customize these to your specific requirements.
 
-Generating a report takes a few hours. You’ll get an email when the report is ready, and reports also appear in the "Smart reports" list in **[Analytics > Smart reports (beta)](https://claude.ai/analytics/insights)**.
+12. Click "Create report."
+
+Reports usually take a few hours to generate, and they can take longer at busy times. You’ll get an email when the report is ready, and reports also appear in the "Smart reports" list in **[Analytics > Smart reports](https://claude.ai/analytics/insights)**.
+
+## Create custom insights and templates
+
+Custom insights are questions Claude answers for every analyzed session, and the report counts the answers. Custom templates save your questions and custom insights so you can reuse them in future reports.
+
+To add a custom insight while creating a report:
+
+1. Under **Your custom insights**, click "Add custom insight."
+
+2. Enter a name.
+
+3. Under **What should Claude look for in each session?**, describe what Claude should check.
+
+4. Under **Answer**, select "Categories," "Yes or no," or "Scale."
+
+5. Click "Save."
+
+To save your questions and custom insights as a template, click "Save as template" under **Report template**.
 
 ## Pass department and cost center via SCIM
 
@@ -4915,7 +4859,7 @@ The report only opens through the sharing link. Only the people it's shared with
 
 To delete a smart report:
 
-1. Navigate to **[Analytics > Smart reports (beta)](https://claude.ai/analytics/insights)**.
+1. Navigate to **[Analytics > Smart reports](https://claude.ai/analytics/insights)**.
 
 2. Click on the three-dot menu for your smart report.
 
@@ -4976,7 +4920,7 @@ This guide covers creating your first doc, editing it with Claude and your team,
 
 **[Create an artifact with Claude](https://claude.ai/artifacts)**
 
-Claude Docs is available in beta on Pro, Max, Team, and Enterprise plans. It's on by default on Pro, Max, and Team plans. On Enterprise plans, Claude Docs is off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. It isn't available yet for organizations that use customer-managed encryption keys (CMEK), zero data retention (ZDR), or a HIPAA-ready configuration.
+Claude Docs is available on Free, Pro, Max, Ultra, Team, and Enterprise plans, and it's on by default. On Enterprise plans, it turns on by default on October 15, 2026, and owners can turn it on before then in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
 
 ---
 
@@ -5020,7 +4964,7 @@ You can ask for a doc wherever you talk to Claude:
 
 - **Claude Code:** Ask Claude to turn the session you're in into a spec, runbook, or readout. On desktop, the doc opens in the side panel. In the terminal, Claude gives you a link to open the doc on the web.
 
-- **Claude app for iOS and Android:** Ask for a doc in any conversation and check back later for the result. Open it from the **Artifacts** tab to view it full screen. To start from a template, edit a doc, or change its sharing settings, use Claude on web or desktop.
+- **Claude app for iOS and Android:** Ask for a doc in any conversation and check back later for the result. Open it from the **Artifacts** tab to view it full screen. You can also edit a doc.
 
 ### Tips for better results
 
@@ -5052,6 +4996,80 @@ People with edit access can work on the same doc at the same time as you and Cla
 
 ---
 
+## Use Claude Docs with a keyboard
+
+To get into and out of the artifact panel, see **[Use artifacts with a keyboard or screen reader](https://support.claude.com/en/articles/17457950)**. That article also explains what focus means, what to do on a Mac laptop or in Safari, and how shortcuts are written. For the full list of shortcuts, including the keys for tables, images, links, and the list of doc tabs, see **[Claude Docs keyboard shortcuts](https://support.claude.com/en/articles/17458093)**.
+
+This section calls a doc's tabs doc tabs, so they aren't confused with the Tab key.
+
+### Open the list of keyboard shortcuts
+
+Claude Docs lists its own shortcuts. With focus anywhere inside a doc, press Cmd+/ (Ctrl+/ on Windows). It works while you're typing and in a doc you can only view. When focus isn't in a text box, ? on its own opens the list too. Escape closes it and puts you back where you were. From the panel's header, Cmd+/ (Ctrl+/ on Windows) opens the shortcut list for Claude itself, which doesn't cover artifacts.
+
+**Note:** On keyboards where / is typed with Shift+7, such as German, Italian, and Nordic layouts, Cmd+/ (Ctrl+/ on Windows) doesn't open the list: on those keyboards it's the numbered list shortcut. Press Escape to leave the text, and then press ?.
+
+### Move into and out of the text
+
+In a doc's text, Tab works the way it does in a word processor: it indents a list item, moves to the next table cell, or moves between the title and the body. It doesn't leave the text.
+
+To move into the text:
+
+1. Press Tab from the panel's header to reach the doc's toolbar. If you can only view or comment on the doc and the list of doc tabs is shown beside the text, the toolbar may have no buttons for you, and Tab then goes to that list.
+
+2. Keep pressing Tab. You pass the list of doc tabs, if it's shown beside the text, and the comments, if the doc has any, and then reach the text. How many presses it takes depends on what the doc contains.
+
+To leave the text:
+
+1. Press Escape. If the formatting toolbar or another pop-up is showing, this closes it.
+
+2. Press Escape again if you need to. Focus moves to the doc tabs button at the start of the doc's toolbar, which shows the name of the doc tab you're on. If the list of doc tabs is shown beside the text, the button just says "Tabs". In a doc you can only view or comment on, there's no button while the list is shown, and focus moves into the list instead: to the doc tab you're on, or to the row you were last on.
+
+3. Press Tab to go back toward the text (you pass the list of doc tabs, if it's shown beside the text and you aren't already in it, then the comments, if the doc has any), or keep pressing Escape to reach the artifact panel.
+
+### Format text
+
+The usual shortcuts work in the text, such as Cmd+B (Ctrl+B on Windows) for bold, and a screen reader announces the result. To use the formatting toolbar instead:
+
+1. Select some text.
+
+2. Press Cmd+F6 (Ctrl+F6 on Windows). Focus moves to the formatting toolbar.
+
+3. Press the Left arrow or Right arrow key to move between its buttons.
+
+4. Press Return or Space to use a button. To open a button's drop-down, such as text style or list type, press the Down arrow key.
+
+5. Press Escape or Tab to go back to the text. Your selection is kept.
+
+Focus stays in the toolbar after you use a formatting button, so you can apply more than one format. Tab from the text never reaches this toolbar.
+
+In a doc, move to the formatting toolbar with Cmd+F6 (Ctrl+F6 on Windows) before you use its buttons. If your screen reader's own cursor lands on the toolbar another way, some of its buttons, such as "Comment" and "Link," ask you to press the shortcut first.
+
+### Comment in a doc
+
+To add a comment:
+
+1. Select the text you want to comment on.
+
+2. Press Cmd+Option+M (Ctrl+Alt+M on Windows). The "Add a comment" box opens with focus in it.
+
+3. Type your comment. Shift+Return makes a new line, and @ mentions someone.
+
+4. Press Return to post. Focus moves to your new comment.
+
+Press Escape in the box to discard the draft and go back to the text with your selection kept. Where Claude is available in the doc, a "Send to Claude" checkbox comes before the send button. It starts selected, and after that it stays the way you last left it in that doc.
+
+To read the comments on a doc, press Escape to leave the text, and then press Tab until you reach them (if the list of doc tabs is shown beside the text, you pass it first).
+
+What you reach depends on how wide the panel is:
+
+- Beside a conversation, the panel is usually narrow, and comments show as icons in the margin. Each press of Tab moves to the next icon, and Return opens it. Comments also show as icons in a doc whose page width is set to Wide, and when the list of doc tabs beside the text leaves no room for them.
+
+- Otherwise, in a wider panel, comments sit beside the text, and Tab moves onto them once. Press the Down arrow or Up arrow key to move between them, and Return or Space to open one.
+
+In an open comment, Return moves into its reply field, and Escape closes it.
+
+---
+
 ## Share a doc
 
 Docs start private to you. Share a doc the way you share any artifact: open it and click "Share." Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
@@ -5068,7 +5086,7 @@ A few things are different for docs:
 
 - **Team and Enterprise plans:** Invite specific people or a group, or share with everyone in your organization. Docs can't be shared outside your organization yet.
 
-- **Pro and Max plans:** Share with anyone who has the link.
+- **Free, Pro, Max, and Ultra plans:** Share with anyone who has the link.
 
 Opening a shared doc requires a Claude account.
 
@@ -5114,9 +5132,9 @@ Owners turn Claude Docs on or off in **[Organization settings > Artifacts](https
 
 ## Known limitations
 
-Claude Docs is in beta. A few things to be aware of:
+A few things to be aware of:
 
-- **Version history:** Version history isn't available yet.
+- **Version history:** When the artifact panel is too narrow to show version history beside the text, version history opens over the text, and Tab from the doc's toolbar doesn't reach it yet.
 
 - **Access levels:** There's no comment-only access level.
 
@@ -5124,11 +5142,356 @@ Claude Docs is in beta. A few things to be aware of:
 
 - **External sharing:** On Team and Enterprise plans, docs can't be shared outside your organization, by link or by email invitation.
 
-- **Organization configurations:** Claude Docs isn't available yet for organizations using CMEK, ZDR, or a HIPAA-ready configuration.
-
 - **Compliance logging:** Activity inside a doc, like edits and comments, isn't recorded in the Compliance API yet.
 
-- **Mobile:** In the Claude app for iOS and Android, you can view docs, but you can't start from a template, edit, or change sharing settings.
+- **Mobile:** You can't change sharing settings in the Claude app for iOS and Android.
+
+- **VoiceOver and typing:** In Chrome versions 150 to 152, and in Claude Desktop, VoiceOver doesn't read text as you type or move through it in a doc. Use Chrome 153 or later. Safari works for docs too.
+---
+
+SOURCE: https://support.claude.com/en/articles/16951679-use-claude-in-google-docs-sheets-and-slides
+
+# Use Claude in Google Docs, Sheets, and Slides
+
+Claude for Google Workspace adds a Claude sidebar to Google Docs, Google Sheets, and Google Slides. Claude reads the file you have open and edits it directly, so you can draft, analyze, restructure, and restyle without copying content back and forth.
+
+Claude for Google Workspace is available in beta for Pro, Max, Ultra, Team, and Enterprise plans. You also need a Google account that is allowed to install Google Workspace Marketplace apps.
+
+With Claude for Google Workspace, you can:
+
+- Ask questions about the document, spreadsheet, or deck you have open and get answers that cite where they came from.
+
+- Have Claude make the edits for you, in place, with every change visible in version history.
+
+- Build spreadsheet models, write and fix formulas, and clean up data in Sheets.
+
+- Draft, rewrite, and restructure long documents in Docs.
+
+- Create new slides or tighten and restyle existing ones in Slides.
+
+- Use the connectors your organization has already set up in Claude, from inside the sidebar.
+
+This is different from the **[Google Workspace connectors](https://support.claude.com/en/articles/10166901)** in Claude, which let Claude search and reference your Drive, Gmail, and Calendar while you chat at claude.ai. The extension works the other way around: Claude comes to the file you’re already in.
+
+## Quick start
+
+If your organization already allows Marketplace apps, this takes about two minutes.
+
+1. Install Claude from the **[Google Workspace Marketplace listing](https://workspace.google.com/marketplace/app/claude/12459801340)** and click "Install.” If an admin has already installed it for you, skip this step.
+
+2. Open a Google Docs, Sheets, or Slides file and go to Extensions > Claude > “Open Claude":
+
+
+
+3. The first time, Google asks you to allow two permissions. Review them and click "Allow":
+
+  
+
+4. Sign in with your Claude account in the sidebar, and optionally enable your connectors.
+
+5. Then ask Claude something about the file. Try "Summarize this document in five bullets" or "What does column F calculate?"
+
+If the install button is greyed out or you see "This application is not allowed by your administrator,” your Google Workspace admin needs to allow or install Claude first. See **[Install for your organization](https://support.claude.com/en/articles/16951679-use-claude-in-google-docs-sheets-and-slides#h_2118c53c4b)** below.
+
+## Install Claude for Google Workspace
+
+There are two ways to install: for yourself, or for your whole organization. Which one you can use depends on your Google Workspace admin's Marketplace settings, not on your Claude plan.
+
+### Install for yourself
+
+1. Open the **[Claude listing](https://workspace.google.com/marketplace/app/claude/12459801340)** in the Google Workspace Marketplace.
+
+2. Click "Install,” choose the Google account you use for Docs, Sheets, and Slides, and click "Continue.”
+
+3. Review the permissions and click "Allow.”
+
+4. Reload any Docs, Sheets, or Slides files you already have open. Claude now appears under the Extensions menu in all three.
+
+One install covers Docs, Sheets, and Slides. You do not install three separate extensions.
+
+### Install for your organization
+
+Google Workspace super administrators can install Claude for everyone, or for specific groups or organizational units, so users don't have to install it themselves.
+
+1. Open the **[Claude listing](https://workspace.google.com/marketplace/app/claude/12459801340)** while signed in as a super admin.
+
+2. Click "Admin install,” then "Continue.”
+
+3. Choose "Everyone at your organization,” or "Certain groups or organizational units," and pick who should get Claude.
+
+4. Review the data access and terms, tick the agreement box, and click "Finish.”
+
+5. Ask users to reload any open files. Claude appears under **Extensions** without any action on their part.
+
+To remove Claude later, go to the Google Admin console, Apps, Google Workspace Marketplace apps, Apps list, select “Claude,” and click "Uninstall app.” Removal takes effect for all users the next time they reload a file.
+
+### If your organization blocks Marketplace apps
+
+Many organizations block Marketplace installs by default. An admin has two options in the Google Admin console under Apps, Google Workspace Marketplace apps, Settings:
+
+- **Allowlist Claude** so users can install it themselves: set Marketplace access to "Allow users to install and run only allowlisted apps,” then add Claude to the allowlist under Apps list, Allowlist app.
+
+- **Admin install it** using the steps above. Admin install works even while user installs are blocked.
+
+Users who try to install a blocked app see “This application is not allowed by your administrator.” That message comes from Google, not Claude, and only a Workspace admin can clear it.
+
+## What you can ask Claude to do
+
+Claude works best when you tell it the outcome you want and let it figure out the steps. You can select text, cells, or a slide first to point Claude at a specific part of the file.
+
+### In Google Docs
+
+- "Rewrite the executive summary so it leads with the recommendation and fits in one paragraph."
+
+- "This brief is 14 pages. Cut it to 6 without losing any of the numbered requirements."
+
+- "Turn the notes under 'Next steps' into a table with owner, action, and due date."
+
+- "Check this contract for defined terms that are used but never defined."
+
+- "Make every heading sentence case and fix the numbering in section 4."
+
+### In Google Sheets
+
+- "Walk me through how the total in H42 is calculated and flag anything hardcoded."
+
+- "Build a three-statement model on a new tab from the assumptions in 'Inputs'."
+
+- "Column D has dates in three different formats. Normalize them to YYYY-MM-DD."
+
+- "Find why the VLOOKUP in the Summary tab returns #N/A for some rows and fix it."
+
+- "Add a sensitivity table for price and volume, plus a chart of revenue by quarter."
+
+### In Google Slides
+
+- "Draft a five-slide project update from the bullet points in the speaker notes on slide 1."
+
+- "Slide 7 is a wall of text. Split it into two slides and keep the deck's styling."
+
+- "Make the titles across the deck parallel and under eight words each."
+
+- "Add a bar chart of the regional numbers on slide 4, matching the deck's colors."
+
+- "Restyle this deck to use the fonts and colors from the title slide."
+
+Claude can also answer questions without editing anything: "What changed between the Q2 and Q3 tabs?" or "Which slides mention pricing?"
+
+## How Claude works in your file
+
+### Claude reads the file you have open, and only that file
+
+When you send a message, Claude reads the relevant parts of the open file, plus whatever you have selected. Apart from content from any connectors you turn on, it cannot see other files in your Drive, your email, or your calendar. If you need Claude to use content from somewhere else, paste it into the chat or attach a file.
+
+### Edits happen in place, as you
+
+Claude makes changes directly in the document, spreadsheet, or deck. Google records them under your name, so they appear in File, Version history like any edit you make yourself. To undo something Claude did, use Undo for the last change or restore an earlier version from version history.
+
+## You choose how much Claude asks first
+
+The mode selector at the bottom of the sidebar has two settings:
+
+| **Mode**                   | **What happens**                                                                                                                                                                    |
+| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Ask before edits (default) | Claude shows you what it is about to do, in plain language, and waits for you to click “Allow.”                                                                                     |
+| Accept all edits           | Claude makes ordinary content edits without stopping. It still pauses for approval on anything that touches links, external images, web addresses, or someone's access to the file. |
+
+In Google Docs, you also prompt Claude to propose text changes as cards you accept or reject one at a time, similar to suggestions.
+
+### Some actions always need your approval, and some are never allowed
+
+Regardless of mode, Claude stops and asks before it inserts an image from a web address, adds a link, or removes anyone's access. These show a "Security review" label and there is no "always allow" option for them.
+
+Claude cannot share the file, give anyone access, or change who owns it. It also cannot create menus or scheduled automations, or load arbitrary web pages into your file. These requests are refused even if you ask.
+
+### What else is in the sidebar
+
+- **Model picker.** Choose the Claude model for the conversation.
+
+- **Connectors.** Connectors your organization has enabled in Claude appear in the + menu. Add new ones at claude.ai, not in the sidebar.
+
+- **Files and images.** Attach reference files (up to 20 per message, 30 MB per document, 10 MB per image) for Claude to read alongside the open file.
+
+- **Web search.** Toggle “Search the web” when you want Claude to look things up. Off by default.
+
+- **Chat history.** Conversations are saved per file in your browser and come back when you reopen Claude in that file. They do not sync across devices or browsers, and a copy of the file starts fresh.
+
+---
+
+## Current limitations
+
+Claude for Google Workspace is in beta. These are the limits people ask about most. Several are deliberate, because the permissions that would lift them would also widen what the extension can access.
+
+### All three apps
+
+- Works only in Google Docs, Sheets, and Slides files. Google doesn’t support extensions in Word, Excel, or PowerPoint files, even when you open them in Docs, Sheets, or Slides. To use Claude on one, convert it first (**File > Save as Google Docs**, **Save as Google Sheets**, or **Save as Google Slides**) and open Claude in the new file.
+
+- Works only on the file it’s opened in. Claude can’t open, create, or copy other files in Drive, and can’t export the file as a PDF or download.
+
+- Keep the sidebar open while Claude is working. Closing it stops the current task.
+
+- Use Chrome, Edge, or Safari. Firefox is not supported in this beta; the sidebar loads but actions do not complete.
+
+- Voice dictation is not available in the sidebar.
+
+- A single long operation can run for up to six minutes before Google stops it. For very large jobs, ask Claude to work in stages.
+
+- "Work across apps" (handing a task between Excel, Word, and PowerPoint) is a Microsoft 365 feature and is not available in Google Workspace.
+
+### Google Docs
+
+- Claude cannot read, reply to, or resolve comments. Paste a comment into the chat if you want Claude to act on it.
+
+- Claude cannot accept or reject existing suggestions, and its own edits land as direct edits, not suggestions. Use "Ask before edits" if you want to review each change first.
+
+- Claude cannot create, rename, or reorder document tabs. It can read and edit the content of every tab.
+
+### Google Sheets
+
+- Connected Sheets tabs (live BigQuery data) cannot be read or edited. Use Data, Data connectors, Extract to pull the rows into a regular tab first.
+
+- Claude cannot create triggers, custom menus, or scheduled refreshes.
+
+### Google Slides
+
+- Charts Claude creates are inserted as images, not linked Sheets charts, so they do not update when numbers change. Ask Claude to regenerate the chart instead.
+
+- Claude cannot refresh an existing linked chart. Click “Update” on the chart yourself after changing the source sheet.
+
+- Claude cannot insert images from a web address without your approval each time.
+
+---
+
+## Security, privacy, and admin controls
+
+Claude sees only the file you have open, plus any connectors you turn on, your content is handled under your existing Claude terms and is not used for training, and Google Workspace admins control who has the extension.
+
+### Permissions Claude asks Google for
+
+Claude requests two Google permissions, the minimum needed to show a sidebar and edit the file it is opened in. It does not request access to Drive, Gmail, Calendar, your contacts, or the ability to make network requests from your file.
+
+| **Permission Google shows you**                                                                       | **Why Claude needs it**                                                                                                  |
+| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| Display and run third-party web content in prompts and sidebars inside Google applications            | Shows the Claude sidebar inside Docs, Sheets, and Slides                                                                 |
+| View and manage documents, spreadsheets, or presentations that this application has been installed in | Lets Claude read and edit the one file you opened it in. Google enforces this: the extension cannot open any other file. |
+
+### How your data is handled
+
+- Content from the open file, your messages, and any files you attach are sent to Claude to generate a response. For Team and Enterprise plans, this is governed by your organization's Commercial Terms and Data Processing Addendum. For Pro, Max, and Ultra, it is governed by the Consumer Terms and Privacy Policy.
+
+- Anthropic does not use this content to train its models. Use of data received from Google Workspace APIs adheres to the **[Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy)**, including the Limited Use requirements.
+
+- Inputs and outputs are deleted from Anthropic's systems within 30 days, except as described in **[How long do you store my organization's data?](https://privacy.claude.com/en/articles/7996866-how-long-do-you-store-my-organization-s-data) The extension does not inherit custom data retention settings your organization may have set.**
+
+- Chat history is stored locally in your browser, per file and is not synced across devices. Clear it from Settings in the sidebar.
+
+- On Enterprise plans, sessions from the Google extension are available through the Compliance API, including prompts, responses, tool calls, and the edits Claude made.
+
+### Enterprise security controls
+
+How the standard Claude Enterprise controls apply to the Google Workspace extension today:
+
+- **Compliance API:** Supported on Enterprise plans. Sessions are captured and returned through the same endpoints and Compliance Access Keys as Claude for Microsoft 365, with prompts, responses, tool calls, and edits.
+
+- **Customer-managed encryption keys (CMEK):** Supported for Enterprise. Conversation data that Anthropic stores is encrypted under the customer’s key with no extra configuration.
+
+- **OpenTelemetry audit export:** Supported. If a Claude admin has configured a custom OpenTelemetry collector for Office agents in Organization settings, sessions from Docs, Sheets, and Slides send the full audit trail to it, including prompts and tool inputs and outputs.
+
+- **Third-party inference (Amazon Bedrock, Google Cloud Vertex AI, Azure AI Foundry, or an LLM gateway):** Not supported in this beta. The extension requires a Claude account sign-in. Claude for Microsoft 365 supports these platforms; the Google Workspace extension does not yet.
+
+- **Zero Data Retention (ZDR):** Not available. Standard retention applies as described above. Because third-party inference is not supported, there is no zero-retention deployment path for the extension today.
+
+- **HIPAA-ready organizations:** Not covered. Do not use the extension with protected health information.
+
+### Admin controls
+
+- **Google Workspace admins** decide who can install or use Claude through Marketplace allowlisting and admin install, scoped to the whole domain, groups, or organizational units. Uninstalling from the Admin console removes it for everyone.
+
+- **Claude admins** control which connectors, skills, and models are available to members. The sidebar inherits those settings from your Claude organization.
+
+- **Users sign in with their Claude account**, including SSO if your organization uses it. API keys and cloud-provider sign-in are not supported in the Google extension.
+
+### Prompt injection
+
+Files can contain instructions written by someone else, sometimes hidden in white text or tiny fonts. Claude treats document content as data rather than commands, labels hidden text it finds, and is designed not to follow a document's instruction to share the file, fetch a link, or contact anyone. You should still review Claude's proposed actions before approving them, especially in files you received from outside your organization.
+
+---
+
+## Troubleshooting
+
+### Claude doesn't appear in the Extensions menu
+
+Extensions only appear in files opened after the install, so if Claude isn’t appearing in the menu, reload the file. If it’s still missing, check that you are signed in to Google with the account Claude was installed for, then ask your Google Workspace admin to confirm Claude is installed or allowlisted for you.
+
+**Tip:** press Alt+/ (Option+/ on Mac) and type "Claude" to find the menu item quickly. If the file is a Word, Excel, or PowerPoint file, Claude won’t appear. Convert it first with **File > Save as Google Docs**, **Sheets**, or **Slides**.”
+
+### "This application is not allowed by your administrator"
+
+Your Google Workspace organization blocks Marketplace apps that are not allowlisted. This is a Google setting. Ask your Workspace admin to allowlist Claude or admin-install it. See If your organization blocks Marketplace apps.
+
+### "Claude for Google Workspace needs a Claude account"
+
+You previously signed in to a Claude add-in with an API key, Amazon Bedrock, Google Vertex AI, or a gateway. The Google extension supports Claude account sign-in only.
+
+### The sidebar opens but nothing happens when I send a message
+
+This can be caused by using Firefox or a browser with strict tracking protection that blocks the sidebar from talking to the document. Switch to Chrome, Edge, or Safari. If you are already on one of those, reload the file and reopen Claude.
+
+### Claude can’t read or change your file, or every action fails
+
+This usually happens when your browser is signed in to more than one Google account. Open the file in a browser window that’s signed in to only one Google account, such as a separate Chrome profile. Then reopen Claude from the **Extensions** menu.
+
+### "This document's Claude add-in script is out of date"
+
+Google is still serving an older version of the extension to this file. Reload the file and reopen Claude. If it persists for more than a few minutes, try again later.
+
+### "Exceeded maximum execution time" or a task stops partway
+
+Google limits a single extension operation to six minutes. Ask Claude to continue, or break the request into smaller steps, for example one tab or ten slides at a time.
+
+### Claude says it can't read a tab in Sheets
+
+The tab is a Connected Sheet backed by BigQuery. Use Data, Data connectors, Extract to copy the rows into a regular tab, then ask again.
+
+### My conversation disappeared
+
+Chat history is saved in your browser per file. It will not be there in a different browser, in a private window, after clearing site data, or in a copy of the file made with File, Make a copy.
+
+---
+
+## Frequently asked questions
+
+### Do I need to install Claude separately for Docs, Sheets, and Slides?
+
+No. One install from the Marketplace adds Claude to all three.
+
+### Can Claude see my other files in Google Drive
+
+Not by default. Google restricts the extension to the single file it is opened in. However, if you have the Google Drive MCP connected, Claude can use that to see other files. This is off by default.
+
+### Can other people in the file see my conversation with Claude?
+
+No. The conversation lives in your browser. Collaborators see Claude's edits in the file and in version history, attributed to you, but not your chat.
+
+### Does Claude keep working if I close the sidebar or the tab?
+
+No. Keep the sidebar open until Claude finishes. You can switch to other browser tabs while it works.
+
+### How do I undo something Claude did?
+
+Use Undo for the most recent change, or File, Version history, See version history to restore an earlier version. Every Claude edit is a normal edit in the file's history.
+
+### Which Claude models can I use?
+
+The same models available to your plan in Claude. Pick one from the model selector at the bottom of the sidebar.
+
+### Is this the same as Claude in Chrome or the Google Drive connector?
+
+No. Claude in Chrome works across web pages in your browser; the Google Workspace connectors let Claude search your Drive, Gmail, and Calendar from claude.ai. This extension puts Claude inside a specific Docs, Sheets, or Slides file and lets it edit that file.
+
+### I use Microsoft 365 as well. Is there an equivalent?
+
+Yes. See **[Claude for Microsoft 365](https://claude.com/claude-for-microsoft-365)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/16952186-use-salesforce-in-claude
@@ -5182,6 +5545,864 @@ To review and approve changes to Salesforce:
 2. Review the proposed change.
 
 3. Select "Allow once," "Always allow," or "Deny."
+---
+
+SOURCE: https://support.claude.com/en/articles/17203415-set-up-claude-for-intune
+
+# Set up Claude for Intune
+
+Claude for Intune is a managed version of Claude for iOS for organizations that use Microsoft Intune. This article explains how Intune admins add Claude for Intune in the Microsoft Intune admin center and which app to tell employees to install.
+
+## What is Claude for Intune?
+
+Claude for Intune is built for organizations that manage mobile devices with Microsoft Intune, including organizations that let employees work from personal iPhones and iPads.
+
+- Claude for Intune is a separate app from the standard Claude app. Both are listed on the App Store.
+
+- IT teams can apply Intune app-protection policies to Claude for Intune on company-owned and employee-owned iPhones and iPads.
+
+- It signs in with Microsoft only.
+
+- It supports Intune app-protection policies and Microsoft Entra Conditional Access.
+
+## Requirements
+
+Before you set up Claude for Intune, check that you meet these requirements:
+
+- You have an Enterprise plan.
+
+- Your organization uses Microsoft Intune, and you have access to the Microsoft Intune admin center.
+
+- Employees sign in to Claude for Intune with Microsoft. Other sign-in methods aren't available in Claude for Intune.
+
+- You’re using iOS or iPadOS version 18.0 or later.
+
+- Anthropic has enabled Microsoft sign-in for your organization's email domains.
+
+- If you use Conditional Access, Claude for Intune is registered in your Microsoft Entra tenant.
+
+- An admin in your Microsoft Entra tenant has granted admin consent for Claude for Intune. This is required for every organization.
+
+## Get your organization ready
+
+### 1. Ask Anthropic to enable Microsoft sign-in
+
+Before employees can sign in to Claude for Intune, Anthropic needs to enable Microsoft sign-in for your organization's email domains. Contact your Anthropic account team or support, and tell them which email domains your employees use to sign in.
+
+### 2. Register Claude for Intune in your Entra tenant
+
+Before employees can sign in, an admin in your Microsoft Entra tenant needs to grant admin consent for Claude for Intune. This is required for every organization. It approves the permission Claude for Intune uses to work with Microsoft Intune app protection, and it registers the app in your tenant so you can select it in a Conditional Access policy.
+
+**Grant admin consent.** A tenant admin opens the following URL, replacing {organization} with your tenant ID or domain: `https://login.microsoftonline.com/{organization}/adminconsent?client_id=bb747f0e-002b-4882-9960-916fe00a2b90`
+
+To confirm it worked, in the Microsoft Entra admin center go to Enterprise applications, open "Claude for Intune (Public)", and select Permissions. "Microsoft Mobile Application Management" should be listed on the "Admin consent" tab. If it isn't, select "Grant admin consent" on that page.
+
+**Note:** Employees signing in to Claude for Intune with "Continue with Microsoft" does not grant this consent; an Entra admin has to grant it.
+
+If employees are signed out within a few seconds of signing in, this step has most likely not been completed. After granting admin consent, ask them to delete Claude for Intune, reinstall it, and sign in again.
+
+To require app protection at sign-in, target the Conditional Access rule at "All resources" with Grant = Require app protection policy. A rule that names only Office 365 or Claude SSO does not cover Claude for Intune. Microsoft Authenticator must be installed on the device.
+
+## Add Claude for Intune in the Microsoft Intune admin center
+
+### 1. Install Claude for Intune on employees’ devices
+
+How employees get Claude for Intune depends on how their iPhone or iPad is managed:
+
+- **Personal devices not enrolled in Intune (app protection only):** You don’t need to add or assign the app in Intune. Employees install Claude for Intune from the App Store (it appears there as "**[Claude Intune](https://apps.apple.com/us/app/claude-intune/id6812855318)**") and sign in with "Continue with Microsoft." Your app-protection policy (step 2) applies after they sign in.
+
+  - Optional: to also list it in Company Portal, add it as an iOS store app and assign the user group as "Available with or without enrollment."
+
+- **Devices enrolled with Apple User Enrollment:** Employees install Claude for Intune from the App Store themselves. Intune can’t install an app added as an "iOS store app" on these devices, and Company Portal shows "This device needs to be managed before you can install apps."
+
+- **Company-owned devices enrolled in Intune:** Add Claude for Intune as an iOS store app and assign it to a user or device group using the steps below. Employees install it from Company Portal, or you can make the assignment Required to push it to their devices.
+
+To add Claude for Intune for enrolled company-owned devices:
+
+1. In the Microsoft Intune admin center, select "Apps" from the left side navigation panel:
+
+
+
+2. Under Platforms, select "iOS/iPadOS":
+
+
+
+3. Click "+ Create." For the App type, select the "iOS store app," and click the "Select" button on the bottom:
+
+
+
+4. Search "Claude for Intune" and click the "Select" button on the bottom.
+
+5. In **App Information**, set **Minimum operating system** to iOS 18, then click the "Next" button:
+
+
+
+6. For **Assignments**, add the groups that should get the app: under Required to install it automatically, or under Available for enrolled devices so employees can install it from Company Portal. You can use user groups or device groups.
+
+
+
+7. Click "Next," review and create.
+
+8. If you assigned the app as Required, it installs automatically; if Available, employees install it from Company Portal.
+
+### 2. Apply an app-protection policy to Claude for Intune
+
+1. In the Microsoft Intune admin center, select "Apps" from the left side navigation panel:
+
+
+
+2. Under **Manage apps**, select "Protection":
+
+
+
+3. Click "+ Create" and then select "iOS/iPadOS":
+
+
+
+4. Enter Name in the **Basics** tab, then click "Next" to **Apps**. Set **Target policy to** "Selected apps." Click "+ Select custom apps":
+
+
+
+5. Type in the bundle ID `com.anthropic.claudeforintune`. Select it so it appears under **Selected Apps** before clicking "Select":
+
+
+
+6. In Apps, confirm the bundle ID now appears under **Custom apps** before clicking "Next":
+
+
+
+7. Configure the Data protection, Access requirements, and Conditional launch settings as needed.
+
+8. In the **Assignments** tab, assign the policy to a user group that includes everyone who will use Claude for Intune—app-protection policies can only target user groups, not device groups. Make sure it also applies to unmanaged devices: don't limit it to Intune-managed devices with the device-type setting or an assignment filter, or employees on personal phones get signed out right after signing in*.*
+
+9. Review and create.
+
+10. The app only becomes "managed" after the user signs in with org credentials post-install (may require a restart).
+
+## Tell employees which app to install
+
+Claude for Intune and the standard Claude app are separate apps. Your Intune app-protection policies apply to Claude for Intune.
+
+Wherever your organization requires Intune protection, tell employees on managed or employee-owned iPhones and iPads to install **[Claude for Intune](https://apps.apple.com/us/app/claude-intune/id6812855318)**, not the standard Claude app.
+
+## Before Microsoft lists Claude for Intune as a protected app
+
+Claude for Intune doesn't yet appear in Microsoft's list of protected apps, so you can't search for it when you create an app-protection policy. Until it's listed, add it to your policy by entering its bundle ID manually:
+
+1. Follow the steps in **[Apply an app-protection policy to Claude for Intune](#h_5fda0300e8).**
+
+2. When you select apps, choose "Select custom apps" and enter the bundle ID `com.anthropic.claudeforintune`.
+
+After Microsoft adds Claude for Intune to its protected apps list, you'll select it from the list of public apps instead of using "Select custom apps."
+---
+
+SOURCE: https://support.claude.com/en/articles/17440474-move-from-standalone-claude-design-to-claude
+
+# Move from standalone Claude Design to Claude
+
+Claude Design now lives in Claude. The standalone Claude Design site (claude.ai/design) will close on December 14, 2026, and you can still access it until that date. This article explains what's changing and when, how to move your design systems today, and what happens to your projects.
+
+Claude Design is available on Free, Pro, Max, Ultra, Team, and Enterprise plans.
+
+## What's changing and when
+
+You can keep using the standalone version until it closes on December 14, 2026. After that, it's read-only, and you can't start new projects there.
+
+When you start a new design, design system, or slide deck in Claude, it's created as an artifact.
+
+## What happens to your work
+
+When you move a design system, the original stays in the standalone version. Your chats and comments can't move to Claude, so they stay in the standalone version until it closes.
+
+**Important:** Design systems that have already moved become read-only for everyone in the standalone version as soon as Move to Claude is available to your organization. If you've kept editing one there, those changes didn't move, so make them again in Claude.
+
+## What you need to do
+
+- Move your design systems now.
+
+- On Team and Enterprise plans, ask your organization's owner to set a default design system to get the most out of artifacts.
+
+- Moving projects to Claude is rolling out gradually to paid plans. Once you can, move the projects you want to keep. See What happens to your projects.
+
+- If you're a Team or Enterprise owner, check that artifacts and design systems are turned on. On Enterprise plans, design systems are off by default.
+
+---
+
+## Move your design systems
+
+**Note:** Once **Move to Claude** is available to your organization, design systems no longer have their own move. They move the same way as projects. Each design system's owner can move it, or an owner of your organization can move everything at once. See **[What happens to your projects](https://support.claude.com/en/articles/17440474-move-from-standalone-claude-design-to-claude#h_1d425b60a1)**.
+
+### Before you start
+
+- One move brings over every design system in your organization, including other people's, so it only needs to be started once.
+
+- Anyone who can use Claude Design can start it, not just your organization's owners.
+
+- Each design system keeps its owner and the people it's shared with. If the owner has left your organization, the Primary Owner becomes its owner.
+
+- Empty design systems aren't moved, and neither are ones made from a built-in starter theme, even if you've edited them.
+
+**Important:** Published design systems that aren't private will be shared with everyone in your organization and appear in their design system menu. On individual plans, nothing is shared.
+
+### Start the move
+
+1. Open the **Artifacts** page in Claude.
+
+2. Click "Move team design systems" in the "Claude Design lives here now" banner. If you've closed the banner, choose it from the Claude Design menu. To open the menu, click the "…" button on the Design tile under "Make something new." If there's no Design tile, click the "…" button at the top right of the page.
+
+3. Click "Move" to confirm. On individual plans, there's no confirmation step, and the move starts right away.
+
+4. Wait for the move to finish. If you close the window, it keeps running.
+
+5. Check the results. Under Moved, the window lists each design system with its owner's name and an "Open" link. You'll see only the design systems you have access to, unless you're an owner of your organization.
+
+## After the move
+
+Your moved design systems appear in the design system menu when you make designs and slide decks in Claude. To see them all, choose "View design systems" from the Claude Design menu on the Artifacts page. The list opens in Settings.
+
+Owners can set your organization's default design system here. Open a design system's menu and choose "Set as default." Click a design system's name to open it.
+
+A moved design system keeps its files as they were, and you can't edit it yourself on its page yet. Its editors see a note at the top saying that it was moved and that they can ask Claude to make changes.
+
+Learn more about **[getting started with Claude Design](https://support.claude.com/en/articles/14604416-get-started-with-claude-design)**.
+
+### If a design system can't move
+
+The window lists it under **Didn't move**, with its name, owner, and a short reason, such as "it's too large."
+
+To reopen the results later, click the count in the banner on the Artifacts page, such as "6 of your 11 design systems couldn't move."
+
+Anyone who can edit the design system can fix problems with its own files or size. If you can't edit it, you won't be able to run the check, so ask its owner, who's named in the row.
+
+**To fix a design system:**
+
+1. Click "Fix in Claude Design Standalone" in its row.
+
+2. Click "Check" on the **Check whether this design system can move to Claude** card.
+
+3. Fix the files the check lists, using the table below.
+
+4. Click "Check again" until it says "Nothing found in the way."
+
+5. Move again from the **Artifacts** page in Claude.
+
+| **What the check says**              | **What to do**                    |
+| ------------------------------------ | --------------------------------- |
+| Too large for an artifact            | Shrink or remove them             |
+| With a name an artifact can't use    | Rename them                       |
+| A kind an artifact can't hold        | Convert or remove them            |
+| Can't go in a design system artifact | Remove them                       |
+| Can't be opened                      | Save them again, or remove them   |
+| With characters that can't be read   | Fix or remove them                |
+| Contents missing                     | Upload them again, or remove them |
+
+If the whole design system is too large, the card says "It's too large. Make it smaller." instead of listing files. Remove files you don't need, then check again.
+
+**Note:** The `uploads` folder often contains duplicate files, so it's an easy place to start trimming down a design system.
+
+Some reasons need your organization's owner to fix them: "design systems are turned off for your team," "your team can't publish artifacts," or "its owner's role doesn't include design systems." The first two stop the move, and any design systems it hadn't started are listed under **Not started**. Once they're fixed, move again.
+
+Sometimes the card says "Can't move this design system" without saying why. If this happens, click "Download design system" to keep a copy of its files. You can click "Check again" later, and if it still can't move, let us know. See **[Get help](https://support.claude.com/en/articles/17440474-move-from-standalone-claude-design-to-claude#h_5acf964297)**.
+
+### Move again
+
+**Note:** Once **Move to Claude** is available to your organization, this section no longer applies. A later move doesn't update a design system that has already moved. To replace it with a fresh copy, its owner deletes it in Claude, then moves it again from the standalone version.
+
+To move new, changed, or fixed design systems, choose "Move again" from the Claude Design menu on the Artifacts page. To reopen your last results, choose "View last move," just below it.
+
+**When you move again:**
+
+| **If the design system is**                                   | **What happens**                                                                                                  |
+| ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| New, or changed in the standalone version since the last move | It's moved                                                                                                        |
+| Unchanged in both places                                      | It's left alone and marked "already moved"                                                                        |
+| Changed in Claude since it was moved                          | It's listed under Skipped as "changed on claude.ai, left as they are," so your edits in Claude aren't overwritten |
+
+To replace a moved design system with a fresh copy, delete it in Claude, then move again. To keep any changes you've made to it, duplicate it first.
+
+## What happens to your projects
+
+Until they're moved, your projects stay in the standalone version and keep working until it closes. The **Artifacts** page in Claude also lists up to 60 of them, and they open in the standalone version.
+
+Moving a project to Claude, where it becomes an artifact, is rolling out gradually to paid plans.
+
+- On Team and Enterprise plans, artifacts also need to be on for your organization. On Enterprise plans with custom roles, your role needs them too.
+
+- Organizations with customer-managed encryption keys (CMEK) can move one project at a time, but can't yet move lists of projects, design systems, or everything at once. Standalone Claude Design doesn't support CMEK, so its data won't be encrypted under your key until you move. Once a project moves to Claude, it's encrypted under your key.
+
+- Organizations with the HIPAA-ready configuration can't move projects right now.
+
+- Organizations with zero data retention (ZDR) can't move projects, so download your projects before the standalone version closes.
+
+To move a project:
+
+1. Open the project in the standalone version at claude.ai/design. Only the project's owner can move it.
+
+2. Start the review from the pop-up or from the banner at the top of the project.
+
+3. Read the review. It lists what moves, anything that will work differently, and what stays behind. You can also download a copy as a .zip file. Then confirm the move.
+
+4. Keep the tab open until the move finishes.
+
+5. Open the project in Claude. It's now an artifact on the Artifacts page.
+
+After the move, the copy in the standalone version is read-only for everyone, and this can't be undone. Your chats and comments stay in that copy, where you can read them until the standalone version closes. Sharing carries over where Claude supports it.
+
+You can also move all of your own projects at once, or only the ones you choose. On Team and Enterprise plans, your organization's owners can move everyone's projects at once with "Move everything."
+
+"Move everything" is on the Artifacts page in Claude, and it moves templates and design systems too. Only an Owner or the Primary Owner can start it, not an Admin.
+
+Most projects keep their owner, and private projects stay private. If a project's owner has left your organization, it goes to an owner of your organization, usually the Primary Owner, and Claude shows that person a list called "Projects moved to you." Anything that can't move stays in the standalone version, and the results say why. As with any move, the standalone copies of moved projects become read-only for everyone.
+
+**Important:** If your organization has a retention period that covers artifacts, a project or design system that moves, or has already moved, to Claude can be permanently deleted if nobody opens it for that period. The period starts on the day of the move and restarts when someone opens or edits the artifact. Learn more in **[Configure custom data retention controls for Enterprise plans](https://support.claude.com/en/articles/10440198)**.
+
+## What isn't carried over
+
+These stay in the standalone version and are deleted some time after it closes, per our **[data retention practices](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**:
+
+- Your chats with Claude
+
+- Comments on your projects and design systems
+
+Public links to projects in the standalone version will no longer work after it closes.
+
+**Important:** Save anything you need from your chats and comments before the standalone version closes.
+
+---
+
+## For Team and Enterprise owners
+
+Claude Design in Claude depends on artifacts. If artifacts are off for your organization, people can't create designs in Claude or move anything, and they won't see the "Claude Design lives here now" banner.
+
+To check your settings, navigate to **[Organization settings](https://claude.ai/admin-settings/artifacts)**[> **Artifacts**](https://claude.ai/admin-settings/artifacts):
+
+| **Setting**                                    | **What it's for**                              | **Default**                                 |
+| ---------------------------------------------- | ---------------------------------------------- | ------------------------------------------- |
+| **Artifacts**                                  | Everything below depends on it                 | On                                          |
+| **Design systems**, under **Templates**        | Moving design systems and creating new ones    | On for Team plans, off for Enterprise plans |
+| **Design** and **Slides**, under **Templates** | Creating new designs and slide decks in Claude | On                                          |
+
+On Enterprise plans with custom roles, each role also needs these permissions, which the role editor lists under **Artifacts**. This lets you turn on artifacts for just the people who use Claude Design. A design system can't move if its owner's role doesn't include design systems.
+
+While **Design systems** is off, owners who click "Move team design systems" see "Design systems are off for your organization" and an "Open Organization settings" button. Everyone else sees the button grayed out, with the reason "Design systems are turned off in your organization's Artifacts settings."
+
+If your organization's default design system moves, it becomes the default in Claude too, unless you've already set one there.
+
+Organizations with zero data retention (ZDR) can't turn on artifacts, so they can't move. If that's your organization, download your projects before the standalone version closes. See **[Can I download all my projects?](https://support.claude.com/en/articles/17440474-move-from-standalone-claude-design-to-claude#h_a676b76d76)**
+
+---
+
+## Frequently asked questions
+
+### What happens to my originals after the standalone version closes?
+
+Your originals stay in the standalone version, and moved ones are read-only. After it closes on December 14, 2026, the rest become read-only too, with one exception. The owner of a project that hasn't moved can still change its files, so they can fix it and move it to Claude. Originals are deleted some time later, per our **[data retention practices](https://privacy.claude.com/en/articles/10023548-how-long-do-you-store-my-data)**.
+
+### What if the owner of a design system or project has left my organization?
+
+When it moves to Claude, your organization's Primary Owner becomes its owner.
+
+### Can I download all my projects?
+
+A download of all the projects you own is rolling out together with **Move to Claude**. Once you have it, you'll find it on the home page of the standalone version. It includes your files, not your chats or comments. It isn't available to organizations with the HIPAA-ready configuration. If you don't have it, you can download your projects one at a time:
+
+1. Open the project in the standalone version.
+
+2. Click "Share," then choose "Project HTML." For a slide deck, it's under "More formats and apps."
+
+3. Keep "Project archive" selected and click "Export."
+
+You get a .zip file with every file in the project. It's free and doesn't count toward your usage limits.
+
+## Get help
+
+If something didn't come over right, your original is still in the standalone version. Please let us know if your design system can't move and there's no way for you to fix it. Learn more about **[how to get support](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+---
+
+SOURCE: https://support.claude.com/en/articles/17444146-claude-haiku-4-5-was-removed-from-the-model-selector
+
+# Claude Haiku 4.5 was removed from the model selector
+
+On October 29, 2026, we removed Claude Haiku 4.5 from the model selector in chat, Claude Cowork, and Claude Design on the Free, Pro, and Max plans, including in Claude Desktop and Claude Mobile. Claude Haiku 5.5 replaced it. This article explains what changed, where Haiku 4.5 is still available, and what happened to your existing chats.
+
+## What changed and when
+
+We announced this change on October 15, 2026. As of October 29, 2026, you can no longer select Haiku 4.5 under “More models” in the model selector. If it was your selected model, Claude switched you to Haiku 5.5.
+
+## Where Haiku 4.5 is still available
+
+This change didn't affect Haiku 4.5 in:
+
+- Claude Code
+
+- Team and Enterprise plans
+
+- Claude Platform (API)
+
+## What happened to your existing chats
+
+Your Haiku 4.5 chats are still in your account, and nothing was deleted. When you continue one after October 29, Claude responds using Haiku 5.5. You can switch to a different model at any time.
+
+To keep a copy of your chats, you can export your data at any time. Learn more about **[exporting your Claude data](https://support.claude.com/en/articles/9450526)**.
+
+## Switch models in a chat
+
+You can change the model at any point in a chat. The change applies starting with Claude’s next response.
+
+1. Click the model name next to the send button.
+
+2. Choose a model, or click “More models” to see additional options.
+
+Learn more about **[changing the model, effort, and thinking settings](https://support.claude.com/en/articles/8664678)**.
+---
+
+SOURCE: https://support.claude.com/en/articles/17454997-get-started-with-claude-motion
+
+# Get started with Claude Motion
+
+Claude Motion turns your content into short animations, like an explainer for an all-hands, an animated chart for a board deck, or a product walkthrough for customer onboarding. This guide covers creating an animation, editing it, and exporting or sharing it.
+
+Claude Motion is available in beta on Team and Enterprise plans. It's on by default on Team plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
+
+## How Claude Motion works
+
+An animation is an artifact made from the Motion template. Claude builds it from your prompt as code that animates the text, charts, shapes, and images in it, and it plays like a short video.
+
+Claude Motion doesn't use a video generation model, so it doesn't create realistic footage or people. Because each animation is code, you can change one detail, like a word, a number, or the timing, and the rest stays as it was.
+
+Every animation you create is saved in the **Artifacts** tab. Learn more about **[artifacts and how to use them](https://support.claude.com/en/articles/17153992)**.
+
+## Create an animation
+
+### From a chat
+
+Ask Claude for an animation in any chat. For example:
+
+- "Turn this quarterly report into a 30-second explainer for our all-hands."
+
+- "Animate how our pricing plans compare, for the sales kickoff."
+
+- "Make a short walkthrough of the setup steps for new customers."
+
+You can also select "Output" in the message box and choose "Motion."
+
+### From the Artifacts tab
+
+1. Go to the **Artifacts** tab.
+
+2. Select a Motion template.
+
+3. Describe the animation you want.
+
+### Tips for better results
+
+Say who will watch it, where it will play, and roughly how long it should be. Attach the report, data, or images you want Claude to use, so the animation is built from your own content.
+
+## Edit your animation
+
+- **Ask Claude:** Ask for changes in the chat, like "Slow down the second scene" or "Change the Q3 number to 18%."
+
+- **Edit directly:** Adjust the animation yourself in the editor.
+
+## Export and share
+
+To download an animation, click "Export" and choose MP4. Animations start private to you. To share one, open it and click "Share." Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
+
+## Usage
+
+Claude Motion counts toward your plan's usage limits, like the rest of your work with Claude. Longer or more complex animations use more of your limit than a typical message. Learn more about **[how usage and length limits work](https://support.claude.com/en/articles/11647753)**.
+
+## Turn on Claude Motion for your organization
+
+This section is for Owners and Primary Owners on Team and Enterprise plans.
+
+Owners turn Claude Motion on or off in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. It's on by default on Team plans and off by default on Enterprise plans. On Enterprise plans, owners can also limit it to specific groups with custom roles. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
+---
+
+SOURCE: https://support.claude.com/en/articles/17458093-claude-docs-keyboard-shortcuts
+
+# Claude Docs keyboard shortcuts
+
+This article lists every keyboard shortcut in Claude Docs, along with the keys that work in tables, images, links, and the list of doc tabs. For step-by-step instructions, see "Use Claude Docs with a keyboard" in **[Get started with Claude Docs](https://support.claude.com/en/articles/16923645-get-started-with-claude-docs#h_3762015b90)**. To get into and out of the artifact panel, see **[Use artifacts with a keyboard or screen reader](https://support.claude.com/en/articles/17457950)**, which also explains what focus means, what to do on a Mac laptop or in Safari, and how the tables show keys.
+
+Claude Docs is available on Free, Pro, Max, Ultra, Team, and Enterprise plans. It's on by default for all except Enterprise plans. On Enterprise plans, it turns on by default on October 15, 2026, and owners can turn it on before then in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
+
+This article calls a doc's tabs doc tabs, so they aren't confused with the Tab key. Shortcuts are written for Mac first, with the Windows keys in parentheses. Return is the key labeled Enter on Windows keyboards.
+
+---
+
+## Shortcuts anywhere in a doc
+
+These tables are taken from the shortcut list in Claude Docs itself. To open that list, press Cmd+/ (Ctrl+/ on Windows) with focus anywhere inside a doc.
+
+| **Action**                                                                      | **Mac**                   | **Windows**             |
+| ------------------------------------------------------------------------------- | ------------------------- | ----------------------- |
+| Open the keyboard shortcuts list                                                | Cmd+/, or ?               | Ctrl+/, or ?            |
+| Leave the text                                                                  | Escape                    | Escape                  |
+| Undo                                                                            | Cmd+Z                     | Ctrl+Z                  |
+| Redo                                                                            | Cmd+Shift+Z or Cmd+Y      | Ctrl+Shift+Z or Ctrl+Y  |
+| Select all                                                                      | Cmd+A                     | Ctrl+A                  |
+| Move between the title and the body                                             | Tab or Shift+Tab          | Tab or Shift+Tab        |
+| Move to the formatting toolbar, or to the actions of the block the cursor is in | F6, Cmd+F6, or Option+F10 | F6, Ctrl+F6, or Alt+F10 |
+
+---
+
+## Text
+
+| **Action**                                                  | **Mac**                    | **Windows**                  |
+| ----------------------------------------------------------- | -------------------------- | ---------------------------- |
+| Bold                                                        | Cmd+B                      | Ctrl+B                       |
+| Italic                                                      | Cmd+I                      | Ctrl+I                       |
+| Underline                                                   | Cmd+U                      | Ctrl+U                       |
+| Strikethrough                                               | Cmd+Shift+S or Cmd+Shift+X | Ctrl+Shift+S or Ctrl+Shift+X |
+| Code                                                        | Cmd+E                      | Ctrl+E                       |
+| Link                                                        | Cmd+K                      | Ctrl+K                       |
+| Open the link                                               | Option+Return              | Alt+Enter                    |
+| Open a mentioned doc tab or doc (with the mention selected) | Option+Return              | Alt+Enter                    |
+
+---
+
+## Blocks
+
+| **Action**                                                                                          | **Mac**                      | **Windows**              |
+| --------------------------------------------------------------------------------------------------- | ---------------------------- | ------------------------ |
+| Normal text                                                                                         | Cmd+Option+0                 | Ctrl+Alt+0               |
+| Heading 1 to heading 6                                                                              | Cmd+Option+1 to Cmd+Option+6 | Ctrl+Alt+1 to Ctrl+Alt+6 |
+| Collapse or expand the heading's section (with the cursor in a heading that has something under it) | Cmd+Option+Return            | Ctrl+Alt+Enter           |
+| Numbered list                                                                                       | Cmd+Shift+7                  | Ctrl+Shift+7             |
+| Bulleted list                                                                                       | Cmd+Shift+8                  | Ctrl+Shift+8             |
+| Checklist                                                                                           | Cmd+Shift+9                  | Ctrl+Shift+9             |
+| Check or uncheck the item (on a checklist line)                                                     | Cmd+Return                   | Ctrl+Enter               |
+| Quote                                                                                               | Cmd+Shift+B                  | Ctrl+Shift+B             |
+| Code block                                                                                          | Cmd+Option+C                 | Ctrl+Alt+C               |
+| New line in the same block                                                                          | Shift+Return                 | Shift+Enter              |
+| Indent (on a list line)                                                                             | Tab or Cmd+]                 | Tab or Ctrl+]            |
+| Outdent (on a list line)                                                                            | Shift+Tab or Cmd+[           | Shift+Tab or Ctrl+[      |
+| Next cell, previous cell (in a table)                                                               | Tab, Shift+Tab               | Tab, Shift+Tab           |
+| Repeat the last table action (in a table)                                                           | Cmd+Y                        | Ctrl+Y                   |
+| Move into the selected object's controls (in a doc you can edit)                                    | Return                       | Enter                    |
+| Delete the placeholder (with a placeholder selected)                                                | Backspace                    | Backspace                |
+| New line below the placeholder (with a placeholder selected)                                        | Return                       | Enter                    |
+
+A placeholder is a section Claude hasn't written yet in a doc it's still filling in. It appears as a line of text in square brackets, or as an ellipsis (…) if it has no text yet.
+
+---
+
+## Insert
+
+| **Action**                                                      | **Key** |
+| --------------------------------------------------------------- | ------- |
+| Insert a block, such as a table, code block, checklist, or date | /       |
+| Mention a person, a date, a doc tab, or another doc             | @       |
+| Insert an emoji by name                                         | :       |
+
+---
+
+## Comments
+
+The comments beside the text come right before the text: press Escape to leave the text, and then press Tab until you reach them.
+
+| **Action**                                                                                    | **Mac**               | **Windows**          |
+| --------------------------------------------------------------------------------------------- | --------------------- | -------------------- |
+| Comment on the selection, or open the comment at the cursor                                   | Cmd+Option+M          | Ctrl+Alt+M           |
+| Open the comment (with focus on a comment beside the text)                                    | Return or Space       | Enter or Space       |
+| Close the comment                                                                             | Escape                | Escape               |
+| Next comment, previous comment (with focus on a comment beside the text)                      | Down arrow, Up arrow  | Down arrow, Up arrow |
+| Hide or show comments (with focus on one of the doc's own controls, for example after Escape) | Option+Shift+C        | Alt+Shift+C          |
+| Post the comment (in a comment box)                                                           | Return, or Cmd+Return | Enter, or Ctrl+Enter |
+| New line (in a comment box)                                                                   | Shift+Return          | Shift+Enter          |
+| Mention someone (in a comment box)                                                            | @                     | @                    |
+| Discard the draft or leave the box                                                            | Escape                | Escape               |
+
+---
+
+## The list of doc tabs
+
+To open the list of doc tabs, press Escape to leave the text, and then press Return on the doc tabs button. If focus isn't already on a doc tab, press Tab until you reach the list. If the list of doc tabs is shown beside the text, the doc tabs button doesn't open it; see the paragraph after this table.
+
+| **Action**                                                                                              | **Key**                   |
+| ------------------------------------------------------------------------------------------------------- | ------------------------- |
+| Next or previous doc tab, or heading                                                                    | Down arrow or Up arrow    |
+| First or last item in the list                                                                          | Home or End               |
+| Show or hide the rows under a doc tab: its subtabs, and any headings listed under the doc tab you're on | Right arrow or Left arrow |
+| Open the doc tab and move into it, or move to a heading in the text                                     | Return or Space           |
+| Close the list                                                                                          | Escape                    |
+
+If the list of doc tabs is shown beside the text, the doc tabs button doesn't open it. Press Tab from the doc's toolbar to reach it. In a doc you can only view or comment on, Escape from the text goes straight to the list, and if the toolbar has no buttons for you, Tab from the panel's header reaches it too. With a screen reader, it's the "Tabs" landmark. In it, the Down arrow and Up arrow keys move between rows, and Home and End go to the first and last. Return or Space opens a doc tab, and focus stays in the list. The Right arrow key shows what's under a row (its subtabs, and on the doc tab you're on, its headings, if it has two or more), and the Left arrow key hides it again. Return or Space on a heading moves you to it in the text. In a doc you can edit, F2 renames a doc tab. Shift+F10 (Fn+Shift+F10 on a Mac laptop) opens a doc tab's menu.
+
+---
+
+## Keys inside the toolbars and menus
+
+In the formatting toolbar, which you reach with Cmd+F6 (Ctrl+F6 on Windows) after selecting text: the Left arrow and Right arrow keys move between buttons, Home and End move to the first and last, Return or Space uses a button, the Down arrow key opens a button's drop-down, and Escape or Tab goes back to the text.
+
+In the doc's toolbar above the text, where Escape from the text usually lands (on the doc tabs button, at the start of the toolbar): the Left arrow and Right arrow keys move between buttons, Home and End move to the first and last, and Return uses a button.
+
+In the insert menu (/), the mention list (@), and the emoji list (:): keep typing to filter, press the Down arrow and Up arrow keys to move, Return or Tab to choose, and Escape to dismiss.
+
+---
+
+## Tables, images, videos, and links
+
+In a table, pressing Tab in the last cell adds a row, and Cmd+Z (Ctrl+Z on Windows) removes it again. With nothing selected, Cmd+F6 (Ctrl+F6 on Windows) from a cell moves to the table's "More actions" button, where Return opens a menu for commenting on, reacting to, or deleting the table.
+
+To add or delete a row or column, press Shift+F10 in a table cell (Fn+Shift+F10 on a Mac laptop). On a Windows keyboard that has a Menu key, that key does the same. A menu opens with focus on its first item. With a screen reader, you hear "Cell actions."
+
+Press the Down arrow and Up arrow keys to move, Return or Space to choose, and Escape or Tab to go back to the cell. After you insert a row or column from this menu, Cmd+Y (Ctrl+Y on Windows) inserts another one.
+
+With more than one cell selected, the menu also has "Merge cells." When a table has at least two rows below its header row and no cells merged across rows, the menu also has "Sort column ascending" and "Sort column descending." They sort by the column the cursor is in.
+
+Move the cursor onto an image, video, or chart with the arrow keys to select it as one object. Cmd+F6 (Ctrl+F6 on Windows) then moves to its buttons, and Escape goes back to the text.
+
+On an image, one of those buttons is "More actions." Move to it with the Left arrow or Right arrow key, and then press Return. A menu opens with focus on its first item. Move to "Edit alt text" with the Down arrow or Up arrow key, and then press Return. Type a description of the image for people who can't see it, and then press Return to save or Escape to cancel.
+
+**Important:** Typing while an object is selected replaces it. Press Cmd+Z (Ctrl+Z on Windows) to bring it back.
+
+With the cursor inside a link, Cmd+K (Ctrl+K on Windows) opens the link's actions: open, copy, edit, and remove.
+
+To open a mention of a doc tab or of another doc, move the cursor onto the mention with the arrow keys to select it, and then press Option+Return (Alt+Enter on Windows). Return on its own doesn't open it.
+
+To open a comment from the text, move the cursor into the commented text and press Cmd+Option+M (Ctrl+Alt+M on Windows) with nothing selected. Focus moves to the comment, and Escape puts the cursor back where it was. If the same words have more than one comment, press the shortcut again from the text to open the next one.
+
+On some Windows keyboard layouts, such as German, Russian, and Greek, Ctrl+Alt+M still adds a comment to selected text, but it doesn't open the comment at the cursor. Reach the comment from the comments beside the text instead.
+
+In a doc you can only view, Tab moves between the links in the text, mentions of a doc tab or another doc, any wide table (so that you can scroll it with the arrow keys), video play buttons, and the buttons beside headings that collapse or expand a section, if the doc has them (each one appears when focus reaches it). Return on a mention opens it, and Return or Space on a heading's button collapses or expands its section. Return on a link to a website shows its address with buttons to open or copy it. Press Return on "Open link" to open the website in a new tab. If focus is on "Full URL" instead, press the Right arrow key once to reach "Open link."
+---
+
+SOURCE: https://support.claude.com/en/articles/17631495-get-started-with-claude-duet
+
+# Get started with Claude Duet
+
+**[Claude Duet](https://claude.com/product/claude-duet)** is a research preview of Claude that you message the way you'd message a person. Tell it what you need, typed or spoken, and it works in the apps you've connected, lets you know when something needs you, and is designed to ask before it sends a message, makes a payment, signs a document, or deletes anything. This article explains what Claude Duet does, who can get access, how to join the waitlist, and what it can't do yet.
+
+Claude Duet is available as a research preview to users on Pro, Max, and Ultra plans in the US, through a waitlist. It uses your Claude account settings and your plan usage limits. It isn't available on Team or Enterprise plans yet, and we plan to bring it to those plans later. Access opens in waves, and features can change during the research preview.
+
+## Who can get access
+
+To use Claude Duet, you need:
+
+- A Pro, Max, or Ultra plan
+
+- A Claude account in the US
+
+- An invitation from the waitlist
+
+## Why you might not have access yet
+
+- Invitations go out in waves, so joining the waitlist doesn't guarantee a specific date.
+
+- Claude Duet is available in the US only during the research preview.
+
+- Claude Duet isn't available on Team or Enterprise plans yet.
+
+- The email address you used on the waitlist doesn't match your Claude account, or the Google or Apple account on your phone. Access is tied to the email address you gave us.
+
+## How Claude Duet works
+
+Claude Duet runs on your Claude account, so the memory, skills, and connectors you've set up in Claude are there from your first message. It works on its own computer in the cloud, so it can keep working after you close the app.
+
+- **Message it like a person.** Type a message or record a voice message. Your main thread stays in one place, so Claude Duet picks up where you left off. You can also start separate channels for different topics, and they share the same memory.
+
+- **Start the day with a brief.** Each morning, it looks across your email and calendar, picks what most needs your attention, and can start the first steps, like drafting replies for you to review. Through the day, it sends updates on the work it's doing and follows up on threads that have gone quiet.
+
+- **Hand it larger jobs.** Describe what you need, and it works out which apps to use and how much effort the job takes. Bigger results come back as files you can review and edit, such as a research brief, a financial model, a slide deck, or a dashboard. Finished work appears in the **Make** tab.
+
+- **Add plugins.** Claude Duet supports plugins, such as the small business plugin, and can suggest ones that fit your work.
+
+- **Use websites without a connector.** For sites that don't have a connector, Claude Duet uses its own browser in the cloud.
+
+### Example requests
+
+- "Clear out anything in my inbox that I don't need to read."
+
+- "Check Stripe for unpaid invoices and draft reminder emails for me to approve."
+
+- "Pull together a brief on this company before my 2 pm meeting."
+
+### Keep track of tasks
+
+The **Tasks** tab shows what Claude Duet is working on and highlights tasks that need your input. Your main thread stays quieter: Claude Duet posts there when a task is done or needs a decision from you. It may suggest that a task looks finished, but only you can mark a task as completed.
+
+## Join the waitlist and get the app
+
+1. Go to the **[Claude Duet product page](https://claude.com/product/claude-duet)** and select "Join the waitlist."
+
+2. Enter your name and email address. If you already use Claude, enter the email address on your Claude account.
+
+3. Choose your Claude plan and your phone type (iPhone or Android). You can also tell us what you do and what you'd hand off to Claude Duet first.
+
+4. Select "Submit". We're adding people gradually, and you'll get an email when it's your turn.
+
+5. When it's your turn, open the invitation email on your phone and follow the setup steps for iPhone or Android. Use the Apple or Google account linked to the email address you gave us, since access is tied to that address.
+
+6. Open Claude Duet and sign in with your Claude account. It can take a few minutes for the app to become available after you accept the invitation.
+
+## Connect your apps
+
+Claude Duet can use the apps you've already connected in Claude. You can manage access in your Claude settings. It works with the connectors you've connected in Claude, such as Gmail, Google Calendar, Google Drive, Slack, QuickBooks, HubSpot, Docusign, and Calendly. You start every connection yourself, and you can disconnect any app at any time. Disconnecting an app stops Claude Duet from accessing it from that point on, but memory of past information from earlier conversations is kept.
+
+Learn more about **[using connectors](https://support.claude.com/en/articles/11176164)**.
+
+### Partner integrations
+
+Claude Duet also works with a few partner services:
+
+- **Stripe:** Check your Stripe account for unpaid invoices and draft reminder emails for you to approve. This uses the Stripe connector, which is separate from Link.
+
+- **Link:** Pay for purchases you approve with Link, Stripe’s digital wallet. Learn more about **[how to use Link by Stripe with Claude Duet](https://support.claude.com/en/articles/17666484)**.
+
+- **Shop Pay:** Pay for purchases you approve with Shop Pay, Shopify’s wallet. Learn more about **[how to use Shop Pay with Claude Duet](https://support.claude.com/en/articles/17666489)**.
+
+Claude Duet is designed to ask before each purchase, and each purchase uses a one-time card that only works for that purchase. Link and Shop Pay are available only in Claude Duet for now, and you connect them in Claude Duet, not in the connectors directory.
+
+### Search your past chats
+
+Claude Duet can search your past chats to pick up context from earlier work, so you don't have to repeat yourself. It searches your Claude Duet chats and your chats in Claude outside of projects. When you delete a chat, it's removed from search.
+
+This uses the same **[Search and reference chats](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_a11816bb20)** setting as Claude. To stop Claude Duet from searching your past chats, turn off **Search and reference chats** in **Settings > Your Claude** (or **Settings > Memory** in the older Settings layout).
+
+## Limitations
+
+During the research preview, keep these limits in mind:
+
+- You can't choose a model. Claude Duet runs on Claude Opus 5.5 and decides how much effort a job needs.
+
+- You can't watch Claude Duet work in its browser or take over the browser.
+
+- It checks your accounts at set intervals, so something urgent can arrive between checks.
+
+- It can't see all of your projects or the files on your computer, and it can read your work in Claude but can't change it.
+
+- It doesn't make phone calls or send text messages to other people. With your approval, it can send emails from the accounts you've connected.
+
+- Some actions are off-limits even with your approval, such as trading securities, moving money between accounts, or accessing someone else’s account.
+
+- Some connectors, such as Slack, work with limits in Claude Duet. Microsoft 365 isn't available yet.
+
+Claude Duet can also make mistakes, such as misreading a thread or misjudging what's urgent. Review drafts and approval requests before you confirm them.
+
+## Pricing and usage limits
+
+**Pricing.** During the research preview, Claude Duet is included with Pro, Max, and Ultra plans at no extra cost.
+
+**Usage limits.** Claude Duet uses your plan's usage limits, including any five-hour session limit and your weekly limits, at the same rate as chats in Claude. Work it does in the background, like the morning brief and check-ins, also counts, so you may reach your limits sooner than with chat alone. Claude Duet checks your accounts at set intervals to keep that background work from using up your limits. Learn more about **[usage limits](https://support.claude.com/en/articles/11647753-how-do-usage-and-length-limits-work#h_673be3815f)**.
+
+**Limit reset.** When you're admitted to the Claude Duet research preview, you get one full limit reset, which resets both your five-hour session and weekly limits. This limit reset is available until November 30, 2026. Learn more about **[limit resets](https://support.claude.com/en/articles/17007452-what-is-a-limit-reset)**.
+
+## Privacy, safety, and control
+
+Claude Duet is designed to show you what it's about to do and await your approval before sending a message, making a payment, signing a document, or deleting anything. If you can’t approve right away, Claude Duet finishes the rest of the task and brings the approval back to you later. When it gives you a number or a summary, it tells you which email, file, or spreadsheet it came from.
+
+Claude Duet reads content written by other people, such as email and web pages, and that content can contain instructions meant to mislead it. This is called *prompt injection*. Claude Duet is built to treat what it reads as information and to act on what you ask, but no defense is perfect, which is one reason consequential actions need your approval.
+
+In its browser, Claude Duet aims to follow the rules sites set for agents. When a site asks for a password, you type it into a separate form on your device. The form sends it straight to the browser, which is designed to keep it out of your chat with Claude Duet.
+
+## Purchases with Link and Shop Pay
+
+Where to get help with a purchase depends on the problem:
+
+- **Order status, delivery, returns, or a product refund:** Contact the store you bought from.
+
+- **A Link charge or Link account problem:** Select “Get help” in the Link app, or visit **[Link support](https://support.link.com/topics/link-agent-wallet)**.
+
+- **A Shop Pay charge or Shop Pay account problem:** Contact **[Shop support](https://help.shop.app/en/shop/report-issue/contact-the-shop-support-team)**.
+
+- **Claude Duet chose a different product, store, or option than you intended:** Contact us. Learn more about **[how to get support](https://support.claude.com/en/articles/9015913-how-to-get-support)**.
+
+## Send feedback
+
+You can send feedback or report any issues directly from the chat by telling Claude Duet in plain words what happened, and it will pass your report to our team.
+---
+
+SOURCE: https://support.claude.com/en/articles/17666484-how-to-use-link-by-stripe-with-claude-duet
+
+# How to use Link by Stripe with Claude Duet
+
+Connect Link, Stripe's digital wallet, to Claude Duet so it can pay for purchases you approve.
+
+Link is available in Claude Duet, a research preview for Pro, Max, and Ultra plans in the US with a US payment method. It isn't available in Claude, Cowork, or Claude Code for now.
+
+Link is separate from the Stripe connector, which lets Claude work in your Stripe account. You can use either one without the other.
+
+## What you can do
+
+- **Approve every purchase.** Claude Duet is designed to ask you before each purchase and not submit the Link payment until you approve the maximum amount. When you approve, Link may place a temporary authorization on your selected payment method. The final charge is completed only if the merchant completes the purchase.
+
+- **Pay with a one-time card.** Each purchase uses a one-time card that only works for that purchase.
+
+## How to connect
+
+Link isn't listed in the connectors directory. You connect it in Claude Duet.
+
+1. Select your avatar in Claude Duet.
+
+2. Select the option to connect payments, then choose Link.
+
+3. Sign in to your Link account and approve access.
+
+Claude Duet also suggests connecting Link when you ask for something that needs a payment.
+
+Claude Duet can see the card type, last four digits of your card or bank account, nickname and expiration date of your saved payment methods, plus your shipping addresses. Claude isn’t given your full credit card number (PAN) or bank account number.
+
+## How to pay with Link
+
+1. Ask Claude Duet for what you need, like "Reorder ink for the office printer."
+
+2. Claude Duet finds the item and asks you to approve the purchase.
+
+3. Create or sign in to your Link account using the Link mobile app or app.link.com, then approve your Spend Request.
+
+4. Claude Duet pays with a one-time card scoped to the merchant and amount.
+
+## Current limitations
+
+- Link is available only in Claude Duet, on Pro, Max, and Ultra plans in the US.
+
+- A US payment method is required.
+
+- Claude Duet can't pay with Link until you approve the amount in the Link app.
+
+- A business may decline or block checkout after you approve the Spend Request.
+
+- A failed purchase may temporarily appear as pending on the selected funding method.
+
+- Claude Duet can’t make recurring payments with Link.
+
+- Some sites can block Claude Duet from paying. If that happens, you may need to finish the purchase yourself.
+
+---
+
+## Frequently asked questions
+
+### Can Claude Duet buy something without asking me?
+
+Claude Duet is designed to ask before each purchase, and it can't pay with Link until you approve the amount in the Link app.
+
+### Why can't I find Link in the connectors directory?
+
+Link is built into Claude Duet, so you connect it there.
+
+### Is Link the same as the Stripe connector?
+
+No. The Stripe connector lets Claude work in your Stripe account, for example to check for unpaid invoices. Link pays for purchases. You connect them separately.
+
+### Who do I contact about a charge, a refund, or a problem with a purchase?
+
+- Contact the store for order status, delivery, cancellations, returns, damaged or incorrect products, and product refunds.
+
+- Contact **[Link Support](https://support.link.com/topics/link-agent-wallet)** for Link account problems, approval problems, payment-method issues, duplicate or incorrect payment amounts, an unrecognized Link payment, or a payment authorization that remains pending after a failed purchase.
+
+- Contact **[our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)** if Claude Duet selected a different product, store, quantity, or option than you requested, or if Claude Duet itself did not work correctly. You can tell Claude Duet what happened directly in the chat and it will pass your report to our team.
+
+- If you do not recognize a purchase, deny any pending approval requests, disconnect Link from Claude Duet, and contact Link Support promptly.
+
+### How do I disconnect Link?
+
+1. In Claude Duet, select your Claude Duet avatar.
+
+2. Select payments, then choose Link.
+
+3. Select "Disconnect."
 ---
 
 SOURCE: https://support.claude.com/en/articles/7996845-what-are-some-things-i-can-use-claude-for
@@ -5404,7 +6625,7 @@ We also have several paid subscriptions that offer additional usage. For more in
 
 ### Can I import my conversation history from another AI provider?
 
-No, it's not possible to import conversation history from another AI provider into Claude at this time. However, Free, Pro, and Max users can use the memory import feature to transfer memory from other AI providers into Claude. For more information, see **[Import and export your memory from Claude](https://support.claude.com/en/articles/12123587-import-and-export-your-memory-from-claude)**.
+No, it's not possible to import conversation history from another AI provider into Claude at this time. However, Free, Pro, Max, and Ultra users can use the memory import feature to transfer memory from other AI providers into Claude. For more information, see **[Import and export your memory from Claude](https://support.claude.com/en/articles/12123587-import-and-export-your-memory-from-claude)**.
 
 ---
 
@@ -6004,7 +7225,7 @@ If you're on an Enterprise plan and a model or effort level you expect is missin
 
 The effort level controls how much thinking Claude applies to a response. Higher effort means more thorough responses, but they take longer and use more tokens, so you'll reach your usage limits faster.
 
-The effort selector is available for Claude Sonnet 5.5, Opus 5.5, Fable 5.1, Opus 5, Sonnet 5, Fable 5, Opus 4.7, Opus 4.6, and Sonnet 4.6.
+The effort selector is available for Claude Haiku 5.5, Sonnet 5.5, Opus 5.5, Fable 5.1, Opus 5, Sonnet 5, Fable 5, Opus 4.7, Opus 4.6, and Sonnet 4.6.
 
 To change the effort level:
 
@@ -6034,9 +7255,9 @@ Thinking lets Claude spend more time breaking down problems, planning solutions,
 
 Thinking and effort are separate settings, and you can use any combination of the two. The effort level controls how thorough Claude is with every response. The thinking toggle controls whether Claude works through its reasoning in an expandable section before responding.
 
-Thinking cannot be turned off in Claude when using Claude Sonnet 5.5, Claude Opus 5.5, Claude Fable 5.1, or Claude Opus 5. On Opus 5.5 and Fable 5.1, thinking is always on at every effort level, including on the Claude API.
+Thinking cannot be turned off in Claude when using Claude Haiku 5.5, Claude Sonnet 5.5, Claude Opus 5.5, Claude Fable 5.1, or Claude Opus 5. On Opus 5.5 and Fable 5.1, thinking is always on at every effort level, including on the Claude API.
 
-For Opus 5 on the Claude API, thinking can be turned off at effort levels high and below, but attempting to disable thinking at xhigh or max effort returns an error. If you run Sonnet 5.5 on the Claude API with thinking turned off, use the new `between_tools` setting to turn upfront thinking off. With `between_tools`, thinking only happens between tool calls, and total response time is the same or faster. Sonnet 5.5 returns an error for requests that set thinking to disabled, so make this change before you switch models.
+For Haiku 5.5 and Opus 5 on the Claude API, thinking can be turned off at effort levels high and below, but attempting to disable thinking at xhigh or max effort returns an error. If you run Sonnet 5.5 on the Claude API with thinking turned off, use the new `between_tools` setting to turn upfront thinking off. With `between_tools`, thinking only happens between tool calls, and total response time is the same or faster. Sonnet 5.5 returns an error for requests that set thinking to disabled, so make this change before you switch models.
 
 ### Turn thinking on or off
 
@@ -6146,7 +7367,7 @@ SOURCE: https://support.claude.com/en/articles/9015913-how-to-get-support
 
 This guide explains how to get support for your Claude or Console account. Different support options are available depending on your plan. Support is provided in writing through the support messenger and email. We don't offer phone support.
 
-## Pro and Max plans, Team and Enterprise plan owners, and Console Admins
+## Pro, Max, and Ultra plans, Team and Enterprise plan owners, and Console Admins
 
 You have full access to:
 
@@ -6329,6 +7550,10 @@ No. Reply in your existing conversation, in the messenger or by email, and it mo
 ### I have a business-critical outage. Is there a faster path?
 
 Organization owners and admins on qualifying Enterprise plans have prioritized options in the messenger. Platform status is always available on **[our status page](https://status.claude.com)**.
+
+## Does chatting with Fin impact Claude usage or spend limits?
+
+No. Chatting with Fin will not impact Claude usage or spend limits.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9020328-csam-detection-and-reporting

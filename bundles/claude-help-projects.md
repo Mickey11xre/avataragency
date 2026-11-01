@@ -5,7 +5,7 @@ SOURCE: https://support.claude.com/en/articles/11473015-retrieval-augmented-gene
 
 # Retrieval augmented generation \(RAG\) for projects
 
-RAG for projects is available on paid plans (Pro, Max, Team, and Enterprise).
+RAG for projects is available on paid plans (Pro, Max, Ultra, Team, and Enterprise).
 
 Projects can now handle much more content without running into limits, giving Claude better context to help you. As you add more files and information to your projects, Claude automatically switches to a faster mode (powered by RAG) that keeps response times quick while maintaining quality responses.
 
@@ -98,23 +98,15 @@ SOURCE: https://support.claude.com/en/articles/14116274-organize-your-tasks-with
 
 # Organize your tasks with projects in Claude Cowork
 
-**Note:** Claude Cowork is now just Claude. Ask for what you need, and Claude decides whether that's a quick answer or a task. This is rolling out gradually to Pro and Max plans, with more plans to follow. If you're on a Pro or Max plan and your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**, or read our **[blog post](https://claude.com/blog/cowork-is-now-claude)**.
-
-Projects in Claude Cowork let you group related tasks into dedicated workspaces with their own files, context, instructions, and memory. Projects work the same way in Cowork and in Claude. New projects you create in Cowork are saved to your Claude account, so you can pick them up from your other devices, and projects you create from a folder on your computer stay on that computer.
+Projects in Claude Cowork let you group related tasks into dedicated workspaces with their own files, context, instructions, and memory. Projects work the same way in Cowork and in Claude. New projects you create in Cowork are saved to your Claude account, so you can pick them up from your other devices. Claude Desktop also moves projects you created from a folder on your computer into your Claude account, and their folders and files stay on your computer. Learn more about **[local projects moved to your Claude account](#h_6a11f1ee1d)**.
 
 ## Availability
 
-**Important:** This feature requires the latest version of Claude Desktop. Start by updating your desktop app if you’re not using the latest version.
+Projects in Cowork require the latest version of Claude Desktop. Download or update at **claude.com/download**.
 
-Cowork is available for paid plans (Pro, Max, Team, Enterprise) on:
+Claude Cowork is available on desktop on all paid plans (Pro, Max, Ultra, Team, and Enterprise). On web and mobile, it's available on Pro, Max, Ultra, and Team plans (in beta on Team), and on Enterprise plans when an owner enables it.
 
-- **Claude Desktop for macOS**
-
-  - **[Click here](https://claude.ai/api/desktop/darwin/universal/dmg/latest/redirect)** to download
-
-- **Claude Desktop for Windows**
-
-  - Cowork requires the latest version of Claude for Windows. Download or update at **[our download page](https://claude.com/download)**.
+The new Claude experience, which combines chat and Cowork, is rolling out to Pro, Max, and Ultra plans. On Team plans (in beta) and Enterprise plans, it's available where **Chat and Cowork unified** is turned on. If your message box no longer shows "Chat" and "Cowork" options, you have the new experience, and some steps in this article may look different. Learn more in **[Claude Cowork and chat are one Claude](https://support.claude.com/en/articles/16761823)**.
 
 ---
 
@@ -170,9 +162,11 @@ Each project has its own:
 
 ## Memory in projects
 
-Memory is enabled for Cowork projects. This means Claude can remember context from tasks you've run in a project and apply it to future tasks in the same project. Memory is scoped to the project, so what Claude learns in one project doesn't carry over to others.
+Memory is enabled for Cowork projects. This means Claude can remember context from tasks you've run in a project and apply it to future tasks in the same project. What Claude learns in one project doesn’t carry over to other projects.
 
-For more information about how memory works, see **[Use Claude’s chat search and memory to build on previous context](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context)**.
+A project also shares memory with your chats outside of projects. To keep a project’s memory fully separate, turn off "Use account memory" under **Memory** on the project's page.
+
+For more information about how memory works, see **[Use Claude’s chat search and memory to build on previous context](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_4eff35bd6a)**.
 
 ---
 
@@ -196,18 +190,38 @@ When you archive a project in Cowork:
 
 ---
 
+## Local projects moved to your Claude account
+
+Claude Desktop moves projects you created from a folder on your computer into your Claude account automatically, and each project keeps its name. On Pro, Max, and Ultra plans, this happens in Claude Desktop. On Team and Enterprise plans, it happens once **Chat and Cowork unified** is on for you.
+
+What moves to your Claude account:
+
+- The project’s name, description, and instructions, including any Google Drive links. If the project is linked to a project in Claude, its description and instructions go into that project instead.
+
+- A copy of the project’s memory, if memory is on for your account.
+
+What stays on your computer:
+
+- The project’s folders and files. Nothing is uploaded or deleted.
+
+- Earlier sessions on this computer, which stay listed under the project in Claude Desktop.
+
+After the move, the original local project no longer appears in your projects list.
+
+---
+
 ## Current limitations
 
 - Projects are only available in Cowork, not in Claude Code. Support for Claude Code is planned for a future update.
 
-- Projects you create from an existing folder on your computer stay on that computer and aren’t saved to your Claude account.
+- On Team and Enterprise plans without **Chat and Cowork unified**, projects you create from an existing folder on your computer stay on that computer and aren’t saved to your Claude account.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9517075-what-are-projects
 
 # What are projects?
 
-**Note:** A new version of projects is now available in beta, rolling out in stages starting with Claude Code. Existing projects keep working as they do today. See **[The new version of projects (beta)](#h_e9fb2a161e)** below.
+**Note:** A new version of projects is now available in beta, rolling out in stages starting with Claude Code. We've started moving existing projects for some Pro, Max, and Ultra users to the new version. See **[The new version of projects (beta)](https://support.claude.com/en/articles/9517075-what-are-projects#h_e9fb2a161e)** below.
 
 Projects allow you to create self-contained workspaces with their own chat histories and knowledge bases. Within each project, you can upload documents, provide context, and have focused chats with Claude.
 
@@ -219,11 +233,11 @@ We're rolling out a new version of projects in stages, starting with Claude Code
 
 ### Who has it
 
-The new version is now available in beta to select Pro and Max subscribers who use Claude Code. If you have it, you'll see "Projects" in the sidebar at **[claude.ai/code](https://claude.ai/code)** and in the Code tab of the Claude desktop app. More Claude Code users on Pro and Max plans will get access as the rollout expands, and chat, Cowork, Team, and Enterprise will follow. If you're on Pro or Max and don't have access yet, you can **[join the waitlist](https://claude.com/form/projects)**.
+The new version is now available in beta to select Pro, Max, and Ultra subscribers who use Claude Code, and to some Pro, Max, and Ultra users whose existing projects we’ve moved to the new version. If you have it, you'll see "Projects" in the sidebar at **[claude.ai/code](https://claude.ai/code)** and in the Code tab of the Claude desktop app. More Claude Code users on Pro, Max, and Ultra plans will get access as the rollout expands, and chat, Cowork, Team, and Enterprise will follow. If you're on Pro, Max, or Ultra plan and don't have access yet, you can **[join the waitlist](https://claude.com/form/projects)**.
 
 ### Your existing projects
 
-Existing projects in chat and Cowork keep working as they do today. On Pro and Max plans, we'll upgrade them to the new version as the rollout expands to chat and Cowork.
+We’ve started moving existing projects for some Pro, Max, and Ultra users to the new version. Nothing is lost or deleted in the move. Everything in your project comes with it: your instructions, files, full chat history, and scheduled tasks. You’ll pick up right where you left off. If you've used an existing project within the last 30 days, we’ll email you before we move your projects. Other existing projects in chat and Cowork stay on the current version for now, and we’ll move them as the rollout expands.
 
 ### Usage
 
@@ -242,7 +256,7 @@ In addition, you can define project instructions for each project to further tai
 
 ## Enhanced project knowledge with RAG
 
-Enhanced project knowledge with RAG is only available to users with paid Claude plans (Pro, Max, Team, or Enterprise).
+Enhanced project knowledge with RAG is only available to users with paid Claude plans (Pro, Max, Ultra, Team, or Enterprise).
 
 When using a paid plan, your projects automatically scale to handle large amounts of content through Retrieval Augmented Generation (RAG). When your project knowledge approaches context limits, Claude seamlessly enables RAG mode to expand capacity by up to 10x while maintaining response quality.
 
@@ -411,13 +425,13 @@ You can also remove chats from projects, or move them between projects, using th
 
 ---
 
-## Move chats to manage Claude’s memory
+## Manage Claude’s memory in projects
 
-Memory is on by default for Free, Pro, and Max plans on the web, Claude Desktop, and Claude Mobile. On Team and Enterprise plans, memory is available when an owner has enabled it.
+Memory is on by default for Free, Pro, Max, and Ultra plans on the web, Claude Desktop, and Claude Mobile. On Team and Enterprise plans, owners control whether memory is available.
 
-For Team and Enterprise plans using Claude’s memory, the ability to move chats into and out of projects allows you to manage what’s included in Claude’s memory. Each project has its own memory, kept separate from your non-project chats. For example, if you accidentally start an unrelated chat in a project and need to remove it from the project-specific memory summary, you can click “Remove from project” so it will be included in Claude’s non-project memory instead.
+Each project has its own memory. While working in a project, Claude uses the project's memory alongside your memory from chats outside of projects, but not memory from other projects. New memory is saved to the project, and if you have memory turned on, Claude can reference it in chats outside of projects too. To keep a project's memory fully separate, turn off "Use account memory" under **Memory** on the project's page.
 
-You can also turn memory off for a single chat, inside or outside a project, by turning off "Memory" in the "+" menu before you send your first message. A project chat started this way doesn't use or add to the project's memory.
+You can turn memory off for a single chat, inside or outside a project, by turning off "Memory" in the "+" menu before you send your first message. A project chat started this way doesn't use or add to the project's memory.
 
 Refer to our article on chat search and memory for more information: **[What is Claude’s memory?](https://support.claude.com/en/articles/11817273-use-claude-s-chat-search-and-memory-to-build-on-previous-context#h_82126ebcc9)**
 

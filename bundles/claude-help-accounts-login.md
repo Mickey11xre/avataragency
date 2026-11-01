@@ -5,9 +5,9 @@ SOURCE: https://support.claude.com/en/articles/10366376-how-can-i-delete-my-clau
 
 # How can I delete my Claude Console account?
 
-Only Console Admins can request deletion. See [Claude Console Roles and Permissions](https://support.claude.com/en/articles/10186004-claude-console-roles-and-permissions) for a full overview of your role's capabilities.
-
 This article explains how a Claude Console Admin can delete their organization via Console settings. Note that deletion impacts all members of a Console organization.
+
+Only Console Admins can request deletion. For a full overview of your role's capabilities, see **[Claude Console roles and permissions](https://support.claude.com/en/articles/10186004-claude-console-roles-and-permissions)**.
 
 ## Before deletion
 
@@ -21,7 +21,7 @@ This article explains how a Claude Console Admin can delete their organization v
 
 1. Log in to your Console Admin account.
 
-2. Navigate to [Settings > Organization](https://platform.claude.com/settings/organization).
+2. Go to the **Organization** page (platform.claude.com/settings/organization).
 
 3. Click the red “Delete organization” button.
 
@@ -31,25 +31,23 @@ This article explains how a Claude Console Admin can delete their organization v
 
 6. You will see an “Organization deleted” confirmation in the upper right corner of your screen.
 
-## Frequently Asked Questions
+---
+
+## Frequently asked questions
 
 ### I accidentally deleted my Console organization – what should I do?
 
-If you followed the steps above to delete your Console organization but want to revert this action, our Support team can restore your account data within seven days of deletion. Please [contact Support](https://support.claude.com/en/articles/9015913-how-to-get-support) for further assistance.
+If you followed the steps above to delete your Console organization but want to revert this action, our Support team can restore your account data within seven days of deletion. Please **[contact Support](https://support.claude.com/en/articles/9015913-how-to-get-support)** for further assistance.
 
 ### I have an outstanding balance; how can I delete my Console organization?
 
-If you have an outstanding balance, you will see a message during the deletion flow that prompts you to pay the balance first by routing you to [Settings > Billing](https://platform.claude.com/settings/billing).
-
-
+If you have an outstanding balance, you will see a message during the deletion flow that prompts you to pay the balance first by routing you to the **Billing** page (platform.claude.com/settings/billing).
 
 You must pay this outstanding balance before you’re able to move forward with the deletion process.
 
 ### I’m seeing a message about contacting the Support team when I try to delete my Console organization.
 
 There are some scenarios where you will need to contact our team to delete your account. If this is the case, it will be noted when you try to delete your organization:
-
-
 
 If you are seeing this message, this indicates that your Console organization cannot be deleted via the self-service pathway.
 ---
@@ -96,7 +94,7 @@ SOURCE: https://support.claude.com/en/articles/11732894-who-owns-and-manages-the
 
 This article provides important information about your Claude for Education account associated with your university’s Claude for Education partnership. It includes details about data access and control that were shared with you when your Claude for Education account was set up.
 
-*This article is about Claude for Education (a commercial product). For more information about our other commercial products such as Claude for Work and the Anthropic API see [here](https://privacy.anthropic.com/en/articles/9265372-who-owns-and-manages-the-data-of-my-team). For our consumer products such as Claude Free, Pro, Max and when accounts from those plans use Claude Code, see [here](https://privacy.anthropic.com/en/collections/10663362-consumers).*
+*This article is about Claude for Education (a commercial product). For more information about our other commercial products such as Claude for Work and the Anthropic API see [here](https://privacy.anthropic.com/en/articles/9265372-who-owns-and-manages-the-data-of-my-team). For our consumer products such as Claude Free, Pro, Max, Ultra, and when accounts from those plans use Claude Code, see [here](https://privacy.anthropic.com/en/collections/10663362-consumers).*
 
 ## Default Settings and Account Management
 
@@ -145,7 +143,7 @@ SOURCE: https://support.claude.com/en/articles/13189465-log-in-to-your-claude-ac
 
 # Log in to your Claude account
 
-When you open Claude on a web browser ([claude.ai](http://claude.ai)), the desktop app, or a mobile app, you will see two different options for logging in to your Claude account.
+When you open Claude on a web browser ([claude.ai](https://claude.ai)), the desktop app, or a mobile app, you will see two different options for logging in to your Claude account.
 
 
 
@@ -167,7 +165,7 @@ If you requested the login email and clicked the link using a different device (
 
 ## Authenticating to subscription plans
 
-Claude offers subscription plans (Free, Pro, Max, Team, Enterprise) that let subscribers authenticate using OAuth tokens or other methods. Subscription plans can only be used by subscribers, and the usage included in these plans is designed to support ordinary use of native Anthropic applications, including the Claude web, desktop, and mobile applications and Claude Code.
+Claude offers subscription plans (Free, Pro, Max, Ultra, Team, Enterprise) that let subscribers authenticate using OAuth tokens or other methods. Subscription plans can only be used by subscribers, and the usage included in these plans is designed to support ordinary use of native Anthropic applications, including the Claude web, desktop, and mobile applications and Claude Code.
 
 The preferred way to access Anthropic services using third-party software, tools, or services (“third-party tools”), including open-source projects, is through API key authentication through Claude Console or a supported cloud provider. Anthropic may at its discretion allow paid subscribers who have enabled **[usage credits](https://support.claude.com/en/articles/12429409-)** to use certain third-party tools to access Anthropic services included in paid subscription plans, but reserves the right to draw use of such third-party tools from usage credits rather than subscription limits. Users are responsible for any usage credit charges incurred this way. Use of third-party tools that misrepresent their identity to Anthropic’s servers, attempt to route third-party traffic against subscription limits, or otherwise violate applicable terms or policies is prohibited and such use may be enforced against.
 
@@ -270,7 +268,7 @@ It's not possible to change another user's name on their behalf, but a user can 
 
 1. Log in to your Claude account.
 
-2. Navigate to **[Settings > General](https://claude.ai/settings/general)**.
+2. Navigate to **Settings > Account**.
 
 3. Make edits to the "Full name" field and click "Save changes."
 
@@ -485,11 +483,184 @@ If you feel your account has been wrongly banned, please **[fill out the appeal 
 If you have questions about identity verification, your data, or the verification process, reach out to us via this **[help form](https://claude.com/form/identity-verification-help)**.
 ---
 
+SOURCE: https://support.claude.com/en/articles/14604842-cyber-verification-program
+
+# Cyber Verification Program
+
+**Updated October 2026.** The CVP previously covered Claude Opus and Sonnet with a single level of access. We are now offering three access tiers for Claude Opus 5.5, our most capable cyber model yet, Claude Sonnet 5.5, Claude Mythos 5.1, and new models moving forward.
+
+## Overview
+
+The Cyber Verification Program (CVP) makes advanced cyber capabilities and reduced blocking classifiers available to qualifying security professionals. Each tier includes access to our most capable models, including Claude Opus 5.5, Claude Sonnet 5.5, Claude Mythos 5.1, and new models moving forward.
+
+Our generally available models can still be used by all users for secure code review, threat modeling, patching known issues, finding vulnerabilities in your own source code, and triaging security alerts. However, other cyber security work like malware analysis or exploit validation may be interrupted by our safety classifiers. If you are a cybersecurity professional, and your work is being blocked, apply for the Cyber Verification Program using the instructions below in the “How to Apply” section.
+
+## Access tiers
+
+
+
+## How to apply
+
+Apply through the **[Verification Portal](https://portal.anthropic.com/programs)**. We aim to send an email notification with our review decision or request for more information within seven business days. Fill out a single application, and we will place you at the highest tier based on the information we receive.
+
+Apply once per organization. Individual users within organizations should not apply separately as organization admins can designate seats for the program. Independent researchers, maintainers, and bug bounty hunters apply as individuals. Please note that only Defense access is available for individual applicants at this time.
+
+What you'll need:
+
+- Details of your organization and the person applying, for verification. See **[identity verification on Claude](https://support.claude.com/en/articles/14328960-identity-verification-on-claude)**
+
+- A description of your security work
+
+- An attestation to the security controls applicable to your desired tier
+
+| **How you access Claude**                                                                                                                | **Availability**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| ---------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Anthropic first-party**
+(Claude.ai, Claude Code, the Anthropic API)<br>                                                             | Sign in to the **[Verification Portal](https://portal.anthropic.com/programs)** with your Anthropic account.<br>Open **Programs**, choose "Cyber Verification Program" and select "Apply."                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| **Amazon Bedrock**<br>*Available only to customers with Enterprise Frontier Safeguards.*
+​<br>**OR**
+​<br>**Claude Platform on AWS** | Sign in to the **[Verification Portal](https://portal.anthropic.com/programs)**. If you don't have an Anthropic account, create one. It's free and doesn’t require billing information.<br>Open **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, select "Link account" and choose "Amazon Web Services." Enter your 12-digit AWS account ID, create the verification role in that account using the portal's launch link or command, select "I've granted access," then "Verify." Link your Claude Platform on AWS account IDs before linking your Bedrock Account IDs.<br>Open **Programs**, choose "Cyber Verification Program" and select "Apply."<br>If you’ve created a new Anthropic account, you’ll need to link to your AWS account before applying for the program. |
+| **Claude on Google Cloud**                                                                                                               | Sign in to the **[Verification Portal](https://portal.anthropic.com/programs)**. If you don't have an Anthropic account, create one. It's free and doesn’t require billing information.<br>Open **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, select "Link account" and choose "Google Cloud." Enter your project ID (not the project number), run the gcloud command shown, select "I've granted access," then "Verify."<br>Open **Programs**, choose "Cyber Verification Program" and select "Apply."<br>If you’ve created a new Anthropic account, you’ll need to link to your GCP account before applying for the program.                                                                                                                                            |
+| **Microsoft Foundry**                                                                                                                    | Before you start, deploy a Claude model in Foundry.<br>     Sign in to the **[Verification Portal](https://portal.anthropic.com/programs)**. If you don't have an Anthropic account, create one. It's free and doesn’t require billing information.<br>Open **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, select "Link account" and choose "Azure." Enter your subscription ID and directory (tenant) ID, run the commands shown, select "I've granted access," then "Verify."<br>Open **Programs**, choose "Cyber Verification Program" and select "Apply."<br>If you’ve created a new Anthropic account, you’ll need to link to your Azure account before applying for the program.<br>                                                                                 |
+| **Third-party platform**
+(coding tools and other apps powered by Claude)                                                              | Ask your platform for an Anthropic enrollment link. This works only on platforms that support the Cyber Verification Program.<br>Open the link and sign in to the **[Verification Portal](https://portal.anthropic.com/programs)** with your Anthropic account. If you don't have one, create one. It's free and doesn’t require billing information. Then select "Link profile." Links expire quickly, and you can't link a platform from the Linked accounts page.<br>Open **Programs**, choose "Cyber Verification Program" and select "Apply."<br>Defense Access and Red Team Access only. Specialized Access is not available through third-party platforms.                                                                                                                                |
+
+## Once you're approved
+
+- Approval doesn’t turn on CVP. To activate it, assign your access to a workspace, role, or linked cloud account. See **[Provisioning Access using your Grants](#h_ce0ef780bd)** for instructions.
+
+- The **[Usage Policy](https://www.anthropic.com/legal/aup)** still applies in full.
+
+- You may leverage CVP enabled models for internal use such as running the model over your own code. See the **Building client-facing products** section for more information.
+
+- We may review, narrow, or withdraw a grant.
+
+## Building client-facing products
+
+Your CVP access covers security work on your organization's own code, products, and infrastructure. Using your CVP access to deliver work to your customers, for example by running the model against a customer's code or systems or by letting customers use something you've built on the model, requires approval. Please submit a separate application for **each service or product you offer**.
+
+**Managed services: applications are open.** In a managed service, your own staff use the model to do security work for a customer, on code and systems the customer owns or operates. The customer receives only finished deliverables, such as a findings report or patched code. Your customers never prompt the model, interact with it, or see its raw output.
+
+**Products: not open yet.** In a product, your customers use something you built on the model, such as a scanner or a code-review tool, even if they can only trigger or configure it. Products are categorized as follows:
+
+- **Constrained products:** Customers use something built on the model but cannot direct it or see its raw output
+
+- **Unconstrained products:** Any other customer-facing product, such as one where customers can give the model their own instructions or see its responses as written.
+
+While we are not yet reviewing applications for products, you can express interest by selecting “Constrained product” or “Unconstrained product,” then select “Express interest.” We'll contact you when we're accepting product applications, and you'll need to submit a full application then.
+
+### How to apply for a managed service
+
+You must be an admin of an organization approved for the Cyber Verification Program.
+
+1. Sign in to the **[Verification Portal](https://portal.anthropic.com/programs/cyber-productization)**, open “Programs,” then choose “Cyber productization.”
+
+2. Select “Register an offering,” then choose “Managed service.”
+
+3. Name the service and describe how it runs, who operates the model, and what your customers receive. Then confirm the six security commitments and give a security contact and the name and title of the company officer who signs off.
+
+4. Accept the Anthropic Cyber Defender Partner Addendum, then select “Submit” for review.
+
+5. To apply for another managed service, go back to the Cyber productization page and repeat steps 2 to 4.
+
+### How to express interest in a constrained or unconstrained product
+
+You must be an admin of an organization approved for the Cyber Verification Program.
+
+1. Sign in to the **[Verification Portal](https://portal.anthropic.com/programs/cyber-productization)**, open “Programs,” then choose “Cyber productization.”
+
+2. Select “Register an offering,” then choose “Constrained” or “Unconstrained” product.
+
+3. Describe the product in one line.
+
+4. Add a name and email.
+
+5. Select “Express Interest."
+
+Check your answers before you submit: you can't edit or withdraw an application after you send it. You can follow each application's status on the **Cyber productization** page. Don't serve customers through a service until it's approved. Until then, you can keep using your CVP access for work on your own code, products, and infrastructure.
+
+## Security controls and requirements
+
+Each access level has its own security requirements. The security requirements for each tier are outlined in detail in the **[CVP Security Requirements Help Center article](https://support.claude.com/en/articles/17202708)**. For existing CVP customers, your current access and corresponding security requirements are not impacted and stay under your current terms.
+
+**Defense Access will have until *December 15, 2026* to adopt phishing-resistant multi-factor authentication and to stop using API keys.** Until then, multi-factor authentication of some kind is required, and API keys will expire every seven days. We recommend migrating now to using **[Workload Identity Federation](https://platform.claude.com/docs/en/manage-claude/workload-identity-federation)**.
+
+## Provisioning access using your Grants
+
+After your application has been approved, the steps to provision access to your Grants vary depending on how you access Claude.
+
+| **How you access Claude**                                                              | **Action required by Organization Owner**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Console / API Organizations                                                     | **[Assign a program to workspaces](https://support.claude.com/en/articles/16764810-assign-a-program-to-workspaces-in-claude-console)**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| Claude Enterprise                                                                      | **[Assign a program to a custom role](https://support.claude.com/en/articles/17118092)**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Claude Team / Max / Pro                                                                | No action required (the Program attaches at the Organization level)                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| Amazon Bedrock<br>**Available only to customers with Enterprise Frontier Safeguards.** | If you have not already, sign in to the Verification Portal, open **[Linked accounts](https://portal.anthropic.com/linked-accounts)** and link your AWS account. Then open the **Cyber Verification Program** page and, under **Access** on linked accounts, turn on your approved access level for that account. Changes can take some time to reach the account.<br>If you have a committed contract with Anthropic, your account team will send a short form to link this AWS account to your contract. Complete the form, then accept the private offer in the AWS Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| Claude Platform on AWS                                                                 | If you have not already, sign in to the Verification Portal, open **[Linked accounts](https://portal.anthropic.com/linked-accounts)** and link your AWS account. No further action: your approved access applies to every workspace.<br>If you have a committed contract with Anthropic, your account team will send a short form to link this AWS account to your contract. Complete the form, then accept the private offer in the AWS Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Claude Platform on Google Cloud                                                        | If you have not already, sign in to the Verification Portal, open **[Linked accounts](https://portal.anthropic.com/linked-accounts)** and link your Google Cloud project. No further action: your approved access applies to every workspace.<br>If your organization has a committed contract with Anthropic, your account team will send you a short form to link this Google Cloud billing account to your contract. Complete the form, then accept the private offer in Google Cloud Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| Google Cloud Agent Platform                                                            | To access the Cyber Verification Program through Claude on Google Cloud, you must link your project in the **Verification Portal** under **Linked accounts**, and consent to and configure data retention with Google. You’ll need to complete this process for each project you want to link (up to 10).<br>**Enable data retention on Claude on Google Cloud:**<br>     Link your Google Cloud project in the Verification Portal. Someone with IAM access on the project runs the one command the portal shows.<br><br>Sign in to the **Verification Portal**.<br>Open **Linked accounts** and follow the steps to link your Google Cloud project.
+
+<br>After the project is linked, you’ll be taken to the linked account’s page. Find **Programs** and turn on your approved CVP access level for that project.<br>In Model Garden, open the Claude model and accept the Advanced AI Safety Addendum (once per project).<br>Turn on **data sharing** with Anthropic for each model and location (for example, `global`, `eu`, or `us`) you use. Set `dataSharingEnabledProvider` to `ANTHROPIC` with Google’s `setPublisherModelConfig` API.<br>If your organization has a committed contract with Anthropic, your account team will send you a short form to link this Google Cloud billing account to your contract. Complete the form, then accept the private offer in Google Cloud Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days. |
+| Microsoft Foundry                                                                      | For Microsoft Foundry, deploy a Claude model first.<br>If you have not already, sign in to the Verification Portal, open **[Linked accounts](https://portal.anthropic.com/linked-accounts)** and link your Azure subscription (you'll need the subscription ID and directory (tenant) ID). No further action: your approved access applies to every workspace.<br>If your organization has a committed contract with Anthropic, your account team will send you a short form to link this Azure account to your contract. Complete the form, then accept the private offer in Azure Marketplace so your contracted discount applies. Mythos access is provisioned once both steps are done.<br>Access to Mythos will trail application approval by approximately five business days.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| Third-party platform                                                                   | Open the **Cyber Verification Program page** and, under **Access** on **[Linked accounts](https://portal.anthropic.com/linked-accounts)**, turn on your approved access level for that platform profile.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+
+## Existing members
+
+If your organization was previously enrolled in Project Glasswing or CVP, you don't need to apply again to join the updated CVP program. Your existing access to the models you use today via Project Glasswing or CVP will keep working under your existing terms, and you'll be transitioned to the relevant new program tier for Claude Opus 5.5, Claude Sonnet 5.5, and Claude Mythos 5.1.
+
+The Cyber Verification Program requires data retention, which enables us to monitor for harmful cyber misuse in the program and detect bad actors. Once Enterprise Frontier Safeguards (EFS) is available, eligible organizations will be able to store data in cloud infrastructure they control. To register interest in EFS, fill out **[this form](https://claude.com/form/enterprise-frontier-safeguards)**.
+
+In the meantime, organizations with a data retention exemption for Claude Fable or Claude Mythos models can also use CVP with zero data retention (ZDR) on all supported models. Until EFS is available, if your organization has access to Claude Fable or Claude Mythos with ZDR, you can also use CVP with ZDR.
+
+## If you’re not approved for a tier
+
+The Cyber Verification Program is designed to get advanced cyber capabilities to defenders as widely as we responsibly can. Access depends on a number of factors, including the work an organization does, our ability to verify who it is, and the security controls it has in place.
+
+### Why might an organization not have access?
+
+Eligibility reflects a range of factors, including one or more of the following:
+
+1. **The nature of the work.** The program is built for defense. Organizations whose main business falls outside that scope may not be eligible.
+
+2. **Verification.** We need to be able to confirm who an organization is and what it does.
+
+3. **The environment an organization operates in.** We consider the legal and regulatory environment, the risk that advanced capabilities could be diverted, and the risk that access could be compelled.
+
+4. **Who the work is ultimately for.** The risk that capabilities are passed on or repurposed is higher where an organization primarily serves military, intelligence, or law enforcement customers. We take a more cautious approach in those cases.
+
+5. **The tier applied for.** Requirements rise with the level of access. For Specialized Access, every organization is reviewed in depth in collaboration with the US government. Existing members of Project Glasswing will transition to this tier and don't require reapproval for current models. We continue to work with the US government to expand the number of eligible organizations, both in the US and internationally.
+
+## Frequently asked questions
+
+### Can I apply as an individual?
+
+Yes, for Defense Access, on a paid plan. Red Team Access and Specialized Access tiers are for organizations only.
+
+### My organization has a grant, but I'm still blocked
+
+Check that your admin has provisioned you access to the relevant CVP grant(s). If using a Claude Console account, ensure you're in the correct Workspace and that the activity falls inside your tier.
+
+### Why is CVP on Amazon Bedrock only available to customers with Enterprise Frontier Safeguards?
+
+Amazon Bedrock does not yet support human review of automated safety flags, which CVP requires by default. As a result, on Bedrock, CVP is only available to organizations that have a data retention exemption for Fable 5.1; those customers can also use CVP with ZDR and will be eligible to use CVP with Enterprise Frontier Safeguards once available. We're working to expand CVP to all customers on Bedrock.
+
+### I’m approved, why can’t I access Mythos on my preferred Cloud provider?
+
+Access to Mythos on third-party cloud providers will trail approval by approximately five business days.
+
+### How do usage limits for Mythos 5.1 work?
+
+On Pro and Max plans, Mythos 5.1 follows the same usage rules as Fable 5.1.
+
+- For Pro plans, Mythos 5.1 is available only with usage credits. It doesn’t draw on your plan’s included usage, so you’ll need usage credits turned on to use it.
+
+- For Max plans, Mythos 5.1 and Fable share a single allowance of up to 50% of your weekly usage limit, not a separate allowance for each model. This usage also counts toward your plan's regular usage limits. Once the shared allowance is used up, you can keep using Mythos 5.1 or Fable with usage credits (if you have them turned on), or switch to another model.
+---
+
 SOURCE: https://support.claude.com/en/articles/14625619-claim-and-migrate-accounts-on-your-domain
 
 # Claim and migrate accounts on your domain
 
-Domain claiming lets Enterprise admins discover, claim, and migrate existing personal Claude accounts (Free, Pro, and Max) on a verified company domain into their Enterprise workspace. This gives your organization a clean path to consolidate accounts on day one of an Enterprise deployment, and allows people using Claude on personal accounts to keep their work. Domain claiming is available for Enterprise plans, whether purchased directly through Anthropic or through the AWS Marketplace, and works the same in both cases.
+Domain claiming lets Enterprise admins discover, claim, and migrate existing personal Claude accounts (Free, Pro, Max, and Ultra) on a verified company domain into their Enterprise workspace. This gives your organization a clean path to consolidate accounts on day one of an Enterprise deployment, and allows people using Claude on personal accounts to keep their work. Domain claiming is available for Enterprise plans, whether purchased directly through Anthropic or through the AWS Marketplace, and works the same in both cases.
 
 Domain claiming is supported on Claude Enterprise plans only.
 
@@ -517,7 +688,7 @@ These prerequisites exist to prevent people from being locked out of Claude duri
 
 ### Review accounts on your domain
 
-After verifying your domain, you can view all existing personal accounts (Free, Pro, and Max) on that domain that aren’t already in your organization. For each account, you’ll see the email address, plan type, account creation date, and last active date. You can also export this list as a CSV.
+After verifying your domain, you can view all existing personal accounts (Free, Pro, Max, and Ultra) on that domain that aren’t already in your organization. For each account, you’ll see the email address, plan type, account creation date, and last active date. You can also export this list as a CSV.
 
 Use this view to understand the scope of migration before initiating a claim. Check which accounts are in your identity provider (IdP) and which aren’t—people not in the IdP won’t be able to sign in after migration unless you add them.
 
@@ -553,7 +724,7 @@ During this window, each person on the domain can sign in and choose how to migr
 
 - Any remaining personal accounts that haven’t been migrated are deactivated.
 
-- Paid subscriptions (Pro and Max) are automatically canceled with a prorated refund. Any usage credits remaining on the account will also be refunded.
+- Paid subscriptions (Pro, Max, and Ultra) are automatically canceled with a prorated refund. Any usage credits remaining on the account will also be refunded.
 
 - Once all accounts are migrated or deactivated, no personal accounts exist on your domain.
 
@@ -579,11 +750,11 @@ To migrate accounts on a domain you verified later:
 
 - Migrating data into organizations with HIPAA readiness or customer-managed encryption keys (CMEK) turned on. You can still claim your domain, and people on it are notified as usual, but they can only join fresh. Nothing from their personal accounts moves over. Learn more about **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973)** and **[customer-managed encryption keys](https://support.claude.com/en/articles/15505325)**.
 
-- Claiming Team plan accounts. Only individual accounts (Free, Pro, Max) can be claimed.
+- Claiming Team plan accounts. Only individual accounts (Free, Pro, Max, Ultra) can be claimed.
 
 - Setting a custom migration deadline. The window is always 30 days.
 
-- Canceling App Store subscriptions. People who purchased Pro or Max through the Apple App Store need to cancel their subscription themselves through their Apple ID settings. For details, see **[Respond to an Enterprise domain claim on your Claude account](https://support.claude.com/en/articles/14625626)**.
+- Canceling App Store subscriptions. People who purchased Pro, Max, or Ultra through the Apple App Store need to cancel their subscription themselves through their Apple ID settings. For details, see **[Respond to an Enterprise domain claim on your Claude account](https://support.claude.com/en/articles/14625626)**.
 
 ## SSO and provisioning sequencing
 
@@ -612,7 +783,7 @@ SOURCE: https://support.claude.com/en/articles/15936181-get-started-with-1passwo
 
 1Password for Claude lets Claude complete browser tasks that require signing in, using logins you've stored in 1Password. 1Password fills the credential directly on the page, so Claude never sees your password or one-time code.
 
-1Password for Claude is in beta for paid plans (Pro, Max, Team, Enterprise) using Claude Desktop on macOS. It's available to 1Password customers on individual, family, and business plans, and requires Claude in Chrome. 1Password for Claude is off by default for Team and Enterprise plans.
+1Password for Claude is in beta for paid plans (Pro, Max, Ultra, Team, Enterprise) using Claude Desktop on macOS. It's available to 1Password customers on individual, family, and business plans, and requires Claude in Chrome. 1Password for Claude is off by default for Team and Enterprise plans.
 
 ## How it works
 
@@ -705,6 +876,133 @@ Credentials are injected through a secure channel handled by 1Password, outside 
 1Password for Claude reduces credential exposure, but browser-based AI still carries risk. Check each approval prompt so you know which credential Claude is requesting before it's used, and review **[Use Claude in Chrome safely](https://support.claude.com/en/articles/12902428)** before working with sensitive accounts.
 ---
 
+SOURCE: https://support.claude.com/en/articles/17202708-cyber-verification-program-security-requirements
+
+# Cyber Verification Program Security Requirements
+
+Customer must meet and maintain the following security requirements for each Cyber Verification Program access level that Customer holds (“**Access Level**”). These requirements apply to Approved Users and to Granted Workspaces.
+
+## 1. All Access Levels.
+
+1. **Security Contact.** Customer must provide Anthropic with a named security contact who may receive security and misuse alerts and is able to act on them.
+
+2. **Incident Reporting.** Customer must report suspected breaches or misuse involving the grant to Anthropic within 72 hours, or within 24 hours for a security incident. Reporting can be done at <security@anthropic.com> or your Account team contact.
+
+3. **Cooperation.** Customer must investigate any abuse that Anthropic identifies within 48 hours, work with Anthropic to remediate it, and respond to misuse inquiries within seven (7) days.
+
+4. **Personal Access.** Each Approved User must sign in as themselves. Shared sign-ins, seats, sessions, and workload identities, and browser extensions or proxy tools that expose a session to other people that are not explicitly an Approved User meeting all the requirements below, are not permitted.
+
+5. **Usage Attribution.** User profiles must remain enabled on the Granted Workspace so that requests can be attributed to a named user or workload identity.
+
+6. **Notice of Changes.** Customer must notify Anthropic within thirty (30) days of a material change to its security posture, ownership, headquarters, or security contact.
+
+7. **Ongoing Review.** Anthropic may request that Customer provide evidence of compliance with these Cyber Verification Program Security Requirements.
+
+## 2. Defense Access.
+
+1. **Multi-Factor Authentication.** At the time of Customer’s access to the CVP, all accounts that can sign in to the Granted Workspace, or hold credentials for it, must have multi-factor authentication enabled. By December 15, 2026 (the "Cutoff Date"), all such accounts must use phishing-resistant multi-factor authentication as defined in the CISA fact sheet "Implementing Phishing-Resistant MFA" and with NIST SP 800-63B-4, meaning (i) a FIDO2/WebAuthn security key, (ii) a passkey, on the device or in a password manager, or (iii) a smartcard/PIV, and email magic-link sign-in must be disabled. SMS, voice, emailed codes, authenticator-app codes, and push approvals do not qualify.
+
+2. **Credential Management.** By the Cutoff Date, downloaded, exported, or otherwise long-lived static credentials, including API keys, must not be used to access the model. The following requirements apply to Customer based on the deployment platform(s) through which Customer accesses the model. For each applicable platform, all Approved Users and all workloads must authenticate using short-lived credentials issued and managed by that platform's native identity service.
+
+  1. **Anthropic (first-party API and Console).** Static or long-lived API keys are not permitted, including for interactive access to Claude Console, Claude for Enterprise, Claude Code, and other Anthropic application surfaces.
+
+  2. **Google Vertex.** Downloaded service account JSON key files are not permitted.
+
+  3. **Amazon Web Services (Amazon Bedrock).** IAM user access key pairs (access key ID and secret access key) are not permitted, with the exception of short-term Bedrock API keys that expire within 12 hours or the length of the Bedrock session, whichever is shorter.
+
+  4. **Microsoft Azure (Azure AI Foundry).** API keys and exported service principal client secrets or certificates are not permitted.
+
+3. **Interim API Keys.** Until the Cutoff Date, API keys are permitted under a Defense Access grant only if each key is (i) stored in a secrets manager or password manager, (ii) assigned to a single person or workload, (iii) kept out of source code, and (iv) replaced at least every 7 days. Anthropic may limit the lifetime of API keys under a Defense Access grant to 7 days, and may disable API keys on the Granted Workspace from the Cutoff Date.
+
+4. **Approved Users.** There is no default limit on the number of Approved Users at this Access Level.
+
+## 3. Defense Access for Individuals.
+
+1. Individuals are eligible for Defense Access only. Where the grant is held by an individual this section applies
+
+  1. **Multi-Factor Authentication.** The individual must sign in to the Anthropic account that holds the grant only through Google or an equivalent identity provider. From the date access is granted, that account must have multi-factor authentication enabled. By December 15, 2026 (the "Cutoff Date"), that account must use phishing-resistant multi-factor authentication, meaning a security key, a passkey, or a smartcard/PIV, and the individual must not use email magic-link sign-in. SMS, voice, emailed codes, authenticator-app codes, and push approvals do not qualify.
+
+  2. **Credential Management.** By the Cutoff Date, static or long-lived credentials, including API keys, must not be used to access the model. Claude Code, Claude Console, and claude.ai authenticate through OAuth. Programmatic access for workloads, where offered, must use Workload Identity Federation. Until the Cutoff Date, one API key is permitted only if it is (i) stored in a password manager or local secrets store, (ii) never shared or placed in source code, and (iii) replaced at least every 7 days. Anthropic may limit the lifetime of API keys under the grant to 7 days, and may disable API keys from the Cutoff Date.
+
+  3. **Personal Access.** The individual is the only person who may use the access. Shared sign-ins or sessions, and browser extensions or proxy tools that expose the session to others, are not permitted.
+
+  4. **Monitoring.** All traffic under the grant is retained and monitored. Zero data retention is not available.
+
+  5. Of the All Access Levels requirements, Incident Reporting, Cooperation, and Ongoing Review apply to an individual.
+
+## 4. Red Team Access.
+
+1. **Credential Management.** The following requirements apply to Customer based on the deployment platform(s) through which Customer accesses the model. For each applicable platform, all Approved Users and all workloads must authenticate using short-lived credentials issued and managed by that platform's native identity service.
+
+  1. **Anthropic (first-party API and Console).** Static or long-lived API keys are not permitted, including for interactive access to Claude Console, Claude for Enterprise, Claude Code, and other Anthropic application surfaces.
+
+  2. **Google Vertex.** Downloaded service account JSON key files are not permitted.
+
+  3. **Amazon Web Services (Amazon Bedrock).** IAM user access key pairs (access key ID and secret access key) are not permitted, with the exception of short-term Bedrock API keys that expire within 12 hours or the length of the Bedrock session, whichever is shorter.
+
+  4. **Microsoft Azure (Azure AI Foundry).** API keys and exported service principal client secrets or certificates are not permitted.
+
+2. **Multi-Factor Authentication.** At the time of Customer’s access to the CVP, phishing-resistant multi-factor authentication must protect (i) all accounts that can sign in to the Granted Workspace or hold credentials for it, (ii) Approved Users' accounts at Customer's identity provider, (iii) AWS, Google Cloud, or Azure identities that can call the model, (iv) administrative access to anything that issues or stores model credentials, and (v) any virtual desktop or enclave used to meet these requirements. Phishing-resistant multi-factor authentication means (i) a FIDO2/WebAuthn security key, (ii) a passkey, on the device or in a password manager, or (iii) a smartcard/PIV, consistent with the CISA fact sheet "Implementing Phishing-Resistant MFA" and NIST SP 800-63B-4. SMS, voice, emailed codes, authenticator-app codes, and push approvals do not qualify, and email magic-link sign-in must be disabled.
+
+3. **Organization Accounts.** Approved Users must sign in with accounts on Customer's domain. Personal and webmail accounts are not permitted.
+
+4. **Approved Users.** The Granted Workspace is limited to twenty-five (25) Approved Users who personally perform or directly supervise the work for which the grant was approved. Workload identities do not count toward that number. Customer may request additional Approved Users seats in writing (email sufficing). Only named administrators may add members, change roles, or create workload identities or credentials on the Granted Workspace.
+
+5. **Gateways.** If Customer operates a gateway or proxy in front of the model, it must admit only Approved Users or their workload identities, use a short-lived credential of its own, and keep its logs and transcripts restricted to Approved Users and Customer's security, IT-administration, or trust-and-safety teams.
+
+6. **Customer-Operated Credential Systems.** Credentials issued by Customer's own systems must expire within 12 hours, must be issued only after phishing-resistant multi-factor authentication (for people) or a verified workload identity (for services), and must leave no static credential on endpoints, in source code, or in shared stores. The keys and secrets that can issue model credentials must be kept in a secrets manager or key management service with access logging.
+
+7. **Revocation.** Customer must be able to revoke any compromised credential or identity within 24 hours.
+
+8. **Offboarding.** Customer must remove departed or reassigned Approved Users, and their workload identities, from the Granted Workspace within three (3) business days.
+
+9. **Network Egress.** Wherever the model performs offensive or agentic work, outbound traffic must be limited to an allow-list enforced off the host, and must be logged. Workstations used only for interactive prompting may use an on-host allow-list if the agentic work itself runs in a sandbox that cannot change that list.
+
+10. **Managed Devices.** Approved Users must reach the Granted Workspace only from devices that Customer controls that receive automatic or regularly scheduled operating-system updates, not personal devices.
+
+11. **Background Checks.** Every Approved User, including contractors, must have passed an identity check and, where lawful, a criminal-history check. Where local law restricts criminal checks, identity, right-to-work, or employment verification is accepted. Government vetting or a clearance satisfies this requirement.
+
+12. **Incident Procedure.** Customer must maintain a documented procedure for suspected compromise or misuse of the grant that covers credential revocation and seat suspension.
+
+13. **Government Entities.** A FISMA Authority to Operate with an annual independent Inspector General assessment against NIST SP 800-53, or an equivalent national scheme, satisfies the Managed Devices, Background Checks, and Incident Procedure requirements. All other requirements continue to apply.
+
+## 5. Specialized Access.
+
+1. **Multi-Factor Authentication.** At the time of Customer’s access to the CVP, phishing-resistant multi-factor authentication must protect (i) all accounts that can sign in to the Granted Workspace or hold credentials for it, (ii) Approved Users' accounts at Customer's identity provider, (iii) AWS, Google Cloud, or Azure identities that can call the model, (iv) administrative access to anything that issues or stores model credentials, and (v) any virtual desktop or enclave used to meet these requirements. Phishing-resistant multi-factor authentication means (i) a FIDO2/WebAuthn security key, (ii) a passkey, on the device or in a password manager, or (iii) a smartcard/PIV, consistent with the CISA fact sheet "Implementing Phishing-Resistant MFA" and NIST SP 800-63B-4. SMS, voice, emailed codes, authenticator-app codes, and push approvals do not qualify, and email magic-link sign-in must be disabled.
+
+2. **Credential Management.** The following requirements apply to Customer based on the deployment platform(s) through which Customer accesses the model. For each applicable platform, all Approved Users and all workloads must authenticate using short-lived credentials issued and managed by that platform's native identity service.
+
+  1. **Anthropic (first-party API and Console).** Static or long-lived API keys are not permitted, including for interactive access to Claude Console, Claude for Enterprise, Claude Code, and other Anthropic application surfaces.
+
+  2. **Google Vertex.** Downloaded service account JSON key files are not permitted.
+
+  3. **Amazon Web Services (Amazon Bedrock).** IAM user access key pairs (access key ID and secret access key) are not permitted, with the exception of short-term Bedrock API keys that expire within 12 hours or the length of the Bedrock session, whichever is shorter.
+
+  4. **Microsoft Azure (Azure AI Foundry).** API keys and exported service principal client secrets or certificates are not permitted.
+
+3. **Single Sign-On and Organization Accounts.** Approved Users must sign in with accounts on Customer's own domain. Approved Users must sign in with organization-domain identities federated through Customer's single sign-on. Personal, webmail, and non-federated accounts are not permitted.
+
+4. **Approved Users.** The Granted Workspace is limited to 25 Approved Users who personally perform or directly supervise the work for which the grant was approved. Workload identities do not count toward that number. Customer may request additional Approved Users seats in writing (email sufficing). Only named administrators may add members, change roles, or create workload identities or credentials on the Granted Workspace.
+
+5. **Gateways.** If Customer operates a gateway or proxy in front of the model, it must admit only Approved Users or their workload identities, use a short-lived credential of its own, and keep its logs and transcripts restricted to Approved Users and Customer's security, IT-administration, or trust-and-safety teams.
+
+6. **Customer-Operated Credential Systems.** Credentials issued by Customer's own systems must expire within 12 hours, must be issued only after phishing-resistant multi-factor authentication (for people) or a verified workload identity (for services), and must leave no static credential on endpoints, in source code, or in shared stores. The keys and secrets that can issue model credentials must be kept in a secrets manager or key management service with access logging.
+
+7. **Revocation.** Customer must be able to revoke any compromised credential or identity within 24 hours.
+
+8. **Offboarding.** Customer must remove departed or reassigned Approved Users, and their workload identities, from the Granted Workspace within 3 business days.
+
+9. **Network Egress.** Wherever the model performs offensive or agentic work, outbound traffic must be limited to an allow-list enforced off the host, and must be logged. Workstations used only for interactive prompting may use an on-host allow-list if the agentic work itself runs in a sandbox that cannot change that list.
+
+10. **Managed Devices and Malware Protection.** Approved Users must reach the Granted Workspace only from devices that Customer controls, not personal devices, and that receive automatic or regularly scheduled operating-system updates. Every device an Approved User uses to reach the Granted Workspace must be managed by Customer and must run application allow-listing or deny-listing in enforce mode, or an endpoint detection and response agent in block or prevent mode. A managed virtual desktop or enclave that meets this standard also qualifies.
+
+11. **Background Checks.** Every Approved User, including contractors, must have passed an identity check and, where lawful, a criminal-history check. Where local law restricts criminal checks, identity, right-to-work, or employment verification is accepted. Government vetting or a clearance satisfies this requirement.
+
+12. **Incident Procedure.** Customer must maintain a documented procedure for suspected compromise or misuse of the grant that covers credential revocation, seat suspension, and notifying Anthropic.
+
+13. **Government Entities.** A FISMA Authority to Operate with an annual independent Inspector General assessment against NIST SP 800-53, or an equivalent national scheme, satisfies the Managed Devices and Malware Protection, Background Checks, and Incident Procedure requirements. All other requirements continue to apply.
+---
+
 SOURCE: https://support.claude.com/en/articles/8241188-claude-is-producing-links-that-don-t-work-and-falsely-claiming-that-it-has-sent-emails-or-produced-external-documents-what-s-going-on
 
 # Claude is producing links that don’t work and falsely claiming that it has sent emails or produced external documents. What’s going on?
@@ -769,7 +1067,11 @@ SOURCE: https://support.claude.com/en/articles/8987223-can-i-have-a-claude-accou
 
 # Can I have a Claude account and a Console account?
 
-Yes. You can have a Claude account (free, Pro, Max, Team, or Enterprise) and a Console account (to access the Claude API) with the same email address. These two accounts will operate independently.
+Yes. You can have a Claude account (free, Pro, Max, Ultra, Team, or Enterprise) and a Console account (to access the Claude API) with the same email address. These two accounts will operate independently.
+
+Claude Max, Ultra, and Team plans include monthly credits for the Claude API. To claim your credits, you link a Claude Console organization to your plan. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
+
+**Tip:** Sign in to the Claude Console with the same email you use for your Claude account.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9028421-delete-your-claude-account
@@ -782,7 +1084,7 @@ This article shows you how to permanently delete your account on the web and in 
 
 ## Before you delete a paid account
 
-If you're on a Pro or Max plan:
+If you're on a Pro, Max, or Ultra plan:
 
 1. Cancel your subscription from your **[Billing settings](https://claude.ai/settings/billing)**.
 
@@ -790,7 +1092,7 @@ If you're on a Pro or Max plan:
 
 3. Once the subscription lapses, delete your account using the steps below.
 
-For detailed cancellation instructions, including for Claude for iOS and Android, see **[Cancel your Pro or Max subscription](https://support.claude.com/en/articles/8325617)**.
+For detailed cancellation instructions, including for Claude for iOS and Android, see **[Cancel your Pro, Max, or Ultra subscription](https://support.claude.com/en/articles/8325617)**.
 
 ## Delete your account on the web
 
@@ -850,7 +1152,7 @@ SOURCE: https://support.claude.com/en/articles/9889408-add-or-update-your-paid-c
 
 ## Add your tax or VAT ID during signup
 
-When you sign up for a Pro or Max subscription, you may have the option to enter your Tax or VAT ID depending on your location:
+When you sign up for a Pro, Max, or Ultra subscription, you may have the option to enter your Tax or VAT ID depending on your location:
 
 1. During the sign-up process, enter your address information.
 

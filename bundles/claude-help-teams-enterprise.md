@@ -35,7 +35,7 @@ You'll need to check the parent organization dynamic depending on your plan:
 
 - **If you have a Team or Enterprise plan:** You can proceed directly to the **[Setting up single sign-on (SSO)](https://support.claude.com/en/articles/13132885-setting-up-single-sign-on-sso)** guide. Your parent organization is already in place (or will be created when you enable SSO for Team plans).
 
-- **If you have a Claude Console organization and an existing Team or Enterprise plan:** Your Console organization may already be linked to your Team or Enterprise parent organization. Check if you can access **[platform.claude.com/settings/identity](http://platform.claude.com/settings/identity)**. If so, this indicates that the org is linked to the parent organization and SSO is already configured. If not, an Owner on your Team or Enterprise plan can initiate a merge to link your Console organization (see **[Merge organizations](#h_3bad8701c8)** below) to their parent organization and the existing SSO configuration.
+- **If you have a Claude Console organization and an existing Team or Enterprise plan:** Your Console organization may already be linked to your Team or Enterprise parent organization. Check if you can access **[platform.claude.com/settings/identity](https://platform.claude.com/settings/identity)**. If so, this indicates that the org is linked to the parent organization and SSO is already configured. If not, an Owner on your Team or Enterprise plan can initiate a merge to link your Console organization (see **[Merge organizations](https://support.claude.com/en/articles/10276682-important-considerations-before-enabling-single-sign-on-sso-and-jit-scim-provisioning#h_3bad8701c8)** below) to their parent organization and the existing SSO configuration.
 
 - **If you have a Claude Console organization without a Team or Enterprise plan:** **[Contact our Sales team](https://claude.com/contact-sales)** to request a parent organization for your Console account. Once we create your parent organization, you'll see the Identity settings page in Claude Console and can proceed with SSO setup.
 
@@ -57,7 +57,13 @@ Team or Enterprise organizations can invite other organizations to join an exist
 
 - The organization being invited can't already belong to another parent organization.
 
-**Note:** If an organization you want to invite doesn't appear in the invite list, it may already belong to its own parent organization with separate verified domains and SSO. **[Contact support](https://support.claude.com/en/articles/9015913-how-to-get-support)** to have it detached from its current parent. Detaching clears that organization's existing domain verification and SSO/SCIM configuration, so confirm its admins are aware before you request it.
+If an organization you want to invite doesn’t appear in the invite list, check the following:
+
+- **The list shows a limited number of results at a time.** Search for a distinctive part of the organization’s name. Search matches organization names, not organization IDs.
+
+- **Every member needs a verified-domain email address.** If any member has an email address outside your parent organization’s verified domains, the organization doesn’t appear.
+
+- **The organization may already belong to another parent organization** with separate verified domains and SSO. **[Contact support](https://support.claude.com/en/articles/9015913)** to have it detached. Detaching clears that organization’s existing domain verification and SSO/SCIM configuration, so confirm its admins are aware before you request it.
 
 ### To initiate a merge proposal
 
@@ -65,7 +71,7 @@ Team or Enterprise organizations can invite other organizations to join an exist
 
 2. Click "Invite" under **Merge Organizations**.
 
-3. Select the organization you want to invite and click "Next."
+3. Search for and select the organization you want to invite, then click “Next."
 
 4. Review the member count and click "Invite."
 
@@ -81,7 +87,7 @@ Approving a merge takes two steps, one on each side, and completes only after bo
 
 2. **Parent organization:** An Owner or Admin of an organization already under the parent approves from Organization settings > Organization and access > Pending Organizations, or from the link in the "Parent Organization Update: New Member Organization Proposed" email.
 
-Once a Console organization is merged, it gains access to the **[Identity and access page](http://platform.claude.com/settings/identity)**, in the Organization settings, to configure SSO and provisioning settings.
+Once a Console organization is merged, it gains access to the **[Identity and access page](https://platform.claude.com/settings/identity)**, in the Organization settings, to configure SSO and provisioning settings.
 
 ---
 
@@ -117,15 +123,15 @@ For detailed information on how each provisioning method works, see **[Set up JI
 
 After enabling SSO for your organization, there are two distinct scenarios to consider for users who have individual accounts associated with your verified company domain:
 
-### Users with existing Free/Pro/Team/Max accounts who ARE added to your SSO application
+### Users with existing Free/Pro/Team/Max/Ultra accounts who ARE added to your SSO application
 
-These users keep access to their existing Free/Pro/Team/Max accounts. They can toggle between the Team or Enterprise plan account and their previous accounts by clicking the profile icon with their initials in the bottom left corner.
+These users keep access to their existing Free/Pro/Team/Max/Ultra accounts. They can toggle between the Team or Enterprise plan account and their previous accounts by clicking the profile icon with their initials in the bottom left corner.
 
-### Users with existing Free/Pro/Team/Max accounts who are NOT added to your SSO application
+### Users with existing Free/Pro/Team/Max/Ultra accounts who are NOT added to your SSO application
 
 - **If "Require SSO for Claude" is NOT enabled:** These users can still access their existing accounts using the "Continue with email" option.
 
-- **If "Require SSO for Claude" IS enabled:** These users will be unable to access their existing Free/Pro/Team/Max accounts. Please note that these accounts are not deleted, but will be inaccessible as users are unable to log in via SSO.
+- **If "Require SSO for Claude" IS enabled:** These users will be unable to access their existing Free/Pro/Team/Max/Ultra accounts. Please note that these accounts are not deleted, but will be inaccessible as users are unable to log in via SSO.
 
 ---
 
@@ -133,7 +139,7 @@ These users keep access to their existing Free/Pro/Team/Max accounts. They can t
 
 To view or download information about your verified domains and their usage across Claude organizations:
 
-1. Navigate to the **Organization and access** section in Claude (**[claude.ai/admin-settings/organization](https://claude.ai/admin-settings/organization)**) or the **Identity and access** section in Console (**[platform.claude.com/settings/identity](http://platform.claude.com/settings/identity)**).
+1. Navigate to the **Organization and access** section in Claude (**[claude.ai/admin-settings/organization](https://claude.ai/admin-settings/organization)**) or the **Identity and access** section in Console (**[platform.claude.com/settings/identity](https://platform.claude.com/settings/identity)**).
 
 2. Click “Domain memberships” in the **Domains** section.
 
@@ -262,11 +268,21 @@ SOURCE: https://support.claude.com/en/articles/12053672-what-happens-to-a-user-s
 
 This article explains what happens to projects, chats, and skills when a member is removed from your Team or Enterprise plan organization.
 
-## Deleting individual accounts within an organization
+## Delete individual accounts within an organization
 
 If you are a non-Owner member of a Team or Enterprise plan, you will need to contact an organization Owner to have your account removed.
 
-## Deleting organization-level accounts
+Removing a user from your organization doesn’t delete their account or data. If you’re an Owner or Primary Owner, you can ask Support to permanently delete a removed user’s account and data:
+
+1. If you need a copy of the user’s data, run an organization **[data export](https://support.claude.com/en/articles/13346720)** from the Primary Owner’s account first. The export still includes a removed user’s data.
+
+2. If your organization provisions users through SCIM, remove the user in your identity provider (IdP). Otherwise, they may be provisioned again.
+
+3. **[Contact Support](https://support.claude.com/en/articles/9015913-how-to-get-support)** from your own email address. Include the user’s email address, and confirm in writing that their account and data should be deleted.
+
+**Important:** Deletion is permanent and can’t be undone.
+
+## Delete organization-level accounts
 
 For help with deleting your organization’s Team or Enterprise plan, please **[reach out to our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)**. Note that organization level account deletion requests must be made by your account's Primary Owner.
 
@@ -286,7 +302,7 @@ If a deleted team member shared their project with the entire organization, it w
 
 When a user is removed from your Team or Enterprise organization, remaining members will no longer be able to access their chats. This applies to chat snapshots that are shared with the organization. After the user who created the chat is removed, remaining members will see this message when they try to access any shared chat URLs: "Conversation not found. The requested conversation either doesn't exist or you don't have permission to access it."
 
-Note that the removed user’s data will still be included in any **[data exports](https://support.claude.com/en/articles/9450526-how-can-i-export-my-claude-data)** run by your organization’s Primary Owner. For Enterprise organizations specifically, the removed user’s data will still be subject to any configured **[custom data retention settings](https://support.claude.com/en/articles/10440198-custom-data-retention-controls-for-enterprise-plans)**.
+Note that the removed user’s data will still be included in any **[data exports](https://support.claude.com/en/articles/9450526-how-can-i-export-my-claude-data)** run by your organization’s Primary Owner. For Enterprise organizations specifically, the removed user’s data will still be subject to any configured **[custom data retention settings](https://support.claude.com/en/articles/10440198-custom-data-retention-controls-for-enterprise-plans)**. Custom data retention doesn’t cover memory of members who have left your organization.
 
 ## Will a user's skills still be accessible after removing them?
 
@@ -463,9 +479,9 @@ Enterprise search is particularly valuable for:
 
 ## Privacy and permissions
 
-- **Permission-aware:** You only see search results from data you have permission to access in the original systems.
+- **Permission-aware:** You only see search results from data you have permission to access in the original systems. For a custom connector that uses a shared credential, results reflect what that credential can access.
 
-- **User-level authentication for connectors:** Each user authenticates with their own credentials to enable connectors.
+- **User-level authentication for connectors:** Each user authenticates with their own credentials to enable connectors, unless a custom connector is set up with a shared credential, such as an API key. Everyone who uses that connector reaches the service with the same credential.
 
 - **No external indexing:** Search results are generated by making MCP calls. No data from connected services are indexed in our systems for serving queries.
 
@@ -611,7 +627,7 @@ Claude can only access data within the project that:
 
 ### Does everyone in my organization see the same search results?
 
-No. Search results are permission-aware. You only see data that you have permission to access in each connected system.
+No. Search results are permission-aware. You only see data that you have permission to access in each connected system. The exception is a custom connector that uses a shared credential, such as an API key, where everyone sees what that credential can access.
 
 ### Is my search history visible to others?
 
@@ -772,29 +788,33 @@ For more control over provisioning, see **[Set up JIT or SCIM provisioning](http
 
 ---
 
-## Updating your SSO certificate
+## Update your SSO certificate or client secret
 
-When your Identity Provider's X.509 signing certificate expires or is rotated, you'll need to update it in Claude or Console to maintain SSO functionality.
+When your Identity Provider’s X.509 signing certificate (SAML) or client secret (OpenID Connect) expires or is rotated, you’ll need to update it in Claude or Console to maintain SSO functionality.
 
 1. Navigate to your settings:
 
   - For Team and Enterprise plans: **[claude.ai/admin-settings/organization](https://claude.ai/admin-settings/organization)**
 
-  - For Claude Console: **[platform.claude.com/settings/identity](https://platform.claude.com/settings/organization)**
+  - For Claude Console: **[platform.claude.com/settings/identity](https://platform.claude.com/settings/identity)**
 
 2. In the **Authentication** section, click “Manage SSO.”
 
-3. Find the **Metadata configuration** section and click “Edit.”
+3. Update the credential for your connection type:
 
-4. Update your certificate information and save your changes.
+  1. **SAML:** Find the **Metadata configuration** section, click “Edit,” and update your certificate information.
+
+  2. **OpenID Connect:** Replace the expired client secret with the new one from your Identity Provider. OpenID Connect connections don’t use a certificate.
+
+4. Save your changes.
 
 5. Click "Test sign-in" on the same page to confirm everything is working.
 
-**Important:** If **Require SSO** is turned on and your certificate has already expired, no one in your organization can sign in to update it, because every sign-in option routes through SSO. **[Contact Support](https://support.claude.com/en/articles/9015913)** from an Owner’s or Primary Owner’s email address and we’ll help you regain access so an Owner can update the certificate. To avoid this, note your certificate’s expiry date in your Identity Provider and rotate it ahead of time.
+**Important:** If **Require SSO** is turned on and your certificate or client secret has already expired, no one in your organization can sign in to update it, because every sign-in option routes through SSO. **[Contact Support](https://support.claude.com/en/articles/9015913)** from an Owner’s or Primary Owner’s email address and we’ll help you regain access so an Owner can update it. To avoid this, note the expiry date of your certificate or client secret in your Identity Provider and rotate it ahead of time.
 
 ---
 
-## Turning off SSO
+## Turn off SSO
 
 You can toggle **Require SSO for Claude** or **Require SSO for Console** off at any time. This will make SSO optional for all users.
 
@@ -802,7 +822,7 @@ To fully disconnect SSO, click “Manage SSO” then “Reset connection.” Thi
 
 ## Locked out of admin access?
 
-If none of your Owners or Admins can sign in (for example, after a certificate expiry, an Identity Provider change, or a group mapping that removed your administrators), contact Support from an Owner’s or Primary Owner’s email address. We’ll verify your ownership of the organization and help you regain access so you can correct the configuration.
+If none of your Owners or Admins can sign in (for example, after a certificate or client secret expiry, an Identity Provider change, or a group mapping that removed your administrators), contact Support from an Owner’s or Primary Owner’s email address. We’ll verify your ownership of the organization and help you regain access so you can correct the configuration.
 ---
 
 SOURCE: https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning
@@ -837,13 +857,13 @@ When SCIM directory sync is on, Claude sends each newly provisioned member a wel
 
 Use this table to help decide which provisioning mode is right for your organization:
 
-| **Mode**              | **Provisioning**                                                                                                                                                | **Role and seat type changes**                                                | **Removal**                                                                                                                                                                                                                                                                                            |
-| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Invite only           | Users are manually added                                                                                                                                        | Roles and seat types are manually changed                                     | Users are manually removed                                                                                                                                                                                                                                                                             |
-| Just-in-time (JIT)    | Users assigned to your IdP app are provisioned at login with the User role                                                                                      | Roles and seat types are manually changed                                     | Manual removal required. JIT never removes members automatically. If you unassign someone from your IdP app, they can no longer log in, but they stay in your member list and keep their seat until an admin removes them.                                                                             |
-| JIT + group mappings  | Users in at least one mapped group are provisioned at login with the highest-permissioned role from their group memberships                                     | Roles and seat types update on next login based on group membership           | Mostly manual. A user who is removed from all of your mapped groups (but still assigned to the app) is removed from the org the next time they log in. A user you unassign from the app entirely can no longer log in, but stays in your member list and keeps their seat until an admin removes them. |
-| SCIM directory sync   | Users assigned to your IdP app are automatically provisioned to all organizations joined to your parent org.                                                    | Roles and seat types are manually changed                                     | Users removed from your IdP app are automatically removed                                                                                                                                                                                                                                              |
-| SCIM + group mappings | Users in at least one mapped group are automatically provisioned, with appropriate role, to just the org(s) joined to the parent org where that group is added. | Role and seat types changes automatically propagate based on group membership | Automatic removal when group access is revoked                                                                                                                                                                                                                                                         |
+| **Mode**              | **Provisioning**                                                                                                                                                | **Role and seat type changes**                                                                               | **Removal**                                                                                                                                                                                                                                                                                                                                     |
+| --------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Invite only           | Users are manually added                                                                                                                                        | Roles and seat types are manually changed                                                                    | Users are manually removed                                                                                                                                                                                                                                                                                                                      |
+| Just-in-time (JIT)    | Users assigned to your IdP app are provisioned at login with the User role                                                                                      | Roles and seat types are manually changed                                                                    | Manual removal required. JIT never removes members automatically. If you unassign someone from your IdP app, they can no longer log in, but they stay in your member list and keep their seat until an admin removes them.                                                                                                                      |
+| JIT + group mappings  | Users in at least one mapped group are provisioned at login with the highest-permissioned role from their group memberships                                     | Roles and seat types update on next login based on group membership. The Primary Owner’s role isn’t changed. | Mostly manual. A user who is removed from all of your mapped groups (but still assigned to the app) is removed from the org the next time they log in. This doesn’t apply to the Primary Owner. A user you unassign from the app entirely can no longer log in, but stays in your member list and keeps their seat until an admin removes them. |
+| SCIM directory sync   | Users assigned to your IdP app are automatically provisioned to all organizations joined to your parent org.                                                    | Roles and seat types are manually changed                                                                    | Users removed from your IdP app are automatically removed                                                                                                                                                                                                                                                                                       |
+| SCIM + group mappings | Users in at least one mapped group are automatically provisioned, with appropriate role, to just the org(s) joined to the parent org where that group is added. | Role and seat types changes automatically propagate based on group membership                                | Automatic removal when group access is revoked                                                                                                                                                                                                                                                                                                  |
 
 **Note:** To remove a JIT user permanently, remove them in Claude and unassign them in your IdP. A user you remove only in Claude will be re-added the next time they log in with SSO.
 
@@ -911,15 +931,25 @@ Once your IdP is connected, continue to Step 3.
 
   3. **SCIM directory sync**: Add or remove members automatically as your directory changes. Your org always stays current.
 
-3. If you selected “Just-in-time (JIT)” or “SCIM directory sync,” do NOT click “Save changes” immediately. You must first ensure all users are assigned to your Anthropic application in your IdP.
+3. If you selected “Just-in-time (JIT)” or “SCIM directory sync,” don’t click “Save changes” yet. First, make sure all users are assigned to your Anthropic application in your IdP. Any users who aren’t assigned when you save will be deprovisioned from the organization.
 
-4. Once you’ve confirmed all users are assigned in your IdP you can either:
+4. Once you’ve confirmed all users are assigned in your IdP, choose one:
 
-  1. Click “Save changes” to complete the set up and trigger the initial provisioning, or
+  1. Click “Save changes” to complete the setup and trigger the initial provisioning. Where it’s available, the admin console shows a preview of what the sync will change before it applies, including how many users will be removed. Review it before you confirm, and cancel if the removal count is higher than you expect. Learn more about **[how SCIM sync works](https://support.claude.com/en/articles/14499648-how-scim-sync-works-for-enterprise-organizations)**.
 
-  2. Toggle on **Enable group mappings** and move to Step 4.
+  2. Turn on **Enable group mappings** and move to Step 4. If you’re on an Enterprise plan and plan to map any IdP group to the “Custom” role with SCIM, follow the steps in the next section first.
 
-**Important**: Saving before users are properly assigned will result in those users being deprovisioned from the organization. Where it's available, the admin console shows a preview of what the sync will change, including how many members will be removed, before it applies. Review it before you confirm, and cancel if the removal count is higher than you expect. Learn more about **[how SCIM sync works](https://support.claude.com/en/articles/14499648-how-scim-sync-works-for-enterprise-organizations)**.
+### Use custom roles with SCIM group mappings (Enterprise plans)
+
+Your IdP groups appear in Claude only after the first SCIM sync runs, so you can’t assign them to custom roles ahead of time. Until a synced group is assigned to a custom role, users in a group mapped to “Custom” have no permissions: features that require permissions are greyed out or hidden, and Claude Code sign-in fails. To avoid this, set up SCIM in two passes:
+
+1. Click “Save changes” with **Enable group mappings** off, and let the initial sync finish.
+
+2. Go to **[Organization settings > Roles](https://claude.ai/admin-settings/roles)** and assign the synced groups to your custom roles. If the groups aren’t listed yet, click “Check for updates” in **[Organization settings > Groups](https://claude.ai/admin-settings/groups)** and sync Groups only.
+
+3. Return to **User provisioning**, turn on **Enable group mappings**, and move to Step 4.
+
+Learn more about **[setting up role-based permissions on Enterprise plans](https://support.claude.com/en/articles/13930458-set-up-role-based-permissions-on-enterprise-plans)**.
 
 ---
 
@@ -955,13 +985,13 @@ Once your IdP is connected, continue to Step 3.
 
 **Important:** All users who need access must be assigned to the appropriate groups before you save your group mappings configuration. These users should already be assigned to your Anthropic application in your IdP from when you enabled SSO.
 
-### How the Primary Owner role works with SCIM
+### How the Primary Owner role works with JIT and SCIM
 
-- Your organization's Primary Owner is exempt from SCIM reconciliation. If the Primary Owner account is not present in the IdP directory, or is not a member of any group mapped to a role, it will be skipped when SCIM syncs. The Primary Owner's membership and role are preserved.
+- Your organization's Primary Owner is exempt from SCIM reconciliation. If the Primary Owner account is not present in the IdP directory, or is not a member of any group mapped to a role, it will be skipped when SCIM syncs. With JIT and group mappings, the Primary Owner’s role isn’t changed when they log in, and they aren’t removed if they’re not in any mapped group. The Primary Owner’s membership and role are preserved.
 
-- This exemption applies only to the single Primary Owner role. Owner and Admin roles are **not** exempt and **must** be in a group mapped to a role, or they will be removed when SCIM group mappings are enabled.
+- This exemption applies only to the single Primary Owner role. Owner and Admin roles are **not** exempt and **must** be in a group mapped to a role, or they will be removed when SCIM group mappings are enabled. With JIT and group mappings, they’re removed the next time they log in.
 
-- The Primary Owner role cannot be assigned via SCIM group mappings. It can only be transferred manually from **[Organization settings > Members](https://claude.ai/admin-settings/members)**. Set your intended Primary Owner before enabling SCIM.
+- The Primary Owner role cannot be assigned through group mappings. It can only be transferred manually from **[Organization settings > Members](https://claude.ai/admin-settings/members)**. Set your intended Primary Owner before enabling SCIM or group mappings.
 
 - The Primary Owner is not exempt from SSO sign-in enforcement. SSO enforcement is applied by email domain; if the Primary Owner's email is on an enforced domain, they must authenticate through SSO.
 
@@ -1001,7 +1031,7 @@ To fix this, do one of the following:
 
 ### I lost Admin/Owner access after enabling group mappings
 
-This happens when the person configuring group mappings isn't assigned to a group mapped to an Admin or Owner role, causing their permissions to be downgraded to User.
+This happens when the person configuring group mappings isn’t assigned to a group mapped to an Admin or Owner role, causing their permissions to be downgraded to User. Someone who isn’t in any mapped group is removed from the organization instead (with JIT, the next time they log in; with SCIM, at the next sync) and needs to be added again. This doesn’t affect the Primary Owner.
 
 To fix this, do one of the following:
 
@@ -1026,11 +1056,13 @@ SOURCE: https://support.claude.com/en/articles/13346720-export-your-organization
 
 # Export your organization's data
 
-Organization data exports are only available to Team and Enterprise plan Primary Owners. Data exports include conversation data and the user data for your account. Individual members of Team and Enterprise organizations do not have a self-serve export option.
+Organization data exports are only available to Team and Enterprise plan Primary Owners. Data exports include conversation data and the user data for your organization. Primary Owners and Owners can also let users export their own data. Learn more in the **[Let users export their own data](#h_68f7c2a1e0)** section below.
 
-If you're an individual Claude user on a Free, Pro, or Max plan looking to export your data, see **[Export your Claude data](https://support.claude.com/en/articles/9450526)**.
+If you're an individual Claude user on a Free, Pro, Max, or Ultra plan looking to export your data, see **[Export your Claude data](https://support.claude.com/en/articles/9450526)**.
 
 Primary Owners of Team and Enterprise plans can export organization data from **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)** on the web app or Claude Desktop.
+
+**Important:** Data exports don’t include the Word, Excel, PowerPoint, or PDF files that Claude creates. Users can download these files from the chat while they’re available. Enterprise organizations using the Compliance API may also be able to retrieve them.
 
 Follow these steps to export your organization's data:
 
@@ -1059,6 +1091,22 @@ Please note:
 - If your link expires, you can always request a new one by repeating the export process.
 
 If you're an Enterprise Primary Owner looking to export audit logs, see **[How to access audit logs](https://support.claude.com/en/articles/9970975-how-to-access-audit-logs)**.
+
+---
+
+## Let users export their own data
+
+Owners and Primary Owners can let users in your organization export their own chats without exporting the whole organization.
+
+To turn this on:
+
+1. Navigate to **[Organization settings > Data and privacy](https://claude.ai/admin-settings/data-privacy-controls)**.
+
+2. In the “Data management” section, turn on “Allow members to export their own data."
+
+Once the setting is on, users export their data from **[Settings > Privacy](https://claude.ai/settings/data-privacy-controls)** in Claude on the web or Claude Desktop. Exports aren’t available in Claude for iOS or Claude for Android. Each export covers the user’s own chats and doesn’t include the contents of uploaded files. Learn more about **[exporting your Claude data](https://support.claude.com/en/articles/9450526)**.
+
+**Note:** Primary Owners don’t see the personal "Export data" button, even when this setting is on. These roles export the whole organization’s data using the steps above.
 ---
 
 SOURCE: https://support.claude.com/en/articles/13566435-find-and-join-a-team-or-enterprise-organization
@@ -1127,7 +1175,7 @@ If multiple organizations share the same email domain and are all discoverable, 
 
 ## Join when you already have a personal Claude account
 
-If you have a Free, Pro, or Max account on the same email address as the organization you're joining, you can choose what to do with it:
+If you have a Free, Pro, Max, or Ultra account on the same email address as the organization you're joining, you can choose what to do with it:
 
 - **Keep both accounts.** Your personal account stays active, and you switch between it and your organization account from your account menu.
 
@@ -1344,6 +1392,8 @@ For usage-based Enterprise plans, usage is billed based on actual consumption. F
 
 If you had purchased usage credits for your Team plan, any unused balance will roll over and become available on your new usage-based Enterprise plan.
 
+**Note:** Enterprise plans aren’t eligible for monthly API credits. If your team has claimed them, new credits stop when you migrate. Credits you already have stay usable until they expire.
+
 ### Provisioning process
 
 On the start date, you'll be provisioned and able to use the new features by the end of the day. After initial setup, Owners and Primary Owners can self-serve additional seats by navigating to **[Organization settings > Organization and access](https://claude.ai/admin-settings/organization)** and clicking "Manage" under **Total seats**.
@@ -1402,6 +1452,8 @@ Skills your organization manages appear under **Organization library**. You mana
 To act on an item, click the menu button at the end of its row. You can view details and files, see version history, and change default and group access.
 
 For skills and plugins that users created, the Inventory tab shows metadata and sharing status. It doesn't show the files themselves.
+
+---
 
 ## Use Anthropic-built marketplaces
 
@@ -1527,7 +1579,7 @@ During a sync, Cowork compares the latest commit in your repo against the last-s
 
 You can sync an organization marketplace from a repository on gitlab.com or on a self-managed GitLab instance. For supported plugin source types and which sources can be private, see **Prepare your repository** above.
 
-GitLab support is in beta and applies to plugin marketplace sync only. Claude Code on the web doesn't support GitLab repositories yet.
+GitLab support is in beta and applies to plugin marketplace sync only. Claude Code cloud sessions don't support GitLab repositories yet.
 
 **Before you start**
 
@@ -1695,6 +1747,38 @@ If a group is removed (for example, deleted from your identity provider), the ov
 ### Do group settings persist across marketplace re-syncs?
 
 Yes. Group-level overrides persist when you re-sync a GitHub- or GitLab-connected marketplace. They're only removed if the plugin itself is deleted from the marketplace.
+
+---
+
+## Restrict which marketplaces users can add
+
+An Owner or Primary Owner can limit which plugin marketplaces people in your organization can add, using an allow list, a block list, or both. You set these lists in Claude Code managed settings, but they also apply in Claude and Claude Cowork.
+
+To set an allow list or block list:
+
+1. Go to **[Organization settings > Claude Code](https://claude.ai/admin-settings/claude-code)**.
+
+2. Find **Managed settings**.
+
+3. Click “Manage.”
+
+4. Add strictKnownMarketplaces (an allow list), blockedMarketplaces (a block list), or both to the JSON.
+
+5. Click “Add settings” or “Update settings.”
+
+Enter your GitHub organization name exactly as GitHub shows it, because allow list matching is case-sensitive. If a source is on both lists, it’s blocked.
+
+Once the lists are set, Claude checks them whenever someone in your organization adds a marketplace from a Git repository in Claude, Claude Desktop, or Cowork. This covers marketplaces users add for themselves in Customize and marketplaces added for the whole organization in **Organization settings > Plugins & skills**. Claude refuses any repository the lists don’t permit, except Anthropic-built marketplaces.
+
+Keep in mind:
+
+- Set the lists in Organization settings. A managed-settings.json file or MDM policy deployed to computers applies only to Claude Code on those computers.
+
+- Existing marketplaces aren’t re-checked. Marketplaces added before you set the lists stay until someone removes them.
+
+- Uploaded plugins aren’t checked. To stop users from uploading plugin files, turn off **User-created skills** in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** on the “Policy” tab.
+
+For every source type the lists accept, see **[Restrict what users can install](https://code.claude.com/docs/en/plugins/org#restrict-what-users-can-install)** in the Claude Code docs.
 
 ---
 
@@ -2881,302 +2965,6 @@ Before you trigger a manual resync, keep these in mind:
 - **Incomplete role mappings remove members from the organization.** When enabling group mapping for SCIM, finish assigning all groups before saving. Any member not included in a role group mapping is removed from the organization. Seat tier mappings work differently: a member who isn’t in any seat tier group isn’t removed. Existing members keep their current seat type, and newly provisioned members receive the highest seat type that still has an unassigned purchased seat, then the next seat type down, and are added with no seat if none is available.
 ---
 
-SOURCE: https://support.claude.com/en/articles/14503613-sso-login
-
-# SSO login
-
-**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
-
-Claude for Government requires Single Sign-on (SSO) for user authentication. Unlike the commercial Claude Enterprise plan, email based (magic link) login is only available to the Primary Owner during account setup. All other users must authenticate through your organization's identity provider (IdP).
-
-Once SSO is configured, the Primary Owner can disable magic link login entirely so that all authentication flows through your IdP.
-
-For SSO setup on Claude Enterprise, see **[Set up single sign-on (SSO)](https://support.claude.com/en/articles/13132885-set-up-single-sign-on-sso)**.
-
-## How SSO differs for Claude for Government
-
-| **Feature**              | **Claude for Government**                | **Claude Enterprise**  |
-| ------------------------ | ---------------------------------------- | ---------------------- |
-| Email (magic link) login | Primary Owner only, during initial setup | Available to all users |
-| SSO Requirement          | Required for all non-Primary Owner users | Optional               |
-
-## Steps for setting up SSO
-
-### Prerequisites
-
-Before you begin, confirm that you have:
-
-- **Primary Owner access** — The email address registered as Primary Owner when the license was purchased.
-
-- **DNS access** — Ability to create TXT records for your organization's login domain(s).
-
-- **IdP admin access** — Permission to create a SAML application in your identity provider (e.g., Entra ID, Okta).
-
-### Step 1: Sign in as Primary Owner
-
-1. Navigate to **[claude.fedstart.com](http://claude.fedstart.com)**
-
-2. Enter the email address registered as Primary Owner.
-
-3. Complete the email-based login using the magic link sent to the Primary Owner’s inbox.
-
-4. After signing in, the Primary Owner will be redirected to the identity settings page at **[claude.fedstart.com/admin-settings/identity](https://claude.fedstart.com/admin-settings/identity)**
-
-**Tip**: It often makes sense to appoint someone from your IT team as the Primary Owner, since they will need DNS and IdP access for the remaining steps.
-
-### Step 2: Verify your domain
-
-Before configuring your Identity Provider (IdP), you must verify ownership of your login domain.
-
-1. On the identity settings page, locate your domain and select the **"View instructions"** tab. There you’ll be able to see the required DNS challenge record that must be set.
-
-2. Create the displayed TXT record in your domain’s DNS settings.
-
-3. Wait for the DNS propagation. Once the platform detects the record, the domain status will update to “**Verified**.”
-
-
-
-
-
-**Important:** Each domain can only have one identity provider. If multiple organizations share a single login domain, IT administrators from both organizations will be able to modify login settings. Contact **[Anthropic Support](https://claude.fedstart.com/support)** for assistance with multi-organization setups. For more details about multi-organization setups, see our **[SCIM provisioning guide](https://support.claude.com/en/articles/14503643-set-up-scim-in-claude-for-government)**.
-
-### Step 3: Configure your Identity Provider
-
-Anthropic acts as the **Service Provider (SP)** in the SAML SSO flow. Your organization’s IdP (e.g., Entra or Okta) acts as the **Identity Provider.**
-
-1. On the identity settings page, locate the **SP Metadata** section. This contains the values your IdP needs:
-
-  1. Entity ID (Audience URI)
-
-  2. ACS URL (Reply URL)
-
-2. In your IdP, create a new SAML application using these SP metadata values
-
-### Step 4: Configure Anthropic with your IdP details
-
-Once your SAML application is set up in your IdP, provide Anthropic with the details it needs to verify SAML assertions. On the identity settings page, enter:
-
-- Signing Certificate — The X.509 certificate from your IdP.
-
-- IdP Entity ID — Your IdP's entity identifier.
-
-- SSO URL — The IdP's SAML sign-on endpoint.
-
-- Claims Information — Attribute mappings for user name and email.
-
-
-
-**Tip:** Using a metadata XML file: Most IdPs let you download a metadata.xml file. Upload it on the identity settings page to auto-fill the Signing Certificate, IdP Entity ID, and SSO URL. Some IdPs (like Entra ID) also include claims information in the metadata file; if present, the system will suggest field mappings automatically.
-
-**Troubleshooting attribute mappings**
-
-Attribute mapping is where most configuration issues occur. If login fails after setup:
-
-1. Install a SAML debugging extension such as SAML-tracer.
-
-2. Attempt an SSO login and inspect the SAML response.
-
-3. Confirm that the email claim returns an address under your verified domain. Email claims for unverified domains will be rejected.
-
-### Step 5: Test and finalize
-
-1. Log out of Claude for Government.
-
-2. Log back in using your SSO configuration to confirm it works.
-
-3. (Optional) Once SSO login is verified, return to the identity settings page and disable magic link login.
-
-**Warning**: Only disable magic link login after you have confirmed that SSO login works. If SSO is misconfigured and the magic link is disabled, the Primary Owner will be unable to access the admin console. Contact Anthropic support if you are locked out.
-
-After SSO is configured, any user assigned to the SAML application in your IdP can log in and will be provisioned a seat automatically, provided your organization has available licenses. If no seats are available, users will see an error at login. Contact your Anthropic account representative to add licenses. For more controlled provisioning—including role assignment and multi-organization support—see **[SCIM provisioning](https://support.claude.com/en/articles/14503643-set-up-scim-in-claude-for-government)**.
----
-
-SOURCE: https://support.claude.com/en/articles/14503643-set-up-scim-in-claude-for-government
-
-# Set up SCIM in Claude for Government
-
-**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
-
-System for Cross-domain Identity Management (SCIM) lets your identity provider automatically manage user accounts in Claude for Government. With SCIM, your IdP controls who has access, what role they hold, and what seat tier they're assigned—without manual intervention in the Claude admin console.
-
-For SCIM setup on Claude Enterprise, see **[Set up JIT or SCIM provisioning](https://support.claude.com/en/articles/13133195-set-up-jit-or-scim-provisioning)**.
-
-## How SCIM differs for Claude for Government
-
-Claude for Government uses a first-party SCIM implementation hosted within the FedRAMP-authorized environment. The commercial Claude Enterprise plan uses a different SCIM backend.
-
-| **Feature**                 | **Claude for Government**                  | **Claude Enterprise**           |
-| --------------------------- | ------------------------------------------ | ------------------------------- |
-| SCIM endpoint               | claude.fedstart.com/v1/scim/v2             | Configured via claude.ai        |
-| SCIM implementation         | Anthropic first-party (FedRAMP-authorized) | Third-party integration         |
-| API key management          | Self-service via identity settings page    | Self-service via admin settings |
-| Parent Organization Support | Yes — for multi-org identity management    | Not applicable                  |
-
-## Prerequisites
-
-Before setting up SCIM, you must complete:
-
-1. **SSO configuration** — Complete the steps outlined in the SSO setup guide.
-
-2. **Domain verification** — Your login domain must be verified (this is completed during SSO setup).
-
-3. **IdP admin access** — Permission to configure a SCIM integration in your identity provider.
-
-## How provisioning works with and without SCIM
-
-Without SCIM, Claude for Government uses just-in-time (JIT) provisioning: any user who authenticates through SSO is automatically assigned a seat, as long as licenses are available. You control who can authenticate by managing membership in the SAML application within your IdP.
-
-With SCIM, login and provisioning are separate. Your IdP tells Anthropic who should have access and at what role/tier. SSO is used only for authentication. This gives you fine-grained control over roles, seat tiers, and offboarding.
-
-### Step 1: Generate a SCIM API key
-
-1. Navigate to claude.fedstart.com/admin-settings/identity.
-
-2. In the SCIM section, generate a new API key.
-
-3. Copy the key — you'll need it when configuring your IdP.
-
-**Important**: Store this key securely. It cannot be retrieved after you leave the page.
-
-
-
-### Step 2: Configure SCIM in your Identity Provider
-
-1. In your IdP (e.g., Entra ID, Okta), create or open a SCIM provisioning integration.
-
-2. Enter the following values:
-
-  1. **SCIM endpoint URL:** `https://claude.fedstart.com/v1/scim/v2`
-
-  2. **API key / Bearer token:** The key generated in Step 1
-
-3. Configure the user attributes your IdP will sync (typically name and email).
-
-4. Assign users and groups to the SCIM integration within your IdP.
-
-### Step 3: Verify sync status
-
-After enabling the integration in your IdP:
-
-1. Return to the identity settings page at claude.fedstart.com/admin-settings/identity.
-
-2. Check the SCIM sync status indicator to confirm users are syncing.
-
-**Warning**: When you fully enable SCIM provisioning, any users who were **not** synced via SCIM will be removed from the organization. Confirm that all expected users appear in the sync before proceeding.
-
-
-
-### Step 4: Map groups to roles and seat tiers
-
-SCIM provisioning uses IdP groups to assign roles and seat tiers within Claude for Government.
-
-1. On the identity settings page, open the role mappings table.
-
-2. For each IdP group, assign:
-
-  1. Role — The user's role within the organization (e.g., Member, Owner).
-
-  2. Seat tier — The license tier, if your organization has purchased multiple tiers.
-
-3. Save your mappings.
-
-
-
-If you manage multiple organizations under a single parent (see below), each organization maintains its own role and seat tier mappings. Switch between organizations using the organization selector in the bottom-left corner of the page.
-
-### Parent organizations (multi-org setups)
-
-Every Claude for Government organization belongs to a **parent organization**. For most customers, this is transparent—a parent is created automatically during provisioning and contains a single child organization.
-
-Parent organizations become relevant when multiple organizations share a login domain. Common scenarios include:
-
-- **Regional offices** that purchase Claude for Government independently but share an email domain.
-
-- **Sub-departments** within an agency that require data separation (e.g., preventing cross-org sharing of chats or projects).
-
-In a multi-org setup:
-
-- Identity settings (IdP configuration and SCIM) are managed at the **parent organization** level.
-
-- Role and seat tier mappings are configured **per child organization**, allowing different groups to map to different orgs.
-
-- Any Owner or Primary Owner in a child organization can manage IdP settings. Restrict these roles to centralized IT staff.
-
-**Note:** Anthropic support will work with you during provisioning to configure parent/child organization relationships. Contact your account representative or **[our Support team](https://support.claude.com/en/articles/13047024)** if you need to set up a multi-org structure.
----
-
-SOURCE: https://support.claude.com/en/articles/14503675-organization-instructions-in-claude-for-government
-
-# Organization instructions in Claude for Government
-
-**Important:** All organizations will move to the updated Claude for Government (Desktop) offering by October 4, 2026. If your agency has already moved or you want to get started, see the **[Claude for Government administrator guide](https://claude.com/docs/government)** for current documentation.
-
-Organization instructions allow administrators to define custom instructions that Claude follows in every conversation for all users in the organization. Use this to set compliance guidance, communication standards, formatting requirements, or domain-specific context.
-
-## How organization and user instructions interact
-
-Claude supports two levels of instructions. Understanding how they interact helps administrators and users get the most out of both.
-
-| **Level**                    | **Set by**     | **Scope**                      | **Visibility**                       |
-| ---------------------------- | -------------- | ------------------------------ | ------------------------------------ |
-| Organization instructions    | Administrators | All users, all conversations   | Only administrators can view or edit |
-| Individual user instructions | Each user      | That user's conversations only | Only that user can view or edit      |
-
-When both are set, organization preferences take precedence. If a user preference directly contradicts an organization preference, Claude will strongly favor the organization-level instruction. For example, if an organization preference says "Always respond in formal English" but a user preference says "Use casual tone," Claude will respond formally.
-
-Individual user instructions still apply for anything not addressed by the organization instructions.
-
-**Note**: Instruction prioritization relies on prompt-level instructions. In rare edge cases involving directly contradictory instructions, behavior may vary. Test your instructions to confirm they produce the expected results.
-
-## Set up organization instructions
-
-To configure organization instructions, you must have an Owner or Admin role for your organization.
-
-1. Click the gear icon in the lower left corner and select "Organization settings."
-
-2. Select **Organization**.
-
-3. Locate the **Organization instructions** section.
-
-4. Enter your instructions in the text area. You can include guidance such as compliance rules, formatting requirements, communication standards, or domain-specific context. The maximum length is 3,000 characters.
-
-5. Click "Save." Your instructions take effect immediately for all users in the organization.
-
-To remove instructions entirely, clear the text area and click "Save."
-
----
-
-## Best practices
-
-**Keep instructions concise and clear.** Organization instructions are included in every message sent by every user in your organization, so shorter instructions help keep conversations efficient. Aim for direct, specific guidance rather than lengthy explanations.
-
-**Be specific about what you want**. Instead of vague instructions like "be professional," provide concrete direction such as "Respond in formal English. Do not use contractions, slang, or emojis."
-
-**Focus on consistent behaviors**. Organization instructions work best for instructions that should apply uniformly across all conversations, such as compliance requirements, response formatting standards, or classification handling rules.
-
-**Avoid conflicting instructions.** If your organization instructions contradict each other, Claude may not follow either one reliably. Review your instructions as a whole to ensure they are consistent.
-
-**Do not attempt to override safety behaviors.** Organization instructions cannot disable Claude's built-in safety guidelines or content policies. Instructions that conflict with Claude's core training will not be followed.
-
-**Test your instructions.** After saving, start a new conversation to verify Claude is following your instructions as expected. Try a few different types of questions to make sure the instructions work well across a range of topics.
-
-**Review and update regularly.** As your organization's needs change, revisit your instructions to ensure they remain relevant and accurate. Removing outdated instructions keeps Claude's responses focused.
-
----
-
-## Example instructions
-
-**Compliance and classification guidance** — "Treat all responses as CUI. Do not include controlled unclassified information in web search queries or file names."
-
-**Communication standards** — "Always respond in formal English. Use active voice."
-
-**Domain-specific context** — "Users are federal agency employees. When they reference 'the system,' they mean our grants management platform."
-
-**Response formatting** — "Prefer concise responses under 300 words. Use bullet points for lists with three or more items."
-
-**Referral guidance** — "When users ask about HR policies, direct them to <hr@example.com> rather than providing specific policy advice."
----
-
 SOURCE: https://support.claude.com/en/articles/14546867-set-organization-instructions
 
 # Set organization instructions
@@ -3255,7 +3043,7 @@ SOURCE: https://support.claude.com/en/articles/14625626-respond-to-an-enterprise
 
 # Respond to an Enterprise domain claim on your Claude account
 
-If your organization has set up Claude Enterprise, they may claim your existing personal Claude account (Free, Pro, or Max) and move it into their workspace. This article explains what to expect and what your options are.
+If your organization has set up Claude Enterprise, they may claim your existing personal Claude account (Free, Pro, Max, or Ultra) and move it into their workspace. This article explains what to expect and what your options are.
 
 **Note:** If your admin hasn't claimed your domain yet and you're exploring your options, see **[Move your personal Claude account to a Team or Enterprise organization](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization)**.
 
@@ -3289,9 +3077,9 @@ Sign in before the deadline to make your choice.
 
 ## What happens to your paid subscription
 
-If you have a Pro or Max subscription, it will be automatically canceled when you migrate or when the deadline passes. You’ll receive a prorated refund for any unused time.
+If you have a Pro, Max, or Ultra subscription, it will be automatically canceled when you migrate or when the deadline passes. You’ll receive a prorated refund for any unused time.
 
-**Apple App Store subscriptions:** If you purchased your Pro or Max plan through the Apple App Store, we can’t cancel or refund it directly. You’ll need to cancel it yourself through your Apple ID settings:
+**Apple App Store subscriptions:** If you purchased your Pro, Max, or Ultra plan through the Apple App Store, we can’t cancel or refund it directly. You’ll need to cancel it yourself through your Apple ID settings:
 
 1. Open the Settings app on your iPhone or iPad.
 
@@ -3438,7 +3226,7 @@ Every request counts against both the member's own monthly limit and the group's
 
 If a member belongs to more than one pooled group, the largest pool is used first. You can set a custom order under **Pooled budget priority**.
 
-**How to configure:** **Organization settings > Usage > Spend limits > By group/tier**. Open the group's menu, choose **Edit limits**, and set a **Pooled monthly budget** and a **Member monthly limit**. The group needs a monthly spend limit first. Owners, Primary Owners, Admins, the Billing role, and custom roles with Billing (Can manage) can set pools. In beta, the Billing permission applies to the whole org, so anyone who can edit one group's pool can edit every group's pool. Pools aren't available through the Admin API yet. See **[Manage pooled group budgets on Enterprise plans](https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans)**.
+**How to configure:** **Organization settings > Usage > Spend limits > By group/tier**. Open the group's menu, choose **Edit limits**, and set a **Pooled monthly budget** and a **Member monthly limit**. The group needs a monthly spend limit first. Owners, Primary Owners, the Billing role, and custom roles with Billing (Can manage) can set pools. In beta, the Billing permission applies to the whole org, so anyone who can edit one group's pool can edit every group's pool. Pools aren't available through the Admin API yet. See **[Manage pooled group budgets on Enterprise plans](https://support.claude.com/en/articles/17005973-manage-pooled-group-budgets-on-enterprise-plans)**.
 
 ### User-level spend caps
 
@@ -3543,7 +3331,7 @@ A few ways you can use organization instructions to manage consumption and usage
 
 ---
 
-## Tracking usage and spend
+## Track usage and spend
 
 ### Analytics page
 
@@ -3577,7 +3365,7 @@ Use this when you have a specific question and don't want to navigate the dashbo
 
 For programmatic access, use the Claude Enterprise Analytics API. Pull a ranked list of users by tokens used or dollars spent, or look at usage and cost trends over time broken down by product, model, RBAC group, context window, region, or service tier (standard vs. fast). Grouping the cost report by RBAC group gives per-department spend for chargeback without exporting per-user rows. Each request is capped at 31 days wide, starting within the last 365 days, and no earlier than January 1, 2026.
 
-Your Primary Owner can create a key with the read:analytics scope under Organization settings > API. Cost and usage data typically lands within about four hours (occasionally up to 24) and can be revised for up to 30 days, so query dates 30+ days in the past for invoicing-grade totals. Engagement endpoints such as users, skills, plugins, and connectors update daily with roughly a one-day lag. **[Learn more](https://platform.claude.com/docs/en/manage-claude/analytics-api)** and review the **[API reference guide](https://platform.claude.com/docs/en/api/admin/analytics)**.
+Your Primary Owner can create a key with the read:analytics scope under **Organization settings > API**. Cost and usage data typically lands within about four hours (occasionally up to 24) and can be revised until seven days after the end of the month it belongs to. For invoicing-grade totals, wait until that window closes before you query a month. Engagement endpoints such as users, skills, plugins, and connectors update daily with roughly a one-day lag. **[Learn more](https://platform.claude.com/docs/en/manage-claude/analytics-api)** and review the **[API reference guide](https://platform.claude.com/docs/en/api/admin/analytics)**.
 
 ### Per-user skills, plugin, and connector usage
 
@@ -3698,7 +3486,7 @@ Admins can manage organization discovery from identity and access settings.
 
 1. Log in as an Admin.
 
-2. Navigate to **[Organization settings > Identity and access](http://platform.claude.com/settings/identity)**.
+2. Go to the **Identity and access** page (platform.claude.com/settings/identity).
 
 3. Your organization’s domains are listed at the top of the page.
 
@@ -3738,7 +3526,7 @@ In addition to organization discovery, there are a few other ways to join a Cons
 
 - **Email invitation:** An Admin or existing member of the organization may send you an email invitation to join.
 
-- **Admin invitation:** An Admin can add you directly from **[Organization settings > Members](https://platform.claude.com/settings/members)**.
+- **Admin invitation:** An Admin can add you directly from the **Members** page (platform.claude.com/settings/members).
 
 ---
 
@@ -3765,7 +3553,7 @@ When you set or change a default model, it replaces the model currently selected
 
 **Note:** Not all models are available in every product. If the selected model is not available in the product, Anthropic’s recommendation is used as default.
 
-Users can still select a different model for any conversation. By default, Claude remembers each user's last selection, so their next conversation starts on whichever model they last used. When you update the default again, the new default replaces their selection. To have every new conversation start on the default instead, see **Always start new conversations on the default model** below.
+Users can still select a different model for any conversation. By default, Claude remembers each user's last selection, so their next conversation starts on whichever model they last used. When you update the default again, the new default replaces their selection. To have every new conversation start on the default instead, see **[Always start new chats on the default model](#h_bc399beba0)** below.
 
 For example: you set the organization default to Claude Sonnet 4.6, and every member’s new conversations start on Sonnet 4.6. A member switches a conversation to Claude Opus 4.7, so their next conversations start on Opus 4.7. When you later change the organization default, the new default replaces their selection again. If you turn on **Always start with the default model and effort level**, their next chat starts on Sonnet 4.6 no matter which model they used last.
 
@@ -3843,6 +3631,16 @@ With this setting on:
 
 This setting applies in chat, Cowork, Claude Code, Claude for Office, Claude Design, and Claude Science.
 
+### In projects
+
+Projects keep their own model selection. Claude remembers the model each user last picked in each project, and this setting doesn’t override that choice in existing chat projects. With **Always start with the default model and effort level** turned on:
+
+- New projects start on the default model.
+
+- Existing chat projects start on the model the user last selected in that project.
+
+- New Cowork tasks in a project start on the default model.
+
 ### For a custom role
 
 Custom roles that set their own default model have the same switch in the role editor.
@@ -3911,7 +3709,7 @@ If your organization also configures Claude Code through `managed-settings.json`
 
 If `managed-settings.json` specifies `availableModels` that doesn't contain the default model, Claude CLI bypasses `availableModels` and starts on the selected default model unless `enforceAvailableModels` is set.
 
-Managed settings for models apply only to Claude Code CLI and IDE, not to Claude Code on web or desktop. For consistent behavior across all Claude Code surfaces, we recommend setting the default here alone. For more on managed settings, see **[Claude Code settings](https://code.claude.com/docs/en/settings#settings-files)**.
+Managed settings for models apply only to local Claude Code sessions in your terminal or IDE, not to cloud sessions or to Claude Code in Claude Desktop. For consistent behavior across all Claude Code surfaces, we recommend setting the default here alone. For more on managed settings, see **[Claude Code settings](https://code.claude.com/docs/en/settings#settings-files)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/15330651-claude-enterprise-admin-api-reference-guide
@@ -4691,7 +4489,13 @@ SOURCE: https://support.claude.com/en/articles/15455031-covered-models-under-a-b
 
 This article is for organizations that use Anthropic's HIPAA-ready services under a Business Associate Agreement (BAA). It explains which configurations are Eligible Services under the BAA and whether you can access Covered Models. **Your organization is responsible for ensuring its use of these services complies with applicable legal obligations.** Learn about **[Business Associate Agreements (BAA) for Commercial Customers](https://support.claude.com/en/articles/8114513-business-associate-agreements-baa-for-commercial-customers)** and **[Covered Models](https://support.claude.com/en/articles/15425695-covered-models)**.
 
-**Important:** The primary ways to access Covered Models while covered by Anthropic's BAA are through the HIPAA-ready API and Chat on HIPAA-ready Claude Enterprise plans. There's currently no configuration that allows BAA-covered access to Covered Models in Claude Code or Cowork.
+**Important:** You can access Covered Models under Anthropic's BAA in these ways:
+
+- Through the HIPAA-ready API
+
+- Through Chat on HIPAA-ready Enterprise plans
+
+- Through **[Claude Code (local mode) and Cowork (local mode)](https://support.claude.com/en/articles/17318731)** on HIPAA-ready Enterprise plans, with the HIPAA configuration applied to both products and without zero data retention (ZDR) for Claude Code
 
 ## Covered Models and data retention
 
@@ -4703,20 +4507,22 @@ Access to newly released Covered Models rolls out in stages on subscription and 
 
 Each row in the table is a configuration: a product, how you access it, and whether you're using standard retention or zero data retention. The two right-hand columns show whether that configuration is covered under Anthropic's BAA and whether it can access Covered Models.
 
-**Note:** Coverage under Anthropic's BAA always requires (a) signing the BAA, and (b) accessing Anthropic's products via their HIPAA-ready or (in the case of Claude Code) zero data retention configurations. Learn about **[HIPAA-ready API access](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness)** and **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans)**.
+**Note:** Coverage under Anthropic's BAA always requires (a) signing the BAA, and (b) accessing Anthropic's products through their HIPAA-ready configurations. For Claude Code, zero data retention also meets requirement (b). Learn about **[HIPAA-ready API access](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention#hipaa-readiness)** and **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans)**.
 
-| **Product**         | **How you access it**         | **Data retention**                                                             | **Eligible Service under Anthropic's BAA?** | **Can you access Covered Models?** |
-| ------------------- | ----------------------------- | ------------------------------------------------------------------------------ | ------------------------------------------- | ---------------------------------- |
-| Chat                | Claude Enterprise             | Standard retention                                                             | ✅ Yes                                       | ✅ Yes                              |
-| Claude Code         | Claude Enterprise             | Zero data retention<br>**Note:** ZDR is available for qualified accounts only. | ✅ Yes<br>                                   | ❌ No                               |
-| Claude Code         | Claude Enterprise             | Standard retention                                                             | ❌ No                                        | ✅ Yes                              |
-| Claude Code         | 1P API org                    | Zero data retention                                                            | ✅ Yes                                       | ❌ No                               |
-| Claude Code         | 1P API org                    | Standard retention                                                             | ❌ No                                        | ✅ Yes                              |
-| Claude Code         | 3P API (Google Vertex only)\* | Standard retention                                                             | ❌ No                                        | ✅ Yes                              |
-| Cowork              | Claude Enterprise             | Standard retention                                                             | ❌ No                                        | ✅ Yes                              |
-| Claude API (1P API) | HIPAA-ready API               | Standard retention                                                             | ✅ Yes                                       | ✅ Yes                              |
-| Claude API (1P API) | Regular API                   | Zero data retention                                                            | ✅ Yes                                       | ❌ No                               |
-| Claude API (1P API) | Regular API                   | Standard retention                                                             | ❌ No                                        | ✅ Yes                              |
+| **Product**                                                       | **How you access it**         | **Data retention**                                                                                              | **Eligible Service under Anthropic's BAA?** | **Can you access Covered Models?** |
+| ----------------------------------------------------------------- | ----------------------------- | --------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ---------------------------------- |
+| Chat                                                              | Claude Enterprise             | Standard retention                                                                                              | ✅ Yes                                       | ✅ Yes                              |
+| Claude Code                                                       | Claude Enterprise             | Zero data retention<br>**Note:** ZDR is available for qualified accounts only.                                  | ✅ Yes<br>                                   | ❌ No                               |
+| Claude Code in the terminal and in the Code tab of Claude Desktop | Claude Enterprise             | Standard retention, with the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)    | ✅ Yes                                       | ✅ Yes                              |
+| Claude Code                                                       | Claude Enterprise             | Standard retention, without the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode) | ❌ No                                        | ✅ Yes                              |
+| Claude Code                                                       | 1P API org                    | Zero data retention                                                                                             | ✅ Yes                                       | ❌ No                               |
+| Claude Code                                                       | 1P API org                    | Standard retention                                                                                              | ❌ No                                        | ✅ Yes                              |
+| Claude Code                                                       | 3P API (Google Vertex only)\* | Standard retention                                                                                              | ❌ No                                        | ✅ Yes                              |
+| Cowork in Claude Desktop                                          | Claude Enterprise             | Standard retention, with the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)    | ✅ Yes                                       | ✅ Yes                              |
+| Cowork                                                            | Claude Enterprise             | Standard retention, without the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode) | ❌ No                                        | ✅ Yes                              |
+| Claude API (1P API)                                               | HIPAA-ready API               | Standard retention                                                                                              | ✅ Yes                                       | ✅ Yes                              |
+| Claude API (1P API)                                               | Regular API                   | Zero data retention                                                                                             | ✅ Yes                                       | ❌ No                               |
+| Claude API (1P API)                                               | Regular API                   | Standard retention                                                                                              | ❌ No                                        | ✅ Yes                              |
 
 *Anthropic's BAA doesn't apply to services purchased through a third-party cloud provider. For questions about coverage on these platforms, contact your cloud provider and your Anthropic account team.
 ​
@@ -4731,7 +4537,9 @@ To access Covered Models in configurations that are covered under the BAA:
 
 - **For Chat: use a HIPAA-ready Claude Enterprise plan.** Chat operates with standard retention, so it can access Covered Models with no configuration change. If your organization hasn't activated HIPAA readiness on its Enterprise plan, learn how in **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973-hipaa-ready-enterprise-plans)**.
 
-**Important:** Claude Code is only covered under the BAA with ZDR enabled, and ZDR blocks Covered Models. Cowork isn't an Eligible Service under the BAA in any configuration. You can use Covered Models in Claude Code or Cowork outside the BAA, but don't submit protected health information (PHI).
+- **For Claude Code (local mode) and Cowork (local mode): use a HIPAA-ready Enterprise plan with the HIPAA configuration applied to both products.** Anthropic keeps requests from both products under standard retention, so members can use Covered Models. Learn how to get the configuration in **[Use Claude Code (local mode) and Cowork (local mode) on a HIPAA-ready Enterprise plan](https://support.claude.com/en/articles/17318731)**.
+
+**Important:** Without the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode), the BAA covers Claude Code only with ZDR enabled, and Claude Code with ZDR enabled can't use Covered Models unless Anthropic has expressly authorized it for your organization. Without the HIPAA configuration, Cowork isn't an Eligible Service under the BAA. You can use Covered Models in Claude Code or Cowork in those cases, but that use isn't covered under your BAA, so don't submit protected health information (PHI).
 
 ## How to access Covered Models outside the BAA
 
@@ -4739,11 +4547,11 @@ To access Covered Models in configurations that aren't covered under the BAA:
 
 - **On a 1P API organization with zero data retention enabled, you have two options:**
 
-  - Enable standard retention in a dedicated workspace (**Workspace > Manage > Privacy Controls**). Your other workspaces keep ZDR. See **[Data retention practices for Mythos-class models](https://support.claude.com/en/articles/15425996-data-retention-practices-for-mythos-class-models#h_7008995545)** for instructions.
+  - Enable standard retention in a dedicated workspace: go to the **Data retention** page (platform.claude.com/settings/privacy) and select the workspace from the dropdown menu at the top of the page. Your other workspaces keep ZDR. See **[Data retention practices for Mythos-class models](https://support.claude.com/en/articles/15425996-data-retention-practices-for-mythos-class-models#h_7008995545)** for instructions.
 
   - Contact your Anthropic account team to remove ZDR from the organization entirely.
 
-- **For Claude Code through Claude Enterprise with zero data retention enabled:** Contact your Anthropic account team to change the retention setting or to set up a separate sandbox organization. You can also access Claude Code through a 1P API organization with standard retention.
+- **For Claude Code through Claude Enterprise with zero data retention enabled:** Contact your Anthropic account team to change the retention setting or to set up a separate sandbox organization. You can also access Claude Code through a 1P API organization with standard retention. To use Covered Models in Claude Code under the BAA instead, replace ZDR with the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode). See **How to access Covered Models under the BAA** in this article.
 
 **Note:** These configurations are not covered under the BAA. Don't submit protected health information (PHI) through them.
 
@@ -4751,11 +4559,13 @@ To access Covered Models in configurations that aren't covered under the BAA:
 
 Some organizations may consider setting up a separate, non-ZDR organization to access Covered Models in Claude Code, Cowork, Chat, or API in production. Before you do, keep in mind:
 
+- **On a HIPAA-ready Enterprise plan, the Primary Owner can apply the HIPAA configuration to Claude Code (local mode) and Cowork (local mode) instead of setting up a separate organization.** Your Anthropic account team turns it on first. See **How to access Covered Models under the BAA** in this article.
+
 - **A standard API organization without ZDR or the HIPAA configuration is not an Eligible Service under Anthropic's BAA.** Don't submit protected health information (PHI) through it.
 
 - **HIPAA readiness and ZDR cannot coexist on a single 1P API organization.** If your organization needs both HIPAA-ready production API usage and ZDR for Claude Code, you'll need separate organization IDs.
 
-- **Cowork is not an Eligible Service under Anthropic's BAA in any configuration**, regardless of retention settings or the model in use, and shouldn't be used with PHI.
+- **Cowork in Claude Desktop is an Eligible Service only with the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode).** Without that configuration, don't use Cowork with PHI. The BAA doesn't cover Cowork in the cloud, which isn't available with the configuration applied.
 
 - **If your teams work across multiple organizations with different coverage, you're responsible for ensuring PHI is only submitted through Eligible Services**, configured according to the **[Implementation Guide for HIPAA Entities](https://trust.anthropic.com/resources?s=rgirr4qe8u7ek8c2igx3&name=claude-for-enterprise-hipaa-ready-offering-implementation-guide)**.
 ---
@@ -4894,16 +4704,16 @@ If you disable a model a member is using in an open conversation or session, tha
 
 Model access settings are enforced across these products:
 
-| **Product**                        | **Model access settings apply** |
-| ---------------------------------- | ------------------------------- |
-| Chat (web, desktop, mobile)        | ✅                               |
-| Claude Cowork                      | ✅                               |
-| Claude Code (CLI, remote, desktop) | ✅ CLI version 2.1.199 or later  |
-| Claude for Microsoft 365           | ✅                               |
-| Claude Tag                         | ✅                               |
-| Claude Design                      | ✅                               |
-| Claude in Chrome                   | Not yet supported               |
-| Claude Security                    | Not yet supported               |
+| **Product**                                     | **Model access settings apply** |
+| ----------------------------------------------- | ------------------------------- |
+| Chat (web, desktop, mobile)                     | ✅                               |
+| Claude Cowork                                   | ✅                               |
+| Claude Code (terminal, cloud sessions, desktop) | ✅ CLI version 2.1.199 or later  |
+| Claude for Microsoft 365                        | ✅                               |
+| Claude Tag                                      | ✅                               |
+| Claude Design                                   | ✅                               |
+| Claude in Chrome                                | Not yet supported               |
+| Claude Security                                 | Not yet supported               |
 
 **Note:** Members on Claude Code CLI versions earlier than 2.1.199 still see disabled models and effort levels in the picker, but requests using them are rejected.
 
@@ -4911,7 +4721,7 @@ Model access settings are enforced across these products:
 
 If your organization also configures Claude Code through `managed-settings.json`, the `availableModels` setting and model access work together. In Claude Code CLI and IDE, members see only models that appear in `availableModels` *and* are enabled by their model access settings—a model removed by either one is unavailable.
 
-Managed settings for models apply only to Claude Code CLI and IDE, not to Claude Code on web or desktop. For consistent behavior across all Claude Code surfaces, we recommend using model access settings alone. For more on managed settings, see **[Claude Code settings](https://code.claude.com/docs/en/settings#settings-files)**.
+Managed settings for models apply only to local Claude Code sessions in your terminal or IDE, not to cloud sessions or to Claude Code in Claude Desktop. For consistent behavior across all Claude Code surfaces, we recommend using model access settings alone. For more on managed settings, see **[Claude Code settings](https://code.claude.com/docs/en/settings#settings-files)**.
 ---
 
 SOURCE: https://support.claude.com/en/articles/16764057-create-surveys-for-your-organization
@@ -4920,13 +4730,13 @@ SOURCE: https://support.claude.com/en/articles/16764057-create-surveys-for-your-
 
 Surveys let admins ask users short, in-product questions about how they're using Claude and review the aggregated answers in the Admin console. This article explains how to create a survey, choose who sees it, and review the results.
 
-Surveys are available in beta for Enterprise plans. Primary Owners, Owners, and Admins can create and view surveys, along with users on **[custom roles that grant Analytics view access](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_536123d968)**. While the feature is in beta, organizations using **[customer-managed encryption keys (CMEK)](https://support.claude.com/en/articles/15505325)** can't use surveys.
+Surveys are available for Enterprise plans. Primary Owners, Owners, and Admins can create and view surveys, along with users on **[custom roles that grant Analytics view access](https://support.claude.com/en/articles/13930452-manage-custom-roles-on-enterprise-plans#h_536123d968)**. Surveys aren't available to organizations with a HIPAA configuration.
 
 ## How surveys work
 
 Surveys appear in the **Analytics** section. Usage analytics show how much your team uses Claude; surveys tell you what people are doing with it and what's getting in their way.
 
-Users see a survey as a small card in Cowork or chat at a natural break in their work. The card shows your organization's name, and each user sees a given survey once. A survey takes about 90 seconds to complete.
+Users see a survey as a small card in chat, Cowork, or Claude Code at a natural break in their work. The card shows your organization's name, and each user sees a given survey once. A survey takes about 90 seconds to complete.
 
 ## Create a survey
 
@@ -4942,13 +4752,11 @@ To create and schedule a survey:
 
 5. Choose your audience: all members, or one or more groups. Groups are how you narrow a survey to a specific department or team: select the group that matches the department you want to hear from. You can select more than one. Click "Manage groups" to open your organization's group settings.
 
-6. Choose where the survey appears: Cowork, Chat, or both.
+6. Choose where the survey appears: chat, Cowork, or Claude Code.
 
 7. Review the questions. You can add or remove questions before the survey goes live.
 
-8. Check the preview and the estimated reach panel, which shows how many users are in your selected audience, how many are active in Cowork or chat, and the expected number of responses.
-
-9. Schedule the survey, or save it as a draft.
+8. Schedule the survey, or save it as a draft.
 
 The following questions are included by default:
 
@@ -4962,7 +4770,7 @@ The following questions are included by default:
 
 ## What users see
 
-When a survey is live, users in the audience see a card at a natural break in their work: between tasks in Cowork, or after a reply in chat. A survey never interrupts a running task.
+When a survey is live, users in the audience see the survey at a natural break in their work: after a reply in chat, between tasks in Cowork, or after Claude finishes responding in Claude Code. A survey never interrupts a running task.
 
 - The card shows your organization's name and explains that answers go to your organization's admins, not to Anthropic.
 
@@ -4978,11 +4786,11 @@ Open a survey to see results, which aggregate while the survey is live:
 
 - Total responses and response rate
 
-- The split between Cowork and chat responses
+- Total surveys shown to your organization
 
 - Bar charts for multi-select questions
 
-- A feed of written responses tagged by group, surface, and date. Filter the feed by group to read the responses from a single department or team.
+- A feed of written responses
 
 You can also close a survey early from the results page.
 
@@ -4992,7 +4800,7 @@ Each survey can be exported as a CSV file from **[Analytics > Surveys](https://c
 
 ## Privacy and data handling
 
-Surveys run under your organization's name, and responses go to your organization's admins. Your surveys are treated as your data so Anthropic accesses them only as necessary to operate the service. CMEK protections are coming soon, but while this feature is in beta, CMEK customers cannot use it. Regulated customers, including HIPAA customers, should not put regulated data, such as PHI, into survey responses.
+Surveys run under your organization's name, and responses go to your organization's admins. Your surveys are treated as your data so Anthropic accesses them only as necessary to operate the service. Surveys support customer-managed encryption keys (CMEK), and survey data follows your organization's data retention setting. If your organization adds a customer-managed key, survey data from about the first day after you add it stays encrypted with Anthropic’s key instead of yours. Regulated customers should not put regulated data, such as PHI, into survey responses.
 
 Learn more about **[viewing usage analytics for Team and Enterprise plans](https://support.claude.com/en/articles/12883420)**.
 ---
@@ -5001,57 +4809,97 @@ SOURCE: https://support.claude.com/en/articles/16764810-assign-a-program-to-work
 
 # Assign a program to workspaces in Claude Console
 
-Anthropic offers several verification programs, such as the Cyber Verification Program, or access to models that might not be generally available. In order to gain access to these programs, go to our **[Verification Portal](https://portal.anthropic.com/)** to see what programs are available to you, and apply.
+This article explains how to apply grants and enable programs for the Anthropic Console and API.
 
-Once you’ve applied and been approved for a program, Anthropic issues a “program” to your organization. In order for it to be used, you must assign it to a group of people within the organization. In the Claude Console, a program applies to workspaces, either automatically (for programs like the Cyber Verification Program) or by assignment.
+Anthropic offers several verification programs, such as the Cyber Verification Program (CVP), or access to models that might not be generally available. In order to gain access to these programs, go to our **[Verification Portal](https://portal.anthropic.com/)** to see what programs are available to you, and apply.
 
-This article covers how to enable programs for the Console.
+Once you’ve applied and been approved for a program, Anthropic issues a “program” or “grant” to your organization. To use the program or grant, you must assign it to a group of people within the organization. In the Claude Console, a program applies only to the workspaces you assign it to. This article shows you how to assign one.
 
 ## Before you start
 
-- Your organization must already have a grant. Grants appear only after Anthropic issues one to your organization. To apply to a specific program, go to our **[Verification Portal](https://portal.anthropic.com/)** to see what programs are available.
+- Your organization must already have a grant. Grants appear only after Anthropic issues one to your organization. To apply to a specific program, your Organization Admin or Owner goes to our **[Verification Portal](https://portal.anthropic.com/)** to see what programs are available.
 
-- In the Console, you need to be an organization Admin. Other roles cannot view or manage grants.
+- In the Console, you need to be an organization Admin or Owner. Other roles cannot view or manage grants.
 
 ## Give a Console workspace access
 
-In the Console, programs are issued to your organization and apply to workspaces. Some programs, such as the Cyber Verification Program, apply automatically to every workspace that meets their requirements. Others need workspaces assigned. A program only applies to API traffic from workspaces that meet its requirements.
+In the Console, programs are issued to your organization and apply to workspaces. You need to assign each program to the workspaces that should use it. A program only applies to API traffic from workspaces that meet its requirements.
 
-**Follow these steps:**
+Follow these steps:
 
-1. **[Sign in to the Console](https://platform.claude.com/)** as an organization Admin. Go to **[Organization settings > Programs](https://platform.claude.com/settings/organization/programs)**. The program card shows whether it applies automatically or needs workspaces assigned.
+1. **[Sign in to the Console](https://platform.claude.com/)** as an organization Admin.
 
-  
+2. Go to **[Organization settings > Programs](https://platform.claude.com/settings/programs)**.
 
-2. Select the program to open its page. The **Workspaces** table shows each workspace's status. A workspace marked with an issue does not meet a requirement yet.
+3. Select the program to open its page. The **Workspaces** table shows each workspace's status. A workspace marked with an issue does not meet a requirement yet.
 
-  
+4. Hover over the issue to see which requirement is not met.
 
-Hover over the issue to see which requirement is not met.
+5. On the program's page, click the workspace's name in the **Workspaces** table, and check the **Qualifications** panel.
 
-  
+Unmet requirements are flagged with remediation steps.
 
-3. To give a workspace access, make it meet the requirements. Open the workspace, select "Manage," then "Programs," and check the **Qualifications** panel.
+## Assign Programs to a workspace
 
-  
+Programs apply only to the workspaces you assign them to.
 
-4. Fix the requirement. For the Cyber Verification Program, turn on data retention under Manage, then Privacy controls. Then select "Rerun."
+### 1. Create a new Workspace and add users
 
-  
+Some programs can’t be assigned to the default workspace. If your program is one of them, create a dedicated workspace first.
 
-5. The program shows **Active** for the workspace.
+1. **[Sign in to the Console](https://platform.claude.com/)** as an organization Admin.
 
-  
+2. Go to the **Workspaces** page (platform.claude.com/settings/workspaces).
+
+3. Click "Create workspace" (you cannot use the default workspace for accessing the model). The **Create workspace** page opens.
+
+4. Enter a name for your new Workspace, and select a color. The color helps you identify your workspace in the Claude Console.
+
+5. Click "Create workspace."
+
+6. Add the approved users to the new Workspace.
+
+**Important:** Some programs have a seat cap. If your organization goes over the cap, assigned workspaces lose access until it’s back under the limit.
+
+Learn more about **[creating and managing Workspaces in the Claude Console](https://support.claude.com/en/articles/9796807-creating-and-managing-workspaces-in-the-claude-console)**.
+
+**Note:** If support asks for your workspace ID, go to the **Workspaces** page (platform.claude.com/settings/workspaces) and select your workspace. Workspace IDs start with `wrkspc_`. Your organization ID is on the **Organization** page (platform.claude.com/settings/organization).
+
+### 2. Enable access in your organization
+
+You add the grant to a workspace in your existing Anthropic organization. For API organizations, access is enabled on a workspace within your existing Anthropic organization. You don’t need a new organization or a separate organization.
+
+1. **[Sign in to the Console](https://platform.claude.com/)** as an organization Admin.
+
+2. Go to the **Programs** page (platform.claude.com/settings/programs), and you’ll see the approved access Grants available for your organization and the model’s codename.
+
+3. On the program's page, click the name of the workspace you set up in Step 1 in the **Workspaces** table.
+
+4. Click “Add grant.”
+
+5. Select the program or grant to attach it to the workspace.
+
+6. Make sure the grant is set to **Active**.
+
+After the grant is active, you can use the program through the API with that workspace. If Anthropic sent you setup instructions for your program, follow those next.
 
 ## Troubleshooting
 
 - **The Grants page is missing.** Your organization does not have a grant yet, or you are not an organization Admin. Contact your Anthropic account team or your admin.
 
-- **The workspace shows as inactive.** Open the workspace, select "Manage," then "Programs," and check the **Qualifications** panel for an unmet requirement. Fix each unmet requirement and try again.
+- **You don’t see your program, the Other grants section is empty, or the Programs tab is missing.** Your organization may not have a program yet, or you might not be an organization Admin. Contact your Anthropic account team or your organization Admin.
+
+- **The workspace shows as inactive.** On the program's page, click the workspace's name in the **Workspaces** table, and check the **Qualifications** panel for an unmet requirement.
 
 - **The grant is over its seat limit.** Some programs have a seat cap. Assigned workspaces lose access until your organization is back under the limit. Reduce the number of members counted toward the grant, then check again.
 
 - **You are trying to use the default Console workspace.** Some programs don't allow the program to be assigned to the default workspace. If the default workspace isn’t working, assign a different workspace or create a new one.
+
+- **You can’t assign the program to a workspace.** Confirm that you’re an organization Admin and that you aren’t selecting the default workspace. Some programs can’t be assigned to the default workspace, so create a dedicated workspace if you need one.
+
+- **The API returns a 401 error.** Confirm your SSO session is active (interactive) or your federated token hasn't expired (workload), and that your credential is scoped to the workspace.
+
+- **The API returns a 404 error for the model.** Double-check the model string and confirm your request is scoped to the workspace, not the default workspace.
 ---
 
 SOURCE: https://support.claude.com/en/articles/16824617-turn-on-data-retention-for-a-workspace-in-a-zero-data-retention-organization
@@ -5080,31 +4928,23 @@ Before you start, make sure that:
 
 ## Turn on data retention for a Workspace
 
-The setting lives in each Workspace's privacy controls, at the bottom of the Workspace's left sidebar.
+The setting is on your organization's **Data retention** page, where a dropdown menu at the top of the page lets you pick the organization or a Workspace.
 
 To turn on data retention for a Workspace:
 
 1. Log in to the **[Claude Console](https://platform.claude.com/login)**.
 
-2. Click your initials (or name) in the lower left corner to open your account menu.
+2. Go to the **Data retention** page (platform.claude.com/settings/privacy).
 
-3. Navigate to **[Organization settings > Workspaces](https://platform.claude.com/settings/workspaces)**. The **Data retention** column shows the current setting for each Workspace.
+3. Select the Workspace from the dropdown menu at the top of the page.
 
-4. Click the Workspace you want to change.
+4. Select "Standard data retention (30-day retention)" and click "Save."
 
-5. In the left sidebar, click "Manage" to expand the section if it's collapsed.
-
-6. Click "Privacy controls."
-
-7. In the **Data retention** card, toggle the **This workspace** switch on or off.
-
-8. Click "Accept" in the confirmation dialog. By accepting, you acknowledge that Section F of the **[Service Specific Terms](https://www.anthropic.com/legal/service-specific-terms)** applies to this Workspace and supplements your organization's agreement with Anthropic.
-
-The **This workspace** row now shows **On · 30 days**. There's no separate confirmation message, so this label is how you know the change took effect.
+5. Review and accept the terms in the confirmation dialog. By accepting, you acknowledge that Section F of the **Service Specific Terms** applies to this Workspace and supplements your organization's agreement with Anthropic. Data retention turns on for the Workspace only after you accept.
 
 ## See which Workspaces have retention on
 
-To see which Workspaces have data retention on, navigate to **[Organization settings > Workspaces](https://platform.claude.com/settings/workspaces)** and check the **Data retention** column for each Workspace. You'll see either **Zero data retention** or **30 day retention**.
+To see which Workspaces have data retention on, navigate to the **Workspaces** page (<https://platform.claude.com/settings/workspaces>) and click the menu button to the right of the Workspace you want to check. Select "Data retention" to see if the Workspace is using either **Zero data retention** or **30 day retention**.
 
 ## What changes after you turn it on
 
@@ -5122,7 +4962,7 @@ To see which Workspaces have data retention on, navigate to **[Organization sett
 
 ## Turn off data retention for a Workspace
 
-You can turn retention off again from the same switch. If the Workspace uses customer-managed encryption keys, you can't turn retention off. If a program on the Workspace requires retention, turning it off removes that program.
+You can turn retention off again from the **Data retention** page (platform.claude.com/settings/privacy). If the Workspace uses customer-managed encryption keys, you can't turn retention off. If a program on the Workspace requires retention, turning it off removes that program.
 ---
 
 SOURCE: https://support.claude.com/en/articles/16948886-let-team-members-run-smart-reports-for-specific-groups
@@ -5131,7 +4971,7 @@ SOURCE: https://support.claude.com/en/articles/16948886-let-team-members-run-sma
 
 Smart reports show how your organization uses Claude. By default, only Primary Owners, Owners, Admins, and custom roles with analytics view access can create and view smart reports. With delegated access, you can let team leads or department heads run smart reports without making them admins. They can only report on the groups, departments, or cost centers you choose, and they see only the reports they ran or that others share with them.
 
-Smart reports are available in beta on Claude Enterprise plans and aren’t available for organizations using customer-managed encryption keys (CMEK) or HIPAA configurations. Smart reports are also unavailable for Claude Code for Claude Enterprise organizations that use zero data retention.
+Smart reports are available on Claude Enterprise plans and aren’t available for organizations using customer-managed encryption keys (CMEK), a HIPAA configuration, or a hybrid deployment. Smart reports are also unavailable for Claude Code for Claude Enterprise organizations that use zero data retention.
 
 **Important:** Smart reports help you understand adoption and plan your investment in Claude. They aren't designed and should not be used for evaluating individual performance or making employment decisions.
 
@@ -5141,13 +4981,13 @@ To manage access to smart reports, you must be an Owner or Primary Owner, or in 
 
 ## Before you begin
 
-- Your organization must be on a Claude Enterprise plan with "Smart Reports (beta)" turned on in **Organization settings > Capabilities > Analytics**.
+- Your organization must be on a Claude Enterprise plan with "Smart reports" turned on in **Organization settings > Capabilities > Analytics**.
 
 - The people you add must be on the **Custom roles** access level, which is set per member in **Organization settings > Members**.
 
 ## Step 1: Open Manage access
 
-Go to **[Analytics > Smart reports (beta)](https://claude.ai/analytics/insights)** and click "Manage access." The **Who can run reports** screen opens.
+Go to **[Analytics > Smart reports](https://claude.ai/analytics/insights)** and click "Manage access." The **Who can run reports** screen opens.
 
 The line at the top tells you which roles can run reports. Admins and owners can always run reports.
 
@@ -5180,7 +5020,7 @@ Keep in mind:
 
 - A delegate can only run a report on what you assign here. They never get a whole-organization option.
 
-**Note:** People you give access to aren’t notified. They can view smart reports by clicking on their name in the lower left corner in Claude, then going to **Analytics > Smart reports (beta)**.
+**Note:** People you give access to aren’t notified. They can view smart reports by clicking on their name in the lower left corner in Claude, then going to **[Analytics > Smart reports](https://claude.ai/analytics/insights)**.
 
 ## What happens automatically
 
@@ -5232,7 +5072,7 @@ Delegates cannot:
 
 - **When a group is deleted, or a department or cost center value no longer exists**, it disappears from the person's row and from their selections. If a delegate tries to run a report with a selection that no longer exists, the report is refused and they can pick again. You can also open their row and choose new values.
 
-## FAQ
+## Frequently asked questions
 
 ### Can I grant the permission through my own roles instead of the automatic one?
 
@@ -5318,56 +5158,242 @@ SOURCE: https://support.claude.com/en/articles/8114513-business-associate-agreem
 
 # Business Associate Agreements \(BAA\) for Commercial Customers
 
-*This article is about our commercial products such as Claude for Work and the Anthropic API. For our consumer products such as Claude Free, Pro, Max and when accounts from those plans use Claude Code, see **[here](https://privacy.claude.com/en/collections/10663362-consumers)**.*
+*This article is about our commercial products such as Claude for Work and the Anthropic API. For our consumer products such as Claude Free, Pro, Max, Ultra and when accounts from those plans use Claude Code, see **[here](https://privacy.claude.com/en/collections/10663362-consumers)**.*
 
-*For Claude Enterprise features to be covered under a Business Associate Agreement (BAA), the Primary Owner of the organization must activate HIPAA compliance in the HIPAA-ready Claude Enterprise organization settings under “Data and privacy” and accept Anthropic's BAA. Standard Claude Enterprise plans do not include BAA coverage without action from a Primary Owner.*
+*For Claude Enterprise features to be covered under a Business Associate Agreement (BAA), the Primary Owner of the organization must activate HIPAA compliance in the HIPAA-ready Claude Enterprise organization settings under “Data and privacy” and accept Anthropic's BAA. Standard Claude Enterprise plans do not include BAA coverage without action from a Primary Owner. For Claude Code (local mode) and Claude Cowork (local mode) to be covered, the Primary Owner must also apply the HIPAA configuration to both products. See **[Use Claude Code (local mode) and Claude Cowork (local mode) on a HIPAA-ready Enterprise plan](https://support.claude.com/en/articles/17318731)**.*
 
-Anthropic provides a BAA covering our HIPAA-ready services, such as use of our first-party API or Enterprise plans. Claude Enterprise Primary Owners can accept the BAA directly when activating HIPAA compliance in the organization settings under “Data and privacy.”
+Anthropic provides a BAA covering our HIPAA-ready services, such as use of our first-party API, Claude in Microsoft Foundry, or Enterprise plans. Claude Enterprise Primary Owners can accept the BAA directly when activating HIPAA compliance in the organization settings under “Data and privacy.”
 
-**Important:** To use the 1P API with PHI, your organization’s Primary Owner will need to sign a BAA and then reach out to your Anthropic contact or our[**Sales team**](https://claude.com/contact-sales) to get this turned on.
+**Important:** To use the 1P API with PHI, your organization’s Primary Owner will need to sign a BAA and then reach out to your Anthropic contact or our **[Sales team](https://claude.com/contact-sales)** to get this turned on.
 
-For clarity, the BAA only covers the single organization that accepted it, and excludes features such as Claude Console, Claude Cowork, or features currently in beta such as Claude in Office, Claude Design, Claude Slides, and Claude Docs. As part of the BAA, customers of Anthropic’s HIPAA-ready services are subject to certain configuration requirements and limitations on what features/integrations are available.
+For clarity, the BAA only covers the single organization that accepted it, and excludes features such as Claude Console, Cowork in the cloud, or features currently in beta such as Claude in Office, Claude Design, Claude Slides, and Claude Docs. As part of the BAA, customers of Anthropic’s HIPAA-ready services are subject to certain configuration requirements and limitations on what features/integrations are available.
 
-Not all API features are covered; see the **[Implementation Guide](https://trust.anthropic.com/resources?s=2zblcrsgb00l3x9l2tpjf&name=[anthropic]-2025-type-1-hipaa-report-(-1-p-api).pdf)** for the full list of eligible and non-eligible features.
+Not all API features are covered. See the **[Implementation Guide](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide)** for the full list of eligible and non-eligible features.
 
-**Important: [Covered Models](https://support.claude.com/en/articles/15425695-covered-models)** require 30-day data retention and aren't available with zero data retention (ZDR) enabled. Some services, like Claude Code, are only covered under the BAA when ZDR is enabled, which means those services can't use Covered Models under the BAA. See **[Covered Models under Anthropic’s BAA](https://support.claude.com/en/articles/15455031)** for details.
+**Important: [Covered Models](https://support.claude.com/en/articles/15425695-covered-models)** require 30-day data retention and aren't available with zero data retention (ZDR) enabled unless Anthropic has expressly authorized it for your organization. With the **[HIPAA configuration applied to Claude Code (local mode) and Claude Cowork (local mode)](https://support.claude.com/en/articles/17318731)** on a HIPAA-ready Enterprise plan, members can use Covered Models in both products under the BAA. Claude Code can't use Covered Models while your organization has ZDR for Claude Code, unless Anthropic has expressly authorized it for your organization.
 
-Below is a breakdown of what’s covered under the BAA, by feature and product surface.
+Below is a breakdown of what’s covered under the BAA, by feature and product surface. This article covers:
+
+- Claude Enterprise features
+
+- Claude Code and Claude Cowork features
+
+- API features
+
+- Messages API features
+
+- Product BAA coverage by surface
+
+See **[Manage local session data](https://code.claude.com/docs/en/hipaa-setup#manage-local-session-data)** for what Claude Code stores on a member's computer and how to delete it. For Cowork, see **[Manage Cowork data on each computer](https://claude.com/docs/cowork/hipaa-setup#manage-cowork-data-on-each-computer)**.
 
 ## What’s covered under Anthropic’s BAA
 
-| **Claude Enterprise Feature**      | **Availability**                                                                                                                                                                                                                                             |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Chat                               | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| Projects                           | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| Artifacts                          | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| File creation & code execution     | ✅ *Covered as Eligible Services under Anthropic BAA\**<br>⚠️ *excluding network access and use of external websites*                                                                                                                                         |
-| Voice                              | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| Web Search                         | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| Research                           | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| Skills                             | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
-| MCPs / Connectors                  | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable these features are responsible for ensuring their workforce uses them in compliance with applicable legal obligations.* |
-| Enterprise Search / “Ask Your Org” | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*     |
-| Claude in Chrome                   | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*     |
-| Cowork                             | ⚠️ *Available to use but feature is not covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*                                         |
-| Claude for Microsoft 365           | ⚠️ *Available to use but some features are in beta and not covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*                      |
-| Claude Design [beta]               | ❌ *Not available yet for HIPAA-ready organizations*                                                                                                                                                                                                          |
-| Claude Slides [beta]               | ❌ *Not available yet for HIPAA-ready organizations*                                                                                                                                                                                                          |
-| Claude Docs [beta]                 | ❌ *Not available yet for HIPAA-ready organizations*                                                                                                                                                                                                          |
+### Claude Enterprise features
 
-| **Claude Code Feature**                              | **Availability**                                                                                                                                                                                                                                                                                                  |
-| ---------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Claude Code CLI<br>(via 1P API console)<br>          | ✅ *Only covered under the BAA with ZDR enabled. If your org needs ZDR for 1P API, please contact a sales representative.*<br>⚠️*Without ZDR enabled, this feature is available to use but is not covered under Anthropic’s BAA.*                                                                                  |
-| Claude Code CLI<br>(via Claude Enterprise OAuth)<br> | ✅ *Only covered under the BAA with ZDR enabled.1 ZDR is available for qualified accounts only. If your org needs to use PHI with this feature, please contact a sales representative to evaluate options.*<br>⚠️*Without ZDR enabled, this feature is available to use but is not covered under Anthropic’s BAA.* |
-| Claude Code in the desktop (local mode)              | ✅ *Only covered under the BAA with ZDR enabled.1 ZDR is available for qualified accounts only. If your org needs to use PHI with this feature, please contact a sales representative to evaluate options.*<br>⚠️*Without ZDR enabled, this feature is available to use but is not covered under Anthropic’s BAA.* |
-| Claude Code in the desktop (remote mode)             | ⚠️ *Available to use without ZDR, but this feature is not covered under Anthropic’s BAA. This feature is incompatible with ZDR.*                                                                                                                                                                                  |
-| Claude Code in the web [beta]                        | ⚠️ *Available to use without ZDR, but this feature is not covered under Anthropic’s BAA. This feature is incompatible with ZDR.*                                                                                                                                                                                  |
-| Claude Code Review [beta]                            | ⚠️ *Available to use without ZDR but this feature is not covered under Anthropic’s BAA. This feature is incompatible with ZDR.*                                                                                                                                                                                   |
-| Claude Code Security [beta]                          | ⚠️ *Available to use without ZDR but this feature is not covered under Anthropic’s BAA. This feature is incompatible with ZDR.*                                                                                                                                                                                   |
-| Claude Code Computer Use [beta]                      | ⚠️ *Available to use without ZDR but this feature is not covered under Anthropic’s BAA. This feature is incompatible with ZDR.*                                                                                                                                                                                   |
-| Claude Code Remote Control [beta]                    | ⚠️ *Available to use without ZDR but this feature is not covered under Anthropic’s BAA. This feature is incompatible with ZDR.*                                                                                                                                                                                   |
+| **Claude Enterprise Feature**      | **Availability**                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Chat                               | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                                                                                                                                                                                                            |
+| Projects (in chat)                 | ✅ *Covered as Eligible Services under Anthropic BAA\**<br>⚠️ *Applies to projects in chat only. Does not include projects in other products, which are not covered, even if accessible in your organization.*                                                                                                                                                                                                                                     |
+| Artifacts (in chat)                | ✅ *Covered as Eligible Services under Anthropic BAA\**<br>⚠️ *Applies to artifacts in chat only. Does not include published artifact pages or artifacts in Cowork (local mode) or Code (local mode), which are not covered, even if accessible in your organization.*                                                                                                                                                                             |
+| File creation & code execution     | ✅ *Covered as Eligible Services under Anthropic BAA\**<br>⚠️ *Excluding network access and use of external websites*                                                                                                                                                                                                                                                                                                                              |
+| Voice                              | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                                                                                                                                                                                                            |
+| Web Search                         | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                                                                                                                                                                                                            |
+| Research                           | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                                                                                                                                                                                                            |
+| Skills                             | ⚠️ *Available to use but not covered under Anthropic's BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations. Off by default in organizations that have enabled HIPAA. An Owner can turn on **Skills** in **Organization settings > Plugins & skills**, in the "Policy" tab. The "Skills and plugins" table in this article lists each kind of skill.* |
+| MCPs / Connectors                  | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable these features are responsible for ensuring their workforce uses them in compliance with applicable legal obligations.*                                                                                                                                                                                      |
+| Enterprise Search / “Ask Your Org” | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*                                                                                                                                                                                          |
+| Claude in Chrome                   | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations. Off by default in organizations that have enabled HIPAA. An Owner can turn on Claude in Chrome in **Organization settings > Claude in Chrome**.*                                          |
+| Cowork in Claude Desktop           | ✅ *Covered as Eligible Services under Anthropic BAA\*, with the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)*<br>⚠️ *Without that configuration, available to use but not covered under Anthropic's BAA*                                                                                                                                                                                                       |
+| Cowork in the cloud                | ⚠️ *Available to use but not covered under Anthropic's BAA*<br>❌ *Not available with the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)*                                                                                                                                                                                                                                                                         |
+| Dispatch                           | ⚠️ *Available to use but not covered under Anthropic's BAA*<br>❌ *Not available with the HIPAA configuration applied to Claude Code (local mode) and Cowork (local mode)*                                                                                                                                                                                                                                                                         |
+| Claude for Microsoft 365           | ⚠️ *Available to use but some features are in beta and not covered under Anthropic’s BAA. Administrators who enable this feature are responsible for ensuring their workforce uses it in compliance with applicable legal obligations.*                                                                                                                                                                                                           |
+| Claude Design [beta]               | ❌ *Not available yet for HIPAA-ready organizations*                                                                                                                                                                                                                                                                                                                                                                                               |
+| Claude Slides [beta]               | ❌ *Not available yet for HIPAA-ready organizations*                                                                                                                                                                                                                                                                                                                                                                                               |
+| Claude Docs [beta]                 | ❌ *Not available yet for HIPAA-ready organizations*                                                                                                                                                                                                                                                                                                                                                                                               |
 
 *Covered under versions of the BAA accepted after 12/2/25
+
+### Claude Code and Claude Cowork features
+
+Use these tables to check whether you can use a Claude Code or Cowork feature to process protected health information (PHI).
+
+The tables apply to a Claude Enterprise organization that has the HIPAA configuration applied. The HIPAA configuration is an organization setting that brings Claude Code (local mode) and Cowork (local mode) under your Business Associate Agreement (BAA) with Anthropic. "Local mode" means a session that runs on a member's own computer, in one of these places:
+
+- Claude Code in the terminal
+
+- Claude Code in the Code tab of Claude Desktop
+
+- Cowork in Claude Desktop
+
+**Note:**
+
+- If your organization hasn't applied the configuration, see **Coverage without the HIPAA configuration**.
+
+- If you want to apply the configuration, see **[Use Claude Code (local mode) and Cowork (local mode) on a HIPAA-ready Enterprise plan](https://support.claude.com/en/articles/17318731)**.
+
+- If you need the contractual list of Eligible Services, see the **[Implementation Guide for HIPAA Entities](https://trust.anthropic.com/resources?s=l1wrssd9hsbi4gak0tp5a6&name=%5Banthropic%5D-hipaa-ready-offering-implementation-guide)** on the Anthropic Trust Center.
+
+Each table has two columns for every feature. "Availability" says whether members can use the feature. "Coverage under your BAA" says whether your BAA covers it. Check both, because a feature can be available and still not be covered.
+
+**Important:** Process PHI only with a feature marked ✅ **Covered**.
+
+**Availability and coverage values**
+
+Some cells in the "Availability" column add a condition, or name the settings page where an Owner of your organization turns the feature on. Every cell starts with one of these values:
+
+- **Available:** Members can use the feature without any action from an Owner. A feature inside Cowork or the Code tab becomes available after an Owner turns on Cowork or the Code tab.
+
+- **Off until an Owner turns it on:** The feature is off by default. An Owner can turn it on in **Organization settings**.
+
+- **Not available:** The feature is off, and no setting turns it on.
+
+Every cell in the "Coverage under your BAA" column starts with one of these values:
+
+- ✅ **Covered:** Your BAA covers the feature, so members can use it to process PHI. Covered means only that your BAA applies. Whether to allow a feature, such as bypass permissions mode, is your organization's decision.
+
+- ⚠️ **Not covered:** Members can use the feature, right away or after an Owner turns it on, but your BAA doesn't cover it. Keep PHI out of it.
+
+- ❌ **Not available:** The feature isn't available while the HIPAA configuration is applied, so the question of coverage doesn't come up.
+
+Some features that aren't covered are available without any action from an Owner, such as the VS Code and JetBrains extensions and local MCP servers. If you're an Owner, tell members to keep PHI out of every feature marked both **Available** and **Not covered** in the tables below.
+
+**Where members run Claude Code and Cowork**
+
+The table lists the three places that count as local mode, and the other ways members can run Claude Code.
+
+| **Feature**                                                                                                           | **Availability**                                                                     | **Coverage under your BAA**                                                                                                                                    |
+| --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Claude Code in the terminal                                                                                           | *Available to members whose seat includes Claude Code*                               | *✅ Covered, when members sign in with their Claude Enterprise account and Claude Code connects directly to Anthropic, not through a cloud provider or gateway* |
+| Claude Code in the Code tab of Claude Desktop                                                                         | *Off until an Owner turns on **Desktop** in **Organization settings > Claude Code*** | *✅ Covered*                                                                                                                                                    |
+| Cowork in Claude Desktop                                                                                              | *Off until an Owner turns it on in **Organization settings > Cowork***               | *✅ Covered*                                                                                                                                                    |
+| Claude Code extensions for VS Code and JetBrains                                                                      | *Available. These sessions get the HIPAA configuration*                              | *⚠️ Not covered. The extensions run on a member's computer, but Claude Code (local mode) includes only the terminal and the Code tab*                          |
+| Claude Code through Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry                               | *Available. These sessions run without the HIPAA configuration*                      | *⚠️ Not covered. Claude Code (local mode) is covered only when Claude Code connects directly to Anthropic, not through a cloud provider or gateway*            |
+| Claude Code through an LLM gateway or a custom base URL                                                               | *Available. These sessions run without the HIPAA configuration*                      | *⚠️ Not covered*                                                                                                                                               |
+| Claude Code with a Claude Console API key, when the Claude Console organization has zero data retention (ZDR) enabled | *Available. These sessions run without the HIPAA configuration*                      | *✅ Covered through ZDR, not through the HIPAA configuration*                                                                                                   |
+| Claude Code with a Claude Console API key, when the Claude Console organization doesn't have ZDR enabled              | *Available. These sessions run without the HIPAA configuration*                      | *⚠️ Not covered*                                                                                                                                               |
+
+**Cloud and remote features**
+
+The table lists the features that run a session in the cloud or control a session remotely. None of them are available while the HIPAA configuration is applied.
+
+| **Feature**                                                                                                                     | **Availability** | **Coverage under your BAA** |
+| ------------------------------------------------------------------------------------------------------------------------------- | ---------------- | --------------------------- |
+| Claude Code cloud sessions, whether started from Claude Code on the web, Claude Desktop, or `claude --cloud`                    | *Not available*  | *❌ Not available*           |
+| Claude Code in the Claude mobile app                                                                                            | *Not available*  | *❌ Not available*           |
+| Cowork in the cloud, which members start on the web or in the Claude mobile app                                                 | *Not available*  | *❌ Not available*           |
+| Claude Code Remote Control, which continues a local session from a phone or browser                                             | *Not available*  | *❌ Not available*           |
+| Computer access, which lets sessions and scheduled tasks that run in the cloud use a linked computer's files, apps, and browser | *Not available*  | *❌ Not available*           |
+| Dispatch, the Cowork agent that runs tasks in the background                                                                    | *Not available*  | *❌ Not available*           |
+| Scheduled tasks that run in the cloud                                                                                           | *Not available*  | *❌ Not available*           |
+| Claude Code Review, which reviews GitHub pull requests                                                                          | *Not available*  | *❌ Not available*           |
+| Claude Security, the managed service that monitors repositories                                                                 | *Not available*  | *❌ Not available*           |
+| Self-hosted environments, which run cloud sessions on your own infrastructure                                                   | *Not available*  | *❌ Not available*           |
+| Session sharing links                                                                                                           | *Not available*  | *❌ Not available*           |
+
+**Tools, models, and memory in a session**
+
+The table lists what Claude and members can use inside a Claude Code (local mode) or Cowork (local mode) session.
+
+| **Feature**                                                                                                                                                                                                 | **Availability**                                                                                                                                                                    | **Coverage under your BAA** |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| Web search                                                                                                                                                                                                  | *Available in Claude Code. In Cowork, off until an Owner turns on **Web search** in **Organization settings > Capabilities***                                                       | *✅ Covered*                 |
+| Web fetch, where Claude retrieves a URL                                                                                                                                                                     | *Not available*                                                                                                                                                                     | *❌ Not available*           |
+| Computer use, where Claude controls the screen                                                                                                                                                              | *Not available*                                                                                                                                                                     | *❌ Not available*           |
+| Built-in browser in Cowork and the Code tab                                                                                                                                                                 | *Not available. The Code tab's Preview pane still opens local development servers*                                                                                                  | *❌ Not available*           |
+| Screenshot capture into Cowork                                                                                                                                                                              | *Not available*                                                                                                                                                                     | *❌ Not available*           |
+| Developer mode in Claude Desktop                                                                                                                                                                            | *Not available*                                                                                                                                                                     | *❌ Not available*           |
+| **[Covered Models](https://support.claude.com/en/articles/15455031-covered-models-under-a-business-associate-agreement-baa)**, such as Claude Fable 5. These are the models that need 30-day data retention | *Available. Not available in Claude Code while your organization has zero data retention (ZDR) for Claude Code, unless Anthropic has expressly authorized it for your organization* | *✅ Covered*                 |
+| Voice dictation, transcription, voice mode, and read-aloud                                                                                                                                                  | *Available*                                                                                                                                                                         | *✅ Covered*                 |
+| Fast mode in Claude Code, in research preview                                                                                                                                                               | *Off until an Owner turns it on in **Organization settings > Claude Code**. Applying the configuration doesn't change this setting*                                                 | *⚠️ Not covered*            |
+| Dynamic workflows, which run many subagents from a script                                                                                                                                                   | *Off until an Owner turns it on in **Organization settings > Claude Code***                                                                                                         | *✅ Covered*                 |
+| Scheduled tasks in Cowork and the Code tab, which run on the member's computer                                                                                                                              | *Available*                                                                                                                                                                         | *✅ Covered*                 |
+| Auto memory in Claude Code, and project memory in Cowork                                                                                                                                                    | *Available. Memory stays on the member's computer until someone deletes it, and it isn't synced to the member's account*                                                            | *✅ Covered*                 |
+
+**Permission modes**
+
+The table lists the modes that let Claude act with fewer approvals from the member.
+
+| **Feature**                                              | **Availability**                                                                                        | **Coverage under your BAA** |
+| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- | --------------------------- |
+| "Automatically approve" mode in Cowork                   | *Off until an Owner turns it on in **Organization settings > Capabilities***                            | *✅ Covered*                 |
+| Bypass permissions mode in the terminal and the Code tab | *Available, unless[**managed settings**](https://code.claude.com/docs/en/managed-settings) turn it off* | *✅ Covered*                 |
+| "Skip all approvals" mode in Cowork                      | *Not available*                                                                                         | *❌ Not available*           |
+
+**Connectors, MCP servers, and desktop extensions**
+
+The table lists the features that connect Claude to other tools. Your BAA doesn't cover any of them, even after an Owner turns them on.
+
+| **Feature**                                                                       | **Availability**                                                                                                                        | **Coverage under your BAA** |
+| --------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| Connectors, including Google Drive, Gmail, Google Calendar, and custom connectors | *Off until an Owner turns each one on in **Organization settings > Connectors***                                                        | *⚠️ Not covered*            |
+| The built-in GitHub integration                                                   | *Off until an Owner turns it on in **Organization settings > Connectors***                                                              | *⚠️ Not covered*            |
+| Local MCP servers, which a member configures on their own computer                | *Available, unless **[managed settings](https://code.claude.com/docs/en/managed-settings)** or the Claude Desktop policy turn them off* | *⚠️ Not covered*            |
+| Desktop extensions                                                                | *Off until an Owner adds each one to the **Desktop extension allowlist** in **Organization settings > Connectors***                     | *⚠️ Not covered*            |
+| Claude in Chrome                                                                  | *Off until an Owner turns it on in **Organization settings > Claude in Chrome***                                                        | *⚠️ Not covered*            |
+| Claude's suggestions of connectors to add                                         | *Not available*                                                                                                                         | *❌ Not available*           |
+| Claude's suggestions of skills and plugins                                        | *Off until an Owner turns on **Skills***                                                                                                | *⚠️ Not covered*            |
+
+**Skills and plugins**
+
+The table lists each kind of skill and plugin. Several rows depend on one setting named **Skills**, which an Owner turns on or off in **Organization settings > Plugins & skills**, in the "Policy" tab.
+
+Skill and plugin security scanning isn't available while the HIPAA configuration is applied. Review each skill and plugin before you provide it to members.
+
+| **Feature**                                                                                 | **Availability**                                                                                                                                                                               | **Coverage under your BAA** |
+| ------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------- |
+| Skills that ship with Claude Code                                                           | *Off until an Owner turns on **Skills***                                                                                                                                                       | *⚠️ Not covered*            |
+| Skills in a member's Claude account, uploaded by the member or provided by the organization | *Off until an Owner turns on **Skills***                                                                                                                                                       | *⚠️ Not covered*            |
+| Organization plugin marketplace                                                             | *Off until an Owner turns on **Skills***                                                                                                                                                       | *⚠️ Not covered*            |
+| Skills and plugins stored on the member's computer                                          | *Available in the terminal and the Code tab, unless **[managed settings](https://code.claude.com/docs/en/managed-settings)** turn them off. In Cowork, off until an Owner turns on **Skills*** | *⚠️ Not covered*            |
+| Creating skills in Claude and Cowork                                                        | *Off until an Owner turns on **Skills** and **User-created skills** in the "Policy" tab*                                                                                                       | *⚠️ Not covered*            |
+| Skill sharing with one member or the whole organization                                     | *Off until an Owner turns on skill sharing in the "Policy" tab*                                                                                                                                | *⚠️ Not covered*            |
+| Skill sharing with a group                                                                  | *Off until an Owner turns on **Share with groups** in the "Policy" tab*                                                                                                                        | *⚠️ Not covered*            |
+| Record a skill in Cowork, where Claude watches the screen                                   | *Not available*                                                                                                                                                                                | *❌ Not available*           |
+
+**Other Claude products**
+
+The table lists Claude products other than Claude Code and Cowork. Your BAA doesn't cover any of them.
+
+| **Feature**                      | **Availability**                                          | **Coverage under your BAA** |
+| -------------------------------- | --------------------------------------------------------- | --------------------------- |
+| Claude Tag, which works in Slack | *Not available*                                           | *❌ Not available*           |
+| Claude Design (claude.ai/design) | *Off until an Owner turns it on in Organization settings* | *⚠️ Not covered*            |
+| Claude Science, in beta          | *Off until an Owner turns it on in Organization settings* | *⚠️ Not covered*            |
+
+**Export, sharing, and feedback**
+
+The table lists features that send session content out of Claude Code or Cowork. None of them are available while the HIPAA configuration is applied. OpenTelemetry export stays available (see **Monitoring and audit**).
+
+| **Feature**                                                             | **Availability** | **Coverage under your BAA** |
+| ----------------------------------------------------------------------- | ---------------- | --------------------------- |
+| Publishing and sharing artifacts, including public links                | *Not available*  | *❌ Not available*           |
+| Session transcript export from Claude Desktop                           | *Not available*  | *❌ Not available*           |
+| Uploading files from a Claude Code session to a member's Claude account | *Not available*  | *❌ Not available*           |
+| Feedback, bug reports, ratings, and surveys                             | *Not available*  | *❌ Not available*           |
+| Crash and error reports to third-party tools                            | *Not available*  | *❌ Not available*           |
+
+**Monitoring and audit**
+
+The table lists the ways your organization can review sessions and usage.
+
+| **Feature**                                                                     | **Availability**                                                                                                                                                                                      | **Coverage under your BAA**                                                 |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| Claude Code (local mode) and Cowork (local mode) sessions in the Compliance API | *Available when the Compliance API is turned on for your organization. Sessions are readable for up to 30 days. Claude Code sessions aren't captured while your organization has ZDR for Claude Code* | *✅ Covered*                                                                 |
+| OpenTelemetry export to your own monitoring tools                               | *Available. By default, Cowork events include session content. **[Content capture](https://claude.com/docs/cowork/monitoring#content-capture)** shows how to leave it out*                            | *⚠️ Not covered. The data you export is your organization's responsibility* |
+| Claude Code usage analytics                                                     | *Not available*                                                                                                                                                                                       | *❌ Not available*                                                           |
+| Usage reports in the terminal: /usage, /stats, and /insights                    | *Available*                                                                                                                                                                                           | *✅ Covered*                                                                 |
+
+**Coverage without the HIPAA configuration**
+
+The table shows what your BAA covers in an organization that has enabled HIPAA but hasn't applied the HIPAA configuration. Members can still use Claude Code and Cowork in that organization where an Owner has them turned on.
+
+| **Product**                                                                                 | **Coverage under your BAA**                                           |
+| ------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Claude Code in the terminal and in the Code tab of Claude Desktop, with ZDR for Claude Code | *✅ Covered through ZDR. ZDR is available for qualified accounts only* |
+| Claude Code, without ZDR for Claude Code                                                    | *⚠️ Not covered*                                                      |
+| Cowork                                                                                      | *⚠️ Not covered*                                                      |
+
+### API features (on a HIPAA ready API org)
 
 | **API Feature (on a HIPAA Ready API Org)** | **Availability**                                                                                                                                                                                                                                             |
 | ------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
@@ -5376,15 +5402,17 @@ Below is a breakdown of what’s covered under the BAA, by feature and product s
 | Models API                                 | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
 | Org Management API                         | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
 | Compliance API                             | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
+| Computer Use                               | ✅ *Covered as Eligible Services under Anthropic BAA\**                                                                                                                                                                                                       |
 | Batch API                                  | ❌ *Not covered under Anthropic BAA and not accessible for HIPAA-Ready API users*                                                                                                                                                                             |
 | Files API [beta]                           | ❌ *Not covered under Anthropic BAA and not accessible for HIPAA-Ready API users*                                                                                                                                                                             |
 | Skills API [beta]                          | ❌ *Not covered under Anthropic BAA and not accessible for HIPAA-Ready API users*                                                                                                                                                                             |
 | Code Execution                             | ❌ *Not covered under Anthropic BAA and not accessible for HIPAA-Ready API users*                                                                                                                                                                             |
-| Computer Use [beta]                        | ❌ *Not covered under Anthropic BAA and not accessible for HIPAA-Ready API users*                                                                                                                                                                             |
 | Web Fetch                                  | ❌ *Not covered under Anthropic BAA and not accessible for HIPAA-Ready API users*                                                                                                                                                                             |
 | External MCP                               | ⚠️ *Available to use but sending data to 3rd parties via this feature isn’t covered under Anthropic’s BAA. Administrators who enable these features are responsible for ensuring their workforce uses them in compliance with applicable legal obligations.* |
 
-Data retention periods within a HIPAA-Enabled API Organization are described in Anthropic’s **[public documentation](http://platform.claude.com/docs/en/build-with-claude/api-and-data-retention)**.
+Data retention periods within a HIPAA-Enabled API Organization are described in Anthropic’s **[public documentation](https://platform.claude.com/docs/en/manage-claude/api-and-data-retention)**.
+
+### Messages API features
 
 The Messages API is covered as an Eligible Service under your BAA. The following Messages API features are covered under your BAA. Messages API features not listed below are not covered under your BAA.
 
@@ -5401,43 +5429,55 @@ The Messages API is covered as an Eligible Service under your BAA. The following
 
 ## Product BAA coverage by surface
 
-| **CLAUDE ENTERPRISE**<br>(limited to features listed below)                                        |                                                           |
-| -------------------------------------------------------------------------------------------------- | --------------------------------------------------------- |
-| **Core chat features**                                                                             | **BAA coverage status**                                   |
-| Chat                                                                                               | ✅ Eligible under BAA                                      |
-| Projects                                                                                           | ✅ Eligible under BAA                                      |
-| Artifacts                                                                                          | ✅ Eligible under BAA                                      |
-| File creation & code execution                                                                     | ✅ Eligible (excl. network / ext. sites)                   |
-| Voice                                                                                              | ✅ Eligible under BAA                                      |
-| Web search                                                                                         | ✅ Eligible under BAA                                      |
-| Research                                                                                           | ✅ Eligible under BAA                                      |
-| Skills                                                                                             | ✅ Eligible under BAA                                      |
-| **Integrations (3rd-party data flows)**                                                            | **BAA coverage status**                                   |
-| MCPs / Connectors                                                                                  | ⚠️ 3P data flows not covered by Anthropic BAA             |
-| Enterprise Search ("Ask Your Org")                                                                 | ⚠️ 3P data flows not covered by Anthropic BAA             |
-| Claude in Chrome                                                                                   | ⚠️ 3P data flows not covered by Anthropic BAA             |
-| **Claude Code**                                                                                    | **BAA coverage status**                                   |
-| Claude Code CLI (via 1P API console)                                                               | ✅ Eligible only with ZDR enabled                          |
-| Claude Code CLI (via Claude Enterprise OAuth)                                                      | ✅ Eligible only with ZDR enabled (for qualified accounts) |
-| Claude Code in Desktop (local mode)                                                                | ✅ Eligible only with ZDR enabled (for qualified accounts) |
-| Claude Code in Desktop (remote mode)                                                               | ❌ Not covered under BAA                                   |
-| Claude Code in Web (beta)                                                                          | ❌ Not covered under BAA                                   |
-| Claude Code Review (beta)                                                                          | ❌ Not covered under BAA                                   |
-| Claude Code Security (beta)                                                                        | ❌ Not covered under BAA                                   |
-| Claude Code Computer Use (beta)                                                                    | ❌ Not covered under BAA                                   |
-| Claude Code Remote Control (beta)                                                                  | ❌ Not covered under BAA                                   |
-| **Other beta features**                                                                            | **BAA coverage status**                                   |
-| Claude Design (beta)                                                                               | ❌ Not covered under BAA                                   |
-| Claude Slides (beta)                                                                               | ❌ Not covered under BAA                                   |
-| Claude Docs (beta)                                                                                 | ❌ Not covered under BAA                                   |
-| **CLAUDE PLATFORM (1P API)**                                                                       |                                                           |
-| **Native 1P API features**                                                                         | **BAA coverage status**                                   |
-| Messages API (prompt caching, structured outputs, memory, web search, bash tool, text editor tool) | ✅ Eligible under BAA                                      |
-| Token Counting, Models, Org Management, Compliance APIs                                            | ✅ Eligible under BAA                                      |
-| Batch API, Files API, Skills API, Code Execution, Computer Use, Web Fetch                          | ❌ Not covered under BAA                                   |
-| External MCP                                                                                       | ⚠️ 3P data flows not covered by Anthropic BAA             |
-| **ZDR-Eligible (covered under BAA with ZDR)**                                                      | **BAA coverage status**                                   |
-| Claude Code via API (CLI)                                                                          | ✅ Eligible only with ZDR enabled (for qualified accounts) |
+In this table, "the HIPAA configuration" is the configuration that the Primary Owner applies to Claude Code (local mode) and Cowork (local mode). Applying it is a separate step from enabling HIPAA. See **[Use Claude Code (local mode) and Cowork (local mode) on a HIPAA-ready Enterprise plan](https://support.claude.com/en/articles/17318731)**.
+
+| **CLAUDE ENTERPRISE**<br>(limited to features listed below)                                                  |                                                                                                                                                                                                                                                                                                                                |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Core chat features**                                                                                       | **BAA coverage status**                                                                                                                                                                                                                                                                                                        |
+| Chat                                                                                                         | ✅ Eligible under BAA                                                                                                                                                                                                                                                                                                           |
+| Projects (in chat)                                                                                           | ✅ Eligible under BAA<br>⚠️ Applies to projects in chat only. Does not include projects in other products, which are not covered, even if accessible in your organization.                                                                                                                                                      |
+| Artifacts (in chat)                                                                                          | ✅ Eligible under BAA<br>⚠️ Applies to artifacts in chat only. Does not include published artifact pages or artifacts in Cowork (local mode) or Code (local mode), which are not covered, even if accessible in your organization.                                                                                              |
+| File creation & code execution                                                                               | ✅ Eligible (excl. network / ext. sites)                                                                                                                                                                                                                                                                                        |
+| Voice                                                                                                        | ✅ Eligible under BAA                                                                                                                                                                                                                                                                                                           |
+| Web search                                                                                                   | ✅ Eligible under BAA                                                                                                                                                                                                                                                                                                           |
+| Research                                                                                                     | ✅ Eligible under BAA                                                                                                                                                                                                                                                                                                           |
+| **Integrations (3rd-party data flows)**                                                                      | **BAA coverage status**                                                                                                                                                                                                                                                                                                        |
+| MCPs / Connectors                                                                                            | ⚠️ 3P data flows not covered by Anthropic BAA                                                                                                                                                                                                                                                                                  |
+| Enterprise Search ("Ask Your Org")                                                                           | ⚠️ 3P data flows not covered by Anthropic BAA                                                                                                                                                                                                                                                                                  |
+| Claude in Chrome                                                                                             | ⚠️ 3P data flows not covered by Anthropic BAA                                                                                                                                                                                                                                                                                  |
+| Skills                                                                                                       | ⚠️ Available but not covered under BAA                                                                                                                                                                                                                                                                                         |
+| **Claude Code**                                                                                              | **BAA coverage status**                                                                                                                                                                                                                                                                                                        |
+| Claude Code with a Claude Console API key                                                                    | ✅ Eligible only with ZDR enabled                                                                                                                                                                                                                                                                                               |
+| Claude Code in the terminal (via Claude Enterprise sign-in)                                                  | ✅ Eligible with the HIPAA configuration applied<br>✅ Eligible with ZDR enabled (for qualified accounts)                                                                                                                                                                                                                        |
+| Claude Code in the Code tab of Claude Desktop                                                                | ✅ Eligible with the HIPAA configuration applied<br>✅ Eligible with ZDR enabled (for qualified accounts)                                                                                                                                                                                                                        |
+| Claude Code cloud sessions, whether started from Claude Code on the web, Claude Desktop, or `claude --cloud` | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| Claude Code Review (beta)                                                                                    | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| Claude Code Security (beta)                                                                                  | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| Claude Code Computer Use (beta)                                                                              | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| Claude Code Remote Control (beta)                                                                            | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| Claude Code in the Claude mobile app                                                                         | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| Claude Code extensions for VS Code and JetBrains                                                             | ⚠️ Available but not covered under BAA                                                                                                                                                                                                                                                                                         |
+| Claude Code through an LLM gateway or a custom base URL                                                      | ⚠️ Available but not covered under BAA                                                                                                                                                                                                                                                                                         |
+| Claude Code through Amazon Bedrock, Google Cloud's Agent Platform, or Microsoft Foundry                      | ⚠️ Available but not covered under BAA                                                                                                                                                                                                                                                                                         |
+| **Cowork**                                                                                                   | **BAA coverage status**                                                                                                                                                                                                                                                                                                        |
+| Cowork in Claude Desktop                                                                                     | ✅ Eligible with the HIPAA configuration applied                                                                                                                                                                                                                                                                                |
+| Cowork in the cloud                                                                                          | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| **Other beta features**                                                                                      | **BAA coverage status**                                                                                                                                                                                                                                                                                                        |
+| Claude Design (beta)                                                                                         | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| Claude Slides (beta)                                                                                         | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| Claude Docs (beta)                                                                                           | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| **CLAUDE PLATFORM (1P API)**                                                                                 |                                                                                                                                                                                                                                                                                                                                |
+| **Native 1P API features**                                                                                   | **BAA coverage status**                                                                                                                                                                                                                                                                                                        |
+| Messages API (prompt caching, structured outputs, memory, web search, bash tool, text editor tool)           | ✅ Eligible under BAA                                                                                                                                                                                                                                                                                                           |
+| Token Counting, Models, Org Management, Compliance APIs                                                      | ✅ Eligible under BAA                                                                                                                                                                                                                                                                                                           |
+| Computer Use                                                                                                 | ✅ Eligible under BAA                                                                                                                                                                                                                                                                                                           |
+| Batch API, Files API, Skills API, Code Execution, Web Fetch                                                  | ❌ Not covered under BAA                                                                                                                                                                                                                                                                                                        |
+| External MCP                                                                                                 | ⚠️ 3P data flows not covered by Anthropic BAA                                                                                                                                                                                                                                                                                  |
+| **ZDR-Eligible (covered under BAA with ZDR)**                                                                | **BAA coverage status**                                                                                                                                                                                                                                                                                                        |
+| Claude Code with a Claude Console API key                                                                    | ✅ Eligible only with ZDR enabled (for qualified accounts)                                                                                                                                                                                                                                                                      |
+| **CLAUDE IN MICROSOFT FOUNDRY**                                                                              |                                                                                                                                                                                                                                                                                                                                |
+| **API features (with the HIPAA configuration enabled)**                                                      | **BAA coverage status**                                                                                                                                                                                                                                                                                                        |
+| Claude API through Microsoft Foundry (Anthropic-hosted or Microsoft-hosted)                                  | **✅** Eligible under BAA. Some features, such as the Compliance API, are not available in Foundry. For a list of unavailable features, see **[Claude in Microsoft Foundry](https://platform.claude.com/docs/en/build-with-claude/claude-in-microsoft-foundry#claude-features-not-supported-for-claude-in-microsoft-foundry)**. |
 
 Please see our **[Trust Portal](https://trust.anthropic.com/resources?s=rgirr4qe8u7ek8c2igx3&name=claude-for-enterprise-hipaa-ready-offering-implementation-guide)** for more information about our compliance commitments.
 ---
@@ -5448,9 +5488,11 @@ SOURCE: https://support.claude.com/en/articles/8114531-i-created-a-claude-consol
 
 To use the Claude API and the playground, add usage credits to your organization's balance. You’ll need to fill out some additional information about your organization and use case. Then, you’ll enter your payment details and fund your account.
 
-Once you’ve purchased usage credits for your account, you’re ready to use the API in your commercial application. You can [find more information on prepaid billing and credits here](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-api-usage).
+Claude Max, Ultra, and Team plans include monthly credits for the Claude API. If you’re a Max or Ultra subscriber, or a Team plan owner, you can link this Console organization to your plan to claim them. No payment method is needed to claim or use the credits. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
 
-If you need custom rate limits, monthly invoicing, or hands-on support, [contact us](https://claude.com/contact-sales) for further information.
+Once you’ve purchased usage credits for your account, you’re ready to use the API in your commercial application. You can **[find more information on prepaid billing and credits here](https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-api-usage)**.
+
+If you need custom rate limits, monthly invoicing, or hands-on support, **[contact us](https://claude.com/contact-sales)** for further information.
 ---
 
 SOURCE: https://support.claude.com/en/articles/8452276-how-do-i-change-the-email-address-associated-with-my-account
@@ -5461,13 +5503,13 @@ It's not possible to change the email address associated with your Claude accoun
 
 If you need to use Claude with a different email address, do the following:
 
-### 1. If you have a paid plan (Pro or Max), follow these steps to cancel it
+### 1. If you have a paid plan (Pro, Max, or Ultra), follow these steps to cancel it
 
 - Log in to your Claude account.
 
 - Click on your initials or name in the bottom left corner.
 
-- Navigate to [Settings > Billing](https://claude.ai/settings/billing).
+- Navigate to **[Settings > Billing](https://claude.ai/settings/billing)**.
 
 - Find the **Cancellation** section and click "Cancel."
 
@@ -5483,9 +5525,9 @@ If you want to use the same phone number to verify your new Claude account, you 
 
 ### 3. Delete the old account
 
-After cancelling your previous subscription and unlinking your phone number, you can delete your account by navigating to [Settings > Account](https://claude.ai/settings/account), clicking "Delete Account," and following the prompts. **Please note that deleting your account is permanent** and you will no longer have access to saved chats. If you wish to keep your data, we recommend exporting it before deletion by following the steps in [How can I export my Claude data?](https://support.claude.com/en/articles/9450526-how-can-i-export-my-claude-data)
+After cancelling your previous subscription and unlinking your phone number, you can delete your account by navigating to **[Settings > Account](https://claude.ai/settings/account)**, clicking "Delete Account," and following the prompts. **Please note that deleting your account is permanent** and you will no longer have access to saved chats. If you wish to keep your data, we recommend exporting it before deletion by following the steps in **[How can I export my Claude data?](https://support.claude.com/en/articles/9450526-how-can-i-export-my-claude-data)**
 
-If you see "Contact support" instead of a "Delete account" button, you'll need to [reach out to our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support) to request assistance with deletion.
+If you see "Contact support" instead of a "Delete account" button, you'll need to **[reach out to our Support team](https://support.claude.com/en/articles/9015913-how-to-get-support)** to request assistance with deletion.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9265372-who-owns-and-manages-the-data-of-my-team
@@ -5521,7 +5563,7 @@ SOURCE: https://support.claude.com/en/articles/9267385-does-anthropic-act-as-a-d
 
 # Does Anthropic Act as a Data Processor or Controller?
 
-*This article is about our commercial products such as Claude for Work and the Anthropic API. For our consumer products such as Claude Free, Pro, Max and when accounts from those plans use Claude Code, see* *[here](https://privacy.claude.com/en/collections/10663362-consumers).*
+*This article is about our commercial products such as Claude for Work and the Anthropic API. For our consumer products such as Claude Free, Pro, Max, Ultra and when accounts from those plans use Claude Code, see [here](https://privacy.claude.com/en/collections/10663362-consumers).*
 
 When a commercial customer creates a Claude for Work account (Team or Enterprise plan), under our [Commercial Terms of Service](https://www.anthropic.com/legal/commercial-terms) the customer is the "Controller" of the data submitted by its Users. This means:
 
@@ -5541,7 +5583,7 @@ For more details on our data practices, please see the:
 
 - [Anthropic Privacy Center](https://privacy.claude.com/en/collections/10663361-commercial-customers)
 
-- [Anthropic Trust Center](http://trust.anthropic.com)
+- [Anthropic Trust Center](https://trust.anthropic.com)
 
 - [Anthropic Privacy Policy](https://www.anthropic.com/legal/privacy)
 ---
@@ -5550,7 +5592,7 @@ SOURCE: https://support.claude.com/en/articles/9267400-move-your-personal-claude
 
 # Move your personal Claude account to a Team or Enterprise organization
 
-If you're using Claude with a personal account (Free, Pro, or Max) tied to your work email, you may be able to move that account into your organization's Team or Enterprise workspace. There are two paths: you can start a migration yourself (Team and Enterprise) or your admin can claim accounts on your domain (Enterprise only).
+If you're using Claude with a personal account (Free, Pro, Max, or Ultra) tied to your work email, you may be able to move that account into your organization's Team or Enterprise workspace. There are two paths: you can start a migration yourself (Team and Enterprise) or your admin can claim accounts on your domain (Enterprise only).
 
 **Note:** Enterprise organizations that have turned on HIPAA readiness or customer-managed encryption keys (CMEK) can't receive data from a personal account. If your organization uses either, you won't be offered the option to bring your data with you, and a domain claim won't offer to merge your account. You can export your data first if you want a copy. Learn more about **[HIPAA-ready Enterprise plans](https://support.claude.com/en/articles/13296973)** and **[customer-managed encryption keys](https://support.claude.com/en/articles/15505325)**.
 
@@ -5624,7 +5666,7 @@ If you have a personal Claude account on the same email address as your organiza
 
 - **Use your organization account only:** You'll see two migration options after selecting this.
 
-  - **Bring your data with you:** Your personal data moves into the organization's workspace, as described above in **[What moves when you migrate](#h_4e63ef6e87)**. Your personal account closes, and active Pro or Max subscriptions are canceled and refunded depending on how you purchased the plan.
+  - **Bring your data with you:** Your personal data moves into the organization's workspace, as described above in **[What moves when you migrate](https://support.claude.com/en/articles/9267400-move-your-personal-claude-account-to-a-team-or-enterprise-organization#h_4e63ef6e87)**. Your personal account closes, and active Pro, Max, or Ultra subscriptions are canceled and refunded depending on how you purchased the plan.
 
   - **Delete your data:** Your personal account closes (with a prorated refund if you had a paid subscription), but no content moves into the organization. You start with a clean account. You can choose to download your account data before deleting it.
 
@@ -5632,15 +5674,21 @@ If your organization has turned on HIPAA readiness or CMEK, **Bring your data wi
 
 ### How do refunds work for migrated accounts?
 
-What happens to your Pro or Max plan after migrating depends on where you bought it:
+What happens to your Pro, Max, or Ultra plan after migrating depends on where you bought it:
 
-- **Directly (not through a mobile app):** Your Pro or Max subscription is canceled automatically as part of the move, and you receive a prorated refund for unused time. The refund is issued about 24 hours after your plan is canceled, and depending on your bank, it can take several more business days to appear on your statement.
+- **Directly (not through a mobile app):** Your Pro, Max, or Ultra subscription is canceled automatically as part of the move, and you receive a prorated refund for unused time. The refund is issued about 24 hours after your plan is canceled, and depending on your bank, it can take several more business days to appear on your statement.
 
-- **Google Play Store:** Your Pro or Max subscription is canceled automatically as part of the move, and you receive a prorated refund for unused time. Refunds for Google Play purchases can take a few days to appear.
+- **Google Play Store:** Your Pro, Max, or Ultra subscription is canceled automatically as part of the move, and you receive a prorated refund for unused time. Refunds for Google Play purchases can take a few days to appear.
 
-- **Apple App Store:** Your Pro or Max subscription isn't canceled. Apple doesn't allow third-party cancellation, so you'll need to cancel it yourself through your Apple ID settings. If you don't, Apple keeps charging you after your personal account closes.
+- **Apple App Store:** Your Pro, Max, or Ultra subscription isn't canceled. Apple doesn't allow third-party cancellation, so you'll need to cancel it yourself through your Apple ID settings. If you don't, Apple keeps charging you after your personal account closes.
 
-For cancellation instructions, see **[Cancel your Pro or Max subscription](https://support.claude.com/en/articles/8325617)**.
+If you’ve claimed monthly API credits on your Max or Ultra plan:
+
+- **Moving to a Team organization:** Your Max or Ultra link ends. A Team Owner or Primary Owner can claim the team’s credits once the Team plan has been active for seven days.
+
+- **Moving to an Enterprise organization:** New credits stop. Credits you already have stay usable until they expire. Enterprise plans aren’t eligible for monthly API credits.
+
+For cancellation instructions, see **[Cancel your Pro, Max, or Ultra subscription](https://support.claude.com/en/articles/8325617)**.
 
 ### How to start a migration
 
@@ -5658,7 +5706,7 @@ Owning the Team organization doesn't change where you start the migration. If yo
 
 ### Apple App Store subscribers
 
-If you subscribed to the Pro or Max plan through the Apple App Store, **Keep both accounts** is your only option. Apple doesn't allow third-party cancellation of App Store subscriptions, so we can't auto-cancel your iOS plan as part of the migration. If you'd rather move your work into the Team, **[cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** through your Apple ID settings first, then start the migration from the reminder banner or **[Settings > Account](https://claude.ai/settings/account)**.
+If you subscribed to the Pro, Max, or Ultra plan through the Apple App Store, **Keep both accounts** is your only option. Apple doesn't allow third-party cancellation of App Store subscriptions, so we can't auto-cancel your iOS plan as part of the migration. If you'd rather move your work into the Team, **[cancel your iOS subscription](https://support.claude.com/en/articles/8325617-cancel-your-pro-or-max-subscription#h_54384c9962)** through your Apple ID settings first, then start the migration from the reminder banner or **[Settings > Account](https://claude.ai/settings/account)**.
 
 ---
 
@@ -5724,9 +5772,9 @@ Organizations must disclose to their users that they are interacting with an AI 
 Anthropic will periodically audit organizations for compliance with these safeguards. If your organization has a high violation rate and has not implemented these safety recommendations, we may ask you to implement them. Failure to implement these recommendations when requested, or a continued high violation rate, may lead to the suspension or termination of your account.
 ---
 
-SOURCE: https://support.claude.com/en/articles/9796807-creating-and-managing-workspaces-in-the-claude-console
+SOURCE: https://support.claude.com/en/articles/9796807-create-and-manage-workspaces-in-the-claude-console
 
-# Creating and managing Workspaces in the Claude Console
+# Create and manage Workspaces in the Claude Console
 
 This guide will walk you through the process of creating, editing, and managing Workspaces in your Claude Console organization.
 
@@ -5740,21 +5788,21 @@ If you need to create a fully separate organization with its own members, billin
 
 **Note:** Only Organization Admins can create new Workspaces.
 
-1. Log in to your [Claude Console account](https://platform.claude.com/login).
+1. Log in to your **[Claude Console account](https://platform.claude.com/login)**.
 
-2. Navigate to the **Workspaces** section by clicking on "Settings" in the top level menu and selecting “Workspaces” from the left side bar ([Settings > Workspaces](https://platform.claude.com/settings/workspaces)).
+2. Go to the **Workspaces** page (platform.claude.com/settings/workspaces).
 
-3. Click the "Add Workspace" button near the top right of the page.
+3. Click "Create workspace." The **Create workspace** page opens (platform.claude.com/settings/workspaces/new).
 
-4. In the modal that appears, enter a name for your new Workspace, and select a color assignment. This color assignment will be used to help visually identify your workspace in the Claude Console.
+4. Enter a name for your new Workspace, and select a color. The color helps you identify your Workspace in the Claude Console.
 
-5. Click "Create" to finalize the new Workspace.
+5. Click "Create workspace" to finalize the new Workspace.
 
 Your new Workspace will now appear in the list of Workspaces.
 
 **Note:** You are limited to 100 workspaces per organization.
 
-## Editing Workspace Settings
+## Edit Workspace settings
 
 1. From the **Workspaces** list, click on the ellipsis next to the Workspace you want to edit.
 
@@ -5768,45 +5816,45 @@ Your new Workspace will now appear in the list of Workspaces.
 
 4. After making your changes, click "Save" to apply them.
 
-**Note:** The default Workspace is not editable and cannot be removed.
+**Note:** You can’t rename the default Workspace or change its color, and you can’t archive or delete it.
 
-## Adding members to a Workspace
+## Add members to a Workspace
 
-**Note:** You must add members to your Console organization by following [these instructions](https://support.claude.com/en/articles/13443764-inviting-members-to-the-claude-console) before you can add them to a Workspace.
+**Note:** You must add members to your Console organization by following **[these instructions](https://support.claude.com/en/articles/13443764-inviting-members-to-the-claude-console)** before you can add them to a Workspace.
 
-1. Navigate to the desired Workspace's details page by clicking on it from the Workspaces list.
+1. Go to the **Members** page (platform.claude.com/settings/members).
 
-2. Click on the “Members” tab.
+2. Click "Add to workspace."
 
-3. Click on “Add to Workspace” near the top right of the page.
+3. Select the Workspace, the organization member to add, and their Workspace role.
 
-4. Choose the individual you’d like to add from the list of your organization’s members.
-
-5. Assign a Workspace role for this member.
-
-6. Confirm your selections by clicking “Add to Workspace."
+4. Click "Add to workspace" to confirm.
 
 **Note:** Organization Admins are automatically added as Workspace Admin to every Workspace. Organization Billing role holders are automatically granted ability to see cost, usage, and limit values for all Workspaces, but can be upgraded to the Organization Admin role.
 
-## Deleting members from a Workspace
+## Delete members from a Workspace
 
-Click the trash can icon next to the member to remove them from your Workspace.
+1. Go to the **Members** page (platform.claude.com/settings/members) and select the Workspace from the **Workspace** dropdown menu. If the menu shows "All," removing a member removes them from your organization instead.
+
+2. At the end of the member's row, open the "More actions" menu (three dots) and select "Remove member."
+
+3. Click "Remove" to confirm.
 
 **Note:** Organization members with Admin and Billing roles are automatically granted permissions on all Workspaces and cannot be removed from Workspaces.
 
-## Managing API Keys in a Workspace
+## Manage API Keys in a Workspace
 
-1. Navigate to the desired Workspace's details page by clicking on it from the **Workspaces** list.
+1. Go to the **API keys** page (platform.claude.com/settings/keys).
 
-2. Click on the "API Keys" tab.
+2. Select the Workspace from the **Workspace** dropdown menu to list only its keys.
 
 3. To create a new API key for this Workspace:
 
-  - Click "Create Key"
+  - Click "Create key"
 
   - Give the key a descriptive name
 
-  - Click "Create Key"
+  - Click "Create key"
 
 4. To revoke an existing API key:
 
@@ -5814,7 +5862,7 @@ Click the trash can icon next to the member to remove them from your Workspace.
 
   - Click the ellipsis next to it
 
-  - Select "Disable API Key" or “Delete API Key”
+  - Select "Disable API key" or “Delete API key”
 
     - **Note:** Deleting an API key is a permanent action and cannot be undone.
 
@@ -5822,39 +5870,37 @@ Click the trash can icon next to the member to remove them from your Workspace.
 
 **Note:** API keys are tied to the Workspace they're created in and cannot be moved between Workspaces.
 
-## Setting Workspace Rate Limits
+## Set Workspace rate limits
 
-1. Navigate to the desired Workspace's details page by clicking on it from the **Workspaces** list.
+1. Go to the **Rate limits** page (platform.claude.com/usage/limits) and select the Workspace from the **Workspace** dropdown menu.
 
-2. Click on the "Limits" tab.
+2. Click "Edit" next to a model to set its limits.
 
-3. Set a limit for each model tier and limit type by clicking on the pencil icon next to each option.
+3. Set a limit for each model tier and limit type by clicking "Edit" next to each option.
 
-4. Workspace Spend Limits can be reset to the organization rate limit by clicking the “Refresh” icon next to the rate limit you previously set for the Workspace.
+4. Workspace limits can be reset to the organization rate limit by selecting a model, leaving all the fields blank in the **Edit workspace rate limits** modal, and clicking "Save."
 
-**Note:** Anthropic always evaluates all applicable limiters -- at the Workspace and Organization level -- for every request. In other words, if the Workspace limits are unset, Organization limits still apply.
+**Note:** Anthropic always evaluates all applicable limiters—at the Workspace and Organization level—for every request. In other words, if the Workspace limits are unset, Organization limits still apply.
 
-## Setting Workspace Spend Limits or Notifications
+## Set Workspace spend limits or notifications
 
-1. Navigate to the desired Workspace's details page by clicking on it from the **Workspaces** list.
+1. Go to the **Workspaces** page (platform.claude.com/settings/workspaces) and select the Workspace.
 
-2. Click on the "Limits" tab.
+2. In the panel that opens, click "Spend limits."
 
 3. Choose one of the following:
 
-  - Select “Change Limit” to set a specific spend limit for this Workspace.
+  - Select "Change limit" under **Monthly limit** to set a specific spend limit for this Workspace.
 
-    - **Note:** You can only set a spend limit that is lower than your organization’s limit. If unset, your spend limit defaults to the organization’s limit.
+    - **Note:** You can only set a spend limit that is lower than your organization’s limit. If unset, your spend limit defaults to the organization’s limit. You can’t set a spend limit for the default Workspace.
 
-  - Select “Add notification” to set up an email notification when the Workspace spend reaches a specific amount.
+  - Select "+ Add notification" under **Email notification** to set up an email notification when the Workspace spend reaches a specific amount.
 
-## Viewing Workspace Usage and Costs
+## View Workspace usage and costs
 
-1. Navigate to the [Usage or Cost Reports](https://support.claude.com/en/articles/9534590-cost-and-usage-reporting-in-the-claude-console).
+Go to the **Usage** page (platform.claude.com/usage) or the **Cost** page (platform.claude.com/cost).
 
-2. Choose to view by an individual Workspace, or by “All Workspaces”.
-
-## Archiving a Workspace
+## Archive a Workspace
 
 If you no longer need a Workspace but want to retain its historical data:
 
@@ -5866,19 +5912,13 @@ If you no longer need a Workspace but want to retain its historical data:
 
 **Note:** Archiving a Workspace will archive all API keys in the Workspace. This action cannot be undone.
 
-## Managing the Default Workspace
+## Manage the Default Workspace
 
-Every organization has a default Workspace that cannot be renamed, archived, or deleted. To view API keys associated with the default Workspace:
-
-1. Navigate to the **Workspaces** list.
-
-2. Click on "Default" in the list.
-
-**Note:** You can view your default Workspace’s limits from the [Limits settings](https://platform.claude.com/settings/limits).
+Go to the **API keys** page (platform.claude.com/settings/keys) and select "Default" from the **Workspace** dropdown menu.
 
 ---
 
-## Creating a separate Console organization
+## Create a separate Console organization
 
 A single email address can create only one Console organization. If you've already created an organization with your email, signing up again routes you back to that organization instead of starting a new one. You can still be invited to other organizations and switch between them on the same email, but you can only create one yourself.
 
@@ -5904,11 +5944,11 @@ The new organization is created automatically with a default Workspace, and the 
 
 ### After setup
 
-From **Settings > Organization**, the Primary Owner can:
+The Primary Owner can:
 
-- Invite members and assign roles (such as Admin, Billing, and Developer) under "Members."
+- Invite members and assign roles (such as Admin, Billing, and Developer) on the **Members** page (platform.claude.com/settings/members).
 
-- Add a payment method in billing settings.
+- Add a payment method on the **Billing** page (platform.claude.com/settings/billing).
 ---
 
 SOURCE: https://support.claude.com/en/articles/9889428-add-or-update-your-claude-console-organization-s-tax-or-vat-id
@@ -5933,10 +5973,10 @@ If you need to add or update your tax or VAT ID after you've already created a C
 
 1. Log in to your API Console account.
 
-2. Navigate to [Settings > Organization](https://platform.claude.com/settings/organization).
+2. Go to the **Organization** page (platform.claude.com/settings/organization).
 
 3. Enter or modify your tax or VAT ID as needed.
 
 4. Click "Save changes" when you're finished.
 
-**Note:** Your billing address determines your tax jurisdiction. See [Understanding your billing address and tax calculation](https://support.claude.com/en/articles/12997130-understanding-your-billing-address-and-tax-calculation) for details on how to view or update your billing address.
+**Note:** Your billing address determines your tax jurisdiction. For details on how to view or update your billing address, see **[Understanding your billing address and tax calculation](https://support.claude.com/en/articles/12997130-understanding-your-billing-address-and-tax-calculation)**.

@@ -12,21 +12,6 @@ We’re mindful that some users may encounter these refusals or errors when they
 Conversely, if you are receiving these messages because you *are* trying to elicit copyrighted content, we may warn you or, in cases of repeat violations, suspend or terminate your account.
 ---
 
-SOURCE: https://support.claude.com/en/articles/11174660-online-safety-contacts
-
-# Online Safety Contacts
-
-# **Designated Point of Contact for Authorities**
-
-Government authorities can contact Anthropic directly by emailing <regulator-inquiries@anthropic.com>. This is reserved for government officials seeking a point of contact and for governmental submissions to remove content.
-
-For other types of inquiries, please use the mechanisms described below. ￼
-
-# **Illegal Content Reporting**
-
-For user requests for content removal, please use the mechanisms described [here](https://support.anthropic.com/en/articles/10684638-blocking-and-removing-content-from-claude). ￼
----
-
 SOURCE: https://support.claude.com/en/articles/12119250-model-safety-bug-bounty-program
 
 # Model Safety Bug Bounty Program
@@ -100,17 +85,19 @@ Anthropic allows users to discover high-quality Model Context Protocol servers, 
 
 # 1. Safety and Security
 
-A. Software must not violate or facilitate violation of our [Usage Policy](https://www.anthropic.com/legal/aup). All Software must comply with our Universal Usage Standards and High-Risk Use Case requirements and with our policy on the [countries and regions Anthropic currently supports](https://www.anthropic.com/supported-countries).
+A. Software must not violate or facilitate violation of our [Usage Policy](https://www.anthropic.com/legal/aup), including high-risk use cases around legal, healthcare, insurance, finance and other areas. All Software must comply with our Universal Usage Standards and High-Risk Use Case requirements and with our policy on the [countries and regions Anthropic currently supports](https://www.anthropic.com/supported-countries).
 
-B. Software must not evade or enable users to circumvent Claude's safety guardrails, system instructions, or sandbox environments.
+B. When Software is providing a high-risk use case, Developers must comply with the human-in-the-loop measures and provide direct disclosure to consumers (as detailed in our [AUP](https://www.anthropic.com/legal/aup)) to be included in our directory.
 
-C. Software must prioritize protecting user privacy and the privacy interests of third parties. Developers must take care to responsibly handle personal and other sensitive data, follow privacy best practices, and ensure compliance with applicable laws.
+C. Software must not evade or enable users to circumvent Claude's safety guardrails, system instructions, or sandbox environments.
 
-D. Software must only collect data from the user’s context that is necessary to perform their function. Software must not collect extraneous conversation data, even for logging purposes.
+D. Software must prioritize protecting user privacy and the privacy interests of third parties. Developers must take care to responsibly handle personal and other sensitive data, follow privacy best practices, and ensure compliance with applicable laws.
 
-E. Software must not infringe on the intellectual property rights of others.
+E. Software must only collect data from the user’s context that is necessary to perform their function. Software must not collect extraneous conversation data, even for logging purposes.
 
-F. Software must not query or extract data from Claude's memory, chat history, conversation summaries, or user-generated or uploaded files.
+F. Software must not infringe on the intellectual property rights of others.
+
+G. Software must not query or extract data from Claude’s memory, chat history, conversation summaries, or user-generated or uploaded files and must not persistently store or use conversation content to build user profiles or attempt to make any changes to Claude’s behavior across sessions.
 
 # 2. Compatibility
 
@@ -146,17 +133,29 @@ F. Developers must verify that they own or control any API endpoint, domain, or 
 
 G. Developers must maintain their Software and address issues within reasonable timeframes.
 
-H. Developers must agree to our [Software Directory Terms](https://support.claude.com/en/articles/13145338-anthropic-software-directory-terms) and follow design guidelines Anthropic publishes applicable to Software.
+H. Developers must notify Anthropic of material changes to their Software’s functionality, tool or capability descriptions, data practices, or connected endpoints after inclusion in a Directory. Material changes may be subject to re-review.
+
+I. Developers must agree to our [Software Directory Terms](https://support.claude.com/en/articles/13145338-anthropic-software-directory-terms) and follow design guidelines Anthropic publishes applicable to Software.
 
 # 4. Unsupported Use Cases
 
 Unless otherwise expressly permitted by us in writing, we do not allow Software with certain capabilities into our Directories. We may revisit these restrictions as our Directories and Anthropic Services evolve.
 
-A. Software that transfers money, cryptocurrency, or other financial assets, or executes financial transactions on behalf of users.
+A. Software that transfers money or other financial assets, or executes financial transactions autonomously on behalf of users, without human-in-the-loop safeguards. We do not generally allow cryptocurrency software in our directory.
 
-B. Software that uses AI models to generate images, video, or audio content. Design-focused software that uses AI models to create visual aids (such as slides, diagrams, charts, UI mockups, logos, or other design assets) are permitted. These servers may generate images as part of a design workflow, provided the developer does not offer standalone image generation as a primary service.
+B. Software that uses AI models to generate images, video, or audio content. Only design-focused image software that uses AI models to exclusively create visual aids (such as slides, diagrams, charts, UI mockups, logos, or other design assets) are permitted. These servers may generate images as part of a design-only workflow, provided the developer does not offer standalone image generation as a service in our products. This includes:
+
+a. Video generation models (text-to-video, video extension using AI, video editing, video-to-video, audiovisual generation)
+
+b. Audio and voice models (speech-to-speech/native audio models, text-to-speech, music models)
+
+c. Image generation models that are not purely design focused (text-to-image, image editing, people-generation capabilities)
 
 C. Software that serves [advertisements](https://www.anthropic.com/news/claude-is-a-space-to-think), sponsored content, paid product placements, or exists primarily as an advertising or promotional vehicle.
+
+D. Software that primarily serves adult and/or sexual content (18+ content) to users.
+
+E. Software that may redirect users to evade our safeguards and violate our AUP to conduct high-harm misuse.
 
 # 5. Additional Requirements for Model Context Protocol Servers
 
@@ -175,77 +174,6 @@ F. Remote MCP servers should support the [Streamable HTTP](https://modelcontextp
 G. Local MCP servers must be built with reasonably current versions of all dependencies, including packages in *node_modules*.
 
 See prior version of this policy here: [Anthropic MCP Directory Policy](https://support.claude.com/en/articles/11697096-anthropic-mcp-directory-policy).
----
-
-SOURCE: https://support.claude.com/en/articles/14604842-real-time-cyber-safeguards-on-claude-opus-and-sonnet
-
-# Real-time cyber safeguards on Claude Opus and Sonnet
-
-**Note**: This article applies only to Opus and Sonnet class models, but doesn’t apply to Claude Opus 5.5 or Sonnet 5.5. We'll soon be expanding the Cyber Verification Program to include Opus 5.5, Sonnet 5.5, and Mythos class models.
-
-As part of our ongoing safety commitments, we have real-time cyber safeguards on Claude Opus and Sonnet models. These safeguards are designed to automatically detect and block requests that may indicate prohibited or high-risk cybersecurity usage based on our Usage Policy.
-
-## How this works
-
-Our cyber safeguards currently block two categories of activities:
-
-- **Prohibited use:** Cybersecurity activities that are almost always used maliciously and have little to no legitimate defensive application such as mass data exfiltration or ransomware code development. These are blocked by default and not subject to adjustment via self-serve application through the Cyber Verification Program.
-
-- **High Risk Dual use:** Cybersecurity activities that have legitimate defensive applications, such as vulnerability exploitation or offensive security tooling development. These are blocked by default, but defensive users can apply for adjustment for legitimate use cases through the Cyber Verification Program described below.
-
-## Cyber Verification Program
-
-Many cybersecurity practitioners do legitimate work that overlaps with the dual use category above. The Cyber Verification Program (CVP) is a free application-based program for **Opus and Sonnet** that is designed to enable professionals to continue working on legitimate dual use tasks safely while minimizing interruption.
-
-If your use case has a legitimate defensive purpose and is being affected by these safeguards, we encourage you to apply for the CVP. See **How to apply** below for the right path based on how you access Claude.
-
-Organizations on Zero Data Retention (ZDR) are not currently eligible to participate in the CVP. If you have a Sales Managed ZDR account, please contact your Anthropic Sales Representative for more information.
-
-## How to apply
-
-How you apply depends on how you access Claude. Once you submit your application, we aim to send an email notification with our review decision within two business days. To submit an application you will need to verify your identity. Please see **[Identity verification on Claude](https://support.claude.com/en/articles/14328960-identity-verification-on-claude)** for more information.
-
-| **How you access Claude**                                                | **How to apply**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| ------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Anthropic first-party** (Claude.ai, Claude Code, the Anthropic API)    | Navigate to the **[Verification Portal](https://portal.anthropic.com/programs/cvp)** to apply for access to the Cyber Verification Program.<br>**Note:** Only authorized admins will see this option.                                                                                                                                                                                                                                                                                                                                                 |
-| **Microsoft Foundry**                                                    | Find both your Azure Tenant ID and Subscription ID in your Azure Portal (see instructions **[here](https://learn.microsoft.com/en-us/azure/azure-portal/get-subscription-tenant-id)**). Choose "Azure" under the **Surface** field in the **[Cyber Use Case Form](https://claude.com/form/cyber-use-case)**.                                                                                                                                                                                                                                          |
-| **Amazon Bedrock**                                                       | The Cyber Verification Program is not available on Bedrock at this time.                                                                                                                                                                                                                                                                                                                                                                                                                                                                              |
-| **Claude Platform on AWS**                                               | Navigate to the **[Verification Portal](https://portal.anthropic.com/link?account_source=aws&program=cvp)** to apply for access to the Cyber Verification Program. You will need to create or log into an Anthropic account, then link your AWS account.
-​<br>**Note:** Only authorized admins will be able to apply.                                                                                                                                                                                                                               |
-| **Claude on Google Cloud**                                               | Navigate to the **[Verification Portal](http://portal.anthropic.com/link?account_source=aws&program=cvp)** to apply for access to the Cyber Verification Program. You will need to create or log into an Anthropic account, then **[link your Google account](https://portal.anthropic.com/linked-accounts/gcp/link?from=picker)** and configure data retention. Please see the instructions under the **[Enable data retention on Claude on Google Cloud](#h_c551899218)** section below.<br>**Note:** Only authorized admins will be able to apply. |
-| **Third-party platform** (coding tools and other apps powered by Claude) | Reach out to your platform directly to check if Anthropic CVP is available and if so request access to the Cyber Use Case Form through the platform. Not all platforms participate in the CVP at this time.                                                                                                                                                                                                                                                                                                                                           |
-| **Bring your own key (BYOK) Customers**                                  | Follow instructions under **Anthropic first-party**                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
-
-[Verification Portal](https://portal.anthropic.com/programs/cvp)
-
-**Are you a platform owner?** If you use Claude to power products or services available to your customers and want to learn whether your platform is eligible to participate in the Cyber Verification Program, please **[fill out this Platform CVP Interest Form](https://claude.com/form/platform-cvp-interest)**.
-
-## Enable data retention on Claude on Google Cloud
-
-In order to access the Cyber Verification Program through Claude on Google Cloud, you must consent to and configure data retention.
-
-Consent to the Advanced AI Safety Addendum once per project on the model page. In addition, the calling GCP project must opt in to the correct data retention settings. These are set on Google's **[PublisherModelConfig](https://docs.cloud.google.com/gemini-enterprise-agent-platform/reference/rest/v1beta1/projects.locations.endpoints#PublisherModelConfig)**, keyed by project, region, and model.
-
-**Note:** You must update these settings for every project, region, and model combination with which you'd like to use the Cyber Verification Program on Claude on Google Cloud.
-
-| **Setting**                     | **Needed for**                   | **`PublisherModelConfig` field**              |
-| ------------------------------- | -------------------------------- | --------------------------------------------- |
-| **Data sharing with Anthropic** | Opus 5                           | `dataSharingEnabledProvider: "ANTHROPIC"`     |
-| **Advanced AI**                 | Sonnet 5<br>Opus 4.7<br>Opus 4.8 | `claudeFeatureConfig.advancedAiEnabled: true` |
-
-You can find out more about how to set this configuration by reading the **[Google Cloud documentation](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/capabilities/request-response-logging#share-requests-responses-with-maas-partners)**.
-
-## Appeals
-
-We expect to occasionally decline eligible applications incorrectly, and approved users may still experience blocks on legitimate work. We’re actively working to reduce both.
-
-If you’re encountering one of these issues, we recommend checking the following:
-
-**Are you signed in to the right organization?** CVP approval is tied to a specific organization ID. If you're hitting blocks on a different organization—for example, your personal workspace instead of your team's organization—the approval doesn't carry over. Compare the organization ID where you're seeing blocks against the one on your approval email.
-
-**Is the activity actually dual use?** CVP approval only lifts blocks on dual use activities. Prohibited use activities (e.g., mass data exfiltration, ransomware code development) remain blocked regardless of CVP status.
-
-If you've checked both and still believe something is wrong, you can **[submit a report or appeal form](https://claude.com/form/cyber-block-false-positive-report-cvp-rejection-appeal)**. Your feedback helps us refine these safeguards.
 ---
 
 SOURCE: https://support.claude.com/en/articles/15591275-child-safety-guidance-for-developers
@@ -314,7 +242,7 @@ As part of our safety process, we may ban an account for a variety of reasons:
 
 - **[Terms of Service](https://www.anthropic.com/legal/consumer-terms)** violations
 
-If you feel your account has been wrongly suspended or terminated, please go to **[claude.ai](http://claude.ai)**, log in with your banned account, and fill out the appeal form linked below. Our Safeguards team can further investigate why your account was disabled.
+If you feel your account has been wrongly suspended or terminated, please go to **[claude.ai](https://claude.ai)**, log in with your banned account, and fill out the appeal form linked below. Our Safeguards team can further investigate why your account was disabled.
 
 [Submit an appeal](https://claude.ai/restricted)
 
@@ -322,7 +250,7 @@ If you feel your account has been wrongly suspended or terminated, please go to 
 
 ## Export your data or delete your account
 
-If your Free, Pro, or Max account has been banned for violating our Usage Policy, you can still log in at **[claude.ai](https://claude.ai)** to export your data or delete your account. You don't need to contact Anthropic to do this. The options available to your account are shown on the same screen as the appeal form after you log in.
+If your Free, Pro, Max, or Ultra account has been banned for violating our Usage Policy, you can still log in at **[claude.ai](https://claude.ai)** to export your data or delete your account. You don't need to contact Anthropic to do this. The options available to your account are shown on the same screen as the appeal form after you log in.
 
 All banned users can delete their own account. Self-serve data exports are available to all banned users, but the data you’re able to access and export may be restricted depending upon the Usage Policy violation associated with your account.
 

@@ -7,7 +7,7 @@ SOURCE: https://support.claude.com/en/articles/12512176-what-are-skills
 
 Skills are folders of instructions, scripts, and resources that Claude loads dynamically to improve performance on specialized tasks. Skills teach Claude how to complete specific tasks in a repeatable way, whether that's creating documents with your company's brand guidelines, analyzing data using your organization's specific workflows, or automating personal tasks.
 
-Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in Claude Code, and in beta for all API users using the code execution tool.
+Skills are available for users on Free, Pro, Max, Ultra, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in Claude Code, and in beta for all API users using the code execution tool.
 
 ---
 
@@ -108,7 +108,7 @@ SOURCE: https://support.claude.com/en/articles/12512180-use-skills-in-claude
 
 Skills extend Claude's capabilities by giving it access to specialized knowledge and workflows. This guide shows you how to enable, discover, and use skills in Claude.
 
-Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in Claude Code, and in beta for all API users using the code execution tool.
+Skills are available for users on Free, Pro, Max, Ultra, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in Claude Code, and in beta for all API users using the code execution tool.
 
 ## Prerequisites
 
@@ -116,7 +116,7 @@ Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. Th
 
 **For Team plans:** This feature is enabled by default at the organization level. Once enabled, individual members can toggle on example skills and upload their own in **[Customize > Skills](https://claude.ai/customize/skills)**.
 
-**For Max, Pro, and Free plans:** You can enable example skills and upload your own in **[Customize > Skills](https://claude.ai/customize/skills)**.
+**For Free, Pro, Max, and Ultra plans:** You can enable example skills and upload your own in **[Customize > Skills](https://claude.ai/customize/skills)**.
 
 ---
 
@@ -124,7 +124,7 @@ Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. Th
 
 1. For Team / Enterprise plans: Navigate to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)**, click the “Policy” tab, and ensure that both **Cloud code execution and file creation** and **Skills** are enabled.
 
-2. For individual Free, Pro, and Max plans: Navigate to **[Settings > Capabilities](https://claude.ai/settings/capabilities)** and ensure that **Code execution and file creation** is enabled.
+2. For individual Free, Pro, Max, and Ultra plans: Navigate to **Settings > Capabilities** and ensure that **Code execution and file creation** (called **Create and edit files** in the updated Settings layout) is enabled.
 
 3. Go to **[Customize > Skills](https://claude.ai/customize/skills)**.
 
@@ -338,7 +338,7 @@ When installing a skill from a less-trusted source—including one shared by a c
 
 ### Skills section not visible
 
-Ensure code execution is enabled in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max) or **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** in the “Policy” tab (Team, Enterprise). Then navigate to **[Customize > Skills](https://claude.ai/customize/skills)** to access your skills. Skills require the code execution environment to function.
+Ensure code execution is enabled in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max, Ultra) or **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** in the “Policy” tab (Team, Enterprise). Then navigate to **[Customize > Skills](https://claude.ai/customize/skills)** to access your skills. Skills require the code execution environment to function.
 
 ### Claude isn’t using a skill
 
@@ -356,7 +356,7 @@ On Team and Enterprise plans, an organization owner can turn off skill creation 
 
 ### Skills greyed out
 
-If skills appear greyed out, code execution may be disabled at the organization level (for Team and Enterprise plans) or individually. Check with your organization's Owner (Team, Enterprise) or make sure to enable code execution in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max).
+If skills appear greyed out, code execution may be disabled at the organization level (for Team and Enterprise plans) or individually. Check with your organization's Owner (Team, Enterprise) or make sure to enable code execution in **[Settings > Capabilities](https://claude.ai/settings/capabilities)** (Free, Pro, Max, Ultra).
 
 ### Upload errors
 
@@ -405,7 +405,7 @@ SOURCE: https://support.claude.com/en/articles/12512198-how-to-create-custom-ski
 
 # How to create custom skills
 
-Skills are available for users on Free, Pro, Max, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in beta for Claude Code users and for all API users using the code execution tool.
+Skills are available for users on Free, Pro, Max, Ultra, Team, and Enterprise plans. This feature requires **[code execution to be enabled](https://support.claude.com/en/articles/12111783-create-and-edit-files-with-claude#h_1c99382190)**. Skills are also available in beta for Claude Code users and for all API users using the code execution tool.
 
 Custom skills let you enhance Claude with specialized knowledge and workflows specific to your organization or personal work style. This article explains how to create, structure, and test your own skills.
 
@@ -425,7 +425,7 @@ Skills can be as simple as a few lines of instructions or as complex as multi-fi
 
 ## Record a skill
 
-Recording a skill is available on Pro, Max, and Team plans, in Cowork in Claude for Mac. It isn't available in chat, on Windows, or on Free and Enterprise plans.
+Recording a skill is available on Pro, Max, Ultra, and Team plans, in Cowork in Claude for Mac. It isn't available in chat, on Windows, or on Free and Enterprise plans.
 
 Instead of writing a skill by hand, you can record yourself doing a task and let Claude build the skill from what it observes. You send Claude a video of your screen, clicks, typing, and voice, and Claude proposes a skill for you to review before you save it.
 
@@ -643,7 +643,7 @@ When you're iterating on a skill with Claude in chat, you can edit the skill fil
 
 **Skills can build on each other:** While skills can't explicitly reference other skills, Claude can use multiple skills together automatically. This composability is one of the most powerful parts of the skills feature.
 
-**Review the open Agent Skills specification:** Follow the guidelines at **[agentskills.io](http://agentskills.io)**, so skills you create can work across platforms that adopt the standard.
+**Review the open Agent Skills specification:** Follow the guidelines at **[agentskills.io](https://agentskills.io)**, so skills you create can work across platforms that adopt the standard.
 
 For a more in-depth guide to skill creation, refer to **[Skill authoring best practices](https://platform.claude.com/docs/en/agents-and-tools/agent-skills/best-practices)** in our Claude Docs.
 
@@ -752,19 +752,17 @@ Users can submit a skill or plugin they've built to your organization's library 
 
 Your starting setting depends on your plan:
 
-- **Team plans:** Publishing is set to “Open,” unless you already had **Share with organization** turned off, in which case “Off” is the default.
+- **Team plans:** Publishing is set to "Open," unless you already had **Share with organization** turned off, in which case "Off" is the default.
 
-- **Enterprise plans:** Publishing starts off.
+- **Enterprise plans:** If you haven’t chosen a setting, Publishing is set to “Requires review.” Starting November 4, it changes to “Open” for organizations that have that have **Skill and plugin security scanning** on. Skills and plugins that users publish are then listed in your organization’s library once they pass the automatic security scan, without waiting for owner approval. Users whose custom role doesn’t allow publishing to the whole organization still go through review. To keep reviewing every submission, select “Requires review” yourself before then. Organizations that already chose a setting keep it.
 
   - If your organization already had **Share with organization** turned on, it starts as “Open” instead.
 
-  - If you haven't chosen a setting, it switches to “Requires review” on October 2, 2026. To keep publishing off, or to choose a different setting, select it yourself before then.
-
-Turning **Publishing** off doesn't remove anything that's already published. Published items stay in the library until an owner removes them.
+Turning **Publishing** off doesn’t delete anything. Published items stay in the library until an owner removes them. Skills that users shared with everyone in your organization under the older **Share with organization** setting are hidden while **Publishing** is off, except from their authors. Shares with specific people or groups aren’t affected. When you switch to "Requires review" or "Open," those organization-wide shares become visible to everyone again, without going through review. A skill that failed a security scan stays blocked. A publish that was in progress when you turned Publishing off is stopped, and the author needs to publish it again.
 
 ### Review a submission
 
-Owners, and anyone whose role has Libraries set to “Can manage,” can review requests. You can't approve your own.
+Owners, and anyone whose role has Libraries set to “Can manage,” can review requests. Your own submissions don’t go through review: when you click “Publish to org,” the item is published to the organization library right away. On Enterprise plans with **[Skill and plugin security scanning](https://support.claude.com/en/articles/15927065)** on, it’s published once it passes the scan.
 
 **To review a submission:**
 
@@ -830,6 +828,16 @@ To let users add skills and plugins to the organization library, use the **Publi
 
 The **Skill sharing** toggle is on by default for Team plans and for Enterprise plans that haven't set a skills preference. For organizations with HIPAA readiness or other regulated configurations, skills and skill sharing are off by default and an admin can enable them in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** in the “Policy” tab. The **Share with groups** toggle is also off by default and can be enabled by an admin.
 
+When the Primary Owner applies the **[HIPAA configuration to Claude Code (local mode) and Cowork (local mode)](https://support.claude.com/en/articles/17318731)**, these settings change:
+
+- **Skills** turns off. Skills stay off until an Owner turns on **Skills** in **Organization settings > Plugins & skills**, in the "Policy" tab.
+
+- **User-created skills** turns off. Members can't create skills until an Owner turns on **User-created skills** in the "Policy" tab.
+
+- Members can't share skills with a group, and no setting turns that on.
+
+With **Skills** on, the skills a member turns on in Claude are also available in their Cowork and Code tab sessions. Skills are available but not covered under your BAA.
+
 **Note:** Shared skills and plugins are view-only, and stay off until the recipient chooses to enable them. Recipients can enable and use a shared skill or plugin but can't edit its contents. When the owner saves a new version, everyone it's shared with gets the update automatically at next use. The owner can revoke someone's access at any time, and access is removed automatically if the recipient leaves the organization.
 
 ### Share skills with a group
@@ -885,7 +893,7 @@ The “Inventory” tab in **[Organization settings > Plugins & skills](https://
 
 ## Scan skills and plugins for malicious content
 
-On the Enterprise plan, you can turn on skill scanning for your organization. When it's on, Claude checks each third-party skill and plugin your users upload or edit for malicious content before it can run. Scanning is off by default until October 2, 2026. From that date it's on by default, where available, for Enterprise organizations that haven't set it. Organizations that already turned it on or off keep their choice.
+On the Enterprise plan, you can turn on skill scanning for your organization. When it's on, Claude checks each third-party skill and plugin your users upload or edit for malicious content before it can run. Scanning is on by default, where available, for Enterprise organizations that haven’t set it. Organizations that already turned it on or off keep their choice.
 
 To turn on skill scanning for your organization:
 
@@ -938,7 +946,7 @@ Scanning runs in the background, and most scans finish in about one to two minut
 
 ## What gets scanned
 
-Scanning applies to third-party skills and plugins that a member or owner uploads. This includes standalone skills, plugins, and the skills bundled inside a plugin.
+Scanning applies to third-party skills and plugins that a member or owner uploads. This includes standalone skills, plugins, and the skills bundled inside a plugin. Hooks are scanned when they're shipped as part of a plugin.
 
 Scanning doesn't apply to:
 
@@ -948,13 +956,13 @@ Scanning doesn't apply to:
 
 - Skills shared through a connected MCP server. These follow the same trust model as other MCP tools and aren't covered by scanning.
 
-- MCP servers and hooks, which aren't scanned at this time.
+- MCP servers, which aren't scanned at this time.
 
 - Organizations using customer-managed encryption keys (CMEK), zero data retention (ZDR), or HIPAA configurations. These organizations install skills and plugins the same way they do today, without the added scan.
 
 ## Turn on skill and plugin scanning
 
-Skill and plugin scanning is off by default until October 2, 2026, when it turns on for Enterprise organizations that haven't set it. Owners and Primary Owners can turn it on for their organization in their settings:
+Skill and plugin scanning is on by default for Enterprise organizations that hadn't chosen a setting before October 2, 2026. If it's off for your organization, Owners and Primary Owners can turn it on in their settings:
 
 1. Go to **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** and select the “Policy” tab.
 
@@ -980,11 +988,15 @@ A warn result means Claude couldn't fully verify the skill or plugin, and it may
 
 ### Fail
 
-A fail result means the scan detected malicious content. The skill or plugin is blocked and can't be used. The banner explains the specific reason it was flagged.
+A fail result means the scan detected malicious content. The skill or plugin is blocked and can't be used unless someone with the right permission in your organization allows it. The banner explains the specific reason it was flagged. Learn more about **[what to do if your skill or plugin is blocked](#h_03c1d22133)**.
 
-## If your skill or plugin is blocked
+## If your skill or plugin is blocked or has a warning
 
-A blocked skill can't be overridden by the person who uploaded it, and admins can't approve a blocked skill for the organization at this time.
+A blocked skill can't be overridden by the person who uploaded it, unless they're an Owner, Primary Owner, or have a role with **Libraries** permission that's set to "Can manage." If you have that permission, you can select "Allow anyway" on a skill or plugin that scanning blocked or warned about, where the option is shown. You'll find this option in **[Organization settings > Plugins & skills](https://claude.ai/admin-settings/skills)** or the **[Customize](https://claude.ai/customize/skills)** tab. Select "Revoke" to undo this later.
+
+Selecting "Allow anyway" applies only to that version, and each new version is scanned again. Allowing a version removes the scan's banner for everyone with access to it, whether it was blocked or had a warning. Only allow a version if you've reviewed it and trust the source.
+
+**Note:** "Allow anyway" is rolling out to organizations gradually, so you may not see it yet.
 
 If you think a skill was blocked by mistake, edit and upload it again. Uploading the same skill again without changes returns the same result, so any fix needs to address what was flagged.
 

@@ -14,6 +14,8 @@ SOURCE: https://support.claude.com/en/articles/10366389-how-can-i-get-higher-rat
 
 Usage tiers are assigned automatically. There's no deposit or purchase that moves you up, and you don't need to take any action.
 
+Claude Console organizations linked to a Team plan for monthly API credits move to at least the Build tier, so the full $500 monthly credit fits under the organization’s spend limit. Claiming monthly API credits doesn’t otherwise change your usage tier. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
+
 If you need higher limits, you can request them in the Claude Console once you're using at least 50% of your current limits. You can view your tier and current limits in the **[Claude Console](https://platform.claude.com/settings/limits)**.
 
 For custom limits or committed capacity, **[contact our sales team](https://claude.com/contact-sales)**.
@@ -25,23 +27,51 @@ SOURCE: https://support.claude.com/en/articles/11647753-how-do-usage-and-length-
 
 # How do usage and length limits work?
 
-When working with Claude, you may encounter two different types of limits that work in distinct ways: **usage limits** and **length limits**. Understanding the difference between these can help you use Claude more effectively.
+When working with Claude, you may encounter two different types of limits that work in distinct ways: **usage limits** and **length limits**. Understanding the difference between these can help you use Claude more effectively. For more information on your plan’s usage, refer to the following resources.
+
+- **[Free Claude](https://support.claude.com/en/articles/8114491-getting-started-with-claude#h_57262af5ae)**
+
+- **[Pro plan](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan#h_62ccc00135)**
+
+- **[Max plan](https://support.claude.com/en/articles/11049741-what-is-the-max-plan#h_cfd2904008)**
+
+- **[Ultra plan](https://support.claude.com/en/articles/17154008)**
+
+- **[Team plan](https://support.claude.com/en/articles/9266767-what-is-the-team-plan#h_b59203dff2)**
+
+- **[Enterprise plan](https://support.claude.com/en/articles/9797531-what-is-the-enterprise-plan#h_8294bce903)**
 
 ## What are usage limits?
 
-Usage limits control how much you can interact with Claude over a specific time period. Think of this as your "conversation budget" that determines how many messages you can send to Claude, or how long you can work with Claude Code, before needing to wait for your limit to reset.
+Usage limits control how much you can interact with Claude over a specific time period. Think of this as your "conversation budget" that determines how many messages you can send to Claude, or how long you can work with Claude Code, before needing to wait for your limit to reset. Paid plans have two types of usage limits: a session limit that resets every five hours, and weekly limits that reset once every week.
 
-Your usage is affected by several factors, including the length and complexity of your conversations, the features you use, which Claude model you're chatting with, and the effort level you've selected. Different subscription plans (Pro, Max, Team, etc.) have different usage allowances, with paid plans offering higher limits.
+Your usage is affected by several factors, including the length and complexity of your conversations, the features you use, which Claude model you're chatting with, and the effort level you've selected. Different subscription plans (Pro, Max, Ultra, Team, etc.) have different usage allowances, with paid plans offering higher limits.
 
 Note that your usage of all different Claude product surfaces (claude.ai, Claude Code, Claude Desktop) counts towards the same usage limit.
 
-Learn more about **[changing the model, effort, and thinking settings](https://support.claude.com/en/articles/8664678)**.
+Learn more about **[changing model, effort, and thinking settings](https://support.claude.com/en/articles/8664678)**.
+
+### How does the five-hour limit work?
+
+The five-hour limit controls how much you can use Claude within a five-hour period. The period starts when you send your first message, and your limit resets in full five hours later. If you reach the limit before then, you can use Claude again once it resets.
+
+You can see how much you've used and the time remaining under Current session in **[Settings > Usage](https://claude.ai/settings/usage)**.
+
+Verified Ultra accounts don't have a five-hour limit. Learn more about **[verified Ultra accounts](https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan#h_ff4fcea367)**.
+
+### How do weekly limits work?
+
+Weekly limits apply across all models, and some plans also have a separate weekly limit for Fable. Weekly limits reset at a fixed time each week that is assigned to your account. Your reset day and time stay the same regardless of when you start using Claude or when your subscription begins, and you receive your full weekly allowance each cycle. You can see your next reset time in **[Settings > Usage](https://claude.ai/settings/usage)**.
+
+### Can usage limits change?
+
+Yes. We may adjust usage limits at our discretion to manage capacity and ensure fair access to all users. For example, we may limit your usage with weekly and monthly caps or model and feature usage. We don't guarantee uninterrupted service.
 
 ## How can I get unlimited usage?
 
 There are a couple of different ways to increase your usage depending on your plan:
 
-- If you're using a paid plan, including Pro, Max, Team, or seat-based Enterprise plans, see these articles for details about purchasing usage credits:
+- If you're using a paid plan, including Pro, Max, Ultra, Team, or seat-based Enterprise plans, see these articles for details about purchasing usage credits:
 
   - **[Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-)**
 
@@ -89,7 +119,7 @@ While you can't increase the fixed context window size for your plan, you can us
 
 The main distinction is that usage limits control *how much* you can use Claude across all your conversations, while length limits control *how long* any single conversation can become. Usage limits are about quantity over time, while length limits are about the depth and complexity of individual conversations.
 
-If you hit your usage limit, you'll need to wait for it to reset, upgrade your plan, or purchase usage credits. If you hit a length limit, you can start a new conversation or use **[features like projects](https://support.claude.com/en/articles/9517075-what-are-projects)** to work with larger amounts of information more efficiently.
+If you hit your session limit or weekly limit, you can wait for it to reset or upgrade your plan. If you upgrade, your new plan’s limits apply right away. With usage credits enabled, your work continues on usage credits instead of stopping. If you hit a length limit, you can start a new conversation or use **[features like projects](https://support.claude.com/en/articles/9517075-what-are-projects)** to work with larger amounts of information more efficiently.
 ---
 
 SOURCE: https://support.claude.com/en/articles/12005017-using-agents-according-to-our-usage-policy
@@ -161,7 +191,7 @@ SOURCE: https://support.claude.com/en/articles/14246112-buy-usage-bundles
 
 You can pre-purchase usage credits in bundles and save up to 30% compared to standard usage credit rates. Larger bundles come with bigger discounts, and your balance works across Claude, Claude Code, Claude Cowork, and third-party products.
 
-Usage bundles are available on Pro, Max, and Team plans.
+Usage bundles are available on Pro, Max, Ultra, and Team plans
 
 ---
 
@@ -179,7 +209,7 @@ The discount you receive depends on the bundle size you purchase. Bigger bundles
 | $250       | 20%          | $200        |
 | $1000      | 30%          | $700        |
 
-Individual Pro and Max plan subscribers can purchase up to $2000 worth of discounted bundles per month. Any usage beyond this limit is billed at standard rates.
+Individual Pro, Max, and Ultra plan subscribers can purchase up to $2000 worth of discounted bundles per month. Any usage beyond this limit is billed at standard rates.
 
 On Team plans, Owners and Primary Owners can purchase up to $3000 worth of discounted bundles per month. Any usage beyond this limit is billed at standard rates.
 
@@ -191,7 +221,7 @@ Price and plans are subject to change at Anthropic's discretion.
 
 You'll need usage credits enabled before you can purchase bundles. If you haven't set up usage credits yet, see the relevant guide for your plan:
 
-- **[Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-manage-extra-usage-for-paid-claude-plans)** (Pro and Max)
+- **[Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-manage-extra-usage-for-paid-claude-plans)** (Pro, Max, and Ultra)
 
 - **[Manage usage credits for Team and seat-based Enterprise plans](https://support.claude.com/en/articles/12005970-manage-extra-usage-for-team-and-seat-based-enterprise-plans)** (Team)
 
@@ -217,7 +247,7 @@ You can still use usage credits beyond the cap, but any additional usage is bill
 
 ### Can I buy multiple bundles in the same month?
 
-Yes. You can purchase as many bundles as you'd like up to your monthly limit ($2000 in value for Pro and Max plans, $3000 in value for Team plans).
+Yes. You can purchase as many bundles as you'd like up to your monthly limit ($2000 in value for Pro, Max, and Ultra plans, $3000 in value for Team plans).
 
 ### Do usage bundles replace my plan's included usage?
 
@@ -416,22 +446,21 @@ As AI-generated content becomes commonplace, greater transparency and signals ab
 | **Model**         | **Text watermarks in Claude output (first-party surfaces)** | **Text watermarks in cloud partner output (AWS, Google Cloud, Microsoft Foundry)** | **Content Credentials (C2PA) in files** |
 | ----------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------- | --------------------------------------- |
 | Claude Fable 5.1  | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Fable 5    | ✅                                                           | ✅\*                                                                                | ✅                                       |
+| Claude Fable 5    | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Mythos 5.1 | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Mythos 5   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 5.5   | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Opus 5     | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Opus 4.8   | ✅                                                           | ✅\*                                                                                | ✅                                       |
+| Claude Opus 4.8   | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Opus 4.7   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 4.6   |                                                             |                                                                                    | ✅                                       |
 | Claude Opus 4.5   |                                                             |                                                                                    | ✅                                       |
 | Claude Sonnet 5.5 | ✅                                                           | ✅                                                                                  | ✅                                       |
-| Claude Sonnet 5   | ✅                                                           | ✅\*                                                                                | ✅                                       |
+| Claude Sonnet 5   | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Sonnet 4.6 |                                                             |                                                                                    | ✅                                       |
 | Claude Sonnet 4.5 |                                                             |                                                                                    | ✅                                       |
+| Claude Haiku 5.5  | ✅                                                           | ✅                                                                                  | ✅                                       |
 | Claude Haiku 4.5  |                                                             |                                                                                    | ✅                                       |
-
-**Rollout on Amazon Bedrock will complete by October 12.*
 
 Consistent with our commitments under the Code, Anthropic is adding watermarks to outputs from models released before August 2, 2026.
 
@@ -542,13 +571,13 @@ Your rate limit depends on your usage tier, and is currently measured in three k
 
 3. Output tokens per minute (OTPM)
 
-If you exceed any of these rate limits, you will get a 429 error describing which rate limit was exceeded, along with a `retry-after` header indicating how long to wait.
+If you exceed any of these rate limits, you'll get a 429 error describing which rate limit was exceeded, along with a `retry-after` header indicating how long to wait.
 
-Rate limits are set at the organization level and depend on your usage tier. There are three usage tiers: Start, Build, and Scale. Accounts whose limits are managed with their account team are on a separate Custom tier. Higher tiers have higher rate limits.
+Rate limits are set at the organization level and depend on your usage tier. There are three standard usage tiers: Start, Build, and Scale. New organizations and organizations with limited usage history may start in the Evaluation tier, with limits below the standard tiers while account history is established. Accounts whose limits are managed with their account team are on a separate Custom tier. Higher tiers have higher rate limits.
 
 You can view your organization's current tier and limits in the **[Claude Console](https://platform.claude.com)**. If you need higher limits, you can request them there once you're using at least 50% of your current limits.
 
-For more about usage tiers and rate limits, see the **[Rate limits page in our Claude Platform Docs](https://docs.claude.com/en/api/rate-limits)**.
+For more about usage tiers and rate limits, see **[Rate limits](https://platform.claude.com/docs/en/api/rate-limits)** in Claude Platform Docs.
 ---
 
 SOURCE: https://support.claude.com/en/articles/8977456-how-do-i-pay-for-my-claude-api-usage
@@ -559,7 +588,7 @@ This article explains how billing works for the Claude API, the playground, and 
 
 ## Prepaid usage credits
 
-Claude API and playground usage is billed through prepaid usage credits. Buy credits before you use the API, and they're applied to your usage according to our current **[pricing](https://claude.com/pricing#api)**. Credits cover API access, playground usage, and Claude Code.
+Claude API and playground usage is billed through prepaid usage credits. Buy credits before you use the API, and they're applied to your usage according to our current **[pricing](https://claude.com/pricing#api)**. Purchased credits cover API access, playground usage, and Claude Code.
 
 You're billed only for successful API calls and completed tasks. Failed requests aren't charged.
 
@@ -567,11 +596,17 @@ You're billed only for successful API calls and completed tasks. Failed requests
 
 If you run out of credits, you can no longer call the API or use the playground until you add more.
 
+## Monthly API credits for Max, Ultra, and Team plans
+
+Claude Max, Ultra, and Team plans include monthly credits for the Claude API. To claim your credits, you link a Claude Console organization to your plan. Your monthly credits are spent before any credits you’ve purchased, and unused credits expire at the end of each billing cycle. Monthly API credits can’t be used in Claude Code or the Claude apps, including for extra usage.
+
+If your organization is invoiced through Anthropic sales, usage beyond the credits is billed as usual. Learn more about **[monthly API credits for Max, Ultra, and Team plans](https://support.claude.com/en/articles/17154008)**.
+
 ## Buy credits
 
 1. Log in to the Console with an Admin or Billing role.
 
-2. Navigate to **[Settings > Billing](https://platform.claude.com/settings/billing)**.
+2. Go to the **Billing** page (platform.claude.com/settings/billing).
 
 3. Click "Buy credits."
 
@@ -583,11 +618,19 @@ Purchased credits are available immediately. Your organization's available credi
 
 Auto-reload purchases additional credits automatically when your balance falls below a threshold you set.
 
-1. On the **Billing** page, click "Edit" in the **Auto-reload** section.
+1. Go to the **[Billing page](https://platform.claude.com/settings/billing)**.
 
-2. Toggle auto-reload on or off.
+2. In the **Credit balance** section, click “Set up auto-reload.” If auto-reload is already on, the button reads “Manage auto-reload.”
 
-3. If auto-reload is on, set the minimum balance that triggers a purchase and the amount to reload to.
+3. In **When credit balance reaches**, enter the balance that triggers a purchase.
+
+4. In **Bring credit balance back up to**, enter the balance to reload to.
+
+5. Click “Turn on,” or “Update” if you’re changing existing settings.
+
+**Note:** If your balance is already at or below the minimum you set, the button reads “Turn on and purchase” or “Update and purchase,” and you’re charged right away to bring your balance up to the target, plus applicable taxes.
+
+To turn off auto-reload, click “Manage auto-reload,” then “Turn off,” and confirm by clicking “Turn off” again.
 
 ## Credit expiration and refunds
 
@@ -601,7 +644,7 @@ Some organizations are billed monthly in arrears instead of buying credits upfro
 
 On monthly invoicing, we aggregate your usage across API calls, Console usage, and any other services associated with your account, and bill it at our standard **[pay-as-you-go pricing](https://claude.com/pricing#api)**. At the end of each calendar month, you'll receive an invoice from Stripe. Enter your payment details in Stripe to pay it.
 
-You can view charges for the current billing period on the **[Billing](https://platform.claude.com/settings/billing)** page in your Console settings.
+You can view charges for the current billing period on the **Billing** page (platform.claude.com/settings/billing) in the Claude Console.
 
 If you need custom rate limits, monthly invoicing, or hands-on support, **[contact our Sales team](https://claude.com/contact-sales)**.
 
@@ -609,7 +652,7 @@ If you need custom rate limits, monthly invoicing, or hands-on support, **[conta
 
 1. Log in to the Console with an Admin or Billing role.
 
-2. Navigate to **[Settings > Billing](https://platform.claude.com/settings/billing)**.
+2. Go to the Billing page (platform.claude.com/settings/billing).
 
 3. Click the pencil icon next to your current payment method.
 
@@ -684,25 +727,21 @@ Our evaluation of whether to tailor use restrictions to the mission and legal au
 
 SOURCE: https://support.claude.com/en/articles/9534590-cost-and-usage-reporting-in-the-claude-console
 
-# Cost and Usage Reporting in the Claude Console
-
-**Note:** Usage and Cost reporting is visible to the following user roles: **Developer, Billing, and Admin**. See [Claude Console Roles and Permissions](https://support.claude.com/en/articles/10186004-claude-console-roles-and-permissions) for more information.
+# Cost and usage reporting in the Claude Console
 
 The Claude Console provides detailed cost and usage reporting to help you effectively manage your API usage and associated costs. This guide walks you through these features and how to use them.
 
-## Accessing Cost and Usage Reports
+Usage and Cost reporting is visible to the following user roles: **Developer, Billing, and Admin**. See **[Claude Console roles and permissions](https://support.claude.com/en/articles/10186004-claude-console-roles-and-permissions)** for more information.
 
-Users with access to these reports can click into them on the left navigation menu on the Console:
+## Access cost and usage reports
 
+Users with access can open these reports at the addresses below.
 
+## Usage reporting
 
----
+The **Usage** page (platform.claude.com/usage) offers a detailed breakdown of your API usage across different models and API keys.
 
-## Usage Reporting
-
-The [Usage page](https://platform.claude.com/usage) offers a detailed breakdown of your API usage across different models and API keys.
-
-### Key Features
+### Key features
 
 - **Detailed Breakdown**: View usage data by model, date/time, and API key. Click into the bars on the bar chart for hour and minute granularity.
 
@@ -718,7 +757,7 @@ The [Usage page](https://platform.claude.com/usage) offers a detailed breakdown 
 
 - **CSV Export**: Download your usage data for further analysis or reporting.
 
-### How to Use
+### How to use
 
 1. Select the Workspace you want to view (or choose "All Workspaces").
 
@@ -732,11 +771,7 @@ The [Usage page](https://platform.claude.com/usage) offers a detailed breakdown 
 
 6. Use the export button to download a CSV of the displayed data.
 
-
-
-
-
-### Rate Limit Use
+### Rate limit use
 
 The Usage page also includes a separate section displaying rate limit use per-model for input and output tokens. You can click the dropdown in the upper left corner of this section to change the model and view related rate limit metrics. These visualizations can be used to determine when you’re hitting peak use for your organization, which specific rate limits need to be increased, and how you can increase your caching rate.
 
@@ -746,11 +781,11 @@ The Usage page also includes a separate section displaying rate limit use per-mo
 
 ---
 
-## Cost Reporting
+## Cost reporting
 
-The [Cost page](https://platform.claude.com/cost) helps you understand your spending across different models.
+The **Cost** page (platform.claude.com/cost) helps you understand your spending across different models.
 
-### Key Features
+### Key features
 
 - **Model-Specific Data**: View costs for individual models or all models combined.
 
@@ -762,7 +797,7 @@ The [Cost page](https://platform.claude.com/cost) helps you understand your spen
 
 - **CSV Export**: Download cost data for your records for further analysis.
 
-### How to Use
+### How to use
 
 1. Choose the Workspace you want to view costs for (or select "All Workspaces").
 
@@ -774,14 +809,14 @@ The [Cost page](https://platform.claude.com/cost) helps you understand your spen
 
 5. Use the export button to download a CSV of the cost data.
 
-
-
 **Note**: Currently, it's not possible to break down usage or cost by individual users.
 ---
 
 SOURCE: https://support.claude.com/en/articles/9797557-usage-limit-best-practices
 
 # Usage limit best practices
+
+To learn how usage limits work, see **[How do usage and length limits work?](https://support.claude.com/en/articles/11647753)**
 
 The number of messages you can send will vary based on your Claude plan. For more information on your plan’s usage, refer to the following resources.
 
@@ -790,6 +825,8 @@ The number of messages you can send will vary based on your Claude plan. For mor
 - **[Pro plan](https://support.claude.com/en/articles/8325606-what-is-the-pro-plan#h_62ccc00135)**
 
 - **[Max plan](https://support.claude.com/en/articles/11049741-what-is-the-max-plan#h_cfd2904008)**
+
+- **[Ultra plan](https://support.claude.com/en/articles/17154008)**
 
 - **[Team plan](https://support.claude.com/en/articles/9266767-what-is-the-team-plan#h_b59203dff2)**
 
@@ -849,11 +886,11 @@ Planning helps reduce the number of back-and-forth messages needed.
 
   - Use phrases like "As mentioned earlier" to build on earlier parts of the conversation.
 
-- Users with paid plans (Pro, Max, Team, and Enterprise) can prompt Claude to search through previous conversations and reference relevant information in new chats. Giving Claude access to additional context prevents you from needing to provide the same information repeatedly.
+- Users with paid plans (Pro, Max, Ultra, Team, and Enterprise) can prompt Claude to search through previous conversations and reference relevant information in new chats. Giving Claude access to additional context prevents you from needing to provide the same information repeatedly.
 
   - Learn more here: **[Searching past chats with Claude](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context#h_89b670b004)**
 
-- Users with paid plans (Pro, Max, Team, and Enterprise) can use Claude's memory and project summaries to build context across conversations.
+- Users with paid plans (Pro, Max, Ultra, Team, and Enterprise) can use Claude's memory and project summaries to build context across conversations.
 
   - Learn more here: **[What is Claude's memory?](https://support.claude.com/en/articles/11817273-using-claude-s-chat-search-and-memory-to-build-on-previous-context#h_c1c0b33879)**
 
@@ -885,7 +922,9 @@ Projects offer significant caching benefits:
 
 ## 7. Monitor your consumption in Usage settings
 
-- If you're using a Pro, Max, Team, or seat-based Enterprise plan, you can navigate to **[Settings > Usage](https://claude.ai/settings/usage)** to view progress bars showing how much of your five-hour session and weekly usage limits you’ve consumed.
+- If you're using a Pro, Max, Ultra, Team, or seat-based Enterprise plan, you can navigate to **[Settings > Usage](https://claude.ai/settings/usage)** to view progress bars showing how much of your five-hour session and weekly usage limits you’ve consumed.
+
+  - On the Ultra plan, verified accounts won’t see a five-hour session limit. **[Learn more](https://support.claude.com/en/articles/17728952-what-is-the-ultra-plan#h_ff4fcea367)**.
 
 - The **Plan usage limits** section at the top shows your progress towards both your session limit and weekly limits.
 
@@ -893,7 +932,7 @@ Projects offer significant caching benefits:
 
   - **Weekly limits:** Check when your plan’s weekly usage limit resets, for all models, and for Fable (if included in your plan).
 
-- **Usage credits:** If you are using a Pro, Max, Team, or seat-based Enterprise plan, your usage settings page will also show how much of your plan's limit you've used. Refer to these articles for more information about enabling usage credits depending on your plan:
+- **Usage credits:** If you are using a Pro, Max, Ultra, Team, or seat-based Enterprise plan, your usage settings page will also show how much of your plan's limit you've used. Refer to these articles for more information about enabling usage credits depending on your plan:
 
   - **[Manage usage credits for paid Claude plans](https://support.claude.com/en/articles/12429409-)**
 
