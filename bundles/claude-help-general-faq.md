@@ -5956,6 +5956,79 @@ You can change the model at any point in a chat. The change applies starting wit
 Learn more about **[changing the model, effort, and thinking settings](https://support.claude.com/en/articles/8664678)**.
 ---
 
+SOURCE: https://support.claude.com/en/articles/17454700-get-started-with-claude-dashboards
+
+# Get started with Claude Dashboards
+
+Claude Dashboards turn questions about your company's data into dashboards. Connect a data warehouse or another app, ask a question in plain language, and Claude writes the queries and builds the dashboard. This guide covers connecting your data, creating and refining a dashboard, and sharing it.
+
+Claude Dashboards is available in beta on Pro, Max, Ultra, Team, and Enterprise plans. On Enterprise plans, it's off by default until an owner turns it on in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**.
+
+## How Claude Dashboards works
+
+A dashboard is an artifact made from the Dashboards template. Claude writes a SQL query for each chart and runs it against your data source. Each chart shows its query, so you can see exactly what it's counting, along with when its data was last refreshed.
+
+Dashboards are made for quick, exploratory questions, like how this week's signups compare with last month's. When a question needs deeper analysis, send the dashboard to another tool and continue there.
+
+Every dashboard you create is saved in the **Artifacts** tab. Learn more about **[artifacts and how to use them](https://support.claude.com/en/articles/17153992)**.
+
+## Connect your data
+
+Before you create a dashboard, connect the data you want to ask about:
+
+- **A data warehouse:** Connect your company's data platform, such as Amazon Redshift, BigQuery, ClickHouse, Databricks, or Snowflake.
+
+- **Other apps you've connected to Claude:** For example, ask for a dashboard of your Salesforce opportunities.
+
+Learn more about **[connecting your apps to Claude](https://support.claude.com/en/articles/11176164)**.
+
+## Create a dashboard
+
+### From a chat
+
+Ask Claude for a dashboard in any chat. For example:
+
+- "Build a dashboard of this quarter's revenue by region."
+
+- "Show weekly signups for the last six months, split by plan."
+
+- "Make a dashboard of my open Salesforce opportunities by stage and owner."
+
+You can also select "Output" in the message box and choose "Dashboards."
+
+### From the Artifacts tab
+
+1. Go to the "Artifacts" tab.
+
+2. Select a Dashboards template.
+
+3. Describe the dashboard you want.
+
+### Tips for better results
+
+Say what you want to know, not just what to chart. "How do this month's signups by channel compare with last month's?" gets you further than "a signups chart." If the data lives in a specific table or app, name it.
+
+## Refine your dashboard
+
+- **Ask Claude:** Ask for changes in the chat, like "Add a filter for region" or "Change this to a weekly view."
+
+- **Check the query:** Open a chart's query to see how Claude got the number. If it isn't counting what you meant, tell Claude what to change.
+
+## Share and send a dashboard
+
+Dashboards start private to you. To share one, open it and click "Share." Learn more about **[sharing artifacts](https://support.claude.com/en/articles/9547008)**.
+
+## Usage
+
+Claude Dashboards counts toward your plan's usage limits, like the rest of your work with Claude. Learn more about **[how usage and length limits work](https://support.claude.com/en/articles/11647753)**.
+
+## Turn on Claude Dashboards for your organization
+
+This section is for Owners and Primary Owners on Team and Enterprise plans.
+
+Owners turn Claude Dashboards on or off in **[Organization settings > Artifacts](https://claude.ai/admin-settings/artifacts)**. On Enterprise plans, it's off by default, and owners can limit it to specific groups with custom roles. Learn more in the **[Artifacts admin guide for Team and Enterprise plans](https://support.claude.com/en/articles/16994751)**.
+---
+
 SOURCE: https://support.claude.com/en/articles/17454997-get-started-with-claude-motion
 
 # Get started with Claude Motion
@@ -6403,6 +6476,79 @@ No. The Stripe connector lets Claude work in your Stripe account, for example to
 2. Select payments, then choose Link.
 
 3. Select "Disconnect."
+---
+
+SOURCE: https://support.claude.com/en/articles/17666489-how-to-use-shop-pay-with-claude-duet
+
+# How to use Shop Pay with Claude Duet
+
+Connect Shop Pay, Shopify's wallet, to Claude Duet so it can pay for purchases you approve.
+
+Shop Pay is available in Claude Duet, a research preview for Pro, Max, and Ultra plans in the US. It isn't available in Claude, Cowork, or Claude Code for now.
+
+Shop Pay is separate from the Shopify connector, which lets Claude work in your Shopify store. You can use either one without the other.
+
+## What you can do
+
+- **Approve every purchase.** Claude Duet is designed to ask before each purchase.
+
+- **Pay with a one-time card.** Each purchase uses a one-time card that only works for that purchase.
+
+## How to connect
+
+Shop Pay isn't listed in the connectors directory. You connect it in Claude Duet.
+
+1. Select your avatar in Claude Duet.
+
+2. Select the option to connect payments, then choose Shop Pay, or select from the recommended connectors list on mobile.
+
+3. Sign in to your Shop Pay account and approve access.
+
+Claude Duet also suggests connecting Shop Pay when you ask for something that needs a payment.
+
+Claude Duet can see the card type, last four digits of your card or bank account, nickname and expiration date of your saved payment methods, plus your shipping addresses. Claude isn’t given your full credit card number (PAN) or bank account number.
+
+## How to pay with Shop Pay
+
+1. Ask Claude Duet for what you need, like "Order more shipping labels, same as last time."
+
+2. Claude Duet finds the item and asks you to approve the purchase.
+
+3. Click “Review in Shop Pay,” then approve the purchase.
+
+4. Claude Duet pays with Shop Pay using a one-time card that is scoped to the approved amount.
+
+## Current limitations
+
+- Shop Pay is available only in Claude Duet, on Pro, Max, and Ultra plans in the US.
+
+- Some sites can block Claude Duet from paying. If that happens, you may need to finish the purchase yourself.
+
+## Frequently asked questions
+
+### Can Claude Duet buy something without asking me?
+
+No, Claude Duet is designed to ask before each purchase.
+
+### Why can't I find Shop Pay in the connectors directory?
+
+Shop Pay is built into Claude Duet, so you connect it there.
+
+### Is Shop Pay the same as the Shopify connector?
+
+No. The Shopify connector lets Claude work in your Shopify store, for example to manage products and orders. Shop Pay pays for purchases. You connect them separately.
+
+### Who do I contact about a charge, a refund, or a problem with a purchase?
+
+The store you bought from handles refunds, returns, and problems with an order. Contact the store directly. For questions about your Shop Pay account or a charge, contact **[Shop support](https://help.shop.app/en/shop/report-issue/contact-the-shop-support-team)**. For problems with Claude Duet itself, tell Claude Duet what happened in the chat and it passes your report to our team.
+
+### How do I disconnect Shop Pay?
+
+1. In Claude Duet, select your Claude Duet avatar.
+
+2. Select payments, then choose Shop Pay.
+
+3. Select "Disconnect".
 ---
 
 SOURCE: https://support.claude.com/en/articles/7996845-what-are-some-things-i-can-use-claude-for
@@ -7090,9 +7236,7 @@ SOURCE: https://support.claude.com/en/articles/8606378-how-do-i-use-the-playgrou
 
 # How do I use the playground?
 
-**Workbench is now the playground**. Playground enables developers to try out Claude models and API features directly in the Claude Console, but does not support saving prompt history or evaluating prompts.
-
-If you have saved data from **Workbench (legacy)** that you wish to export, you can do so until **September 1, 2026** in **[Console settings](https://platform.claude.com/settings/privacy)**. This data will no longer be recoverable after September 1, 2026. See **[How do I export my Workbench data from Console?](#h_ce935c603b)** for more.
+Playground enables developers to try out Claude models and API features directly in the Claude Console, but doesn't support saving prompt history or evaluating prompts. The playground replaces Workbench, which was previously used to create and test prompts in the Claude Console.
 
 ## What is the playground?
 
@@ -7114,7 +7258,7 @@ Playground doesn't store your prompts or conversations on Anthropic's servers. Y
 
 1. Log in to the **[Claude Console](https://platform.claude.com/)**.
 
-2. Select "Playground" in the navigation.
+2. Go to the playground (platform.claude.com/playground).
 
 3. If your organization uses workspaces, choose the workspace you want to work in.
 
@@ -7152,33 +7296,13 @@ Code examples in our documentation include an "Open in Playground" option, which
 
 ---
 
-## How do I export my Workbench data from Console?
-
-1. Go to **[Claude Console](https://platform.claude.com/settings/privacy)**.
-
-2. In the **Export Workbench data** dialog, choose what to include alongside your prompts:
-
-  1. **Model completions** — saved responses from past runs
-
-  2. **Uploaded files** — images and PDFs attached to your prompts
-​
-​**Note:** Including either may significantly increase the export size.
-
-Primary Owners or Admins also have the option to export data for their entire organization.
-
-3. Select "Export." Your data is packaged as JSON, and we'll email you a download link when it's ready.
-
-Export your data before **September 1, 2026**. It won't be accessible after this date.
-
----
-
 ## Frequently asked questions
 
-### What happened to Workbench (legacy)?
+### What happened to Workbench?
 
-**Workbench (legacy) is now retired.** The playground replaces it for trying Claude models and API features in the Console.  It does not support saving prompt history or evaluating prompts.
+**Workbench is now retired.** The playground replaces it for trying Claude models and API features in the Console.  It does not support saving prompt history or evaluating prompts.
 
-### What's the difference between Workbench (legacy) and the playground?
+### What's the difference between Workbench and the playground?
 
 The playground is a simpler, stateless way to try Claude models and API features in the Console. The main differences is that it now:
 
@@ -7187,14 +7311,6 @@ The playground is a simpler, stateless way to try Claude models and API features
 - It is built directly on the public Messages API and shows the full request and response, so what you see matches what your code sends and receives.
 
 - Saved prompts, prompt versions, evals, and prompt sharing aren't part of the playground. Use the export function in the legacy version to download your data.
-
-### How do I get access to my existing data from Workbench (legacy)?
-
-You can no longer access this data directly in Console. You can export it as JSON in **[Claude Console](https://platform.claude.com/settings/privacy)** until September 1, 2026. After this date, it will no longer be recoverable.
-
-### Can I import my Workbench data into the playground?
-
-No. The playground doesn't save prompts or conversations, so there's nothing to import into. The export gives you a copy of your Workbench data so you can keep it or move it into your own tools.
 ---
 
 SOURCE: https://support.claude.com/en/articles/8664678-change-the-model-effort-and-thinking-settings
@@ -7322,7 +7438,7 @@ SOURCE: https://support.claude.com/en/articles/8887527-customizing-your-appearan
 
 1. Log in to your account and click your initials or name in the lower left corner.
 
-2. Navigate to [Settings > Appearance](https://claude.ai/settings/appearance).
+2. Navigate to **Settings > Appearance** (or **Settings > General** in the older Settings layout).
 
 3. Select from Light, Match System, and Dark under **Color mode**.
 
@@ -7330,7 +7446,7 @@ SOURCE: https://support.claude.com/en/articles/8887527-customizing-your-appearan
 
 ## How to change your font
 
-1. In [Settings > Appearance](https://claude.ai/settings/appearance), find **Chat font**.
+1. In **Settings > Appearance** (or **Settings > General** in the older Settings layout), find **Chat font**.
 
 2. Select from Default, Match System, and Dyslexic Friendly.
 
@@ -7660,7 +7776,7 @@ To learn more, refer to the following articles:
 | -------------------------- | ---- | ----- | ----- | ------------- |
 | View/pay for invoices      |      |       | ✅     | ✅             |
 | Add/modify billing methods |      |       | ✅     | ✅             |
-| Provision new seats        |      |       |       | ✅             |
+| Provision new seats        |      |       | ✅     | ✅             |
 
 ## Chat controls
 
