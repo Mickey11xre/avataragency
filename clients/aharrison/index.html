@@ -546,7 +546,20 @@
         her books and the fruit of the Spirit.
       </div>
 
+      <div class="subhead">Version A &middot; Lady Belle standard voice</div>
       <iframe id="ladybelle-frame" src="/clients/aharrison/lady-belle/" title="Lady Belle, talking avatar"
+        allow="microphone; autoplay; picture-in-picture" loading="lazy"
+        style="display:block;width:100%;height:620px;border:0;border-radius:16px;background:#0a0a0c;margin-top:22px"></iframe>
+
+      <!-- Version B (2026-11-03): the same stage, its agent on the test twin cloned from Adele's own reads.
+           Page /clients/aharrison/lady-belle-adele/, endpoint /api/ladybelle-adele-token. -->
+      <div class="subhead">Version B &middot; Adele as Lady Belle</div>
+      <div class="lede">
+        This is the same Lady Belle, speaking in the voice you recorded for her, Adele. Press
+        <b>Talk to Lady Belle</b> on each version, ask her the same things, and let us know which voice you would
+        like her to keep. Please talk with one version at a time.
+      </div>
+      <iframe id="ladybelle-frame-adele" src="/clients/aharrison/lady-belle-adele/" title="Lady Belle in Adele's voice, talking avatar"
         allow="microphone; autoplay; picture-in-picture" loading="lazy"
         style="display:block;width:100%;height:620px;border:0;border-radius:16px;background:#0a0a0c;margin-top:22px"></iframe>
 
@@ -763,10 +776,12 @@
     </div>
 
     <script>
-      /* Keep the Lady Belle frame exactly as tall as the stage inside it. */
+      /* Keep each Lady Belle frame (Version A and B) exactly as tall as the stage inside it. */
       window.addEventListener("message", function (e) {
         if (e.origin !== location.origin || !e.data || !e.data.ladybelleStageHeight) return;
-        var f = document.getElementById("ladybelle-frame"); if (f) f.style.height = e.data.ladybelleStageHeight + "px";
+        ["ladybelle-frame", "ladybelle-frame-adele"].forEach(function (id) {
+          var f = document.getElementById(id); if (f && f.contentWindow === e.source) f.style.height = e.data.ladybelleStageHeight + "px";
+        });
       });
     </script>
 
