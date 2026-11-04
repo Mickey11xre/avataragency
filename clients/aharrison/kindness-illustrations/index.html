@@ -144,6 +144,14 @@
   /* the front cover is one page, the same size as the pages below, sitting where it prints: on the right */
   .book.single{aspect-ratio:1/1;grid-template-columns:1fr;width:50%;margin-left:auto}
   .book.single::after{display:none}
+  /* a page with its final words set: no dashed outline; type sized in container units so it is the printed
+     16/22 pt at any width (28.8 px / 39.5 px on the 1100 px print page = 2.618cqw / 3.591cqw) */
+  .pg.set{container-type:inline-size;padding:0}
+  .pg.set::before{display:none}
+  .ded{font-family:var(--book);font-weight:500;color:#2a190c;font-size:2.618cqw;line-height:3.591cqw;text-align:center;white-space:nowrap}
+  .ded p{margin:0 0 1.2cqw}
+  .ded p.gap{margin-top:5.4cqw}
+  .tile .t .h.paper.set{opacity:.85;background:repeating-linear-gradient(180deg,var(--paper) 0 3px,#cdb497 3px 4px)}
   .pg.cover .series{font-size:clamp(11px,1.3vw,13px);font-weight:700;letter-spacing:.22em;text-transform:uppercase;opacity:.7;margin-bottom:12px}
   .pg.cover .lbl{font-size:clamp(22px,3.4vw,34px);line-height:1.1}
 
@@ -266,9 +274,9 @@
       <div class="tile single" data-tile="cover"><a class="t" href="#cover"><span class="h"></span><span class="h paper"></span><span class="badges"></span></a>Front cover</div>
       <div class="tile"><a class="t" href="#endpaper"><span class="h board"></span><span class="h paper"></span></a>Endpaper</div>
       <div class="tile"><a class="t" href="#title"><span class="h paper"></span><span class="h paper"></span></a>Title</div>
-      <div class="tile"><a class="t" href="#ms1"><span class="h paper"></span><span class="h paper"></span></a>Dedication &middot; 1</div>
+      <div class="tile" data-tile="dedication"><a class="t" href="#ms1"><span class="h paper set"></span><span class="h paper"></span><span class="badges"></span></a>Dedication &middot; 1</div>
       <div class="tile"><a class="t" href="#ms2-3"><span class="h paper"></span><span class="h paper"></span></a>2 &middot; 3</div>
-      <div class="tile drawn" data-tile="ms4-5"><a class="t" href="#ms4-5"><img src="/clients/aharrison/art/book1-spread-p4-p5-rev1-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>4 &middot; 5</div>
+      <div class="tile drawn" data-tile="ms4-5"><a class="t" href="#ms4-5"><img src="/clients/aharrison/art/book1-spread-p4-p5-approved-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>4 &middot; 5</div>
       <div class="tile drawn" data-tile="ms6-7"><a class="t" href="#ms6-7"><img src="/clients/aharrison/art/book1-spread-p6-p7-v3-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>6 &middot; 7</div>
       <div class="tile drawn" data-tile="ms8-9"><a class="t" href="#ms8-9"><img src="/clients/aharrison/art/book1-spread-p8-p9-v2-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>8 &middot; 9</div>
       <div class="tile drawn" data-tile="ms10-11"><a class="t" href="#ms10-11"><img src="/clients/aharrison/art/book1-spread-p10-p11-v4-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>10 &middot; 11</div>
@@ -320,13 +328,22 @@
       </div>
     </article>
 
-    <article class="sp" id="ms1">
+    <!-- Dedication text from Adele's email of 2026-11-04, set in the book's type (Assistant 16/22 pt) at print proportions. -->
+    <article class="sp" id="ms1" data-id="dedication" data-v="t1" data-vname="Dedication text, November 4" data-label="the dedication">
       <div class="sp-eyebrow">Printed pages 4&ndash;5</div>
-      <div class="block-head"><h3>Dedication and page 1</h3><span class="stage">Placeholder</span></div>
-      <div class="book" role="img" aria-label="Placeholder spread: the dedication on the left, story page 1 on the right">
-        <div class="pg"><div class="lbl">Dedication</div><div class="sub">To Bill</div></div>
-        <div class="pg"><div class="lbl">Page 1</div><div class="sub">The story begins</div></div>
+      <div class="block-head"><h3>Dedication and page 1</h3><span class="stage live">Dedication text set</span></div>
+      <div class="sp-meta">The dedication is set in the book&rsquo;s typeface at its printed size. Page 1 is still to be drawn.</div>
+      <div class="book">
+        <div class="pg set" role="img" aria-label="The dedication page">
+          <div class="ded">
+            <p>To my best friend and champion/cheerleader<br>who I am blessed to call my husband.</p>
+            <p>Thank you, William, for your selfless devotion<br>throughout almost 50 years.</p>
+            <p class="gap">To my mother, Lyla, whose love for the Bible<br>and good children&rsquo;s books fueled a similar passion<br>in not only me but also everyone who passed<br>through her library or listened to her read a story.</p>
+          </div>
+        </div>
+        <div class="pg" role="img" aria-label="Placeholder for story page 1"><div class="lbl">Page 1</div><div class="sub">The story begins</div></div>
       </div>
+      <div class="rv"></div>
     </article>
 
     <article class="sp" id="ms2-3">
@@ -338,14 +355,15 @@
       </div>
     </article>
 
-    <article class="sp" id="ms4-5" data-id="ms4-5" data-v="r1" data-vname="Revision 1" data-label="pages 4 and 5">
+    <!-- Revision 1 approved by Adele (email 2026-11-04). Only change since: "zigzagging" and "ladylike" set as one word each (her request). -->
+    <article class="sp" id="ms4-5" data-id="ms4-5" data-v="r1a" data-vname="Approved version" data-approved="Adele" data-label="pages 4 and 5">
       <div class="sp-eyebrow">Printed pages 8&ndash;9</div>
-      <div class="block-head"><h3>Pages 4 and 5</h3><span class="stage live" data-stage>Ready for review</span></div>
-      <div class="sp-meta"><b>Revision 1</b> &middot; October 31 &middot; shown in regular text; the bold version is on your portal.</div>
-      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p4-p5-rev1-full.webp" target="_blank" rel="noopener">
-        <img src="/clients/aharrison/art/book1-spread-p4-p5-rev1.webp" alt="Pages 4 and 5: on the left, Lady Belle leaves her kennel and looks up at the caretaker, with the terrier and the beagle inside their kennels; on the right, seen from behind, she prances down the hallway toward the big solid door." width="2400" height="1200" decoding="async">
+      <div class="block-head"><h3>Pages 4 and 5</h3><span class="stage ok" data-stage>Approved by Adele</span></div>
+      <div class="sp-meta"><b>Revision 1, approved</b> &middot; November 4 &middot; &ldquo;zigzagging&rdquo; and &ldquo;ladylike&rdquo; are now one word each, as Adele asked.</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p4-p5-approved-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p4-p5-approved.webp" alt="Pages 4 and 5: on the left, Lady Belle leaves her kennel and looks up at the caretaker, with the terrier and the beagle inside their kennels; on the right, seen from behind, she prances down the hallway toward the big solid door." width="2400" height="1200" decoding="async">
       </a>
-      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p4-p5-rev1-full.webp" download="Lady_Belle_Book_One_pages_4-5_revision_1.webp">&darr; Download full size</a><span>Click the spread to open it full size.</span></div>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p4-p5-approved-full.webp" download="Lady_Belle_Book_One_pages_4-5_approved.webp">&darr; Download full size</a><span>Click the spread to open it full size.</span></div>
       <div class="rv"></div>
     </article>
 
@@ -611,14 +629,15 @@
       }
       var stage = sp.querySelector("[data-stage]");
       if (stage) {
-        stage.className = "stage " + (okNow ? "ok" : "live");
-        stage.textContent = okNow ? "Approved" : "Ready for review";
+        var by = sp.dataset.approved;   /* approved outside this page (e.g. by Adele's email) */
+        stage.className = "stage " + (okNow || by ? "ok" : "live");
+        stage.textContent = by ? "Approved by " + by : okNow ? "Approved" : "Ready for review";
       }
       var tile = document.querySelector('[data-tile="' + id + '"] .badges');
       if (tile) {
         tile.textContent = "";
         if (notes.length) tile.appendChild(el("span", "n", String(notes.length)));
-        if (okNow) tile.appendChild(el("span", "ok"));
+        if (okNow || sp.dataset.approved) tile.appendChild(el("span", "ok"));
       }
     });
   }
