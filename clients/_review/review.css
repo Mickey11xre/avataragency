@@ -1,0 +1,89 @@
+/* AvatarAgency review layer (clients/_review/review.js). Every node carries .aa-rv so the page's own styles never apply. */
+.aa-rv { box-sizing: border-box; font: 14px/1.4 -apple-system, "Segoe UI", Inter, Arial, sans-serif; color: #141414; letter-spacing: 0; text-transform: none; }
+.aa-rv *, .aa-rv *::before, .aa-rv *::after { box-sizing: border-box; }
+.aa-rv-root { position: fixed; inset: 0; pointer-events: none; z-index: 2147483000; }
+.aa-rv-root > * { pointer-events: auto; }
+.aa-rv-layer { position: fixed; inset: 0; pointer-events: none; }
+.aa-rv-cap { position: fixed; inset: 0; cursor: crosshair; background: rgba(201, 162, 74, 0.06); }
+html.aa-rv-pinning { cursor: crosshair; }
+
+/* pins */
+.aa-rv-pin { pointer-events: auto; position: fixed; left: 0; top: 0; width: 28px; height: 28px; margin: -14px 0 0 -14px; border-radius: 50%; border: 0; padding: 0;
+  background: #C9A24A; color: #111; font-weight: 800; font-size: 13px; line-height: 28px; text-align: center; cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(255,255,255,.95), 0 3px 10px rgba(0,0,0,.4); transition: box-shadow .15s; will-change: transform; }
+.aa-rv-pin:hover, .aa-rv-pin.active { box-shadow: 0 0 0 3px #fff, 0 0 0 6px rgba(201,162,74,.45), 0 4px 14px rgba(0,0,0,.45); }
+.aa-rv-pin.unsent { outline: 2px dashed rgba(201,162,74,.9); outline-offset: 3px; }
+.aa-rv-pin.done { background: #d9d9d9; color: #666; text-decoration: line-through; }
+@media (max-width: 719px) { .aa-rv-pin { width: 32px; height: 32px; margin: -16px 0 0 -16px; line-height: 32px; font-size: 14px; } }
+
+/* bar */
+.aa-rv-bar { position: fixed; right: 16px; bottom: 16px; display: flex; align-items: center; gap: 8px; padding: 8px 8px 8px 14px; border-radius: 999px;
+  background: #111; color: #fff; box-shadow: 0 10px 30px rgba(0,0,0,.35); max-width: calc(100vw - 32px); }
+.aa-rv-who { font-size: 12.5px; color: #cfcfcf; white-space: nowrap; margin-right: 4px; }
+.aa-rv-who b { color: #C9A24A; font-weight: 700; }
+.aa-rv-b { appearance: none; border: 1px solid rgba(255,255,255,.22); background: transparent; color: #fff; border-radius: 999px; padding: 7px 13px; font: 600 13px/1 inherit; font-family: inherit; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; }
+.aa-rv-b:hover { border-color: #fff; }
+.aa-rv-b:disabled { opacity: .45; cursor: default; }
+.aa-rv-b.gold { background: #C9A24A; border-color: #C9A24A; color: #111; }
+.aa-rv-b.gold:hover { background: #d9b45e; }
+.aa-rv-b.send { border-color: #C9A24A; color: #C9A24A; }
+.aa-rv-b.send:not(:disabled):hover { background: #C9A24A; color: #111; }
+.aa-rv-b u { text-decoration: none; background: rgba(255,255,255,.18); border-radius: 999px; padding: 2px 7px; font-size: 11.5px; }
+.aa-rv-b.gold u, .aa-rv-b.send:hover u { background: rgba(0,0,0,.18); }
+.aa-rv-b i { font-style: normal; font-size: 16px; line-height: 1; }
+.aa-rv-b.min { padding: 7px 10px; }
+.aa-rv-bar.pinning .aa-rv-b.gold { background: #fff; border-color: #fff; }
+.aa-rv-bar.pinning .aa-rv-b.gold span::after { content: " · tap the page"; font-weight: 400; }
+.aa-rv-show { position: fixed; right: 16px; bottom: 16px; border: 0; border-radius: 999px; padding: 8px 14px; background: #111; color: #C9A24A; font: 700 12px/1 inherit; font-family: inherit; cursor: pointer; box-shadow: 0 6px 20px rgba(0,0,0,.35); }
+@media (max-width: 719px) {
+  .aa-rv-bar { left: 10px; right: 10px; bottom: 10px; max-width: none; justify-content: space-between; padding: 6px; gap: 4px; }
+  .aa-rv-who { display: none; }
+  .aa-rv-b { padding: 9px 10px; font-size: 12.5px; }
+  .aa-rv-bar.pinning .aa-rv-b.gold span::after { content: ""; }
+}
+
+/* popover (thread / compose) */
+.aa-rv-pop { position: fixed; left: 0; top: 0; width: 340px; max-width: calc(100vw - 20px); background: #fff; border-radius: 14px; box-shadow: 0 16px 48px rgba(0,0,0,.35), 0 0 0 1px rgba(0,0,0,.06); padding: 12px 14px 12px; }
+.aa-rv-ph { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
+.aa-rv-n { flex: none; width: 24px; height: 24px; border-radius: 50%; background: #C9A24A; color: #111; font-weight: 800; font-size: 12px; display: inline-flex; align-items: center; justify-content: center; }
+.aa-rv-meta { flex: 1; font-size: 12px; color: #666; }
+.aa-rv-meta em { font-style: normal; color: #a37b1b; }
+.aa-rv-st { font-size: 11px; font-weight: 700; letter-spacing: .4px; text-transform: uppercase; padding: 2px 7px; border-radius: 999px; background: #f3e8c8; color: #7a5c13; }
+.aa-rv-st.resolved { background: #e8e8e8; color: #666; }
+.aa-rv-x { border: 0; background: transparent; font-size: 20px; line-height: 1; color: #777; cursor: pointer; padding: 0 2px; }
+.aa-rv-near { font-size: 12px; color: #888; margin: 0 0 6px; }
+.aa-rv-text { white-space: pre-wrap; font-size: 14px; margin: 0 0 8px; }
+.aa-rv-replies { display: flex; flex-direction: column; gap: 6px; margin: 0 0 8px; }
+.aa-rv-reply { border-left: 2px solid #C9A24A; padding: 2px 0 2px 10px; font-size: 13px; }
+.aa-rv-reply b { font-weight: 700; } .aa-rv-reply > span { color: #888; font-size: 11.5px; margin-left: 4px; }
+.aa-rv-ta { width: 100%; border: 1px solid #d6d6d6; border-radius: 8px; padding: 8px 10px; font: 14px/1.4 inherit; font-family: inherit; resize: vertical; color: #111; background: #fff; }
+.aa-rv-ta:focus { outline: 2px solid #C9A24A; outline-offset: 0; border-color: #C9A24A; }
+.aa-rv-acts { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+.aa-rv-pop .aa-rv-b { border-color: #ddd; color: #222; padding: 7px 12px; }
+.aa-rv-pop .aa-rv-b.gold { border-color: #C9A24A; color: #111; }
+.aa-rv-pop .aa-rv-b.danger { color: #a33; border-color: #e5c8c8; }
+@media (max-width: 719px) {
+  .aa-rv-pop { left: 0 !important; right: 0; top: auto !important; bottom: 62px; width: auto; max-width: none; margin: 0 8px; transform: none !important; max-height: 60vh; overflow: auto; }
+}
+
+/* panel: every comment on the site */
+.aa-rv-panel { position: fixed; top: 0; right: 0; bottom: 0; width: 380px; max-width: 100vw; background: #fff; box-shadow: -12px 0 40px rgba(0,0,0,.25); overflow: auto; padding: 0 0 90px; }
+.aa-rv-pnh { position: sticky; top: 0; display: flex; align-items: center; gap: 8px; padding: 14px 16px; background: #111; color: #fff; }
+.aa-rv-pnh b { color: #C9A24A; font-size: 15px; } .aa-rv-pnh > span { flex: 1; font-size: 12px; color: #bbb; }
+.aa-rv-pnh .aa-rv-x { color: #ccc; }
+.aa-rv-empty { padding: 20px 16px; color: #666; }
+.aa-rv-pg { padding: 14px 16px 4px; font-size: 11px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; color: #8a6d1e; }
+.aa-rv-pg em { font-style: normal; color: #aaa; font-weight: 500; letter-spacing: 0; text-transform: none; }
+.aa-rv-item { display: flex; gap: 10px; width: 100%; text-align: left; border: 0; border-bottom: 1px solid #eee; background: #fff; padding: 10px 16px; cursor: pointer; font-family: inherit; }
+.aa-rv-item:hover { background: #faf6ea; }
+.aa-rv-item .aa-rv-n { margin-top: 1px; }
+.aa-rv-item.resolved .aa-rv-n { background: #d9d9d9; color: #666; }
+.aa-rv-item.unsent .aa-rv-n { outline: 2px dashed rgba(201,162,74,.9); outline-offset: 2px; }
+.aa-rv-it { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.aa-rv-itt { font-size: 13.5px; color: #111; }
+.aa-rv-item.resolved .aa-rv-itt { color: #888; text-decoration: line-through; }
+.aa-rv-itm { font-size: 11.5px; color: #888; }
+
+/* toast */
+.aa-rv-toast { position: fixed; left: 50%; bottom: 76px; transform: translate(-50%, 12px); background: #111; color: #fff; padding: 10px 16px; border-radius: 10px; font-size: 13.5px; box-shadow: 0 8px 24px rgba(0,0,0,.35); opacity: 0; pointer-events: none; transition: opacity .2s, transform .2s; z-index: 2147483001; max-width: calc(100vw - 32px); text-align: center; }
+.aa-rv-toast.on { opacity: 1; transform: translate(-50%, 0); }

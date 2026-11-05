@@ -44,6 +44,20 @@ Bump `V` in build.js when css/js change (Cloudflare caches assets ~4 h; the page
   At go-live set it to `greg@harvardinvestmentgroup.com`.
 - `HIG_CONTACT_FROM` — optional verified sender; defaults to the avataragency.ai sender the other forms use.
 
+## Review mode: the comment layer (11-04)
+Preview pages (never `--final`) load `/clients/_review/review.js` + `review.css` with `data-site="hig"`. The layer is
+inert until a page is opened with `?review=<code>`; the code is then kept in the browser and the bar appears on every
+page: **Add comment** (tap a spot, type), **Comments** (every pin on the site), **Send to Michael** (stamps a round on
+the unsent notes and emails a digest to michael@avataragency.ai via Resend). Pins anchor to the element under the tap
+(CSS path + offset) with a page-coordinate fallback, follow the layout on every screen, and open from
+`#aa-pin=<id>` links (the digest email links each pin).
+- Server: `functions/api/review-pins.js` on the **REVIEWS** KV namespace (key `pins:hig`); reviewers and sites in
+  `functions/_lib/reviewers.js` (SHA-256 of each code; the codes are in docs/WEBSITE-UPDATE-NOTES.md, local only).
+  Greg = role `client` (add, edit/delete own unsent, reply, send). Michael = role `owner` on every site (reply,
+  resolve/reopen, delete, **Export** = the plain-text digest for the agent to work from).
+- Local test: launch config `avataragency-review-8797` (`wrangler pages dev . --kv REVIEWS`); no email locally.
+- Bump `RV` in build.js when review.js/css change; the layer is shared by every client site that includes it.
+
 ## Home hero, v2 (Michael, 10-30)
 - **Ambient loop layer** `.ambient` is FIXED behind the page (livebrand.ai pattern). The hero is transparent over it and three
   transparent `.peek` breaks (42vh) further down let the loop show through again. `HERO.clips` in `content.js` lists the

@@ -20,6 +20,7 @@ const ROOT = FINAL ? "" : "/clients/harvard";                         // URL pre
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
 const V = 21;                                                        // ?v= for css/js (Cloudflare caches assets ~4 h)
+const RV = 1;                                                        // ?v= for the preview-only review layer (/clients/_review/, comment pins; never in --final)
 const OUT = path.resolve(__dirname, "..");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -195,6 +196,8 @@ ${footer()}
 <script src="${u("/vendor/ScrollTrigger.min.js")}" defer></script>
 <script src="${u("/vendor/lenis.min.js")}" defer></script>
 <script src="${u("/assets/js/site.js")}?v=${V}" defer></script>
+${FINAL ? "" : `<link rel="stylesheet" href="/clients/_review/review.css?v=${RV}">
+<script src="/clients/_review/review.js?v=${RV}" data-site="hig" defer></script>`}
 </body>
 </html>
 `;
