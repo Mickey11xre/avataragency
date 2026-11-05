@@ -126,7 +126,10 @@ export async function onRequest(context) {
     case "send": {
       const unsent = d.comments.filter((c) => c.round === null && mine(c));
       if (!unsent.length) return json({ ok: false, error: "nothing to send" }, 400);
-      const round = d.rounds.length + 1;
+      // Rounds whose comments were all deleted (a test pin, say) drop out, so numbering follows what is still on the site.
+      const liveRounds = new Set(d.comments.map((c) => c.round).filter(Boolean));
+      d.rounds = d.rounds.filter((r) => liveRounds.has(r.n));
+      const round = d.rounds.reduce((m, r) => Math.max(m, r.n), 0) + 1;
       unsent.forEach((c) => { c.round = round; c.sentAt = now; });
       d.rounds.push({ n: round, at: now, by: me.name, count: unsent.length });
       await save(d);
