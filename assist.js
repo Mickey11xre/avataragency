@@ -31,7 +31,7 @@
   var GOOGLE_LEAD_ENDPOINT = 'https://livebrand-assistant-leads.michaelrivera.workers.dev/api/register-google';
   var GOOGLE_CLIENT_ID = '993426065147-61qf99h9fse85johvbh8dt1aocso42oc.apps.googleusercontent.com';
   var TOKEN_ENDPOINT = '/api/michael-token'; // same-origin Pages Function
-  var SDK_URL = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@latest/lib/index.standalone.js';
+  var SDK_URL = 'https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js';
   var CALENDLY = 'https://calendly.com/michaelrivera007/free-consultation-meeting';
   var SESSION_CAP = 300;   // 5 min hard per session
   var DAILY_CAP = 300;     // 5 min per visitor per day (Michael, 2026-07-11 — was 20)
