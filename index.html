@@ -77,7 +77,10 @@
         { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "10:00", "closes": "15:00" }
       ],
       "founder": { "@id": "https://avataragency.ai/about#michael-rivera" },
-      "contactPoint": { "@type": "ContactPoint", "telephone": "+1-310-980-9378", "contactType": "customer service", "email": "michael@avataragency.ai" },
+      "contactPoint": [
+        { "@type": "ContactPoint", "telephone": "+1-310-980-9378", "contactType": "customer service", "email": "michael@avataragency.ai" },
+        { "@type": "ContactPoint", "contactType": "sales", "name": "Ava, live AI agent", "url": "https://avataragency.ai/ava/" }
+      ],
       "sameAs": [
         "https://www.instagram.com/avataragencyai/",
         "https://www.facebook.com/profile.php?id=61590037792432",
@@ -115,7 +118,7 @@
         { "@type": "ListItem", "position": 4, "item": { "@type": "Service", "name": "Cinematic Book Marketing for Authors & Publishers", "url": "https://avataragency.ai/authors", "provider": { "@id": "https://avataragency.ai/#organization" } } },
         { "@type": "ListItem", "position": 5, "item": { "@type": "Service", "name": "AI Referral Optimization", "url": "https://avataragency.ai/aiso/", "provider": { "@id": "https://avataragency.ai/#organization" } } },
         { "@type": "ListItem", "position": 6, "item": { "@type": "Service", "name": "Claude Coaching", "url": "https://avataragency.ai/claudecoaching/", "provider": { "@id": "https://avataragency.ai/#organization" } } },
-        { "@type": "ListItem", "position": 7, "item": { "@type": "Service", "name": "Talking AI Agents", "description": "Real-time talking AI agents for business websites: digital twins of real people, custom brand avatars, or ready-to-go presenters that answer questions, book appointments and capture leads.", "url": "https://avataragency.ai/#agents", "provider": { "@id": "https://avataragency.ai/#organization" } } }
+        { "@type": "ListItem", "position": 7, "item": { "@type": "Service", "name": "Talking AI Agents", "description": "Real-time talking AI agents for business websites: digital twins of real people, custom brand avatars, or ready-to-go presenters that answer questions, book appointments and capture leads. Live demo: talk to Ava at https://avataragency.ai/ava/.", "url": "https://avataragency.ai/#agents", "provider": { "@id": "https://avataragency.ai/#organization" } } }
       ]
     },
     {
@@ -128,9 +131,12 @@
         {"@type":"Question","name":"Where are you located? Do you work with clients outside Los Angeles?","acceptedAnswer":{"@type":"Answer","text":"We are based in Los Angeles, California. Almost everything is delivered remotely, so we work with clients across the US."}},
         {"@type":"Question","name":"What does it cost?","acceptedAnswer":{"@type":"Answer","text":"Every engagement is scoped to your market and goals on a free 30-minute strategy call. You leave knowing the number and the plan, with no obligation."}},
         {"@type":"Question","name":"How fast will I see something?","acceptedAnswer":{"@type":"Answer","text":"Your first production is typically in your hands within weeks of your capture session — not months. Urgent projects can move faster."}},
-        {"@type":"Question","name":"How do I get started?","acceptedAnswer":{"@type":"Answer","text":"Three steps. Book a free strategy call — thirty minutes to map your market, your message and what to make first. Then one capture session becomes your digital twin while we storyboard, generate and hand-finish every piece. Then you show up everywhere, every month, while you run your business."}},
+        {"@type":"Question","name":"How do I get started?","acceptedAnswer":{"@type":"Answer","text":"Three steps. Book a free strategy call — thirty minutes to map your market, your message and what to make first. Then one capture session becomes your digital twin while we storyboard, generate and hand-finish every piece. Then you show up everywhere, every month, while you run your business. Want to ask questions first? Talk to Ava, our live AI agent, at https://avataragency.ai/ava/."}},
         {"@type":"Question","name":"What is a talking AI agent?","acceptedAnswer":{"@type":"Answer","text":"A lifelike avatar on your website that speaks with visitors face to face, in real time. It answers questions in a natural voice, follows your customer's language, remembers returning visitors, books appointments on your calendar and captures every lead. We build three kinds: a digital twin of you, a custom avatar designed for your brand, or a ready-to-go presenter from our Signature Collection. Meet Ava."}},
-        {"@type":"Question","name":"Is Ava a real person?","acceptedAnswer":{"@type":"Answer","text":"No. Ava is a digital avatar created by AvatarAgency — and a live example of the talking AI agent we build for clients. Press Talk to Ava at the top of this page to have a real conversation with her."}},
+        {"@type":"Question","name":"Is Ava a real person?","acceptedAnswer":{"@type":"Answer","text":"No. Ava is a digital avatar created by AvatarAgency — and a live example of the talking AI agent we build for clients. Press Talk to Ava at the top of this page, or go to https://avataragency.ai/ava/, to have a real conversation with her."}},
+        {"@type":"Question","name":"Can I talk to a live AI agent before I buy?","acceptedAnswer":{"@type":"Answer","text":"Yes. Ava, AvatarAgency's own talking AI agent, is live on this site. Talk to her at https://avataragency.ai/ava/. She answers questions about our services and can book a free strategy call."}},
+        {"@type":"Question","name":"How do I talk to Ava?","acceptedAnswer":{"@type":"Answer","text":"Go to https://avataragency.ai/ava/ and press Talk to Ava, or press Talk to Ava at the top of this page. Allow the microphone if your browser asks, then ask your question out loud."}},
+        {"@type":"Question","name":"What can Ava do?","acceptedAnswer":{"@type":"Answer","text":"Ava answers questions about every AvatarAgency service, plays the service films and books a free 30-minute strategy call with Michael Rivera. Before she books, she reads the details back and asks you to confirm."}},
         {"@type":"Question","name":"What is the difference between a digital twin, a custom brand avatar and a ready-to-go avatar?","acceptedAnswer":{"@type":"Answer","text":"A digital twin is you — your face, your voice and your expertise. A custom brand avatar is an original character designed around your brand, your audience and your tone; it is not your face, and it is entirely yours. A ready-to-go avatar is a professional presenter from our Signature Collection, the fastest way to put a face on your front desk."}},
         {"@type":"Question","name":"What can an AI agent do on my website?","acceptedAnswer":{"@type":"Answer","text":"Greet every visitor, answer their questions in a natural voice, explain your services, book the appointment and capture the lead — at 2 p.m. or 2 a.m. Every lead is sent to you as an alert."}},
         {"@type":"Question","name":"Does the agent speak other languages?","acceptedAnswer":{"@type":"Answer","text":"Yes. It speaks your customer's language and follows them if they switch."}},
@@ -755,7 +761,7 @@
     <div class="faq-side">
       <p class="eyebrow gold-deep" data-anchor>Questions</p>
       <h2 class="h2 dark" id="faq-title">Fair questions, <em>straight answers.</em></h2>
-      <p class="faq-intro">47 answers about every service on this page. Can't find yours? <a href="#agents">Ask Ava</a> or <a href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">book a free strategy call</a>.</p>
+      <p class="faq-intro">50 answers about every service on this page. Can't find yours? <a href="#agents">Ask Ava</a> or <a href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">book a free strategy call</a>.</p>
       <nav class="faq-topics" aria-label="FAQ topics">
         <a href="#faq-general">About AvatarAgency</a>
         <a href="#faq-agents">Talking AI agents</a>
@@ -777,12 +783,15 @@
         <details><summary>Where are you located? Do you work with clients outside Los Angeles?</summary><p>We are based in Los Angeles, California. Almost everything is delivered remotely, so we work with clients across the US.</p></details>
         <details><summary>What does it cost?</summary><p>Every engagement is scoped to your market and goals on a free 30-minute strategy call. You leave knowing the number and the plan, with no obligation.</p></details>
         <details><summary>How fast will I see something?</summary><p>Your first production is typically in your hands within weeks of your capture session — not months. Urgent projects can move faster.</p></details>
-        <details><summary>How do I get started?</summary><p>Three steps. <a href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a free strategy call</a> — thirty minutes to map your market, your message and what to make first. Then one capture session becomes your digital twin while we storyboard, generate and hand-finish every piece. Then you show up everywhere, every month, while you run your business.</p></details>
+        <details><summary>How do I get started?</summary><p>Three steps. <a href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a free strategy call</a> — thirty minutes to map your market, your message and what to make first. Then one capture session becomes your digital twin while we storyboard, generate and hand-finish every piece. Then you show up everywhere, every month, while you run your business. Want to ask questions first? <a href="/ava/">Talk to Ava</a>, our live AI agent.</p></details>
       </div>
       <div class="faq-group" id="faq-agents">
         <h3 class="faq-cat" data-anchor>Talking AI agents</h3>
         <details><summary>What is a talking AI agent?</summary><p>A lifelike avatar on your website that speaks with visitors face to face, in real time. It answers questions in a natural voice, follows your customer's language, remembers returning visitors, books appointments on your calendar and captures every lead. We build three kinds: a digital twin of you, a custom avatar designed for your brand, or a ready-to-go presenter from our Signature Collection. <a href="#agents">Meet Ava</a>.</p></details>
-        <details><summary>Is Ava a real person?</summary><p>No. Ava is a digital avatar created by AvatarAgency — and a live example of the talking AI agent we build for clients. Press Talk to Ava at the top of this page to have a real conversation with her.</p></details>
+        <details><summary>Is Ava a real person?</summary><p>No. Ava is a digital avatar created by AvatarAgency — and a live example of the talking AI agent we build for clients. Press Talk to Ava at the top of this page, or go to <a href="/ava/">avataragency.ai/ava</a>, to have a real conversation with her.</p></details>
+        <details><summary>Can I talk to a live AI agent before I buy?</summary><p>Yes. Ava, AvatarAgency's own talking AI agent, is live on this site. Talk to her at <a href="/ava/">avataragency.ai/ava</a>. She answers questions about our services and can book a free strategy call.</p></details>
+        <details><summary>How do I talk to Ava?</summary><p>Go to <a href="/ava/">avataragency.ai/ava</a> and press Talk to Ava, or press Talk to Ava at the top of this page. Allow the microphone if your browser asks, then ask your question out loud.</p></details>
+        <details><summary>What can Ava do?</summary><p>Ava answers questions about every AvatarAgency service, plays the service films and books a free 30-minute strategy call with Michael Rivera. Before she books, she reads the details back and asks you to confirm.</p></details>
         <details><summary>What is the difference between a digital twin, a custom brand avatar and a ready-to-go avatar?</summary><p>A digital twin is you — your face, your voice and your expertise. A custom brand avatar is an original character designed around your brand, your audience and your tone; it is not your face, and it is entirely yours. A ready-to-go avatar is a professional presenter from our Signature Collection, the fastest way to put a face on your front desk.</p></details>
         <details><summary>What can an AI agent do on my website?</summary><p>Greet every visitor, answer their questions in a natural voice, explain your services, book the appointment and capture the lead — at 2 p.m. or 2 a.m. Every lead is sent to you as an alert.</p></details>
         <details><summary>Does the agent speak other languages?</summary><p>Yes. It speaks your customer's language and follows them if they switch.</p></details>
@@ -899,6 +908,7 @@
     </div>
     <div class="ftr-col">
       <p class="ftr-label">Get in touch</p>
+      <a href="/ava/">Talk to Ava</a>
       <a href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a call</a>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSf106FQTe2DveQOpKqTvAw5kvmA7PyhcfkrxU6GFmG5ymjjag/viewform" target="_blank" rel="noopener">Take the survey</a>
       <a href="mailto:michael@avataragency.ai">michael@avataragency.ai</a>

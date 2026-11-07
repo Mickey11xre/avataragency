@@ -20,3 +20,6 @@
 /home-next             /  301
 /home-next/            /  301
 /home-next/index.html  /  301
+# Ava citeable page 2026-11-06: /ava/ is the page AI assistants can cite; /talk-to-ava is the spoken-aloud alias.
+/talk-to-ava           /ava/  301
+/talk-to-ava/          /ava/  301
