@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Stephanie’s Review — Kindness Illustrations</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Assistant = the book's own typeface (see the portal, section 05). Used only on the placeholder pages. -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Assistant:wght@500;700&display=swap">
+<style>
+  /* Same tokens as the portal (/clients/aharrison/), plus the book's paper and ink for the placeholder pages. */
+  :root{
+    --bg:#0a0a0c;
+    --bg-2:#101014;
+    --card:#15151b;
+    --card-2:#1b1b22;
+    --line:#26262f;
+    --txt:#f4f4f6;
+    --muted:#9a9aa6;
+    --muted-2:#6d6d78;
+    --gold:#c9a24b;
+    --gold-2:#e3c478;
+    --green:#4ec98a;
+    --red:#ff7a6b;
+    --radius:16px;
+    --max:1080px;
+    --paper:#ecd8bf;      /* sampled from the light text areas of the drawn spreads */
+    --paper-2:#e2c8a6;
+    --ink:#7a593c;
+    --board:#3a2e24;      /* inside covers */
+    --book:'Assistant','Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(201,162,75,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(78,201,138,.05), transparent 55%),
+      var(--bg);
+    color:var(--txt);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+  /* ---- Top bar: brand + who is reviewing ---- */
+  .topbar{border-bottom:1px solid var(--line);background:rgba(10,10,12,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+  .brand{font-weight:700;letter-spacing:.5px;font-size:18px}
+  .brand b{color:var(--gold-2)}
+  .who{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+  .who select,.who input{background:#0c0c10;border:1px solid var(--line);border-radius:999px;color:var(--txt);
+    font-family:inherit;font-size:14px;min-height:40px;padding:0 14px}
+  .who select{padding-right:10px;cursor:pointer}
+  .who input{width:150px}
+  .who select:focus,.who input:focus{outline:none;border-color:rgba(201,162,75,.6);box-shadow:0 0 0 3px rgba(201,162,75,.14)}
+  .who.need select{border-color:rgba(201,162,75,.8);box-shadow:0 0 0 3px rgba(201,162,75,.22)}
+
+  /* ---- Hero ---- */
+  .hero{padding:46px 0 30px;border-bottom:1px solid var(--line)}
+  .back{display:inline-block;font-size:13px;color:var(--muted);margin-bottom:18px}
+  .back:hover{color:var(--gold-2)}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .hero h1{font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.5px;text-wrap:balance}
+  .hero h1 .sub{display:block;font-size:17px;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:12px;max-width:64ch;line-height:1.55}
+  .meta-row{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px}
+  .meta-row .item{font-size:13px;color:var(--muted)}
+  .meta-row .item span{display:block;color:var(--txt);font-size:15px;font-weight:600;margin-top:2px;font-variant-numeric:tabular-nums}
+
+  /* ---- The 32-page map ---- */
+  .map-sec{padding:30px 0 6px}
+  .map-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .map-head h2{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted-2)}
+  .legend i{display:inline-block;width:18px;height:9px;border-radius:2px;margin-right:6px;vertical-align:middle}
+  .lg-drawn{background:linear-gradient(90deg,#b98d63,#e2c8a6)}
+  .lg-ph{background:var(--paper);opacity:.55;outline:1px dashed var(--ink);outline-offset:-2px}
+  .lg-todo{border:1px dashed var(--muted-2)}
+  .lg-ok{width:9px!important;height:9px!important;border-radius:50%!important;background:var(--green)}
+  .map{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:10px}
+  .tile{display:flex;flex-direction:column;gap:5px;color:var(--muted);font-size:11.5px;line-height:1.25;text-align:center}
+  .tile .t{position:relative;aspect-ratio:2/1;border-radius:4px;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;
+    border:1px solid var(--line);background:transparent}
+  .tile .t img{grid-column:1/-1;width:100%;height:100%;object-fit:cover;display:block}
+  .tile .t .h{display:block}
+  .tile .t .h.paper{background:var(--paper);opacity:.5}
+  .tile .t .h.board{background:var(--board)}
+  .tile .t .h.todo{border:1px dashed #3a3a46;margin:3px;border-radius:2px}
+  .tile .t::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:1px;background:rgba(0,0,0,.28)}
+  .tile.single .t::after{display:none}
+  .tile.single .t img{grid-column:2}
+  .tile.single.back .t img{grid-column:1}
+  .tile a.t:hover{border-color:var(--gold)}
+  .tile.drawn{color:var(--txt)}
+  .tile .badges{position:absolute;top:3px;right:3px;display:flex;gap:3px}
+  .tile .ok{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px rgba(10,10,12,.7)}
+  .tile .n{min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--gold-2);color:#1a1407;
+    font-size:10px;font-weight:700;line-height:16px;font-variant-numeric:tabular-nums}
+  @media(max-width:760px){
+    .map{display:flex;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x proximity}
+    .tile{flex:0 0 96px;scroll-snap-align:start}
+  }
+
+  /* ---- Stacked pages ---- */
+  .book-sec{padding:20px 0 40px}
+  .sp{padding:46px 0 50px;border-top:1px solid var(--line);scroll-margin-top:84px}
+  .sp:first-child{border-top:none}
+  .sp-eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .block-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .block-head h3{font-size:22px;font-weight:700;letter-spacing:-.2px}
+  .stage{display:inline-block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    border-radius:999px;padding:5px 12px;border:1px solid var(--line);color:var(--muted)}
+  .stage.live{color:var(--green);border-color:rgba(78,201,138,.4);background:rgba(78,201,138,.07)}
+  .stage.ok{color:#07130c;border-color:var(--green);background:var(--green)}
+  .sp-meta{font-size:13px;color:var(--muted);margin-bottom:18px;max-width:72ch}
+  .sp-meta b{color:var(--txt);font-weight:600}
+
+  /* drawn spread: the full plate links to the full-size file */
+  .spread-plate{display:block;border-radius:6px;overflow:hidden;border:1px solid var(--line);background:#0f0f13;
+    box-shadow:0 22px 50px rgba(0,0,0,.5)}
+  .spread-plate img{display:block;width:100%;height:auto}
+  a.spread-plate:hover{border-color:rgba(201,162,75,.6)}
+  /* the front cover is one page: same page size as the spreads below, sitting where it prints (on the right) */
+  .spread-plate.single{width:50%;margin-left:auto}
+  .spread-plate.single.left{margin-left:0;margin-right:auto}
+  .sp-tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:12px;font-size:12.5px;color:var(--muted-2)}
+  .watch{display:inline-flex;align-items:center;min-height:40px;font-size:13px;font-weight:600;color:var(--gold-2);
+    border:1px solid rgba(201,162,75,.4);border-radius:999px;padding:0 16px;transition:.15s}
+  .watch:hover{background:rgba(201,162,75,.12)}
+
+  /* placeholder pages, drawn in CSS on the book's paper */
+  .book{position:relative;aspect-ratio:2/1;display:grid;grid-template-columns:1fr 1fr;border-radius:6px;overflow:hidden;
+    border:1px solid var(--line);box-shadow:0 22px 50px rgba(0,0,0,.5)}
+  .book::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:8%;transform:translateX(-50%);pointer-events:none;
+    background:linear-gradient(90deg,transparent,rgba(70,45,22,.16) 46%,rgba(70,45,22,.30) 50%,rgba(70,45,22,.16) 54%,transparent)}
+  .pg{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;
+    padding:9%;background:linear-gradient(180deg,var(--paper),var(--paper-2));color:var(--ink);font-family:var(--book)}
+  .pg::before{content:"";position:absolute;inset:4.5%;border:1.5px dashed rgba(122,89,60,.42);border-radius:3px;pointer-events:none}
+  .pg .lbl{font-size:clamp(14px,2vw,22px);font-weight:700;letter-spacing:.01em}
+  .pg .sub{font-size:clamp(11.5px,1.35vw,15px);font-weight:500;opacity:.78;margin-top:6px;max-width:30ch;text-wrap:balance}
+  .pg.board{background:var(--board);color:#cdb89b}
+  .pg.board::before{border-color:rgba(205,184,155,.28)}
+  /* the front cover is one page, the same size as the pages below, sitting where it prints: on the right */
+  .book.single{aspect-ratio:1/1;grid-template-columns:1fr;width:50%;margin-left:auto}
+  .book.single::after{display:none}
+  /* a page with its final words set: no dashed outline; type sized in container units so it is the printed
+     16/22 pt at any width (28.8 px / 39.5 px on the 1100 px print page = 2.618cqw / 3.591cqw) */
+  .pg.set{container-type:inline-size;padding:0}
+  .pg.set::before{display:none}
+  .ded{font-family:var(--book);font-weight:500;color:#2a190c;font-size:2.618cqw;line-height:3.591cqw;text-align:center;white-space:nowrap}
+  .ded p{margin:0 0 1.2cqw}
+  .ded p.gap{margin-top:5.4cqw}
+  .tile .t .h.paper.set{opacity:.85;background:repeating-linear-gradient(180deg,var(--paper) 0 3px,#cdb497 3px 4px)}
+  .pg.cover .series{font-size:clamp(11px,1.3vw,13px);font-weight:700;letter-spacing:.22em;text-transform:uppercase;opacity:.7;margin-bottom:12px}
+  .pg.cover .lbl{font-size:clamp(22px,3.4vw,34px);line-height:1.1}
+
+  /* ---- Comments + approval under each spread ---- */
+  .rv{margin-top:22px;background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .rv-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .rv-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .rv-approvals{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-size:12px;border-radius:999px;padding:4px 11px;border:1px solid rgba(78,201,138,.4);color:var(--green);background:rgba(78,201,138,.07)}
+  .chip.old{border-color:var(--line);color:var(--muted-2);background:transparent}
+  .notes{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+  .notes:empty{display:none}
+  .note{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:12px 15px;background:var(--bg-2)}
+  .note.stale{border-left-color:var(--muted-2)}
+  .note-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+  .note-top b{color:var(--txt);font-weight:600;font-size:13.5px}
+  .note-top .ver{color:var(--muted-2)}
+  .note-top .acts{margin-left:auto;display:flex;gap:4px}
+  .note-top .acts button{background:none;border:none;color:var(--gold-2);font:inherit;font-size:12.5px;cursor:pointer;padding:6px 8px;border-radius:6px}
+  .note-top .acts button:hover{background:rgba(201,162,75,.1)}
+  .note-text{margin-top:6px;font-size:14.5px;line-height:1.62;white-space:pre-wrap;overflow-wrap:anywhere}
+  .rv textarea{width:100%;min-height:96px;resize:vertical;background:#0c0c10;border:1px solid var(--line);border-radius:12px;color:var(--txt);
+    font-family:inherit;font-size:14.5px;line-height:1.6;padding:13px 15px}
+  .rv textarea:focus{outline:none;border-color:rgba(201,162,75,.55);box-shadow:0 0 0 3px rgba(201,162,75,.12)}
+  .rv textarea::placeholder{color:var(--muted-2)}
+  .rv-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:999px;font-weight:700;
+    font-size:14.5px;font-family:inherit;cursor:pointer;border:none;transition:.15s}
+  .btn.primary{background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+  .btn.ghost:hover{border-color:var(--gold)}
+  .btn[disabled]{opacity:.5;cursor:default;filter:none}
+  .approve{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:999px;
+    font-size:14px;color:var(--txt);cursor:pointer;user-select:none}
+  .approve:hover{border-color:rgba(78,201,138,.5)}
+  .approve input{width:18px;height:18px;accent-color:var(--green);cursor:pointer}
+  .approve.on{border-color:rgba(78,201,138,.55);background:rgba(78,201,138,.08);color:var(--green)}
+  .rv-status{font-size:12.5px;color:var(--muted-2)}
+  .rv-status.ok{color:var(--green)}
+  .rv-status.err{color:var(--red)}
+
+  /* ---- Still to draw + send ---- */
+  .todo-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin-top:16px}
+  .todo{border:1px dashed #33333e;border-radius:12px;padding:14px 16px;font-size:13px;color:var(--muted)}
+  .todo b{display:block;color:var(--txt);font-size:14.5px;font-weight:600;margin-bottom:2px}
+  .send{margin-top:46px;background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:30px;text-align:center}
+  .send h2{font-size:22px;font-weight:800;letter-spacing:-.2px}
+  .send p{color:var(--muted);margin:10px auto 20px;max-width:56ch;font-size:14.5px}
+  .send .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .sec-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .sync{font-size:12.5px;color:var(--muted-2);margin-top:12px}
+  .sync.err{color:var(--red)}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;margin-top:40px;color:var(--muted-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  @media(max-width:780px){
+    .hero h1{font-size:30px}
+    .meta-row{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+    .rv{padding:18px}
+    .sp{padding:36px 0 40px}
+  }
+  @media(max-width:520px){
+    .who label{display:none}
+    .who select{max-width:170px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Avatar<b>Agency</b></div>
+    <div class="who" id="whoBox">
+      <label for="who">Reviewing as</label>
+      <select id="who" aria-label="Reviewing as">
+        <option value="">Choose your name</option>
+        <option>Adele</option>
+        <option>Bill</option>
+        <option>Michael</option>
+        <option>Stephanie</option>
+        <option value="__other">Someone else&hellip;</option>
+      </select>
+      <input id="whoOther" type="text" placeholder="Your name" aria-label="Your name" maxlength="40" hidden>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <a class="back" href="/clients/aharrison/kindness-illustrations/">&larr; The current review page</a>
+    <div class="eyebrow">Tales of Lady Belle &middot; Book One &middot; Stephanie’s review, November 5–7</div>
+    <h1>Kindness, page by page
+      <span class="sub">Kept for the record: every page as Stephanie reviewed it on November 5–7, with all of her comments. Her changes were made on the current review page.</span>
+    </h1>
+    <div class="meta-row">
+      <div class="item">Book<span>8.5 &times; 8.5 in &middot; 32 pages</span></div>
+      <div class="item">Drawn<span>Every page &middot; cover to page 32</span></div>
+      <div class="item">Still to come<span>ISBN &middot; Scripture permission line</span></div>
+      <div class="item">Text<span>Manuscript of October 29</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ THE 32-PAGE MAP ============ -->
+<section class="map-sec">
+  <div class="wrap">
+    <div class="map-head">
+      <h2>The whole book</h2>
+      <div class="legend">
+        <span><i class="lg-drawn"></i>Drawn</span>
+        <span><i class="lg-ph"></i>Placeholder</span>
+        <span><i class="lg-todo"></i>Still to draw</span>
+        <span><i class="lg-ok"></i>Approved</span>
+      </div>
+    </div>
+    <!-- One tile per sheet as it prints. Labels use Adele's manuscript page numbers; front matter by name. -->
+    <nav class="map" aria-label="Book One page map">
+      <div class="tile single drawn" data-tile="cover"><a class="t" href="#cover"><span class="h"></span><img src="/clients/aharrison/art/book1-cover-v5-thumb.webp" alt="" width="180" height="180"><span class="badges"></span></a>Front cover</div>
+      <div class="tile drawn" data-tile="p1"><a class="t" href="#endpaper"><img src="/clients/aharrison/art/book1-endpaper-front-v2-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>Endpaper</div>
+      <div class="tile drawn" data-tile="pp2-3"><a class="t" href="#title"><img src="/clients/aharrison/art/book1-copyright-title-v2-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>Title</div>
+      <div class="tile drawn" data-tile="dedication"><a class="t" href="#ms1"><img src="/clients/aharrison/art/book1-dedication-p1-v4-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>Dedication &middot; 1</div>
+      <div class="tile drawn" data-tile="ms2-3"><a class="t" href="#ms2-3"><img src="/clients/aharrison/art/book1-spread-p2-p3-v3-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>2 &middot; 3</div>
+      <div class="tile drawn" data-tile="ms4-5"><a class="t" href="#ms4-5"><img src="/clients/aharrison/art/book1-spread-p4-p5-v2-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>4 &middot; 5</div>
+      <div class="tile drawn" data-tile="ms6-7"><a class="t" href="#ms6-7"><img src="/clients/aharrison/art/book1-spread-p6-p7-v7-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>6 &middot; 7</div>
+      <div class="tile drawn" data-tile="ms8-9"><a class="t" href="#ms8-9"><img src="/clients/aharrison/art/book1-spread-p8-p9-v4-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>8 &middot; 9</div>
+      <div class="tile drawn" data-tile="ms10-11"><a class="t" href="#ms10-11"><img src="/clients/aharrison/art/book1-spread-p10-p11-v5-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>10 &middot; 11</div>
+      <div class="tile drawn" data-tile="ms12-13"><a class="t" href="#ms12-13"><img src="/clients/aharrison/art/book1-spread-p12-p13-v6-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>12 &middot; 13</div>
+      <div class="tile drawn" data-tile="ms14-15"><a class="t" href="#ms14-15"><img src="/clients/aharrison/art/book1-spread-p14-p15-v6-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>14 &middot; 15</div>
+      <div class="tile drawn" data-tile="ms16-17"><a class="t" href="#ms16-17"><img src="/clients/aharrison/art/book1-spread-p16-p17-v5-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>16 &middot; 17</div>
+      <div class="tile drawn" data-tile="ms18-19"><a class="t" href="#ms18-19"><img src="/clients/aharrison/art/book1-spread-p18-p19-v6-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>18 &middot; 19</div>
+      <div class="tile drawn" data-tile="ms20-21"><a class="t" href="#ms20-21"><img src="/clients/aharrison/art/book1-spread-p20-p21-v2-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>20 &middot; 21</div>
+      <div class="tile drawn" data-tile="ms22-23"><a class="t" href="#ms22-23"><img src="/clients/aharrison/art/book1-spread-p22-p23-v4-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>22 &middot; 23</div>
+      <div class="tile drawn" data-tile="pp28-29"><a class="t" href="#fruit-verse"><img src="/clients/aharrison/art/book1-fruit-verse-v2-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>Fruit &middot; Verse</div>
+      <div class="tile drawn" data-tile="pp30-31"><a class="t" href="#note-about"><img src="/clients/aharrison/art/book1-note-about-v5-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>Note &middot; About</div>
+      <div class="tile drawn" data-tile="p32"><a class="t" href="#endpaper-back"><img src="/clients/aharrison/art/book1-endpaper-back-v2-thumb.webp" alt="" width="360" height="180"><span class="badges"></span></a>Endpaper</div>
+      <div class="tile single back drawn" data-tile="back-cover"><a class="t" href="#back-cover"><img src="/clients/aharrison/art/book1-back-cover-v2-thumb.webp" alt="" width="180" height="180"><span class="h"></span><span class="badges"></span></a>Back cover</div>
+    </nav>
+  </div>
+</section>
+
+<!-- ============ THE BOOK, IN PRINT ORDER ============
+     Each drawn spread: data-id = review key (never rename once comments exist), data-v = version shown.
+     A new version of a spread = new image files + bump data-v; older comments then show "on Version N". -->
+<section class="book-sec">
+  <div class="wrap" id="book">
+
+    <!-- 2026-11-04: every page drawn; approved by Michael 11-04 (internal: Michael + Stephanie only, page still unlinked from section 05). -->
+    <article class="sp" id="cover" data-id="cover" data-v="v5" data-vname="Version 5" data-label="the front cover">
+      <div class="sp-eyebrow">Front cover</div>
+      <div class="block-head"><h3>The cover</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 5</b> &middot; November 4 &middot; Lady Belle and her fruit are much bigger, with the title, subtitle and series logo below.</div>
+      <a class="spread-plate single" href="/clients/aharrison/art/book1-cover-v5-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-cover-v5.webp" alt="The front cover: Lady Belle's smiling face in a halo of the nine fruits, the title Lady Belle Finds a Forever Home, A Book About Kindness, and the Tales of Lady Belle, Fruit of the Spirit logo, on a white page with pale red apples." width="1200" height="1200" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-cover-v5-full.webp" download="Lady_Belle_Book_One_cover_v5.webp">&darr; Download full size</a><span>Click any page to open it full size.</span></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="endpaper" data-id="p1" data-v="v2" data-vname="Version 2" data-label="printed page 1">
+      <div class="sp-eyebrow">Printed page 1</div>
+      <div class="block-head"><h3>Inside front cover and fruit pattern</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 2</b> &middot; November 4 &middot; The fruit pattern is the wallpaper from talesofladybelle.com. The inside front cover stays blank.</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-endpaper-front-v2-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-endpaper-front-v2.webp" alt="Printed page 1: the blank inside front cover on the left; on the right, the website's pastel pattern of the nine fruits." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-endpaper-front-v2-full.webp" download="Lady_Belle_Book_One_page_1_v2.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="title" data-id="pp2-3" data-v="v2" data-vname="Version 2" data-label="the copyright and title pages">
+      <div class="sp-eyebrow">Printed pages 2&ndash;3</div>
+      <div class="block-head"><h3>Copyright and title page</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 2</b> &middot; November 4 &middot; The Scripture permission line and the ISBN are placeholders until we have them.</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-copyright-title-v2-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-copyright-title-v2.webp" alt="Printed pages 2 and 3: the copyright page on the left; on the right, the title page with the series logo, Lady Belle Finds a Forever Home, A Book About Kindness, a drawing of Lady Belle on her bed, and Adele Harrison." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-copyright-title-v2-full.webp" download="Lady_Belle_Book_One_pages_2-3_v2.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms1" data-id="dedication" data-v="v3" data-vname="Version 3" data-label="the dedication and page 1">
+      <div class="sp-eyebrow">Printed pages 4&ndash;5</div>
+      <div class="block-head"><h3>Dedication and page 1</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 3</b> &middot; November 4 &middot; The dedication as Adele sent it; on page 1, every dog behind the kennel wire.</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-dedication-p1-v4-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-dedication-p1-v4.webp" alt="Printed pages 4 and 5: the dedication on the left; on the right, story page 1, the caretakers' legs walking down the kennel hallway while the dogs, Lady Belle among them, watch from behind the kennel wire." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-dedication-p1-v4-full.webp" download="Lady_Belle_Book_One_dedication_page_1_v4.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms2-3" data-id="ms2-3" data-v="v2" data-vname="Version 2" data-label="pages 2 and 3">
+      <div class="sp-eyebrow">Printed pages 6&ndash;7</div>
+      <div class="block-head"><h3>Pages 2 and 3</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 2</b> &middot; November 4</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p2-p3-v3-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p2-p3-v3.webp" alt="Pages 2 and 3: on the left, the row of kennels with Lady Belle lying behind her kennel wire, her paws through the gate; on the right, a caretaker's hands clip a leash to her collar at the open kennel door." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p2-p3-v3-full.webp" download="Lady_Belle_Book_One_pages_2-3_v3.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <!-- Revision 1 approved by Adele (email 2026-11-04). Only change since: "zigzagging" and "ladylike" set as one word each (her request). -->
+    <article class="sp" id="ms4-5" data-id="ms4-5" data-v="r1a" data-vname="Approved version" data-approved="Adele" data-label="pages 4 and 5">
+      <div class="sp-eyebrow">Printed pages 8&ndash;9</div>
+      <div class="block-head"><h3>Pages 4 and 5</h3><span class="stage ok" data-stage>Approved by Adele</span></div>
+      <div class="sp-meta"><b>Revision 1, approved</b> &middot; November 4 &middot; &ldquo;zigzagging&rdquo; and &ldquo;ladylike&rdquo; are now one word each, as Adele asked.</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p4-p5-v2-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p4-p5-v2.webp" alt="Pages 4 and 5: on the left, Lady Belle leaves her kennel and looks up at the caretaker, with the terrier and the beagle inside their kennels; on the right, seen from behind, she prances down the hallway toward the big solid door." width="2400" height="1200" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p4-p5-v2-full.webp" download="Lady_Belle_Book_One_pages_4-5_v2.webp">&darr; Download full size</a><span>Click the spread to open it full size.</span></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms6-7" data-id="ms6-7" data-v="v3" data-vname="Version 3" data-label="pages 6 and 7">
+      <div class="sp-eyebrow">Printed pages 10&ndash;11</div>
+      <div class="block-head"><h3>Pages 6 and 7</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 3</b> &middot; November 2</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p6-p7-v7-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p6-p7-v7.webp" alt="Pages 6 and 7: on the left, Lady Belle bounds into the arms of the little girl and boy, who kneel on the floor and pet her; on the right, the caretaker leads her back down the hallway on her leash, her head and tail drooping, the beagle watching from its kennel." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p6-p7-v7-full.webp" download="Lady_Belle_Book_One_pages_6-7_v7.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms8-9" data-id="ms8-9" data-v="v3" data-vname="Version 3" data-label="pages 8 and 9">
+      <div class="sp-eyebrow">Printed pages 12&ndash;13</div>
+      <div class="block-head"><h3>Pages 8 and 9</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 3</b> &middot; November 4 &middot; Lady Belle on page 9 is whiter, to match her other pages.</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p8-p9-v4-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p8-p9-v4.webp" alt="Pages 8 and 9: on the left, Lady Belle stands on a padded mat on the tall metal table and licks the caretaker's hand, a travel carrier beside her; on the right, she sits inside the travel carrier on the table." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p8-p9-v4-full.webp" download="Lady_Belle_Book_One_pages_8-9_v4.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms10-11" data-id="ms10-11" data-v="v4" data-vname="Version 4" data-label="pages 10 and 11">
+      <div class="sp-eyebrow">Printed pages 14&ndash;15</div>
+      <div class="block-head"><h3>Pages 10 and 11</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 4</b> &middot; November 2</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p10-p11-v5-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p10-p11-v5.webp" alt="Pages 10 and 11: on the left, the SUV waits outside the animal shelter with its back door open and Lady Belle's carrier on the back seat; on the right, a close view of Lady Belle in her carrier by the car window as the car pulls away." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p10-p11-v5-full.webp" download="Lady_Belle_Book_One_pages_10-11_v5.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms12-13" data-id="ms12-13" data-v="v4" data-vname="Version 4" data-label="pages 12 and 13">
+      <div class="sp-eyebrow">Printed pages 16&ndash;17</div>
+      <div class="block-head"><h3>Pages 12 and 13</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 4</b> &middot; November 3</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p12-p13-v6-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p12-p13-v6.webp" alt="Pages 12 and 13: on the left, inside the car, Lady Belle looks out of her carrier past the driver's shoulder and the front seats; on the right, the man carries her carrier through the front door while the children walk with him." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p12-p13-v6-full.webp" download="Lady_Belle_Book_One_pages_12-13_v6.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms14-15" data-id="ms14-15" data-v="v5" data-vname="Version 5" data-label="pages 14 and 15">
+      <div class="sp-eyebrow">Printed pages 18&ndash;19</div>
+      <div class="block-head"><h3>Pages 14 and 15</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 5</b> &middot; November 3</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p14-p15-v6-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p14-p15-v6.webp" alt="Pages 14 and 15: on the left, Lady Belle's view of her new home through the front of her carrier, the back of her head at the bottom; on the right, her carrier sits by the sliding glass door, facing the kitchen." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p14-p15-v6-full.webp" download="Lady_Belle_Book_One_pages_14-15_v6.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms16-17" data-id="ms16-17" data-v="v4" data-vname="Version 4" data-label="pages 16 and 17">
+      <div class="sp-eyebrow">Printed pages 20&ndash;21</div>
+      <div class="block-head"><h3>Pages 16 and 17</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 4</b> &middot; November 3</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p16-p17-v5-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p16-p17-v5.webp" alt="Pages 16 and 17: on the left, the family room to the left of her carrier, with the fireplace, the half wall and stairs, and the entry door at the far end; on the right, the kitchen archway, the bar stools and the big sliding glass door to the back yard." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p16-p17-v5-full.webp" download="Lady_Belle_Book_One_pages_16-17_v5.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms18-19" data-id="ms18-19" data-v="v5" data-vname="Version 5" data-label="pages 18 and 19">
+      <div class="sp-eyebrow">Printed pages 22&ndash;23</div>
+      <div class="block-head"><h3>Pages 18 and 19</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 5</b> &middot; November 4</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p18-p19-v6-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p18-p19-v6.webp" alt="Pages 18 and 19: on the left, Lady Belle watches from her carrier by the sliding glass door as the man walks out to the back yard; on the right, Shadow and Cuddles come around the half wall with their backs arched, hissing at her carrier." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p18-p19-v6-full.webp" download="Lady_Belle_Book_One_pages_18-19_v6.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms20-21" data-id="ms20-21" data-v="v1" data-vname="Version 1" data-label="pages 20 and 21">
+      <div class="sp-eyebrow">Printed pages 24&ndash;25</div>
+      <div class="block-head"><h3>Pages 20 and 21</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 1</b> &middot; November 3</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p20-p21-v2-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p20-p21-v2.webp" alt="Pages 20 and 21: on the left, seen from behind the two cats, Lady Belle sits back in her carrier, worried; on the right, the family kneels around her on the floor and she licks the little boy's hand." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p20-p21-v2-full.webp" download="Lady_Belle_Book_One_pages_20-21_v2.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="ms22-23" data-id="ms22-23" data-v="v3" data-vname="Version 3" data-label="pages 22 and 23">
+      <div class="sp-eyebrow">Printed pages 26&ndash;27</div>
+      <div class="block-head"><h3>Pages 22 and 23</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 3</b> &middot; November 4 &middot; On page 23 the crate bars no longer cross Lady Belle&rsquo;s face.</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-spread-p22-p23-v4-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-spread-p22-p23-v4.webp" alt="Pages 22 and 23: on the left, Lady Belle turns circles on the soft bed in her new, larger kennel by the lamp; on the right, she sleeps curled up on the bed inside it." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-spread-p22-p23-v4-full.webp" download="Lady_Belle_Book_One_pages_22-23_v4.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="fruit-verse" data-id="pp28-29" data-v="v2" data-vname="Version 2" data-label="the fruit pattern and verse">
+      <div class="sp-eyebrow">Printed pages 28&ndash;29</div>
+      <div class="block-head"><h3>Fruit pattern and verse</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 2</b> &middot; November 4 &middot; Galatians 5:22&ndash;23.</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-fruit-verse-v2-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-fruit-verse-v2.webp" alt="Printed pages 28 and 29: the website's fruit pattern on the left; on the right, a row of the nine fruits above the verse from Galatians 5:22 to 23." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-fruit-verse-v2-full.webp" download="Lady_Belle_Book_One_pages_28-29_v2.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="note-about" data-id="pp30-31" data-v="v4" data-vname="Version 4" data-label="the note to readers and about the author">
+      <div class="sp-eyebrow">Printed pages 30&ndash;31</div>
+      <div class="block-head"><h3>Note to readers and about the author</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 4</b> &middot; November 4 &middot; Adele&rsquo;s bio, the same words as on talesofladybelle.com, beside her portrait with Lady Belle, Shadow and Cuddles.</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-note-about-v5-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-note-about-v5.webp" alt="Printed pages 30 and 31: the note to readers with questions for little readers on the left; About the Author on the right, with Adele&#39;s bio beside her portrait on her couch with Lady Belle, Shadow and Cuddles, and talesofladybelle.com." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-note-about-v5-full.webp" download="Lady_Belle_Book_One_pages_30-31_v5.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="endpaper-back" data-id="p32" data-v="v2" data-vname="Version 2" data-label="printed page 32">
+      <div class="sp-eyebrow">Printed page 32</div>
+      <div class="block-head"><h3>Fruit pattern and inside back cover</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 2</b> &middot; November 4 &middot; The inside back cover stays blank.</div>
+      <a class="spread-plate" href="/clients/aharrison/art/book1-endpaper-back-v2-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-endpaper-back-v2.webp" alt="Printed page 32: the website's fruit pattern on the left; the blank inside back cover on the right." width="2400" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-endpaper-back-v2-full.webp" download="Lady_Belle_Book_One_page_32_v2.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <article class="sp" id="back-cover" data-id="back-cover" data-v="v2" data-vname="Version 2" data-label="the back cover">
+      <div class="sp-eyebrow">Back cover</div>
+      <div class="block-head"><h3>The back cover</h3><span class="stage live" data-stage>Ready for review</span></div>
+      <div class="sp-meta"><b>Version 2</b> &middot; November 4 &middot; The back-cover copy is set: tagline, story summary, a line for grown-ups and a short author bio, with Lady Belle looking down at the words. The box at the lower right is where Amazon KDP prints the ISBN barcode.</div>
+      <a class="spread-plate single left" href="/clients/aharrison/art/book1-back-cover-v2-full.webp" target="_blank" rel="noopener">
+        <img src="/clients/aharrison/art/book1-back-cover-v2.webp" alt="The back cover: Lady Belle&#39;s happy face in the top right corner looking down at the words; the tagline One hopeful puppy, one big day, and a family that shows her what kindness looks like; the story summary; a line for grown-ups; a short author bio; the Tales of Lady Belle logo and talesofladybelle.com; and an empty box at the lower right for the ISBN barcode, on pale red apples." width="1200" height="1200" loading="lazy" decoding="async">
+      </a>
+      <div class="sp-tools"><a class="watch" href="/clients/aharrison/art/book1-back-cover-v2-full.webp" download="Lady_Belle_Book_One_back_cover_v2.webp">&darr; Download full size</a></div>
+      <div class="rv"></div>
+    </article>
+
+    <!-- New spreads go above this line, in print order. -->
+
+    <article class="sp" id="still-to-draw">
+      <div class="sec-title">Still to come</div>
+      <div class="todo-list">
+        <div class="todo"><b>Back-cover testimonials</b>Two or three real quotes, when we have them</div>
+        <div class="todo"><b>ISBN and Scripture permission</b>Copyright page and the back-cover barcode</div>
+              </div>
+
+      <div class="send">
+        <h2>Send us your comments</h2>
+        <p>Your comments save as you go, and we see them right away. If you&rsquo;d also like to email them to Michael, use the button below.</p>
+        <div class="btns">
+          <button class="btn primary" type="button" id="emailAll">Email all comments to Michael</button>
+          <button class="btn ghost" type="button" id="copyAll">Copy all comments</button>
+        </div>
+        <div class="sync" id="sync" role="status" aria-live="polite">Loading comments&hellip;</div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; 2026 AvatarAgency &middot; Prepared for Adele and Bill Harrison</div>
+    <div>Private client portal &mdash; please do not share this link.</div>
+  </div>
+</footer>
+
+<script>
+/* Shared comments + approvals for every spread, stored by /api/review (KV).
+   State: { name, updatedAt, items: { "<data-id>": { notes:[{id,name,text,at,v}], approvals:{ "<name>":{at,v} } } } }
+   The API keeps only the last write, so every change re-reads the latest state, applies one edit, and writes it back. */
+(function () {
+  var DOC = "aharrison-kindness", API = "/api/review?doc=" + DOC;
+  var WHO_KEY = "kindness-reviewer", DRAFT_KEY = "kindness-draft-";
+  var items = {}, lastLoad = 0;
+  var whoSel = document.getElementById("who"), whoOther = document.getElementById("whoOther"), whoBox = document.getElementById("whoBox");
+  var syncEl = document.getElementById("sync");
+  var spreads = [].slice.call(document.querySelectorAll(".sp[data-id]"));
+
+  function store(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
+  function recall(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function who() { return whoSel.value === "__other" ? whoOther.value.trim() : whoSel.value; }
+  function fmt(at) {
+    var d = new Date(at); if (isNaN(d)) return "";
+    return d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function vname(sp, v) {
+    if (v === sp.dataset.v) return sp.dataset.vname || "";
+    if (!v) return ""; return v.charAt(0) === "r" ? "Revision " + v.slice(1) : "Version " + v.replace(/^v/, "");
+  }
+
+  /* ---- who is reviewing ---- */
+  (function restoreWho() {
+    var saved = recall(WHO_KEY); if (!saved) return;
+    var known = [].some.call(whoSel.options, function (o) { return o.value === saved; });
+    if (known) whoSel.value = saved; else { whoSel.value = "__other"; whoOther.value = saved; whoOther.hidden = false; }
+  })();
+  function whoChanged() {
+    whoOther.hidden = whoSel.value !== "__other";
+    if (!whoOther.hidden && document.activeElement === whoSel) whoOther.focus();
+    store(WHO_KEY, who() || null);
+    if (who()) whoBox.classList.remove("need");
+    renderAll();
+  }
+  whoSel.addEventListener("change", whoChanged);
+  whoOther.addEventListener("input", whoChanged);
+  function needName(statusEl) {
+    whoBox.classList.add("need");
+    whoSel.focus();
+    if (statusEl) setStatus(statusEl, "Choose your name at the top of the page first.", "err");
+    return false;
+  }
+
+  /* ---- server ---- */
+  function getState() {
+    return fetch(API, { cache: "no-store" }).then(function (r) {
+      if (!r.ok) throw new Error("load " + r.status);
+      return r.json();
+    }).then(function (d) { return d && typeof d.items === "object" && d.items ? d.items : {}; });
+  }
+  function load() {
+    return getState().then(function (it) {
+      items = it; lastLoad = Date.now(); renderAll();
+      syncEl.className = "sync"; syncEl.textContent = "Comments are up to date.";
+    }).catch(function () {
+      syncEl.className = "sync err";
+      syncEl.textContent = "We couldn’t load the comments. Check your connection and reload the page.";
+    });
+  }
+  /* Re-read, apply one change, write back. */
+  function mutate(id, fn) {
+    return getState().then(function (it) {
+      var item = it[id] || (it[id] = {});
+      if (!Array.isArray(item.notes)) item.notes = [];
+      if (!item.approvals || typeof item.approvals !== "object") item.approvals = {};
+      fn(item);
+      return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: who(), items: it }) })
+        .then(function (r) {
+          if (r.status === 413) throw new Error("full");
+          if (!r.ok) throw new Error("save " + r.status);
+          items = it; lastLoad = Date.now(); renderAll();
+        });
+    });
+  }
+  function failMsg(err) {
+    return err && err.message === "full"
+      ? "The comment board is full. Please email Michael and we’ll make room."
+      : "That didn’t save. Check your connection and try again; your words are still in the box.";
+  }
+  function setStatus(s, msg, kind) { s.textContent = msg; s.className = "rv-status" + (kind ? " " + kind : ""); }
+
+  /* ---- build one review panel per spread ---- */
+  spreads.forEach(function (sp) {
+    var id = sp.dataset.id, rv = sp.querySelector(".rv"), canApprove = sp.dataset.approve !== "0";
+    var head = el("div", "rv-head");
+    head.appendChild(el("div", "rv-title", "Comments and edits"));
+    var appr = el("div", "rv-approvals"); head.appendChild(appr);
+    var list = el("ol", "notes");
+    var ta = el("textarea"); ta.id = "c-" + id;
+    ta.placeholder = "Your comments or edits for " + sp.dataset.label + "…";
+    ta.setAttribute("aria-label", "Comments or edits for " + sp.dataset.label);
+    ta.value = recall(DRAFT_KEY + id) || "";
+    ta.addEventListener("input", function () { store(DRAFT_KEY + id, ta.value || null); });
+    var actions = el("div", "rv-actions");
+    var save = el("button", "btn primary", "Save comment"); save.type = "button";
+    actions.appendChild(save);
+    var box = null;
+    if (canApprove) {
+      var lab = el("label", "approve"); box = el("input"); box.type = "checkbox";
+      lab.appendChild(box); lab.appendChild(document.createTextNode("I approve " + sp.dataset.label));
+      actions.appendChild(lab);
+    }
+    var status = el("span", "rv-status"); status.setAttribute("role", "status"); status.setAttribute("aria-live", "polite");
+    actions.appendChild(status);
+    rv.appendChild(head); rv.appendChild(list); rv.appendChild(ta); rv.appendChild(actions);
+
+    save.addEventListener("click", function () {
+      var text = ta.value.trim();
+      if (!text) { setStatus(status, "Type a comment first.", "err"); ta.focus(); return; }
+      if (!who()) return needName(status);
+      save.disabled = true; setStatus(status, "Saving…");
+      mutate(id, function (item) { item.notes.push({ id: uid(), name: who(), text: text.slice(0, 4000), at: new Date().toISOString(), v: sp.dataset.v }); })
+        .then(function () { ta.value = ""; store(DRAFT_KEY + id, null); setStatus(status, "Saved. Everyone reviewing can see it.", "ok"); })
+        .catch(function (e) { setStatus(status, failMsg(e), "err"); })
+        .then(function () { save.disabled = false; });
+    });
+    if (box) box.addEventListener("change", function () {
+      var on = box.checked;
+      if (!who()) { box.checked = !on; return needName(status); }
+      box.disabled = true; setStatus(status, "Saving…");
+      mutate(id, function (item) {
+        if (on) item.approvals[who()] = { at: new Date().toISOString(), v: sp.dataset.v };
+        else delete item.approvals[who()];
+      }).then(function () { setStatus(status, on ? "Approved. Thank you!" : "Approval removed.", "ok"); })
+        .catch(function (e) { box.checked = !on; setStatus(status, failMsg(e), "err"); })
+        .then(function () { box.disabled = false; });
+    });
+
+    sp._rv = { list: list, appr: appr, box: box, status: status };
+  });
+
+  /* ---- render ---- */
+  function renderAll() {
+    var me = who();
+    spreads.forEach(function (sp) {
+      var id = sp.dataset.id, cur = sp.dataset.v, item = items[id] || {}, r = sp._rv;
+      var notes = Array.isArray(item.notes) ? item.notes : [], approvals = item.approvals || {};
+
+      r.list.textContent = "";
+      notes.forEach(function (n) { r.list.appendChild(noteEl(sp, n, me)); });
+
+      r.appr.textContent = "";
+      var okNow = 0;
+      Object.keys(approvals).forEach(function (name) {
+        var a = approvals[name] || {}, current = a.v === cur;
+        if (current) okNow++;
+        r.appr.appendChild(el("span", "chip" + (current ? "" : " old"),
+          current ? "✓ Approved by " + name + " · " + fmt(a.at).split(",")[0]
+                  : name + " approved " + vname(sp, a.v)));
+      });
+      if (r.box) {
+        var mine = me && approvals[me] && approvals[me].v === cur;
+        r.box.checked = !!mine;
+        r.box.parentNode.classList.toggle("on", !!mine);
+      }
+      var stage = sp.querySelector("[data-stage]");
+      if (stage) {
+        var by = sp.dataset.approved;   /* approved outside this page (e.g. by Adele's email) */
+        stage.className = "stage " + (okNow || by ? "ok" : "live");
+        stage.textContent = by ? "Approved by " + by : okNow ? "Approved" : "Ready for review";
+      }
+      var tile = document.querySelector('[data-tile="' + id + '"] .badges');
+      if (tile) {
+        tile.textContent = "";
+        if (notes.length) tile.appendChild(el("span", "n", String(notes.length)));
+        if (okNow || sp.dataset.approved) tile.appendChild(el("span", "ok"));
+      }
+    });
+  }
+  function noteEl(sp, n, me) {
+    var li = el("li", "note" + (n.v && n.v !== sp.dataset.v ? " stale" : ""));
+    var top = el("div", "note-top");
+    top.appendChild(el("b", null, n.name || "Someone"));
+    top.appendChild(el("span", null, fmt(n.at) + (n.edited ? " · edited" : "")));
+    if (n.v && n.v !== sp.dataset.v) top.appendChild(el("span", "ver", "on " + vname(sp, n.v)));
+    var text = el("div", "note-text", n.text);
+    li.appendChild(top); li.appendChild(text);
+    if (me && n.name === me) {
+      var acts = el("span", "acts");
+      var edit = el("button", null, "Edit"), del = el("button", null, "Remove");
+      edit.type = del.type = "button";
+      acts.appendChild(edit); acts.appendChild(del); top.appendChild(acts);
+      edit.addEventListener("click", function () { editNote(sp, n, li, text); });
+      del.addEventListener("click", function () {
+        if (!confirm("Remove this comment?")) return;
+        mutate(sp.dataset.id, function (item) { item.notes = item.notes.filter(function (x) { return x.id !== n.id; }); })
+          .catch(function (e) { setStatus(sp._rv.status, failMsg(e), "err"); });
+      });
+    }
+    return li;
+  }
+  function editNote(sp, n, li, textEl) {
+    var ta = el("textarea"); ta.value = n.text; ta.setAttribute("aria-label", "Edit your comment");
+    var row = el("div", "rv-actions");
+    var ok = el("button", "btn primary", "Save changes"), cancel = el("button", "btn ghost", "Cancel");
+    ok.type = cancel.type = "button";
+    row.appendChild(ok); row.appendChild(cancel);
+    textEl.replaceWith(ta); li.appendChild(row); ta.focus();
+    cancel.addEventListener("click", renderAll);
+    ok.addEventListener("click", function () {
+      var t = ta.value.trim(); if (!t) return;
+      ok.disabled = true;
+      mutate(sp.dataset.id, function (item) {
+        item.notes.forEach(function (x) { if (x.id === n.id) { x.text = t.slice(0, 4000); x.edited = new Date().toISOString(); } });
+      }).catch(function (e) { ok.disabled = false; setStatus(sp._rv.status, failMsg(e), "err"); });
+    });
+  }
+
+  /* ---- email / copy everything ---- */
+  function compile() {
+    var out = ["Tales of Lady Belle, Book One: Kindness — illustration comments", ""];
+    spreads.forEach(function (sp) {
+      var item = items[sp.dataset.id] || {}, notes = item.notes || [], ap = item.approvals || {};
+      var cur = Object.keys(ap).filter(function (k) { return ap[k] && ap[k].v === sp.dataset.v; });
+      if (!notes.length && !cur.length) return;
+      var title = sp.querySelector("h3").textContent + (sp.dataset.vname ? " (" + sp.dataset.vname + ")" : "");
+      out.push(title.toUpperCase());
+      if (cur.length) out.push("Approved by: " + cur.join(", "));
+      notes.forEach(function (n) { out.push("- " + n.name + ", " + fmt(n.at) + (n.v && n.v !== sp.dataset.v ? " (on " + vname(sp, n.v) + ")" : "") + ": " + n.text); });
+      out.push("");
+    });
+    return out.length > 2 ? out.join("\n") : "";
+  }
+  document.getElementById("emailAll").addEventListener("click", function () {
+    var t = compile();
+    if (!t) { syncEl.className = "sync err"; syncEl.textContent = "There are no comments yet."; return; }
+    location.href = "mailto:michael@avataragency.ai?subject=" + encodeURIComponent("Lady Belle Book One: illustration comments") + "&body=" + encodeURIComponent(t);
+    syncEl.className = "sync"; syncEl.textContent = "Opening your email app. If nothing opens, use Copy instead.";
+  });
+  document.getElementById("copyAll").addEventListener("click", function () {
+    var t = compile();
+    if (!t) { syncEl.className = "sync err"; syncEl.textContent = "There are no comments yet."; return; }
+    navigator.clipboard.writeText(t).then(function () { syncEl.className = "sync"; syncEl.textContent = "Copied. Paste them into an email or a message."; },
+      function () { syncEl.className = "sync err"; syncEl.textContent = "Copy didn’t work in this browser. Use the email button instead."; });
+  });
+
+  renderAll();
+  load();
+  /* Pick up the other reviewers' notes when someone comes back to the tab. */
+  window.addEventListener("focus", function () { if (Date.now() - lastLoad > 20000) load(); });
+})();
+</script>
+</body>
+</html>
