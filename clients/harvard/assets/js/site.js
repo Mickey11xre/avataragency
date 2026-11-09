@@ -264,6 +264,7 @@
       CONTACT: stage.getAttribute("data-contact") || "/api/contact",
       POPOUT: stage.getAttribute("data-popout") || "",
       PHONE: stage.getAttribute("data-office-phone") || "", EMAIL: stage.getAttribute("data-office-email") || "",
+      STAFF_TOKEN: "/api/hig-staff-token",   // one endpoint for the three staff; the slot goes in the body
       SDK_URL: "https://cdn.jsdelivr.net/npm/@touchcastllc/napster-companion-api@1.5.0/lib/index.standalone.js",
       CAP_S: 600,          // ten-minute session cap, as on every stage
       INTRO_END: 28.4,     // harrison-intro.mp4: speech ends at about 28.2 s (harrison-intro.vtt)
@@ -303,8 +304,8 @@
       vid.addEventListener("timeupdate", function () {
         var t = vid.currentTime;
         if (hearing) {
-          if (t + 0.3 < lastT || t > CFG.INTRO_END) { stopHearing(); pulseActions(); }
-          else { var on = LINES.filter(function (l) { return t >= l[0] && t < l[1]; })[0]; caption(on ? [on[2]] : []); }
+          if (t + 0.3 < lastT || (!CAST && t > CFG.INTRO_END)) { stopHearing(); pulseActions(); }
+          else { var on = CAST ? null : LINES.filter(function (l) { return t >= l[0] && t < l[1]; })[0]; caption(on ? [on[2]] : []); }
         }
         lastT = t;
       });
@@ -319,13 +320,24 @@
     /* ═════════ The panel: four cards, each opening a view ON the panel (Michael, 10-30): Contact Us = the contact form
        and review card; the other three = a short version of their page, from the <template id="pv-…"> build.js renders
        from the site's own copy. The back arrow walks back through the views. ═════════ */
+    /* Open prompt + staff (stage v3, the Greg demo 11-08): on when the build says data-prompt="on", or for a visitor
+       who opened the page with ?staff=1 (kept for this tab; ?staff=0 turns it off). Off = the v1.3 stage, untouched. */
+    var PF = d.getElementById("hig-prompt"), STAFF_URL = stage.getAttribute("data-staff") || "", SITE_ROOT = stage.getAttribute("data-root") || "";
+    var PROMPT_ON = !!PF && !!STAFF_URL && (function () {
+      if (stage.getAttribute("data-prompt") === "on") return true;
+      var q = /[?&]staff=([01])\b/.exec(location.search), on = false;
+      try { if (q) sessionStorage.setItem("hig_staff", q[1]); on = sessionStorage.getItem("hig_staff") === "1"; } catch (e) { on = !!q && q[1] === "1"; }
+      return on;
+    })();
+    if (PROMPT_ON) { stage.classList.add("has-prompt"); PF.hidden = false; var docCard = $(".p-act-doc", body); if (docCard) docCard.hidden = false; var teamCard = $(".p-act-team", body); if (teamCard) teamCard.hidden = false; }
     var HOME_HTML = body.innerHTML;   // the cards as built, restored whenever the panel goes home
     var TOPICS = { contact: "Contact Us", investing: "Invest with Harvard Investment Group", development: "Development partnerships", philanthropy: "Hope for the Hurting" };
     var VT = {}; try { VT = JSON.parse((d.getElementById("pv-titles") || {}).textContent || "{}"); } catch (e) {}
     var PAGE_VIEWS = {}; ["investing", "development", "philanthropy"].forEach(function (k) { var tpl = d.getElementById("pv-" + k); if (tpl) PAGE_VIEWS[k] = tpl.innerHTML; });
     var INTERESTS = ["Investing", "Raising capital", "Real estate", "Development partnership", "Philanthropy", "Speaking", "Press", "Other"];
     var S = { mode: "home", hist: [], topic: null, form: { name: "", email: "", phone: "", interest: "", note: "" }, review: null, sent: null, fail: "" };
-    var TITLES = { home: "", form: VT.contact || "Contact Us", investing: VT.investing || "Investments", development: VT.development || "Developments", philanthropy: VT.philanthropy || "Hope for the Hurting", done: "Sent", failed: "Not sent" };
+    var TITLES = { home: "", form: VT.contact || "Contact Us", investing: VT.investing || "Investments", development: VT.development || "Developments", philanthropy: VT.philanthropy || "Hope for the Hurting", done: "Sent", failed: "Not sent",
+      consent: "Share a document", staff: "Reviewing your document", casefile: "Case file", reveal: "", team: "The AI team" };
     var tr = function (v) { return String(v || "").trim(); };
     var validEmail = function (e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e); };
     var arrow = '<svg aria-hidden="true"><use href="#i-arrow"/></svg>';
@@ -371,7 +383,9 @@
       },
       done: function () { return '<div class="p-done"><span class="tick">\u2713</span><h4>Your message is on its way.</h4><p>Greg\u2019s office will reach out shortly.</p><button class="btn btn-ghost" type="button" data-act="home">Back to the options</button></div>'; },
       failed: function () { return '<div class="p-done"><h4>The message could not be sent.</h4><p>' + officeLine() + '</p><button class="btn btn-ghost" type="button" data-act="retry">Try again</button></div>'; },
+      consent: function () { return consentView(); }, staff: function () { return staffView(); }, casefile: function () { return caseFileView(); }, reveal: function () { return revealView(); }, team: function () { return teamView(); },
     };
+    var STAFF_MODES = { consent: 1, staff: 1, casefile: 1, reveal: 1 };
     function render(opts) {
       opts = opts || {};
       titleEl.textContent = TITLES[S.mode] || "";
@@ -379,7 +393,7 @@
       backBtn.hidden = S.mode === "home";
       body.innerHTML = (VIEWS[S.mode] || VIEWS.home)();
       body.scrollTop = 0;
-      if (S.mode === "home") markTopic();
+      if (S.mode === "home") { markTopic(); paintDocCard(); }
       var form = $("form", body);
       if (form) form.addEventListener("submit", function (e) { e.preventDefault(); TOOLS_IMPL.submit_contact_details({}); });
       if (opts.focus && window.innerWidth > 900) { var f = $("input, button", body); if (f) f.focus({ preventScroll: true }); }   // no keyboard pop-up on phones
@@ -424,6 +438,7 @@
     }
     backBtn.addEventListener("click", function () {
       if (S.mode === "form" && inReview()) { S.review = null; render({ focus: true }); emit("The visitor chose to edit their details. Nothing has been sent.", false); return; }
+      if (S.mode === "consent") { J = null; clearPending(); }   // backing out of the consent line shares nothing
       var from = S.mode; goBack();
       // Measured 10-30: after Back he answered a follow-up ("How can I donate?") without reopening the view. Remind him here.
       if (from !== "home") emit("The visitor went back from " + (TITLES[from] || from) + " to " + (S.mode === "home" ? "the four options" : TITLES[S.mode]) + "." +
@@ -436,6 +451,11 @@
       var t = e.target.closest("[data-act], [data-topic]"); if (!t) return;
       var a = t.getAttribute("data-act");
       if (a === "home") go("home");
+      else if (a === "doc") { e.preventDefault(); if (J && J.state === "working") { S.hist = []; go("staff", { replace: true }); } else if (J && J.state === "done") { S.hist = []; go("casefile", { replace: true }); } else fileInput.click(); }
+      else if (a === "consent-yes") startJob();
+      else if (a === "consent-no") { J = null; clearPending(); go("home"); }
+      else if (a === "cf-send") sendCaseFile();
+      else if (a === "cf-again") { J = null; go("home"); fileInput.click(); }
       else if (a === "retry") { S.review = null; go("form", { focus: true, replace: true }); }
       else if (a === "review-yes") { if (!S.review) return; S.review.ok = true; TOOLS_IMPL.submit_contact_details({}); }
       else if (a === "review-edit") { S.review = null; render({ focus: true }); emit("The visitor chose to edit their details. Nothing has been sent.", false); }
@@ -469,7 +489,7 @@
     }
     function sendForm() {
       var f = fields();
-      var message = "[Via Harrison, the website AI agent]\nInterest: " + (f.interest || "(not given)") + "\n" + (f.note || "(no note)");
+      var message = "[Via Harrison, the website AI agent]\nInterest: " + (f.interest || "(not given)") + "\n" + (f.note || "(no note)") + caseFileText();
       return fetch(CFG.CONTACT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: f.name, email: f.email, phone: f.phone, message: message, website: "" }) })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j && j.ok === true, status: r.status, body: j }; }); })
         .catch(function (e) { return { ok: false, status: 0, body: { error: String(e && e.message || e) } }; });
@@ -478,6 +498,8 @@
       show_topic: function (a) {
         a = a || {}; var t = a.topic;
         if (!TOPICS[t]) return { ok: false, error: "Unknown topic", topics: Object.keys(TOPICS) };
+        // The staff's work stays on the panel: a page view never replaces a review in progress or its case file.
+        if (STAFF_MODES[S.mode] && t !== "contact") return { ok: true, topic: t, note: "The panel is showing the team's document review, so it stays there. Answer the visitor in words." };
         // He calls it on EVERY reply about a subject (Michael, 10-30): a call for the view already open changes nothing.
         if (S.mode === t || (t === "contact" && S.mode === "form")) return { ok: true, topic: t, view: t === "contact" ? TITLES.form : TITLES[t], note: "That view is already open on the panel. Answer the visitor." };
         openTopic(t, true);
@@ -509,8 +531,9 @@
         return sendForm().then(function (r) {
           if (r.ok) {
             S.sent = fields(); S.review = null; go("done", { replace: true });
-            if (!fromTwin) emit("The visitor pressed Yes on the review card and their message was sent to Greg Cullen's office. Tell them, briefly, that it is on its way and the office will reach out shortly.", true);
-            return { status: "sent" };
+            var kept = J && J.caseFile ? " The team's review went with it. The review stays on this page for this visit only; nothing is kept after they leave. Say so in one sentence." : "";
+            if (!fromTwin) emit("The visitor pressed Yes on the review card and their message was sent to Greg Cullen's office. Tell them, briefly, that it is on its way and the office will reach out shortly." + kept, true);
+            return kept ? { status: "sent", note: kept.trim() } : { status: "sent" };
           }
           var reason = (r.body && (r.body.error || (r.body.fields && Object.keys(r.body.fields).join(", ")))) || ("HTTP " + r.status);
           S.fail = reason; S.review = null; go("failed", { replace: true });
@@ -542,7 +565,7 @@
     function installTools() {
       var mc = d.modelContext;
       if (!mc) { mc = new EventTarget(); try { Object.defineProperty(d, "modelContext", { value: mc, configurable: true }); } catch (e) { d.modelContext = mc; } }
-      mc.getTools = function () { return Promise.resolve(TOOLS.map(function (t) { return { name: t.name, description: t.description, inputSchema: t.inputSchema, annotations: t.annotations }; })); };
+      mc.getTools = function () { return Promise.resolve((CAST ? [] : TOOLS).map(/* the panel tools are Harrison's; a staff member only talks */ function (t) { return { name: t.name, description: t.description, inputSchema: t.inputSchema, annotations: t.annotations }; })); };
       mc.executeTool = function (tool, jsonArgs) {
         var args = {}; try { args = typeof jsonArgs === "string" ? JSON.parse(jsonArgs || "{}") : (jsonArgs || {}); } catch (e) {}
         return execTool(tool && tool.name ? tool.name : tool, args);
@@ -554,6 +577,8 @@
       if (S.sent) bits.push("a message was already sent to Greg's office from this page");
       else { var have = [f.name && "name " + f.name, f.email && "email " + f.email, f.phone && "phone " + f.phone, f.interest && "topic " + f.interest].filter(Boolean); if (have.length) bits.push("the visitor has entered their " + have.join(", ")); if (S.mode === "form") bits.push("the contact form is open"); }
       if (PAGE_VIEWS[S.mode]) bits.push("the " + TITLES[S.mode] + " view is open on the panel");
+      if (J && J.state === "working") bits.push("the visitor shared a document (" + J.file.name + ") and the team is reviewing it now; wait for the [Case file] message");
+      if (J && J.state === "done") bits.push("the team already reviewed the visitor's document (" + J.file.name + ") and the case file is on the panel: " + J.caseFile.spoken);
       return bits.join("; ") + ".";
     }
 
@@ -607,7 +632,7 @@
       ["investing", /\binvest|start-?ups?\b|early stage|raising capital|mid-five figures/i],
     ];
     function autoTopic(e) {
-      if (!e || e.event !== "message_received" || !instance) return;
+      if (!e || e.event !== "message_received" || !instance || CAST) return;   // the panel follows Harrison only
       var m = e.data && e.data.message;
       if (!m || m.role !== "assistant" || m.action !== "completed" || typeof m.content !== "string" || !m.content) return;
       if (S.mode !== "home" && !PAGE_VIEWS[S.mode]) return;          // form, review, sent: leave the visitor's form alone
@@ -622,6 +647,7 @@
       if (readyTimer) { clearTimeout(readyTimer); readyTimer = null; }
       av.classList.add("live-ready"); say(""); setTalk("End conversation", true); pinBg();
       rememberSeen();
+      setTimeout(flushTell, 1200);   // a typed question that started this conversation
       setTimeout(function () { if (liveState === "live" && hasIntro) vid.pause(); }, 900);
     }
     function fadeOutVoice(ms) {
@@ -662,7 +688,7 @@
       try {
         installTools();
         // The token first: while the agent is not live the endpoint answers 503 and nothing else is loaded.
-        var res = await fetch(CFG.TOKEN, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: "{}" });
+        var res = await fetch(CAST ? CFG.STAFF_TOKEN : CFG.TOKEN, { method: "POST", credentials: "include", headers: { "Content-Type": "application/json" }, body: CAST ? JSON.stringify({ slot: CAST.slot }) : "{}" });
         if (!res.ok) { var err = new Error("token " + res.status); err.status = res.status; throw err; }
         var data = await res.json();
         await Promise.all([loadSdk(), loadPopout()]); pinBg();
@@ -681,13 +707,335 @@
         instance.showAvatar(); pinBg();
         setTimeout(function () { if (instance) armReveal(); }, 3000);
         capTimer = setTimeout(function () { endLive("That\u2019s the ten-minute limit \u2014 press Talk to " + name + " to keep going."); }, CFG.CAP_S * 1000);
-        emit(panelSummary(), false);
+        if (CAST) tell("Panel", staffBrief(), false); else emit(panelSummary(), false);
       } catch (e) { liveError(e); }
     }
     talk.addEventListener("click", function () { if (liveState === "live") { endLive(""); return; } startLive(); });
 
+    /* ═════════ Open prompt + the staff behind Harrison (stage v3, the Greg demo; storyboard 05, build path A) ═════════
+       A typed line goes to Harrison as the visitor's words. A document goes to the staff endpoint (data-staff) after
+       the consent tap: the panel shows the three staff working from the endpoint's own status events, then the case
+       file; Harrison is told with "[Prompt] …" at the start and "[Case file] …" at the end (documented send_message
+       system messages, as the panel already uses). The staff's names and faces come from the endpoint, never from this
+       file. Nothing is stored: the file goes from memory to the request and is dropped. */
+    var J = null;            // this visit's review: { file, ask, state: consent | working | done | error, id, staff, lines, peek, caseFile, error, t0, t1, mock }
+    var ROSTER = [];         // [{ slot, name, role, does, face }]: the client roster, from the staff endpoint
+    var REVEAL = null, pending = null, jobTimer = null, jobAbort = null, nudged = false, pendingTell = null, hintT = null;
+    var fileInput = PF ? $(".sp-file", PF) : null, pInput = PF ? $(".sp-input", PF) : null, chip = PF ? $(".sp-chip", PF) : null, sendBtn = PF ? $(".sp-send", PF) : null, hintEl = PF ? $(".sp-hint", PF) : null;
+    var hintText = hintEl ? hintEl.textContent : "";
+    var MAX_FILE = 6 * 1024 * 1024, DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+    var CONSENT = stage.getAttribute("data-consent") || "Share this file for a one-time review? It’s processed in memory and not stored.";
+    var DEFAULT_ASK = stage.getAttribute("data-ask") || "What would you change about this?";
+    var MOCK_TAG = '<span class="sf-mock">Local test data · not a real review</span>';
+    var JOB_ERR = {
+      unsupported_type: "I can take a PDF, an image or a Word file.", too_large: "That file is over 6 MB. A smaller copy will work.",
+      limit: "The team has reached today’s limit for reviews. Please try again tomorrow.", declined: "The team could not review that file.",
+      unreadable: "The team could not read that file. A PDF usually works best.", bad_file: "The team could not read that file. A PDF usually works best.",
+      timeout: "The team ran out of time on this one. Please try again in a minute.", unavailable: "The team could not finish this one. Please try again in a minute.",
+    };
+    function coded(c) { var e = new Error(c); e.code = c; return e; }
+    // role "system" + prefix = a stage event Harrison reacts to; role "user" = the visitor's own typed words
+    function tell(prefix, text, speak, role) {
+      if (!instance || !instance.sendCommand) return false;
+      try { instance.sendCommand({ type: "send_message", data: { text: (prefix ? "[" + prefix + "] " : "") + text, role: role || "system", trigger_response: !!speak } }); return true; } catch (e) { return false; }
+    }
+    function flushTell() { if (!pendingTell || liveState !== "live") return; var p = pendingTell; pendingTell = null; tell(p[0], p[1], p[2], p[3]); }
+    function teamNames() { var n = ROSTER.map(function (s) { return s.name; }); return n.length > 1 ? n.slice(0, -1).join(", ") + " and " + n[n.length - 1] : (n[0] || "the team"); }
+    function hintMsg(t) { if (!hintEl) return; hintEl.textContent = t; hintEl.style.color = "#f0b8a0"; clearTimeout(hintT); hintT = setTimeout(function () { hintEl.textContent = hintText; hintEl.style.color = ""; }, 5000); }
+    function fmtSize(n) { return n >= 1048576 ? (n / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(n / 1024)) + " KB"; }
+    function fileKind(f) {
+      var n = (f.name || "").toLowerCase(), t = f.type || "";
+      if (t === "application/pdf" || /\.pdf$/.test(n)) return "pdf";
+      if (/^image\/(png|jpeg|webp)$/.test(t) || /\.(png|jpe?g|webp)$/.test(n)) return "image";
+      if (t === DOCX_MIME || /\.docx$/.test(n)) return "docx";
+      return "";
+    }
+    function pickFile(f) {
+      if (!f || !PROMPT_ON) return;
+      if (J && J.state === "working") return hintMsg("The team is still on the first file. One at a time.");
+      var k = fileKind(f);
+      if (!k) return hintMsg(JOB_ERR.unsupported_type);
+      if (k !== "image" && f.size > MAX_FILE) return hintMsg(JOB_ERR.too_large);
+      pending = { file: f, kind: k };
+      chip.querySelector("b").textContent = f.name; chip.hidden = false;
+      pInput.placeholder = pInput.getAttribute("data-ph-file") || ""; if (window.innerWidth > 900) pInput.focus({ preventScroll: true });
+      flash(sendBtn, 1200);
+    }
+    function clearPending() { pending = null; if (!PF) return; chip.hidden = true; fileInput.value = ""; pInput.placeholder = pInput.getAttribute("data-ph") || ""; }
+    function submitPrompt() {
+      var text = tr(pInput.value);
+      if (pending) {       // a document: the consent line first, nothing leaves the browser before the Yes
+        J = { file: { name: pending.file.name, size: pending.file.size, kind: pending.kind, blob: pending.file }, ask: text || DEFAULT_ASK, state: "consent" };
+        S.hist = []; go("consent", { replace: true });
+        if (window.innerWidth <= 900) panel.scrollIntoView({ block: "nearest", behavior: "smooth" });
+        return;
+      }
+      if (!text) return;
+      pInput.value = "";
+      if (liveState === "live" && tell("", text, true, "user")) return;
+      pendingTell = ["", text, true, "user"];      // asked before he is live: the question waits for the conversation it starts
+      if (liveState === "idle") startLive();
+    }
+    function fileCard(timer) {
+      var ext = J.file.kind === "pdf" ? "PDF" : J.file.kind === "docx" ? "DOC" : "IMG";
+      return '<div class="sf-file"><span class="sf-ext">' + ext + '</span><span><b>' + esc(J.file.name) + '</b><small>' + fmtSize(J.file.size) + (timer ? " · shared just now" : "") + ' · not stored</small></span>' + (timer ? '<span class="sf-time"></span>' : "") + '</div>';
+    }
+    function consentView() {
+      if (!J) return HOME_HTML;
+      return '<div class="sf-consent">' + fileCard(false) + '<p>' + esc(CONSENT) + '</p><div class="sf-acts"><button class="btn btn-gold" type="button" data-act="consent-yes">Yes, share it ' + arrow + '</button><button class="btn btn-ghost" type="button" data-act="consent-no">No</button></div></div>';
+    }
+    function staffCard(s, l) {
+      var cast = s.slot ? ' data-cast="' + esc(s.slot) + '" role="button" tabindex="0" title="Bring ' + esc(s.name) + ' on stage"' : "";   // a roster member can take the stage
+      return '<div class="sf-card' + (CAST && s.slot && CAST.slot === s.slot ? " is-cast" : "") + '" data-slot="' + esc(s.slot || "") + '" data-status="' + esc(l.status) + '"' + cast + '><img src="' + esc(s.face) + '" alt="" width="46" height="46"><span><b>' + esc(s.name) + ', <span>' + esc(s.role) + '</span></b>' + (l.line ? '<span class="sf-line">' + esc(l.line) + '</span>' : "") + '</span><i class="sf-dot" aria-hidden="true"></i></div>';
+    }
+    function staffView() {
+      if (!J) return HOME_HTML;
+      var cards = (J.staff || []).map(function (s) { return staffCard(s, J.lines[s.slot] || { status: "waiting", line: s.does || "" }); }).join("");
+      return '<div class="sf">' + (J.mock ? MOCK_TAG : "") + fileCard(true) + cards +
+        '<p class="sf-peek"' + (J.peek ? "" : " hidden") + '><b>First finding</b> · <span>' + esc(J.peek || "") + '</span></p>' +
+        (liveState === "idle" ? '<p class="sf-note">Press Talk to ' + esc(name) + ' to hear the summary.</p>' : "") + '</div>';
+    }
+    function paintTime() { var el = $(".sf-time", body); if (!el || !J || !J.t0) return; var s = Math.floor(((J.t1 || Date.now()) - J.t0) / 1000); el.textContent = "With the team · " + Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
+    function paintStaff() { if (S.mode === "staff") { render({}); paintTime(); } }
+    function paintAgent(slot) {
+      if (S.mode !== "staff") return;
+      var c = $('.sf-card[data-slot="' + slot + '"]', body), l = J.lines[slot], ln = c && $(".sf-line", c);
+      if (!c || !ln) return paintStaff();
+      c.setAttribute("data-status", l.status); ln.textContent = l.line;
+    }
+    function paintPeek() { if (S.mode !== "staff") return; var p = $(".sf-peek", body); if (!p) return paintStaff(); $("span", p).textContent = J.peek; p.hidden = false; }
+    function paintDocCard() {
+      var c = $(".p-act-doc", body); if (!c || !J) return;
+      if (J.state === "working") { $("b", c).textContent = "Review in progress"; $("small", c).textContent = "Open the team’s view"; c.classList.add("is-on"); }
+      else if (J.state === "done") { $("b", c).textContent = "Your case file"; $("small", c).textContent = J.file.name; c.classList.add("is-on"); }
+    }
+    function stopJobTimer() { if (jobTimer) clearInterval(jobTimer); jobTimer = null; }
+    function jobTick() {
+      if (!J || J.state !== "working") return stopJobTimer();
+      paintTime(); var s = (Date.now() - J.t0) / 1000;
+      if (s > 45 && !nudged) { nudged = true; tell("Prompt", "The team needs another moment with the document. Say so in one short sentence.", true); }
+      if (s > 75) failJob("timeout");
+    }
+    function startJob() {
+      if (!J || J.state !== "consent") return;
+      var job = J, blob = J.file.blob, kind = J.file.kind;
+      J.file.blob = null; J.state = "working"; J.t0 = Date.now(); J.lines = {}; J.staff = ROSTER.slice(); nudged = false;
+      J.staff.forEach(function (s) { J.lines[s.slot] = { status: "waiting", line: s.does || "" }; });
+      clearPending(); pInput.value = "";
+      S.hist = []; go("staff", { replace: true }); paintTime();          // the staff are on the panel at once: no spinner
+      stopJobTimer(); jobTimer = setInterval(jobTick, 1000);
+      tell("Prompt", "The visitor shared a document with you (" + job.file.name + ") and asked: “" + job.ask + "” The team (" + teamNames() + ") is reviewing it now and the panel shows them working. Tell the visitor, in one short sentence, that you have handed it to the team. Do not guess at what the document says. Then wait for the [Case file] message.", true);
+      jobAbort = "AbortController" in window ? new AbortController() : null;
+      encodeFile(blob, kind).then(function (p) {
+        return fetch(STAFF_URL, { method: "POST", signal: jobAbort ? jobAbort.signal : undefined, body: p.b64,
+          headers: { "X-Doc-Type": p.type, "X-Doc-Consent": "yes", "X-Doc-Meta": encodeURIComponent(JSON.stringify({ name: job.file.name, prompt: job.ask })) } });
+      }).then(function (res) { return readJob(res, job); })
+        .catch(function (e) { if (J === job && job.state === "working") failJob((e && e.code) || "unavailable"); });
+    }
+    // The endpoint streams one JSON event per line while the staff work.
+    function readJob(res, job) {
+      if (!res.ok || !res.body) return res.json().catch(function () { return {}; }).then(function (j) { throw coded((j && j.error) || "unavailable"); });
+      var reader = res.body.getReader(), dec = new TextDecoder(), buf = "";
+      return (function pump() {
+        return reader.read().then(function (r) {
+          if (r.value) {
+            buf += dec.decode(r.value, { stream: true }); var i;
+            while ((i = buf.indexOf("\n")) >= 0) { var line = buf.slice(0, i); buf = buf.slice(i + 1); if (!line.trim()) continue; var ev = null; try { ev = JSON.parse(line); } catch (e) {} if (ev && J === job) onJobEvent(ev); }
+          }
+          if (r.done) { if (J === job && job.state === "working") failJob("unavailable"); return; }
+          return pump();
+        });
+      })();
+    }
+    function onJobEvent(ev) {
+      if (ev.t === "job") {
+        J.id = ev.id; J.mock = !!ev.mock;
+        if (ev.staff && ev.staff.length) { ROSTER = J.staff = ev.staff; J.staff.forEach(function (s) { if (!J.lines[s.slot]) J.lines[s.slot] = { status: "waiting", line: s.does || "" }; }); }
+        paintStaff();
+      }
+      else if (ev.t === "agent") { J.lines[ev.slot] = { status: ev.status, line: ev.line }; paintAgent(ev.slot); }
+      else if (ev.t === "peek") { J.peek = ev.text; paintPeek(); }
+      else if (ev.t === "done") finishJob(ev.caseFile);
+      else if (ev.t === "error") failJob(ev.error);
+    }
+    function showResult() { if (STAFF_MODES[S.mode] || S.mode === "home") { S.hist = []; go("casefile", { replace: true }); } }   // a visitor in the contact form is left alone: the home card reopens it
+    function finishJob(cf) {
+      var job = J; stopJobTimer(); J.state = "done"; J.caseFile = cf; J.t1 = Date.now(); paintTime();
+      setTimeout(function () { if (J === job) showResult(); }, 900);     // the staff's last lines stay up for a beat
+      if (cf.findings && cf.findings.length) tell("Case file", "The team finished reviewing " + J.file.name + ". " + cf.spoken + (cf.partial ? " The team ran short on time, so call this a first pass." : "") + " The case file is on the panel now. Tell the visitor these findings in your own words, in this order, briefly. Then offer to send the review to them.", true);
+      else tell("Case file", "The team finished with " + J.file.name + " and found nothing to report. Tell the visitor that briefly, and ask what they would like to look at.", true);
+    }
+    function failJob(code) {
+      if (!J) return;
+      stopJobTimer(); J.state = "error"; J.error = JOB_ERR[code] || JOB_ERR.unavailable; J.t1 = Date.now();
+      if (jobAbort) { try { jobAbort.abort(); } catch (e) {} }
+      showResult();
+      tell("Prompt", "The team could not review the visitor’s file. " + J.error + " Tell the visitor that in one sentence, and offer to try another file or to answer their question yourself.", true);
+    }
+    function caseFileView() {
+      if (!J) return HOME_HTML;
+      if (J.state === "error") return '<div class="p-done"><h4>The team could not finish this one.</h4><p>' + esc(J.error) + '</p><div class="cf-acts"><button class="btn btn-gold" type="button" data-act="cf-again">Try another file</button><button class="btn btn-ghost" type="button" data-act="home">Back to the options</button></div></div>';
+      var cf = J.caseFile; if (!cf) return staffView();
+      var secs = Math.max(1, Math.round((cf.elapsedMs || 0) / 1000));
+      var tag = function (s) { return s.kind === "site" ? '<a class="cf-tag" href="' + esc(SITE_ROOT + s.ref) + '" target="_blank" rel="noopener">' + esc(s.label) + "</a>" : '<span class="cf-tag">' + esc(s.label) + "</span>"; };
+      var items = (cf.findings || []).map(function (f) { return "<li><b>" + esc(f.title) + "</b><p>" + esc(f.detail) + "</p>" + (f.sources && f.sources.length ? '<span class="cf-tags">' + f.sources.map(tag).join("") + "</span>" : "") + "</li>"; }).join("");
+      return '<div class="cf">' + (J.mock ? MOCK_TAG : "") + '<h4 class="cf-title">' + esc(cf.title || "Review of " + J.file.name) + "</h4>" +
+        (items ? '<ol class="cf-list">' + items + "</ol>" : '<p class="pv-text">The team found nothing to report on this file.</p>') +
+        (cf.startHere ? '<p class="cf-start"><span>Start here</span>' + esc(cf.startHere) + "</p>" : "") +
+        '<p class="cf-by">Prepared by ' + esc((cf.preparedBy || []).join(", ")) + " · " + secs + " s" + (cf.partial ? " · a first pass: the team ran short on time" : "") + "<br>Observations and suggestions, not advice. Nothing is stored.</p>" +
+        '<div class="cf-acts">' + (items ? '<button class="btn btn-gold" type="button" data-act="cf-send">Send this to me ' + arrow + "</button>" : "") + '<button class="btn btn-ghost" type="button" data-act="home">Back to the options</button></div></div>';
+    }
+    // Beat 5: "send it to me" = the existing contact flow, with the case file attached to the one message it posts.
+    function sendCaseFile() {
+      if (!J || !J.caseFile) return;
+      if (!tr(S.form.note)) S.form.note = "Please send me the review of " + J.file.name + ".";
+      S.topic = "contact"; go("form", { focus: true });
+      emit("On the case file, the visitor tapped Send this to me: the contact form is open with the note filled in. Ask where it should go and take their details one at a time.", true);
+    }
+    function caseFileText() {
+      if (!J || !J.caseFile || !(J.caseFile.findings || []).length) return "";
+      var cf = J.caseFile;
+      return "\n\nCase file " + cf.id + ": " + cf.title + " (" + J.file.name + ")\n" +
+        cf.findings.map(function (f, i) { return (i + 1) + ". " + f.title + ": " + f.detail + (f.sources && f.sources.length ? " [" + f.sources.map(function (s) { return s.label; }).join("; ") + "]" : ""); }).join("\n") +
+        (cf.startHere ? "\nStart here: " + cf.startHere : "") + "\nPrepared by " + (cf.preparedBy || []).join(", ") + ". Observations and suggestions, not advice.";
+    }
+    // Beat 7, Michael's line: the studio's own names for the same three faces. Fetched only now, so they are nowhere
+    // in the page before he triggers it (Alt+Shift+R, or HigStage.reveal()).
+    function revealView() {
+      if (!REVEAL) return HOME_HTML;
+      return '<div class="rvl"><p class="p-label">' + esc(REVEAL.title || "") + '</p><p class="rvl-line">' + esc(REVEAL.line || "") + "</p>" +
+        (REVEAL.staff || []).map(function (s) { return staffCard(s, { status: "done", line: "" }); }).join("") +
+        '<div class="cf-acts"><button class="btn btn-ghost" type="button" data-act="home">Back to the options</button></div></div>';
+    }
+    function reveal() {
+      if (!PROMPT_ON) return Promise.resolve(false);
+      return fetch(STAFF_URL + "?reveal=1").then(function (r) { return r.json(); }).then(function (j) { if (!j || !j.reveal) return false; REVEAL = j.reveal; go("reveal"); return true; }).catch(function () { return false; });
+    }
+    function dataB64(blob) { return new Promise(function (res, rej) { var r = new FileReader(); r.onload = function () { var s = String(r.result); res(s.slice(s.indexOf(",") + 1)); }; r.onerror = function () { rej(coded("unreadable")); }; r.readAsDataURL(blob); }); }
+    function encodeFile(blob, kind) {
+      if (kind === "pdf") return dataB64(blob).then(function (b) { return { type: "application/pdf", b64: b }; });
+      if (kind === "image") return shrinkImage(blob).then(dataB64).then(function (b) { return { type: "image/jpeg", b64: b }; });
+      return docxText(blob).then(function (t) { if (!tr(t)) throw coded("unreadable"); return dataB64(new Blob([t], { type: "text/plain" })); }).then(function (b) { return { type: "text/plain", b64: b }; });
+    }
+    // Photos and scans are redrawn at 2000 px on the long side before they leave the browser.
+    function shrinkImage(blob) {
+      return new Promise(function (res, rej) {
+        var img = new Image(), url = URL.createObjectURL(blob);
+        img.onload = function () {
+          var k = Math.min(1, 2000 / Math.max(img.naturalWidth, img.naturalHeight)), c = d.createElement("canvas");
+          c.width = Math.max(1, Math.round(img.naturalWidth * k)); c.height = Math.max(1, Math.round(img.naturalHeight * k));
+          var x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height); x.drawImage(img, 0, 0, c.width, c.height); URL.revokeObjectURL(url);
+          c.toBlob(function (b) { if (b) res(b); else rej(coded("unreadable")); }, "image/jpeg", 0.86);
+        };
+        img.onerror = function () { URL.revokeObjectURL(url); rej(coded("unreadable")); };
+        img.src = url;
+      });
+    }
+    // A Word file is a zip: its text (word/document.xml) is read here, in the browser, and only the text is sent.
+    function docxText(blob) {
+      if (!("DecompressionStream" in window) || !blob.arrayBuffer) return Promise.reject(coded("unsupported_type"));
+      return blob.arrayBuffer().then(function (ab) {
+        var u8 = new Uint8Array(ab), dv = new DataView(ab), i = u8.length - 22, td = new TextDecoder();
+        while (i >= 0 && dv.getUint32(i, true) !== 0x06054b50) i--;          // the zip's end-of-central-directory record
+        if (i < 0) throw coded("unreadable");
+        var n = dv.getUint16(i + 10, true), p = dv.getUint32(i + 16, true);
+        for (var k = 0; k < n && p + 46 <= u8.length; k++) {
+          if (dv.getUint32(p, true) !== 0x02014b50) break;
+          var method = dv.getUint16(p + 10, true), csize = dv.getUint32(p + 20, true), nl = dv.getUint16(p + 28, true), el = dv.getUint16(p + 30, true), cl = dv.getUint16(p + 32, true), lho = dv.getUint32(p + 42, true);
+          if (td.decode(u8.subarray(p + 46, p + 46 + nl)) === "word/document.xml") {
+            var ds = lho + 30 + dv.getUint16(lho + 26, true) + dv.getUint16(lho + 28, true), data = u8.slice(ds, ds + csize);
+            var xml = method === 0 ? Promise.resolve(td.decode(data)) : new Response(new Blob([data]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).text();
+            return xml.then(function (x) {
+              return x.replace(/<\/w:p>/g, "\n").replace(/<w:tab\/>/g, "\t").replace(/<w:br[^>]*\/>/g, "\n").replace(/<[^>]+>/g, "")
+                .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&amp;/g, "&");
+            });
+          }
+          p += 46 + nl + el + cl;
+        }
+        throw coded("unreadable");
+      });
+    }
+    /* ═════════ The staff take the stage (Michael, 11-08): tap Sterling, Whitmore or Hale — on the team row, a staff
+       card or the case file — and that person replaces Harrison in the avatar area: their own idle loop, badge and
+       "Talk to <name>" button, and a live conversation with THEIR agent (data: CFG.STAFF_TOKEN, body {slot}). One live
+       conversation at a time: switching ends the current one first. "Harrison" (top left) brings him back.
+       Media by convention, next to the site's own: assets/video/staff-<slot>.mp4 (silent loop) and
+       assets/img/staff-<slot>-poster.jpg; until those exist the small face still stands in. ═════════ */
+    var CAST = null;                                   // null = Harrison; else the roster member on stage
+    var HOME_CAST = { name: name, intro: intro, hasIntro: hasIntro, bg: av.style.background, poster: vid ? vid.getAttribute("poster") : "" };
+    var badgeEl = $(".ava-badge"), castBack = null;
+    function findStaff(slot) { return ROSTER.filter(function (s) { return s.slot === slot; })[0] || null; }
+    function castTo(s) {
+      if (!PROMPT_ON || (!s && !CAST) || (s && CAST && CAST.slot === s.slot)) return;
+      if (liveState !== "idle") endLive("", true);                 // one conversation at a time
+      if (hearing) stopHearing();
+      CAST = s || null; name = s ? s.name : HOME_CAST.name;
+      stage.classList.toggle("is-staff", !!s); stage.setAttribute("data-name", name);
+      badgeEl.innerHTML = '<span class="ava-dot"></span>' + esc(name) + " · " + (s ? esc(s.role) : "AI agent");
+      setTalk("Talk to " + name, false); caption([]); say("");
+      var micBtn = PF && $(".sp-mic", PF); if (micBtn) { micBtn.title = "Talk to " + name; micBtn.setAttribute("aria-label", "Talk to " + name); }
+      if (!castBack) { castBack = d.createElement("button"); castBack.type = "button"; castBack.className = "ava-back"; castBack.innerHTML = arrow + "<span>" + esc(HOME_CAST.name) + "</span>"; castBack.setAttribute("aria-label", "Back to " + HOME_CAST.name); castBack.addEventListener("click", function () { castTo(null); }); av.appendChild(castBack); }
+      castBack.hidden = !s;
+      vid.pause(); vid.removeAttribute("src"); try { vid.load(); } catch (e) {}
+      if (s) {
+        var base = SITE_ROOT + "/assets/", poster = base + "img/staff-" + s.slot + "-poster.jpg", probe = new Image(), who = s;
+        snd.hidden = true; vid.removeAttribute("poster"); vid.setAttribute("aria-label", s.name + ", " + s.role);
+        vid.addEventListener("loadeddata", function () { if (CAST === who) { snd.hidden = false; soundIcon(false); } }, { once: true });
+        av.style.background = "#050505 url(" + s.face + ") center 18% / cover no-repeat";      // the small still, until the real poster answers
+        probe.onload = function () { if (CAST === who) av.style.background = "#050505 url(" + poster + ") center / cover no-repeat"; };
+        probe.src = poster;
+        intro = base + "video/staff-" + s.slot + ".mp4"; hasIntro = true;       // their 20-second intro: the silent idle loop AND, on the sound icon, the spoken intro. A missing file simply never plays
+      } else {
+        intro = HOME_CAST.intro; hasIntro = HOME_CAST.hasIntro; snd.hidden = !hasIntro; av.style.background = HOME_CAST.bg;
+        if (HOME_CAST.poster) vid.setAttribute("poster", HOME_CAST.poster);
+      }
+      if (visible) playQuiet();
+      if (S.mode === "team") render({});
+      $$("[data-cast]", panel).forEach(function (c) { c.classList.toggle("is-cast", !!s && c.getAttribute("data-cast") === s.slot); });
+      if (window.innerWidth <= 900) av.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+    // What a staff member is told when their conversation starts: who they are talking to and what the team has done.
+    function staffBrief() {
+      var bits = ["You are on the stage of the Harvard Investment Group website, in place of Harrison, because the visitor chose to talk with you"];
+      if (J && J.state === "working") bits.push("the team is reviewing a document the visitor shared (" + J.file.name + "); a [Case file] message follows when it is done");
+      else if (J && J.state === "done" && J.caseFile) bits.push("the team already reviewed the visitor’s document (" + J.file.name + ") and the case file is on the panel beside you: " + J.caseFile.spoken + " Talk about it from your own part of the work");
+      else bits.push("no document has been shared yet; the visitor can drop one into the field below you");
+      return bits.join("; ") + ".";
+    }
+    // "Meet the AI team": the three staff on the panel; a tap puts that person on stage in Harrison's place.
+    function teamView() {
+      var sub = ($(".p-act-team", body) || d.querySelector(".p-act-team") || { getAttribute: function () { return ""; } }).getAttribute("data-view-sub") || TEAM_SUB;
+      if (sub) TEAM_SUB = sub;
+      if (!ROSTER.length) return '<p class="p-sub">The team is on its way. Please try again in a moment.</p>';
+      return '<div class="sf"><p class="p-sub">' + esc(TEAM_SUB) + "</p>" +
+        ROSTER.map(function (s) { return staffCard(s, { status: CAST && CAST.slot === s.slot ? "done" : "waiting", line: s.does || "" }); }).join("") +
+        (CAST ? '<div class="sf-acts"><button class="btn btn-ghost" type="button" data-cast="">Back to ' + esc(HOME_CAST.name) + "</button></div>" : "") + "</div>";
+    }
+    var TEAM_SUB = "";
+    panel.addEventListener("click", function (e) { var c = e.target.closest('[data-act="team"]'); if (!c) return; e.preventDefault(); var sub = c.getAttribute("data-view-sub"); if (sub) TEAM_SUB = sub; go("team"); });
+    panel.addEventListener("click", function (e) { var c = e.target.closest("[data-cast]"); if (!c) return; e.preventDefault(); castTo(findStaff(c.getAttribute("data-cast"))); });
+    panel.addEventListener("keydown", function (e) { if (e.key !== "Enter" && e.key !== " ") return; var c = e.target.closest && e.target.closest(".sf-card[data-cast]"); if (!c) return; e.preventDefault(); castTo(findStaff(c.getAttribute("data-cast"))); });
+
+    if (PROMPT_ON) {
+      var hasFiles = function (e) { var t = e.dataTransfer && e.dataTransfer.types; return !!t && [].indexOf.call(t, "Files") >= 0; }, dragN = 0;
+      PF.addEventListener("submit", function (e) { e.preventDefault(); submitPrompt(); });
+      $(".sp-attach", PF).addEventListener("click", function () { fileInput.click(); });
+      $(".sp-mic", PF).addEventListener("click", function () { if (liveState === "idle") startLive(); });
+      $(".sp-chip-x", PF).addEventListener("click", clearPending);
+      fileInput.addEventListener("change", function () { pickFile(fileInput.files && fileInput.files[0]); });
+      stage.addEventListener("dragenter", function (e) { if (!hasFiles(e)) return; e.preventDefault(); dragN++; stage.classList.add("is-drop"); });
+      stage.addEventListener("dragover", function (e) { if (hasFiles(e)) e.preventDefault(); });
+      stage.addEventListener("dragleave", function () { dragN = Math.max(0, dragN - 1); if (!dragN) stage.classList.remove("is-drop"); });
+      stage.addEventListener("drop", function (e) { if (!hasFiles(e)) return; e.preventDefault(); dragN = 0; stage.classList.remove("is-drop"); pickFile(e.dataTransfer.files[0]); });
+      d.addEventListener("keydown", function (e) { if (e.altKey && e.shiftKey && e.code === "KeyR") { e.preventDefault(); reveal(); } });
+      // A free warm-up, no conversation opened: the roster for the cards (this also wakes the staff function) and the three faces.
+      fetch(STAFF_URL).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && j.staff) { ROSTER = j.staff; ROSTER.forEach(function (s) { var im = new Image(); im.src = s.face; }); if (S.mode === "team") render({}); } }).catch(function () {});
+    }
+
     // For the welcome film's button, the console and tests: what the live Harrison would see.
-    window.HigStage = { start: startLive, end: function () { endLive(""); }, tools: TOOLS, exec: execTool, state: function () { return S; }, live: function () { return liveState; } };
+    window.HigStage = { start: startLive, end: function () { endLive(""); }, tools: TOOLS, exec: execTool, state: function () { return S; }, live: function () { return liveState; },
+      prompt: { on: PROMPT_ON, pick: pickFile, submit: submitPrompt, job: function () { return J; } }, reveal: reveal,
+      cast: function (slot) { castTo(slot ? findStaff(slot) : null); return CAST ? CAST.name : HOME_CAST.name; }, onStage: function () { return name; } };
     render({});
   })();
 })();

@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 21;                                                        // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 22;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
 const RV = 1;                                                        // ?v= for the preview-only review layer (/clients/_review/, comment pins; never in --final)
 const OUT = path.resolve(__dirname, "..");
 
@@ -260,6 +260,8 @@ function panelViews() {
     .map(([k, h]) => `<template id="pv-${k}"><div class="pv">${h}\n    </div></template>`).join("\n      ");
 }
 
+const DOC_ICON = `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
+
 // ─────────────────────────────────────────────── HOME ───────────────────────────────────────────────
 function homePage() {
   const stage = `<section class="stage-sec" id="talk" aria-labelledby="t-stage">
@@ -272,7 +274,7 @@ function homePage() {
     <!-- Avatar stage per AVATAR-STAGE-SPEC v1.3. Talk fetches a session from data-token (site.js); while the agent is
          not live that endpoint answers 503 and the stage shows the "arriving soon" toast. The panel's four cards are
          also driven by Harrison (topic highlight, contact form) and the form posts to data-contact. -->
-    <div class="stage rv" id="stage" data-name="${esc(STAGE.name)}"${STAGE.intro ? ` data-intro="${u(STAGE.intro)}"` : ""} data-token="/api/hig-harrison-token" data-seen-path="/api" data-contact="${u("/api/contact")}" data-popout="${u("/vendor/avatar-popout.js")}?v=${V}" data-office-phone="${esc(SITE.phoneDisplay)}" data-office-email="${esc(SITE.email)}">
+    <div class="stage rv" id="stage" data-name="${esc(STAGE.name)}"${STAGE.intro ? ` data-intro="${u(STAGE.intro)}"` : ""} data-token="/api/hig-harrison-token" data-seen-path="/api" data-contact="${u("/api/contact")}" data-popout="${u("/vendor/avatar-popout.js")}?v=${V}" data-office-phone="${esc(SITE.phoneDisplay)}" data-office-email="${esc(SITE.email)}" data-staff="${u("/api/doc-review")}" data-root="${ROOT}" data-prompt="${STAGE.prompt.enabled === true ? "on" : "flag"}" data-consent="${esc(STAGE.prompt.consent)}" data-ask="${esc(STAGE.prompt.ask)}">
       <div class="stage-av${STAGE.intro ? "" : " is-placeholder"}"${STAGE.poster ? ` style="background:#050505 url(${u(STAGE.poster)}) center / cover no-repeat"` : ""}>
         <div class="ava-mount" id="hig-mount"></div>
         <video class="ava-video" muted loop playsinline preload="none"${STAGE.poster ? ` poster="${u(STAGE.poster)}"` : ""}${STAGE.intro ? ` aria-label="${esc(STAGE.name)}, Harvard Investment Group’s AI agent, introducing himself"` : " hidden"}></video>
@@ -292,12 +294,31 @@ function homePage() {
           <p class="p-sub">${STAGE.home}</p>
           <div class="p-actions">
             ${STAGE.cards.map((c) => `<a class="p-act" href="${u(c.href)}" data-topic="${c.topic}"><i>${icon(c.icon)}</i><span><b>${c.title}</b><small>${c.sub}</small></span>${icon("arrow")}</a>`).join("\n            ")}
+            <button class="p-act p-act-doc" type="button" data-act="doc" hidden><i>${DOC_ICON}</i><span><b>${STAGE.prompt.card.title}</b><small>${STAGE.prompt.card.sub}</small></span>${icon("arrow")}</button>
+            <button class="p-act p-act-team" type="button" data-act="team" data-view-sub="${esc(STAGE.prompt.team.view)}" hidden><i><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 11a3.2 3.2 0 1 0 0-6.4A3.2 3.2 0 0 0 9 11z M3.5 19c.5-3.2 2.7-5 5.5-5s5 1.800 5.500 5 M16 11.200a2.600 2.600 0 1 0-.9-5 M17 14.300c2 .5 3.200 2.100 3.600 4.700" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></i><span><b>${STAGE.prompt.team.title}</b><small>${STAGE.prompt.team.sub}</small></span>${icon("arrow")}</button>
           </div>
         </div>
         <p class="panel-note">${STAGE.note}</p>
       </aside>
       ${panelViews()}
       <script type="application/json" id="pv-titles">${JSON.stringify(STAGE.viewTitles)}</script>
+      <!-- Open prompt (stage v3): hidden unless data-prompt="on" or the visitor opened the page with ?staff=1 (site.js).
+           A typed line goes to Harrison; a document goes to the staff endpoint (data-staff) after the consent tap. -->
+      <form class="stage-prompt" id="hig-prompt" hidden novalidate>
+        <div class="sp-box">
+          <div class="sp-row">
+            <span class="sp-chip" hidden>${DOC_ICON}<b></b><button class="sp-chip-x" type="button" aria-label="Remove the file">${icon("close")}</button></span>
+            <input class="sp-input" type="text" name="q" autocomplete="off" maxlength="400" placeholder="${esc(STAGE.prompt.placeholder)}" data-ph="${esc(STAGE.prompt.placeholder)}" data-ph-file="${esc(STAGE.prompt.placeholderFile)}" aria-label="Ask ${esc(STAGE.name)}, or share a document">
+          </div>
+          <div class="sp-row sp-tools">
+            <button class="sp-btn sp-attach" type="button" aria-label="Attach a document" title="Attach a document"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button>
+            <button class="sp-btn sp-mic" type="button" aria-label="Talk to ${esc(STAGE.name)}" title="Talk to ${esc(STAGE.name)}">${icon("mic")}</button>
+            <span class="sp-hint">${STAGE.prompt.hint}</span>
+            <button class="sp-send" type="submit" aria-label="Send" title="Send"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <input class="sp-file" type="file" hidden accept=".pdf,.png,.jpg,.jpeg,.webp,.docx,application/pdf,image/png,image/jpeg,image/webp,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+        </div>
+      </form>
     </div>
   </div>
 </section>`;

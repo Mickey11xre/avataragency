@@ -288,6 +288,23 @@ const STAGE = {
   home: "Tap an option below — or press Talk to speak with me.",
   note: "Prefer to type? Tap an option to read about it here, or send Greg’s office a message.",
   soon: "The live conversation is arriving very soon. In the meantime, the options beside me open the right page.",
+  // ── Open prompt + staff (the Greg demo, kickoff 2026-11-08; storyboard BLOOMBERG_MULTI-AGENT\docs\05-…) ──
+  // enabled: "flag" = the prompt field, the document card and the staff views exist only for a visitor who opens the
+  // page with ?staff=1 (kept for that browser tab; ?staff=0 turns it off). Greg reviews this preview with his own
+  // link, so the stage he sees stays as it is until Michael says go. Set true to show it to everyone.
+  // The staff's names are NOT here: the panel reads them from the staff endpoint (the harvard-staff roster).
+  prompt: {
+    enabled: "flag",
+    placeholder: "Ask Harrison anything, or share a document…",
+    placeholderFile: "Add a question, or press send",
+    hint: "PDF, image or Word · processed in memory, nothing is stored",
+    card: { title: "Share a document", sub: "Harrison and the team will review it with you" },
+    // "Meet the AI team" (Michael, 11-08): the sixth option opens the three staff on the panel; tapping one puts that
+    // agent in Harrison's place in the avatar area, with their own 20-second intro and a live conversation.
+    team: { title: "Meet the AI team", sub: "The agents who work with Harrison", view: "Tap someone to bring them on stage and talk with them." },
+    consent: "Share this file for a one-time review? It’s processed in memory and not stored.",
+    ask: "What would you change about this?",     // the question sent with a file when the visitor types nothing
+  },
 };
 
 module.exports = { SITE, CONTACT_BLOCK, HOME, HERO, ABOUT, INVESTMENTS, DEVELOPMENTS, PHILANTHROPIC, CONTACT, IMG, FAQ, STAGE };
