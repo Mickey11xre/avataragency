@@ -672,7 +672,7 @@ a.cf-tag:hover { background: rgba(184,151,90,.12); }
 .stage[data-onstage="research"] { --cast-z: 2.6; --cast-o: 53.2% 5.1%; }
 .stage[data-onstage="properties"] { --cast-z: 2.6; --cast-o: 52.4% 2.9%; }
 .stage[data-onstage] #hig-mount video { transform: scale(var(--cast-z)) !important; transform-origin: var(--cast-o) !important; }
-.stage[data-onstage] .ava-mount::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 9%; z-index: 2; pointer-events: none; background: linear-gradient(180deg, rgba(10,10,10,0), #0a0a0a 72%); }
+.stage[data-onstage] .stage-av.live-ready::after { display: block; inset: auto 0 0 0; height: 9%; z-index: 3; background: linear-gradient(180deg, rgba(10,10,10,0), #0a0a0a 72%); }
 /* Beat 7: the studio's own roster for the same three faces */
 .rvl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .rvl-line { margin: 0; font: 500 24px/1.2 var(--serif); color: #fff; }
