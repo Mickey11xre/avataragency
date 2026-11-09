@@ -666,6 +666,12 @@ a.cf-tag:hover { background: rgba(184,151,90,.12); }
 .ava-back:hover { border-color: var(--gold); color: var(--gold-light); }
 .stage-av.live-ready .ava-back { top: 16px; }
 @media (max-width: 900px) { .team { flex-direction: column; align-items: stretch; gap: 6px; } }
+/* Live picture of a staff member (Michael 11-08, option A): the stock companions stream a full-length shot at a desk, so
+   each one is zoomed to head and shoulders. Values measured from the live 1920x1080 stream: eyes near 27% of the height. */
+.stage[data-onstage="office"] { --cast-z: 2.2; --cast-o: 50.6% 2%; }
+.stage[data-onstage="research"] { --cast-z: 2.6; --cast-o: 53.2% 5.1%; }
+.stage[data-onstage="properties"] { --cast-z: 2.6; --cast-o: 52.4% 2.9%; }
+.stage[data-onstage] #hig-mount video { transform: scale(var(--cast-z)) !important; transform-origin: var(--cast-o) !important; }
 /* Beat 7: the studio's own roster for the same three faces */
 .rvl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
 .rvl-line { margin: 0; font: 500 24px/1.2 var(--serif); color: #fff; }

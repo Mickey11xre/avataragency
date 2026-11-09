@@ -971,6 +971,7 @@
       if (hearing) stopHearing();
       CAST = s || null; name = s ? s.name : HOME_CAST.name;
       stage.classList.toggle("is-staff", !!s); stage.setAttribute("data-name", name);
+      if (s) stage.setAttribute("data-onstage", s.slot); else stage.removeAttribute("data-onstage");   // the live-picture zoom in site.css
       badgeEl.innerHTML = '<span class="ava-dot"></span>' + esc(name) + " · " + (s ? esc(s.role) : "AI agent");
       setTalk("Talk to " + name, false); caption([]); say("");
       var micBtn = PF && $(".sp-mic", PF); if (micBtn) { micBtn.title = "Talk to " + name; micBtn.setAttribute("aria-label", "Talk to " + name); }
