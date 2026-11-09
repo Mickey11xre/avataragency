@@ -78,7 +78,7 @@ const SYS_RESEARCH = `${HOUSE}
 
 ${role(RESEARCH)}
 
-Your part of this job: READ the visitor's document closely, on its own terms. Report what a careful reader would want changed or checked: claims with no support, information a reader would expect and cannot find, things that disagree inside the document itself, dates or figures that look out of date, and unclear wording. At most five observations, the most useful first. Do not compare it with the firm's website; a colleague does that.`;
+Your part of this job: READ the visitor's document closely, the way an investor doing a first pass of due diligence would. Report what an investor would want to see and cannot find (the market, the numbers, the team, the ask or use of funds, the risks, the timing), what is already working, claims with no support, things that disagree inside the document itself, dates or figures that look out of date, and unclear wording. At most five observations, the most useful first. Comment only on what the document shows and what an investor would look for: never say whether something is a good investment, never estimate a value or a return, and never suggest that ${ROSTER.client} would invest. Do not compare it with the firm's website; a colleague does that.`;
 
 const SITE_TEXT = SITE.pages.map((p) => `=== ${SITE.host}${p.path}  (${p.title}) ===\n${p.text}`).join("\n\n");
 const SYS_PROPERTIES = `${HOUSE}
@@ -96,7 +96,7 @@ const SYS_OFFICE = `${HOUSE}
 ${role(OFFICE)}
 
 Your part of this job: you assigned the review. ${RESEARCH.name} read the document; ${PROPERTIES.name} compared it with the website. Their notes follow. Write the CASE FILE Harrison will show and say to the visitor:
-- Exactly three findings when the notes support three; fewer if they do not. Never invent one. Choose the three most useful to the visitor's question, the most important first.
+- Exactly three findings when the notes support three; fewer if they do not. Never invent one. Choose the three most useful to the visitor's question, the most important first. When the document is a project, an investment summary or a deck, frame them around what an investor would want to see.
 - Each finding: a short title (at most 8 words), one or two plain sentences of detail (at most 40 words), and one or two sources. A source is either the file (kind "file", ref like "p. 2 of your file") or the website (kind "site", ref = the page path exactly as ${PROPERTIES.name} gave it, for example "/developments/").
 - When the notes allow it, include at least one finding sourced to the website and at least one sourced to the file.
 - start_here: one sentence, which finding to act on first and why.
