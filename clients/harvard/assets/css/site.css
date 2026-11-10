@@ -489,7 +489,7 @@ body.menu-open .hdr { background: var(--ink); }
 .panel-back:hover { border-color: var(--gold); color: var(--gold-light); }
 .panel-back[hidden] { display: none; }
 .panel-title { font: 600 13px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
-.panel-body { overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(184,151,90,.5) transparent; }
+.panel-body { overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(184,151,90,.5) transparent; }
 .panel-body::-webkit-scrollbar { width: 6px; }
 .panel-body::-webkit-scrollbar-thumb { background: rgba(184,151,90,.45); border-radius: 3px; }
 .p-act.is-on { border-color: var(--gold); background: rgba(184,151,90,.12); box-shadow: 0 0 0 1px var(--gold) inset; }
