@@ -23,3 +23,6 @@
 # Ava citeable page 2026-11-06: /ava/ is the page AI assistants can cite; /talk-to-ava is the spoken-aloud alias.
 /talk-to-ava           /ava/  301
 /talk-to-ava/          /ava/  301
+# Laurie Schreiner client portal 2026-11-09: /schreiner is the short link Michael shares; the portal lives with the other portals.
+/schreiner             /clients/schreiner/  301
+/schreiner/            /clients/schreiner/  301

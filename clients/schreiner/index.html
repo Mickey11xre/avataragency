@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>AvatarAgency — Client Account · Dr. Laurie Schreiner</title>
+<style>
+  /* Same tokens and components as the other portals (/clients/anawrocki/, /clients/aharrison/),
+     with the shared comment board from the Lady Belle review pages. */
+  :root{
+    --bg:#0a0a0c;
+    --bg-2:#101014;
+    --card:#15151b;
+    --card-2:#1b1b22;
+    --line:#26262f;
+    --txt:#f4f4f6;
+    --muted:#9a9aa6;
+    --muted-2:#6d6d78;
+    --gold:#c9a24b;
+    --gold-2:#e3c478;
+    --green:#4ec98a;
+    --red:#ff7a6b;
+    --radius:16px;
+    --max:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(201,162,75,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(78,201,138,.05), transparent 55%),
+      var(--bg);
+    color:var(--txt);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+  /* ---- Top bar: brand + who is reviewing ---- */
+  .topbar{border-bottom:1px solid var(--line);background:rgba(10,10,12,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+  .brand{font-weight:700;letter-spacing:.5px;font-size:18px}
+  .brand b{color:var(--gold-2)}
+  .who{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+  .who select,.who input{background:#0c0c10;border:1px solid var(--line);border-radius:999px;color:var(--txt);
+    font-family:inherit;font-size:14px;min-height:40px;padding:0 14px}
+  .who select{padding-right:10px;cursor:pointer}
+  .who input{width:150px}
+  .who select:focus,.who input:focus{outline:none;border-color:rgba(201,162,75,.6);box-shadow:0 0 0 3px rgba(201,162,75,.14)}
+  .who.need select{border-color:rgba(201,162,75,.8);box-shadow:0 0 0 3px rgba(201,162,75,.22)}
+
+  /* ---- Hero ---- */
+  .hero{padding:54px 0 34px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .hero h1{font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.5px;text-wrap:balance}
+  .hero h1 .sub{display:block;font-size:18px;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:12px;max-width:62ch;line-height:1.55}
+  .meta-row{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px}
+  .meta-row .item{font-size:13px;color:var(--muted)}
+  .meta-row .item span{display:block;color:var(--txt);font-size:15px;font-weight:600;margin-top:2px}
+
+  /* ---- Section ---- */
+  section{padding:48px 0}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:8px}
+  .sec-head h2{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .sec-head .note{font-size:13px;color:var(--muted-2)}
+
+  /* ---- Deliverable block ---- */
+  .video-block{scroll-margin-top:88px}
+  .deliv-no{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .block-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .block-head h3{font-size:22px;font-weight:700;letter-spacing:-.2px}
+  .lede{font-size:14.5px;color:var(--muted);max-width:64ch;margin-bottom:20px}
+  .lede b{color:var(--txt);font-weight:600}
+  .stage{display:inline-block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    border-radius:999px;padding:5px 12px;border:1px solid var(--line);color:var(--muted)}
+  .stage.live{color:var(--green);border-color:rgba(78,201,138,.4);background:rgba(78,201,138,.07)}
+  .stage.prod{color:var(--gold-2);border-color:rgba(201,162,75,.42);background:rgba(201,162,75,.08)}
+  .stage.ok{color:#07130c;border-color:var(--green);background:var(--green)}
+
+  .frame{position:relative;width:100%;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .frame.wide{aspect-ratio:16/9}
+  .frame video{position:absolute;inset:0;width:100%;height:100%;border:0}
+  /* placeholder frame for a deliverable that has nothing to show yet */
+  .frame.pending{display:flex;align-items:center;justify-content:center;text-align:center;
+    background:linear-gradient(180deg,var(--card),var(--card-2));border-style:dashed;padding:30px}
+  .frame.pending .ph{max-width:46ch}
+  .frame.pending .ph .big{font-size:16px;font-weight:600;color:var(--txt);margin-bottom:8px}
+  .frame.pending .ph .small{font-size:13.5px;color:var(--muted-2);line-height:1.6}
+  .frame.pending .ph .dot{display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:var(--gold);margin-right:8px;vertical-align:middle;box-shadow:0 0 0 4px rgba(201,162,75,.14)}
+  .vtools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:12px;font-size:12.5px;color:var(--muted-2)}
+  .watch{display:inline-flex;align-items:center;min-height:40px;font-size:13px;font-weight:600;color:var(--gold-2);
+    border:1px solid rgba(201,162,75,.4);border-radius:999px;padding:0 16px;transition:.15s}
+  .watch:hover{background:rgba(201,162,75,.12)}
+  .review-note{margin-top:18px;font-size:13.5px;color:var(--muted);border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:var(--bg-2);line-height:1.65}
+  .review-note b{color:var(--gold-2)}
+
+  /* ---- Shared comment board under each deliverable (same as the Lady Belle review pages) ---- */
+  .rv{margin-top:18px;background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .rv-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .rv-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .rv-approvals{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-size:12px;border-radius:999px;padding:4px 11px;border:1px solid rgba(78,201,138,.4);color:var(--green);background:rgba(78,201,138,.07)}
+  .chip.old{border-color:var(--line);color:var(--muted-2);background:transparent}
+  .notes{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+  .notes:empty{display:none}
+  .notes .note{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:12px 15px;background:var(--bg-2)}
+  .notes .note.stale{border-left-color:var(--muted-2)}
+  .note-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+  .note-top b{color:var(--txt);font-weight:600;font-size:13.5px}
+  .note-top .ver{color:var(--muted-2)}
+  .note-top .acts{margin-left:auto;display:flex;gap:4px}
+  .note-top .acts button{background:none;border:none;color:var(--gold-2);font:inherit;font-size:12.5px;cursor:pointer;padding:6px 8px;border-radius:6px}
+  .note-top .acts button:hover{background:rgba(201,162,75,.1)}
+  .note-text{margin-top:6px;font-size:14.5px;line-height:1.62;white-space:pre-wrap;overflow-wrap:anywhere}
+  .rv textarea{width:100%;min-height:96px;resize:vertical;background:#0c0c10;border:1px solid var(--line);border-radius:12px;color:var(--txt);
+    font-family:inherit;font-size:14.5px;line-height:1.6;padding:13px 15px}
+  .rv textarea:focus{outline:none;border-color:rgba(201,162,75,.55);box-shadow:0 0 0 3px rgba(201,162,75,.12)}
+  .rv textarea::placeholder{color:var(--muted-2)}
+  .rv-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:999px;font-weight:700;
+    font-size:14.5px;font-family:inherit;cursor:pointer;border:none;transition:.15s}
+  .btn.primary{background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+  .btn.ghost:hover{border-color:var(--gold)}
+  .btn[disabled]{opacity:.5;cursor:default;filter:none}
+  .approve{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:999px;
+    font-size:14px;color:var(--txt);cursor:pointer;user-select:none}
+  .approve:hover{border-color:rgba(78,201,138,.5)}
+  .approve input{width:18px;height:18px;accent-color:var(--green);cursor:pointer}
+  .approve.on{border-color:rgba(78,201,138,.55);background:rgba(78,201,138,.08);color:var(--green)}
+  .rv-status{font-size:12.5px;color:var(--muted-2)}
+  .rv-status.ok{color:var(--green)}
+  .rv-status.err{color:var(--red)}
+  .rv-hint{margin-top:12px;font-size:12px;color:var(--muted-2)}
+  .send-row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px}
+  .sync{font-size:12.5px;color:var(--muted-2)}
+  .sync.err{color:var(--red)}
+
+  /* ---- Project status ---- */
+  .status{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .srow{display:grid;grid-template-columns:1fr auto;gap:16px;padding:18px 22px;align-items:center;border-top:1px solid var(--line);background:linear-gradient(180deg,var(--card),var(--card-2))}
+  .srow:first-child{border-top:none}
+  .srow .name{font-weight:600;font-size:15px}
+  .srow .name small{display:block;color:var(--muted);font-weight:400;font-size:13px;margin-top:3px;line-height:1.55}
+  .srow .name a{color:var(--gold-2)}
+  .srow .name a:hover{text-decoration:underline}
+
+  /* ---- Link cards ---- */
+  .linkcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .linkcard{display:block;min-height:44px;padding:20px 22px;border:1px solid var(--line);
+    border-radius:14px;background:linear-gradient(180deg,var(--card),var(--card-2));transition:.15s}
+  .linkcard:hover{border-color:rgba(201,162,75,.45);background:var(--card)}
+  .linkcard b{display:block;font-size:15.5px;color:var(--gold-2);margin-bottom:5px}
+  .linkcard span{display:block;font-size:13.5px;color:var(--muted);line-height:1.6}
+
+  /* ---- CTA / footer ---- */
+  .cta{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:34px;text-align:center}
+  .cta h2{font-size:24px;font-weight:800;letter-spacing:-.3px}
+  .cta p{color:var(--muted);margin:10px auto 22px;max-width:520px}
+  .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;color:var(--muted-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  @media(max-width:780px){
+    .hero h1{font-size:30px}
+    .meta-row{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+    .rv{padding:18px}
+    .linkcards{grid-template-columns:1fr}
+    .srow{grid-template-columns:1fr;gap:10px}
+    .srow .stage{justify-self:start}
+  }
+  @media(max-width:520px){
+    .who label{display:none}
+    .who select{max-width:170px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Avatar<b>Agency</b></div>
+    <div class="who" id="whoBox">
+      <label for="who">Reviewing as</label>
+      <select id="who" aria-label="Reviewing as">
+        <option value="">Choose your name</option>
+        <option>Laurie</option>
+        <option>Stephanie</option>
+        <option>Michael</option>
+        <option value="__other">Someone else&hellip;</option>
+      </select>
+      <input id="whoOther" type="text" placeholder="Your name" aria-label="Your name" maxlength="40" hidden>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Client Account &middot; The Thriving Project</div>
+    <h1>Dr. Laurie Schreiner
+      <span class="sub">Your creative, your review notes, and where the project stands, in one place.</span>
+    </h1>
+    <div class="meta-row">
+      <div class="item">Project<span>The Thriving Project</span></div>
+      <div class="item">Website<span>Live since September 16, 2026</span></div>
+      <div class="item">Next for review<span>The Thriving Project History video</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ YOUR CREATIVE ============
+     Each deliverable: data-id = comment-board key (never rename once comments exist),
+     data-v = version shown. A new cut = new file + bump data-v / data-vname; earlier
+     comments then show "on Version N". To give Laurie a clean board, change DOC below. -->
+<section>
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Your Creative</h2>
+      <div class="note">Newest work appears here as it is delivered</div>
+    </div>
+
+    <article class="video-block" id="history-video" data-id="history-video" data-v="v1" data-vname="Version 1" data-label="the History video">
+      <div class="deliv-no">01 &mdash; Cinematic Video</div>
+      <div class="block-head">
+        <h3>The Thriving Project History video</h3>
+        <span class="stage prod" data-stage data-pending>In production</span>
+      </div>
+      <p class="lede">The story of how thriving came to be, told as the <b>Thriving Tree</b>: your
+        publications grow into the tree from the website. About two and a half minutes, 16:9.</p>
+
+      <!-- PLACEHOLDER. When the cut is ready, replace this div with:
+           <div class="frame wide"><video id="hv" controls preload="metadata" playsinline
+             poster="/clients/schreiner/thriving-project-history-poster.jpg"
+             src="/clients/schreiner/thriving-project-history-v1.mp4"></video></div>
+           and remove data-pending from the stage badge. Keep the MP4 under 25 MiB (Pages cap). -->
+      <div class="frame wide pending">
+        <div class="ph">
+          <div class="big"><span class="dot"></span>Your video will appear here</div>
+          <div class="small">The Thriving Project History video is in production. We&rsquo;ll let you
+            know as soon as it&rsquo;s ready to watch and review on this page.</div>
+        </div>
+      </div>
+
+      <div class="review-note">
+        <b>How to review:</b> choose your name at the top of the page, then leave as many comments as
+        you like below. When the video is here, press <b>Add the time</b> while it plays so we can find
+        the exact moment. Comments save right away, and everyone reviewing sees them.
+      </div>
+
+      <div class="rv"></div>
+    </article>
+  </div>
+</section>
+
+<!-- ============ PROJECT STATUS ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Project Status</h2>
+      <div class="note">Phase 1</div>
+    </div>
+    <div class="status">
+      <div class="srow">
+        <div class="name">Website rebuild
+          <small>Live on <a href="https://thrivingincollege.org/" target="_blank" rel="noopener">thrivingincollege.org</a> since September 16, 2026.</small></div>
+        <span class="stage live">Live</span>
+      </div>
+      <div class="srow">
+        <div class="name">The Thriving Project History video
+          <small>In production. You&rsquo;ll review it at the top of this page.</small></div>
+        <span class="stage prod">In production</span>
+      </div>
+      <div class="srow">
+        <div class="name">Knowledge Center
+          <small>Updates in progress.</small></div>
+        <span class="stage prod">In progress</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ YOUR WEBSITE ============ -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Your Website</h2>
+    </div>
+    <div class="linkcards">
+      <a class="linkcard" href="https://thrivingincollege.org/" target="_blank" rel="noopener">
+        <b>thrivingincollege.org &rarr;</b>
+        <span>The live Thriving Project website.</span>
+      </a>
+      <a class="linkcard" href="/clients/lschreiner/">
+        <b>First-Month Website Report &rarr;</b>
+        <span>How the new site did from September 16 to October 15, 2026: visitors, orders and AI search.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta">
+      <h2>Questions about anything here?</h2>
+      <p>Book a call and we&rsquo;ll walk through it together, or send Michael a note.</p>
+      <div class="btns">
+        <a class="btn primary" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a Call</a>
+        <a class="btn ghost" href="mailto:michael@avataragency.ai?subject=The%20Thriving%20Project%20%E2%80%94%20Portal%20Question">Email Michael</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; 2026 AvatarAgency.ai &middot; Woodland Hills, California &middot; Prepared for Dr. Laurie Schreiner</div>
+    <div>Private client portal &mdash; please do not share this link.</div>
+  </div>
+</footer>
+
+<script>
+/* Shared comments + approvals for each deliverable, stored by /api/review (KV).
+   Same board as the Lady Belle review pages.
+   State: { name, updatedAt, items: { "<data-id>": { notes:[{id,name,text,at,v}], approvals:{ "<name>":{at,v} } } } }
+   The API keeps only the last write, so every change re-reads the latest state, applies one edit, and writes it back. */
+(function () {
+  var DOC = "schreiner-history", API = "/api/review?doc=" + DOC;
+  var WHO_KEY = "schreiner-reviewer", DRAFT_KEY = "schreiner-draft-";
+  var items = {}, lastLoad = 0, loaded = false;
+  var whoSel = document.getElementById("who"), whoOther = document.getElementById("whoOther"), whoBox = document.getElementById("whoBox");
+  var blocks = [].slice.call(document.querySelectorAll("[data-id]"));
+
+  function store(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
+  function recall(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function who() { return whoSel.value === "__other" ? whoOther.value.trim() : whoSel.value; }
+  function fmt(at) {
+    var d = new Date(at); if (isNaN(d)) return "";
+    return d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function vname(b, v) {
+    if (v === b.dataset.v) return b.dataset.vname || "";
+    if (!v) return ""; return "Version " + v.replace(/^v/, "");
+  }
+  function clock(s) { s = Math.max(0, Math.floor(s || 0)); return Math.floor(s / 60) + ":" + ("0" + (s % 60)).slice(-2); }
+
+  /* ---- who is reviewing ---- */
+  (function restoreWho() {
+    var saved = recall(WHO_KEY); if (!saved) return;
+    var known = [].some.call(whoSel.options, function (o) { return o.value === saved; });
+    if (known) whoSel.value = saved; else { whoSel.value = "__other"; whoOther.value = saved; whoOther.hidden = false; }
+  })();
+  function whoChanged() {
+    whoOther.hidden = whoSel.value !== "__other";
+    if (!whoOther.hidden && document.activeElement === whoSel) whoOther.focus();
+    store(WHO_KEY, who() || null);
+    if (who()) whoBox.classList.remove("need");
+    renderAll();
+  }
+  whoSel.addEventListener("change", whoChanged);
+  whoOther.addEventListener("input", whoChanged);
+  function needName(statusEl) {
+    whoBox.classList.add("need");
+    whoSel.focus();
+    if (statusEl) setStatus(statusEl, "Choose your name at the top of the page first.", "err");
+    return false;
+  }
+
+  /* ---- server ---- */
+  function getState() {
+    return fetch(API, { cache: "no-store" }).then(function (r) {
+      if (!r.ok) throw new Error("load " + r.status);
+      return r.json();
+    }).then(function (d) { return d && typeof d.items === "object" && d.items ? d.items : {}; });
+  }
+  function load() {
+    return getState().then(function (it) {
+      items = it; lastLoad = Date.now(); loaded = true; renderAll();
+      blocks.forEach(function (b) { b._rv.sync.className = "sync"; b._rv.sync.textContent = "Comments are up to date."; });
+    }).catch(function () {
+      blocks.forEach(function (b) { b._rv.sync.className = "sync err"; b._rv.sync.textContent = "We couldn’t load the comments. Check your connection and reload the page."; });
+    });
+  }
+  function mutate(id, fn) {
+    return getState().then(function (it) {
+      var item = it[id] || (it[id] = {});
+      if (!Array.isArray(item.notes)) item.notes = [];
+      if (!item.approvals || typeof item.approvals !== "object") item.approvals = {};
+      fn(item);
+      return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: who(), items: it }) })
+        .then(function (r) {
+          if (r.status === 413) throw new Error("full");
+          if (!r.ok) throw new Error("save " + r.status);
+          items = it; lastLoad = Date.now(); renderAll();
+        });
+    });
+  }
+  function failMsg(err) {
+    return err && err.message === "full"
+      ? "The comment board is full. Please email Michael and we’ll make room."
+      : "That didn’t save. Check your connection and try again; your words are still in the box.";
+  }
+  function setStatus(s, msg, kind) { s.textContent = msg; s.className = "rv-status" + (kind ? " " + kind : ""); }
+
+  /* ---- one comment board per deliverable ---- */
+  blocks.forEach(function (b) {
+    var id = b.dataset.id, rv = b.querySelector(".rv"), video = b.querySelector("video");
+    if (video) video.volume = 0.5;   /* players open at half volume, as on the other portals */
+    var head = el("div", "rv-head");
+    head.appendChild(el("div", "rv-title", "Comments and edits"));
+    var appr = el("div", "rv-approvals"); head.appendChild(appr);
+    var list = el("ol", "notes");
+    var ta = el("textarea"); ta.id = "c-" + id;
+    ta.placeholder = "Your comments or edits for " + b.dataset.label + "…";
+    ta.setAttribute("aria-label", "Comments or edits for " + b.dataset.label);
+    ta.value = recall(DRAFT_KEY + id) || "";
+    ta.addEventListener("input", function () { store(DRAFT_KEY + id, ta.value || null); });
+
+    var actions = el("div", "rv-actions");
+    var save = el("button", "btn primary", "Save comment"); save.type = "button";
+    actions.appendChild(save);
+    /* Only when a real video is on the page: drop the player's current time into the comment. */
+    if (video) {
+      var stamp = el("button", "btn ghost", "Add the time"); stamp.type = "button";
+      video.addEventListener("timeupdate", function () { stamp.textContent = "Add the time (" + clock(video.currentTime) + ")"; });
+      stamp.addEventListener("click", function () {
+        var tag = "[" + clock(video.currentTime) + "] ", pos = ta.selectionStart || ta.value.length;
+        var before = ta.value.slice(0, pos), after = ta.value.slice(pos);
+        if (before && !/\s$/.test(before)) before += "\n";
+        ta.value = before + tag + after; ta.focus();
+        ta.selectionStart = ta.selectionEnd = (before + tag).length;
+        store(DRAFT_KEY + id, ta.value);
+      });
+      actions.appendChild(stamp);
+    }
+    var lab = el("label", "approve"), box = el("input"); box.type = "checkbox";
+    lab.appendChild(box); lab.appendChild(document.createTextNode("I approve " + b.dataset.label));
+    var pending = !!b.querySelector("[data-pending]");
+    if (!pending) actions.appendChild(lab);   /* nothing to approve until the video is here */
+    var status = el("span", "rv-status"); status.setAttribute("role", "status"); status.setAttribute("aria-live", "polite");
+    actions.appendChild(status);
+
+    var send = el("div", "send-row");
+    var mail = el("button", "btn ghost", "Email these comments to Michael"); mail.type = "button";
+    var sync = el("span", "sync", "Loading comments…"); sync.setAttribute("role", "status"); sync.setAttribute("aria-live", "polite");
+    send.appendChild(mail); send.appendChild(sync);
+
+    rv.appendChild(head); rv.appendChild(list); rv.appendChild(ta); rv.appendChild(actions); rv.appendChild(send);
+
+    save.addEventListener("click", function () {
+      var text = ta.value.trim();
+      if (!text) { setStatus(status, "Type a comment first.", "err"); ta.focus(); return; }
+      if (!who()) return needName(status);
+      save.disabled = true; setStatus(status, "Saving…");
+      mutate(id, function (item) { item.notes.push({ id: uid(), name: who(), text: text.slice(0, 4000), at: new Date().toISOString(), v: b.dataset.v }); })
+        .then(function () { ta.value = ""; store(DRAFT_KEY + id, null); setStatus(status, "Saved. Everyone reviewing can see it.", "ok"); })
+        .catch(function (e) { setStatus(status, failMsg(e), "err"); })
+        .then(function () { save.disabled = false; });
+    });
+    box.addEventListener("change", function () {
+      var on = box.checked;
+      if (!who()) { box.checked = !on; return needName(status); }
+      box.disabled = true; setStatus(status, "Saving…");
+      mutate(id, function (item) {
+        if (on) item.approvals[who()] = { at: new Date().toISOString(), v: b.dataset.v };
+        else delete item.approvals[who()];
+      }).then(function () { setStatus(status, on ? "Approved. Thank you!" : "Approval removed.", "ok"); })
+        .catch(function (e) { box.checked = !on; setStatus(status, failMsg(e), "err"); })
+        .then(function () { box.disabled = false; });
+    });
+    mail.addEventListener("click", function () {
+      var t = compile(b);
+      if (!t) { sync.className = "sync err"; sync.textContent = "There are no comments yet."; return; }
+      location.href = "mailto:michael@avataragency.ai?subject=" + encodeURIComponent("The Thriving Project: " + b.querySelector("h3").textContent + " comments") + "&body=" + encodeURIComponent(t);
+      sync.className = "sync"; sync.textContent = "Opening your email app. Your comments are already saved here either way.";
+    });
+
+    b._rv = { list: list, appr: appr, box: box, status: status, sync: sync, pending: pending };
+  });
+
+  /* ---- render ---- */
+  function renderAll() {
+    var me = who();
+    blocks.forEach(function (b) {
+      var id = b.dataset.id, cur = b.dataset.v, item = items[id] || {}, r = b._rv;
+      var notes = Array.isArray(item.notes) ? item.notes : [], approvals = item.approvals || {};
+      r.list.textContent = "";
+      notes.forEach(function (n) { r.list.appendChild(noteEl(b, n, me)); });
+      r.appr.textContent = "";
+      var okNow = 0;
+      Object.keys(approvals).forEach(function (name) {
+        var a = approvals[name] || {}, current = a.v === cur;
+        if (current) okNow++;
+        r.appr.appendChild(el("span", "chip" + (current ? "" : " old"),
+          current ? "✓ Approved by " + name + " · " + fmt(a.at).split(",")[0] : name + " approved " + vname(b, a.v)));
+      });
+      var mine = me && approvals[me] && approvals[me].v === cur;
+      r.box.checked = !!mine;
+      r.box.parentNode.classList.toggle("on", !!mine);
+      var stage = b.querySelector("[data-stage]");
+      if (stage && !r.pending) {
+        stage.className = "stage " + (okNow ? "ok" : "live");
+        stage.textContent = okNow ? "Approved" : "Ready for review";
+      }
+    });
+  }
+  function noteEl(b, n, me) {
+    var li = el("li", "note" + (n.v && n.v !== b.dataset.v ? " stale" : ""));
+    var top = el("div", "note-top");
+    top.appendChild(el("b", null, n.name || "Someone"));
+    top.appendChild(el("span", null, fmt(n.at) + (n.edited ? " · edited" : "")));
+    if (n.v && n.v !== b.dataset.v) top.appendChild(el("span", "ver", "on " + vname(b, n.v)));
+    var text = el("div", "note-text", n.text);
+    li.appendChild(top); li.appendChild(text);
+    if (me && n.name === me) {
+      var acts = el("span", "acts");
+      var edit = el("button", null, "Edit"), del = el("button", null, "Remove");
+      edit.type = del.type = "button";
+      acts.appendChild(edit); acts.appendChild(del); top.appendChild(acts);
+      edit.addEventListener("click", function () { editNote(b, n, li, text); });
+      del.addEventListener("click", function () {
+        if (!confirm("Remove this comment?")) return;
+        mutate(b.dataset.id, function (item) { item.notes = item.notes.filter(function (x) { return x.id !== n.id; }); })
+          .catch(function (e) { setStatus(b._rv.status, failMsg(e), "err"); });
+      });
+    }
+    return li;
+  }
+  function editNote(b, n, li, textEl) {
+    var ta = el("textarea"); ta.value = n.text; ta.setAttribute("aria-label", "Edit your comment");
+    var row = el("div", "rv-actions");
+    var ok = el("button", "btn primary", "Save changes"), cancel = el("button", "btn ghost", "Cancel");
+    ok.type = cancel.type = "button";
+    row.appendChild(ok); row.appendChild(cancel);
+    textEl.replaceWith(ta); li.appendChild(row); ta.focus();
+    cancel.addEventListener("click", renderAll);
+    ok.addEventListener("click", function () {
+      var t = ta.value.trim(); if (!t) return;
+      ok.disabled = true;
+      mutate(b.dataset.id, function (item) {
+        item.notes.forEach(function (x) { if (x.id === n.id) { x.text = t.slice(0, 4000); x.edited = new Date().toISOString(); } });
+      }).catch(function (e) { ok.disabled = false; setStatus(b._rv.status, failMsg(e), "err"); });
+    });
+  }
+  function compile(b) {
+    var item = items[b.dataset.id] || {}, notes = item.notes || [], ap = item.approvals || {};
+    var cur = Object.keys(ap).filter(function (k) { return ap[k] && ap[k].v === b.dataset.v; });
+    if (!notes.length && !cur.length) return "";
+    var out = ["The Thriving Project: " + b.querySelector("h3").textContent + " (" + b.dataset.vname + ")", ""];
+    if (cur.length) out.push("Approved by: " + cur.join(", "), "");
+    notes.forEach(function (n) { out.push("- " + n.name + ", " + fmt(n.at) + (n.v && n.v !== b.dataset.v ? " (on " + vname(b, n.v) + ")" : "") + ": " + n.text); });
+    return out.join("\n");
+  }
+
+  renderAll();
+  load();
+  /* Pick up the other reviewers' comments when someone comes back to the tab. */
+  window.addEventListener("focus", function () { if (loaded && Date.now() - lastLoad > 20000) load(); });
+})();
+</script>
+</body>
+</html>
