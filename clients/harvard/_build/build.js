@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 26;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 27;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
 const RV = 1;                                                        // ?v= for the preview-only review layer (/clients/_review/, comment pins; never in --final)
 const OUT = path.resolve(__dirname, "..");
 
