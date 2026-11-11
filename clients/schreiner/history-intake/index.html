@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>The Thriving Project — The History, Told as a Tree</title>
+<style>
+  :root{
+    --bg:#0a0a0c; --bg-2:#101014; --card:#15151b; --card-2:#1b1b22; --line:#26262f;
+    --txt:#f4f4f6; --muted:#9a9aa6; --muted-2:#6d6d78;
+    --gold:#c9a24b; --gold-2:#e3c478; --green:#4ec98a; --leaf:#2E5233;
+    --cream:#f2ece0; --cream-2:#fbfaf6; --ink:#1a1a1a; --ink-2:#5c5850;
+    --radius:16px; --max:1000px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(201,162,75,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(78,201,138,.06), transparent 55%),
+      var(--bg);
+    color:var(--txt);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55; -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  a{color:inherit}
+
+  .topbar{border-bottom:1px solid var(--line);background:rgba(10,10,12,.78);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:14px}
+  .brand{font-weight:700;letter-spacing:.5px;font-size:17px}
+  .brand b{color:var(--gold-2)}
+  .pill{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px;white-space:nowrap}
+  .save-state{font-size:12px;color:var(--green);opacity:0;transition:opacity .3s;white-space:nowrap}
+  .save-state.show{opacity:1}
+  .stagenav{border-bottom:1px solid var(--line);background:rgba(10,10,12,.7);backdrop-filter:blur(10px);position:sticky;top:60px;z-index:9}
+  .stagenav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:9px;padding-bottom:9px;scrollbar-width:thin}
+  .stagenav a{flex:0 0 auto;font-size:12px;color:var(--muted);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:5px 11px;white-space:nowrap}
+  .stagenav a:hover{border-color:var(--gold);color:var(--txt)}
+  .stagenav a.has{border-color:rgba(78,201,138,.5);color:var(--txt)}
+  .stagenav a.has::before{content:"● ";color:var(--green);font-size:9px}
+
+  .hero{padding:50px 0 34px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .hero h1{font-family:Georgia,'Times New Roman',serif;font-size:40px;line-height:1.12;font-weight:400;letter-spacing:-.3px}
+  .hero h1 .sub{display:block;font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Arial,sans-serif;font-size:17px;font-weight:500;color:var(--muted);margin-top:12px}
+  .welcome{margin-top:24px;max-width:760px;color:var(--muted);font-size:15.5px}
+  .welcome p+p{margin-top:14px}
+  .welcome b{color:var(--txt);font-weight:600}
+  .howto{margin-top:22px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:860px}
+  @media(max-width:760px){.howto{grid-template-columns:1fr}}
+  .howto div{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:13px 15px;background:rgba(201,162,75,.05);font-size:13.5px;color:var(--muted)}
+  .howto div b{display:block;color:var(--txt);font-size:14px;margin-bottom:4px}
+  .recover{margin:0 0 20px;border:1px solid #d9822b;border-left:3px solid #d9822b;border-radius:10px;padding:15px 18px;background:rgba(217,130,43,.10);font-size:14px;line-height:1.5}
+  .recover b{color:#f0b866}
+  .recover button{margin-top:12px;padding:9px 17px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:13px;background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+
+  section{padding:46px 0 0;scroll-margin-top:112px}
+  .sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:14px;flex-wrap:wrap}
+  .sec-head .num{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .sec-head h2{font-family:Georgia,'Times New Roman',serif;font-size:28px;font-weight:400;color:var(--txt)}
+  .nature{color:var(--muted);font-size:14.5px;max-width:760px;margin-bottom:18px;font-style:italic}
+  .card{background:var(--cream-2);border:2px solid var(--gold);border-radius:var(--radius);padding:26px}
+  .card+.card{margin-top:16px}
+  .q{margin-bottom:22px}
+  .q:last-child{margin-bottom:0}
+  .q label,.q .lab{display:block;font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px}
+  .q .help{font-size:13px;color:var(--ink-2);margin-bottom:10px;line-height:1.5}
+  .q .help b{color:var(--ink)}
+  input[type=text],input[type=email],input[type=url],textarea,select{
+    width:100%;background:#0c0c10;border:2px solid rgba(26,26,26,.28);border-radius:12px;color:var(--txt);
+    font-family:inherit;font-size:14.5px;line-height:1.6;padding:12px 14px;transition:border-color .15s,box-shadow .15s;
+  }
+  select{padding:10px 12px;cursor:pointer}
+  textarea{min-height:110px;resize:vertical}
+  textarea.tall{min-height:170px}
+  input:focus,textarea:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,75,.25)}
+  input::placeholder,textarea::placeholder{color:#6a6a76}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:700px){.two{grid-template-columns:1fr}}
+
+  /* works list */
+  .works-head{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+  .work{border:1px solid rgba(26,26,26,.16);border-radius:12px;padding:14px;background:#fff;margin-bottom:12px}
+  .work.sug{background:#fffaf0;border-color:rgba(201,162,75,.55)}
+  .work.removed{opacity:.55}
+  .work .tag{display:inline-block;font-size:10.5px;letter-spacing:1.2px;text-transform:uppercase;font-weight:700;color:#8a6d2f;margin-bottom:8px}
+  .work .tag.mine{color:#1f7a4d}
+  .work .row{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:10px}
+  .work .row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+  @media(max-width:700px){.work .row,.work .row3{grid-template-columns:1fr}}
+  .work input,.work select,.work textarea{font-size:13.5px;padding:9px 11px;border-radius:10px}
+  .work textarea{min-height:52px}
+  .work .mini{font-size:11px;color:var(--ink-2);margin:0 0 4px 2px;letter-spacing:.3px}
+  .work .foot{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:6px}
+  .work .check{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);cursor:pointer}
+  .work .check input{width:17px;height:17px;accent-color:var(--gold)}
+  .work .del{font-size:12px;color:#b3352a;background:none;border:none;cursor:pointer;font-family:inherit;text-decoration:underline}
+  .addwork{display:inline-block;padding:10px 16px;border-radius:999px;border:2px dashed rgba(26,26,26,.35);background:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:13.5px;color:var(--ink)}
+  .addwork:hover{border-color:var(--gold);background:rgba(201,162,75,.10)}
+
+  .choices{display:flex;gap:10px;flex-wrap:wrap}
+  .choice{border:2px solid rgba(26,26,26,.2);border-radius:999px;padding:9px 16px;cursor:pointer;font-size:14px;color:var(--ink);background:#fff;user-select:none}
+  .choice.on{border-color:var(--gold);background:rgba(201,162,75,.16);font-weight:600}
+
+  .drop{border:2px dashed rgba(26,26,26,.28);border-radius:14px;padding:28px 20px;text-align:center;cursor:pointer;background:rgba(26,26,26,.03)}
+  .drop:hover,.drop.over{border-color:var(--gold);background:rgba(201,162,75,.12)}
+  .drop .big{font-size:15px;font-weight:600;color:var(--ink);margin-bottom:6px}
+  .drop .small{font-size:12.5px;color:var(--ink-2)}
+  #fileList{margin-top:14px;display:grid;gap:8px}
+  .frow{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13.5px;background:#fff;border:1px solid rgba(26,26,26,.16);border-radius:10px;padding:10px 14px;color:var(--ink)}
+  .frow .fn{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .frow .st{font-size:12px;color:var(--ink-2);white-space:nowrap}
+  .frow .st.ok{color:#1f7a4d} .frow .st.err{color:#b3352a}
+
+  .savebar{position:fixed;right:20px;bottom:20px;z-index:20;display:flex;align-items:center;gap:10px;background:rgba(16,16,20,.94);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:999px;padding:8px 10px 8px 16px;box-shadow:0 10px 30px rgba(0,0,0,.45)}
+  .savebar .txt{font-size:12.5px;color:var(--muted);white-space:nowrap}
+  .savebar .txt b{color:var(--green)}
+  .savebar button{padding:10px 18px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;font-weight:600;font-size:13.5px;background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+  .savebar button:disabled{opacity:.6;cursor:default}
+  .savebar.warn{border-color:#d9822b;background:rgba(58,33,10,.95)}
+  .savebar.warn .txt{display:inline;color:#f0b866}
+  .savebar.warn .txt b{color:#ffc98a}
+  @media(max-width:600px){.savebar{right:12px;bottom:12px;padding:6px 8px 6px 12px}.savebar .txt{display:none}.savebar.warn .txt{display:inline;max-width:44vw;white-space:normal;line-height:1.3}}
+
+  .cta{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:34px;text-align:center;margin-top:46px}
+  .cta h2{font-family:Georgia,'Times New Roman',serif;font-size:26px;font-weight:400}
+  .cta p{color:var(--muted);margin:10px auto 22px;max-width:580px}
+  .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{padding:13px 24px;border-radius:999px;font-weight:600;font-size:15px;cursor:pointer;border:none;font-family:inherit;text-decoration:none;display:inline-block}
+  .btn.primary{background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+  .btn.ghost{border:1px solid var(--line);color:var(--txt);background:none}
+  .done-msg{display:none;margin-top:16px;color:var(--green);font-size:14px}
+  footer{border-top:1px solid var(--line);padding:34px 0 90px;margin-top:46px;color:var(--muted-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  @media(max-width:780px){.hero h1{font-size:30px}.sec-head h2{font-size:24px}}
+  :focus-visible{outline:2px solid var(--gold-2);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Avatar<b>Agency</b></div>
+    <span class="save-state" id="saveState">Saved ✓</span>
+    <div class="pill">The Thriving Project · History</div>
+  </div>
+</div>
+<nav class="stagenav" aria-label="Stages of the tree"><div class="wrap" id="stageNav"></div></nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">The History of Thriving</div>
+    <h1>Your history, told as a tree
+      <span class="sub">So the film can show how The Thriving Project really grew, in your words.</span>
+    </h1>
+    <div class="welcome">
+      <p>Laurie, the History of Thriving film follows the tree from your website as it grows from a seed into a full tree. To show the real history behind it, we would like you to tell it the same way: stage by stage, from the ground it grew in to the forest it has become.</p>
+      <p>Each stage below starts with what that part of a tree does in nature, then asks what played that role in your work. Please include <b>your own work and the work of others</b>: research inside The Thriving Project and outside it, publications, presentations, focus groups, meetings, conceptual papers, dissertations, surveys, grants, and the scholars you built on.</p>
+      <p>We have started each stage with <b>our best guesses</b> from your Knowledge Center and website. They are only suggestions. Please confirm, correct, move or remove them; you are the authority on this history.</p>
+      <div class="howto">
+        <div><b>Answer what you can</b>Skip anything that does not fit. "I am not sure" is useful to us too.</div>
+        <div><b>It saves as you type</b>Close the page anytime. Open this same link again on any device and everything will be here.</div>
+        <div><b>Rough is fine</b>Approximate years and short notes are perfect. We will shape it into the story.</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="stages"></main>
+
+<!-- ===== LEGACY ===== -->
+<section id="legacy" data-section="legacy">
+  <div class="wrap">
+    <div class="sec-head"><span class="num">Your legacy</span><h2>The early years</h2></div>
+    <p class="nature">This film is part of your legacy. Photos or video from your early years would bring the history to life.</p>
+    <div class="card">
+      <div class="q">
+        <span class="lab">Photos from your early research years</span>
+        <div class="help">Teaching, focus groups, conferences, early colleagues and students, the first surveys, anything from the beginning. <b>PNG, JPG or PDF · up to 8&nbsp;MB each · 12 files.</b></div>
+        <div class="drop" id="drop" tabindex="0" role="button" aria-label="Upload photos">
+          <div class="big">Drop photos here, or click to choose</div>
+          <div class="small">Each file sends as soon as you add it</div>
+          <input type="file" id="fileInput" multiple style="display:none" accept=".png,.jpg,.jpeg,.pdf,.doc,.docx">
+        </div>
+        <div id="fileList"></div>
+      </div>
+      <div class="q">
+        <label for="lg_captions">A line about each photo</label>
+        <div class="help">The year, the place and who is in it, as best you remember. For example: "1998, Azusa Pacific, my first strengths workshop with ...".</div>
+        <textarea id="lg_captions" data-q data-sec="legacy"></textarea>
+      </div>
+      <div class="q">
+        <label for="lg_video">Older video, or photos too large to upload</label>
+        <div class="help">Paste a link (Dropbox, Google Drive, YouTube) or describe what exists and we will arrange to collect it.</div>
+        <textarea id="lg_video" data-q data-sec="legacy"></textarea>
+      </div>
+      <div class="q">
+        <span class="lab">Would you like to appear in the film through photos or video from your early days?</span>
+        <div class="choices" data-choice="lg_appear">
+          <span class="choice" data-v="Yes" tabindex="0">Yes</span>
+          <span class="choice" data-v="Maybe, let's talk" tabindex="0">Maybe, let's talk</span>
+          <span class="choice" data-v="No" tabindex="0">No</span>
+        </div>
+        <input type="hidden" id="lg_appear" data-q data-sec="legacy">
+      </div>
+      <div class="q">
+        <label for="lg_words">In your own words: how did this begin?</label>
+        <div class="help">Tell it the way you would tell a colleague over coffee. We may quote or adapt a line or two for the narration, and only with your approval.</div>
+        <textarea id="lg_words" data-q data-sec="legacy" class="tall"></textarea>
+      </div>
+      <div class="q">
+        <label for="lg_anything">Anything else we should know?</label>
+        <div class="help">People to thank, things the film must not say, a story you love telling.</div>
+        <textarea id="lg_anything" data-q data-sec="legacy"></textarea>
+      </div>
+    </div>
+
+    <div class="cta">
+      <h2>Thank you, Laurie</h2>
+      <p>Your answers save automatically. When you have finished, press the button so we know to begin. You can still come back and change anything afterward.</p>
+      <div class="btns">
+        <button class="btn primary" id="btnDone">I'm Finished — Let Michael and Stephanie Know</button>
+        <a class="btn ghost" href="mailto:michael@avataragency.ai?subject=Thriving%20history%20form">Email a Question</a>
+      </div>
+      <div class="done-msg" id="doneMsg">Thank you. We have it, and we will be in touch about the next step.</div>
+    </div>
+  </div>
+</section>
+
+<div class="savebar">
+  <span class="txt" id="saveTxt">Saves automatically</span>
+  <button id="btnSave">Save Progress</button>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© 2026 AvatarAgency.ai · for The Thriving Project</div>
+    <div>Questions? michael@avataragency.ai</div>
+  </div>
+</footer>
+
+<script src="stages.js?v=1"></script>
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var BASE = params.get('test') ? 'schreiner-history-test' : 'schreiner-history';
+  var UPLOAD_SLUG = BASE;
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+  function el(tag, cls, html){ var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+
+  // ---------- build stages ----------
+  var main = document.getElementById('stages'), nav = document.getElementById('stageNav');
+  STAGES.forEach(function(s, i){
+    var sec = el('section'); sec.id = s.id; sec.setAttribute('data-section', s.id);
+    var html = '<div class="wrap"><div class="sec-head"><span class="num">Stage ' + (i + 1) + ' of ' + STAGES.length + '</span><h2>' + esc(s.name) + '</h2></div>' +
+               '<p class="nature">In nature: ' + esc(s.nature) + '</p><div class="card">';
+    s.qs.forEach(function(q){
+      var id = s.id + '_' + q[0];
+      html += '<div class="q"><label for="' + id + '">' + esc(q[1]) + '</label><div class="help">' + esc(q[2]) + '</div>' +
+              '<textarea id="' + id + '" data-q data-sec="' + s.id + '"' + (q[0] === 'story' ? ' class="tall"' : '') + '></textarea></div>';
+    });
+    html += '<div class="q"><div class="works-head"><span class="lab">The work that belongs in this stage</span></div>' +
+            '<div class="help">Gold cards are our suggestions: please mark each one. Add anything we missed with the button: your work, your students\' and colleagues\' work, and the scholars you built on. One item per card.</div>' +
+            '<div class="works" id="' + s.id + '_list"></div>' +
+            '<button type="button" class="addwork" data-add="' + s.id + '">+ Add a work, event or person</button>' +
+            '<input type="hidden" id="' + s.id + '_works" data-q data-sec="' + s.id + '"></div></div></div>';
+    sec.innerHTML = html;
+    main.appendChild(sec);
+    var a = el('a', null, esc((i + 1) + ' · ' + s.name)); a.href = '#' + s.id; a.id = 'nav_' + s.id; nav.appendChild(a);
+  });
+  var la = el('a', null, 'Your legacy'); la.href = '#legacy'; la.id = 'nav_legacy'; nav.appendChild(la);
+
+  // ---------- works lists ----------
+  var worksData = {};   // stage id -> array of rows
+  function hidden(sid){ return document.getElementById(sid + '_works'); }
+  function serialize(sid){ hidden(sid).value = JSON.stringify(worksData[sid]); hidden(sid).dispatchEvent(new Event('input', {bubbles:true})); }
+  function opts(list, cur){ return list.map(function(o){ return '<option' + (o === cur ? ' selected' : '') + '>' + esc(o) + '</option>'; }).join(''); }
+  function renderWorks(sid){
+    var box = document.getElementById(sid + '_list'); box.innerHTML = '';
+    worksData[sid].forEach(function(r, idx){
+      var c = el('div', 'work' + (r.sug ? ' sug' : '') + (r.st === 'Remove this' ? ' removed' : ''));
+      c.innerHTML =
+        '<span class="tag' + (r.sug ? '' : ' mine') + '">' + (r.sug ? 'Our suggestion' : 'Added by you') + '</span>' +
+        '<div class="row"><div><div class="mini">Title, event or description</div><input type="text" data-f="t" value="' + esc(r.t) + '"></div>' +
+        '<div><div class="mini">Year or years</div><input type="text" data-f="y" value="' + esc(r.y) + '" placeholder="e.g. 2009 or 1995–1999"></div></div>' +
+        '<div class="row3"><div><div class="mini">Type</div><select data-f="ty"><option value=""></option>' + opts(TYPES, r.ty) + '</select></div>' +
+        '<div><div class="mini">Who</div><input type="text" data-f="w" value="' + esc(r.w) + '" placeholder="You, colleagues, students, other scholars"></div>' +
+        '<div><div class="mini">Part of the thriving research?</div><select data-f="src">' + opts(['Thriving research','Outside (others\' work)','Both'], r.src === 'Outside' ? 'Outside (others\' work)' : r.src) + '</select></div></div>' +
+        '<div><div class="mini">Notes or a link</div><textarea data-f="n" placeholder="Anything we should know, or where to find it">' + esc(r.n) + '</textarea></div>' +
+        '<div class="foot">' +
+          (r.sug ? '<div style="min-width:220px"><div class="mini">Your verdict</div><select data-f="st">' + opts(STATUS, r.st || 'Please check') + '</select></div>' : '<span></span>') +
+          (sid === 's10' || r.lm ? '<label class="check"><input type="checkbox" data-f="lm"' + (r.lm ? ' checked' : '') + '> Landmark work</label>' : '') +
+          (r.sug ? '' : '<button type="button" class="del" data-del="' + idx + '">Remove</button>') +
+        '</div>';
+      [].slice.call(c.querySelectorAll('[data-f]')).forEach(function(inp){
+        var f = inp.getAttribute('data-f');
+        var ev = (inp.tagName === 'SELECT' || inp.type === 'checkbox') ? 'change' : 'input';
+        inp.addEventListener(ev, function(){
+          r[f] = inp.type === 'checkbox' ? inp.checked : inp.value;
+          if (f === 'st') c.classList.toggle('removed', inp.value === 'Remove this');
+          serialize(sid);
+        });
+      });
+      var d = c.querySelector('[data-del]');
+      if (d) d.addEventListener('click', function(){ worksData[sid].splice(idx, 1); renderWorks(sid); serialize(sid); });
+      box.appendChild(c);
+    });
+  }
+  function defaultsFor(s){ return s.works.map(function(w){ return {t:w.t, y:w.y, ty:w.ty, w:w.w, n:w.n, src:w.src, sug:true, st:'Please check', lm:false}; }); }
+  [].slice.call(document.querySelectorAll('[data-add]')).forEach(function(b){
+    b.addEventListener('click', function(){
+      var sid = b.getAttribute('data-add');
+      worksData[sid].push({t:'', y:'', ty:'', w:'', n:'', src:'Thriving research', sug:false, lm:false});
+      renderWorks(sid); serialize(sid);
+      var inputs = document.getElementById(sid + '_list').querySelectorAll('.work:last-child input[data-f="t"]');
+      if (inputs[0]) inputs[0].focus();
+    });
+  });
+  function loadWorks(sid, raw){
+    var s = STAGES.filter(function(x){ return x.id === sid; })[0];
+    var arr = null;
+    try { arr = raw ? JSON.parse(raw) : null; } catch (e) { arr = null; }
+    worksData[sid] = Array.isArray(arr) ? arr : defaultsFor(s);
+    hidden(sid).value = JSON.stringify(worksData[sid]);
+    renderWorks(sid);
+  }
+
+  // ---------- legacy choice ----------
+  [].slice.call(document.querySelectorAll('[data-choice]')).forEach(function(g){
+    var h = document.getElementById(g.getAttribute('data-choice'));
+    function sync(){ [].slice.call(g.children).forEach(function(c){ c.classList.toggle('on', c.getAttribute('data-v') === h.value); }); }
+    [].slice.call(g.children).forEach(function(c){
+      function pick(){ h.value = (h.value === c.getAttribute('data-v')) ? '' : c.getAttribute('data-v'); sync(); h.dispatchEvent(new Event('input', {bubbles:true})); }
+      c.addEventListener('click', pick);
+      c.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+    });
+    h._sync = sync;
+  });
+
+  // ---------- saving: one record per section ----------
+  var fields = [].slice.call(document.querySelectorAll('[data-q]'));
+  var SECS = STAGES.map(function(s){ return s.id; }).concat(['legacy']);
+  function secFields(sec){ return fields.filter(function(f){ return f.getAttribute('data-sec') === sec; }); }
+  var saveEl = document.getElementById('saveState'), saveBar = document.querySelector('.savebar');
+  var saveTxt = document.getElementById('saveTxt'), btnSave = document.getElementById('btnSave');
+  var dirtySecs = {}, unsaved = false, saving = false, saveTimer = null, retryTimer = null, flashTimer = null, retryStep = 0;
+  var RETRY_MS = [2000, 5000, 15000, 30000, 60000];
+  var LOCAL = BASE + '-local';
+
+  function flashSaved(){ saveEl.classList.add('show'); clearTimeout(flashTimer); flashTimer = setTimeout(function(){ saveEl.classList.remove('show'); }, 1600); }
+  function showSaved(){ unsaved = false; retryStep = 0; clearTimeout(retryTimer); saveBar.classList.remove('warn'); saveTxt.textContent = 'Saves automatically'; flashSaved(); }
+  function showUnsaved(msg){ unsaved = true; saveBar.classList.add('warn'); saveTxt.innerHTML = msg || '<b>Not saved yet.</b> Retrying — please keep this page open.'; }
+
+  function saveLocal(){ var d = { ts: Date.now(), items: {} }; fields.forEach(function(f){ d.items[f.id] = f.value; }); try { localStorage.setItem(LOCAL, JSON.stringify(d)); } catch (e) {} }
+  function readLocal(){ try { return JSON.parse(localStorage.getItem(LOCAL) || 'null'); } catch (e) { return null; } }
+  var localDraft = readLocal();
+
+  function postSec(sec, extra){
+    var items = {};
+    secFields(sec).forEach(function(f){ items[f.id] = { comment: f.value }; });
+    var body = { name: 'Laurie Schreiner', items: items };
+    if (extra) for (var k in extra) body[k] = extra[k];
+    var txt = JSON.stringify(body);
+    if (txt.length > 63000) return Promise.reject(new Error('too large'));
+    return fetch('/api/review?doc=' + encodeURIComponent(BASE + '-' + sec), { method:'POST', headers:{'Content-Type':'application/json'}, body: txt })
+      .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+      .then(function(j){ if (j && j.error) throw new Error(j.error); return j; });
+  }
+  function attempt(){
+    if (saving) return;
+    var secs = Object.keys(dirtySecs);
+    if (!secs.length) return;
+    saving = true;
+    secs.forEach(function(s){ delete dirtySecs[s]; });
+    Promise.all(secs.map(function(s){ return postSec(s).catch(function(e){ dirtySecs[s] = true; throw e; }); }))
+      .then(function(){ saving = false; showSaved(); markNav(); })
+      .catch(function(e){
+        saving = false;
+        showUnsaved(e && e.message === 'too large' ? '<b>This stage is very long.</b> Please email the rest to michael@avataragency.ai.' : null);
+        var wait = RETRY_MS[Math.min(retryStep, RETRY_MS.length - 1)]; retryStep++;
+        clearTimeout(retryTimer); retryTimer = setTimeout(attempt, wait);
+      });
+  }
+  fields.forEach(function(f){
+    f.addEventListener('input', function(){
+      dirtySecs[f.getAttribute('data-sec')] = true;
+      saveLocal();
+      clearTimeout(saveTimer); saveTimer = setTimeout(attempt, 900);
+    });
+  });
+  window.addEventListener('beforeunload', function(e){
+    if (Object.keys(dirtySecs).length || unsaved) { saveLocal(); e.preventDefault(); e.returnValue = ''; return ''; }
+  });
+  window.addEventListener('online', function(){ if (Object.keys(dirtySecs).length) { retryStep = 0; attempt(); } });
+
+  function hasAnswer(sec){
+    return secFields(sec).some(function(f){
+      if (/_works$/.test(f.id)) { return (worksData[sec] || []).some(function(r){ return !r.sug || (r.st && r.st !== 'Please check'); }); }
+      return f.value && f.value.trim();
+    });
+  }
+  function markNav(){ SECS.forEach(function(s){ var a = document.getElementById('nav_' + s); if (a) a.classList.toggle('has', hasAnswer(s)); }); }
+
+  // ---------- load every section, then offer back anything only this device has ----------
+  Promise.all(SECS.map(function(sec){
+    return fetch('/api/review?doc=' + encodeURIComponent(BASE + '-' + sec)).then(function(r){ return r.json(); }).catch(function(){ return { _offline: true }; });
+  })).then(function(states){
+    var offline = false, items = {};
+    states.forEach(function(st, i){
+      if (st && st._offline) offline = true;
+      var it = (st && st.items) || {};
+      for (var k in it) items[k] = it[k];
+      if (SECS[i] === 'legacy' && st && st.done) markDone(true);
+    });
+    fields.forEach(function(f){
+      var v = items[f.id] && items[f.id].comment;
+      if (typeof v === 'string' && v) f.value = v;
+      else if (offline && localDraft && localDraft.items && typeof localDraft.items[f.id] === 'string') f.value = localDraft.items[f.id];
+    });
+    STAGES.forEach(function(s){ loadWorks(s.id, hidden(s.id).value); });
+    var ap = document.getElementById('lg_appear'); if (ap._sync) ap._sync();
+    markNav();
+    if (offline) { showUnsaved('<b>Offline.</b> Your answers are safe on this device.'); return; }
+    offerRecovery(items);
+  });
+
+  function offerRecovery(serverItems){
+    if (!localDraft || !localDraft.items) return;
+    var missing = fields.filter(function(f){
+      var local = localDraft.items[f.id], server = (serverItems[f.id] && serverItems[f.id].comment) || '';
+      if (typeof local !== 'string' || !local.trim() || local === server) return false;
+      if (/_works$/.test(f.id) && !server) {   // untouched suggestions are not "lost answers"
+        try { return JSON.parse(local).some(function(r){ return !r.sug || (r.st && r.st !== 'Please check') || r.lm; }); } catch (e) { return false; }
+      }
+      return true;
+    });
+    if (!missing.length) return;
+    var box = el('div', 'recover', '<b>We found answers saved on this device that we never received.</b><br>This can happen if the connection dropped while you were typing. Nothing is lost: press the button and we will put them back.<br><button type="button">Restore my answers</button>');
+    box.querySelector('button').addEventListener('click', function(){
+      missing.forEach(function(f){ f.value = localDraft.items[f.id]; dirtySecs[f.getAttribute('data-sec')] = true; });
+      STAGES.forEach(function(s){ loadWorks(s.id, hidden(s.id).value); });
+      var ap = document.getElementById('lg_appear'); if (ap._sync) ap._sync();
+      if (box.parentNode) box.parentNode.removeChild(box);
+      retryStep = 0; attempt();
+    });
+    var first = document.querySelector('#stages section .wrap');
+    if (first) first.insertBefore(box, first.firstChild);
+  }
+
+  btnSave.addEventListener('click', function(){
+    SECS.forEach(function(s){ dirtySecs[s] = true; });
+    btnSave.disabled = true; btnSave.textContent = 'Saving…';
+    clearTimeout(saveTimer); clearTimeout(retryTimer); saving = false;
+    var secs = Object.keys(dirtySecs); secs.forEach(function(s){ delete dirtySecs[s]; });
+    Promise.all(secs.map(function(s){ return postSec(s).catch(function(e){ dirtySecs[s] = true; throw e; }); }))
+      .then(function(){
+        showSaved(); markNav(); btnSave.textContent = 'Saved ✓'; saveTxt.innerHTML = '<b>Saved.</b> You can close this page.';
+        setTimeout(function(){ btnSave.disabled = false; btnSave.textContent = 'Save Progress'; if (!unsaved) saveTxt.textContent = 'Saves automatically'; }, 3500);
+      }).catch(function(){
+        btnSave.disabled = false; btnSave.textContent = 'Try again';
+        showUnsaved('<b>Save failed.</b> Check your connection — we will keep retrying.');
+        retryStep = 0; clearTimeout(retryTimer); retryTimer = setTimeout(attempt, RETRY_MS[0]);
+      });
+  });
+
+  function markDone(silent){ document.getElementById('doneMsg').style.display = 'block'; if (!silent) document.getElementById('btnDone').textContent = 'Sent — thank you'; }
+  document.getElementById('btnDone').addEventListener('click', function(){
+    var b = this; b.disabled = true; b.textContent = 'Sending…';
+    clearTimeout(saveTimer); clearTimeout(retryTimer); saving = false;
+    var secs = SECS.slice();
+    Promise.all(secs.map(function(s){ return postSec(s, s === 'legacy' ? { done: new Date().toISOString() } : null); }))
+      .then(function(){ dirtySecs = {}; showSaved(); markDone(false); })
+      .catch(function(){ b.disabled = false; b.textContent = 'Try again'; showUnsaved('<b>Could not send.</b> Check your connection and try again.'); });
+  });
+
+  // ---------- uploads ----------
+  var drop = document.getElementById('drop'), input = document.getElementById('fileInput'), listEl = document.getElementById('fileList'), queue = [];
+  drop.addEventListener('click', function(){ input.click(); });
+  drop.addEventListener('keydown', function(e){ if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); input.click(); } });
+  ['dragenter','dragover'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.add('over'); }); });
+  ['dragleave','drop'].forEach(function(ev){ drop.addEventListener(ev, function(e){ e.preventDefault(); drop.classList.remove('over'); }); });
+  drop.addEventListener('drop', function(e){ add(e.dataTransfer.files); });
+  input.addEventListener('change', function(){ add(input.files); input.value = ''; });
+  function render(){
+    listEl.innerHTML = '';
+    queue.forEach(function(q){
+      var cls = q.status.indexOf('sent') === 0 || q.status.indexOf('on file') === 0 ? 'ok' : (/fail|too|type/.test(q.status) ? 'err' : '');
+      var row = el('div', 'frow', '<span class="fn"></span><span class="st ' + cls + '"></span>');
+      row.querySelector('.fn').textContent = q.f.name; row.querySelector('.st').textContent = q.status;
+      listEl.appendChild(row);
+    });
+  }
+  function add(files){
+    [].slice.call(files || []).forEach(function(f){
+      if (!/\.(png|jpe?g|pdf|docx?)$/i.test(f.name)) { queue.push({ f: f, status: 'type not accepted — please email' }); return; }
+      if (f.size > 8 * 1024 * 1024) { queue.push({ f: f, status: 'too large — use the link box below' }); return; }
+      queue.push({ f: f, status: 'waiting…' });
+    });
+    render(); send();
+  }
+  var sending = false;
+  function send(){
+    if (sending) return;
+    var next = queue.filter(function(q){ return q.status === 'waiting…'; })[0];
+    if (!next) return;
+    sending = true; next.status = 'uploading…'; render();
+    var fr = new FileReader();
+    fr.onload = function(){
+      var data = String(fr.result).split(',')[1] || '';
+      fetch('/api/intake-docs?c=' + encodeURIComponent(UPLOAD_SLUG), { method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ files: [{ fn: next.f.name, type: next.f.type || 'application/octet-stream', data: data }] }) })
+        .then(function(r){ return r.json(); })
+        .then(function(j){ next.status = (j && j.ok) ? 'sent ✓' : ((j && j.error) ? 'failed — ' + j.error : 'failed — please email'); })
+        .catch(function(){ next.status = 'failed — please email'; })
+        .then(function(){ sending = false; render(); send(); });
+    };
+    fr.onerror = function(){ next.status = 'failed — please email'; sending = false; render(); send(); };
+    fr.readAsDataURL(next.f);
+  }
+  fetch('/api/intake-docs?c=' + encodeURIComponent(UPLOAD_SLUG)).then(function(r){ return r.json(); }).then(function(j){
+    if (j && j.files && j.files.length) { j.files.forEach(function(f){ queue.push({ f: { name: f.fn }, status: 'on file ✓' }); }); render(); }
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>

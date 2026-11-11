@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Thriving History Intake — Review</title>
+<style>
+  :root{--bg:#0a0a0c;--card:#15151b;--card-2:#1b1b22;--line:#26262f;--txt:#f4f4f6;--muted:#9a9aa6;--muted-2:#6d6d78;
+        --gold:#c9a24b;--gold-2:#e3c478;--green:#4ec98a;--red:#e5786f;--radius:16px;--max:1080px}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:radial-gradient(1200px 600px at 80% -10%, rgba(201,162,75,.10), transparent 60%),var(--bg);color:var(--txt);
+       font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  a{color:var(--gold-2)}
+  .topbar{border-bottom:1px solid var(--line);background:rgba(10,10,12,.75);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+  .brand{font-weight:700;font-size:17px}.brand b{color:var(--gold-2)}
+  .pill{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+  .hero{padding:40px 0 24px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  h1{font-family:Georgia,serif;font-size:32px;font-weight:400}
+  .meta{margin-top:12px;color:var(--muted);font-size:14px}
+  .meta .done{color:var(--green);font-weight:600}
+  .tools{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+  .tools button{padding:9px 16px;border-radius:999px;border:1px solid var(--line);background:none;color:var(--txt);font-family:inherit;font-size:13px;cursor:pointer}
+  .tools button:hover{border-color:var(--gold)}
+  section{padding:28px 0 60px}
+  .grp{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:22px;margin-bottom:16px}
+  .grp h2{font-family:Georgia,serif;font-size:21px;font-weight:400;margin-bottom:4px}
+  .grp .num{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--gold)}
+  .qa{padding:12px 0;border-top:1px solid var(--line)}
+  .qa .q{font-size:13px;color:var(--muted);margin-bottom:5px}
+  .qa .a{font-size:15px;white-space:pre-wrap;word-break:break-word}
+  .empty{color:var(--muted-2);font-style:italic}
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin-top:6px}
+  .tw{overflow-x:auto}
+  th{text-align:left;font-weight:600;color:var(--muted);font-size:11.5px;letter-spacing:.6px;text-transform:uppercase;padding:8px 8px;border-bottom:1px solid var(--line)}
+  td{padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  td.y{white-space:nowrap;font-variant-numeric:tabular-nums}
+  .st{font-size:11.5px;border-radius:999px;padding:2px 9px;white-space:nowrap;border:1px solid var(--line)}
+  .st.ok{color:var(--green);border-color:rgba(78,201,138,.4)}
+  .st.ed{color:var(--gold-2);border-color:rgba(201,162,75,.45)}
+  .st.rm{color:var(--red);border-color:rgba(229,120,111,.45)}
+  .st.mv{color:#8fb7ff;border-color:rgba(143,183,255,.45)}
+  .st.new{color:#fff;background:rgba(78,201,138,.18);border-color:rgba(78,201,138,.5)}
+  .lm{color:var(--gold-2);font-weight:600}
+  tr.removed td{opacity:.5;text-decoration:line-through}
+  .files{display:grid;gap:8px}
+  .frow{display:flex;justify-content:space-between;gap:12px;background:rgba(12,12,16,.6);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px}
+  .note{color:var(--muted-2);font-size:13px;margin-top:8px}
+  .err{border:1px solid rgba(229,120,111,.35);border-radius:12px;padding:16px;color:var(--red)}
+</style>
+</head>
+<body>
+<div class="topbar"><div class="wrap"><div class="brand">Avatar<b>Agency</b></div><div class="pill">Internal · History Intake Review</div></div></div>
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">The Thriving Project · history told as a tree</div>
+  <h1 id="title">Loading…</h1>
+  <div class="meta" id="meta"></div>
+  <div class="tools"><button id="btnTimeline">Sort every work by year</button><button id="btnJson">Download all answers (JSON)</button></div>
+</div></header>
+<section><div class="wrap" id="out"></div></section>
+
+<script src="stages.js?v=1"></script>
+<script>
+(function(){
+  var params = new URLSearchParams(location.search);
+  var key = params.get('k') || '';
+  var BASE = params.get('test') ? 'schreiner-history-test' : 'schreiner-history';
+  var SECS = STAGES.map(function(s){ return s.id; }).concat(['legacy']);
+  var out = document.getElementById('out');
+  function esc(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){ return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]; }); }
+  function linkify(s){ return esc(s).replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>'); }
+  function ans(v){ return v && v.trim() ? '<div class="a">' + linkify(v) + '</div>' : '<div class="a empty">— not answered —</div>'; }
+  function stCls(r){ if (!r.sug) return 'new'; return ({'Yes, correct':'ok','I edited it':'ed','Remove this':'rm','Belongs in another stage':'mv'})[r.st] || ''; }
+  function stTxt(r){ return r.sug ? (r.st || 'Please check') : 'Added by Laurie'; }
+  var ALL = {}, ROWS = [];
+
+  function table(rows, withStage){
+    if (!rows.length) return '<div class="empty" style="margin-top:6px">No works listed.</div>';
+    return '<div class="tw"><table><tr>' + (withStage ? '<th>Stage</th>' : '') + '<th>Year</th><th>Work</th><th>Type</th><th>Who</th><th>Source</th><th>Notes</th><th>Status</th></tr>' +
+      rows.map(function(r){
+        return '<tr class="' + (r.st === 'Remove this' ? 'removed' : '') + '">' + (withStage ? '<td>' + esc(r._stage) + '</td>' : '') +
+          '<td class="y">' + esc(r.y) + '</td><td>' + (r.lm ? '<span class="lm">★ </span>' : '') + esc(r.t) + '</td><td>' + esc(r.ty) + '</td><td>' + esc(r.w) +
+          '</td><td>' + esc(r.src) + '</td><td>' + linkify(r.n || '') + '</td><td><span class="st ' + stCls(r) + '">' + esc(stTxt(r)) + '</span></td></tr>';
+      }).join('') + '</table></div>';
+  }
+
+  Promise.all(SECS.map(function(sec){
+    return fetch('/api/review?doc=' + encodeURIComponent(BASE + '-' + sec)).then(function(r){ return r.json(); });
+  })).then(function(states){
+    var html = '', answered = 0, latest = 0, done = null;
+    states.forEach(function(st, i){
+      var it = (st && st.items) || {}; ALL[SECS[i]] = st || {};
+      if (st && st.updatedAt) latest = Math.max(latest, new Date(st.updatedAt).getTime());
+      if (SECS[i] === 'legacy' && st && st.done) done = st.done;
+      for (var k in it) if (it[k] && it[k].comment && String(it[k].comment).trim()) answered++;
+    });
+    STAGES.forEach(function(s, i){
+      var it = (states[i] && states[i].items) || {};
+      html += '<div class="grp"><div class="num">Stage ' + (i + 1) + '</div><h2>' + esc(s.name) + '</h2>';
+      s.qs.forEach(function(q){ var v = it[s.id + '_' + q[0]] && it[s.id + '_' + q[0]].comment; html += '<div class="qa"><div class="q">' + esc(q[1]) + '</div>' + ans(v) + '</div>'; });
+      var raw = it[s.id + '_works'] && it[s.id + '_works'].comment, rows;
+      try { rows = raw ? JSON.parse(raw) : null; } catch (e) { rows = null; }
+      var untouched = !rows;
+      if (!rows) rows = s.works.map(function(w){ return {t:w.t, y:w.y, ty:w.ty, w:w.w, n:w.n, src:w.src, sug:true, st:'Please check'}; });
+      rows.forEach(function(r){ r._stage = (i + 1) + ' · ' + s.name; ROWS.push(r); });
+      html += '<div class="qa"><div class="q">Works in this stage' + (untouched ? ' (Laurie has not opened this list yet: our suggestions shown)' : '') + '</div>' + table(rows, false) + '</div></div>';
+    });
+    var lg = (states[SECS.length - 1] && states[SECS.length - 1].items) || {};
+    function L(id){ return lg[id] && lg[id].comment; }
+    html += '<div class="grp"><div class="num">Legacy</div><h2>The early years</h2>' +
+      '<div class="qa"><div class="q">Photos and files</div><div class="files" id="files"><div class="note">Loading…</div></div></div>' +
+      '<div class="qa"><div class="q">Captions</div>' + ans(L('lg_captions')) + '</div>' +
+      '<div class="qa"><div class="q">Older video / large files</div>' + ans(L('lg_video')) + '</div>' +
+      '<div class="qa"><div class="q">Would she like to appear in the film?</div>' + ans(L('lg_appear')) + '</div>' +
+      '<div class="qa"><div class="q">In her own words: how did this begin?</div>' + ans(L('lg_words')) + '</div>' +
+      '<div class="qa"><div class="q">Anything else</div>' + ans(L('lg_anything')) + '</div></div>';
+    out.innerHTML = html;
+    document.getElementById('title').textContent = 'Laurie Schreiner — History Intake' + (BASE.indexOf('test') > -1 ? ' (TEST DATA)' : '');
+    var meta = [];
+    meta.push(latest ? 'Last updated ' + new Date(latest).toLocaleString() : 'Not started yet');
+    meta.push(done ? '<span class="done">✓ Laurie marked it finished ' + new Date(done).toLocaleString() + '</span>' : 'Still in progress');
+    meta.push(answered + ' answers saved');
+    document.getElementById('meta').innerHTML = meta.join(' &nbsp;·&nbsp; ');
+
+    fetch('/api/intake-docs?c=' + encodeURIComponent(BASE)).then(function(r){ return r.json(); }).then(function(j){
+      var e = document.getElementById('files');
+      if (!j || !j.files || !j.files.length) { e.innerHTML = '<div class="note">No files uploaded yet.</div>'; return; }
+      e.innerHTML = j.files.map(function(f){
+        var kb = f.size ? (f.size > 1048576 ? (f.size / 1048576).toFixed(1) + ' MB' : Math.round(f.size / 1024) + ' KB') : '';
+        var href = '/api/intake-docs?c=' + encodeURIComponent(BASE) + '&get=' + encodeURIComponent(f.key) + '&k=' + encodeURIComponent(key);
+        return '<div class="frow"><a href="' + href + '">' + esc(f.fn) + '</a><span>' + kb + '</span></div>';
+      }).join('') + (key ? '' : '<div class="note">Add <b>?k=YOUR_DOCS_KEY</b> to this URL to enable downloads.</div>');
+    }).catch(function(){ document.getElementById('files').innerHTML = '<div class="note">Could not load files.</div>'; });
+  }).catch(function(){
+    out.innerHTML = '<div class="err">Could not load the intake data. Check that the review API is reachable.</div>';
+    document.getElementById('title').textContent = 'Error';
+  });
+
+  document.getElementById('btnTimeline').addEventListener('click', function(){
+    var rows = ROWS.filter(function(r){ return r.st !== 'Remove this'; }).slice().sort(function(a, b){
+      var ya = parseInt(String(a.y).match(/\d{4}/) || [9999], 10), yb = parseInt(String(b.y).match(/\d{4}/) || [9999], 10); return ya - yb; });
+    var box = document.getElementById('timeline');
+    if (!box) { box = document.createElement('div'); box.className = 'grp'; box.id = 'timeline'; out.insertBefore(box, out.firstChild); }
+    box.innerHTML = '<div class="num">All stages</div><h2>Every work by year</h2><div class="note">Removed items left out; items without a year at the end.</div>' + table(rows, true);
+    box.scrollIntoView({ behavior: 'smooth' });
+  });
+  document.getElementById('btnJson').addEventListener('click', function(){
+    var blob = new Blob([JSON.stringify(ALL, null, 2)], { type: 'application/json' });
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = BASE + '-answers.json'; a.click();
+  });
+})();
+</script>
+</body>
+</html>
