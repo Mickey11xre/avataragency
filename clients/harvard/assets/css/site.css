@@ -585,6 +585,13 @@ body.menu-open .hdr { background: var(--ink); }
 .sp-btn { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border-radius: 11px; border: 1px solid var(--line-dark-strong); background: rgba(255,255,255,.03); color: var(--on-dark-mid); transition: border-color .2s, color .2s; }
 .sp-btn:hover { border-color: var(--gold); color: var(--gold-light); }
 .sp-btn svg { width: 18px; height: 18px; }
+.sp-add { position: relative; flex: none; }
+.sp-attach[aria-expanded="true"] { border-color: var(--gold); color: var(--gold-light); }
+.sp-menu { position: absolute; left: 0; bottom: calc(100% + 8px); z-index: 30; padding: 6px; border-radius: 14px; border: 1px solid var(--line-dark-strong); background: #1b1c1e; box-shadow: 0 14px 36px rgba(0,0,0,.5); }
+.sp-menu[hidden] { display: none; }
+.sp-menu-item { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 16px 8px 12px; border: 0; border-radius: 10px; background: transparent; color: var(--on-dark); font: 400 15px/1.2 var(--sans); white-space: nowrap; cursor: pointer; }
+.sp-menu-item:hover, .sp-menu-item:focus-visible { background: rgba(255,255,255,.07); color: #fff; outline: none; }
+.sp-menu-item svg { width: 19px; height: 19px; flex: none; color: var(--gold-light); }
 .sp-hint { flex: 1; min-width: 0; font-size: 13px; color: var(--on-dark-mute); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sp-send { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border-radius: 12px; border: 0; color: #120f08; background: linear-gradient(180deg, var(--gold-light), var(--gold)); transition: filter .2s, transform .2s; }
 .sp-send:hover { filter: brightness(1.08); }

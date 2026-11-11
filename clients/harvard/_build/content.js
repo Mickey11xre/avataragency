@@ -298,6 +298,7 @@ const STAGE = {
     placeholder: "Ask Harrison anything, or share a document…",
     placeholderFile: "Add a question, or press send",
     hint: "PDF, image or Word · processed in memory, nothing is stored",
+    addLabel: "Add files or photos",     // the plus opens a small menu with this one item (stage spec v1.5, Michael 11-10)
     card: { title: "Share a document", sub: "Harrison and the team will review it with you" },
     // "Meet the AI team" (Michael, 11-08): the sixth option opens the three staff on the panel; tapping one puts that
     // agent in Harrison's place in the avatar area, with their own 20-second intro and a live conversation.

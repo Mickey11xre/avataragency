@@ -1020,7 +1020,13 @@
     if (PROMPT_ON) {
       var hasFiles = function (e) { var t = e.dataTransfer && e.dataTransfer.types; return !!t && [].indexOf.call(t, "Files") >= 0; }, dragN = 0;
       PF.addEventListener("submit", function (e) { e.preventDefault(); submitPrompt(); });
-      $(".sp-attach", PF).addEventListener("click", function () { fileInput.click(); });
+      // The plus opens a small menu that says what can be added; its item opens the file picker (stage spec v1.5).
+      var addBtn = $(".sp-attach", PF), addMenu = $(".sp-menu", PF), addItem = $(".sp-menu-item", PF);
+      var setAddMenu = function (open, refocus) { addMenu.hidden = !open; addBtn.setAttribute("aria-expanded", open ? "true" : "false"); if (open) addItem.focus({ preventScroll: true }); else if (refocus) addBtn.focus({ preventScroll: true }); };
+      addBtn.addEventListener("click", function () { setAddMenu(addMenu.hidden); });
+      addItem.addEventListener("click", function () { setAddMenu(false); fileInput.click(); });
+      d.addEventListener("click", function (e) { if (!addMenu.hidden && !e.target.closest(".sp-add")) setAddMenu(false); });
+      PF.addEventListener("keydown", function (e) { if (e.key === "Escape" && !addMenu.hidden) { e.preventDefault(); setAddMenu(false, true); } });
       $(".sp-mic", PF).addEventListener("click", function () { if (liveState === "idle") startLive(); });
       $(".sp-chip-x", PF).addEventListener("click", clearPending);
       fileInput.addEventListener("change", function () { pickFile(fileInput.files && fileInput.files[0]); });
