@@ -32,7 +32,9 @@
 .cards { grid-template-columns: repeat(3, minmax(0, 1fr)) !important; }
 @media (max-width: 860px) { .cards { grid-template-columns: repeat(3, 62vw) !important; } }
 /* SHE THRIVES strip shows phone screenshots (portrait): taller frames than the 4:3 reference stills */
-.strip.phone-strip .frame img { height: clamp(420px, 38vw, 560px); }</style>
+.strip.phone-strip .frame img { height: clamp(420px, 38vw, 560px); }
+/* Alena is the last case here, so she has no "Next case" row to supply the space under Maya's stage */
+#case-alena { padding-bottom: clamp(70px, 9vw, 130px); }</style>
 <script>
   (function (d) {
     var h = d.documentElement; h.className = h.className.replace('no-js', 'js');
