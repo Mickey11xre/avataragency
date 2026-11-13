@@ -761,7 +761,11 @@
       pInput.placeholder = pInput.getAttribute("data-ph-file") || ""; if (window.innerWidth > 900) pInput.focus({ preventScroll: true });
       flash(sendBtn, 1200);
     }
-    function clearPending() { pending = null; if (!PF) return; chip.hidden = true; fileInput.value = ""; pInput.placeholder = pInput.getAttribute("data-ph") || ""; }
+    // Phones (600 px and narrower) get the short hint: the full line was cut off mid-word (Michael 11-12, V 29).
+    var phoneMQ = window.matchMedia ? window.matchMedia("(max-width: 600px)") : null;
+    function basePh() { return (phoneMQ && phoneMQ.matches && pInput.getAttribute("data-ph-short")) || pInput.getAttribute("data-ph") || ""; }
+    if (pInput) { pInput.placeholder = basePh(); if (phoneMQ) { var onPhoneChange = function () { if (!pending) pInput.placeholder = basePh(); }; if (phoneMQ.addEventListener) phoneMQ.addEventListener("change", onPhoneChange); else if (phoneMQ.addListener) phoneMQ.addListener(onPhoneChange); } }
+    function clearPending() { pending = null; if (!PF) return; chip.hidden = true; fileInput.value = ""; pInput.placeholder = basePh(); }
     function submitPrompt() {
       var text = tr(pInput.value);
       if (pending) {       // a document: the consent line first, nothing leaves the browser before the Yes

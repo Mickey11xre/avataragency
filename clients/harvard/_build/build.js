@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 28;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 29;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
 const RV = 1;                                                        // ?v= for the preview-only review layer (/clients/_review/, comment pins; never in --final)
 const OUT = path.resolve(__dirname, "..");
 
@@ -308,7 +308,7 @@ function homePage() {
         <div class="sp-box">
           <div class="sp-row">
             <span class="sp-chip" hidden>${DOC_ICON}<b></b><button class="sp-chip-x" type="button" aria-label="Remove the file">${icon("close")}</button></span>
-            <input class="sp-input" type="text" name="q" autocomplete="off" maxlength="400" placeholder="${esc(STAGE.prompt.placeholder)}" data-ph="${esc(STAGE.prompt.placeholder)}" data-ph-file="${esc(STAGE.prompt.placeholderFile)}" aria-label="Ask ${esc(STAGE.name)}, or share a document">
+            <input class="sp-input" type="text" name="q" autocomplete="off" maxlength="400" placeholder="${esc(STAGE.prompt.placeholder)}" data-ph="${esc(STAGE.prompt.placeholder)}" data-ph-file="${esc(STAGE.prompt.placeholderFile)}" data-ph-short="${esc(STAGE.prompt.placeholderShort || STAGE.prompt.placeholder)}" aria-label="Ask ${esc(STAGE.name)}, or share a document">
           </div>
           <div class="sp-row sp-tools">
             <div class="sp-add"><button class="sp-btn sp-attach" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="sp-add-menu" aria-label="${esc(STAGE.prompt.addLabel)}" title="${esc(STAGE.prompt.addLabel)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><div class="sp-menu" id="sp-add-menu" role="menu" hidden><button class="sp-menu-item" type="button" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5l-8.2 8.2a5.3 5.3 0 0 1-7.5-7.5l8.6-8.6a3.5 3.5 0 0 1 5 5l-8.6 8.6a1.8 1.8 0 0 1-2.5-2.5l7.9-7.9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${esc(STAGE.prompt.addLabel)}</span></button></div></div>

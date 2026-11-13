@@ -297,6 +297,7 @@ const STAGE = {
     enabled: "flag",
     placeholder: "Ask Harrison anything, or share a document…",
     placeholderFile: "Add a question, or press send",
+    placeholderShort: "Ask Harrison anything…",   // phones only (600 px and narrower): the full line was cut off mid-word (Michael 11-12)
     hint: "PDF, image or Word · processed in memory, nothing is stored",
     addLabel: "Add files or photos",     // the plus opens a small menu with this one item (stage spec v1.5, Michael 11-10)
     card: { title: "Share a document", sub: "Harrison and the team will review it with you" },
