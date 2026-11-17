@@ -284,11 +284,11 @@
     btn.addEventListener("click", function () {
       if (window.innerWidth < 700) { window.open(view.getAttribute("data-site"), "_blank", "noopener"); return; }  // too small to explore in a frame
       frame = document.createElement("iframe");
-      frame.src = view.getAttribute("data-site"); frame.title = "The Thriving Project website (live)";
+      frame.src = view.getAttribute("data-site"); frame.title = view.getAttribute("data-title") || "The Thriving Project website (live)";
       frame.setAttribute("loading", "lazy"); frame.setAttribute("referrerpolicy", "no-referrer");
       view.appendChild(frame); view.classList.add("live"); fit();
       pauseAll(null);
-      track("portfolio_live_site", { site: "thrivingincollege.org" });
+      track("portfolio_live_site", { site: view.getAttribute("data-site") || "thrivingincollege.org" });
     });
     addEventListener("resize", fit);
   });
