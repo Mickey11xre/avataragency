@@ -1,8 +1,3 @@
-/* =========================================================================
-   Mobile navigation drawer — nav spec 2026-09-03 (corrected 09-04)
-   Full-screen overlay opened from the hamburger tab. Progressive
-   enhancement: every link here also exists in the served HTML nav + footer.
-   ========================================================================= */
 .drawer {
   position: fixed; inset: 0; z-index: 90;
   background: var(--ink, #1C3327);
@@ -28,7 +23,7 @@
   display: flex; align-items: center; min-block-size: var(--tap);
 }
 .drawer__nav a:hover, .drawer__nav a:focus-visible { color: #F0DCA8; }
-.drawer__nav a[data-store] { color: #F0DCA8; }            /* gold, a peer item */
+.drawer__nav a[data-store] { color: #F0DCA8; }            
 .drawer__nav a[aria-current="page"] { text-decoration: underline; text-underline-offset: .2em; text-decoration-color: rgba(240,220,168,.6); }
 .drawer__sec { margin-block-start: var(--sp-m); font-size: var(--step-sm); }
 .drawer__sec a { color: rgba(245,240,228,.8); display: inline-flex; align-items: center; min-block-size: var(--tap); }
@@ -37,7 +32,6 @@
 .drawer .btn--primary:hover { background: #3D7157; color: var(--paper); }
 .drawer :focus-visible { outline: 3px solid #F0DCA8; outline-offset: 3px; }
 
-/* Staggered reveal: ~80 ms cascade. The only animation this surface gets. */
 .drawer.is-open .drawer__nav a, .drawer.is-open .drawer__sec, .drawer.is-open .drawer__cta {
   animation: drawer-in .32s ease both;
 }

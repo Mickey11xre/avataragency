@@ -1,9 +1,3 @@
-/* =========================================================================
-   Homepage — the seedling-to-tree scroll film (approved concept, ported)
-   Two layers (v6 §11.1): a complete semantic page underneath, and the
-   canvas film + blooming panels as presentation over it. Without JS or with
-   reduced motion the six movements stack as a plain page (.static).
-   ========================================================================= */
 html.home, .home body { background: #0B0F0C; }
 .home body { color: var(--paper); font-family: var(--font-display); overflow-x: hidden; }
 
@@ -16,27 +10,15 @@ html.home, .home body { background: #0B0F0C; }
 #scrim { position: absolute; inset: 0; pointer-events: none; opacity: 0;
   background: radial-gradient(70% 60% at var(--sx,50%) 50%, rgba(6,14,9,.80) 0%, rgba(6,14,9,.36) 55%, rgba(6,14,9,0) 78%); }
 
-/* ---- masthead over the film: wordmark, desktop nav, hamburger ------- */
 #mast { position: absolute; top: 0; left: 0; right: 0; z-index: 8; display: flex; align-items: center;
   justify-content: space-between; gap: var(--sp-s); padding: 18px clamp(18px,4vw,54px); }
 #mast .word { font-size: clamp(13px,1.15vw,16px); letter-spacing: .30em; text-transform: uppercase;
   color: #F1EADA; text-shadow: 0 1px 14px rgba(0,0,0,.65); text-decoration: none; font-family: var(--font-display); }
 #mast .word b { font-weight: 400; border-bottom: 1px solid rgba(241,234,218,.45); padding-bottom: 3px; }
 #mast .nav { display: none; }
-/* ⛔ 72rem (1152px), NOT 64rem. Measured 12 Sept: the desktop nav needs
-   1136px to lay out — wordmark 196 + nav 834 + mast padding 82 + gap. At the
-   old 64rem (1024px) breakpoint it was switched on 112px before it fitted, so
-   "Register Your Campus" wrapped to two lines, which made the button 76px
-   tall instead of 46 and the whole nav band 112px instead of 82. That extra
-   30px is what the hero card was colliding with. Below this width the drawer
-   is the better experience anyway. */
 @media (min-width: 72rem) {
-  /* Always visible, from first paint. Previously gated behind a .past class
-     that only landed after Movement 1 (build spec §2) — Michael's call
-     12 Sept: a visitor who cannot see navigation cannot tell the site has an
-     Instruments section. Of 20 comparable marketing sites, none hide it. */
   #mast .nav { display: flex; align-items: center; gap: var(--sp-xs); }
-  #mast .nav .btn { white-space: nowrap; }   /* belt and braces against the wrap */
+  #mast .nav .btn { white-space: nowrap; }   
   #mast .nav a:not(.btn) { color: #F1EADA; text-decoration: none; font-family: var(--font-ui); font-size: var(--step--1);
     letter-spacing: .04em; padding-inline: var(--sp-2xs); text-shadow: 0 1px 10px rgba(0,0,0,.7); }
   #mast .nav a[data-store] { color: #F0DCA8; font-weight: 600; }
@@ -44,11 +26,8 @@ html.home, .home body { background: #0B0F0C; }
 }
 #mast .hamburger { background: rgba(8,16,11,.55); border: 1px solid rgba(241,234,218,.45); color: #F1EADA;
   border-radius: var(--radius-s); justify-content: center; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
-/* Must match the nav breakpoint above exactly, or a window between the two
-   gets both the drawer button and the full nav, or neither. */
 @media (min-width: 72rem) { #mast .hamburger { display: none; } }
 
-/* ---- section rail (desktop) ----------------------------------------- */
 #rail { position: absolute; right: clamp(14px,2.2vw,34px); top: 50%; transform: translateY(-50%);
   z-index: 6; display: flex; flex-direction: column; gap: 19px; align-items: flex-end; }
 #rail .d { display: flex; align-items: center; gap: 12px; opacity: .62; transition: opacity .45s ease; cursor: pointer; padding: 5px 0 5px 14px; }
@@ -75,7 +54,6 @@ html.home, .home body { background: #0B0F0C; }
 #loader .bar { width: min(240px,50vw); height: 1px; background: rgba(241,234,218,.16); overflow: hidden; }
 #loader .bar i { display: block; height: 100%; width: 0; background: rgba(241,234,218,.75); transition: width .25s ease; }
 
-/* ---- the blooming panels — each is a real <section> with real copy ---- */
 .leaf { position: absolute; z-index: 5; width: min(42vw,520px);
   padding: clamp(26px,2.6vw,40px) clamp(26px,2.8vw,44px) clamp(28px,2.8vw,42px);
   background: linear-gradient(158deg, rgba(246,241,229,.72) 0%, rgba(236,229,213,.65) 100%);
@@ -85,33 +63,15 @@ html.home, .home body { background: #0B0F0C; }
   will-change: transform, opacity; backface-visibility: hidden; }
 .leaf::after { content: ""; position: absolute; left: 0; top: 14%; bottom: 14%; width: 2px;
   background: linear-gradient(to bottom, rgba(28,51,39,0), rgba(28,51,39,.35), rgba(28,51,39,0)); }
-/* Cards center in the space BELOW the masthead, not in the whole viewport.
-   With the JS `translateY(-50%)`, `top:50%` put the hero card's top edge at
-   67px on a 768px-tall window — 45px inside a nav band that starts at 0. It
-   only cleared above 859px of viewport height, so every normal laptop was in
-   violation. `--nav-safe` is the 82px band plus a 12px gap, which also covers
-   the ±2% "pop" the entrance animation applies at full open. */
 :root { --nav-safe: 94px; }
 .leaf.l { left: clamp(20px,7vw,120px); top: calc(50vh + var(--nav-safe) / 2); }
 .leaf.r { right: clamp(20px,7vw,120px); top: calc(50vh + var(--nav-safe) / 2); }
 .leaf.wide { width: min(60vw,820px); }
 .leaf.hero { width: min(68vw,1000px); }
 .leaf.wide5 { width: min(58vw,860px); padding-top: clamp(20px,2vw,29px); padding-bottom: clamp(20px,2vw,28px); }
-/* Short desktop windows: a 1280x640 laptop has 640px of height for an 85px
-   nav band and a 597px hero card — 682px of content. Something has to give,
-   and it is the card's own padding, never Dr. Schreiner's copy. Measured
-   12 Sept; without this the hero re-enters the nav band by 16px below about
-   660px of viewport height. */
 @media (min-width: 72rem) and (max-height: 44rem) {
   .leaf.hero { padding-top: 18px; padding-bottom: 20px; }
   .leaf { padding-top: clamp(18px,2vw,28px); padding-bottom: clamp(20px,2vw,30px); }
-  /* The packages leaf is the tallest movement now that its cards carry a
-     photograph. On a short window the card already shrinks with 44vh; these
-     give back the last ~40px so the whole leaf clears the nav band at
-     1280x640. The lede stays word-for-word; only its size moves. */
-  /* Measured 13 Sept after the 44vh card: still 1px over at 1366x660 and
-     7px over at 1280x640. The leaf's own padding is the last lever that
-     touches neither the copy nor the card. */
   .leaf.wide5 { padding-top: 14px; padding-bottom: 16px; }
   .leaf.wide5 h2 { margin-bottom: 10px; }
   .leaf.wide5 .hr { margin-bottom: 10px; }
@@ -120,9 +80,7 @@ html.home, .home body { background: #0B0F0C; }
   .leaf.wide5 .regwrap { margin-top: 8px; }
 }
 
-/* two-beat content reveal, both scroll-driven — never a one-shot transition */
 .leaf .eyebrow, .leaf h1, .leaf h2, .leaf .hr, .leaf .who { opacity: var(--c1,1); }
-/* the hero question is the page's single h1 — styled as its sibling h2s */
 .leaf h1 { font-size: clamp(24px,2.5vw,38px); line-height: 1.12; font-weight: 400; letter-spacing: -.01em; margin-bottom: 16px; color: var(--ink); }
 .leaf h1 em { font-style: italic; color: var(--ink-soft); }
 .leaf p, .leaf .facts, .leaf .stat, .leaf .cta, .leaf .note, .leaf .strip, .leaf .carousel, .leaf .regwrap, .leaf .paths, .leaf .kc, .leaf .heroreg { opacity: var(--c2,1); }
@@ -146,41 +104,17 @@ html.home, .home body { background: #0B0F0C; }
 .split.rev { grid-template-columns: .82fr 1fr; }
 .hero .split { grid-template-columns: .82fr 1.28fr; align-items: center; }
 .col { min-width: 0; }
-/* The order CTA sits under the VIDEO, not under the card. Centering it on the
-   card put it at x=590 when the video's center is x=775, so it landed under
-   the gutter between the two columns and read as misplaced. This mirrors
-   .hero .split's own track sizes and gap so the two stay aligned by
-   construction — change one, change both. */
-/* Two matched buttons, centered as a pair (Stephanie, 15 Sept). It used to be
-   a single button parked in the right-hand track to sit under the video; with
-   two it is a centered row, so neither reads as the afterthought the text link
-   had become. */
 .heroreg { display: flex; flex-wrap: wrap; justify-content: center; align-items: center;
   gap: clamp(10px,1.2vw,18px); margin-top: clamp(14px,1.7vw,24px); }
 .heroreg .btn { white-space: nowrap; }
 
-/* portrait */
 .bigpf { border-radius: 2px 18px 2px 18px; overflow: hidden; height: 100%; min-height: 260px;
   box-shadow: 0 14px 34px rgba(0,0,0,.28), 0 0 0 1px rgba(28,51,39,.14); }
 .bigpf picture { display: block; height: 100%; }
 .bigpf img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 22%; }
 
-/* hero film player — rests on the poster, plays only on the button, audio kept */
 .vid { position: relative; aspect-ratio: 16/9; border-radius: 2px 16px 2px 16px; overflow: hidden; background: #FFF;
   box-shadow: 0 20px 46px rgba(0,0,0,.40), 0 0 0 1px rgba(28,51,39,.20); }
-/* ⛔ inset:-1px and +2px, NOT inset:0 and 100%. The figure lays out at a
-   FRACTIONAL width (528.39px at 1440), so the rounded clip falls on a
-   sub-pixel boundary while the video rasterizes to whole pixels. The strip
-   left over showed the white background through — a pale seam down the right
-   edge and into the 16px bottom-left curve. Every gap measured 0.00, so this
-   is rasterization, not a layout gap, and no amount of width:100% fixes it.
-   Overshooting by a pixel means the clip always cuts into the video itself
-   and nothing behind can ever show. With object-fit:cover the 0.4% is
-   invisible. Reported by Michael 12 Sept.
-   ⚠️ max-width:none is REQUIRED — tokens.css has a global
-   `img, picture, video, canvas, svg { max-width: 100% }` that silently
-   clamped calc(100%+2px) straight back to the container width. The height
-   grew, the width did not, and the seam stayed. */
 .vid video { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px);
   max-width: none; object-fit: cover; display: block; background: #FFF; }
 .vposter { position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px);
@@ -188,27 +122,14 @@ html.home, .home body { background: #0B0F0C; }
   z-index: 2; opacity: 1; transition: opacity .30s ease; }
 .vid.playing .vposter { opacity: 0; pointer-events: none; }
 .vplay { position: absolute; inset: 0; z-index: 3; background: transparent; border: 0; cursor: pointer; min-block-size: 0; }
-/* Classic play affordance, in the brand green — same #2E5540 as the Register
-   Your Campus button. Sized as a share of the frame so it holds its
-   proportion from a phone to a 1000px card. */
 .vplay__glyph { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
   width: clamp(52px, 13%, 82px); aspect-ratio: 1 / 1; pointer-events: none;
   transition: opacity .25s ease, transform .25s ease; }
-/* Transparent center, plain shadow, no halo — Michael's call twice over
-   (12 Sept): the white disc read as heavy and the glow that replaced it read
-   worse. He has the contrast figure and chose the cleaner mark.
-   For whoever revisits this: the glyph sits ENTIRELY over the dark half of
-   the poster (the split is at 58% of the width, the glyph spans 43.5-56.5%),
-   backdrop averages rgb(67,50,41), and #2E5540 on that is 1.44:1. If it ever
-   needs to read harder, change the STROKE to var(--paper) — about 8:1 on the
-   same backdrop — rather than putting a disc or a glow back behind it. */
 .vplay__glyph svg { display: block; width: 100%; height: 100%;
   filter: drop-shadow(0 2px 8px rgba(0,0,0,.38)); }
 .vplay__glyph circle { fill: none; stroke: var(--green); stroke-width: 7; }
 .vplay__glyph path { fill: var(--green); }
 .vplay:hover .vplay__glyph, .vplay:focus-visible .vplay__glyph { transform: translate(-50%,-50%) scale(1.06); }
-/* Hidden while actually rolling, back again on pause so it doubles as the
-   resume affordance. `.playing` persists after a pause, `.rolling` does not. */
 .vid.rolling .vplay__glyph { opacity: 0; }
 @media (prefers-reduced-motion: reduce) {
   .vplay__glyph { transition: opacity .25s ease; }
@@ -226,7 +147,6 @@ html.home, .home body { background: #0B0F0C; }
 .vtime { font-size: clamp(9px,.72vw,11px); letter-spacing: .06em; font-variant-numeric: tabular-nums; color: rgba(46,85,64,.82); font-family: var(--font-ui); }
 .vgap { flex: 1 1 auto; }
 
-/* seven-instrument strip (movement 3) */
 .strip { list-style: none; padding: 0; margin: 4px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
 .strip a { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; min-block-size: var(--tap);
   background: rgba(252,250,244,.72); border: 1px solid rgba(28,51,39,.14); border-radius: 3px 12px 3px 12px;
@@ -234,21 +154,12 @@ html.home, .home body { background: #0B0F0C; }
 .strip a::after { content: "→"; color: var(--gold-text); }
 .strip a:hover { border-color: var(--gold); background: #fff; }
 
-/* research counts (movement 4) */
-/* ⛔ minmax(0,1fr), NOT 1fr. A grid track defaults to min-width:auto, so
-   `1fr` refuses to shrink below its content's min-content width — and the
-   content here is "PRESENTATIONS" and "DISSERTATIONS", 13-character words
-   that cannot break. On a phone the three tracks added up wider than the
-   card and the tiles ran out through its right edge. Reported on iOS,
-   12 Sept. minmax(0,…) is what actually lets a track shrink. */
 .kc { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
 .kc a { display: block; padding: 12px 12px 10px; background: rgba(252,250,244,.72); border: 1px solid rgba(28,51,39,.14);
   border-radius: 3px 12px 3px 12px; text-decoration: none; color: var(--ink); }
 .kc b { display: block; font-size: clamp(22px,2vw,30px); font-weight: 400; line-height: 1; }
 .kc span { display: block; font-size: 9.5px; letter-spacing: .17em; text-transform: uppercase; color: var(--gold-text); margin-top: 6px; font-family: var(--font-ui); }
 .kc a:hover { border-color: var(--gold); background: #fff; }
-/* Icon in a soft rounded container ABOVE the number — the count alone was
-   doing all the work and the label was the faintest text in the block. */
 .kc .kci { display: flex; align-items: center; justify-content: center;
   width: 30px; height: 30px; border-radius: 8px; background: rgba(46,85,64,.10);
   margin-bottom: 9px; }
@@ -256,36 +167,10 @@ html.home, .home body { background: #0B0F0C; }
   stroke: var(--green); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .kc a:hover .kci { background: rgba(46,85,64,.17); }
 
-/* 3D cylinder carousel (movement 5) — ergonomics: one card per swipe, snap,
-   visible arrows, front card opens its detail page */
-/* Portrait cards (Michael, 13 Sept): a photograph bands the middle of each,
-   so the card went from 232x190 to 232x396 and the cylinder's box grew with
-   it. Width is unchanged on purpose — every spacing in CAR is derived from
-   card WIDTH (S.cw), so the wheel's geometry did not need retuning. */
-/* ⛔ The card is sized from VIEWPORT HEIGHT, not fixed pixels. At a fixed
-   232x396 the packages leaf measured 715px tall against 575px available
-   under the nav on a 1366x660 laptop — 140px into the band Michael ruled
-   cards must never enter. 44vh gives the full 396px on a 900px window and
-   scales down to 262px on the shortest desktops; the ratio (.586) is held
-   so the photograph band keeps its proportion. CAR reads S.cw from
-   offsetWidth on init and on resize, so the wheel's spacing follows. */
 .carousel { --ch: clamp(262px, 44vh, 396px); --cw: calc(var(--ch) * .586);
   position: relative; height: calc(var(--ch) + 30px); margin: 12px 0 2px; perspective: 1000px; touch-action: pan-y; user-select: none; }
 .carousel.grabbing { cursor: grabbing; }
-/* ⛔ transform-style is FLAT here, and the perspective sits on the stage, on
-   purpose. Under preserve-3d the browser does true 3D depth: mid-spin two
-   neighbouring cards physically intersect (at the crossing both sit at the
-   same z and their tilted planes cross near x=0), and it renders the
-   intersection as a vertical strip of the back card cutting through the
-   front one. On a phone the cards are only ~100px apart so it showed on
-   every turn. Michael's screenshot, 13 Sept. With flat, each card is
-   projected on its own through this element's perspective and painted in
-   the z-index CAR already assigns from depth — same look, no intersection.
-   The .carousel perspective above still drives the stage's own parallax
-   tilt. */
 .cstage { position: absolute; left: 50%; top: 50%; width: 0; height: 0; transform-style: flat; perspective: 1000px; }
-/* grab, not pointer: the card is a drag handle now and only its "Read more"
-   link navigates, so the cursor has to stop promising a click. */
 .pkg { position: absolute; left: calc(var(--cw) / -2); top: calc(var(--ch) / -2); width: var(--cw); height: var(--ch);
   transform-style: preserve-3d; will-change: transform, opacity; cursor: grab; }
 .carousel.grabbing .pkg { cursor: grabbing; }
@@ -296,75 +181,25 @@ html.home, .home body { background: #0B0F0C; }
 .pkg:nth-of-type(5) { --f1:#192E24; --f2:#14251D; --e1:#112017; --e2:#0D1912 }
 .pkg .edge { position: absolute; inset: 0; border-radius: 3px 14px 3px 14px; background: var(--e1); }
 .pkg .edge.e2 { background: var(--e2); }
-/* overflow:hidden is SAFE here and only here: .pface is a leaf of the
-   transform tree with no 3D children, so it flattens nothing. It is .leaf and
-   the stage that must never clip (see the mobile note). It is what lets the
-   photograph bleed to the card's rounded edges. */
 .pface { position: absolute; inset: 0; display: flex; flex-direction: column; padding: 15px 15px 14px; border-radius: 3px 14px 3px 14px;
   overflow: hidden;
   background: linear-gradient(158deg, var(--f1) 0%, var(--f2) 100%); text-decoration: none;
   box-shadow: 0 18px 34px rgba(0,0,0,.34), 0 1px 0 rgba(255,255,255,.13) inset; border: 1px solid rgba(255,255,255,.10); }
-/* The photograph. Bleeds edge to edge (negative margins cancel the face
-   padding) and melts into the card's own gradient top and bottom, so it reads
-   as part of the object rather than a sticker on it. Natural color was
-   Michael's call; the melt is what keeps five color photos from fighting
-   the green. Reviewed and approved from the standalone preview, 13 Sept. */
-/* ⛔ An explicit HEIGHT, with no aspect-ratio. Two wrong turns are baked into
-   this one line, both reported from an iPhone on 13 Sept:
-   1. `aspect-ratio: 7/6` alone derives height from WIDTH and ties neither to
-      the screen, so a wide card grew the picture without limit — 705x604 on
-      a 375px-tall landscape phone.
-   2. Adding `max-height` to that did NOT just cap the height: with an
-      aspect-ratio set, a height cap shrinks the WIDTH to keep the ratio, so
-      the band stopped filling the card and left a green gap down its right
-      side.
-   Deriving height from --ch (itself viewport-clamped) fixes both: the width
-   is always 100% of the band, and the height follows the viewport through
-   the card. The img is object-fit:cover, so the photo crops rather than
-   distorting. */
 .pimg { position: relative; flex: 1 1 auto; min-height: 0; margin: 2px -15px 12px;
   height: calc(var(--ch) * .48); overflow: hidden; background: #14251D; }
-/* If a card is short of room, the PHOTO gives way — never the description and
-   never Read more. The band is `flex: 1 1 auto; min-height: 0` so it can
-   surrender every pixel it has; these two refuse to shrink at all.
-   ⛔ min-height on .pimg is what broke this the first time. It was 96px, a
-   floor the photo could not go below, so once the card fell under about
-   330px the overflow reappeared and the face's overflow:hidden ate the
-   button. Reported as "Read More is invisible in Microsoft Edge" (Stephanie,
-   15 Sept) and it is NOT a browser bug — it is WINDOW HEIGHT. The card is
-   sized from vh, and Edge's favourites bar and sidebar leave a shorter
-   viewport than Chrome at the same screen size. Reproduced exactly at
-   1366x600: every one of the five cards overflowed by 60px and all five
-   buttons were clipped, in Chromium, with no Edge involved.
-   Verify any change here at 1280x540, not just at 1440x900. */
 .leaf .pface p, .pface .pbtn { flex-shrink: 0; }
-/* The description is the only elastic text on the card, so it is capped
-   rather than allowed to push the button out on a narrow or short window. */
 .leaf .pface p { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-/* ⛔ pointer-events AND user-drag both off, and neither is optional.
-   The card is a drag handle, but a photograph is natively draggable: pressing
-   one started the BROWSER's own image drag, so the cursor towed a translucent
-   ghost of the picture around and the cylinder never turned at all. Reported
-   15 Sept with a screenshot of the ghost mid-drag.
-   user-drag kills the ghost; pointer-events: none is what makes the press
-   reach the card underneath so the spin actually starts. The matching
-   draggable="false" in the markup covers engines that ignore user-drag.
-   The image is decorative — every card's meaning is in its text — so it
-   needs no pointer of its own. */
 .pimg img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%;
   -webkit-user-drag: none; user-drag: none; pointer-events: none; -webkit-touch-callout: none; }
 .pimg::before, .pimg::after { content: ""; position: absolute; left: 0; right: 0; pointer-events: none; }
 .pimg::before { top: 0; height: 24%; background: linear-gradient(to bottom, var(--f1) 0%, rgba(0,0,0,0) 100%); }
 .pimg::after { bottom: 0; height: 30%; background: linear-gradient(to top, var(--f2) 0%, rgba(0,0,0,0) 100%); }
-/* .leaf-scoped so the card type wins over the panel's own paragraph sizes */
 .leaf .pface h3 { font-size: 14.5px; font-weight: 400; line-height: 1.2; color: var(--paper); margin: 0 0 6px; }
 .leaf .pface .price { display: block; font-size: 12px; color: #F0DCA8; margin-bottom: 7px; font-family: var(--font-ui); }
 .leaf .pface .grule { display: block; width: 30px; height: 1px; background: rgba(240,220,168,.5); margin-bottom: 9px; }
 .leaf .pface p { font-size: 11.5px; line-height: 1.42; color: var(--paper-2); margin: 0 0 10px; }
 .pbtn { display: inline-block; text-align: center; font-size: 9.5px; letter-spacing: .19em; text-transform: uppercase; padding: 8px 10px;
   border-radius: 3px; white-space: nowrap; font-family: var(--font-ui); }
-/* .pbtn is an <a> now, not a <span>, so it needs the link resets and it is
-   the one part of the card that should still say "click me". */
 .pbtn-ghost { margin-top: auto; color: var(--paper); border: 1px solid rgba(245,240,228,.42); background: rgba(255,255,255,.10);
   text-decoration: none; cursor: pointer; transition: background-color .16s ease, border-color .16s ease; }
 .pbtn-ghost:hover, .pbtn-ghost:focus-visible { background: rgba(255,255,255,.22); border-color: rgba(245,240,228,.75); }
@@ -377,7 +212,6 @@ html.home, .home body { background: #0B0F0C; }
 .pbtn-solid { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); padding: 11px 24px; font-size: 10px; letter-spacing: .21em; text-decoration: none; }
 .pbtn-solid:hover { background: #2E5540; border-color: #2E5540; color: var(--paper); }
 
-/* router (movement 6): three audience cards */
 .paths { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 10px; }
 .paths a { display: block; padding: 12px 14px; background: rgba(252,250,244,.72); border: 1px solid rgba(28,51,39,.14);
   border-radius: 3px 12px 3px 12px; text-decoration: none; color: var(--ink); }
@@ -385,61 +219,40 @@ html.home, .home body { background: #0B0F0C; }
 .paths a span { display: block; font-size: 12.5px; color: var(--ink-soft); font-family: var(--font-ui); margin-top: 3px; }
 .paths a:hover { border-color: var(--gold); background: #fff; }
 
-/* ---- phones: centered single column, smaller cards -------------------- */
 @media (max-width: 860px) {
   #mast { padding: 14px 16px; }
   #mast .word { font-size: 10.5px; letter-spacing: .22em; }
-  /* ⛔ Do NOT put max-height + overflow on .leaf. It looks like a safe net for
-     short viewports and it breaks the carousel: `overflow-y:auto` forces
-     `overflow-x:auto` too, so the flanking cards (which sit up to 270 px from
-     the carousel center, well outside the 330 px panel) get clipped, and any
-     overflow other than `visible` flattens the `preserve-3d` cylinder.
-     Cost us the mobile carousel on 2026-09-11. */
   .leaf { width: min(88vw,460px); left: 50% !important; right: auto !important; border-radius: 3px 18px 3px 18px; padding: 20px 20px 24px; }
-  .leaf.l, .leaf.r { top: 50%; bottom: auto; }       /* JS pairs this with translate(-50%,-50%) */
+  .leaf.l, .leaf.r { top: 50%; bottom: auto; }       
   .leaf.wide, .leaf.hero, .leaf.wide5 { width: min(88vw,460px); }
   #rail { display: none; }
   .leaf .stat { gap: 14px; margin-top: 14px; }
   .leaf .stat div { min-width: 0; }
   .leaf .stat b { font-size: 19px; }
   .split, .split.rev, .hero .split { grid-template-columns: 1fr; gap: 14px; }
-  /* Both CTAs stack full-width on a phone rather than sitting side by side —
-     "Order the Thriving Package" does not fit beside anything at 375px. */
   .heroreg { gap: 10px; }
   .heroreg .btn { width: 100%; text-align: center; }
   .vid { order: -1; }
   .bigpf { min-height: 0; height: 170px; }
   .strip { grid-template-columns: 1fr 1fr; gap: 6px; }
   .strip a { min-block-size: 40px; padding: 7px 10px; font-size: 12.5px; }
-  /* One tile per row on a phone, laid out horizontally. Three columns cannot
-     hold "PRESENTATIONS" at a readable size inside a 330px card — squeezing
-     the track just moves the overflow inside the tile instead of outside it.
-     As rows each tile gets the full card width and the label has room. */
   .kc { grid-template-columns: 1fr; gap: 6px; }
   .kc a { display: flex; align-items: center; gap: 11px; padding: 9px 12px; }
   .kc .kci { margin-bottom: 0; flex: 0 0 auto; width: 26px; height: 26px; }
   .kc .kci svg { width: 15px; height: 15px; }
   .kc b { font-size: 19px; flex: 0 0 auto; }
   .kc span { margin-top: 0; }
-  /* Phones get the SAME viewport-driven sizing as the desktop, not a fixed
-     card. Hard-coded 196x338 here meant a landscape phone — 375px of height
-     — still tried to draw a 338px card under an 85px nav band. The .pkg rule
-     above already reads --ch/--cw, so only the clamp changes. */
-  /* 46vh / 372px, up from 42vh / 338px: the shorter lede (Michael, 13 Sept)
-     gave the panel ~110px back and the card spends a third of it, so Read
-     more clears the face with margin instead of by a pixel. */
   .carousel { --ch: clamp(228px, 46vh, 372px); --cw: calc(var(--ch) * .58); }
   .cstage { perspective: 820px; }
-  .pimg { margin: 2px -13px 10px; }             /* face padding is 13px on a phone */
+  .pimg { margin: 2px -13px 10px; }             
   .leaf .pface { padding: 13px 13px 12px; }
   .leaf .pface h3 { font-size: 13px; }
   .leaf .pface p { font-size: 11px; line-height: 1.4; margin-bottom: 8px; }
-  .carr { display: none; }                          /* swipe on a phone; arrows are for pointers */
+  .carr { display: none; }                          
   .leaf p { font-size: 14px; line-height: 1.55; }
 }
 @media (prefers-reduced-motion: reduce) { #hint .c { animation: none; } }
 
-/* ---- cursor butterfly: desktop pointers only, by decision --------------- */
 #fly { position: fixed; left: 0; top: 0; width: 150px; height: 150px; pointer-events: none; z-index: 60; opacity: 0;
   transition: opacity .5s ease; will-change: transform; background-image: var(--fly); background-size: 900% 100%;
   background-repeat: no-repeat; transform-origin: 50% 53.7%; animation: flap .5s step-end infinite;
@@ -454,34 +267,14 @@ html.home, .home body { background: #0B0F0C; }
 @media (prefers-reduced-motion: reduce) { #fly { display: none; } }
 @media (hover: none), (pointer: coarse) { #fly { display: none; } }
 
-/* ---- footer sits after the track, above the fixed stage --------------- */
-/* The reader scrolls out of the dark film into a light document foot: this
-   section, then the footer links. Both sit OUTSIDE #stage, after #track, so
-   they are ordinary page flow — the one place on this page where plain prose
-   can live without competing with the film. */
-/* Ground drops to --paper-2, the movement cards' own tone, so the near-white
-   question cards separate from it. On --paper they measured 1.08:1 against
-   their own background and read as one flat sheet; against --paper-2 it is
-   1.18:1, which with the 22% border is the difference between "cards" and
-   "lines of text". Two light tones cannot do better than that — same lesson
-   as the instruments hub. */
 .home .home-faq { position: relative; z-index: 7; background: var(--paper-2); color: var(--ink);
   padding-block: clamp(38px, 5vw, 68px); border-block-start: 1px solid var(--rule); }
 .home .home-faq h2 { font-family: var(--font-display); font-weight: 400; color: var(--ink);
   font-size: clamp(24px, 2.5vw, 34px); line-height: 1.15; margin: 0 0 clamp(18px, 2vw, 26px); }
-/* Scoped: the shared .faq details sit on --surface, which is BELOW the paper
-   ground and measures 1.09:1 against it — the same near-invisible card the
-   instruments hub had. Raised here only. The other 20 FAQ pages have the same
-   issue and are on the punch list; not fixed in passing. */
 .home .home-faq .faq details { background: var(--surface-raised); border-color: var(--rule); }
 .home .home-faq .faq summary { color: var(--ink); }
 .home .site-footer { position: relative; z-index: 7; margin-block-start: 0; }
 
-/* ---- The Reach: the Thriving footprint map (js/reach.js) ----------------
-   Ordinary page flow like the FAQ, between the film and the questions. It
-   sits on --paper so the FAQ's --paper-2 ground below still reads as a new
-   section. Styles carried over from the approved review page
-   /review/reach-752cdf956f/ (rev 3); only the scoping is new. */
 .home .home-reach { --reach-foot: #3E6E51; --reach-land: #E6DECB; --reach-land-us: #ECE5D4;
   position: relative; z-index: 7; background: var(--paper); color: var(--ink);
   padding-block: clamp(38px, 5vw, 68px); border-block-start: 1px solid var(--rule); }
@@ -505,7 +298,6 @@ html.home, .home body { background: #0B0F0C; }
 .home-reach .us path { stroke: var(--surface-raised); stroke-width: 1; stroke-linejoin: round; }
 .home-reach .us path.land { fill: var(--reach-land-us); }
 .home-reach .us path.foot { fill: var(--reach-foot); }
-/* markers: a gold point with a slow ring — "reach", not a click target */
 .home-reach .mk .dot { fill: var(--gold); stroke: var(--surface-raised); stroke-width: 1.6; }
 .home-reach .mk .ring { fill: none; stroke: var(--gold); stroke-width: 1.4; opacity: 0; transform-box: fill-box; transform-origin: center; }
 @media (prefers-reduced-motion: no-preference) {
@@ -521,10 +313,6 @@ html.home, .home body { background: #0B0F0C; }
 .home-reach .countries button[aria-pressed="true"] { background: var(--reach-foot); color: #FCFAF3; }
 .home-reach .hint { margin: 6px 4px 0; font-size: 14px; color: var(--ink-mute); }
 .home-reach .wmap { position: relative; }
-/* Fixed frame: zooming changes only what is inside it. Chrome's scroll
-   anchoring can pick a shape inside the map and then scroll the page to follow
-   it as the map zooms, so the buttons slide away under the pointer. Keep the
-   map out of anchor selection (f9c8688: 26-click sweep, 0 px of movement). */
 .home-reach svg.map.world { aspect-ratio: 975/470; overflow: hidden; }
 .home-reach .wmap, .home-reach .wmap * { overflow-anchor: none; }
 .home-reach .wreset { position: absolute; top: 6px; left: 6px; font: 600 14px var(--font-ui); color: var(--green-deep); background: rgba(252,250,243,.94);
@@ -532,10 +320,6 @@ html.home, .home body { background: #0B0F0C; }
 .home-reach .wreset:hover { background: #fff; }
 .home-reach .wreset[hidden] { display: none; }
 @media (max-width: 560px) { .home-reach .wreset { top: 4px; left: 4px; font-size: 12.5px; padding: 5px 10px; } }
-/* Landscape phones (punch list B34): full width made the world map taller than
-   the screen, so the country buttons sat below the fold and a zoom happened out
-   of sight. Size the maps from the viewport HEIGHT there, leaving room for the
-   heading and the first row of buttons. */
 @media (orientation: landscape) and (max-height: 500px) {
   .home-reach .wmap { max-width: calc((100svh - 140px) * 975 / 470); margin-inline: auto; }
   .home-reach .us { max-width: calc((100svh - 90px) * 975 / 610); }
@@ -552,26 +336,13 @@ html.home, .home body { background: #0B0F0C; }
 .home-reach .all summary { cursor: pointer; font-weight: 600; color: var(--green); padding: 6px 0; }
 .home-reach .all p { margin: 8px 0 0; font-size: 15.5px; color: var(--ink-soft); max-width: 900px; }
 .home-reach .src { margin: 20px 0 0; font-size: 14px; color: var(--ink-mute); }
-/* Before the geometry arrives (or with no JavaScript / if the fetch fails) the
-   map cards would be empty frames, so they stay hidden and the list opens: the
-   section still states the whole footprint in text. */
 .home-reach .rcard { display: none; }
 .home-reach.reach--ready .rcard { display: block; }
 .home-reach:not(.reach--ready) .all summary { display: none; }
-/* Card 05's teaser into this section */
 .leaf .reach-teaser { margin: 10px 0 6px; font-size: var(--step--1); }
 .leaf .reach-teaser a { color: inherit; text-underline-offset: 3px; }
 
-/* ---- STATIC MODE: no JavaScript, or prefers-reduced-motion -------------
-   The six movements stack as a plain page (v6 §11.1). The film is replaced
-   by the finished-tree still as a page background. --------------------- */
 html.static #loader, html.static #hint, html.static #rail, html.static #scrim, html.static #film, html.static #fly { display: none !important; }
-/* ⛔ `url(var(--tree))` is NOT valid CSS — var() cannot be nested inside
-   url(). The whole shorthand was dropped, so reduced-motion visitors got a
-   bare #0B0F0C page instead of the finished-tree still. That is the black
-   background on Michael's iPhone, 2026-09-11. `--tree` is already a complete
-   url(...) value, declared on this selector in index.html, so it goes in
-   directly. If the still ever needs swapping, change the variable, not this. */
 html.static #stage { position: relative; inset: auto; overflow: visible; min-height: 0; padding: 96px 0 40px;
   background: #0B0F0C var(--tree) center top / 100% auto no-repeat; }
 html.static #vignette { position: absolute; }
@@ -582,31 +353,15 @@ html.static .leaf, html.static .leaf.l, html.static .leaf.r { position: relative
 html.static .leaf.hero { width: min(92vw, 1000px); }
 html.static #track { display: none; }
 html.static .carousel { height: auto; perspective: none; }
-/* auto-fit, not one column. A single stretched column gave each card the full
-   leaf width, which on a landscape phone is 707px — and the photograph grew
-   with it. Columns cap the card instead: one on a portrait phone (unchanged),
-   two or three on anything wider, which also reads better than a tall stack
-   of five. */
 html.static .cstage { position: static; width: auto; height: auto; transform: none !important;
   display: grid; gap: 10px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); align-items: start; }
 html.static .pkg { position: static; width: auto; height: auto; transform: none !important; opacity: 1 !important; visibility: visible !important; }
 html.static .pface { position: relative; }
 html.static .carr { display: none; }
-/* Nothing to drag under reduced motion — the cards are a plain grid there and
-   the carousel module returns early, so a grab cursor would be a lie. */
 html.static .pkg { cursor: default; }
 
-/* ---- "Read more" on phones ----------------------------------------------
-   Movement cards are fixed overlays on a scroll-driven film and cannot grow.
-   On a standard iPhone, movement 1 measured 222px and movement 3 146px taller
-   than the screen (16 Sept), so their long text collapses to a few lines and
-   "Read more" opens the full text in #moredlg. The words are unchanged and
-   verbatim — this only decides how much shows before a tap.
-   Scoped to html:not(.static): under reduced motion the cards stack and
-   scroll normally, so nothing needs collapsing there. Desktop is untouched. */
 .readmore { display: none; }
 @media (max-width: 860px) {
-  /* 14px × 1.55 is the phone paragraph line (see .leaf p above) */
   html:not(.static) .leaf .more {
     max-height: calc(var(--lines, 4) * 21.7px); overflow: hidden;
     -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
@@ -618,18 +373,10 @@ html.static .pkg { cursor: default; }
     letter-spacing: .2em; text-transform: uppercase; color: var(--ink);
     border-bottom: 1px solid var(--rule); min-block-size: 32px; }
   html:not(.static) .leaf .readmore::after { content: "\203A"; font-size: 15px; letter-spacing: 0; }
-  /* Tighter CTAs on phones — the second-largest block on movement 1 (114px) */
   html:not(.static) .heroreg { gap: 8px; margin-top: 10px; }
   html:not(.static) .heroreg .btn { padding-block: 11px; }
 }
 
-/* The panel. Top layer via showModal(), so the film cannot clip it. It has its
-   own height limit and scrolls INSIDE itself — the whole point: all the text
-   is reachable and no card ever gets taller. */
-/* ⛔ margin:auto is REQUIRED. tokens.css has a global `* { margin: 0 }` reset,
-   and a modal <dialog> centers itself only through the browser's own
-   margin:auto — the reset silently wins, and the panel opened pinned to the
-   top-left corner. Caught on the first real-tap test, 16 Sept. */
 .moredlg { margin: auto; inset: 0; border: 0; padding: 0; width: min(92vw, 560px); max-height: 82vh;
   border-radius: 3px 18px 3px 18px; background: #F3EEE2; color: var(--ink);
   box-shadow: 0 30px 80px rgba(0,0,0,.5); overflow: hidden; }
@@ -637,10 +384,6 @@ html.static .pkg { cursor: default; }
 .moredlg__bar { display: flex; align-items: center; justify-content: space-between; gap: 12px;
   padding: 10px 12px 10px 20px; border-bottom: 1px solid var(--rule); }
 .moredlg__h { margin: 0; font: 600 10px/1.3 var(--font-ui); letter-spacing: .22em; text-transform: uppercase; color: var(--gold-text); }
-/* The × is a drawn SVG, not the &times; glyph: a font's × sits off-center in
-   its line box, and on iPhone it read visibly high-left inside the circle.
-   The focus ring is inset so it stays a true circle and never touches the
-   panel edge (the global ring is offset 2px outward with a square radius). */
 .moredlg__x { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
   width: 44px; height: 44px; margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
   -webkit-appearance: none; appearance: none; line-height: 0; color: var(--ink); border-radius: 50%;
@@ -652,26 +395,11 @@ html.static .pkg { cursor: default; }
   overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
 .moredlg__body:focus { outline: none; }
 .moredlg__body p { font: 15px/1.62 var(--font-ui); color: var(--ink-soft); margin: 0 0 14px; }
-/* Freeze page scroll while open: the film is driven by window scroll, so a
-   swipe leaking through the backdrop would move the tree behind the panel.
-   overflow:hidden, not position:fixed — see the note in home.js. */
 html.moredlg-open, html.moredlg-open body { overflow: hidden; }
 
-/* ---- Phone height budget ------------------------------------------------
-   Movement cards cannot grow (fixed overlays on a scroll film), so on phones
-   every vertical pixel inside them is spent deliberately. Measured 16 Sept. */
 @media (max-width: 860px) {
-  /* Eyebrows: movement 1's "01 — The Holistic View of Student Success" wrapped
-     to two lines at .34em tracking. Tighter tracking keeps it on one. */
   html:not(.static) .leaf .eyebrow { letter-spacing: .2em; margin-bottom: 10px; }
 }
-/* SHORT phones — iPhone SE and mini with Safari's bars showing leave roughly
-   530px under the masthead, and five of six cards overflowed there.
-   ⛔ Cutoff is 640px, NOT 700. At 700 it also caught the iPhone 15 (about
-   660px tall in Safari), collapsing movement 2 there although it fits with
-   67px to spare — hiding text behind a tap for no reason. 640 separates the
-   SE/mini (≈550–630) from the standard phones (≈660+). Spacing
-   gives way first; her words never do. */
 @media (max-width: 860px) and (max-height: 640px) {
   html:not(.static) .leaf { padding-top: 14px; padding-bottom: 16px; }
   html:not(.static) .leaf h1,
@@ -680,9 +408,6 @@ html.moredlg-open, html.moredlg-open body { overflow: hidden; }
   html:not(.static) .leaf p { margin-bottom: 8px; }
 }
 
-/* Short-phone-only collapse (movement 2) and a tighter collapse on movement 1.
-   .more-short is inert everywhere except here, so standard iPhones and
-   desktops show movement 2 in full. */
 .readmore-short { display: none; }
 @media (max-width: 860px) {
   html:not(.static) .leaf .readmore.readmore-short { display: none; }
@@ -694,14 +419,7 @@ html.moredlg-open, html.moredlg-open body { overflow: hidden; }
             mask-image: linear-gradient(to bottom, #000 55%, transparent); }
   html:not(.static) .leaf .more-short p { margin-bottom: 8px; }
   html:not(.static) .leaf .readmore.readmore-short { display: inline-flex; }
-  /* the inline style sets 3 lines; on a short phone movement 1 needs 2 */
   html:not(.static) #more-def { --lines: 2 !important; }
 }
 
-/* ⛔ The "Scroll to grow" hint is hidden on phones. It is pinned 36px from the
-   bottom of the screen, and on a phone that is exactly where movement 1's
-   "Order the Thriving Package" button sits — so the first thing a visitor saw
-   was the hint's text printed across the primary call to action (Michael's
-   iPhone, 16 Sept). Touch users scroll by reflex, so on a phone the hint
-   cost more than it gave. Desktop keeps it. */
 @media (max-width: 860px) { html:not(.static) #hint { display: none; } }

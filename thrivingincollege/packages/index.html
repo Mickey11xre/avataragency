@@ -7,13 +7,10 @@
 <title>Packages &amp; Pricing — Thriving Quotient campus surveys from $750</title>
 <meta name="description" content="What a Thriving Quotient campus survey costs: survey administration $750, basic report $1,500, expanded report $2,500, Thriving Campus package $10,000. Order three or more survey packages and 15% comes off automatically.">
 <link rel="canonical" href="https://thrivingincollege.org/packages/">
-<link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=0274542a">
-<link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=4611b0ac">
-<link rel="stylesheet" href="/thrivingincollege/css/store.css?v=d9a44df9">
+<link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=596b029a">
+<link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=5ad35b4c">
+<link rel="stylesheet" href="/thrivingincollege/css/store.css?v=11587766">
 
-<!-- Prices in this file are build-time tokens from _src/data/prices.json,
-     which is itself generated from the Stripe account that charges. There
-     is one price list, and this page cannot drift from it. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -62,7 +59,7 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/thrivingincollege/css/drawer.css?v=6cab9c87">
+<link rel="stylesheet" href="/thrivingincollege/css/drawer.css?v=dfebfb31">
 <link rel="icon" href="/thrivingincollege/assets/favicon.ico?v=a2f64690" sizes="32x32">
 <link rel="icon" type="image/png" sizes="16x16" href="/thrivingincollege/assets/icon-16.png?v=de0018ed">
 <link rel="icon" type="image/png" sizes="32x32" href="/thrivingincollege/assets/icon-32.png?v=5d242731">
@@ -138,11 +135,6 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
       payment page.
     </p>
 
-    <!-- Progressive enhancement. Without JavaScript this form posts to the
-         Pages Function, which validates the cart against the committed
-         catalog and redirects to Stripe. With it, the same request goes
-         as JSON and the totals below update as quantities change. The
-         server never trusts a price from the browser. -->
     <form id="order-form" method="post" action="/thrivingincollege/api/checkout" novalidate style="margin-block-start: var(--sp-s)">
 
       <h3 style="font-size:var(--step-1);margin-block-end:var(--sp-xs)">Survey packages <span class="tier__unit">— count toward the 15% discount</span></h3>
@@ -410,9 +402,6 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   });
 })();
 </script>
-<!-- Mobile navigation drawer (nav spec 2026-09-03 §3, corrected 09-04).
-     Injected by build.js before </body> on every page that has a .hamburger.
-     Progressive enhancement: the same links exist in the page nav + footer. -->
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Site navigation" hidden>
   <div class="drawer__head">
     <a class="drawer__word" href="/thrivingincollege/">The Thriving Project</a>
@@ -428,7 +417,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   <p class="drawer__sec"><a href="/thrivingincollege/contact/">Contact</a></p>
   <a class="btn btn--primary drawer__cta" href="/thrivingincollege/packages/#order">Order the Thriving Package</a>
 </div>
-<script src="/thrivingincollege/js/drawer.js?v=ec590fc0" defer></script>
+<script src="/thrivingincollege/js/drawer.js?v=8e119ec6" defer></script>
 
 </body>
 </html>

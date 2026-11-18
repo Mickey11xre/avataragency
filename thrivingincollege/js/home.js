@@ -1,20 +1,9 @@
-/* The Thriving Project homepage — scroll-scrubbed growth film.
-   Ported from the approved concept (thriveproject/_src/template.html) and
-   generalized to N movements. It is a <canvas> frame sequence, NOT a
-   <video>: scroll position indexes an array of images, so reverse is free
-   and pixel-identical. Do not "simplify" it into a video element.
-
-   Performance rules (Michael, 2026-09-11: higher resolution must not
-   degrade navigation): frames are separate files under /assets/frames/,
-   phones load every 2nd frame (STEP=2), the loader waits only for a sparse
-   first pass, the rest streams in behind, and everything ticks in ONE rAF
-   loop. The carousel and the butterfly share that loop — never add a second. */
 (function () {
   "use strict";
   var root = document.getElementById("stage"); if (!root) return;
   var ASSETS = root.getAttribute("data-assets") || "/assets/";
   var FRAME_COUNT = 472;
-  var ANCHORS_F = [0, 95, 180, 253, 375, 471];      // film frame each movement rests on
+  var ANCHORS_F = [0, 95, 180, 253, 375, 471];      
   var HIRES = [0, 1, 2, 3, 4, 5].map(function (k) { return ASSETS + "hires/hi" + k + ".webp"; });
   var LABELS = ["What is thriving", "The researcher", "The instruments", "The research", "Packages", "Start here"];
   var N = ANCHORS_F.length;
@@ -24,27 +13,8 @@
   var FRAME_ZOOM = 1.18, FRAME_DROP = 0.85, FRAMING_HOLD_TO = 150, FRAMING_OUT_BY = 253;
 
   var html = document.documentElement;
-  /* ⛔ Reduced motion turns OFF the scroll-scrubbed film, the rail and the
-     butterfly — and nothing else. It must NEVER return out of this IIFE.
-     It used to, and that one `return` also killed the hero video's play
-     button and the package carousel, neither of which is an animation the
-     setting is about. On Michael's iPhone (Reduce Motion on, as it is for a
-     great many people) the page therefore came up with a black backdrop and
-     a video that did nothing when tapped, in every iOS browser — they are
-     all WebKit, so "Chrome and Firefox both fail" is one engine, not two.
-     Found 2026-09-11. Anything added below that is not literally motion
-     must stay outside the STATIC guards. */
   var STATIC = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (STATIC) html.classList.add("static");
-  /* iOS Safari holds DECODED bitmaps, not files, and caps what a tab may
-     hold. 472 frames at 1280x720 is 1.66 GB decoded; every 2nd frame is
-     still 830 MB and Safari simply refuses — the canvas then never paints
-     and the page sits black (found on Michael's iPhone, 2026-09-11).
-     Phones therefore get their own set: every 4th frame at 960x540 =
-     118 frames = 233 MB, the same profile the approved concept ran and was
-     verified working on that phone. Hi-res anchors are skipped there too
-     (6 x 2560x1440 = another 84 MB, and pointless at 390 px wide).
-     A short desktop window is not a phone — width and pointer decide. */
   var isSmall = window.innerWidth < 760 || window.matchMedia("(pointer: coarse)").matches;
   var STEP = isSmall ? 4 : 1;
   var FRAME_DIR = isSmall ? "frames-mobile/" : "frames/";
@@ -55,24 +25,14 @@
   var mast = document.getElementById("mast");
   var leaves = [].slice.call(document.querySelectorAll(".leaf"));
 
-  /* ---- Engagements carousel: cylinder, one card per swipe, snap, arrows ---- */
   window.CAR = (function () {
     var car = document.getElementById("pkgcar"), stage = document.getElementById("pkgstage");
     if (!car || !stage) return null;
-    /* Under reduced motion the CSS lays the five cards out as a plain grid,
-       all visible, transforms forced off. They are ordinary anchors, so they
-       still open their package page — the cylinder is what is skipped, not
-       the content. */
     if (STATIC) return null;
     var cards = [].slice.call(stage.querySelectorAll(".pkg")), M = cards.length;
-    /* `spin` is the roulette state: cards-per-frame, decayed by FRICTION each
-       tick until it is slow enough to click into a slot. `hx` is gone — the
-       cylinder no longer follows the cursor (Michael, 12 Sept). */
     var S = { p: 1, target: null, drag: false, moved: 0, lastX: 0, resume: 0, mx: 0, my: 0, tx: 0, ty: 0, cw: 232, v: 0, lastT: 0, spin: 0 };
     var FRICTION = 0.962, SPIN_MAX = 0.34, SPIN_MIN = 0.013, SPIN_STOP = 0.0017;
     function sizes() {
-      /* Never let a gear reach zero: touchGear() divides a finger delta by
-         S.cw, and 0 / 0 is NaN, which blanks the cylinder (see tick). */
       S.cw = cards[0].offsetWidth || 232; S.rw = car.clientWidth || S.cw * 3;
       if (!(S.cw > 0)) S.cw = 232;
       var narrow = S.rw < 560;
@@ -83,15 +43,9 @@
     function nearest(i) { return i + M * Math.round((S.p - i) / M); }
     function mouseGear() { return S.cw * 0.92; }
     function touchGear() { return S.cw * 0.72; }
-    /* Roulette release. The old rule was "one card per gesture" — the fling
-       was clamped to ±1 so a swipe read as "next". Michael asked for a wheel
-       you can actually throw, so a release now hands its velocity to the free
-       spin and friction decides where it stops. A gentle drag-and-let-go is
-       still below SPIN_MIN and just clicks into the nearest slot, so short
-       nudges have not become unpredictable. */
     function settle() {
       var paused = performance.now() - S.lastT > 90;
-      var perFrame = paused ? 0 : S.v * 16.7;          // cards/ms -> cards/frame
+      var perFrame = paused ? 0 : S.v * 16.7;          
       perFrame = Math.max(-SPIN_MAX, Math.min(SPIN_MAX, perFrame));
       S.v = 0; S.resume = Date.now() + 6000;
       if (Math.abs(perFrame) > SPIN_MIN) { S.spin = perFrame; S.target = null; }
@@ -107,19 +61,6 @@
       if (e.key === "ArrowRight") { e.preventDefault(); step(1); }
     });
 
-    /* ⛔ Do NOT call car.setPointerCapture() here. It looks like the right way
-       to keep a drag alive when the cursor leaves the carousel, and it silently
-       breaks every card link on desktop: with the pointer captured, BOTH
-       pointerdown and pointerup retarget to the capturing element, so the
-       browser computes the click target as #pkgcar rather than the <a> under
-       the cursor. The anchor never sees a click and nothing navigates. Touch
-       was unaffected because the handler returns early for it — which is why
-       this read as "works on the phone, dead on the laptop".
-       Reported twice; the first fix missed it because I verified with a
-       dispatched MouseEvent, and a synthetic event bypasses the whole pointer
-       path that causes the bug. Verify card links with a REAL click.
-       The drag follows the pointer on `window` instead, which keeps a drag
-       alive outside the element and leaves click targeting alone. */
     function onWinMove(e) {
       if (e.pointerType === "touch" || !S.drag) return;
       var dx = e.clientX - S.lastX; S.lastX = e.clientX; S.moved += Math.abs(dx);
@@ -134,8 +75,6 @@
     }
     car.addEventListener("pointerdown", function (e) {
       if (e.pointerType === "touch") return;
-      // grabbing a spinning wheel stops it dead, the way a hand on a roulette
-      // wheel does — otherwise the drag fights the leftover momentum
       S.drag = true; S.moved = 0; S.lastX = e.clientX; S.target = null; S.v = 0; S.spin = 0; S.lastT = performance.now();
       car.classList.add("grabbing");
       window.addEventListener("pointermove", onWinMove);
@@ -144,19 +83,11 @@
     });
     car.addEventListener("pointermove", function (e) {
       if (e.pointerType === "touch") return;
-      /* ⛔ The cylinder used to turn on hover — moving the mouse across the
-         carousel spun it. It looked alive and it made the thing unusable:
-         the card you were reaching for slid out from under the cursor, and
-         it kept a "still being steered" timer fresh so clicks never landed.
-         Removed 12 Sept. Hover now only drives the parallax tilt below;
-         nothing moves the cylinder but a press-and-drag or the arrows. */
       var r = car.getBoundingClientRect();
       S.tx = Math.max(-1, Math.min(1, (e.clientX - (r.left + r.width / 2)) / (r.width / 2)));
       S.ty = Math.max(-1, Math.min(1, (e.clientY - (r.top + r.height / 2)) / (r.height / 2)));
     });
     function endDrag() { if (!S.drag) return; S.drag = false; car.classList.remove("grabbing"); settle(); }
-    /* Only resets the tilt. It must NOT snap the cylinder any more: a throw
-       whose cursor leaves the carousel has to keep spinning. */
     car.addEventListener("pointerleave", function () { S.tx = 0; S.ty = 0; });
 
     var T = null;
@@ -174,46 +105,24 @@
     function endTouch() { if (!T) return; T = null; if (S.drag) { S.drag = false; settle(); } }
     car.addEventListener("touchend", endTouch); car.addEventListener("touchcancel", endTouch);
 
-    /* ⛔ ONLY "Read more" navigates now (Michael, 12 Sept). The whole card
-       used to be the <a>, which with a cylinder turning under the cursor made
-       hitting the card you meant a coin toss. The card is a plain drag handle
-       and the link sits inside it, so this listener still sees the click by
-       bubbling and cancels it when the gesture was really a drag.
-       Default navigation is left alone otherwise. An earlier version called
-       preventDefault() on EVERY click and re-implemented navigation behind a
-       220 ms "still being steered" timer; hover-spin kept that timer fresh
-       and the click never fired at all — "clicking a card does nothing",
-       2026-09-11. Do not reintroduce that pattern. */
     cards.forEach(function (c) {
       c.addEventListener("click", function (e) {
-        if (S.moved > 6) e.preventDefault();             // a drag, not a click
+        if (S.moved > 6) e.preventDefault();             
       });
     });
 
     function sm(t) { return t * t * (3 - 2 * t); }
     function lerp(a, b, t) { return a + (b - a) * t; }
-    /* The idle drift runs only while the packages panel is actually on screen,
-       so the reader always arrives with the Survey Package in front. */
     var visible = false, ticks = 0;
     function setVisible(v) { if (v && !visible) S.resume = Date.now() + 5000; visible = v; }
     function tick() {
       ticks++;
-      /* NaN trap. Every card's opacity is derived from S.p, and the `a <= 1`
-         / `a <= 2` tests below are both FALSE for NaN, so a single NaN drops
-         every card into the else branch at op = 0 and the whole carousel
-         vanishes permanently — exactly the "carousel is not displaying"
-         failure, with no error in the console. It only takes one gesture
-         that divides by a zero-width card (0/0) to get there. Recover to the
-         front card rather than staying blank. */
       if (!isFinite(S.p)) { S.p = 1; S.target = null; S.v = 0; S.spin = 0; }
       if (S.target !== null && !isFinite(S.target)) S.target = null;
-      if (!isFinite(S.spin)) S.spin = 0;                 // same NaN trap as S.p
-      /* Free spin first: it outranks both the lerp and the idle drift. When
-         friction brings it under SPIN_STOP the wheel hands over to the normal
-         snap, which is what produces the click into a slot at the end. */
+      if (!isFinite(S.spin)) S.spin = 0;                 
       if (S.spin) {
         S.p += S.spin; S.spin *= FRICTION;
-        S.resume = Date.now() + 6000;                    // idle drift must not shove a coasting wheel
+        S.resume = Date.now() + 6000;                    
         if (Math.abs(S.spin) < SPIN_STOP) { S.spin = 0; S.target = Math.round(S.p); }
       }
       else if (S.target !== null) { S.p += (S.target - S.p) * 0.13; if (Math.abs(S.target - S.p) < 0.002) { S.p = S.target; S.target = null; } }
@@ -233,9 +142,6 @@
         c.style.opacity = op.toFixed(3); c.style.zIndex = Math.round(1000 + z);
         c.style.transform = "translateX(" + x.toFixed(1) + "px) translateZ(" + z.toFixed(1) + "px) rotateY(" + ry.toFixed(2) + "deg)";
         c.setAttribute("aria-hidden", i === f ? "false" : "true");
-        /* The card is a div now, so the tab stop belongs to its "Read more"
-           link. Taking the back cards out of the tab order also keeps a
-           focusable element from sitting inside aria-hidden="true". */
         var lnk = c.querySelector("a.pbtn");
         if (lnk) lnk.tabIndex = i === f ? 0 : -1;
       }
@@ -243,14 +149,9 @@
     return { tick: tick, setVisible: setVisible, ticks: function () { return ticks; }, state: function () { return S; } };
   })();
 
-  /* ---- hero brand film: rests on the poster, plays only on the button ---- */
   (function () {
     var vid = document.getElementById("vid"); if (!vid) return;
     var v = vid.querySelector("video"); if (!v) return;
-    /* One rendition only. A 1080p/720p pair was built and the desktop upgrade
-       was wired up here, then removed: Cloudflare Pages will not serve a file
-       over 25 MiB and the 1080p cut is 46 MiB, so the deploy failed silently.
-       If the film ever moves to R2 or Stream, this is where the upgrade goes. */
     var prog = vid.querySelector(".vprog"), bar = prog.querySelector("i"), tm = vid.querySelector(".vtime");
     var pp = vid.querySelector(".vpp"), mu = vid.querySelector(".vmute"), fs = vid.querySelector(".vfs"), ppPath = pp.querySelector("path");
     var PLAY = "M2 1.4v13.2L13 8z", PAUSE = "M2.5 1.5h3.6v13H2.5zM8.9 1.5h3.6v13H8.9z";
@@ -262,12 +163,6 @@
       vid.classList.add("playing");
       if (pz) requestAnimationFrame(function () { requestAnimationFrame(function () { pz.style.transition = ""; }); });
     }
-    /* iOS: with preload="none" the element has no media yet when the first
-       tap arrives, and play() can reject before it has fetched anything.
-       Retry once inside the SAME gesture after an explicit load() — a second
-       attempt from the original tap is still user-activated, so it is allowed.
-       Failures used to be swallowed silently, which is why a tap looked like
-       it did nothing at all on Michael's iPhone (2026-09-11). */
     function attempt(retry) {
       var pr = v.play();
       if (!pr || !pr.then) { showFilm(); return; }
@@ -286,15 +181,11 @@
     mu.addEventListener("click", function (e) { e.stopPropagation(); v.muted = !v.muted; mu.querySelector(".wv").style.display = v.muted ? "none" : ""; mu.querySelector(".xm").style.display = v.muted ? "" : "none"; mu.setAttribute("aria-label", v.muted ? "Unmute" : "Mute"); });
     fs.addEventListener("click", function (e) { e.stopPropagation(); if (document.fullscreenElement) document.exitFullscreen(); else if (vid.requestFullscreen) vid.requestFullscreen(); else if (v.webkitEnterFullscreen) v.webkitEnterFullscreen(); });
     prog.addEventListener("click", function (e) { e.stopPropagation(); var d = v.duration; if (!d) return; var r = prog.getBoundingClientRect(); v.currentTime = Math.min(d, Math.max(0, (e.clientX - r.left) / r.width * d)); paint(); });
-    /* Only a real error event retires the transport. The old version also
-       gave up after a 4 s readyState probe, which on a phone just means
-       "still downloading" — it hid the play button on a perfectly good file. */
     function dead() { vid.classList.remove("playing"); var b = vid.querySelector(".vbar"); if (b) b.style.display = "none"; var pl = vid.querySelector(".vplay"); if (pl) pl.style.display = "none"; }
     v.addEventListener("error", dead);
     icon(); paint();
   })();
 
-  /* ---- section rail (film navigation — skipped when there is no film) ---- */
   var rail = document.getElementById("rail");
   if (!STATIC) LABELS.forEach(function (l) { var d = document.createElement("div"); d.className = "d"; d.innerHTML = '<span class="lbl">' + l + '</span><span class="dot"></span>'; rail.appendChild(d); });
   var dots = [].slice.call(rail.children);
@@ -311,15 +202,10 @@
     d.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); scrollToP(ANCHORS_P[i]); } });
   });
   ["wheel", "touchstart"].forEach(function (ev) { window.addEventListener(ev, function () { if (tweening) { cancelAnimationFrame(tweening); tweening = null; } }, { passive: true }); });
-  // in-page "#start"-style links from the mast scroll the film rather than jumping
-  /* Guarded: with no film there is no scroll position to tween to, and
-     canceling the click would leave the link dead rather than merely
-     unanimated. Let it navigate normally instead. */
   if (!STATIC) [].slice.call(document.querySelectorAll('a[data-go]')).forEach(function (a) {
     a.addEventListener("click", function (e) { e.preventDefault(); scrollToP(ANCHORS_P[+a.getAttribute("data-go")]); });
   });
 
-  /* ---- the frame engine ---- */
   var VH = window.innerHeight, VW = window.innerWidth;
   function layout() {
     VH = window.innerHeight; VW = window.innerWidth;
@@ -342,7 +228,7 @@
     im.src = src(i); imgs[i] = im;
   }
   function loadHires() {
-    if (isSmall) return;                      // 84 MB of 2560x1440 a phone cannot hold
+    if (isSmall) return;                      
     for (var k = 0; k < N; k++) (function (k) { var im = new Image(); im.decoding = "async"; im.onload = function () { hiReady[k] = 1; dirty = true; }; im.src = HIRES[k]; hi[k] = im; })(k);
   }
   function loadAll() {
@@ -352,11 +238,7 @@
     var rest = []; for (var j = 0; j < FRAME_COUNT; j += STEP) if (imgs[j] === undefined) rest.push(j);
     var k = 0; (function pump() { var b = 6; while (b-- > 0 && k < rest.length) request(rest[k++], false); if (k < rest.length) setTimeout(pump, 90); })();
     loadHires();
-    setTimeout(revealSite, 9000);                        // never hold a slow connection hostage
-    /* Last-resort safety net. If not one frame has painted — decode refused,
-       frames 404, memory denied — hide the canvas (which is opaque black
-       under alpha:false) and show the finished-tree still behind the panels.
-       A still backdrop is a a legible page; a black rectangle is a broken one. */
+    setTimeout(revealSite, 9000);                        
     setTimeout(function () {
       if (painted) return;
       cv.style.display = "none";
@@ -418,15 +300,11 @@
     scrim.style.opacity = activeAmt * 0.95; scrim.style.setProperty("--sx", (VW > 860 ? sx : 50) + "%");
     for (var j = 0; j < dots.length; j++) dots[j].classList.toggle("on", j === activeIdx && activeAmt > 0.25);
     hint.style.opacity = p < 0.012 ? "1" : "0";
-    /* The `.past` class used to reveal the desktop nav after Movement 1. The
-       nav is now visible from first paint (Michael, 12 Sept), so nothing reads
-       this class any more and the toggle is gone rather than left running. */
   }
   var ticking = false;
   window.addEventListener("scroll", function () { if (STATIC) return; dirty = true; if (!ticking) { ticking = true; requestAnimationFrame(function () { ticking = false; if (dirty) { dirty = false; draw(false); } }); } }, { passive: true });
   window.addEventListener("resize", function () { if (STATIC) return; if (Math.abs(window.innerWidth - VW) < 2 && Math.abs(window.innerHeight - VH) < 140) return; layout(); }, { passive: true });
 
-  /* ---- cursor butterfly: desktop pointers only (Michael, 2026-08-10 and 09-11) ---- */
   window.FLY = (function () {
     if (STATIC) return null;
     if (!matchMedia("(hover:hover) and (pointer:fine)").matches) return null;
@@ -446,27 +324,12 @@
     } };
   })();
 
-  /* The single rAF loop and the frame loader belong to the film. Under
-     reduced motion CAR and FLY are both null and nothing needs ticking, so
-     the loop is never started — no frames are fetched and no canvas work
-     happens at all. The hero video and the package links, wired above, are
-     unaffected. */
   if (!STATIC) {
     (function poll() { if (dirty) { dirty = false; draw(false); } if (window.CAR) window.CAR.tick(); if (window.FLY) window.FLY.tick(); requestAnimationFrame(poll); })();
     layout(); loadAll();
   }
 
-  /* ---- on-device readout: add #diag to the URL -----------------------------
-   * Phone-only faults cannot be reproduced in a desktop browser and iOS has
-   * no console worth the name, so three rounds went into guessing at one.
-   * This panel reports what the page actually did, on the actual device.
-   * Inert without the hash, so it ships harmlessly. Tap COPY, paste it back. */
   if (/(^|[#&?])diag\b/.test(location.hash) || /[?&]diag=1/.test(location.search)) setTimeout(function () {
-    /* Captured on demand, not on a timer. Half of what matters here —
-       the leaf's --c2, the carousel's opacity, whether the cards have been
-       placed — is scroll-driven, so a panel that covers the page before the
-       reader reaches the packages section would report the wrong moment.
-       Scroll to the failing section first, then tap DIAG. */
     var fab = document.createElement("button");
     fab.textContent = "DIAG";
     fab.setAttribute("style", "position:fixed;right:14px;bottom:14px;z-index:99998;padding:13px 20px;border:0;border-radius:999px;background:#F0DCA8;color:#1a2a1f;font:700 13px/1 ui-monospace,monospace;box-shadow:0 6px 20px rgba(0,0,0,.5)");
@@ -516,19 +379,6 @@
   }, 1200);
 })();
 
-/* ---- "Read more" panel (phones) -----------------------------------------
- * Movement cards are fixed overlays on a scroll-driven film, so they cannot
- * grow: on a standard iPhone movement 1 was 222px and movement 3 146px taller
- * than the screen (Michael, 16 Sept). CSS collapses their long text on phones;
- * this opens the full text in a modal instead of expanding the card.
- *
- * ⛔ Page scroll is LOCKED while the panel is open, and it matters here more
- * than on a normal page: the tree animation is driven by window scroll, so a
- * swipe that leaked through the backdrop would move the film behind the panel.
- * The lock uses overflow:hidden, NOT body position:fixed — position:fixed
- * zeroes scrollY for the duration, which snaps the film to frame 0 and
- * flashes it back on close. overflow:hidden keeps scrollY where it is.
- */
 (function () {
   var dlg = document.getElementById("moredlg");
   if (!dlg || typeof dlg.showModal !== "function") return;
@@ -539,43 +389,29 @@
 
   document.addEventListener("click", function (e) {
     var btn = e.target.closest && e.target.closest(".readmore");
-    if (!btn || dlg.open) return;          // showModal() throws on an already-open dialog
+    if (!btn || dlg.open) return;          
     var src = document.getElementById(btn.getAttribute("aria-controls"));
     if (!src) return;
     opener = btn;
     head.textContent = btn.getAttribute("data-title") || "";
     body.innerHTML = "";
     var copy = src.cloneNode(true);
-    copy.removeAttribute("id");            // no duplicate ids in the document
-    copy.classList.remove("more", "more-short"); // never collapsed inside the panel
+    copy.removeAttribute("id");            
+    copy.classList.remove("more", "more-short"); 
     copy.removeAttribute("style");
     body.appendChild(copy);
     body.scrollTop = 0;
     html.classList.add("moredlg-open");
     dlg.showModal();
-    // Land on the text, not the ×: iPhone drew the focus ring round the close
-    // button the moment the panel opened. Esc and Tab still reach it.
     body.focus({ preventScroll: true });
   });
 
   close.addEventListener("click", function () { dlg.close(); });
-  // a tap on the dimmed backdrop (the dialog element itself, outside its box) closes it
   dlg.addEventListener("click", function (e) {
     var r = dlg.getBoundingClientRect();
     if (e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom) dlg.close();
   });
 
-  /* ⛔ THE UNLOCK MUST NOT DEPEND ON THE "close" EVENT.
-     The first version released the scroll lock from dlg's "close" listener.
-     Measured 16 Sept in Chromium: dlg.close() removed the panel correctly but
-     the "close" event never fired — not even for a listener attached moments
-     earlier — so the page stayed at overflow:hidden. On a phone that is the
-     whole site frozen: the tree is driven by scroll, and one tap of "Read
-     more" would have left it unable to move.
-     The dialog's own `open` attribute is the source of truth instead. close(),
-     the Esc key and a backdrop tap all remove it synchronously, and a
-     MutationObserver reports that reliably. The events stay as a fallback;
-     release() is idempotent, so a double call is harmless. */
   function release() {
     html.classList.remove("moredlg-open");
     if (opener) { var o = opener; opener = null; o.focus({ preventScroll: true }); }
@@ -583,5 +419,5 @@
   new MutationObserver(function () { if (!dlg.open) release(); })
     .observe(dlg, { attributes: true, attributeFilter: ["open"] });
   dlg.addEventListener("close", release);
-  dlg.addEventListener("cancel", function () { setTimeout(release, 0); });   // Esc
+  dlg.addEventListener("cancel", function () { setTimeout(release, 0); });   
 })();

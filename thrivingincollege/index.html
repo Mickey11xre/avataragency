@@ -7,12 +7,9 @@
 <title>The Thriving Project — the Thriving Quotient, by Dr. Laurie A. Schreiner</title>
 <meta name="description" content="What it means to thrive in college, and how to measure it. The Thriving Quotient family of validated campus survey instruments from Dr. Laurie A. Schreiner: undergraduate, sophomore, adult learner, graduate, community college, faculty and staff. Survey administration from $750.">
 <link rel="canonical" href="https://thrivingincollege.org/">
-<link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=0274542a">
-<link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=4611b0ac">
-<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=2c247dda">
-<!-- No frame preload: the engine picks the right set (desktop or frames-m)
-     and requests frame 0 in its first sparse pass milliseconds later. A
-     static preload would fetch the desktop frame on a phone and waste it. -->
+<link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=596b029a">
+<link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=5ad35b4c">
+<link rel="stylesheet" href="/thrivingincollege/css/home.css?v=c8cafd93">
 <link rel="preload" as="image" href="/thrivingincollege/assets/hero-poster.jpg?v=34f0e5ab">
 <style>
   /* the two image assets the CSS needs, given as custom properties so build
@@ -20,11 +17,8 @@
   #fly { --fly: url("/thrivingincollege/assets/butterfly.webp"); }
   html.static #stage { --tree: url("/thrivingincollege/assets/hires/hi5.webp"); }
 </style>
-<!-- The engine removes .static the moment it starts; without JavaScript, or
-     with reduced motion, the page stays stacked and complete (v6 §11.1). -->
 <script>if (!matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.remove("static");</script>
 
-<!-- JSON-LD in the served source, never through a tag manager (v6 §11.2). -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -89,7 +83,7 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/thrivingincollege/css/drawer.css?v=6cab9c87">
+<link rel="stylesheet" href="/thrivingincollege/css/drawer.css?v=dfebfb31">
 <link rel="icon" href="/thrivingincollege/assets/favicon.ico?v=a2f64690" sizes="32x32">
 <link rel="icon" type="image/png" sizes="16x16" href="/thrivingincollege/assets/icon-16.png?v=de0018ed">
 <link rel="icon" type="image/png" sizes="32x32" href="/thrivingincollege/assets/icon-32.png?v=5d242731">
@@ -145,66 +139,25 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
 
   <main id="main">
 
-  <!-- Movement 1 · The Reframe — seed & soil -->
   <section class="leaf l wide hero" data-i="0" aria-labelledby="m1">
-    <!-- Heading sits OUTSIDE .split so it spans the whole card. Inside the
-         left column it wrapped at .82fr and left dead space above the video.
-         Safe on mobile: .hero .split already collapses to one column below
-         860px, so the heading is full-width there either way. -->
-    <!-- "The Reframe" was Claude's label, taken from the film's own framing of
-         her asking the same question for decades. Stephanie, 15 Sept: it names
-         a rhetorical device rather than the idea, so it becomes the idea. -->
     <p class="eyebrow">01 &mdash; The Holistic View of Student Success</p>
     <h1 id="m1">What does it mean to <em>thrive</em> in college?</h1>
     <div class="hr"></div>
     <div class="split">
       <div class="col">
-        <!-- ⭐ .more = collapsed to a few lines ON PHONES ONLY, with "Read more"
-             opening the full text in a modal panel (#moredlg) rather than
-             growing the card. Added 16 Sept after Michael's iPhone showed this
-             card 222px taller than the screen: its top slid under the
-             masthead and "Order the Thriving Package" fell off the bottom.
-             ⛔ Do not make "Read more" expand the card inline. That was the
-             first idea, and Michael caught it — it puts the card straight back
-             off the screen. Movement cards are fixed overlays on a
-             scroll-driven film; they cannot grow.
-             Desktop and reduced-motion (html.static) are untouched: all words
-             visible, no button. The text itself is unchanged and verbatim. -->
         <div class="more" id="more-def" style="--lines:3">
-        <!-- Her definition, verbatim from the live site. This is a research
-             definition with citations attached, not marketing copy, and the
-             rebuild had paraphrased it. Do not tighten it. -->
         <p>Thriving is an expanded vision for student success that incorporates students' intellectual, interpersonal, and psychological engagement and well-being while in college. Emerging from the intersection of research in positive psychology on flourishing (Keyes &amp; Haidt, 2003) and Bean and Eaton's (2000) psychological model of student retention, thriving takes a holistic view of students and their college experience.</p>
         <p>Each of these aspects of thriving are amenable to change through campus interventions.</p>
-        <!-- ⚠️ NOT her verbatim copy — the one sentence on this card that is
-             ours. The page defined thriving and never named the instrument
-             that measures it, so the reader met "Thriving Quotient" in the
-             next movement with nothing to attach it to (Stephanie, 15 Sept:
-             "we got nothing that says what the thriving quotient is").
-             Placeholder wording for launch; Laurie decides the final phrasing. -->
         <p>Thriving is measured by Dr. Schreiner's Thriving Quotient.</p>
         </div>
         <button type="button" class="readmore" aria-controls="more-def" aria-haspopup="dialog" data-title="What does it mean to thrive in college?">Read more</button>
       </div>
       <figure class="vid col" id="vid">
-        <!-- preload="none": nothing is fetched until the first tap, so the film
-             never contends with the frame sequence for bandwidth.
-             ⛔ 720p, and it cannot be 1080p: Cloudflare Pages refuses any
-             single file over 25 MiB, and this film at 1080p is 46 MiB. A
-             1080p rendition was built, pushed, and silently failed to deploy
-             — the commit reached the remote and the site never updated.
-             Moving the film to R2 or Stream is the only way to ship 1080p
-             from here. The card renders about 600px wide, so 720p is already
-             generous; it is the fullscreen button that gives anything up. -->
         <video id="lgvid" playsinline webkit-playsinline preload="none"
                width="1280" height="720">
           <source src="/thrivingincollege/assets/hero.mp4?v=7c665943" type="video/mp4">
         </video>
         <img class="vposter" src="/thrivingincollege/assets/hero-poster.jpg?v=34f0e5ab" alt="The Thriving Project — the tree logo, roots visible below the soil" width="1280" height="720">
-        <!-- The whole frame stays the click target; this is just the visible
-             affordance. The poster is a split — Laurie on dark wood, the logo
-             on white — and dead center lands on that seam, so the ring carries
-             a near-opaque disc and reads on both halves. -->
         <button class="vplay" type="button" aria-label="Play the film">
           <span class="vplay__glyph" aria-hidden="true">
             <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="43"/><path d="M42 33 L70 50 L42 67 Z"/></svg>
@@ -222,37 +175,16 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
         </div>
       </figure>
     </div>
-    <!-- Both CTAs, as a matched pair under the card. "The research behind it"
-         was a faint underlined text link inside the left column and Stephanie
-         missed it entirely on her first pass (15 Sept: "I didn't see that…
-         that should be more visible"). It is now the same size and format as
-         the order button, sitting beside it, with weight the only difference:
-         solid for the action that starts a purchase, outlined for the one
-         that goes to the evidence. -->
     <div class="heroreg">
       <a class="btn btn--secondary" href="/thrivingincollege/research/">The research behind it</a>
       <a class="btn btn--primary" href="/thrivingincollege/packages/#order">Order the Thriving Package</a>
     </div>
   </section>
 
-  <!-- Movement 2 · The Thriving Quotient — the seed splits.
-       ⭐ NEW 15 Sept. The page defined thriving, then named the Thriving
-       Quotient in the next breath and never said what it was; Stephanie hit
-       it immediately ("we got nothing that says what the thriving quotient
-       is"). The omission was inherited — the homepage followed the outline of
-       her own old site, which has the same hole.
-       ⚠️ Every figure here is HER published data from _src/data/instruments.json
-       (24 items, the five scale names, seven instruments) — nothing invented.
-       The last paragraph exists to hand off to movement 4, so "instrument"
-       is already a familiar word by the time that card asks which one fits. -->
   <section class="leaf r wide" data-i="1" aria-labelledby="m2b">
     <p class="eyebrow">02 &mdash; The Thriving Quotient</p>
     <h2 id="m2b">How is thriving measured?</h2>
     <div class="hr"></div>
-    <!-- .more-short: collapses ONLY on short phones (iPhone SE / mini with
-         Safari bars showing), where this card measured 40px too tall. It fits
-         on every standard iPhone, so there it stays fully open. Our copy,
-         not hers. -->
     <div class="more-short" id="more-tq" style="--lines:5">
     <p>The Thriving Quotient is the instrument Dr. Schreiner built to put a number on all three parts of that definition. It reports five scales: Engaged Learning and Academic Determination for the intellectual side, Social Connectedness and Diverse Citizenship for the interpersonal, and Positive Perspective for the psychological.</p>
     <p>Students answer twenty-four items. Every scale reports separately, and because each factor it measures is open to change, a score points at something a campus can act on rather than something it can only observe.</p>
@@ -262,20 +194,8 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     <p class="cta-row"><a class="btn btn--secondary" href="/thrivingincollege/instruments/">See the seven instruments</a></p>
   </section>
 
-  <!-- Movement 3 · The Researcher — roots take hold.
-       Nearly moved to the About page on 15 Sept — Stephanie's objection was
-       "too much Lori right at the beginning", her face arriving immediately
-       after the film of her face. Inserting The Thriving Quotient ahead of it
-       put a movement between the two, which solved the real problem, so the
-       card stays on the homepage. -->
   <section class="leaf l wide" data-i="2" aria-labelledby="m2">
     <div class="split rev">
-      <!-- Two crops of one photograph (Michael, 16 Sept). Desktop gives the
-           portrait a tall column beside the text, so it gets a 4:5 crop; phones
-           give it a ~1.8:1 strip across the top of the card, so they get the
-           full landscape frame. One crop for both would be cut to a sliver in
-           one of them by object-fit: cover. The 860px breakpoint is the one
-           home.css uses to turn the column into the strip. -->
       <figure class="bigpf col"><picture>
         <source media="(max-width: 860px)" srcset="/thrivingincollege/assets/portrait-office-wide.webp" width="1000" height="568">
         <img src="/thrivingincollege/assets/portrait-office.webp" alt="Dr. Laurie A. Schreiner" width="800" height="1000">
@@ -284,11 +204,6 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
         <p class="eyebrow">03 &mdash; The Researcher</p>
         <h2 id="m2">Who created the Thriving Quotient?</h2>
         <div class="hr"></div>
-        <!-- Her own bio, verbatim from the live site. The rebuild had rewritten
-             it, including an editorial flourish about "asking a better question"
-             that she has never said about herself. -->
-        <!-- .more on phones only — same mechanism and same reason as movement 1.
-             This card measured 146px taller than a standard iPhone screen. -->
         <div class="more" id="more-bio" style="--lines:3">
         <p>Dr. Laurie Schreiner is Professor Emerita of Higher Education at Azusa Pacific University in southern California, having spent 45 years in higher education as a psychology professor and associate academic dean after receiving her PhD in Psychology from the University of Tennessee. Co-author of The Student Satisfaction Inventory that is used on over 1,600 campuses across the US and Canada, she has published numerous journal articles and book chapters on thriving, positive psychology, engaged learning, sophomore success, faculty development, and advising.</p>
         </div>
@@ -302,16 +217,10 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     </div>
   </section>
 
-  <!-- Movement 4 · The Instruments — the sprout breaks ground -->
   <section class="leaf r wide" data-i="3" aria-labelledby="m3">
     <p class="eyebrow">04 &mdash; The Instruments</p>
     <h2 id="m3">Which Thriving instrument fits my campus?</h2>
     <div class="hr"></div>
-    <!-- ⛔ NOT "One validated instrument". It was written to mean "one per
-         population" and Stephanie read it as "there is a single instrument",
-         which the Instruments page immediately contradicts with seven
-         (15 Sept: "It shouldn't say one validated. That's not a safe
-         phrasing"). Plural, and the count stays on the page below. -->
     <p>Validated instruments for every population on campus, all administered the same way and priced the same. Choose by who you are surveying.</p>
     <ul class="strip">
       <li><a href="/thrivingincollege/instruments/undergraduate/">Undergraduate</a></li>
@@ -325,22 +234,11 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     </ul>
   </section>
 
-  <!-- Movement 5 · The Evidence — trunk & branches -->
   <section class="leaf l wide" data-i="4" aria-labelledby="m4">
     <p class="eyebrow">05 &mdash; The Evidence</p>
-    <!-- ⛔ NO NUMBER OF YEARS, ever. "Fifteen" was Claude's arithmetic on the
-         publications list, not her claim, and it is wrong from every angle:
-         the publications reach back to 2009, and she has 45 years in higher
-         education. Any single figure dates the page and invites a correction
-         from the one audience that checks. "Decades" is true indefinitely
-         (Stephanie, 15 Sept: "that means it won't even change"). -->
     <h2 id="m4">What has decades of research shown?</h2>
     <div class="hr"></div>
     <p>The Thriving Quotient rests on peer-reviewed publications, conference papers and doctoral dissertations that tested the model with specific populations. It is all in the Thriving Knowledge Center, so a research office can check the instrument before a campus buys it.</p>
-    <!-- Monoline marks drawn inline, not sourced as images: three tiles do not
-         justify a network request, and these have to sit on the green at any
-         size. Deliberately NOT illustrated or 3D — this is a research
-         instrument and a playful icon set would read as a startup. -->
     <div class="kc">
       <a href="/thrivingincollege/research/publications/">
         <span class="kci" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 16.5h4"/></svg></span>
@@ -353,25 +251,15 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
         <b>20</b><span>Dissertations</span></a>
     </div>
     <p class="note">Counts are the entries published on this site to 2019; later work is being added.</p>
-    <!-- Teaser into The Reach section below the film (planned placement, 28 Sept).
-         Countries first, then states, the order of the maps. -->
     <p class="reach-teaser"><a href="#reach">11 countries &middot; 46 states &mdash; see where</a></p>
-    <!-- A button, not the faint text link it was (Stephanie, 15 Sept: "that
-         should be a button, like a nice big button"). This card exists to send
-         a research office to the evidence, so the way there should not be the
-         quietest thing on it. -->
     <p class="cta-row"><a class="btn btn--secondary" href="/thrivingincollege/research/">Thriving Knowledge Center</a></p>
   </section>
 
-  <!-- Movement 5 · The Engagements — full tree -->
   <section class="leaf r wide5" data-i="5" aria-labelledby="m5">
     <p class="eyebrow">06 &mdash; The Packages</p>
     <h2 id="m5">What does a campus survey cost?</h2>
     <div class="hr"></div>
     <p>Tap the &ldquo;READ MORE&rdquo; button on any package for the full description. Three or more survey packages in one order earn 15% off.</p>
-    <!-- Five package cards, real links in the served HTML; the cylinder is
-         presentation. Front card opens its detail page; flanking cards come
-         forward first. Swipe = one card; arrows for pointers; ← → keys. -->
     <div class="carousel" id="pkgcar" tabindex="0" aria-roledescription="carousel" aria-label="Packages">
       <button class="carr prev" type="button" aria-label="Previous package">&#8592;</button>
       <div class="cstage" id="pkgstage">
@@ -402,29 +290,9 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
           <a class="pbtn pbtn-ghost" href="/thrivingincollege/packages/thriving-campus/">Read more</a></div></div>
       </div>
       <button class="carr next" type="button" aria-label="Next package">&#8594;</button>
-      <!-- ⛔ The .chint hint line ("Swipe to spin · Read more opens a package")
-           was REMOVED 17 Sept on Michael's call: the spinning cards passed over
-           it, and the gesture reads for itself. Do not reinstate it without a
-           place it cannot be covered. -->
     </div>
-    <!-- ⛔ "Compare all packages" removed 15 Sept. It went to /packages/, which
-         is where the cards already go, so it promised a comparison and
-         delivered the same page. Building a real comparison table was
-         considered and rejected in the same breath (Stephanie: "it's already
-         there… that'll confuse people"). Do not add one back. Its removal
-         also gives the carousel the vertical space it has been short of. -->
   </section>
 
-  <!-- ⛔ "Start Here / Three doors, one tree" (old movement 6) removed
-       15 Sept. A router at the BOTTOM of the page tells people where to begin
-       after they have already been everywhere — "if you want somebody to
-       start here, you would put it at the very first card". The nav does this
-       job on every screen, and Dr. Schreiner's contact details it carried are
-       on /contact/ regardless.
-       ⚠️ Net card count is unchanged: one added at movement 2, one removed
-       here, so ANCHORS_F in home.js still maps six movements onto six film
-       frames and the tree growth is untouched. Restoring this card would
-       require adding a seventh anchor. -->
 
   </main>
 </div>
@@ -432,33 +300,6 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
 <div id="track"></div>
 <div id="fly" aria-hidden="true"></div>
 
-<!-- ORIENTATION questions only, and deliberately NOT the ones the sub-pages
-     own. Retrieval happens per page: a pricing question should land on
-     /packages/ and an instrument-choice question on /instruments/, both of
-     which already carry FAQPage schema. Repeating them here would split the
-     signal and answer them on a page that is not about them. These five are
-     what someone asks who does not yet have the vocabulary — and nothing
-     else on the site answers them.
-     ⭐ The second reason this section exists has nothing to do with AI: the
-     homepage is a scroll film and offered a crawler about 4,600 characters of
-     static text. This is the cheapest real prose we can give it.
-     ⛔ Every factual claim below is sourced from her own material — her
-     definition of thriving verbatim from the hero, her biography verbatim
-     from /about/. Nothing here is invented. That is the whole lesson of the
-     11 Sept copy restore. -->
-<!-- The Reach: the Thriving footprint map, promoted from the internal review
-     page /review/reach-752cdf956f/ (rev 3 + Hong Kong close-up, b395a06).
-     Stephanie's rules, 28–29 Sept — do not change without asking:
-     ⛔ ONE footprint color: survey and speaking locations merged. Never split
-        them, never label anything "speaking".
-     ⛔ NO school names. Laurie has not agreed to naming campuses (4 Sept).
-     ⛔ "Reached", never "administered": Hawaii, Maine, Oklahoma, Washington,
-        D.C., Finland, Lithuania and Hong Kong are in it only because she spoke
-        there. The United Kingdom counts once; Hong Kong is a marker.
-     The lists are written into the HTML (not built by script) so crawlers, no-JS
-     and a failed map fetch all still get the whole footprint as text. Source:
-     her "List of Speaking Engagements and Geographic Location of TQ surveys",
-     8 Sept 2026. If the data changes, change these lists and the counts too. -->
 <section class="home-reach" id="reach" aria-labelledby="reach-h" data-assets="/thrivingincollege/assets/">
   <div class="shell">
     <div class="reach-intro">
@@ -499,20 +340,10 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
 
 <section class="home-faq" aria-labelledby="faq-h">
   <div class="shell">
-    <!-- "Common questions" was chosen because the block is tagged for AI
-         retrieval and does not need the literal string "FAQ" to work. But
-         readers scan for the convention, and "Frequently Asked Questions" is
-         it (Stephanie, 15 Sept: "that's standard language"). No "(FAQs)"
-         parenthetical — Michael's call. -->
     <h2 id="faq-h">Frequently Asked Questions</h2>
     <div class="faq">
       <details>
         <summary>What is the Thriving Quotient?</summary>
-        <!-- ⚠️ Kept consistent with movement 2 on purpose (Michael, 15 Sept:
-             "make sure that it's consistent with our description higher in the
-             page"). The old answer described the family of instruments rather
-             than the measure itself, which is the question actually asked. If
-             card 02's copy changes, change this with it. -->
         <div class="faq__a"><p>The instrument Dr. Schreiner built to measure student thriving, which she defines as &ldquo;an expanded vision for student success that incorporates students&rsquo; intellectual, interpersonal, and psychological engagement and well-being while in college.&rdquo; It reports five scales across those three areas &mdash; Engaged Learning, Academic Determination, Social Connectedness, Diverse Citizenship and Positive Perspective &mdash; from a twenty-four item questionnaire. Every factor it measures is open to change, so a score points at something a campus can act on. The questionnaire is called a Thriving Instrument, and there are seven, one for each campus population: undergraduates, second-year students, adult learners, graduate students, community college students, faculty and staff.</p></div>
       </details>
       <details>
@@ -551,13 +382,6 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   </div>
 </footer>
 
-<!-- The "Read more" panel for phones. One dialog, filled on demand by cloning
-     the collapsed block the button names in aria-controls, so the text lives
-     in the page exactly once. Outside #stage on purpose: showModal() renders
-     in the top layer, so no transform, clip or fixed stacking context in the
-     film can clip it. It carries its own max-height and scrolls inside
-     itself, which is what lets "Read more" show everything without ever
-     making a movement card taller. -->
 <dialog class="moredlg" id="moredlg" aria-labelledby="moredlg-h">
   <div class="moredlg__bar">
     <p class="moredlg__h" id="moredlg-h"></p>
@@ -566,11 +390,8 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   <div class="moredlg__body" tabindex="-1"></div>
 </dialog>
 
-<script src="/thrivingincollege/js/home.js?v=423c279e" defer></script>
-<script src="/thrivingincollege/js/reach.js?v=05cb3537" defer></script>
-<!-- Mobile navigation drawer (nav spec 2026-09-03 §3, corrected 09-04).
-     Injected by build.js before </body> on every page that has a .hamburger.
-     Progressive enhancement: the same links exist in the page nav + footer. -->
+<script src="/thrivingincollege/js/home.js?v=a36b3525" defer></script>
+<script src="/thrivingincollege/js/reach.js?v=d8176fdc" defer></script>
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Site navigation" hidden>
   <div class="drawer__head">
     <a class="drawer__word" href="/thrivingincollege/">The Thriving Project</a>
@@ -586,7 +407,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   <p class="drawer__sec"><a href="/thrivingincollege/contact/">Contact</a></p>
   <a class="btn btn--primary drawer__cta" href="/thrivingincollege/packages/#order">Order the Thriving Package</a>
 </div>
-<script src="/thrivingincollege/js/drawer.js?v=ec590fc0" defer></script>
+<script src="/thrivingincollege/js/drawer.js?v=8e119ec6" defer></script>
 
 </body>
 </html>

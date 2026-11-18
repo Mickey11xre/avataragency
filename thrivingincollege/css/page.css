@@ -1,7 +1,3 @@
-/* =========================================================================
-   Generic content pages — Knowledge Center, About, Contact, Legal
-   Reading pages: measure held, lists as lists, references selectable.
-   ========================================================================= */
 
 .prose { max-width: var(--measure); }
 .prose p, .prose li { color: var(--text); }
@@ -15,19 +11,13 @@
 }
 .prose .meta { color: var(--text-3); font-size: var(--step-sm); }
 
-/* Reference lists — one entry per item, hanging so the author is the
-   scannable column. Links are the real citation links, never a widget. */
 .refs { list-style: none; padding: 0; display: grid; gap: var(--sp-s); max-width: var(--measure); }
 .refs li { padding-inline-start: 1.5em; text-indent: -1.5em; text-wrap: pretty; }
 .refs li a { word-break: break-word; }
 .refs__year { font-size: var(--step--1); letter-spacing: .08em; text-transform: uppercase; color: var(--gold-text); font-weight: 600; margin-block-start: var(--sp-m); }
 
-/* Hub cards (Knowledge Center) share .hub from the instruments hub */
 .hub { list-style: none; padding: 0; display: grid; gap: var(--sp-s); }
 @media (min-width: 48rem) { .hub { grid-template-columns: 1fr 1fr; } }
-/* ⚠️ THESE RULES ARE DUPLICATED in _src/pages/instruments/index.html, which
-   does not load this file. Change one, change the other, or the instruments
-   hub silently drifts from the other three hubs. */
 .hub__item { background: var(--surface-raised); border: 1px solid var(--rule);
   border-inline-start: 4px solid var(--green); border-radius: var(--radius);
   padding: var(--sp-m); display: grid; gap: var(--sp-2xs); align-content: start;
@@ -35,49 +25,31 @@
 .hub__item h3 { font-size: var(--step-1); }
 .hub__item p { color: var(--text-2); }
 .hub__item a.btn { justify-self: start; margin-block-start: var(--sp-2xs); }
-/* The card's button IS the card's primary action, so it is promoted here
-   rather than in the markup. Scoped deliberately: .btn--secondary is used
-   60+ times site-wide (invoice requests, "Back to the site", webinars) where
-   a quiet button is correct, and changing the component would shout on all
-   of them. */
 .hub__item a.btn--secondary { background: var(--action); color: var(--paper); border-color: var(--action); }
 .hub__item a.btn--secondary:hover { background: var(--action-hover); color: var(--paper); border-color: var(--action-hover); }
 
-/* Comparison table — scrolls inside .scroll-x on a phone, never the page */
 .cmp { border-collapse: collapse; min-width: 40rem; width: 100%; font-size: var(--step-sm); }
 .cmp th, .cmp td { text-align: left; vertical-align: top; padding: var(--sp-xs) var(--sp-s); border-block-end: 1px solid var(--rule-soft); }
 .cmp thead th { font-family: var(--font-display); font-size: var(--step-0); color: var(--text); }
 .cmp tbody th { font-family: var(--font-ui); font-size: var(--step--1); letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); white-space: nowrap; }
 .cmp td { color: var(--text); }
 
-/* Contact block */
 .contact { display: grid; gap: var(--sp-s); }
 @media (min-width: 48rem) { .contact { grid-template-columns: 1fr 1fr; } }
 .contact address { font-style: normal; line-height: var(--lh-body); }
-/* Contact form beside the mailing address (17 Sept). The form needs the room:
-   below 64rem the two stack, form first. */
 @media (min-width: 64rem) { .contact--form { grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); align-items: start; } }
 .contact--form .fields { margin-block-start: var(--sp-s); }
 .contact__phone { margin-block-start: var(--sp-xs); }
 
-/* Legal pages: dense text, dated */
 .legal .prose h2 { font-size: var(--step-1); }
 .legal .dated { color: var(--text-3); font-size: var(--step-sm); margin-block-end: var(--sp-m); }
 
-/* About page photo (17 Sept): sits under the intro box at the same width (the
-   font-size makes 68ch resolve to the capsule's width, which is set in ch at step-1),
-   with the site's asymmetric card corners. */
 .about-photo { font-size: var(--step-1); max-width: var(--measure); margin: 0 0 var(--sp-m); border-radius: 2px 18px 2px 18px; overflow: hidden;
   box-shadow: 0 14px 34px rgba(0,0,0,.14), 0 0 0 1px rgba(28,51,39,.10); }
 .about-photo img { display: block; width: 100%; height: auto; }
-/* Photo -> "Principal Investigator" read as too much open space (104px,
-   Michael 17 Sept). The section's top padding goes; the photo's bottom
-   margin then collapses with the heading's, so this margin sets the gap. */
 .about-photo + .section { padding-block-start: 0; }
 .about-photo { margin-block-end: 60px; }
 
-/* Refund policy tables (19 Sept): two plain columns that fit a phone without
-   sideways scrolling — unlike .cmp, which is built for wide comparisons. */
 .refund-table { border-collapse: collapse; width: 100%; max-width: var(--measure); margin-block: var(--sp-xs) var(--sp-s); font-size: var(--step-sm); }
 .refund-table th, .refund-table td { text-align: left; vertical-align: top; padding: var(--sp-2xs) var(--sp-xs); border-block-end: 1px solid var(--rule-soft); }
 .refund-table thead th { font-family: var(--font-ui); font-size: var(--step--1); letter-spacing: .04em; text-transform: uppercase; color: var(--text-3); border-block-end-color: var(--rule); }

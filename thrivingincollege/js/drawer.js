@@ -1,8 +1,3 @@
-/* Mobile navigation drawer — nav spec 2026-09-03 §5–6.
-   Opens on the hamburger; closes on X, swipe-down, system back and Esc.
-   Focus is trapped inside and returned to the trigger; body scroll is
-   locked and restored. The links are real <a href> in the served HTML —
-   this file only adds the overlay behavior. */
 (function () {
   'use strict';
   var drawer = document.getElementById('drawer');
@@ -18,7 +13,6 @@
     if (isOpen()) return;
     scrollY = window.pageYOffset;
     drawer.hidden = false;
-    // next frame so the opacity transition runs
     requestAnimationFrame(function () { drawer.classList.add('is-open'); });
     document.body.classList.add('drawer-open');
     document.body.style.top = -scrollY + 'px';
@@ -48,7 +42,6 @@
   btn.addEventListener('click', function () { isOpen() ? close() : open(); });
   closeBtn.addEventListener('click', function () { close(); });
 
-  // system back gesture closes it instead of leaving the page
   window.addEventListener('popstate', function () { if (isOpen()) close(true); });
 
   document.addEventListener('keydown', function (e) {
@@ -63,7 +56,6 @@
     }
   });
 
-  // swipe down to close: a mostly-vertical downward gesture of 70px+
   drawer.addEventListener('touchstart', function (e) {
     if (e.touches.length !== 1) return;
     touchY0 = e.touches[0].clientY; touchX0 = e.touches[0].clientX;
@@ -76,7 +68,6 @@
     if (dy > 70 && dx < dy * 0.6 && drawer.scrollTop <= 0) close();
   }, { passive: true });
 
-  // a link tap closes the drawer before navigation restores scroll state
   drawer.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href]');
     if (a) { document.body.classList.remove('drawer-open'); document.body.style.position = ''; document.body.style.top = ''; }

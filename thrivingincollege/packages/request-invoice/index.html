@@ -7,9 +7,9 @@
 <title>Request an invoice or quote — purchase orders and Net 30</title>
 <meta name="description" content="Request a quote or Net-30 invoice for Thriving Quotient packages. Purchase orders accepted, W-9 available, payment by ACH or card on the hosted invoice.">
 <link rel="canonical" href="https://thrivingincollege.org/packages/request-invoice/">
-<link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=0274542a">
-<link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=4611b0ac">
-<link rel="stylesheet" href="/thrivingincollege/css/store.css?v=d9a44df9">
+<link rel="stylesheet" href="/thrivingincollege/css/tokens.css?v=596b029a">
+<link rel="stylesheet" href="/thrivingincollege/css/instrument.css?v=5ad35b4c">
+<link rel="stylesheet" href="/thrivingincollege/css/store.css?v=11587766">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -29,7 +29,7 @@
   ]
 }
 </script>
-<link rel="stylesheet" href="/thrivingincollege/css/drawer.css?v=6cab9c87">
+<link rel="stylesheet" href="/thrivingincollege/css/drawer.css?v=dfebfb31">
 <link rel="icon" href="/thrivingincollege/assets/favicon.ico?v=a2f64690" sizes="32x32">
 <link rel="icon" type="image/png" sizes="16x16" href="/thrivingincollege/assets/icon-16.png?v=de0018ed">
 <link rel="icon" type="image/png" sizes="32x32" href="/thrivingincollege/assets/icon-32.png?v=5d242731">
@@ -96,11 +96,6 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
     </p>
   </div>
 
-  <!-- The whole request in one form, so Dr. Schreiner receives one complete
-       brief rather than an email thread (v6 §09, Rail 2). Labels above
-       fields, errors inline and announced, inputmode + autocomplete set —
-       brief §4.5. Posts without JavaScript; JavaScript only adds inline
-       validation and keeps the page in place on success. -->
   <form id="invoice-form" class="section" method="post" action="/thrivingincollege/api/request-invoice" novalidate>
     <h2>Your institution</h2>
     <div class="fields" style="margin-block-start: var(--sp-s)">
@@ -131,7 +126,6 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
         <label for="po_number">Purchase order number <span class="opt">optional — add it later if you don't have one yet</span></label>
         <input id="po_number" name="po_number" type="text" inputmode="text" autocomplete="off" maxlength="60">
       </div>
-      <!-- Honeypot. Hidden from people; bots fill it. -->
       <div class="field" aria-hidden="true" style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden">
         <label for="website">Website</label>
         <input id="website" name="website" type="text" tabindex="-1" autocomplete="off">
@@ -193,11 +187,6 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
       </div>
       <p class="field__error" id="err-instruments" role="alert" hidden></p>
     </fieldset>
-    <!-- A nudge, never a block (Michael, 17 Sept). His own test ticked two
-         instruments against one Survey Package: under-quoted by one package,
-         because each population surveyed needs its own. Survey, Basic Report
-         and Expanded Report cover one instrument each; Thriving Campus covers
-         five. The request still sends — a person reviews every quote. -->
     <p class="form-note" id="coverage-note" role="status" aria-live="polite" hidden></p>
 
     <h2 style="margin-block-start: var(--sp-l)">Terms</h2>
@@ -343,9 +332,6 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   });
 })();
 </script>
-<!-- Mobile navigation drawer (nav spec 2026-09-03 §3, corrected 09-04).
-     Injected by build.js before </body> on every page that has a .hamburger.
-     Progressive enhancement: the same links exist in the page nav + footer. -->
 <div class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Site navigation" hidden>
   <div class="drawer__head">
     <a class="drawer__word" href="/thrivingincollege/">The Thriving Project</a>
@@ -361,7 +347,7 @@ for(var i=0;i<L.length;i++){if((h+'/').indexOf(L[i].split('/')[0])>-1){gtag('eve
   <p class="drawer__sec"><a href="/thrivingincollege/contact/">Contact</a></p>
   <a class="btn btn--primary drawer__cta" href="/thrivingincollege/packages/#order">Order the Thriving Package</a>
 </div>
-<script src="/thrivingincollege/js/drawer.js?v=ec590fc0" defer></script>
+<script src="/thrivingincollege/js/drawer.js?v=8e119ec6" defer></script>
 
 </body>
 </html>
