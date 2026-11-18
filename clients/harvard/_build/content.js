@@ -289,12 +289,12 @@ const STAGE = {
   note: "Prefer to type? Tap an option to read about it here, or send Greg’s office a message.",
   soon: "The live conversation is arriving very soon. In the meantime, the options beside me open the right page.",
   // ── Open prompt + staff (the Greg demo, kickoff 2026-11-08; storyboard BLOOMBERG_MULTI-AGENT\docs\05-…) ──
-  // enabled: "flag" = the prompt field, the document card and the staff views exist only for a visitor who opens the
-  // page with ?staff=1 (kept for that browser tab; ?staff=0 turns it off). Greg reviews this preview with his own
-  // link, so the stage he sees stays as it is until Michael says go. Set true to show it to everyone.
+  // enabled: true = the prompt field, the document card and the staff views are on for every visitor (Michael 11-17:
+  // the prototype is for Greg's review only, one link, so the multi-agent stage is the default). "flag" = only for a
+  // visitor who opens the page with ?staff=1 (?staff=0 turns it off); use it again if the solo stage must come back.
   // The staff's names are NOT here: the panel reads them from the staff endpoint (the harvard-staff roster).
   prompt: {
-    enabled: "flag",
+    enabled: true,
     placeholder: "Ask Harrison anything, or share a document…",
     placeholderFile: "Add a question, or press send",
     placeholderShort: "Ask Harrison anything…",   // phones only (600 px and narrower): the full line was cut off mid-word (Michael 11-12)
