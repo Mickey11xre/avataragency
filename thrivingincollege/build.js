@@ -44,6 +44,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const { stripHtmlComments, stripCssComments, stripJsComments } = require('./strip-comments');
 
 const SRC   = path.join(__dirname, '_src');
 // OUT_DIR lets a launch build (BASE="") land somewhere other than this
@@ -188,13 +189,16 @@ function transform(html, file) {
 const jobs = [];
 for (const f of walk(path.join(SRC, 'pages'))) {
   if (!STAGING && /[\\/]status[\\/]index\.html$/.test(f)) continue;   // staging-only status page
+  // private client-review pages (/review/<slug>/) never ship to her public domain
+  // (2026-11-18). They stay on the noindex staging build only.
+  if (!STAGING && /^review[\\/]/.test(path.relative(path.join(SRC, 'pages'), f))) continue;
   const raw = fs.readFileSync(f, 'utf8');
   // .html gets the full transform; .txt (llms.txt) gets price tokens only
   jobs.push({ rel: path.relative(path.join(SRC, 'pages'), f), dest: path.join(OUT, path.relative(path.join(SRC, 'pages'), f)),
               out: f.endsWith('.html') ? transform(raw, f) : f.endsWith('.txt') ? prices(raw, f) : raw });
 }
 for (const f of walk(path.join(SRC, 'css'))) {
-  jobs.push({ rel: path.relative(SRC, f), dest: path.join(OUT, path.relative(SRC, f)), out: fs.readFileSync(f, 'utf8') });
+  jobs.push({ rel: path.relative(SRC, f), dest: path.join(OUT, path.relative(SRC, f)), out: stripCssComments(fs.readFileSync(f, 'utf8')) });
 }
 // scripts and binary assets (film frames, hi-res anchors, hero film, portrait,
 // butterfly) copy through untouched; compared as bytes so --check covers them
@@ -202,6 +206,11 @@ for (const dir of ['js', 'assets', 'files']) {
   const d = path.join(SRC, dir);
   if (!fs.existsSync(d)) continue;
   for (const f of walk(d)) {
+    // our own scripts ship without their working-note comments (2026-11-18)
+    if (dir === 'js' && f.endsWith('.js')) {
+      jobs.push({ rel: path.relative(SRC, f), dest: path.join(OUT, path.relative(SRC, f)), out: stripJsComments(fs.readFileSync(f, 'utf8')) });
+      continue;
+    }
     jobs.push({ rel: path.relative(SRC, f), dest: path.join(OUT, path.relative(SRC, f)), out: fs.readFileSync(f), binary: true });
   }
 }
@@ -411,7 +420,7 @@ if (!STAGING) {
     urls.sort().map(u => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n') + '\n</urlset>\n';
   jobs.push({ rel: 'sitemap.xml', dest: path.join(OUT, 'sitemap.xml'), out: sitemap });
   jobs.push({ rel: 'robots.txt', dest: path.join(OUT, 'robots.txt'),
-    out: `# The Thriving Project — all crawlers welcome, training bots included (v6 §11.5)\nUser-agent: *\nAllow: /\nDisallow: /welcome/\nDisallow: /packages/request-invoice/sent/\nDisallow: /contact/sent/\n\nSitemap: ${HOST}/sitemap.xml\n` });
+    out: `# The Thriving Project — all crawlers welcome, including AI crawlers\nUser-agent: *\nAllow: /\nDisallow: /welcome/\nDisallow: /packages/request-invoice/sent/\nDisallow: /contact/sent/\n\nSitemap: ${HOST}/sitemap.xml\n` });
 }
 
 /* ---- cache busting -------------------------------------------------------
@@ -458,6 +467,21 @@ const bust = html => html.replace(
   });
 for (const j of jobs) {
   if (typeof j.out === 'string' && /\.html$/.test(j.rel)) j.out = bust(j.out);
+}
+
+/* ---- strip HTML comments from every served page (2026-11-18) -------------
+ * Templates and content fragments carry working notes in <!-- --> comments.
+ * Before this step they shipped verbatim: 211 comments across the 34 public
+ * pages, including a notification address, Gmail thread ids, local file
+ * paths and the private /review/ URL. Notes stay in _src for the team; the
+ * built HTML carries none. <script>/<style> contents (JSON-LD, inline JS) are
+ * untouched — see strip-comments.js. Fails the build if any comment survives. */
+for (const j of jobs) {
+  if (typeof j.out === 'string' && /\.html$/.test(j.rel)) {
+    j.out = stripHtmlComments(j.out);
+    const left = (j.out.replace(/<(script|style|textarea|template)\b[^>]*>[\s\S]*?<\/\1\s*>/gi, '').match(/<!--(?!\[if)/g) || []).length;
+    if (left) { console.error(`BUILD FAILED: ${left} HTML comment(s) survived stripping in ${j.rel}`); process.exit(1); }
+  }
 }
 
 let changed = 0, same = 0;
