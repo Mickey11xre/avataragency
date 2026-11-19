@@ -26,7 +26,7 @@
   if (!code) return;
 
   // ---- state ----
-  var me = null, site = null, comments = [], rounds = [], openId = null, composing = null, pinMode = false, panelOpen = false, hidden = false;
+  var me = null, site = null, comments = [], rounds = [], lastSeen = null, newIds = [], panelMode = "all", openId = null, composing = null, pinMode = false, panelOpen = false, hidden = false;
   var root, bar, layer, pop, panel, cap, toastEl, raf = 0, pinEls = {};
   var isMobile = function () { return innerWidth < 720; };
 
@@ -56,6 +56,25 @@
   function mine(c) { return me && c.by === me.name && c.role === me.role; }
   function unsentMine() { return comments.filter(function (c) { return c.round === null && mine(c); }); }
   function onThisPage(c) { return c.page === pagePath(); }
+  // The site version the reviewer is looking at: data-ver on this script, else the ?v= on the site's own stylesheet.
+  function siteVer() {
+    if (S.dataset.ver) return S.dataset.ver;
+    var links = document.querySelectorAll('link[rel="stylesheet"][href*="?v="]');
+    for (var i = 0; i < links.length; i++) { var h = links[i].getAttribute("href"); if (h.indexOf("/_review/") < 0) { var m = /[?&]v=([\w.\-]+)/.exec(h); if (m) return m[1]; } }
+    return null;
+  }
+  var STATUS = { open: "Open", resolved: "Done", confirmed: "Confirmed" };
+  // What changed since this reviewer last looked: things OTHER people did (a fix, a reply, a confirm or a reopen).
+  function lastNews(c) {
+    var t = "", note = "";
+    var later = function (at, what) { if (at && (!lastSeen || at > lastSeen) && at > t) { t = at; note = what; } };
+    (c.replies || []).forEach(function (r) { if (!(me && r.by === me.name && r.role === me.role)) later(r.at, r.kind === "fix" ? "Changed" + (r.ver ? " in V " + r.ver : "") + ": " + r.text : r.by + " replied: " + r.text); });
+    if (me.role !== "owner") later(c.status === "resolved" ? c.resolvedAt : null, "Marked done" + (c.fixedIn ? " in V " + c.fixedIn : ""));
+    if (c.confirmedBy && c.confirmedBy !== me.name) later(c.confirmedAt, c.confirmedBy + " confirmed it");
+    if (c.reopenedBy && c.reopenedBy !== me.name) later(c.reopenedAt, c.reopenedBy + " reopened it");
+    return t ? { at: t, note: note } : null;
+  }
+  function computeNew() { newIds = comments.filter(function (c) { return !!lastNews(c); }).map(function (c) { return c.id; }); }
 
   // ---- anchors ----
   function cssPath(e) {
@@ -116,6 +135,7 @@
       }
       p.textContent = c.n; p.title = c.text.slice(0, 120);
       p.classList.toggle("done", c.status === "resolved");
+      p.classList.toggle("confirmed", c.status === "confirmed");
       p.classList.toggle("unsent", c.round === null);
       p.classList.toggle("active", c.id === openId);
     });
@@ -126,7 +146,7 @@
       var c = byId(id), p = pinEls[id]; if (!c) continue;
       var pos = resolvePos(c.anchor);
       if (!pos) { p.style.display = "none"; continue; }
-      p.style.display = ""; p.style.transform = "translate(" + Math.round(pos.x) + "px," + Math.round(pos.y) + "px)";
+      p.style.display = ""; p.classList.toggle("moved", !pos.ok && !!c.anchor.sel); p.style.transform = "translate(" + Math.round(pos.x) + "px," + Math.round(pos.y) + "px)";
       if (id === openId && pop && !isMobile()) placePop(pos);
     }
     if (composing && composing.anchor && pop && !isMobile()) { var cp = resolvePos(composing.anchor); if (cp) placePop(cp); }
@@ -147,23 +167,34 @@
     var c = byId(id); if (!c) return;
     closePop(); openId = id; renderPins();
     pop = el("div", "aa-rv aa-rv-pop");
-    var owner = me.role === "owner", canEdit = owner || (mine(c) && c.round === null);
+    var owner = me.role === "owner", canEdit = owner || (mine(c) && c.round === null), done = c.status === "resolved", confirmed = c.status === "confirmed";
+    var pos0 = resolvePos(c.anchor), moved = pos0 && !pos0.ok && !!c.anchor.sel;
+    var stateBtns = owner
+      ? (c.status === "open" ? '<button type="button" class="aa-rv-b" data-act="done">Mark done</button>' : '<button type="button" class="aa-rv-b" data-act="reopen">Reopen</button>')
+      : (done ? '<button type="button" class="aa-rv-b ok" data-act="confirm">Confirm, looks good</button><button type="button" class="aa-rv-b" data-act="reopen">Reopen</button>'
+        : confirmed ? '<button type="button" class="aa-rv-b" data-act="reopen">Reopen</button>' : "");
     pop.innerHTML =
       '<div class="aa-rv-ph"><span class="aa-rv-n">' + c.n + '</span><span class="aa-rv-meta">' + esc(c.by) + ' · ' + when(c.at) +
-      (c.round ? ' · sent round ' + c.round : ' · <em>not sent yet</em>') + '</span><span class="aa-rv-st ' + c.status + '">' + (c.status === "resolved" ? "Resolved" : "Open") + '</span><button type="button" class="aa-rv-x" data-act="close" aria-label="Close">&times;</button></div>' +
+      (c.round ? ' · sent round ' + c.round : ' · <em>not sent yet</em>') + (c.ver ? ' · on V ' + esc(c.ver) : "") + '</span><span class="aa-rv-st ' + c.status + '">' + (STATUS[c.status] || c.status) + (done && c.fixedIn ? " · V " + esc(c.fixedIn) : "") + '</span><button type="button" class="aa-rv-x" data-act="close" aria-label="Close">&times;</button></div>' +
       (c.anchor.snippet ? '<div class="aa-rv-near">near “' + esc(c.anchor.snippet) + '”</div>' : "") +
+      (moved ? '<div class="aa-rv-moved">This part of the page has changed since the comment was made, so the pin sits at its saved position.</div>' : "") +
       '<div class="aa-rv-text" data-text>' + esc(c.text) + '</div>' +
-      '<div class="aa-rv-replies">' + c.replies.map(function (r) { return '<div class="aa-rv-reply"><b>' + esc(r.by) + '</b> <span>' + when(r.at) + '</span><div>' + esc(r.text) + '</div></div>'; }).join("") + '</div>' +
-      '<textarea class="aa-rv-ta" data-reply placeholder="Reply…" rows="2"></textarea>' +
-      '<div class="aa-rv-acts"><button type="button" class="aa-rv-b gold" data-act="reply">Reply</button>' +
-      (owner ? '<button type="button" class="aa-rv-b" data-act="' + (c.status === "resolved" ? "reopen" : "resolve") + '">' + (c.status === "resolved" ? "Reopen" : "Mark resolved") + '</button>' : "") +
-      (canEdit ? '<button type="button" class="aa-rv-b" data-act="edit">Edit</button><button type="button" class="aa-rv-b danger" data-act="delete">Delete</button>' : "") + '</div>';
+      '<div class="aa-rv-replies">' + c.replies.map(function (r) { return '<div class="aa-rv-reply' + (r.kind === "fix" ? " fix" : "") + '"><b>' + (r.kind === "fix" ? "What changed" + (r.ver ? " · V " + esc(r.ver) : "") : esc(r.by)) + '</b> <span>' + when(r.at) + '</span><div>' + esc(r.text) + '</div></div>'; }).join("") +
+      (confirmed ? '<div class="aa-rv-reply ok"><b>' + esc(c.confirmedBy || "") + ' confirmed</b> <span>' + when(c.confirmedAt) + '</span></div>' : "") + '</div>' +
+      '<div data-donebox hidden><textarea class="aa-rv-ta" data-note placeholder="What changed? (Greg sees this)" rows="3"></textarea>' +
+      '<div class="aa-rv-acts"><button type="button" class="aa-rv-b gold" data-act="savedone">Save as done' + (siteVer() ? " in V " + esc(siteVer()) : "") + '</button><button type="button" class="aa-rv-b" data-act="canceldone">Cancel</button></div></div>' +
+      '<div data-main><textarea class="aa-rv-ta" data-reply placeholder="Reply…" rows="2"></textarea>' +
+      '<div class="aa-rv-acts"><button type="button" class="aa-rv-b gold" data-act="reply">Reply</button>' + stateBtns +
+      (canEdit ? '<button type="button" class="aa-rv-b" data-act="edit">Edit</button><button type="button" class="aa-rv-b danger" data-act="delete">Delete</button>' : "") + '</div></div>';
     pop.addEventListener("click", function (ev) {
       var b = ev.target.closest("[data-act]"); if (!b) return;
       var act = b.dataset.act;
       if (act === "close") return closePop();
       if (act === "reply") { var t = pop.querySelector("[data-reply]").value.trim(); if (!t) return; b.disabled = true; return api({ action: "reply", id: c.id, text: t }).then(function (j) { replace(j.comment); openPin(c.id); toast("Reply saved"); }).catch(fail(b)); }
-      if (act === "resolve" || act === "reopen") { b.disabled = true; return api({ action: act, id: c.id }).then(function (j) { replace(j.comment); openPin(c.id); toast(act === "resolve" ? "Marked resolved" : "Reopened"); }).catch(fail(b)); }
+      if (act === "done") { pop.querySelector("[data-main]").hidden = true; pop.querySelector("[data-donebox]").hidden = false; pop.querySelector("[data-note]").focus(); return; }
+      if (act === "canceldone") return openPin(c.id);
+      if (act === "savedone") { b.disabled = true; return api({ action: "resolve", id: c.id, note: pop.querySelector("[data-note]").value.trim(), ver: siteVer() }).then(function (j) { replace(j.comment); openPin(c.id); toast("Marked done"); }).catch(fail(b)); }
+      if (act === "confirm" || act === "reopen") { b.disabled = true; return api({ action: act, id: c.id }).then(function (j) { replace(j.comment); computeNew(); renderAll(); openPin(c.id); toast(act === "confirm" ? "Confirmed. Thank you." : "Reopened"); }).catch(fail(b)); }
       if (act === "delete") { if (!confirm("Delete comment #" + c.n + "?")) return; b.disabled = true; return api({ action: "delete", id: c.id }).then(function () { comments = comments.filter(function (x) { return x.id !== c.id; }); closePop(); renderAll(); toast("Deleted"); }).catch(fail(b)); }
       if (act === "edit") {
         var box = pop.querySelector("[data-text]"); box.innerHTML = '<textarea class="aa-rv-ta" rows="4">' + esc(c.text) + '</textarea><div class="aa-rv-acts"><button type="button" class="aa-rv-b gold" data-act="save">Save</button><button type="button" class="aa-rv-b" data-act="cancel">Cancel</button></div>'; box.querySelector("textarea").focus(); return;
@@ -185,7 +216,7 @@
       if (b.dataset.act === "close") return closePop();
       if (b.dataset.act === "save") {
         var t = pop.querySelector("[data-new]").value.trim(); if (!t) return; b.disabled = true;
-        api({ action: "add", page: pagePath(), title: document.title.replace(/\s+[|·–-]\s+.*$/, "").slice(0, 120), anchor: anchor, text: t })
+        api({ action: "add", page: pagePath(), title: document.title.replace(/\s+[|·–-]\s+.*$/, "").slice(0, 120), anchor: anchor, text: t, ver: siteVer() })
           .then(function (j) { comments.push(j.comment); closePop(); renderAll(); toast("Comment #" + j.comment.n + " saved." + (me.role === "owner" ? "" : " Add more, then Send to Michael.")); })
           .catch(fail(b));
       }
@@ -210,23 +241,41 @@
   }
 
   // ---- panel (all comments) ----
-  function setPanel(on) { panelOpen = on; panel.hidden = !on; bar.classList.toggle("listing", on); if (on) renderPanel(); }
+  function setPanel(on, mode) {
+    panelOpen = on; panel.hidden = !on; bar.classList.toggle("listing", on);
+    if (on) {
+      panelMode = mode || "all";
+      if (panelMode === "new") { newView = { base: lastSeen, ids: newIds.slice() }; markSeen(); }
+      renderPanel();
+    }
+  }
+  // Opening What's new stamps "last seen" on the server; the list stays on screen (newView) and the badge clears.
+  var newView = { base: null, ids: [] };
+  function markSeen() { api({ action: "seen" }).then(function (j) { lastSeen = j.lastSeen; computeNew(); renderBar(); }).catch(function () {}); }
   function renderPanel() {
+    var news = panelMode === "new", list = news ? comments.filter(function (c) { return newView.ids.indexOf(c.id) >= 0; }) : comments;
     var groups = {}, order = [];
-    comments.forEach(function (c) { if (!groups[c.page]) { groups[c.page] = []; order.push(c.page); } groups[c.page].push(c); });
-    var open = comments.filter(function (c) { return c.status === "open"; }).length;
-    var html = '<div class="aa-rv-pnh"><b>Comments</b> <span>' + comments.length + ' total · ' + open + ' open</span><button type="button" class="aa-rv-x" data-close aria-label="Close">&times;</button></div>';
-    if (!comments.length) html += '<p class="aa-rv-empty">No comments yet. Press <b>Add comment</b>, then tap anything on the page.</p>';
+    list.forEach(function (c) { if (!groups[c.page]) { groups[c.page] = []; order.push(c.page); } groups[c.page].push(c); });
+    var open = comments.filter(function (c) { return c.status === "open"; }).length, doneN = comments.filter(function (c) { return c.status === "resolved"; }).length, conf = comments.filter(function (c) { return c.status === "confirmed"; }).length;
+    var html = '<div class="aa-rv-pnh"><b>' + (news ? "What’s new" : "Comments") + '</b> <span>' + (news ? list.length + " changed since your last visit" : comments.length + ' total · ' + open + ' open · ' + doneN + ' done · ' + conf + ' confirmed') + '</span><button type="button" class="aa-rv-x" data-close aria-label="Close">&times;</button></div>';
+    if (news) html += '<div class="aa-rv-tabs"><button type="button" data-mode="all">All comments</button></div>';
+    if (!list.length) html += '<p class="aa-rv-empty">' + (news ? "Nothing new since your last visit." : 'No comments yet. Press <b>Add comment</b>, then tap anything on the page.') + '</p>';
     order.forEach(function (pg) {
       html += '<div class="aa-rv-pg">' + esc(pg === "/" ? "Home" : pg.replace(/\//g, "")) + (pg === pagePath() ? ' <em>this page</em>' : "") + '</div>';
       groups[pg].forEach(function (c) {
-        html += '<button type="button" class="aa-rv-item ' + c.status + (c.round === null ? " unsent" : "") + '" data-id="' + c.id + '"><span class="aa-rv-n">' + c.n + '</span><span class="aa-rv-it"><span class="aa-rv-itt">' + esc(c.text.slice(0, 110)) + (c.text.length > 110 ? "…" : "") + '</span><span class="aa-rv-itm">' + esc(c.by) + ' · ' + when(c.at) + (c.round === null ? " · not sent" : "") + (c.replies.length ? " · " + c.replies.length + " repl" + (c.replies.length === 1 ? "y" : "ies") : "") + (c.status === "resolved" ? " · resolved" : "") + '</span></span></button>';
+        var nw = news ? lastNewsAny(c) : null;
+        html += '<button type="button" class="aa-rv-item ' + c.status + (c.round === null ? " unsent" : "") + '" data-id="' + c.id + '"><span class="aa-rv-n">' + c.n + '</span><span class="aa-rv-it"><span class="aa-rv-itt">' + esc(c.text.slice(0, 110)) + (c.text.length > 110 ? "…" : "") + '</span>' +
+          (nw ? '<span class="aa-rv-itn">' + esc(nw.note.slice(0, 160)) + (nw.note.length > 160 ? "…" : "") + '</span>' : "") +
+          '<span class="aa-rv-itm">' + esc(c.by) + ' · ' + when(c.at) + (c.round === null ? " · not sent" : "") + (c.replies.length ? " · " + c.replies.length + " repl" + (c.replies.length === 1 ? "y" : "ies") : "") + (c.status !== "open" ? " · " + STATUS[c.status].toLowerCase() + (c.status === "resolved" && c.fixedIn ? " in V " + esc(c.fixedIn) : "") : "") + '</span></span></button>';
       });
     });
     panel.innerHTML = html;
   }
+  // In the What's new list, describe the news against the "last seen" from when the list was opened.
+  function lastNewsAny(c) { var keep = lastSeen; lastSeen = newView.base; var n = lastNews(c); lastSeen = keep; return n; }
   function panelClick(ev) {
     if (ev.target.closest("[data-close]")) return setPanel(false);
+    var md = ev.target.closest("[data-mode]"); if (md) { panelMode = md.dataset.mode; return renderPanel(); }
     var it = ev.target.closest("[data-id]"); if (!it) return;
     var c = byId(it.dataset.id); if (!c) return;
     if (onThisPage(c)) { setPanel(false); goTo(c); }
@@ -244,6 +293,7 @@
     bar.innerHTML =
       '<span class="aa-rv-who"><b>Review</b> · ' + esc(me.name) + '</span>' +
       '<button type="button" class="aa-rv-b gold" data-act="pin"><i>+</i><span>Add comment</span></button>' +
+      (newIds.length ? '<button type="button" class="aa-rv-b news" data-act="news"><span>What’s new</span> <u>' + newIds.length + '</u></button>' : "") +
       '<button type="button" class="aa-rv-b" data-act="list"><span>Comments</span> <u>' + comments.length + '</u></button>' +
       (owner ? '<a class="aa-rv-b" href="' + API + '&format=text&code=' + code + '" target="_blank" rel="noopener">Export</a>'
              : '<button type="button" class="aa-rv-b send" data-act="send"' + (unsent ? "" : " disabled") + '><span>Send to Michael</span>' + (unsent ? ' <u>' + unsent + '</u>' : "") + '</button>') +
@@ -253,14 +303,15 @@
     var b = ev.target.closest("[data-act]"); if (!b) return;
     var act = b.dataset.act;
     if (act === "pin") return setPinMode(!pinMode);
-    if (act === "list") return setPanel(!panelOpen);
+    if (act === "list") return setPanel(!(panelOpen && panelMode === "all"), "all");
+    if (act === "news") return setPanel(true, "new");
     if (act === "hide") { hidden = true; bar.hidden = true; show.hidden = false; return; }
     if (act === "send") {
       var n = unsentMine().length; if (!n) return;
       if (!confirm("Send " + n + " comment" + (n === 1 ? "" : "s") + " to Michael now?")) return;
       b.disabled = true;
       api({ action: "send" }).then(function (j) {
-        return api().then(function (d) { comments = d.comments; rounds = d.rounds; renderAll(); toast(j.emailed ? "Sent. Michael has been emailed " + j.count + " comment" + (j.count === 1 ? "" : "s") + "." : "Sent (" + j.count + "). Michael will see them on his next visit.", 4000); });
+        return api().then(function (d) { comments = d.comments; rounds = d.rounds; computeNew(); renderAll(); toast(j.emailed ? "Sent. Michael has been emailed " + j.count + " comment" + (j.count === 1 ? "" : "s") + "." : "Sent (" + j.count + "). Michael will see them on his next visit.", 4000); });
       }).catch(fail(b));
     }
   }
@@ -270,7 +321,7 @@
 
   // ---- boot ----
   function boot(d) {
-    me = d.me; site = d.site; comments = d.comments; rounds = d.rounds;
+    me = d.me; site = d.site; comments = d.comments; rounds = d.rounds; lastSeen = d.lastSeen || null; computeNew();
     root = el("div", "aa-rv aa-rv-root"); document.body.appendChild(root);
     layer = el("div", "aa-rv aa-rv-layer"); root.appendChild(layer);
     cap = el("div", "aa-rv aa-rv-cap"); cap.hidden = true; cap.addEventListener("click", capClick); root.appendChild(cap);

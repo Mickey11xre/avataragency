@@ -14,8 +14,14 @@
  *        edit    { id, text }                    own comment, not yet sent
  *        delete  { id }                          own + unsent, or owner
  *        reply   { id, text }
- *        resolve { id } · reopen { id }          owner only
+ *        resolve { id, note?, ver? }             owner only: "Done". note = what changed (saved as a reply), ver = site version
+ *        reopen  { id }                          owner any time; client on a Done or Confirmed comment
+ *        confirm { id }                          client or owner, on a Done comment: the reviewer agrees it is fixed
+ *        seen    {}                              stamps "last seen" for this reviewer (drives What's new)
  *        send    {}                              client: stamps a round on the unsent comments and emails Michael
+ *
+ * Status: open → resolved (shown as "Done", waiting for the reviewer) → confirmed; reopen sends it back to open.
+ * Each comment records the site version it was made on (ver) and, once done, the version that fixed it (fixedIn).
  *
  * Bindings: REVIEWS (KV). Secrets: RESEND_API_KEY (the digest email; without it "send" still stamps the round).
  */
@@ -29,6 +35,7 @@ const json = (data, status = 200) => new Response(JSON.stringify(data), { status
 const text = (body, status = 200) => new Response(body, { status, headers: { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" } });
 const clean = (v, max) => (typeof v === "string" ? v : "").replace(/\r\n?/g, "\n").replace(/[\u0000-\u0008\u000b-\u001f\u007f]/g, "").trim().slice(0, max);
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+const cleanVer = (v) => { v = clean(v, 20); return /^[\w.\-]+$/.test(v) ? v : null; };
 const num = (v, lo, hi) => (typeof v === "number" && isFinite(v) ? Math.min(hi, Math.max(lo, v)) : null);
 
 function sameOrigin(request) {
@@ -60,7 +67,8 @@ export async function onRequest(context) {
   const owner = me.role === "owner";
 
   const key = `pins:${site}`;
-  const load = async () => { const s = await env.REVIEWS.get(key); const d = s ? JSON.parse(s) : {}; return { comments: Array.isArray(d.comments) ? d.comments : [], rounds: Array.isArray(d.rounds) ? d.rounds : [] }; };
+  const load = async () => { const s = await env.REVIEWS.get(key); const d = s ? JSON.parse(s) : {}; return { comments: Array.isArray(d.comments) ? d.comments : [], rounds: Array.isArray(d.rounds) ? d.rounds : [], seen: d.seen && typeof d.seen === "object" ? d.seen : {} }; };
+  const who = `${me.role}:${me.name}`;
   const save = (d) => env.REVIEWS.put(key, JSON.stringify(d));
 
   if (request.method === "GET") {
@@ -69,7 +77,7 @@ export async function onRequest(context) {
       if (!owner) return json({ ok: false, error: "owner only" }, 403);
       return text(digest(site, d.comments, d.rounds, url.origin, "all"));
     }
-    return json({ ok: true, me, site: { id: site, ...SITES[site] }, comments: d.comments, rounds: d.rounds });
+    return json({ ok: true, me, site: { id: site, ...SITES[site] }, comments: d.comments, rounds: d.rounds, lastSeen: d.seen[who] || null });
   }
 
   if (request.method !== "POST") return json({ ok: false, error: "method" }, 405);
@@ -91,7 +99,7 @@ export async function onRequest(context) {
       if (d.comments.length >= MAX_COMMENTS) return json({ ok: false, error: "limit" }, 429);
       const n = d.comments.reduce((m, c) => Math.max(m, c.n || 0), 0) + 1;
       const c = { id: "c" + Date.now().toString(36) + crypto.randomUUID().slice(0, 6), n, page: cleanPage(body.page), title: clean(body.title, 120), anchor, text: t,
-        by: me.name, role: me.role, at: now, status: "open", replies: [], round: null };
+        by: me.name, role: me.role, at: now, status: "open", replies: [], round: null, ver: cleanVer(body.ver) };
       d.comments.push(c); await save(d);
       return json({ ok: true, comment: c });
     }
@@ -115,13 +123,32 @@ export async function onRequest(context) {
       c.replies.push({ by: me.name, role: me.role, text: t, at: now }); await save(d);
       return json({ ok: true, comment: c });
     }
-    case "resolve":
-    case "reopen": {
+    case "resolve": {
       if (!owner) return json({ ok: false, error: "owner only" }, 403);
       const c = find(clean(body.id, 40));
       if (!c) return json({ ok: false, error: "not found" }, 404);
-      c.status = body.action === "resolve" ? "resolved" : "open"; c.resolvedAt = body.action === "resolve" ? now : null; await save(d);
+      const note = clean(body.note, MAX_TEXT), ver = cleanVer(body.ver);
+      if (note) c.replies.push({ by: me.name, role: me.role, text: note, at: now, kind: "fix", ver });
+      c.status = "resolved"; c.resolvedAt = now; c.fixedIn = ver || c.fixedIn || null; c.confirmedAt = null; await save(d);
       return json({ ok: true, comment: c });
+    }
+    case "reopen": {
+      const c = find(clean(body.id, 40));
+      if (!c) return json({ ok: false, error: "not found" }, 404);
+      if (!owner && !(c.status === "resolved" || c.status === "confirmed")) return json({ ok: false, error: "not done yet" }, 403);
+      c.status = "open"; c.resolvedAt = null; c.confirmedAt = null; c.reopenedAt = now; c.reopenedBy = me.name; await save(d);
+      return json({ ok: true, comment: c });
+    }
+    case "confirm": {
+      const c = find(clean(body.id, 40));
+      if (!c) return json({ ok: false, error: "not found" }, 404);
+      if (c.status !== "resolved") return json({ ok: false, error: "not done yet" }, 400);
+      c.status = "confirmed"; c.confirmedAt = now; c.confirmedBy = me.name; await save(d);
+      return json({ ok: true, comment: c });
+    }
+    case "seen": {
+      d.seen[who] = now; await save(d);
+      return json({ ok: true, lastSeen: now });
     }
     case "send": {
       const unsent = d.comments.filter((c) => c.round === null && mine(c));
@@ -168,10 +195,11 @@ function digest(site, comments, rounds, origin, round) {
   for (const [page, list] of byPage(comments)) {
     lines.push(`PAGE ${page}${list[0].title ? " · " + list[0].title : ""}`);
     for (const c of list) {
-      lines.push(`  #${c.n} [${c.status}] ${c.by}, ${when(c.at)}${c.round ? ", round " + c.round : ""}`);
+      const st = c.status === "resolved" ? "done" + (c.fixedIn ? " in V " + c.fixedIn : "") : c.status;
+      lines.push(`  #${c.n} [${st}] ${c.by}, ${when(c.at)}${c.round ? ", round " + c.round : ""}${c.ver ? ", on V " + c.ver : ""}`);
       if (c.anchor && c.anchor.snippet) lines.push(`     near: "${c.anchor.snippet}"`);
       for (const l of c.text.split("\n")) lines.push(`     ${l}`);
-      for (const r of c.replies) lines.push(`     ↳ ${r.by} (${when(r.at)}): ${r.text.replace(/\n/g, " ")}`);
+      for (const r of c.replies) lines.push(`     ↳ ${r.by} (${when(r.at)})${r.kind === "fix" ? " CHANGED" + (r.ver ? " in V " + r.ver : "") : ""}: ${r.text.replace(/\n/g, " ")}`);
       lines.push(`     open: ${pinUrl(origin, site, c)}`);
     }
     lines.push("");
