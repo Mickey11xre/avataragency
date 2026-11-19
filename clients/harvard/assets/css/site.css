@@ -127,6 +127,9 @@ body.menu-open .hdr { background: var(--ink); }
   .hero-home .scroll-cue { display: none; }
 }
 .hero-home .hero-copy { position: static; height: auto; padding: 0; display: block; }
+/* Greg round 1 (11-17): the welcome film left the hero, so the copy is the only column; Talk to Harrison sits in the CTA row */
+.hero-home .hero-grid { grid-template-columns: minmax(0, 1fr); }
+.hero-ctas .btn-talk svg { width: 15px; height: 15px; }
 .hero-home .hero-title-xl { font-size: clamp(42px, 5.4vw, 78px); letter-spacing: .12em; }
 /* the welcome-film frame: Harrison's loop, muted, with the stage's sound icon; the Talk button sits under it */
 .hero-film-col { display: grid; gap: 18px; }
