@@ -78,6 +78,15 @@ const INVESTMENTS = {
     { k: "The goal", v: "A solid management team, a firm financial foundation and a strategy that leads to a profitable exit" },
   ],
   sectors: ["Media", "Artificial intelligence", "Pharmaceutical", "Finance", "Medical devices", "Fast food", "Energy", "Real estate", "Entertainment", "Apparel"],
+  // Greg round 1 pin #8 (11-17): "If you are interested in investing with Harvard Investment Group, click here" → Harrison
+  // takes a SIMPLE questionnaire. The button goes to /#invest, which opens it on the stage's panel.
+  interest: {
+    eyebrow: "Investor interest",
+    title: ["Interested in investing with", "Harvard Investment Group?"],
+    text: "Click below and Harrison, our AI agent, will take a few details for Greg’s office: your name, phone, email, state or country of residence and investment range.",
+    cta: "Click here to get started",
+    panelCta: "Interested in investing? Start here",
+  },
 };
 
 const DEVELOPMENTS = {

@@ -335,7 +335,11 @@
     var VT = {}; try { VT = JSON.parse((d.getElementById("pv-titles") || {}).textContent || "{}"); } catch (e) {}
     var PAGE_VIEWS = {}; ["investing", "development", "philanthropy"].forEach(function (k) { var tpl = d.getElementById("pv-" + k); if (tpl) PAGE_VIEWS[k] = tpl.innerHTML; });
     var INTERESTS = ["Investing", "Raising capital", "Real estate", "Development partnership", "Philanthropy", "Speaking", "Press", "Other"];
-    var S = { mode: "home", hist: [], topic: null, form: { name: "", email: "", phone: "", interest: "", note: "" }, review: null, sent: null, fail: "" };
+    // Greg round 1 pin #8 (11-17): "Investing" turns the form into the investor questionnaire (name, phone, email, state or
+    // country of residence, investment range). Michael 11-18: the range is a dropdown, so Harrison can read the choices aloud.
+    var RANGES = ["Under $100K", "$100K\u2013$250K", "$250K\u2013$500K", "$500K\u2013$1M", "$1M+"];
+    var S = { mode: "home", hist: [], topic: null, form: { name: "", email: "", phone: "", interest: "", note: "", residence: "", range: "" }, review: null, sent: null, fail: "" };
+    var isInvestor = function () { return tr(S.form.interest) === "Investing"; };
     var TITLES = { home: "", form: VT.contact || "Contact Us", investing: VT.investing || "Investments", development: VT.development || "Developments", philanthropy: VT.philanthropy || "Hope for the Hurting", done: "Sent", failed: "Not sent",
       consent: "Share a document", staff: "Reviewing your document", casefile: "Case file", reveal: "", team: "The AI team" };
     var tr = function (v) { return String(v || "").trim(); };
@@ -358,11 +362,18 @@
       return '<div class="p-field"><label for="hp-interest">What is this about?</label><select id="hp-interest" data-bind="interest"><option value="">Choose one</option>' +
         opts.map(function (x) { return '<option' + (x === val ? " selected" : "") + ">" + esc(x) + "</option>"; }).join("") + "</select></div>";
     }
-    function sig() { var f = S.form; return [tr(f.name), tr(f.email).toLowerCase(), tr(f.phone), tr(f.interest), tr(f.note)].join("|"); }
+    function sig() { var f = S.form; return [tr(f.name), tr(f.email).toLowerCase(), tr(f.phone), tr(f.interest), tr(f.note), tr(f.residence), tr(f.range)].join("|"); }
     var inReview = function () { return !!S.review; }, reviewFresh = function () { return !!S.review && S.review.sig === sig(); };
-    function fields() { var f = S.form; return { name: tr(f.name), email: tr(f.email), phone: tr(f.phone), interest: tr(f.interest), note: tr(f.note) }; }
-    function missing() { var m = []; if (!tr(S.form.name)) m.push("name"); if (!validEmail(tr(S.form.email))) m.push("email"); return m; }
-    function reviewRows() { var f = fields(); return [["Name", f.name], ["Email", f.email], ["Phone", f.phone], ["About", f.interest], ["Note", f.note]].filter(function (x) { return x[1]; }); }
+    function fields() { var f = S.form, o = { name: tr(f.name), email: tr(f.email), phone: tr(f.phone), interest: tr(f.interest), note: tr(f.note) }; if (isInvestor()) { o.residence = tr(f.residence); o.investment_range = tr(f.range); } return o; }
+    function missing() { var m = []; if (!tr(S.form.name)) m.push("name"); if (isInvestor() && tr(S.form.phone).replace(/\D/g, "").length < 7) m.push("phone"); if (!validEmail(tr(S.form.email))) m.push("email");
+      if (isInvestor()) { if (!tr(S.form.residence)) m.push("state or country of residence"); if (!tr(S.form.range)) m.push("investment range"); } return m; }
+    function reviewRows() { var f = fields(); return (isInvestor() ? [["Name", f.name], ["Phone", f.phone], ["Email", f.email], ["Residence", f.residence], ["Investment range", f.investment_range], ["Note", f.note]]
+      : [["Name", f.name], ["Email", f.email], ["Phone", f.phone], ["About", f.interest], ["Note", f.note]]).filter(function (x) { return x[1]; }); }
+    function rangeField(val) {
+      var opts = RANGES.slice(); if (val && opts.indexOf(val) < 0) opts.push(val);
+      return '<div class="p-field"><label for="hp-range">Investment range</label><select id="hp-range" required data-bind="range"><option value="">Choose a range</option>' +
+        opts.map(function (x) { return '<option' + (x === val ? " selected" : "") + ">" + esc(x) + "</option>"; }).join("") + "</select></div>";
+    }
     var VIEWS = {
       home: function () { return HOME_HTML; },
       investing: function () { return PAGE_VIEWS.investing || HOME_HTML; },
@@ -372,6 +383,16 @@
         if (inReview()) return '<div class="p-review"><p class="p-label">Is this correct?</p><dl class="p-rv">' +
           reviewRows().map(function (x) { return "<div><dt>" + x[0] + "</dt><dd>" + esc(x[1]) + "</dd></div>"; }).join("") +
           '</dl><p class="p-sub">Please check your details. Nothing is sent until you confirm.</p><div class="p-rv-acts"><button class="btn btn-gold" type="button" data-act="review-yes">Yes, send it ' + arrow + '</button><button class="btn btn-ghost" type="button" data-act="review-edit">Edit</button></div></div>';
+        if (isInvestor()) return '<p class="p-sub">Interested in investing with Harvard Investment Group? Share a few details and Greg\u2019s office will reach out.</p><form class="p-form" novalidate>' +
+          field("name", "Your name", "text", S.form.name, false, 'autocomplete="name" required data-bind="name"') +
+          field("phone", "Phone", "tel", S.form.phone, false, 'autocomplete="tel" required data-bind="phone"') +
+          field("email", "Email", "email", S.form.email, false, 'autocomplete="email" required data-bind="email"') +
+          field("residence", "State or country of residence", "text", S.form.residence, false, 'autocomplete="address-level1" required data-bind="residence"') +
+          rangeField(S.form.range) +
+          interestField(S.form.interest) +
+          field("note", "A short note", "textarea", S.form.note, true, 'data-bind="note"') +
+          '<div class="p-hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>' +
+          '<button class="btn btn-gold" type="submit">Review and send ' + arrow + '</button><p class="p-msg" role="status"></p></form>';
         return '<p class="p-sub">Leave your details and Greg\u2019s office will reach out.</p><form class="p-form" novalidate>' +
           field("name", "Your name", "text", S.form.name, false, 'autocomplete="name" required data-bind="name"') +
           field("email", "Email", "email", S.form.email, false, 'autocomplete="email" required data-bind="email"') +
@@ -388,7 +409,7 @@
     var STAFF_MODES = { consent: 1, staff: 1, casefile: 1, reveal: 1 };
     function render(opts) {
       opts = opts || {};
-      titleEl.textContent = TITLES[S.mode] || "";
+      titleEl.textContent = (S.mode === "form" && isInvestor() ? "Investor interest" : TITLES[S.mode]) || "";
       panel.classList.toggle("is-home", S.mode === "home");
       backBtn.hidden = S.mode === "home";
       body.innerHTML = (VIEWS[S.mode] || VIEWS.home)();
@@ -459,6 +480,7 @@
       else if (a === "retry") { S.review = null; go("form", { focus: true, replace: true }); }
       else if (a === "review-yes") { if (!S.review) return; S.review.ok = true; TOOLS_IMPL.submit_contact_details({}); }
       else if (a === "review-edit") { S.review = null; render({ focus: true }); emit("The visitor chose to edit their details. Nothing has been sent.", false); }
+      else if (a === "invest") { e.preventDefault(); openInvestor(false); }
       else if (a === "note") {          // "Send Greg's office a note" / "Discuss a partnership" inside a view
         var from = S.mode, it = t.getAttribute("data-interest");
         if (it && !tr(S.form.interest)) S.form.interest = it;
@@ -472,25 +494,37 @@
         else emit("The visitor opened " + TOPICS[topic] + ": a short version of that page is on the panel. Say one or two sentences about it.", true);
       }
     });
-    var BIND_LABEL = { name: "name", email: "email", phone: "phone number", interest: "topic", note: "note" };
+    var BIND_LABEL = { name: "name", email: "email", phone: "phone number", interest: "topic", note: "note", residence: "state or country of residence", range: "investment range" };
+    // The investor questionnaire opens from the Investments page's "Interested in investing?" button (/#invest), the
+    // panel's investing view, or Harrison's show_investor_form. fromTwin: Harrison opened it, so no [Panel] message.
+    function openInvestor(fromTwin) {
+      S.form.interest = "Investing"; S.topic = "investing"; S.review = null;
+      if (S.mode !== "form") { if (fromTwin) { S.hist = []; go("form", { replace: true }); } else go("form", { focus: true }); } else render({ focus: !fromTwin });
+      if (window.innerWidth <= 900 && liveState !== "idle") fitStage();
+      if (!fromTwin) emit("The visitor tapped Interested in investing: the investor questionnaire is open on the panel. Ask ONE AT A TIME for their name, phone number, email (ask them to type it), state or country of residence, and investment range (read the choices: " + RANGES.join(", ") + "), filling each in with fill_contact_details.", true);
+    }
     body.addEventListener("input", function (e) { var b = e.target.getAttribute && e.target.getAttribute("data-bind"); if (b) S.form[b] = e.target.value; });
     body.addEventListener("change", function (e) {
       var b = e.target.getAttribute && e.target.getAttribute("data-bind"); if (!b) return;
-      S.form[b] = e.target.value; var v = tr(e.target.value); if (!v) return;
+      S.form[b] = e.target.value; var v = tr(e.target.value);
+      if (b === "interest" && S.mode === "form" && !inReview()) render({});   // "Investing" adds or removes the investor fields
+      if (!v) return;
       if (b === "email") { e.target.setAttribute("aria-invalid", validEmail(v) ? "false" : "true"); if (!validEmail(v)) return; }
       emit("The visitor typed their " + BIND_LABEL[b] + ": " + v + "." + (b === "email" ? " Read it back letter by letter and ask whether it is correct." : ""), false);
     });
 
     /* ═════════ Harrison's four tools (names match his instructions exactly) ═════════ */
-    var FIELD_IDS = { name: "name", email: "email", phone: "phone", interest: "interest", note: "note" };
+    var FIELD_IDS = { name: "name", email: "email", phone: "phone", interest: "interest", note: "note", residence: "residence", range: "range" };
     function needConfirm() {
       return { status: "needs_confirmation", fields: fields(),
         message: "Nothing is sent yet. The panel now shows these details to the visitor for review. Read the name, the email and the topic back (spell the email) and ask: 'Is all of that correct?' Fix anything they correct with fill_contact_details, then call submit_contact_details again only after they clearly say yes." };
     }
     function sendForm() {
       var f = fields();
-      var message = "[Via Harrison, the website AI agent]\nInterest: " + (f.interest || "(not given)") + "\n" + (f.note || "(no note)") + caseFileText();
-      return fetch(CFG.CONTACT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: f.name, email: f.email, phone: f.phone, message: message, website: "" }) })
+      var inv = isInvestor();
+      var message = "[Via Harrison, the website AI agent]\nInterest: " + (f.interest || "(not given)") +
+        (inv ? "\nState or country of residence: " + f.residence + "\nInvestment range: " + f.investment_range : "") + "\n" + (f.note || "(no note)") + caseFileText();
+      return fetch(CFG.CONTACT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: f.name, email: f.email, phone: f.phone, message: message, kind: inv ? "investor" : "", website: "" }) })
         .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j && j.ok === true, status: r.status, body: j }; }); })
         .catch(function (e) { return { ok: false, status: 0, body: { error: String(e && e.message || e) } }; });
     }
@@ -510,13 +544,20 @@
         if (S.mode !== "form") go("form"); else if (inReview()) { S.review = null; render({}); }
         return { ok: true, note: "The contact form is open on the panel. Ask for their details one at a time and fill them in with fill_contact_details, or let them type; ask them to type their email." };
       },
+      show_investor_form: function () {
+        openInvestor(true);
+        return { ok: true, note: "The investor questionnaire is open on the panel. Ask ONE AT A TIME for: name, phone number, email (ask them to type it), state or country of residence, and investment range (one of: " + RANGES.join(", ") + "). Fill each in with fill_contact_details as you learn it." };
+      },
       fill_contact_details: function (a) {
         a = a || {}; var changed = [];
-        ["name", "email", "phone", "interest", "note"].forEach(function (k) { if (a[k] != null && String(a[k]).trim() !== "") { S.form[k] = String(a[k]).trim(); changed.push(k); } });
+        if (a.investment_range != null) a.range = a.investment_range;
+        ["name", "email", "phone", "interest", "note", "residence", "range"].forEach(function (k) { if (a[k] != null && String(a[k]).trim() !== "") { S.form[k] = String(a[k]).trim(); changed.push(k); } });
+        if (changed.indexOf("interest") >= 0 && /^invest/i.test(S.form.interest)) S.form.interest = "Investing";   // the select's own spelling
+        if ((changed.indexOf("residence") >= 0 || changed.indexOf("range") >= 0) && !isInvestor()) { S.form.interest = "Investing"; changed.push("interest"); }
         if (changed.indexOf("email") >= 0 && !validEmail(S.form.email)) { var bad = S.form.email; S.form.email = ""; changed.splice(changed.indexOf("email"), 1); render({}); return { ok: false, error: "That is not a valid email address: " + bad + ". Ask the visitor to type it into the form, or to spell it letter by letter.", form: fields(), still_needed: missing() }; }
         if (S.mode !== "form") go("form");
         else if (inReview() && !reviewFresh()) { openReview(true); changed.forEach(function (k) { flash($("#hp-" + FIELD_IDS[k], body)); }); return { ok: true, form: fields(), still_needed: missing(), note: "The details changed, so the visitor must confirm again. Read them back and ask whether everything is correct before calling submit_contact_details." }; }
-        else if (!inReview()) { if (changed.indexOf("interest") >= 0) render({}); else changed.forEach(function (k) { var el = $("#hp-" + FIELD_IDS[k], body); if (el) el.value = S.form[k]; }); }
+        else if (!inReview()) { if (changed.indexOf("interest") >= 0 || changed.indexOf("range") >= 0) render({}); else changed.forEach(function (k) { var el = $("#hp-" + FIELD_IDS[k], body); if (el) el.value = S.form[k]; }); }
         changed.forEach(function (k) { var el = $("#hp-" + FIELD_IDS[k], body); if (el) { flash(el); reveal(el); } });   // the visitor sees Harrison writing
         return { ok: true, form: fields(), still_needed: missing() };
       },
@@ -548,8 +589,11 @@
         inputSchema: { type: "object", properties: { topic: { type: "string", enum: Object.keys(TOPICS) } }, required: ["topic"] } },
       { name: "show_contact_form", description: "Open the contact form on the panel, to take a visitor's details for Greg Cullen's office: name, email, phone, what it is about, and a short note. Call it before you ask for any detail. The visitor can type into it too.",
         inputSchema: { type: "object", properties: {} } },
-      { name: "fill_contact_details", description: "Fill in the contact form on the panel each time you learn a detail: the visitor's name, email, phone number, interest (one of: investing, raising capital, real estate, development partnership, philanthropy, speaking, press, other) and a short note. Only include the fields you just learned. Read each detail back; spell the email back letter by letter, and never build or guess an email yourself.",
-        inputSchema: { type: "object", properties: { name: str("Full name"), email: str("Email address, exactly as the visitor gave it"), phone: str("Phone number"), interest: str("investing, raising capital, real estate, development partnership, philanthropy, speaking, press or other"), note: str("A short note: the topic, and good times to talk if they want a meeting") } } },
+      { name: "show_investor_form", description: "Open the investor questionnaire on the panel when a visitor says they are interested in investing with Harvard Investment Group: name, phone, email, state or country of residence, and investment range. Then ask for each detail one at a time.",
+        inputSchema: { type: "object", properties: {} } },
+      { name: "fill_contact_details", description: "Fill in the contact form on the panel each time you learn a detail: the visitor's name, email, phone number, interest (one of: investing, raising capital, real estate, development partnership, philanthropy, speaking, press, other), a short note, and for investors their state or country of residence and investment range. Only include the fields you just learned. Read each detail back; spell the email back letter by letter, and never build or guess an email yourself.",
+        inputSchema: { type: "object", properties: { name: str("Full name"), email: str("Email address, exactly as the visitor gave it"), phone: str("Phone number"), interest: str("investing, raising capital, real estate, development partnership, philanthropy, speaking, press or other"), note: str("A short note: the topic, and good times to talk if they want a meeting"),
+          residence: str("Investors only: the visitor's state (if in the United States) or country of residence"), investment_range: { type: "string", enum: RANGES, description: "Investors only: the investment range the visitor chose" } } } },
       { name: "submit_contact_details", description: "Send the visitor's details to Greg Cullen's office. The first call never sends: it shows the visitor a review card and returns needs_confirmation. Read back the name, the email (spelled) and the topic, ask \"Is all of that correct?\", fix anything with fill_contact_details, and call submit_contact_details again only after a clear yes. It returns sent, missing (with the fields still needed) or failed (then give the office phone and email).",
         inputSchema: { type: "object", properties: {} }, annotations: { destructiveHint: true } },
     ];
@@ -575,7 +619,9 @@
     function panelSummary() {
       var bits = ["The panel is visible beside you"]; var f = fields();
       if (S.sent) bits.push("a message was already sent to Greg's office from this page");
-      else { var have = [f.name && "name " + f.name, f.email && "email " + f.email, f.phone && "phone " + f.phone, f.interest && "topic " + f.interest].filter(Boolean); if (have.length) bits.push("the visitor has entered their " + have.join(", ")); if (S.mode === "form") bits.push("the contact form is open"); }
+      else { var have = [f.name && "name " + f.name, f.email && "email " + f.email, f.phone && "phone " + f.phone, f.interest && "topic " + f.interest].filter(Boolean); if (have.length) bits.push("the visitor has entered their " + have.join(", "));
+        if (S.mode === "form" && isInvestor()) bits.push("the investor questionnaire is open: the visitor wants to invest with Harvard Investment Group, so take their name, phone, email, state or country of residence and investment range (" + RANGES.join(", ") + ") one at a time, as the INVESTOR INTEREST section says");
+        else if (S.mode === "form") bits.push("the contact form is open"); }
       if (PAGE_VIEWS[S.mode]) bits.push("the " + TITLES[S.mode] + " view is open on the panel");
       if (J && J.state === "working") bits.push("the visitor shared a document (" + J.file.name + ") and the team is reviewing it now; wait for the [Case file] message");
       if (J && J.state === "done") bits.push("the team already reviewed the visitor's document (" + J.file.name + ") and the case file is on the panel: " + J.caseFile.spoken);
@@ -1048,5 +1094,18 @@
       prompt: { on: PROMPT_ON, pick: pickFile, submit: submitPrompt, job: function () { return J; } }, reveal: reveal,
       cast: function (slot) { castTo(slot ? findStaff(slot) : null); return CAST ? CAST.name : HOME_CAST.name; }, onStage: function () { return name; } };
     render({});
+    // /#invest (the Investments page's "Interested in investing?" button, Greg round 1 pin #8): open the investor
+    // questionnaire, bring the stage into view and point at Talk. The conversation itself needs the visitor's own tap.
+    function investArrival() {
+      if (location.hash !== "#invest") return;
+      openInvestor(false);
+      setTimeout(function () {
+        var hdr = parseInt(getComputedStyle(d.documentElement).getPropertyValue("--hdr")) || 68;
+        var y = stage.getBoundingClientRect().top + window.scrollY - hdr - 12;
+        if (lenis) lenis.scrollTo(y, { immediate: !!RM }); else window.scrollTo({ top: y, behavior: RM ? "auto" : "smooth" });
+        if (talk) setTimeout(function () { flash(talk, 2600); }, 700);
+      }, 350);
+    }
+    investArrival(); window.addEventListener("hashchange", investArrival);
   })();
 })();

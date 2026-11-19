@@ -233,7 +233,7 @@ function panelViews() {
     <dl class="pv-kv">${I.ledger.slice(1, 4).map((x) => `<div><dt>${x.k}</dt><dd>${x.v}</dd></div>`).join("")}</dl>
     <p class="p-label">Sectors</p>
     <ul class="pv-chips">${I.sectors.map((s) => `<li>${s}</li>`).join("")}</ul>
-    <div class="pv-acts">${note("Investing", "Send Greg’s office a note")}${more("/investments/", "See the full page")}</div>`;
+    <div class="pv-acts"><button class="btn btn-gold pv-note" type="button" data-act="invest">${I.interest.panelCta} ${icon("arrow")}</button>${more("/investments/", "See the full page")}</div>`;
   const development = `
     <p class="pv-text">${D.intro[0].split(". ").slice(0, 2).join(". ")}.</p>
     <div class="pv-rows">
@@ -502,6 +502,15 @@ function investmentsPage() {
       <figure class="inline-img rv-img">${img("b2201-03", IMG.b2201["03"], { sizes: "(max-width: 900px) 100vw, 58vw" })}</figure>
       <p class="rv">${INVESTMENTS.paragraphs[1]}</p>
       <p class="rv">${INVESTMENTS.paragraphs[2]}</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec invest-cta" aria-labelledby="t-interest">
+  <div class="wrap">
+    <div class="invest-card rv">
+      <div><p class="eyebrow">${INVESTMENTS.interest.eyebrow}</p><h2 class="serif" id="t-interest">${INVESTMENTS.interest.title[0]} <em>${INVESTMENTS.interest.title[1]}</em></h2><p>${INVESTMENTS.interest.text}</p></div>
+      <a class="btn btn-gold" href="${u("/#invest")}">${icon("mic")} ${INVESTMENTS.interest.cta}</a>
     </div>
   </div>
 </section>

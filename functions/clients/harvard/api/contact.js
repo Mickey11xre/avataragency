@@ -66,9 +66,11 @@ export async function onRequestPost(context) {
     return json({ error: "not configured" }, 500);
   }
   const id = "hig_" + Date.now().toString(36) + crypto.randomUUID().slice(0, 6);
+  // Greg round 1 pin #8 (11-17): the investor questionnaire marks itself so the office can spot it in the inbox
+  const investor = body.kind === "investor";
   const to = (env.HIG_CONTACT_TO || FALLBACK_TO).split(",").map((x) => x.trim()).filter(Boolean);
   const text = [
-    `Harvard Investment Group website — contact message ${id}`,
+    `Harvard Investment Group website — ${investor ? "investor interest" : "contact message"} ${id}`,
     "",
     `From: ${r.name} <${r.email}>`,
     `Phone: ${r.phone || "(not given)"}`,
@@ -87,7 +89,7 @@ export async function onRequestPost(context) {
       from: env.HIG_CONTACT_FROM || "Harvard Investment Group website <orders@avataragency.ai>",
       to,
       reply_to: r.email,
-      subject: `Website message — ${r.name}`,
+      subject: `${investor ? "Investor interest" : "Website message"} — ${r.name}`,
       text,
     }),
   });
