@@ -505,13 +505,14 @@ body.menu-open .hdr { background: var(--ink); }
 .panel-note { margin: 14px 0 0; font-size: 12px; line-height: 1.5; color: var(--on-dark-mute); }
 @media (min-width: 901px) { .stage { height: 560px; min-height: 0; grid-template-rows: minmax(0, 1fr); } }
 /* The panel's deeper views (Harrison's contact form and review card), per AVATAR-STAGE-SPEC §7 */
-.panel-head { display: flex; align-items: center; gap: 12px; min-height: 34px; margin-bottom: 10px; }
+/* stage v1.6 (Michael 11-19): "← Back" in the left corner on every panel view, the view title centered */
+.panel-head { display: grid; grid-template-columns: minmax(max-content, 1fr) auto minmax(0, 1fr); align-items: center; gap: 12px; min-height: 34px; margin-bottom: 10px; }
 .panel.is-home .panel-head { display: none; }
-.panel-back { width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--line-dark-strong); background: transparent; color: var(--on-dark); display: grid; place-items: center; }
+.panel-back { grid-column: 1; justify-self: start; height: 34px; padding: 0 14px 0 10px; border-radius: 999px; border: 1px solid var(--line-dark-strong); background: transparent; color: var(--on-dark); display: inline-flex; align-items: center; gap: 7px; font: 500 11.5px/1 var(--sans); letter-spacing: .14em; text-transform: uppercase; }
 .panel-back svg { width: 16px; height: 16px; transform: rotate(180deg); }
 .panel-back:hover { border-color: var(--gold); color: var(--gold-light); }
 .panel-back[hidden] { display: none; }
-.panel-title { font: 600 13px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
+.panel-title { grid-column: 2; text-align: center; font: 600 13px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
 .panel-body { overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(184,151,90,.5) transparent; }
 .panel-body::-webkit-scrollbar { width: 6px; }
 .panel-body::-webkit-scrollbar-thumb { background: rgba(184,151,90,.45); border-radius: 3px; }

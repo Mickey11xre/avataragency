@@ -1013,7 +1013,7 @@
        assets/img/staff-<slot>-poster.jpg; until those exist the small face still stands in. ═════════ */
     var CAST = null;                                   // null = Harrison; else the roster member on stage
     var HOME_CAST = { name: name, intro: intro, hasIntro: hasIntro, bg: av.style.background, poster: vid ? vid.getAttribute("poster") : "" };
-    var badgeEl = $(".ava-badge"), castBack = null;
+    var badgeEl = $(".ava-badge");
     function findStaff(slot) { return ROSTER.filter(function (s) { return s.slot === slot; })[0] || null; }
     function castTo(s) {
       if (!PROMPT_ON || (!s && !CAST) || (s && CAST && CAST.slot === s.slot)) return;
@@ -1025,8 +1025,7 @@
       badgeEl.innerHTML = '<span class="ava-dot"></span>' + esc(name) + " · " + (s ? esc(s.role) : "AI agent");
       setTalk("Talk to " + name, false); caption([]); say("");
       var micBtn = PF && $(".sp-mic", PF); if (micBtn) { micBtn.title = "Talk to " + name; micBtn.setAttribute("aria-label", "Talk to " + name); }
-      if (!castBack) { castBack = d.createElement("button"); castBack.type = "button"; castBack.className = "ava-back"; castBack.innerHTML = arrow + "<span>" + esc(HOME_CAST.name) + "</span>"; castBack.setAttribute("aria-label", "Back to " + HOME_CAST.name); castBack.addEventListener("click", function () { castTo(null); }); av.appendChild(castBack); }
-      castBack.hidden = !s;
+      // stage v1.6 (Michael 11-19): no back chip on the avatar; the lead agent's own card in the team list brings him back
       vid.pause(); vid.removeAttribute("src"); try { vid.load(); } catch (e) {}
       if (s) {
         var base = SITE_ROOT + "/assets/", poster = base + "img/staff-" + s.slot + "-poster.jpg", probe = new Image(), who = s;
@@ -1042,7 +1041,7 @@
       }
       if (visible) playQuiet();
       if (S.mode === "team") render({});
-      $$("[data-cast]", panel).forEach(function (c) { c.classList.toggle("is-cast", !!s && c.getAttribute("data-cast") === s.slot); });
+      $("[data-cast]", panel).forEach(function (c) { c.classList.toggle("is-cast", c.getAttribute("data-cast") === (s ? s.slot : "")); });
       if (window.innerWidth <= 900) av.scrollIntoView({ block: "nearest", behavior: "smooth" });
     }
     // What a staff member is told when their conversation starts: who they are talking to and what the team has done.
@@ -1053,14 +1052,19 @@
       else bits.push("no document has been shared yet; the visitor can drop one into the field below you");
       return bits.join("; ") + ".";
     }
-    // "Meet the AI team": the three staff on the panel; a tap puts that person on stage in Harrison's place.
+    // The lead agent heads the team list (stage v1.6, Michael 11-19): highlighted while he is on stage; a tap brings him back.
+    function leadCard() {
+      var on = !CAST, face = stage.getAttribute("data-lead-face") || HOME_CAST.poster || "";
+      return '<div class="sf-card sf-lead' + (on ? " is-cast" : "") + '" data-slot="" data-status="' + (on ? "done" : "waiting") + '" data-cast="" role="button" tabindex="0" title="' + (on ? esc(HOME_CAST.name) + " is on stage" : "Bring " + esc(HOME_CAST.name) + " back on stage") + '"><img src="' + esc(face) + '" alt="" width="46" height="46"><span><b>' + esc(HOME_CAST.name) + ", <span>" + esc(stage.getAttribute("data-lead-role") || "Lead") + "</span></b>" +
+        (stage.getAttribute("data-lead-line") ? '<span class="sf-line">' + esc(stage.getAttribute("data-lead-line")) + "</span>" : "") + '</span><i class="sf-dot" aria-hidden="true"></i></div>';
+    }
+    // "Meet the AI team": the lead, then the three staff; a tap puts that person on stage in the lead's place.
     function teamView() {
       var sub = ($(".p-act-team", body) || d.querySelector(".p-act-team") || { getAttribute: function () { return ""; } }).getAttribute("data-view-sub") || TEAM_SUB;
       if (sub) TEAM_SUB = sub;
       if (!ROSTER.length) return '<p class="p-sub">The team is on its way. Please try again in a moment.</p>';
-      return '<div class="sf"><p class="p-sub">' + esc(TEAM_SUB) + "</p>" +
-        ROSTER.map(function (s) { return staffCard(s, { status: CAST && CAST.slot === s.slot ? "done" : "waiting", line: s.does || "" }); }).join("") +
-        (CAST ? '<div class="sf-acts"><button class="btn btn-ghost" type="button" data-cast="">Back to ' + esc(HOME_CAST.name) + "</button></div>" : "") + "</div>";
+      return '<div class="sf"><p class="p-sub">' + esc(TEAM_SUB) + "</p>" + leadCard() +
+        ROSTER.map(function (s) { return staffCard(s, { status: CAST && CAST.slot === s.slot ? "done" : "waiting", line: s.does || "" }); }).join("") + "</div>";
     }
     var TEAM_SUB = "";
     panel.addEventListener("click", function (e) { var c = e.target.closest('[data-act="team"]'); if (!c) return; e.preventDefault(); var sub = c.getAttribute("data-view-sub"); if (sub) TEAM_SUB = sub; go("team"); });

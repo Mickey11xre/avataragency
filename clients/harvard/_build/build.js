@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 32;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 33;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
 const RV = 2;                                                        // ?v= for the preview-only review layer (/clients/_review/, comment pins; never in --final)
 const OUT = path.resolve(__dirname, "..");
 
@@ -274,7 +274,7 @@ function homePage() {
     <!-- Avatar stage per AVATAR-STAGE-SPEC v1.3. Talk fetches a session from data-token (site.js); while the agent is
          not live that endpoint answers 503 and the stage shows the "arriving soon" toast. The panel's four cards are
          also driven by Harrison (topic highlight, contact form) and the form posts to data-contact. -->
-    <div class="stage rv" id="stage" data-name="${esc(STAGE.name)}"${STAGE.intro ? ` data-intro="${u(STAGE.intro)}"` : ""} data-token="/api/hig-harrison-token" data-seen-path="/api" data-contact="${u("/api/contact")}" data-popout="${u("/vendor/avatar-popout.js")}?v=${V}" data-office-phone="${esc(SITE.phoneDisplay)}" data-office-email="${esc(SITE.email)}" data-staff="${u("/api/doc-review")}" data-root="${ROOT}" data-prompt="${STAGE.prompt.enabled === true ? "on" : "flag"}" data-consent="${esc(STAGE.prompt.consent)}" data-ask="${esc(STAGE.prompt.ask)}">
+    <div class="stage rv" id="stage" data-name="${esc(STAGE.name)}"${STAGE.intro ? ` data-intro="${u(STAGE.intro)}"` : ""} data-token="/api/hig-harrison-token" data-seen-path="/api" data-contact="${u("/api/contact")}" data-popout="${u("/vendor/avatar-popout.js")}?v=${V}" data-office-phone="${esc(SITE.phoneDisplay)}" data-office-email="${esc(SITE.email)}" data-staff="${u("/api/doc-review")}" data-root="${ROOT}" data-prompt="${STAGE.prompt.enabled === true ? "on" : "flag"}" data-consent="${esc(STAGE.prompt.consent)}" data-ask="${esc(STAGE.prompt.ask)}"${STAGE.prompt.team && STAGE.prompt.team.lead ? ` data-lead-role="${esc(STAGE.prompt.team.lead.role)}" data-lead-line="${esc(STAGE.prompt.team.lead.line)}" data-lead-face="${u(STAGE.prompt.team.lead.face)}"` : ""}>
       <div class="stage-av${STAGE.intro ? "" : " is-placeholder"}"${STAGE.poster ? ` style="background:#050505 url(${u(STAGE.poster)}) center / cover no-repeat"` : ""}>
         <div class="ava-mount" id="hig-mount"></div>
         <video class="ava-video" muted loop playsinline preload="none"${STAGE.poster ? ` poster="${u(STAGE.poster)}"` : ""}${STAGE.intro ? ` aria-label="${esc(STAGE.name)}, Harvard Investment Group’s AI agent, introducing himself"` : " hidden"}></video>
@@ -287,7 +287,7 @@ function homePage() {
       </div>
       <aside class="panel is-home" id="hig-panel" aria-label="Options">
         <div class="panel-head">
-          <button class="panel-back" type="button" hidden aria-label="Back">${icon("arrow")}</button>
+          <button class="panel-back" type="button" hidden>${icon("arrow")}<span>Back</span></button>
           <span class="panel-title"></span>
         </div>
         <div class="panel-body" aria-live="polite" data-lenis-prevent>
@@ -308,7 +308,7 @@ function homePage() {
         <div class="sp-box">
           <div class="sp-row">
             <span class="sp-chip" hidden>${DOC_ICON}<b></b><button class="sp-chip-x" type="button" aria-label="Remove the file">${icon("close")}</button></span>
-            <input class="sp-input" type="text" name="q" autocomplete="off" maxlength="400" placeholder="${esc(STAGE.prompt.placeholder)}" data-ph="${esc(STAGE.prompt.placeholder)}" data-ph-file="${esc(STAGE.prompt.placeholderFile)}" data-ph-short="${esc(STAGE.prompt.placeholderShort || STAGE.prompt.placeholder)}" aria-label="Ask ${esc(STAGE.name)}, or share a document">
+            <input class="sp-input" type="text" name="q" autocomplete="off" maxlength="400" placeholder="${esc(STAGE.prompt.placeholder)}" data-ph="${esc(STAGE.prompt.placeholder)}" data-ph-file="${esc(STAGE.prompt.placeholderFile)}" data-ph-short="${esc(STAGE.prompt.placeholderShort || STAGE.prompt.placeholder)}" aria-label="Ask anything, or share a document">
           </div>
           <div class="sp-row sp-tools">
             <div class="sp-add"><button class="sp-btn sp-attach" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="sp-add-menu" aria-label="${esc(STAGE.prompt.addLabel)}" title="${esc(STAGE.prompt.addLabel)}"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button><div class="sp-menu" id="sp-add-menu" role="menu" hidden><button class="sp-menu-item" type="button" role="menuitem"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 11.5l-8.2 8.2a5.3 5.3 0 0 1-7.5-7.5l8.6-8.6a3.5 3.5 0 0 1 5 5l-8.6 8.6a1.8 1.8 0 0 1-2.5-2.5l7.9-7.9" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg><span>${esc(STAGE.prompt.addLabel)}</span></button></div></div>

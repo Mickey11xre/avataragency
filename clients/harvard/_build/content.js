@@ -305,15 +305,17 @@ const STAGE = {
   // The staff's names are NOT here: the panel reads them from the staff endpoint (the harvard-staff roster).
   prompt: {
     enabled: true,
-    placeholder: "Ask Harrison anything, or share a document…",
+    placeholder: "Ask anything, or share a document…",   // generic: the visitor may be asking a staff member (stage v1.6, Michael 11-19)
     placeholderFile: "Add a question, or press send",
-    placeholderShort: "Ask Harrison anything…",   // phones only (600 px and narrower): the full line was cut off mid-word (Michael 11-12)
+    placeholderShort: "Ask anything…",   // phones only (600 px and narrower): the full line was cut off mid-word (Michael 11-12)
     hint: "PDF, image or Word · processed in memory, nothing is stored",
     addLabel: "Add files or photos",     // the plus opens a small menu with this one item (stage spec v1.5, Michael 11-10)
     card: { title: "Share a document", sub: "Harrison and the team will review it with you" },
     // "Meet the AI team" (Michael, 11-08): the sixth option opens the three staff on the panel; tapping one puts that
     // agent in Harrison's place in the avatar area, with their own 20-second intro and a live conversation.
-    team: { title: "Meet the AI team", sub: "The agents who work with Harrison", view: "Tap someone to bring them on stage and talk with them." },
+    team: { title: "Meet the AI team", sub: "The agents who work with Harrison", view: "Tap someone to bring them on stage and talk with them.",
+      // stage v1.6 (Michael 11-19): the lead agent heads the team list, highlighted while on stage; tapping him brings him back
+      lead: { role: "Lead", line: "Answers your questions and leads the team", face: "/assets/img/staff-harrison.png" } },
     consent: "Share this file for a one-time review? It’s processed in memory and not stored.",
     ask: "What would you change about this?",     // the question sent with a file when the visitor types nothing
   },
