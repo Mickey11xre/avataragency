@@ -744,12 +744,12 @@ function philanthropicPage() {
 ${contactBlock(false)}`;
   const ld = [crumbs([["Home", "/"], ["Philanthropic", "/philanthropic/"]]), {
     "@type": "NGO", name: "Hope for the Hurting", foundingDate: "2015", founder: { "@id": abs("/about/#greg") }, url: abs("/philanthropic/"),
-    description: "A 501(c)(3) charitable organization with a mission to assist the less fortunate among us and provide a foundation for people to improve their lives, with four facilities in California and Indiana and the Strike Out Against Drugs school program.",
+    description: "A 501(c)(3) charitable organization with a mission to assist the less fortunate among us and provide a foundation for people to improve their lives, with seven facilities in California and Indiana and the Strike Out Against Drugs school program.",
     nonprofitStatus: "Nonprofit501c3", sameAs: [P.beacon.site, P.soad.site],
   }];
   return layout({
     path: "/philanthropic/", title: "Philanthropic: Hope for the Hurting | Harvard Investment Group",
-    desc: "In 2015 Greg Cullen formed Hope for the Hurting, a 501(c)(3) with four facilities in California and Indiana for people facing mental illness and addiction, and the Strike Out Against Drugs program in Los Angeles schools.",
+    desc: "In 2015 Greg Cullen formed Hope for the Hurting, a 501(c)(3) with seven facilities in California and Indiana for people facing mental illness and addiction, and the Strike Out Against Drugs program in Los Angeles schools.",
     body, bodyClass: "page-philanthropic", ld, ogImage: "/assets/img/boh-02-1600.webp",
   });
 }
@@ -846,7 +846,7 @@ function llms() {
 - Invests from the mid-five figures to seven figures in value-added real estate and early stage businesses
 - 2201 Bayside Drive, Corona del Mar: sold for $24,500,000; Brandon Architects, Brooke Wagner Design
 - 2209 Bayside Drive, Corona del Mar: sold for $23,000,000
-- Hope for the Hurting: four facilities in California and Indiana; Strike Out Against Drugs school program
+- Hope for the Hurting: seven facilities in California and Indiana; Strike Out Against Drugs school program
 `;
   const full = short + `
 ## About Greg Cullen
