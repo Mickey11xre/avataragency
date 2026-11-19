@@ -585,7 +585,7 @@ function developmentsPage() {
       <dl class="facts facts-dark rv">${D.b2201.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join("")}</dl>
     </div>
     <details class="more rv">
-      <summary><span>All 39 photographs of 2201 Bayside</span>${icon("arrow")}</summary>
+      <summary><span>Additional photographs of 2201 Bayside</span>${icon("arrow")}</summary>
       <div class="gal gal-dense" data-gal="b2201-all">
         ${b2201All.map((k) => gi(`b2201-${k}`, IMG.b2201[k] || `2201 Bayside Drive, photograph ${Number(k)} of 39`, { sizes: "(max-width: 900px) 33vw, 16vw" })).join("\n        ")}
       </div>

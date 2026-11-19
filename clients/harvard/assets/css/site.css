@@ -329,6 +329,9 @@ body.menu-open .hdr { background: var(--ink); }
 .more > summary::-webkit-details-marker { display: none; }
 .more > summary svg { width: 15px; height: 15px; transition: transform .35s var(--ease); }
 .more[open] > summary svg { transform: rotate(90deg); }
+/* Greg round 1 pin #5 (11-17): "Additional photographs" must stand out — a filled gold button, larger type */
+.more > summary { gap: 14px; padding: 17px 28px; border: 0; border-radius: 2px; background: var(--gold); color: var(--ink); font-size: 14px; letter-spacing: .18em; transition: background .25s; }
+.more > summary:hover { background: var(--gold-light); }
 .ba-label { margin: 28px 0 14px; }
 .ba-label:first-of-type { margin-top: 0; }
 
