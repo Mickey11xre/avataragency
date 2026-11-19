@@ -63,7 +63,7 @@ function header(current) {
     ${wordmark()}
     <nav class="nav" aria-label="Primary">
       ${NAV.filter(([p]) => p !== "/").map(([p, l]) => `<a href="${u(p)}"${p === current ? ' aria-current="page"' : ""}>${l}</a>`).join("\n      ")}
-      ${current === "/" ? "" : `<a class="btn btn-line btn-sm" href="${u("/#stage")}">Talk to ${STAGE.name}</a>`}
+      ${current === "/" ? "" : `<a class="btn btn-gold btn-sm" href="${u("/#stage")}">Talk to ${STAGE.name}</a>`}${/* filled gold on every page: Greg round 1 pin #7 (11-17) */ ""}
     </nav>
     <button class="burger" type="button" aria-expanded="false" aria-controls="menu" aria-label="Open menu"><span></span><span></span></button>
   </div>
