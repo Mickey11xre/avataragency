@@ -496,7 +496,11 @@ body.menu-open .hdr { background: var(--ink); }
 .p-sub { margin: 0; font-size: 14px; color: var(--on-dark-mute); }
 .p-actions { display: grid; gap: 9px; margin-top: 4px; }
 .p-act { display: grid; grid-template-columns: 38px 1fr 16px; align-items: center; gap: 12px; text-align: left; padding: 13px 14px; border-radius: 14px; border: 1px solid var(--line-dark-strong); background: rgba(255,255,255,.025); color: var(--on-dark); transition: border-color .2s, background .2s, transform .3s var(--ease); }
-.p-act:hover, .p-act.flash { border-color: var(--gold); background: rgba(184,151,90,.1); transform: translateX(2px); }
+/* stage v1.7 (Michael 11-19): the card itself never moves on hover (a 2 px shift pushed its right border past the
+   panel's clip edge); only the arrow nudges, inside the card. */
+.p-act:hover, .p-act.flash { border-color: var(--gold); background: rgba(184,151,90,.1); }
+.p-act > svg { transition: transform .3s var(--ease); }
+.p-act:hover > svg, .p-act.flash > svg { transform: translateX(3px); }
 .p-act i { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: rgba(184,151,90,.16); color: var(--gold-light); font-style: normal; }
 .p-act i svg { width: 18px; height: 18px; }
 .p-act b { display: block; font-size: 15px; font-weight: 600; }
@@ -514,6 +518,10 @@ body.menu-open .hdr { background: var(--ink); }
 .panel-back[hidden] { display: none; }
 .panel-title { grid-column: 2; text-align: center; font: 600 13px/1.2 var(--sans); letter-spacing: .14em; text-transform: uppercase; color: var(--gold); }
 .panel-body { overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgba(184,151,90,.5) transparent; }
+/* stage v1.7: a 4 px safe edge inside the clip on every side (10 px on the right, for the scrollbar), cancelled by an
+   equal negative margin, so card borders, gold highlights and focus rings are never cropped and the cards still line
+   up with the panel header. */
+.panel-body { padding: 4px 10px 4px 4px; margin: -4px -10px -4px -4px; }
 .panel-body::-webkit-scrollbar { width: 6px; }
 .panel-body::-webkit-scrollbar-thumb { background: rgba(184,151,90,.45); border-radius: 3px; }
 .p-act.is-on { border-color: var(--gold); background: rgba(184,151,90,.12); box-shadow: 0 0 0 1px var(--gold) inset; }
