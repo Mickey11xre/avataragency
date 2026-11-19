@@ -83,7 +83,7 @@ const INVESTMENTS = {
 const DEVELOPMENTS = {
   eyebrow: "Developing Southern California",
   intro: [
-    "Harvard Investment Group is a vertically integrated real estate development company. The Company directly, or through its affiliated entities, acquires real estate assets with value added potential. The Company specializes in purchasing land with unrealized development potential and underperforming real estate assets. With its experienced team of professionals, the Company undertakes the process of transforming its real estate holdings into for sale product or assets held for cash flow.",
+    "Harvard Investment Group is a vertically integrated real estate development company. The Company directly, or through its affiliated entities, acquires real estate assets with value added potential. The Company specializes in purchasing land with unrealized development potential and underperforming real estate assets. With its experienced team of professionals, the Company undertakes the process of transforming its real estate holdings into for-sale product or assets held for cash flow.",
     "The Company has expertise in all aspects of the development process including acquisition, deal structuring, finance, architectural design, entitlements, construction – ranging from home remodeling to full scale land subdivision and project development, and real estate sales. The principal of the Company is both a licensed contractor and licensed real estate broker in the State of California.",
   ],
   showcase: "Below is a showcase of some of our recent development projects.",
