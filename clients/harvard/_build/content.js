@@ -34,7 +34,7 @@ const CONTACT_BLOCK = {
 
 const HOME = {
   eyebrow: "Newport Beach · Los Angeles · Est. 1995",
-  tagline: "Three decades of investing in, and building, Southern California’s most coveted real estate.",
+  tagline: "Over three decades of investments, acquisitions and building California’s most coveted real estate.",   // Greg, round 1 pin #1 (11-17), word for word
   aboutTitle: ["A multi-dimensional organization,", "built on value."],
   // Michael, 10-30 revisions: "over three decades" (founded 1995) and "approaching a billion" (matches About, the film and Harrison)
   about: "Harvard Investment Group is a multi-dimensional organization that has, along with its affiliated companies, been actively investing and developing real estate for over three decades. The Company is led by Greg Cullen, who throughout his career, has been involved in hundreds of transactions – both debt and equity – with a combined value approaching a billion dollars.",
