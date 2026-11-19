@@ -549,12 +549,12 @@ function developmentsPage() {
     <div class="rv"><p class="eyebrow">${D.eyebrow}</p><h2 class="serif" id="t-dev">From unrealized potential <em>to finished product.</em></h2><span class="rule" aria-hidden="true"></span></div>
     <div class="prose">
       ${D.intro.map((p) => `<p class="rv">${p}</p>`).join("\n      ")}
-      <p class="rv">${D.showcase}</p>
+      <p class="rv showcase-line serif">${D.showcase} <b>${D.showcaseCue}</b></p>
       <p class="rv netflix-line">${D.netflixLine} <a href="${SITE.netflix}" target="_blank" rel="noopener"><span class="nflx" aria-hidden="true">N</span>${D.netflixLabel} ${icon("ext", "ext")}</a></p>
     </div>
   </div>
   <div class="wrap">
-    <nav class="chips rv" aria-label="Projects">${projectNav.map(([h, l]) => `<a href="${h}">${l}</a>`).join("")}</nav>
+    <nav class="chips rv" aria-label="Projects"><p class="chips-label">${D.showcaseCue}</p>${projectNav.map(([h, l]) => `<a href="${h}">${l}${icon("arrow")}</a>`).join("")}</nav>
   </div>
 </section>
 
