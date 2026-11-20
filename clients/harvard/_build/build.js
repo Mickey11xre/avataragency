@@ -342,7 +342,7 @@ function homePage() {
       <p class="serif hero-lede">${HOME.tagline}</p>
       <div class="hero-ctas">
         <a class="btn btn-gold" href="${u("/developments/")}">Our developments</a>
-        <a class="btn btn-ghost" href="${u("/investments/")}">Invest with us</a>
+        <a class="btn btn-gold" href="${u("/investments/")}">Invest with us</a>
       </div>
     </div>
     <!-- Greg round 2 (11-19, pin #9, corrects round 1 #2): the welcome film is back; only the "Welcome film" label is gone.
