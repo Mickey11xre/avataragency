@@ -340,12 +340,26 @@ function homePage() {
       <p class="eyebrow gold">${HOME.eyebrow}</p>
       <h1 class="serif caps hero-title hero-title-xl" id="h1"><span class="ln"><span>Harvard</span></span><span class="ln"><span>Investment</span></span><span class="ln"><span>Group</span></span></h1>
       <p class="serif hero-lede">${HOME.tagline}</p>
-      <!-- Greg's round 1 (11-17, pin #2): the welcome film is gone from the hero; "Talk to Harrison" moved up beside
-           "Invest with us" and keeps the filled gold. It still jumps to the stage and starts the conversation. -->
       <div class="hero-ctas">
         <a class="btn btn-gold" href="${u("/developments/")}">Our developments</a>
         <a class="btn btn-ghost" href="${u("/investments/")}">Invest with us</a>
-        <a class="btn btn-gold btn-talk" href="${u("/#stage")}" data-talk>${icon("mic")} ${HERO.film.cta}</a>
+      </div>
+    </div>
+    <!-- Greg round 2 (11-19, pin #9, corrects round 1 #2): the welcome film is back; only the "Welcome film" label is gone.
+         Michael 11-19: "Talk to Harrison" goes back directly under the film. -->
+    <div class="hero-film-col" data-hero-film>
+      <figure class="hero-film" data-film>
+        <video class="film-v" autoplay muted loop playsinline preload="metadata" poster="${u(`/assets/img/${HERO.film.poster}-1600.webp`)}" aria-label="${esc(HERO.film.title)}: ${esc(HERO.film.note)}">
+          <source src="${u(HERO.film.small)}" type="video/mp4" media="(max-width: 900px)">
+          <source src="${u(HERO.film.src)}" type="video/mp4">
+          ${img(HERO.film.poster, HERO.film.alt, { widths: [800, 1600], sizes: "(max-width: 900px) 100vw, 46vw", eager: true })}
+        </video>
+        <button class="ava-sound film-sound" type="button" aria-pressed="false" aria-label="Play the welcome film with sound" title="Play the welcome film with sound">${icon("sound-off")}<span class="ava-sound-label" aria-hidden="true">Muted</span></button>
+        <figcaption><b class="serif">${HERO.film.title}</b></figcaption>
+      </figure>
+      <div class="film-under">
+        <a class="btn btn-gold" href="${u("/#stage")}" data-talk>${icon("mic")} ${HERO.film.cta}</a>
+        <p>${HERO.film.note}</p>
       </div>
     </div>
   </div>
