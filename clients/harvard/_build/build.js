@@ -255,7 +255,7 @@ function panelViews() {
       <li><b>${P.soad.title}</b><small>Schools across the Los Angeles area</small></li>
     </ul>
     <p class="pv-text pv-small">${P.donate}</p>
-    <div class="pv-acts"><a class="btn btn-gold pv-note" href="${SITE.donateUrl}" target="_blank" rel="noopener">Donate ${icon("arrow")}</a>${more("/philanthropic/", "See the full page")}</div>`;
+    <div class="pv-acts"><a class="btn btn-gold pv-note" href="${SITE.donateUrl}" target="_blank" rel="noopener">Donate to Hope for the Hurting ${icon("arrow")}</a>${more("/philanthropic/", "See the full page")}</div>`;
   return [["investing", investing], ["development", development], ["philanthropy", philanthropy]]
     .map(([k, h]) => `<template id="pv-${k}"><div class="pv">${h}\n    </div></template>`).join("\n      ");
 }
@@ -700,7 +700,7 @@ function philanthropicPage() {
       ${P.intro.map((p) => `<p class="rv">${p}</p>`).join("\n      ")}
       <div class="donate rv" id="donate">
         <p>${P.donate} <a href="${u("/contact/")}">${P.donateLink}</a></p>
-        <a class="btn btn-gold" href="${donateHref}"${SITE.donateUrl ? ' target="_blank" rel="noopener"' : ""}>Donate ${icon("arrow")}</a>
+        <a class="btn btn-gold" href="${donateHref}"${SITE.donateUrl ? ' target="_blank" rel="noopener"' : ""}>Donate to Hope for the Hurting ${icon("arrow")}</a>
       </div>
       <p class="rv">${P.initiativesLine}</p>
     </div>
