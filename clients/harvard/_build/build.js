@@ -435,7 +435,7 @@ ${stage}
       <p class="eyebrow">Philanthropic</p>
       <h2 class="serif" id="t-phil">Hope for <em>the Hurting.</em></h2>
       <p class="lede">${PHILANTHROPIC.intro[0]}</p>
-      <div class="ctas"><a class="btn btn-dark" href="${SITE.donateUrl || u("/contact/")}"${SITE.donateUrl ? ' target="_blank" rel="noopener"' : ""}>Donate</a><a class="tlink" href="${u("/philanthropic/")}">Our initiatives ${icon("arrow")}</a></div>
+      <div class="ctas"><a class="btn btn-gold" href="${SITE.donateUrl || u("/contact/")}"${SITE.donateUrl ? ' target="_blank" rel="noopener"' : ""}>Donate to Hope for the Hurting ${icon("arrow")}</a><a class="tlink" href="${u("/philanthropic/")}">Our initiatives ${icon("arrow")}</a></div>
     </div>
   </div>
 </section>
