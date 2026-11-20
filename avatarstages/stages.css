@@ -92,7 +92,12 @@
 .p-sub { margin: 0; font-size: 14px; color: var(--on-dark-mute); }
 .p-actions { display: grid; gap: 9px; margin-top: 4px; }
 .p-act { display: grid; grid-template-columns: 38px 1fr 16px; align-items: center; gap: 12px; text-align: left; padding: 13px 14px; border-radius: 14px; border: 1px solid var(--line-dark-strong); background: rgba(255,255,255,.025); color: var(--on-dark); transition: border-color .2s, background .2s, transform .3s var(--ease); }
-.p-act:hover, .p-act.flash { border-color: var(--gold); background: rgba(201,168,76,.08); transform: translateX(2px); }
+/* stage spec v1.7 (Michael 11-19): the card never moves on hover (a 2 px shift pushed its right border past the clip
+   edge); only the arrow nudges, inside the card. The panel body keeps a 4 / 10 px safe edge so no border is cropped. */
+.p-act:hover, .p-act.flash { border-color: var(--gold); background: rgba(201,168,76,.08); }
+.p-act > svg { transition: transform .3s var(--ease); }
+.p-act:hover > svg, .p-act.flash > svg { transform: translateX(3px); }
+.panel-body { padding: 4px 10px 4px 4px; margin: -4px -10px -4px -4px; }
 .p-act i { width: 38px; height: 38px; border-radius: 10px; display: grid; place-items: center; background: rgba(201,168,76,.14); color: var(--gold-light); font-style: normal; }
 .p-act i svg { width: 18px; height: 18px; }
 .p-act b { display: block; font-size: 15px; font-weight: 600; }
@@ -172,7 +177,7 @@
 @media (min-width: 901px) {
   .stage { height: 560px; min-height: 0; grid-template-rows: minmax(0, 1fr); }
   .panel { min-height: 0; overflow: hidden; }
-  .panel-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-right: 4px; margin-right: -4px;
+  .panel-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px 10px 4px 4px; margin: -4px -10px -4px -4px;
     scrollbar-width: thin; scrollbar-color: rgba(228,201,122,.45) transparent; }
   .panel-body::-webkit-scrollbar { width: 8px; }
   .panel-body::-webkit-scrollbar-track { background: transparent; }
