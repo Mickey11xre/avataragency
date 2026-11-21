@@ -83,7 +83,8 @@ const INVESTMENTS = {
   interest: {
     eyebrow: "Investor interest",
     title: ["Interested in investing with", "Harvard Investment Group?"],
-    text: "Click below and Harrison, our AI agent, will take a few details for Greg’s office: your name, phone, email, state or country of residence and investment range.",
+    // Greg round 4 #15 (11-20): "Click the button to the right" + "will collect"; Michael: "below" on phones, where the button sits under the text
+    text: "Click the button <span class=\"dir-desk\">to the right</span><span class=\"dir-phone\">below</span> and Harrison, our AI agent, will collect a few details for Greg’s office: your name, phone, email, state or country of residence and investment range.",
     cta: "Click here to get started",
     panelCta: "Interested in investing? Start here",
   },

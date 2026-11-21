@@ -240,6 +240,9 @@ body.menu-open .hdr { background: var(--ink); }
 .invest-card .btn { min-height: 54px; white-space: nowrap; }
 .invest-card .btn svg { width: 15px; height: 15px; }
 @media (max-width: 900px) { .invest-card { grid-template-columns: 1fr; } .invest-card .btn { width: 100%; white-space: normal; } }
+/* Greg round 4 #15 (11-20): the button is to the right on desktop and below the text on phones; the sentence says which */
+.dir-phone { display: none; }
+@media (max-width: 900px) { .dir-desk { display: none; } .dir-phone { display: inline; } }
 /* Greg round 1 pin #4 (11-17): he missed the showcase line and the six tabs, so both are louder now */
 .prose .showcase-line { font-size: clamp(21px, 1.9vw, 27px); line-height: 1.35; color: var(--navy); border-left: 2px solid var(--gold); padding-left: 22px; }
 .prose .showcase-line b { font-weight: 600; color: var(--gold-deep); }
