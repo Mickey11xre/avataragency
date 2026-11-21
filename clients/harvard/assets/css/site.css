@@ -251,6 +251,11 @@ body.menu-open .hdr { background: var(--ink); }
 .chips a { display: inline-flex; align-items: center; gap: 10px; padding: 15px 22px; background: var(--paper); border-color: var(--gold); font-size: 12.5px; box-shadow: 0 10px 24px -16px rgba(7,19,32,.45); }
 .chips a svg { width: 14px; height: 14px; transform: rotate(90deg); color: var(--gold-deep); transition: color .25s; }
 .chips a:hover svg { color: var(--gold-light); }
+/* Greg round 4 #16 (11-20): "highlight these development tabs in brown": filled gold like the site's gold buttons */
+.chips a { background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 600; }
+.chips a svg { color: var(--ink); }
+.chips a:hover { background: var(--navy); border-color: var(--navy); color: var(--on-dark); }
+.chips a:hover svg { color: var(--gold-light); }
 .netflix-line a { color: var(--navy); font-weight: 400; border-bottom: 1px solid var(--gold); display: inline-flex; align-items: center; gap: 8px; }
 .nflx { display: inline-grid; place-items: center; width: 20px; height: 20px; border-radius: 3px; background: #E50914; color: #fff; font: 700 13px/1 Georgia, serif; }
 
