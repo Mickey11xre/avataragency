@@ -772,7 +772,7 @@
     var hintText = hintEl ? hintEl.textContent : "";
     var MAX_FILE = 6 * 1024 * 1024, DOCX_MIME = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
     var CONSENT = stage.getAttribute("data-consent") || "Share this file for a one-time review? It’s processed in memory and not stored.";
-    var DEFAULT_ASK = stage.getAttribute("data-ask") || "What would you change about this?";
+    var DEFAULT_ASK = stage.getAttribute("data-ask") || "Tell me what this is, the key facts, and what an investor should ask about it.";
     var MOCK_TAG = '<span class="sf-mock">Local test data · not a real review</span>';
     var JOB_ERR = {
       unsupported_type: "I can take a PDF, an image or a Word file.", too_large: "That file is over 6 MB. A smaller copy will work.",
@@ -913,7 +913,7 @@
     function finishJob(cf) {
       var job = J; stopJobTimer(); J.state = "done"; J.caseFile = cf; J.t1 = Date.now(); paintTime();
       setTimeout(function () { if (J === job) showResult(); }, 900);     // the staff's last lines stay up for a beat
-      if (cf.findings && cf.findings.length) tell("Case file", "The team finished reviewing " + J.file.name + ". " + cf.spoken + (cf.partial ? " The team ran short on time, so call this a first pass." : "") + " The case file is on the panel now. Tell the visitor these findings in your own words, in this order, briefly. Then offer to send the review to them.", true);
+      if (cf.findings && cf.findings.length) tell("Case file", "The team finished reviewing " + J.file.name + ". " + cf.spoken + (cf.partial ? " The team ran short on time, so call this a first pass." : "") + " The case file is on the panel now. In your own words and briefly: first say what the document is, then the findings in this order" + (cf.findingsKind === "changes" ? "" : " (they are questions to ask the seller)") + ". Then offer to send the review to them.", true);
       else tell("Case file", "The team finished with " + J.file.name + " and found nothing to report. Tell the visitor that briefly, and ask what they would like to look at.", true);
     }
     function failJob(code) {
@@ -930,9 +930,14 @@
       var secs = Math.max(1, Math.round((cf.elapsedMs || 0) / 1000));
       var tag = function (s) { return s.kind === "site" ? '<a class="cf-tag" href="' + esc(SITE_ROOT + s.ref) + '" target="_blank" rel="noopener">' + esc(s.label) + "</a>" : '<span class="cf-tag">' + esc(s.label) + "</span>"; };
       var items = (cf.findings || []).map(function (f) { return "<li><b>" + esc(f.title) + "</b><p>" + esc(f.detail) + "</p>" + (f.sources && f.sources.length ? '<span class="cf-tags">' + f.sources.map(tag).join("") + "</span>" : "") + "</li>"; }).join("");
-      return '<div class="cf">' + (J.mock ? MOCK_TAG : "") + '<h4 class="cf-title">' + esc(cf.title || "Review of " + J.file.name) + "</h4>" +
+      // Michael 11-21: what the document IS comes first (summary + key facts), then the findings under their own heading.
+      var facts = (cf.keyFacts || []).map(function (k) { return "<li><span>" + esc(k.label) + "</span>" + esc(k.value) + "</li>"; }).join("");
+      var about = cf.summary || facts ? '<div class="cf-about"><span class="cf-h">What this is</span>' + (cf.summary ? "<p>" + esc(cf.summary) + "</p>" : "") + (facts ? '<ul class="cf-facts">' + facts + "</ul>" : "") + "</div>" : "";
+      var head = items ? '<span class="cf-h">' + (cf.findingsKind === "changes" ? "What to change" : "Questions to ask the seller") + "</span>" : "";
+      return '<div class="cf">' + (J.mock ? MOCK_TAG : "") + '<h4 class="cf-title">' + esc(cf.title || "Review of " + J.file.name) + "</h4>" + about + head +
         (items ? '<ol class="cf-list">' + items + "</ol>" : '<p class="pv-text">The team found nothing to report on this file.</p>') +
         (cf.startHere ? '<p class="cf-start"><span>Start here</span>' + esc(cf.startHere) + "</p>" : "") +
+        (cf.siteNote ? '<p class="cf-note">' + esc(cf.siteNote) + "</p>" : "") +
         '<p class="cf-by">Prepared by ' + esc((cf.preparedBy || []).join(", ")) + " · " + secs + " s" + (cf.partial ? " · a first pass: the team ran short on time" : "") + "<br>Observations and suggestions, not advice. Nothing is stored.</p>" +
         '<div class="cf-acts">' + (items ? '<button class="btn btn-gold" type="button" data-act="cf-send">Send this to me ' + arrow + "</button>" : "") + '<button class="btn btn-ghost" type="button" data-act="home">Back to the options</button></div></div>';
     }
@@ -947,6 +952,8 @@
       if (!J || !J.caseFile || !(J.caseFile.findings || []).length) return "";
       var cf = J.caseFile;
       return "\n\nCase file " + cf.id + ": " + cf.title + " (" + J.file.name + ")\n" +
+        (cf.summary ? "What this is: " + cf.summary + "\n" : "") + (cf.keyFacts || []).map(function (k) { return "- " + k.label + ": " + k.value + "\n"; }).join("") +
+        (cf.findingsKind === "changes" ? "What to change:\n" : "Questions to ask the seller:\n") +
         cf.findings.map(function (f, i) { return (i + 1) + ". " + f.title + ": " + f.detail + (f.sources && f.sources.length ? " [" + f.sources.map(function (s) { return s.label; }).join("; ") + "]" : ""); }).join("\n") +
         (cf.startHere ? "\nStart here: " + cf.startHere : "") + "\nPrepared by " + (cf.preparedBy || []).join(", ") + ". Observations and suggestions, not advice.";
     }

@@ -318,7 +318,7 @@ const STAGE = {
       // stage v1.6 (Michael 11-19): the lead agent heads the team list, highlighted while on stage; tapping him brings him back
       lead: { role: "Lead", line: "Answers your questions and leads the team", face: "/assets/img/staff-harrison.png" } },
     consent: "Share this file for a one-time review? It’s processed in memory and not stored.",
-    ask: "What would you change about this?",     // the question sent with a file when the visitor types nothing
+    ask: "Tell me what this is, the key facts, and what an investor should ask about it.",     // the question sent with a file when the visitor types nothing
   },
 };
 
