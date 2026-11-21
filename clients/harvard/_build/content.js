@@ -97,7 +97,7 @@ const DEVELOPMENTS = {
     "The Company has expertise in all aspects of the development process including acquisition, deal structuring, finance, architectural design, entitlements, construction – ranging from home remodeling to full scale land subdivision and project development, and real estate sales. The principal of the Company is both a licensed contractor and licensed real estate broker in the State of California.",
   ],
   showcase: "Below is a showcase of some of our recent development projects.",
-  showcaseCue: "Click a development below to see it.",   // Greg round 1 pin #4 (11-17): he missed the six tabs at first
+  showcaseCue: "Click a development below to see pictures.",   // Greg round 1 pin #4 (11-17); wording from Greg round 4 #17 (11-20)
   netflixLine: "The project in Corona Del Mar was recently featured on Netflix. Click the link below.",
   netflixLabel: "Selling the OC – Season 3",
   cdm: {
