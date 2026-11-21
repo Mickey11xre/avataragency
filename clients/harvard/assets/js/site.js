@@ -765,7 +765,8 @@
        system messages, as the panel already uses). The staff's names and faces come from the endpoint, never from this
        file. Nothing is stored: the file goes from memory to the request and is dropped. */
     var J = null;            // this visit's review: { file, ask, state: consent | working | done | error, id, staff, lines, peek, caseFile, error, t0, t1, mock }
-    var ROSTER = [];         // [{ slot, name, role, does, face }]: the client roster, from the staff endpoint
+    var PRELOAD = [];        // held so the preloaded staff faces and posters stay in the image cache
+    var ROSTER = [];       // [{ slot, name, role, does, face }]: the client roster, from the staff endpoint
     var REVEAL = null, pending = null, jobTimer = null, jobAbort = null, nudged = false, pendingTell = null, hintT = null;
     var fileInput = PF ? $(".sp-file", PF) : null, pInput = PF ? $(".sp-input", PF) : null, chip = PF ? $(".sp-chip", PF) : null, sendBtn = PF ? $(".sp-send", PF) : null, hintEl = PF ? $(".sp-hint", PF) : null;
     var hintText = hintEl ? hintEl.textContent : "";
@@ -1031,9 +1032,13 @@
         var base = SITE_ROOT + "/assets/", poster = base + "img/staff-" + s.slot + "-poster.jpg", probe = new Image(), who = s;
         snd.hidden = true; vid.removeAttribute("poster"); vid.setAttribute("aria-label", s.name + ", " + s.role);
         vid.addEventListener("loadeddata", function () { if (CAST === who) { snd.hidden = false; soundIcon(false); } }, { once: true });
-        av.style.background = "#050505 url(" + s.face + ") center 18% / cover no-repeat";      // the small still, until the real poster answers
-        probe.onload = function () { if (CAST === who) av.style.background = "#050505 url(" + poster + ") center / cover no-repeat"; };
+        // Michael 11-20: no flash of the small card face. The posters are preloaded with the roster, so the poster goes up at
+        // once; if it is still loading the stage stays dark until it lands, and the card face stands in only if it fails.
+        var posterBg = "#050505 url(" + poster + ") center / cover no-repeat";
+        probe.onload = function () { if (CAST === who) av.style.background = posterBg; };
+        probe.onerror = function () { if (CAST === who) av.style.background = "#050505 url(" + s.face + ") center 18% / cover no-repeat"; };
         probe.src = poster;
+        av.style.background = probe.complete && probe.naturalWidth ? posterBg : "#050505";
         intro = base + "video/staff-" + s.slot + ".mp4"; hasIntro = true;       // their 20-second intro: the silent idle loop AND, on the sound icon, the spoken intro. A missing file simply never plays
       } else {
         intro = HOME_CAST.intro; hasIntro = HOME_CAST.hasIntro; snd.hidden = !hasIntro; av.style.background = HOME_CAST.bg;
@@ -1090,7 +1095,7 @@
       stage.addEventListener("drop", function (e) { if (!hasFiles(e)) return; e.preventDefault(); dragN = 0; stage.classList.remove("is-drop"); pickFile(e.dataTransfer.files[0]); });
       d.addEventListener("keydown", function (e) { if (e.altKey && e.shiftKey && e.code === "KeyR") { e.preventDefault(); reveal(); } });
       // A free warm-up, no conversation opened: the roster for the cards (this also wakes the staff function) and the three faces.
-      fetch(STAFF_URL).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && j.staff) { ROSTER = j.staff; ROSTER.forEach(function (s) { var im = new Image(); im.src = s.face; }); if (S.mode === "team") render({}); } }).catch(function () {});
+      fetch(STAFF_URL).then(function (r) { return r.ok ? r.json() : null; }).then(function (j) { if (j && j.staff) { ROSTER = j.staff; ROSTER.forEach(function (s) { var im = new Image(), pi = new Image(); im.src = s.face; pi.src = SITE_ROOT + "/assets/img/staff-" + s.slot + "-poster.jpg"; PRELOAD.push(im, pi); }); if (S.mode === "team") render({}); } }).catch(function () {});
     }
 
     // For the welcome film's button, the console and tests: what the live Harrison would see.
