@@ -78,12 +78,34 @@
   function closeMenu() { if (menu.hidden) return; menu.hidden = true; html.classList.remove("menu-open"); menuBtn.setAttribute("aria-expanded", "false"); if (lenis) lenis.start(); onScrollHdr(); }
   menuBtn.addEventListener("click", function () { menu.hidden ? openMenu() : closeMenu(); });
 
-  /* ── Client login modal (same behavior as the live site: UI only) ── */
+  /* ── Client login modal: opens/closes here; Sign In posts to /api/client-auth (2026-11-24, see login/login.js) ── */
   var login = $("#login");
   $$("[data-open-login]").forEach(function (b) { b.addEventListener("click", function (e) { e.preventDefault(); closeMenu(); login.hidden = false; var i = $("input", login); if (i) i.focus(); }); });
   $$("[data-close-login]").forEach(function (b) { b.addEventListener("click", function () { login.hidden = true; }); });
   login.addEventListener("click", function (e) { if (e.target === login) login.hidden = true; });
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") { login.hidden = true; closeMenu(); } });
+  (function () {
+    var email = $("input[type=email]", login), pass = $("input[type=password]", login), btn = $(".btn", login);
+    if (!email || !pass || !btn) return;
+    var msg = document.createElement("p");
+    msg.className = "modal-msg"; msg.setAttribute("role", "alert"); msg.hidden = true;
+    msg.style.cssText = "margin:0;font-size:13.5px;line-height:1.45;color:#8a1f1f;background:#fbeaea;border:1px solid #efc6c6;border-radius:10px;padding:9px 12px";
+    btn.parentNode.insertBefore(msg, btn);
+    function submit() {
+      msg.hidden = true; btn.disabled = true; btn.style.opacity = ".6";
+      fetch("/api/client-auth", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "login", email: email.value, password: pass.value }) })
+        .then(function (r) { return r.json(); })
+        .catch(function () { return { ok: false, error: "Couldn't reach the server. Try again." }; })
+        .then(function (r) {
+          btn.disabled = false; btn.style.opacity = "";
+          if (r && r.ok) { track("client_login", {}); location.href = r.next || "/login/"; return; }
+          msg.textContent = (r && r.error) || "Sign-in failed."; msg.hidden = false; pass.value = ""; pass.focus();
+        });
+    }
+    btn.addEventListener("click", submit);
+    [email, pass].forEach(function (i) { i.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); submit(); } }); });
+  })();
 
   /* ── CTA tracking ── */
   $$("[data-cta]").forEach(function (a) { a.addEventListener("click", function () { track("cta_click", { cta_location: a.getAttribute("data-cta"), link_url: a.href }); }); });

@@ -10,6 +10,10 @@
 //   POST /api/review?doc=psmall-hermosa   → body: { name, items:{ "01":{approved,comment}, ... } }
 //                                            saves + stamps updatedAt; last write wins.
 
+// 2026-11-24: docs that belong to a GATED client portal (e.g. "aneidich-scripts") need that client's aa_cl sign-in
+// (functions/_lib/client-auth.js). Every other doc works exactly as before.
+import { gatedSlugForDoc, getClientSession, canAccess, configured, sameOrigin } from '../_lib/client-auth.js';
+
 const DOC_RE = /^[a-z0-9-]{1,64}$/;
 const MAX_BODY = 64 * 1024; // 64 KB is plenty for approvals + notes
 
@@ -30,6 +34,15 @@ export async function onRequest(context) {
   }
   const key = `review:${doc}`;
 
+  const gated = gatedSlugForDoc(doc);
+  let viewer = null;
+  if (gated) {
+    if (!configured(env)) return json({ error: 'Sign-in not configured' }, 503);
+    viewer = await getClientSession(env, request, { deep: true });
+    if (!viewer || !canAccess(viewer, gated)) return json({ error: 'signed out' }, 401);
+    if (request.method !== 'GET' && !sameOrigin(request)) return json({ error: 'forbidden' }, 403);
+  }
+
   if (request.method === 'GET') {
     const stored = await env.REVIEWS.get(key);
     return json(stored ? JSON.parse(stored) : {});
@@ -48,7 +61,7 @@ export async function onRequest(context) {
       return json({ error: 'Body must be an object' }, 400);
     }
     const state = {
-      name: typeof body.name === 'string' ? body.name.slice(0, 120) : '',
+      name: viewer ? String(viewer.n || viewer.e).slice(0, 120) : typeof body.name === 'string' ? body.name.slice(0, 120) : '',
       items: typeof body.items === 'object' && body.items !== null ? body.items : {},
       updatedAt: new Date().toISOString(),
     };
