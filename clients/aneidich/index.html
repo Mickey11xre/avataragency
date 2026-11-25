@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Your Video Scripts — Pothole Heroes · AvatarAgency</title>
+<style>
+  /* Portal tokens and review components: tabs, per-item cards, shared comments via /api/review.
+     Self-contained: inline CSS/JS, no analytics. */
+  :root{
+    --bg:#0a0a0c;--bg-2:#101014;--card:#15151b;--card-2:#1b1b22;--line:#26262f;
+    --txt:#f4f4f6;--muted:#9a9aa6;--muted-2:#6d6d78;--gold:#c9a24b;--gold-2:#e3c478;--green:#4ec98a;--red:#ff7a6b;
+    --radius:16px;--max:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(201,162,75,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(78,201,138,.05), transparent 55%),
+      var(--bg);
+    color:var(--txt);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+
+  /* ---- Top bar ---- */
+  .topbar{border-bottom:1px solid var(--line);background:rgba(10,10,12,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+  .brand{font-weight:700;letter-spacing:.5px;font-size:18px}
+  .brand b{color:var(--gold-2)}
+  .top-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+  .who{font-size:13px;color:var(--muted)}
+  .who b{color:var(--txt)}
+  .toplink{display:inline-flex;align-items:center;min-height:44px;font-size:13px;font-weight:600;color:var(--gold-2);
+    border:1px solid rgba(201,162,75,.45);border-radius:999px;padding:0 16px;transition:.15s}
+  .toplink:hover{background:rgba(201,162,75,.12)}
+
+  /* ---- Hero ---- */
+  .hero{padding:50px 0 30px}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .hero h1{font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.5px}
+  .hero h1 .sub{display:block;font-size:18px;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:12px;max-width:64ch}
+  .meta-row{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px}
+  .meta-row .item{font-size:13px;color:var(--muted)}
+  .meta-row .item span{display:block;color:var(--txt);font-size:15px;font-weight:600;margin-top:2px}
+  .overview-card{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:28px;
+    padding:18px 22px;border:1px solid rgba(201,162,75,.4);border-radius:14px;background:linear-gradient(180deg,rgba(201,162,75,.10),var(--card-2));transition:.15s}
+  .overview-card:hover{border-color:var(--gold)}
+  .overview-card b{display:block;font-size:15.5px;color:var(--gold-2)}
+  .overview-card span{font-size:13.5px;color:var(--muted)}
+  .overview-card .go{font-weight:700;color:var(--gold-2);white-space:nowrap}
+  .how{margin-top:22px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  .how div{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--bg-2);font-size:13.5px;color:var(--muted);line-height:1.55}
+  .how b{display:block;color:var(--txt);font-size:14px;margin-bottom:3px}
+
+  /* ---- Script index (tile map) ---- */
+  .map-sec{padding:26px 0 6px;border-top:1px solid var(--line)}
+  .map-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+  .map-head h2{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12px;color:var(--muted-2)}
+  .legend i{display:inline-block;vertical-align:middle;margin-right:6px}
+  .lg-n{min-width:16px;height:16px;border-radius:999px;background:var(--gold-2)}
+  .lg-ok{width:9px;height:9px;border-radius:50%;background:var(--green)}
+  .idx-groups{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;min-width:0;max-width:100%}
+  .idx-group{min-width:0;max-width:100%}
+  .idx-head{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .idx-head span{color:var(--muted-2);margin-left:6px}
+  .idx{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;min-width:0;max-width:100%}
+  .itile{position:relative;display:flex;flex-direction:column;gap:3px;min-height:92px;padding:12px 10px 10px;border:1px solid var(--line);
+    border-radius:10px;background:linear-gradient(180deg,var(--card),var(--card-2));transition:.15s}
+  .itile:hover{border-color:var(--gold)}
+  .itile b{font-size:13px;color:var(--gold-2);letter-spacing:.5px}
+  .itile .it{font-size:12.5px;line-height:1.3;color:var(--txt)}
+  .itile small{margin-top:auto;font-size:11px;color:var(--muted-2)}
+  .itile .badges{position:absolute;top:6px;right:6px;display:flex;gap:3px}
+  .itile .ok{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 0 2px rgba(10,10,12,.7)}
+  .itile .n{min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:var(--gold-2);color:#1a1407;font-size:10px;font-weight:700;
+    display:flex;align-items:center;justify-content:center}
+
+  /* ---- Tabs ---- */
+  .rounds-bar{padding:6px 0 2px}
+  .round-tabs{display:flex;gap:10px;flex-wrap:wrap;padding-top:22px}
+  .round-tab{appearance:none;cursor:pointer;font:inherit;color:var(--muted);background:var(--card);border:1px solid var(--line);
+    border-radius:999px;padding:10px 22px;min-height:48px;font-weight:600;font-size:15px;display:flex;align-items:baseline;gap:10px;
+    transition:border-color .15s,color .15s,background .15s}
+  .round-tab span{font-weight:400;font-size:13px;color:var(--muted-2)}
+  .round-tab:hover{color:var(--txt);border-color:#3a3a46}
+  .round-tab[aria-selected="true"]{color:#141008;background:var(--gold-2);border-color:var(--gold-2)}
+  .round-tab[aria-selected="true"] span{color:#3a2e14}
+  .round-note{color:var(--muted);font-size:14px;margin:22px 0 0;max-width:62ch}
+  .round[hidden]{display:none}
+
+  /* ---- Script cards ---- */
+  .sp{padding:46px 0 50px;border-top:1px solid var(--line);scroll-margin-top:84px}
+  .round-note + .sp{border-top:none;padding-top:26px}
+  .sp-eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+  .block-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+  .block-head h3{font-size:22px;font-weight:700;letter-spacing:-.2px}
+  .concept{font-size:11px;letter-spacing:1.2px;text-transform:uppercase;color:var(--gold-2);border:1px dashed rgba(201,162,75,.5);border-radius:999px;padding:4px 10px}
+  .stage{display:inline-block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    border-radius:999px;padding:5px 12px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+  .stage.live{color:var(--green);border-color:rgba(78,201,138,.4);background:rgba(78,201,138,.07)}
+  .stage.ok{color:#07130c;border-color:var(--green);background:var(--green)}
+  .facts{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-bottom:12px}
+  .facts div{font-size:14px;color:var(--txt);border:1px solid var(--line);border-radius:12px;padding:12px 16px;background:var(--bg-2)}
+  .facts span{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:3px}
+  .why{font-size:14px;color:var(--muted);max-width:76ch;margin-bottom:18px}
+  .why b{color:var(--txt);font-weight:600}
+
+  .sheet{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .sheet-head,.beat{display:grid;grid-template-columns:1.05fr 1fr}
+  .sheet-head div{padding:12px 20px;background:var(--bg-2);color:var(--muted);font-size:11px;letter-spacing:1.5px;text-transform:uppercase}
+  .beat{border-top:1px solid var(--line)}
+  .beat > div{padding:16px 20px}
+  .say{font-size:16px;line-height:1.6;color:var(--txt);background:linear-gradient(180deg,var(--card),var(--card-2))}
+  .beat-label{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:4px;font-weight:600}
+  .see{font-size:13.5px;line-height:1.6;color:var(--muted);border-left:1px solid var(--line);background:var(--bg-2)}
+  .see .roll{font-size:10.5px;letter-spacing:1.2px;color:var(--gold-2);font-weight:700}
+  .cta-beat .say{background:linear-gradient(180deg,rgba(201,162,75,.10),var(--card-2))}
+  .cta-line{margin-top:14px;font-size:15px;color:var(--txt);border:1px solid var(--line);border-left:3px solid var(--gold);
+    border-radius:12px;padding:13px 18px;background:rgba(201,162,75,.05)}
+  .cta-line span{display:block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  .confirm{margin-top:14px;border:1px solid var(--line);border-radius:12px;padding:14px 18px;background:var(--bg-2)}
+  .confirm-title{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold-2);margin-bottom:8px;font-weight:600}
+  .confirm ul{padding-left:18px;color:var(--muted);font-size:14px;line-height:1.6}
+  .confirm li+li{margin-top:4px}
+
+  /* ---- Review panel ---- */
+  .rv{margin-top:22px;background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+  .rv-head{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+  .rv-title{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .rv-approvals{display:flex;gap:8px;flex-wrap:wrap}
+  .chip{font-size:12px;border-radius:999px;padding:4px 11px;border:1px solid rgba(78,201,138,.4);color:var(--green);background:rgba(78,201,138,.07)}
+  .chip.old{border-color:var(--line);color:var(--muted-2);background:transparent}
+  .notes{list-style:none;display:flex;flex-direction:column;gap:10px;margin-bottom:14px}
+  .notes:empty{display:none}
+  .note{border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:10px;padding:12px 15px;background:var(--bg-2)}
+  .note.stale{border-left-color:var(--muted-2)}
+  .note-top{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;font-size:12.5px;color:var(--muted)}
+  .note-top b{color:var(--txt);font-weight:600;font-size:13.5px}
+  .note-top .ver{color:var(--muted-2)}
+  .note-top .acts{margin-left:auto;display:flex;gap:4px}
+  .note-top .acts button{background:none;border:none;color:var(--gold-2);font:inherit;font-size:12.5px;cursor:pointer;padding:6px 8px;border-radius:6px}
+  .note-top .acts button:hover{background:rgba(201,162,75,.1)}
+  .note-text{margin-top:6px;font-size:14.5px;line-height:1.62;white-space:pre-wrap;overflow-wrap:anywhere}
+  .rv textarea{width:100%;min-height:96px;resize:vertical;background:#0c0c10;border:1px solid var(--line);border-radius:12px;color:var(--txt);
+    font-family:inherit;font-size:14.5px;line-height:1.6;padding:13px 15px}
+  .rv textarea:focus{outline:none;border-color:rgba(201,162,75,.55);box-shadow:0 0 0 3px rgba(201,162,75,.12)}
+  .rv textarea::placeholder{color:var(--muted-2)}
+  .rv-actions{display:flex;gap:14px;flex-wrap:wrap;align-items:center;margin-top:14px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:0 22px;border-radius:999px;font-weight:700;
+    font-size:14.5px;font-family:inherit;cursor:pointer;border:none;transition:.15s}
+  .btn.primary{background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+  .btn.ghost:hover{border-color:var(--gold)}
+  .btn[disabled]{opacity:.5;cursor:default;filter:none}
+  .approve{display:inline-flex;align-items:center;gap:10px;min-height:44px;padding:0 16px;border:1px solid var(--line);border-radius:999px;
+    font-size:14px;color:var(--txt);cursor:pointer;user-select:none}
+  .approve:hover{border-color:rgba(78,201,138,.5)}
+  .approve input{width:18px;height:18px;accent-color:var(--green);cursor:pointer}
+  .approve.on{border-color:rgba(78,201,138,.55);background:rgba(78,201,138,.08);color:var(--green)}
+  .rv-status{font-size:12.5px;color:var(--muted-2)}
+  .rv-status.ok{color:var(--green)}
+  .rv-status.err{color:var(--red)}
+
+  /* ---- Send footer ---- */
+  .send-sec{padding:10px 0 30px}
+  .send{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:30px;text-align:center}
+  .send h2{font-size:22px;font-weight:800;letter-spacing:-.2px}
+  .send p{color:var(--muted);margin:10px auto 20px;max-width:56ch;font-size:14.5px}
+  .send .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  .sync{font-size:12.5px;color:var(--muted-2);margin-top:12px}
+  .sync.err{color:var(--red)}
+  .send .back-to{display:inline-flex;align-items:center;min-height:44px;padding:0 6px;margin-top:10px;font-size:13.5px;color:var(--gold-2)}
+  footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;color:var(--muted-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  @media(max-width:900px){
+    .idx-groups{grid-template-columns:minmax(0,1fr)}
+  }
+  @media(max-width:780px){
+    .wrap{padding:0 16px}
+    .hero h1{font-size:30px}
+    .meta-row{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+    .how{grid-template-columns:1fr}
+    .idx{display:flex;width:100%;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;padding-bottom:6px;scroll-snap-type:x proximity}
+    .itile{flex:0 0 120px;scroll-snap-align:start}
+    .facts{grid-template-columns:1fr}
+    .sheet-head{display:none}
+    .beat{grid-template-columns:1fr}
+    .see{border-left:none;border-top:1px dashed var(--line)}
+    .see::before{content:"Visuals";display:block;font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted-2);margin-bottom:4px}
+    .rv{padding:18px}
+    .sp{padding:36px 0 40px}
+  }
+  @media(max-width:520px){
+    .who{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Avatar<b>Agency</b></div>
+    <div class="top-right">
+      <span class="who">Reviewing as <b>Andre</b></span>
+      <a class="toplink" href="/clients/aneidich/overview/">Project overview &rarr;</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Client Account &middot; Pothole Heroes &middot; Campaigns</div>
+    <h1>Your video scripts
+      <span class="sub">Andre, here are ten scripts for your avatar videos: five for property owners and managers, and five for recruiting. Read each one, leave your comments or edits underneath, and tick the box when a script is approved.</span>
+    </h1>
+    <div class="meta-row">
+      <div class="item">Scripts<span>10 &middot; ready for your review</span></div>
+      <div class="item">Audiences<span>Property owners &middot; Recruiting</span></div>
+      <div class="item">Length<span>About 31 to 39 seconds each</span></div>
+      <div class="item">Prepared<span>November 23, 2026</span></div>
+    </div>
+    <div class="how">
+      <div><b>A-roll</b>Your avatar on camera, speaking the script. This is the main footage.</div>
+      <div><b>B-roll</b>Supporting footage that cuts in around you: the trucks, the crews, the work.</div>
+      <div><b>Every video ends the same way</b>&ldquo;Tap the link for more information.&rdquo;</div>
+    </div>
+    <a class="overview-card" href="/clients/aneidich/overview/">
+      <div><b>Project overview</b><span>Your Test Run, project status, your videos and what you own.</span></div>
+      <span class="go">Open &rarr;</span>
+    </a>
+  </div>
+</div>
+
+<!-- ============ SCRIPT INDEX ============ -->
+<section class="map-sec">
+  <div class="wrap">
+    <div class="map-head">
+      <h2>All ten scripts</h2>
+      <div class="legend">
+        <span><i class="lg-n"></i>Comments</span>
+        <span><i class="lg-ok"></i>Approved</span>
+      </div>
+    </div>
+    <div class="idx-groups">
+<div class="idx-group"><div class="idx-head">Property Owners &amp; Managers <span>P1&ndash;P5</span></div><div class="idx">
+<a class="itile" href="#p1" data-tile="p1" data-goto="owners"><span class="badges"></span><b>P1</b><span class="it">Twenty Minutes</span><small>34 sec</small></a>
+<a class="itile" href="#p2" data-tile="p2" data-goto="owners"><span class="badges"></span><b>P2</b><span class="it">One Call, Every Lot</span><small>34 sec</small></a>
+<a class="itile" href="#p3" data-tile="p3" data-goto="owners"><span class="badges"></span><b>P3</b><span class="it">The Seam</span><small>38 sec</small></a>
+<a class="itile" href="#p4" data-tile="p4" data-goto="owners"><span class="badges"></span><b>P4</b><span class="it">The Pothole Hero</span><small>31 sec</small></a>
+<a class="itile" href="#p5" data-tile="p5" data-goto="owners"><span class="badges"></span><b>P5</b><span class="it">Don&#x27;t Wait for Spring</span><small>34 sec</small></a>
+</div></div>
+<div class="idx-group"><div class="idx-head">Recruiting &middot; Operators <span>R1&ndash;R5</span></div><div class="idx">
+<a class="itile" href="#r1" data-tile="r1" data-goto="recruiting"><span class="badges"></span><b>R1</b><span class="it">You Bring the Drive</span><small>35 sec</small></a>
+<a class="itile" href="#r2" data-tile="r2" data-goto="recruiting"><span class="badges"></span><b>R2</b><span class="it">Three to Fifty-Five</span><small>32 sec</small></a>
+<a class="itile" href="#r3" data-tile="r3" data-goto="recruiting"><span class="badges"></span><b>R3</b><span class="it">Heroes Wanted</span><small>32 sec</small></a>
+<a class="itile" href="#r4" data-tile="r4" data-goto="recruiting"><span class="badges"></span><b>R4</b><span class="it">Good News and Bad News</span><small>37 sec</small></a>
+<a class="itile" href="#r5" data-tile="r5" data-goto="recruiting"><span class="badges"></span><b>R5</b><span class="it">West of Memphis</span><small>39 sec</small></a>
+</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TABS ============ -->
+<section class="rounds-bar">
+  <div class="wrap">
+    <div class="round-tabs" role="tablist" aria-label="Script groups">
+      <button type="button" role="tab" class="round-tab" id="tab-owners" aria-controls="tab-owners-panel" aria-selected="true" data-round-tab="owners">Property Owners &amp; Managers<span>P1&ndash;P5</span></button>
+      <button type="button" role="tab" class="round-tab" id="tab-recruiting" aria-controls="tab-recruiting-panel" aria-selected="false" data-round-tab="recruiting">Recruiting &middot; Operators<span>R1&ndash;R5</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SCRIPTS ============
+     Each script: data-id = review key (never rename once comments exist), data-v = version shown.
+     A revised script = bump data-v (v2, ...); earlier comments and approvals then show as "on Version 1". -->
+<div class="round" id="tab-owners-panel" data-round="owners" role="tabpanel" aria-labelledby="tab-owners">
+<section class="book-sec">
+  <div class="wrap">
+    <p class="round-note">Scripts for shopping-center owners, property managers and multi-site accounts.</p>
+    <article class="sp script" id="p1" data-id="p1" data-v="v1" data-vname="" data-label="script P1">
+      <div class="sp-eyebrow">Script P1</div>
+      <div class="block-head">
+        <h3>P1 &middot; Twenty Minutes</h3>
+        <span class="stage live" data-stage>Ready for your review</span>
+      </div>
+      <div class="facts">
+        <div><span>Audience</span>Single-site owners and managers: shopping centers, offices, churches, HOAs</div>
+        <div><span>Length</span>86 words &middot; about 34 seconds</div>
+      </div>
+      <p class="why"><b>Why it works:</b> Opens on the finished shot and the audience callout, then pays it off with the process footage that earns the most views in this niche.</p>
+      <div class="sheet">
+        <div class="sheet-head"><div>Script &middot; spoken by your avatar (A-roll)</div><div>Visuals &middot; A-roll and B-roll</div></div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Hook</span>Property owners: see that pothole by your entrance? Give my crew twenty minutes.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre&#x27;s avatar in a parking lot, the wrapped Pothole Heroes truck behind him. He points off camera. Quick cut to the pothole, then to the same spot finished and smooth. On-screen timer: 20:00.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">How</span>Here&#x27;s how. We don&#x27;t cut it out and haul it away. We heat the asphalt that&#x27;s already there, rework it, add fresh mix and compact it.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> infrared heater lowering over the pothole and glowing. Rake working the softened asphalt. Fresh mix added. Plate compactor finishing. Timer runs in the corner. Andre in a small picture-in-picture.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Objection</span>No saw. No dump trucks blocking your lot. (No angry tenants.)</div>
+          <div class="see"><b class="roll">B-ROLL:</b> wide shot of the lot staying open, cars passing the small work zone. <b class="roll">A-ROLL:</b> Andre delivers the aside with a half smile.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Payoff</span>Your customers drive over it the same day.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> a car rolls over the finished patch. Before and after split screen.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Who</span>I&#x27;m Andre Neidich, and this is what we do at Pothole Heroes: patch, seal, stripe, with our own crews.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre, medium shot, truck logo visible. Lower third: Andre Neidich, CEO, Pothole Heroes.</div>
+        </div>
+        <div class="beat cta-beat">
+          <div class="say"><span class="beat-label">Call to action</span>Tap the link for more information. Let&#x27;s fix yours.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre gestures down. End card: Pothole Heroes logo, phone number, link button.</div>
+        </div>
+      </div>
+      <div class="cta-line"><span>Call to action</span>&ldquo;Tap the link for more information. Let&#x27;s fix yours.&rdquo;</div>
+      <div class="confirm"><div class="confirm-title">Please confirm before production</div><ul><li>&quot;Twenty minutes&quot;: the website says most single potholes are repaired in under 20 minutes. Andre to confirm the wording.</li><li>Same-day reopening for a typical repair.</li></ul></div>
+      <div class="rv"></div>
+    </article>
+    <article class="sp script" id="p2" data-id="p2" data-v="v1" data-vname="" data-label="script P2">
+      <div class="sp-eyebrow">Script P2</div>
+      <div class="block-head">
+        <h3>P2 &middot; One Call, Every Lot</h3>
+        <span class="stage live" data-stage>Ready for your review</span>
+      </div>
+      <div class="facts">
+        <div><span>Audience</span>National and regional multi-site accounts: directors of maintenance, facility and asset managers</div>
+        <div><span>Length</span>84 words &middot; about 34 seconds</div>
+      </div>
+      <p class="why"><b>Why it works:</b> Speaks to the portfolio buyer&#x27;s real pain (vendor sprawl) and answers the subcontracting objection that national programs raise.</p>
+      <div class="sheet">
+        <div class="sheet-head"><div>Script &middot; spoken by your avatar (A-roll)</div><div>Visuals &middot; A-roll and B-roll</div></div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Hook</span>If you manage forty parking lots, you don&#x27;t need forty paving contractors.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> map of the Southeast and Ohio Valley filling with location pins. <b class="roll">A-ROLL:</b> Andre steps into frame in front of the map.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Promise</span>You need one. One contact and one standard, whether the lot is in Tampa, Atlanta, Charlotte or Cincinnati.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre in an office setting. <b class="roll">B-ROLL:</b> city names animate on as he says them, each over a still of a finished lot.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Objection</span>I know what you&#x27;re thinking: they&#x27;ll just sub it out. We don&#x27;t. Our own crews, our own trucks, our own process.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> three quick shots, one per phrase: a uniformed crew, the custom wrapped truck, a crew lead with a checklist.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Proof</span>You see before and after photos of the work, without leaving your desk.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> a laptop screen showing before and after photos of a repair. <b class="roll">A-ROLL:</b> Andre in picture-in-picture.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Who</span>I&#x27;m Andre Neidich with Pothole Heroes. We built this company for portfolios like yours.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre, medium shot. Lower third with name and title.</div>
+        </div>
+        <div class="beat cta-beat">
+          <div class="say"><span class="beat-label">Call to action</span>Tap the link for more information.</div>
+          <div class="see">End card: Pothole Heroes logo, &quot;Multi-site programs&quot;, link button.</div>
+        </div>
+      </div>
+      <div class="cta-line"><span>Call to action</span>&ldquo;Tap the link for more information.&rdquo;</div>
+      <div class="confirm"><div class="confirm-title">Please confirm before production</div><ul><li>The markets named, and that all are served by Pothole Heroes crews.</li><li>&quot;We don&#x27;t sub it out&quot;: confirm this holds for every service and market.</li><li>Before and after photo reporting: confirm it is standard on every job.</li></ul></div>
+      <div class="rv"></div>
+    </article>
+    <article class="sp script" id="p3" data-id="p3" data-v="v1" data-vname="" data-label="script P3">
+      <div class="sp-eyebrow">Script P3</div>
+      <div class="block-head">
+        <h3>P3 &middot; The Seam</h3>
+        <span class="stage live" data-stage>Ready for your review</span>
+      </div>
+      <div class="facts">
+        <div><span>Audience</span>Property managers who have paid for the same repair twice</div>
+        <div><span>Length</span>96 words &middot; about 38 seconds</div>
+      </div>
+      <p class="why"><b>Why it works:</b> A contrarian teaching hook. It names a failure the viewer has seen and explains it in one picture.</p>
+      <div class="sheet">
+        <div class="sheet-head"><div>Script &middot; spoken by your avatar (A-roll)</div><div>Visuals &middot; A-roll and B-roll</div></div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Hook</span>Property managers: your last pothole patch didn&#x27;t fail in the middle. It failed at the edge.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> close-up of an old square patch with cracked, open edges. <b class="roll">A-ROLL:</b> Andre crouched beside it, pointing at the seam.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Why</span>Here&#x27;s why. A traditional patch gets cut out with a saw. That leaves four seams, and every seam is a door for water.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> simple animated diagram. A square patch, four edges highlighted in gold, water droplets entering each one.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Cost</span>Water gets in, the patch loosens, and you pay for the same hole twice.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> time-lapse style shot of the patch edges breaking down. <b class="roll">A-ROLL:</b> Andre shakes his head.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Answer</span>Infrared is different. We heat the old asphalt and the new into one piece. No seam. No door.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> infrared heater glowing, then the finished patch blending into the surrounding surface with no visible edge.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Bonus</span>It&#x27;s also the greener way, because we recycle your asphalt right on site.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> softened asphalt being reworked in place. Small recycling icon. No dump truck in sight.</div>
+        </div>
+        <div class="beat cta-beat">
+          <div class="say"><span class="beat-label">Who and call to action</span>I&#x27;m Andre Neidich with Pothole Heroes. Tap the link for more information.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre standing on the finished patch. End card with logo and link button.</div>
+        </div>
+      </div>
+      <div class="cta-line"><span>Call to action</span>&ldquo;I&#x27;m Andre Neidich with Pothole Heroes. Tap the link for more information.&rdquo;</div>
+      <div class="confirm"><div class="confirm-title">Please confirm before production</div><ul><li>The &quot;four seams&quot; explanation is on the website. Andre to confirm he is comfortable comparing methods this directly.</li><li>Infrared suits surface defects over a sound base. We avoid calling it a fix for every pothole.</li></ul></div>
+      <div class="rv"></div>
+    </article>
+    <article class="sp script" id="p4" data-id="p4" data-v="v1" data-vname="" data-label="script P4">
+      <div class="sp-eyebrow">Script P4</div>
+      <div class="block-head">
+        <h3>P4 &middot; The Pothole Hero</h3><span class="concept">Superhero concept</span>
+        <span class="stage live" data-stage>Ready for your review</span>
+      </div>
+      <div class="facts">
+        <div><span>Audience</span>Owners and managers with an urgent repair. Built for reach on Reels, Shorts and Facebook</div>
+        <div><span>Length</span>77 words &middot; about 31 seconds</div>
+      </div>
+      <p class="why"><b>Why it works:</b> Plays on the company name. Humor and a strong visual make it the most shareable of the set, and it still lands the 24-hour response claim.</p>
+      <div class="sheet">
+        <div class="sheet-head"><div>Script &middot; spoken by your avatar (A-roll)</div><div>Visuals &middot; A-roll and B-roll</div></div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Hook</span>Every parking lot has a villain.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> cinematic, moody night shot of a rain-filled pothole under a street light. Low rumble of music. A tire drops into it.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The villain</span>It shows up overnight. It eats tires. It scares off customers. (It does not pay rent.)</div>
+          <div class="see"><b class="roll">B-ROLL:</b> three fast cuts, one per line: the pothole at dawn, a hubcap rolling away, a shopper steering around it. Comic-style caption cards.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The hero</span>Good news. You know a guy.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> hero reveal. Andre&#x27;s avatar in an original Pothole Heroes hero look: safety-orange cape over his real work gear, company logo on the chest, the wrapped truck behind him with its lights on. Slow push in.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The promise</span>I&#x27;m Andre Neidich, and my team at Pothole Heroes answers the call day or night. We can have a crew assess your lot within twenty-four hours.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> the truck pulling out at sunrise, crew stepping out, infrared heater lowering onto the pothole. On-screen: 24 hours.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The turn</span>No cape required. Just an infrared heater and people who show up.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> the cape is gone. Andre in his everyday hi-vis vest beside the crew, the pothole repaired behind them.</div>
+        </div>
+        <div class="beat cta-beat">
+          <div class="say"><span class="beat-label">Call to action</span>Tap the link for more information. We&#x27;ll take it from here.</div>
+          <div class="see">End card: Pothole Heroes logo in a comic-style burst, phone number, link button.</div>
+        </div>
+      </div>
+      <div class="cta-line"><span>Call to action</span>&ldquo;Tap the link for more information. We&#x27;ll take it from here.&rdquo;</div>
+      <div class="confirm"><div class="confirm-title">Please confirm before production</div><ul><li>Response wording: the website says a team can be dispatched to assess and address high priorities within 24 hours, with contact 24/7.</li><li>Andre is comfortable appearing in a hero costume. The look is an original design and borrows nothing from any existing superhero character.</li></ul></div>
+      <div class="rv"></div>
+    </article>
+    <article class="sp script" id="p5" data-id="p5" data-v="v1" data-vname="" data-label="script P5">
+      <div class="sp-eyebrow">Script P5</div>
+      <div class="block-head">
+        <h3>P5 &middot; Don&#x27;t Wait for Spring</h3>
+        <span class="stage live" data-stage>Ready for your review</span>
+      </div>
+      <div class="facts">
+        <div><span>Audience</span>Property managers in Ohio, Kentucky, Indiana and the Carolinas, heading into winter</div>
+        <div><span>Length</span>84 words &middot; about 34 seconds</div>
+      </div>
+      <p class="why"><b>Why it works:</b> Timely for December and January, contrarian, and it supports the Cincinnati expansion. Run it with geo-targeted captions.</p>
+      <div class="sheet">
+        <div class="sheet-head"><div>Script &middot; spoken by your avatar (A-roll)</div><div>Visuals &middot; A-roll and B-roll</div></div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Hook</span>Property managers: somebody told you that pothole has to wait until spring.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre&#x27;s avatar in a winter jacket in a cold, grey parking lot, breath visible. A pothole rimmed with frost in the foreground.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Pivot</span>Here&#x27;s the thing. It doesn&#x27;t.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre, close-up, direct to camera. Beat of silence before the line.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">How</span>Traditional patching needs warm weather. Infrared brings its own. We heat the whole repair area, so the patch bonds even when it&#x27;s cold out.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> infrared heater glowing orange against a cold blue scene. Steam rising. Thermometer graphic showing the surface warming.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Stakes</span>That matters, because winter is when potholes grow. Water gets in and freezes, and a small hole in December is a big one by March.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> animated sequence of water freezing and widening a crack. Calendar pages flip from December to March as the hole grows.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Who</span>I&#x27;m Andre Neidich with Pothole Heroes. Fix it now, while it&#x27;s small.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre beside a finished repair, light snow on the ground around it.</div>
+        </div>
+        <div class="beat cta-beat">
+          <div class="say"><span class="beat-label">Call to action</span>Tap the link for more information.</div>
+          <div class="see">End card: Pothole Heroes logo, &quot;Winter repairs&quot;, link button.</div>
+        </div>
+      </div>
+      <div class="cta-line"><span>Call to action</span>&ldquo;Tap the link for more information.&rdquo;</div>
+      <div class="confirm"><div class="confirm-title">Please confirm before production</div><ul><li>Cold-weather repairs: the website says infrared repairs can be completed in cold weather. Andre to confirm any temperature or weather limits.</li></ul></div>
+      <div class="rv"></div>
+    </article>
+  </div>
+</section>
+</div>
+<div class="round" id="tab-recruiting-panel" data-round="recruiting" role="tabpanel" aria-labelledby="tab-recruiting" hidden>
+<section class="book-sec">
+  <div class="wrap">
+    <p class="round-note">Scripts for people who want to run or join a Pothole Heroes location.</p>
+    <article class="sp script" id="r1" data-id="r1" data-v="v1" data-vname="" data-label="script R1">
+      <div class="sp-eyebrow">Script R1</div>
+      <div class="block-head">
+        <h3>R1 &middot; You Bring the Drive</h3>
+        <span class="stage live" data-stage>Ready for your review</span>
+      </div>
+      <div class="facts">
+        <div><span>Audience</span>Entrepreneurial operators who want to run a market without the capital risk</div>
+        <div><span>Length</span>87 words &middot; about 35 seconds</div>
+      </div>
+      <p class="why"><b>Why it works:</b> Leads with the single most unusual thing about the company: the operator model Andre described on our call.</p>
+      <div class="sheet">
+        <div class="sheet-head"><div>Script &middot; spoken by your avatar (A-roll)</div><div>Visuals &middot; A-roll and B-roll</div></div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Hook</span>Operators: what if you could run a market without writing the check?</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre&#x27;s avatar in the office, leaning on a desk. B-ROLL flash: a set of truck keys sliding across a table.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Contrast</span>Most ways to run your own shop start with a loan, a lease and a prayer.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> three quick visual beats: a loan form, a &quot;For Lease&quot; sign, hands clasped. Light, humorous tone.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The model</span>Ours starts with a salary. We buy the trucks. We rent the location. We hire the crew, run payroll and bring the marketing.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> one shot per line: the custom truck, a shop bay door opening, a crew in uniform, a laptop with a schedule. Checkmarks appear on screen.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Your part</span>You come train with us, learn the process and lead your market.</div>
+          <div class="see"><b class="roll">A-ROLL and B-ROLL:</b> Andre walking a trainee around the truck, pointing out the infrared unit.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Who</span>I&#x27;m Andre Neidich, CEO of Pothole Heroes. I&#x27;m looking for a few people who&#x27;d rather build than borrow.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre, medium shot, direct to camera. Lower third.</div>
+        </div>
+        <div class="beat cta-beat">
+          <div class="say"><span class="beat-label">Call to action</span>Tap the link for more information.</div>
+          <div class="see">End card: &quot;Run a Pothole Heroes location&quot;, link button.</div>
+        </div>
+      </div>
+      <div class="cta-line"><span>Call to action</span>&ldquo;Tap the link for more information.&rdquo;</div>
+      <div class="confirm"><div class="confirm-title">Please confirm before production</div><ul><li>Every term of the model as stated: salary, equipment, location, crew, payroll, marketing, training.</li><li>No pay or earnings figures are used.</li></ul></div>
+      <div class="rv"></div>
+    </article>
+    <article class="sp script" id="r2" data-id="r2" data-v="v1" data-vname="" data-label="script R2">
+      <div class="sp-eyebrow">Script R2</div>
+      <div class="block-head">
+        <h3>R2 &middot; Three to Fifty-Five</h3>
+        <span class="stage live" data-stage>Ready for your review</span>
+      </div>
+      <div class="facts">
+        <div><span>Audience</span>Ambitious managers, crew leaders and salespeople who want a company that is going somewhere</div>
+        <div><span>Length</span>80 words &middot; about 32 seconds</div>
+      </div>
+      <p class="why"><b>Why it works:</b> A true growth story in Andre&#x27;s voice. Growth is the proof that there is room to move up.</p>
+      <div class="sheet">
+        <div class="sheet-head"><div>Script &middot; spoken by your avatar (A-roll)</div><div>Visuals &middot; A-roll and B-roll</div></div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Hook</span>Five years ago, Pothole Heroes was three people and one idea.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre&#x27;s avatar holding up three fingers. <b class="roll">B-ROLL:</b> an early photo of the first truck, if Andre has one.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The idea</span>The idea: fix asphalt with less equipment, less waste and less disruption.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> a small crew and one truck doing an infrared repair. Three words animate on: Less equipment. Less waste. Less disruption.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Today</span>Fast forward to today: about fifty-five people and six locations.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> map with six pins lighting up one at a time. Team photo. Counter rolling from 3 to 55.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">What it means</span>Here&#x27;s what that means for you. We&#x27;re adding trucks next year, and every truck needs a crew and a leader.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> the newly wrapped truck. A row of trucks. <b class="roll">A-ROLL:</b> Andre in picture-in-picture.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Invitation</span>If you&#x27;re good at what you do and tired of standing still, I want to talk to you.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre, close-up, direct to camera.</div>
+        </div>
+        <div class="beat cta-beat">
+          <div class="say"><span class="beat-label">Who and call to action</span>I&#x27;m Andre Neidich. Tap the link for more information.</div>
+          <div class="see">End card: &quot;Grow with Pothole Heroes&quot;, link button.</div>
+        </div>
+      </div>
+      <div class="cta-line"><span>Call to action</span>&ldquo;I&#x27;m Andre Neidich. Tap the link for more information.&rdquo;</div>
+      <div class="confirm"><div class="confirm-title">Please confirm before production</div><ul><li>The numbers: three people five years ago, about 55 today, six locations.</li><li>Whether Andre wants to mention the plan to add trucks publicly.</li></ul></div>
+      <div class="rv"></div>
+    </article>
+    <article class="sp script" id="r3" data-id="r3" data-v="v1" data-vname="" data-label="script R3">
+      <div class="sp-eyebrow">Script R3</div>
+      <div class="block-head">
+        <h3>R3 &middot; Heroes Wanted</h3><span class="concept">Superhero concept</span>
+        <span class="stage live" data-stage>Ready for your review</span>
+      </div>
+      <div class="facts">
+        <div><span>Audience</span>Crew members and technicians. Built for Facebook, Instagram, TikTok and Shorts</div>
+        <div><span>Length</span>79 words &middot; about 32 seconds</div>
+      </div>
+      <p class="why"><b>Why it works:</b> The recruiting twin of The Pothole Hero. Research on trades recruiting favors showing the real work and the real crew over a polished job ad.</p>
+      <div class="sheet">
+        <div class="sheet-head"><div>Script &middot; spoken by your avatar (A-roll)</div><div>Visuals &middot; A-roll and B-roll</div></div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Hook</span>Not all heroes wear capes. Ours wear hi-vis.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre&#x27;s avatar in the hero cape from The Pothole Hero. He steps aside to reveal a real-looking crew in hi-vis vests beside the truck.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The job</span>Here&#x27;s the job. You roll up in a truck built just for us. You heat it, rake it, roll it. Twenty minutes later, the pothole&#x27;s gone.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> day-in-the-life sequence. Truck arriving, heater lowering, rake, compactor, finished patch. Fast, rhythmic cuts on each verb.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The reward</span>You see what you fixed before lunch. (Try getting that from a spreadsheet.)</div>
+          <div class="see"><b class="roll">B-ROLL:</b> crew member looking at the finished repair, fist bump with a teammate. <b class="roll">A-ROLL:</b> Andre delivers the aside.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The deal</span>We train you. We equip you. And we&#x27;re growing, so there&#x27;s room to grow with us.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> a trainer showing a new hire the controls. New gear being handed over. Map pins appearing.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Who</span>I&#x27;m Andre Neidich, and I&#x27;m hiring heroes at Pothole Heroes.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre with the crew, cape handed to a crew member as a joke.</div>
+        </div>
+        <div class="beat cta-beat">
+          <div class="say"><span class="beat-label">Call to action</span>Tap the link for more information.</div>
+          <div class="see">End card: &quot;Heroes wanted&quot; in a comic-style burst, link button.</div>
+        </div>
+      </div>
+      <div class="cta-line"><span>Call to action</span>&ldquo;Tap the link for more information.&rdquo;</div>
+      <div class="confirm"><div class="confirm-title">Please confirm before production</div><ul><li>Current open roles and locations, so the link goes to real openings.</li><li>&quot;Twenty minutes&quot; and &quot;a truck built just for us&quot;.</li><li>No promise of promotion is made. &quot;Room to grow&quot; should match how Andre really promotes.</li></ul></div>
+      <div class="rv"></div>
+    </article>
+    <article class="sp script" id="r4" data-id="r4" data-v="v1" data-vname="" data-label="script R4">
+      <div class="sp-eyebrow">Script R4</div>
+      <div class="block-head">
+        <h3>R4 &middot; Good News and Bad News</h3>
+        <span class="stage live" data-stage>Ready for your review</span>
+      </div>
+      <div class="facts">
+        <div><span>Audience</span>Experienced paving and asphalt people who are frustrated with how the industry works</div>
+        <div><span>Length</span>93 words &middot; about 37 seconds</div>
+      </div>
+      <p class="why"><b>Why it works:</b> Uses Andre&#x27;s own line from our call. A challenge hook that flatters the viewer&#x27;s experience while setting the company apart.</p>
+      <div class="sheet">
+        <div class="sheet-head"><div>Script &middot; spoken by your avatar (A-roll)</div><div>Visuals &middot; A-roll and B-roll</div></div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Hook</span>Paving pros: if you come from this industry, I&#x27;ve got good news and bad news.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre&#x27;s avatar on a job site, arms crossed, slight grin.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Good news</span>The good news: you already know asphalt.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> experienced hands working a rake across hot asphalt.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Bad news</span>The bad news: we don&#x27;t do it the way you were taught. Smaller crews. Less equipment. We restore the asphalt on site instead of hauling it away.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> split screen. Left: a big traditional crew with saws and dump trucks. Right: a two-person Pothole Heroes crew with one truck and the infrared unit.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The system</span>And we run on a process. Same steps, same standard, at every location.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> crew lead with a tablet checklist. The same finished-patch shot repeated across three different cities.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Invitation</span>If you&#x27;ve ever thought there has to be a better way to do this, there is. Come learn it.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre, direct to camera, walking toward the lens.</div>
+        </div>
+        <div class="beat cta-beat">
+          <div class="say"><span class="beat-label">Who and call to action</span>I&#x27;m Andre Neidich with Pothole Heroes. Tap the link for more information.</div>
+          <div class="see">End card: &quot;Experienced? Come do it differently.&quot;, link button.</div>
+        </div>
+      </div>
+      <div class="cta-line"><span>Call to action</span>&ldquo;I&#x27;m Andre Neidich with Pothole Heroes. Tap the link for more information.&rdquo;</div>
+      <div class="confirm"><div class="confirm-title">Please confirm before production</div><ul><li>Crew size and equipment claims.</li><li>Andre is comfortable contrasting his method with the rest of the industry on camera.</li></ul></div>
+      <div class="rv"></div>
+    </article>
+    <article class="sp script" id="r5" data-id="r5" data-v="v1" data-vname="" data-label="script R5">
+      <div class="sp-eyebrow">Script R5</div>
+      <div class="block-head">
+        <h3>R5 &middot; West of Memphis</h3>
+        <span class="stage live" data-stage>Ready for your review</span>
+      </div>
+      <div class="facts">
+        <div><span>Audience</span>Would-be operators in markets Pothole Heroes has not reached yet</div>
+        <div><span>Length</span>98 words &middot; about 39 seconds</div>
+      </div>
+      <p class="why"><b>Why it works:</b> A true story from Andre, told with humor. It turns demand he cannot serve yet into a waiting list.</p>
+      <div class="sheet">
+        <div class="sheet-head"><div>Script &middot; spoken by your avatar (A-roll)</div><div>Visuals &middot; A-roll and B-roll</div></div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Hook</span>About twice a month, someone calls me and asks: when is Pothole Heroes coming to my city?</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre&#x27;s avatar at his desk, phone in hand, mid-call. He looks up at the camera.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">The asks</span>Las Vegas. Los Angeles. I love the enthusiasm.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> map of the US. Pins drop far out west and pulse. Postcard-style city stills.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Honesty</span>Real talk: right now I can&#x27;t go west of Memphis. (If I can&#x27;t reach you on a short flight, I can&#x27;t support you properly.)</div>
+          <div class="see"><b class="roll">B-ROLL:</b> a line draws down the map at Memphis. <b class="roll">A-ROLL:</b> Andre shrugs, hands open.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Principle</span>We open a new location only when the last one is running right. That&#x27;s how the quality stays the same everywhere.</div>
+          <div class="see"><b class="roll">B-ROLL:</b> the six current locations glowing on the map, one after another. A crew finishing a clean repair.</div>
+        </div>
+        <div class="beat">
+          <div class="say"><span class="beat-label">Invitation</span>But I&#x27;m building the list now. If you want to run a location in your market, get on it.</div>
+          <div class="see"><b class="roll">A-ROLL:</b> Andre points to the camera. On-screen: a sign-up form filling in.</div>
+        </div>
+        <div class="beat cta-beat">
+          <div class="say"><span class="beat-label">Who and call to action</span>I&#x27;m Andre Neidich. Tap the link for more information.</div>
+          <div class="see">End card: &quot;Bring Pothole Heroes to your city&quot;, link button.</div>
+        </div>
+      </div>
+      <div class="cta-line"><span>Call to action</span>&ldquo;I&#x27;m Andre Neidich. Tap the link for more information.&rdquo;</div>
+      <div class="confirm"><div class="confirm-title">Please confirm before production</div><ul><li>Andre is happy to tell this story publicly, including the cities named.</li><li>A real sign-up page or form must exist before this runs.</li></ul></div>
+      <div class="rv"></div>
+    </article>
+  </div>
+</section>
+</div>
+
+<section class="send-sec">
+  <div class="wrap">
+    <div class="send">
+      <h2>Send us your comments</h2>
+      <p>Your comments save as you go, and we see them right away. If you&rsquo;d also like to email them to Michael, use the button below.</p>
+      <div class="btns">
+        <button class="btn primary" type="button" id="emailAll">Email all comments to Michael</button>
+        <button class="btn ghost" type="button" id="copyAll">Copy all comments</button>
+      </div>
+      <div class="sync" id="sync" role="status" aria-live="polite">Loading comments&hellip;</div>
+      <a class="back-to" href="/clients/aneidich/overview/">Go to your project overview &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; 2026 AvatarAgency.ai &middot; Woodland Hills, California &middot; Prepared for Andre Neidich</div>
+    <div>Private client portal &mdash; please do not share this link.</div>
+  </div>
+</footer>
+
+<script>
+/* Group tabs: owners open by default; a link to a script (#p3, #r2) opens its tab. */
+(function () {
+  var tabs = [].slice.call(document.querySelectorAll("[data-round-tab]"));
+  function show(k, push) {
+    tabs.forEach(function (t) { t.setAttribute("aria-selected", String(t.dataset.roundTab === k)); });
+    [].forEach.call(document.querySelectorAll(".round[data-round]"), function (r) { r.hidden = r.dataset.round !== k; });
+    if (push) { try { history.replaceState(null, "", "#" + k); } catch (e) {} }
+  }
+  tabs.forEach(function (t) { t.addEventListener("click", function () { show(t.dataset.roundTab, true); }); });
+  function fromHash() {
+    var h = decodeURIComponent(location.hash.slice(1)); if (!h) return "owners";
+    if (h === "owners" || h === "recruiting") return h;
+    var el = document.getElementById(h), r = el && el.closest(".round[data-round]");
+    return r ? r.dataset.round : "owners";
+  }
+  show(fromHash(), false);
+  window.addEventListener("hashchange", function () {
+    show(fromHash(), false);
+    var id = location.hash.slice(1), el = document.getElementById(id);
+    if (el && el.classList.contains("sp")) el.scrollIntoView();
+  });
+  /* Index tiles: open the right tab before jumping. */
+  [].forEach.call(document.querySelectorAll("[data-goto]"), function (a) {
+    a.addEventListener("click", function () { show(a.dataset.goto, false); });
+  });
+})();
+</script>
+<script>
+/* Shared comments + approvals for every script, stored by /api/review (KV).
+   State: { name, updatedAt, items: { "<data-id>": { notes:[{id,name,text,at,v}], approvals:{ "<name>":{at,v} } } } }
+   The API keeps only the last write, so every change re-reads the latest state, applies one edit, and writes it back. */
+(function () {
+  var DOC = "aneidich-scripts", API = "/api/review?doc=" + DOC;
+  var DRAFT_KEY = "aneidich-scripts-draft-";
+  var items = {}, lastLoad = 0;
+  var syncEl = document.getElementById("sync");
+  var spreads = [].slice.call(document.querySelectorAll(".sp[data-id]"));
+
+  function store(k, v) { try { v == null ? localStorage.removeItem(k) : localStorage.setItem(k, v); } catch (e) {} }
+  function recall(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
+  function who() { return "Andre"; }   /* this page is Andre's review */
+  function fmt(at) {
+    var d = new Date(at); if (isNaN(d)) return "";
+    return d.toLocaleString("en-US", { month: "short", day: "numeric", hour: "numeric", minute: "2-digit" });
+  }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+  function vname(sp, v) {
+    if (v === sp.dataset.v) return sp.dataset.vname || "";
+    if (!v) return ""; return v.charAt(0) === "r" ? "Revision " + v.slice(1) : "Version " + v.replace(/^v/, "");
+  }
+
+  /* ---- server ---- */
+  function getState() {
+    return fetch(API, { cache: "no-store" }).then(function (r) {
+      if (!r.ok) throw new Error("load " + r.status);
+      return r.json();
+    }).then(function (d) { return d && typeof d.items === "object" && d.items ? d.items : {}; });
+  }
+  function load() {
+    return getState().then(function (it) {
+      items = it; lastLoad = Date.now(); renderAll();
+      syncEl.className = "sync"; syncEl.textContent = "Comments are up to date.";
+    }).catch(function () {
+      syncEl.className = "sync err";
+      syncEl.textContent = "We couldn’t load the comments. Check your connection and reload the page.";
+    });
+  }
+  function mutate(id, fn) {
+    return getState().then(function (it) {
+      var item = it[id] || (it[id] = {});
+      if (!Array.isArray(item.notes)) item.notes = [];
+      if (!item.approvals || typeof item.approvals !== "object") item.approvals = {};
+      fn(item);
+      return fetch(API, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name: who(), items: it }) })
+        .then(function (r) {
+          if (r.status === 413) throw new Error("full");
+          if (!r.ok) throw new Error("save " + r.status);
+          items = it; lastLoad = Date.now(); renderAll();
+        });
+    });
+  }
+  function failMsg(err) {
+    return err && err.message === "full"
+      ? "The comment board is full. Please email Michael and we’ll make room."
+      : "That didn’t save. Check your connection and try again; your words are still in the box.";
+  }
+  function setStatus(s, msg, kind) { s.textContent = msg; s.className = "rv-status" + (kind ? " " + kind : ""); }
+
+  /* ---- one review panel per script ---- */
+  spreads.forEach(function (sp) {
+    var id = sp.dataset.id, rv = sp.querySelector(".rv");
+    var head = el("div", "rv-head");
+    head.appendChild(el("div", "rv-title", "Comments and edits"));
+    var appr = el("div", "rv-approvals"); head.appendChild(appr);
+    var list = el("ol", "notes");
+    var ta = el("textarea"); ta.id = "c-" + id;
+    ta.placeholder = "Your comments or edits for " + sp.dataset.label + "…";
+    ta.setAttribute("aria-label", "Comments or edits for " + sp.dataset.label);
+    ta.value = recall(DRAFT_KEY + id) || "";
+    ta.addEventListener("input", function () { store(DRAFT_KEY + id, ta.value || null); });
+    var actions = el("div", "rv-actions");
+    var save = el("button", "btn primary", "Save comment"); save.type = "button";
+    actions.appendChild(save);
+    var lab = el("label", "approve"), box = el("input"); box.type = "checkbox";
+    lab.appendChild(box); lab.appendChild(document.createTextNode("I approve " + sp.dataset.label));
+    actions.appendChild(lab);
+    var status = el("span", "rv-status"); status.setAttribute("role", "status"); status.setAttribute("aria-live", "polite");
+    actions.appendChild(status);
+    rv.appendChild(head); rv.appendChild(list); rv.appendChild(ta); rv.appendChild(actions);
+
+    save.addEventListener("click", function () {
+      var text = ta.value.trim();
+      if (!text) { setStatus(status, "Type a comment first.", "err"); ta.focus(); return; }
+      save.disabled = true; setStatus(status, "Saving…");
+      mutate(id, function (item) { item.notes.push({ id: uid(), name: who(), text: text.slice(0, 4000), at: new Date().toISOString(), v: sp.dataset.v }); })
+        .then(function () { ta.value = ""; store(DRAFT_KEY + id, null); setStatus(status, "Saved. Michael can see it.", "ok"); })
+        .catch(function (e) { setStatus(status, failMsg(e), "err"); })
+        .then(function () { save.disabled = false; });
+    });
+    box.addEventListener("change", function () {
+      var on = box.checked;
+      box.disabled = true; setStatus(status, "Saving…");
+      mutate(id, function (item) {
+        if (on) item.approvals[who()] = { at: new Date().toISOString(), v: sp.dataset.v };
+        else delete item.approvals[who()];
+      }).then(function () { setStatus(status, on ? "Approved. Thank you!" : "Approval removed.", "ok"); })
+        .catch(function (e) { box.checked = !on; setStatus(status, failMsg(e), "err"); })
+        .then(function () { box.disabled = false; });
+    });
+    sp._rv = { list: list, appr: appr, box: box, status: status };
+  });
+
+  /* ---- render ---- */
+  function renderAll() {
+    var me = who();
+    spreads.forEach(function (sp) {
+      var id = sp.dataset.id, cur = sp.dataset.v, item = items[id] || {}, r = sp._rv;
+      var notes = Array.isArray(item.notes) ? item.notes : [], approvals = item.approvals || {};
+      r.list.textContent = "";
+      notes.forEach(function (n) { r.list.appendChild(noteEl(sp, n, me)); });
+      r.appr.textContent = "";
+      var okNow = 0;
+      Object.keys(approvals).forEach(function (name) {
+        var a = approvals[name] || {}, current = a.v === cur;
+        if (current) okNow++;
+        r.appr.appendChild(el("span", "chip" + (current ? "" : " old"),
+          current ? "✓ Approved by " + name + " · " + fmt(a.at).split(",")[0] : name + " approved " + vname(sp, a.v)));
+      });
+      var mine = me && approvals[me] && approvals[me].v === cur;
+      r.box.checked = !!mine;
+      r.box.parentNode.classList.toggle("on", !!mine);
+      var stage = sp.querySelector("[data-stage]");
+      if (stage) {
+        stage.className = "stage " + (okNow ? "ok" : "live");
+        stage.textContent = okNow ? "Approved" : "Ready for your review";
+      }
+      var tile = document.querySelector('[data-tile="' + id + '"] .badges');
+      if (tile) {
+        tile.textContent = "";
+        if (notes.length) tile.appendChild(el("span", "n", String(notes.length)));
+        if (okNow) tile.appendChild(el("span", "ok"));
+      }
+    });
+  }
+  function noteEl(sp, n, me) {
+    var li = el("li", "note" + (n.v && n.v !== sp.dataset.v ? " stale" : ""));
+    var top = el("div", "note-top");
+    top.appendChild(el("b", null, n.name || "Someone"));
+    top.appendChild(el("span", null, fmt(n.at) + (n.edited ? " · edited" : "")));
+    if (n.v && n.v !== sp.dataset.v) top.appendChild(el("span", "ver", "on " + vname(sp, n.v)));
+    var text = el("div", "note-text", n.text);
+    li.appendChild(top); li.appendChild(text);
+    if (me && n.name === me) {
+      var acts = el("span", "acts");
+      var edit = el("button", null, "Edit"), del = el("button", null, "Remove");
+      edit.type = del.type = "button";
+      acts.appendChild(edit); acts.appendChild(del); top.appendChild(acts);
+      edit.addEventListener("click", function () { editNote(sp, n, li, text); });
+      del.addEventListener("click", function () {
+        if (!confirm("Remove this comment?")) return;
+        mutate(sp.dataset.id, function (item) { item.notes = item.notes.filter(function (x) { return x.id !== n.id; }); })
+          .catch(function (e) { setStatus(sp._rv.status, failMsg(e), "err"); });
+      });
+    }
+    return li;
+  }
+  function editNote(sp, n, li, textEl) {
+    var ta = el("textarea"); ta.value = n.text; ta.setAttribute("aria-label", "Edit your comment");
+    var row = el("div", "rv-actions");
+    var ok = el("button", "btn primary", "Save changes"), cancel = el("button", "btn ghost", "Cancel");
+    ok.type = cancel.type = "button";
+    row.appendChild(ok); row.appendChild(cancel);
+    textEl.replaceWith(ta); li.appendChild(row); ta.focus();
+    cancel.addEventListener("click", renderAll);
+    ok.addEventListener("click", function () {
+      var t = ta.value.trim(); if (!t) return;
+      ok.disabled = true;
+      mutate(sp.dataset.id, function (item) {
+        item.notes.forEach(function (x) { if (x.id === n.id) { x.text = t.slice(0, 4000); x.edited = new Date().toISOString(); } });
+      }).catch(function (e) { ok.disabled = false; setStatus(sp._rv.status, failMsg(e), "err"); });
+    });
+  }
+
+  /* ---- email / copy everything ---- */
+  function compile() {
+    var out = ["Pothole Heroes — video script comments", ""];
+    spreads.forEach(function (sp) {
+      var item = items[sp.dataset.id] || {}, notes = item.notes || [], ap = item.approvals || {};
+      var cur = Object.keys(ap).filter(function (k) { return ap[k] && ap[k].v === sp.dataset.v; });
+      if (!notes.length && !cur.length) return;
+      out.push(sp.querySelector("h3").textContent.toUpperCase());
+      if (cur.length) out.push("Approved by: " + cur.join(", "));
+      notes.forEach(function (n) { out.push("- " + n.name + ", " + fmt(n.at) + (n.v && n.v !== sp.dataset.v ? " (on " + vname(sp, n.v) + ")" : "") + ": " + n.text); });
+      out.push("");
+    });
+    return out.length > 2 ? out.join("\n") : "";
+  }
+  document.getElementById("emailAll").addEventListener("click", function () {
+    var t = compile();
+    if (!t) { syncEl.className = "sync err"; syncEl.textContent = "There are no comments yet."; return; }
+    location.href = "mailto:michael@avataragency.ai?subject=" + encodeURIComponent("Pothole Heroes: video script comments") + "&body=" + encodeURIComponent(t);
+    syncEl.className = "sync"; syncEl.textContent = "Opening your email app. If nothing opens, use Copy instead.";
+  });
+  document.getElementById("copyAll").addEventListener("click", function () {
+    var t = compile();
+    if (!t) { syncEl.className = "sync err"; syncEl.textContent = "There are no comments yet."; return; }
+    navigator.clipboard.writeText(t).then(function () { syncEl.className = "sync"; syncEl.textContent = "Copied. Paste them into an email or a message."; },
+      function () { syncEl.className = "sync err"; syncEl.textContent = "Copy didn’t work in this browser. Use the email button instead."; });
+  });
+
+  renderAll();
+  load();
+  window.addEventListener("focus", function () { if (Date.now() - lastLoad > 20000) load(); });
+})();
+</script>
+</body>
+</html>

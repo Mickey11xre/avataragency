@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Project Overview — Pothole Heroes · AvatarAgency</title>
+<style>
+  /* Portal tokens and components. Self-contained: inline CSS, no shared stylesheet, no analytics tag. */
+  :root{
+    --bg:#0a0a0c;
+    --bg-2:#101014;
+    --card:#15151b;
+    --card-2:#1b1b22;
+    --line:#26262f;
+    --txt:#f4f4f6;
+    --muted:#9a9aa6;
+    --muted-2:#6d6d78;
+    --gold:#c9a24b;
+    --gold-2:#e3c478;
+    --green:#4ec98a;
+    --radius:16px;
+    --max:1080px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:
+      radial-gradient(1200px 600px at 80% -10%, rgba(201,162,75,.10), transparent 60%),
+      radial-gradient(900px 500px at -10% 10%, rgba(78,201,138,.05), transparent 55%),
+      var(--bg);
+    color:var(--txt);
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+  a{color:inherit;text-decoration:none}
+
+  /* ---- Top bar ---- */
+  .topbar{border-bottom:1px solid var(--line);background:rgba(10,10,12,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
+  .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
+  .brand{font-weight:700;letter-spacing:.5px;font-size:18px}
+  .brand b{color:var(--gold-2)}
+  .pill{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
+
+  /* ---- Hero ---- */
+  .hero{padding:54px 0 34px;border-bottom:1px solid var(--line)}
+  .eyebrow{font-size:12px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);margin-bottom:14px}
+  .hero h1{font-size:40px;line-height:1.1;font-weight:800;letter-spacing:-.5px}
+  .hero h1 .sub{display:block;font-size:18px;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:12px;max-width:62ch}
+  .meta-row{display:flex;flex-wrap:wrap;gap:28px;margin-top:26px}
+  .meta-row .item{font-size:13px;color:var(--muted)}
+  .meta-row .item span{display:block;color:var(--txt);font-size:15px;font-weight:600;margin-top:2px}
+
+  /* ---- In-page section nav ---- */
+  .secnav{border-bottom:1px solid var(--line);background:var(--bg-2)}
+  .secnav .wrap{display:flex;gap:8px;flex-wrap:wrap;padding-top:14px;padding-bottom:14px}
+  .secnav a{display:inline-flex;align-items:center;min-height:44px;font-size:13px;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 14px;transition:.15s}
+  .secnav a:hover{color:var(--gold-2);border-color:rgba(201,162,75,.45)}
+  .secnav a.soon{border-style:dashed}
+  .secnav a.hot{color:var(--gold-2);border-color:rgba(201,162,75,.45)}
+  .back{display:inline-flex;align-items:center;min-height:44px;font-size:13px;color:var(--muted);margin:-12px 0 6px}
+  .back:hover{color:var(--gold-2)}
+  .srow .name a{color:var(--gold-2);display:inline-flex;align-items:center;min-height:44px;margin:-14px 0}
+  .srow .name a:hover{text-decoration:underline}
+  .secnav a.soon em{font-style:normal;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--muted-2);margin-left:8px}
+
+  /* ---- Section ---- */
+  section{padding:48px 0;scroll-margin-top:72px}
+  .sec-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:26px;flex-wrap:wrap;gap:8px}
+  .sec-head h2{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);font-weight:600}
+  .sec-head .note{font-size:13px;color:var(--muted-2)}
+  .deliv-no{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:10px}
+  .block-head{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:6px}
+  .block-head h3{font-size:20px;font-weight:700;letter-spacing:-.2px}
+  .lede{font-size:14.5px;color:var(--muted);max-width:62ch;margin-bottom:20px}
+  .lede b{color:var(--txt);font-weight:600}
+
+  /* ---- Stage labels ---- */
+  .stage{display:inline-block;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;
+    border-radius:999px;padding:5px 12px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+  .stage.live{color:var(--green);border-color:rgba(78,201,138,.4);background:rgba(78,201,138,.07)}
+  .stage.prod{color:var(--gold-2);border-color:rgba(201,162,75,.42);background:rgba(201,162,75,.08)}
+  .stage.ok{color:#07130c;border-color:var(--green);background:var(--green)}
+
+  /* ---- Deliverables table ---- */
+  .table{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .trow{display:grid;grid-template-columns:2.2fr 1fr .7fr;gap:12px;padding:16px 20px;align-items:center;border-top:1px solid var(--line);font-size:14px}
+  .trow:first-child{border-top:none}
+  .thead{background:var(--bg-2);color:var(--muted);font-size:11px;letter-spacing:1.5px;text-transform:uppercase}
+  .trow .name{font-weight:600}
+  .trow .name small{display:block;color:var(--muted-2);font-weight:400;font-size:12.5px;margin-top:3px;line-height:1.55}
+  .trow .amt{text-align:right;font-variant-numeric:tabular-nums}
+  .tfoot{display:grid;grid-template-columns:2.2fr 1fr .7fr;gap:12px;padding:16px 20px;border-top:1px solid var(--line);background:var(--bg-2);font-size:14px;font-weight:700}
+  .tfoot .tot{color:var(--gold-2);text-align:right}
+  .badge{display:inline-block;font-size:11px;padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
+  .badge.v{border-color:rgba(78,201,138,.35);color:var(--green)}
+
+  /* ---- Project status ---- */
+  .status{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+  .srow{display:grid;grid-template-columns:auto 1fr auto;gap:16px;padding:18px 22px;align-items:center;border-top:1px solid var(--line);background:linear-gradient(180deg,var(--card),var(--card-2))}
+  .srow:first-child{border-top:none}
+  .srow .num{font-size:12px;letter-spacing:1.5px;color:var(--gold);font-weight:700;width:26px}
+  .srow .name{font-weight:600;font-size:15px}
+  .srow .name small{display:block;color:var(--muted);font-weight:400;font-size:13px;margin-top:3px;line-height:1.55}
+
+  /* ---- Video slots ---- */
+  .vids{display:grid;grid-template-columns:1.6fr 1fr;gap:18px;align-items:start}
+  .vid h4{font-size:15px;font-weight:600;margin-top:12px}
+  .vid .rmeta{font-size:12px;color:var(--muted);margin-bottom:8px}
+  .frame{position:relative;width:100%;border-radius:14px;overflow:hidden;border:1px solid var(--line);background:#000}
+  .frame.wide{aspect-ratio:16/9}
+  .frame.tall{aspect-ratio:9/16;max-width:320px}
+  .frame.pending{display:flex;align-items:center;justify-content:center;text-align:center;
+    background:linear-gradient(180deg,var(--card),var(--card-2));border-style:dashed;padding:30px}
+  .frame.pending .ph{max-width:44ch}
+  .frame.pending .ph .big{font-size:15px;font-weight:600;color:var(--txt);margin-bottom:8px}
+  .frame.pending .ph .small{font-size:13px;color:var(--muted-2);line-height:1.6}
+  .frame.pending .ph .dot{display:inline-block;width:7px;height:7px;border-radius:50%;
+    background:var(--gold);margin-right:8px;vertical-align:middle;box-shadow:0 0 0 4px rgba(201,162,75,.14)}
+
+  /* ---- Link cards ---- */
+  .linkcards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+  .linkcard{display:block;min-height:44px;padding:20px 22px;border:1px solid var(--line);
+    border-radius:14px;background:linear-gradient(180deg,var(--card),var(--card-2));transition:.15s}
+  .linkcard:hover{border-color:rgba(201,162,75,.45);background:var(--card)}
+  .linkcard b{display:block;font-size:15.5px;color:var(--gold-2);margin-bottom:5px}
+  .linkcard span{display:block;font-size:13.5px;color:var(--muted);line-height:1.6}
+  .linkcard .stage{margin-top:12px}
+  /* Coming-soon tiles keep their real path so switching one on is a one-attribute change:
+     remove class "soon" and aria-disabled when the page exists. */
+  .linkcard.soon{border-style:dashed;cursor:default}
+  .linkcard.soon:hover{border-color:var(--line);background:linear-gradient(180deg,var(--card),var(--card-2))}
+  .linkcard.soon b{color:var(--txt)}
+  .linkcard.new-tag b::after{content:"New";margin-left:8px;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;
+    color:#1a1407;background:linear-gradient(90deg,var(--gold),var(--gold-2));border-radius:999px;padding:2px 8px;vertical-align:middle}
+
+  /* ---- Ownership list ---- */
+  .points{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .point{border:1px solid var(--line);border-radius:14px;padding:18px 20px;background:var(--bg-2)}
+  .point b{display:block;font-size:14.5px;margin-bottom:4px}
+  .point span{font-size:13.5px;color:var(--muted);line-height:1.6}
+
+  /* ---- CTA / footer ---- */
+  .cta{background:linear-gradient(180deg,var(--card),var(--card-2));border:1px solid var(--line);border-radius:var(--radius);padding:34px;text-align:center}
+  .cta h2{font-size:24px;font-weight:800;letter-spacing:-.3px;text-transform:none;color:var(--txt)}
+  .cta p{color:var(--muted);margin:10px auto 22px;max-width:520px}
+  .btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;min-height:44px;padding:0 24px;border-radius:999px;font-weight:600;font-size:15px;transition:.15s}
+  .btn.primary{background:linear-gradient(90deg,var(--gold),var(--gold-2));color:#1a1407}
+  .btn.primary:hover{filter:brightness(1.08)}
+  .btn.ghost{border:1px solid var(--line);color:var(--txt)}
+  .btn.ghost:hover{border-color:var(--gold)}
+  footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;color:var(--muted-2);font-size:13px}
+  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+  @media(max-width:860px){
+    .linkcards{grid-template-columns:1fr}
+    .vids{grid-template-columns:1fr}
+    .frame.tall{max-width:300px}
+  }
+  @media(max-width:780px){
+    .wrap{padding:0 16px}
+    .hero h1{font-size:30px}
+    .meta-row{display:grid;grid-template-columns:1fr 1fr;gap:16px 20px}
+    .points{grid-template-columns:1fr}
+    .trow,.tfoot{grid-template-columns:1fr auto}
+    .trow .col-stage,.tfoot .col-stage{display:none}
+    .srow{grid-template-columns:auto 1fr}
+    .srow .stage{grid-column:2;justify-self:start}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="brand">Avatar<b>Agency</b></div>
+    <div class="pill">Private Client Portal · Confidential</div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <a class="back" href="/clients/aneidich/">&larr; Your video scripts</a>
+    <div class="eyebrow">Client Account &middot; Pothole Heroes &middot; Project Overview</div>
+    <h1>Welcome, Andre
+      <span class="sub">Your Pothole Heroes digital twin Test Run: what we&rsquo;re making, where it stands, and everything ready for your review, in one place.</span>
+    </h1>
+    <div class="meta-row">
+      <div class="item">Project<span>Digital Twin Test Run</span></div>
+      <div class="item">Agreement<span>Signed November 23, 2026</span></div>
+      <div class="item">Payment<span>Received in full</span></div>
+      <div class="item">Next step<span>Your capture session</span></div>
+    </div>
+  </div>
+</div>
+
+<nav class="secnav" aria-label="Portal sections">
+  <div class="wrap">
+    <a href="#test-run">Your Test Run</a>
+    <a href="#status">Project Status</a>
+    <a href="#videos">Your Videos</a>
+    <a href="#portal">Your Portal</a>
+    <a href="#ownership">What You Own</a>
+    <a class="hot" href="/clients/aneidich/">Campaigns &middot; Your Scripts &rarr;</a>
+  </div>
+</nav>
+
+<!-- ============ 01 — THE TEST RUN (signed agreement, Section 1) ============ -->
+<section id="test-run">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Your Test Run</h2>
+      <div class="note">From your signed service agreement</div>
+    </div>
+    <p class="lede">Two short videos of your digital twin, speaking in your own cloned voice, so you can judge the quality of the work before deciding on anything more. <b>You approve both scripts, and the still frames for each video, before any video is generated.</b></p>
+
+    <div class="table">
+      <div class="trow thead"><div>Deliverable</div><div class="col-stage">Stage</div><div class="amt">Price</div></div>
+      <div class="trow">
+        <div class="name">01 &mdash; Video 1: Direct to Camera
+          <small>Your digital twin speaking straight to the viewer: a founder message for property owners and managers. 20 to 30 seconds.</small></div>
+        <div class="col-stage"><span class="badge">Coming soon</span></div>
+        <div class="amt">$250</div>
+      </div>
+      <div class="trow">
+        <div class="name">02 &mdash; Video 2: On the Job Site
+          <small>Your digital twin on a Pothole Heroes job site, built from still photos of your own truck, equipment and locations. 20 to 30 seconds.</small></div>
+        <div class="col-stage"><span class="badge">Coming soon</span></div>
+        <div class="amt">$250</div>
+      </div>
+      <div class="trow">
+        <div class="name">03 &mdash; Clone Assets Setup
+          <small>Your digital twin and voice clone, built from the photos, video and voice recording you capture with the Reference Guide.</small></div>
+        <div class="col-stage"><span class="badge">Waiting on your files</span></div>
+        <div class="amt">$200</div>
+      </div>
+      <div class="trow">
+        <div class="name">04 &mdash; Scriptwriting and Guidance
+          <small>Both scripts written by us and approved by you; still-frame approval before any video is generated; the Reference Guide and remote guidance for your capture session.</small></div>
+        <div class="col-stage"><span class="badge">In progress</span></div>
+        <div class="amt">Included</div>
+      </div>
+      <div class="tfoot"><div>Test Run total &middot; <span class="badge v">Paid in full</span></div><div class="col-stage"></div><div class="tot">$700</div></div>
+    </div>
+    <p class="lede" style="margin:16px 0 0;font-size:13px">One video is delivered horizontal (16:9) and the other vertical (9:16). Each video includes up to two rounds of revisions at no additional charge.</p>
+  </div>
+</section>
+
+<!-- ============ 02 — PROJECT STATUS ============
+     Stage labels: .stage.ok = done · .stage.live = ready for Andre · .stage.prod = in progress / waiting · .stage = not started -->
+<section id="status" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Project Status</h2>
+      <div class="note">Updated November 24, 2026</div>
+    </div>
+    <div class="status">
+      <div class="srow">
+        <div class="num">01</div>
+        <div class="name">Agreement signed and payment received
+          <small>Thank you, Andre. Production is cleared to begin as soon as your capture files arrive.</small></div>
+        <span class="stage ok">Complete</span>
+      </div>
+      <div class="srow">
+        <div class="num">02</div>
+        <div class="name">Your capture session
+          <small>Photos, a forward-facing horizontal talking video, a voice recording and location stills, shot with the Self-Directed Cloning Session Reference Guide.</small></div>
+        <span class="stage prod">Waiting on your files</span>
+      </div>
+      <div class="srow">
+        <div class="num">03</div>
+        <div class="name">Scripts for your approval
+          <small>Ten scripts are ready on your <a href="/clients/aneidich/">scripts page</a>. Leave comments and approve the ones you like.</small></div>
+        <span class="stage live">Ready for your review</span>
+      </div>
+      <div class="srow">
+        <div class="num">04</div>
+        <div class="name">Still-frame approval
+          <small>You approve the still frames for each video before any video is generated.</small></div>
+        <span class="stage">Coming soon</span>
+      </div>
+      <div class="srow">
+        <div class="num">05</div>
+        <div class="name">Your two Test Run videos
+          <small>Delivered here, with up to two rounds of revisions per video.</small></div>
+        <span class="stage">Coming soon</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 03 — YOUR VIDEOS (reserved slots) ============
+     Which video is 16:9 and which is 9:16 is not set in the agreement; swap .wide/.tall when decided. -->
+<section id="videos" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Your Videos</h2>
+      <div class="note">Newest work appears here as it is delivered</div>
+    </div>
+    <div class="vids">
+      <div class="vid">
+        <div class="frame wide pending">
+          <div class="ph">
+            <div class="big"><span class="dot"></span>Coming soon</div>
+            <div class="small">Your horizontal (16:9) video will play here once it&rsquo;s ready for your review.</div>
+          </div>
+        </div>
+        <h4>Horizontal video &middot; 16:9</h4>
+        <div class="rmeta">20 to 30 seconds</div>
+      </div>
+      <div class="vid">
+        <div class="frame tall pending">
+          <div class="ph">
+            <div class="big"><span class="dot"></span>Coming soon</div>
+            <div class="small">Your vertical (9:16) video will play here once it&rsquo;s ready for your review.</div>
+          </div>
+        </div>
+        <h4>Vertical video &middot; 9:16</h4>
+        <div class="rmeta">20 to 30 seconds</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 04 — YOUR PORTAL (section tiles) ============ -->
+<section id="portal" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>Your Portal</h2>
+    </div>
+    <div class="linkcards">
+      <a class="linkcard new-tag" href="/clients/aneidich/">
+        <b>Campaigns &middot; Your Scripts &rarr;</b>
+        <span>Ten video scripts, each with the words you say and the B-roll around them, ready for your comments and approval.</span>
+        <span class="stage live">Ready for your review</span>
+      </a>
+      <a class="linkcard" href="#videos">
+        <b>Your Videos &rarr;</b>
+        <span>Your two Test Run videos, ready to watch and download as they are delivered.</span>
+      </a>
+      <a class="linkcard" href="#status">
+        <b>Project Status &rarr;</b>
+        <span>Where each step stands, from your capture session to final delivery.</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 05 — OWNERSHIP (signed agreement, Section 3) ============ -->
+<section id="ownership" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>What You Own</h2>
+      <div class="note">Section 3 of your agreement</div>
+    </div>
+    <div class="points">
+      <div class="point"><b>Your likeness and voice are yours</b><span>So are the photos, video and voice recordings you provide, and every finished video once paid in full.</span></div>
+      <div class="point"><b>Used only for content you approve</b><span>Your likeness and voice are never used for any other client or purpose.</span></div>
+      <div class="point"><b>Private demonstrations only</b><span>Any public display, including portfolio or promotional use, needs your written permission.</span></div>
+      <div class="point"><b>Yours to withdraw</b><span>You can withdraw the release in writing at any time; on request we return your materials and finished video files and delete your digital twin and voice clone models.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="cta">
+      <h2>Questions about anything here?</h2>
+      <p>Book a call and we&rsquo;ll walk through it together, or send Michael a note.</p>
+      <div class="btns">
+        <a class="btn primary" href="https://calendly.com/michaelrivera007/free-consultation-meeting" target="_blank" rel="noopener">Book a Call</a>
+        <a class="btn ghost" href="mailto:michael@avataragency.ai?subject=Pothole%20Heroes%20%E2%80%94%20Portal%20Question">Email Michael</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>&copy; 2026 AvatarAgency.ai &middot; Woodland Hills, California &middot; Prepared for Andre Neidich</div>
+    <div>Private client portal &mdash; please do not share this link.</div>
+  </div>
+</footer>
+
+</body>
+</html>
