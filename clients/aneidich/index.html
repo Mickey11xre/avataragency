@@ -66,7 +66,9 @@
   .legend i{display:inline-block;vertical-align:middle;margin-right:6px}
   .lg-n{min-width:16px;height:16px;border-radius:999px;background:var(--gold-2)}
   .lg-ok{width:9px;height:9px;border-radius:50%;background:var(--green)}
-  .idx-groups{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px;min-width:0;max-width:100%}
+  .idx-groups{display:grid;grid-template-columns:minmax(0,1fr) 2px minmax(0,1fr);gap:22px;min-width:0;max-width:100%}
+  /* gold rule between the two script groups: vertical on desktop, horizontal when the groups stack */
+  .idx-divider{align-self:stretch;width:2px;background:var(--gold);border-radius:2px}
   .idx-group{min-width:0;max-width:100%}
   .idx-head{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
   .idx-head span{color:var(--muted-2);margin-left:6px}
@@ -181,7 +183,8 @@
   footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
 
   @media(max-width:900px){
-    .idx-groups{grid-template-columns:minmax(0,1fr)}
+    .idx-groups{grid-template-columns:minmax(0,1fr);gap:18px}
+    .idx-divider{width:100%;height:2px}
   }
   @media(max-width:780px){
     .wrap{padding:0 16px}
@@ -256,6 +259,7 @@
 <a class="itile" href="#p4" data-tile="p4" data-goto="owners"><span class="badges"></span><b>P4</b><span class="it">The Pothole Hero</span></a>
 <a class="itile" href="#p5" data-tile="p5" data-goto="owners"><span class="badges"></span><b>P5</b><span class="it">Don&#x27;t Wait for Spring</span></a>
 </div></div>
+<div class="idx-divider" aria-hidden="true"></div>
 <div class="idx-group"><div class="idx-head">Recruiting &middot; Operators <span>R1&ndash;R5</span></div><div class="idx">
 <a class="itile" href="#r1" data-tile="r1" data-goto="recruiting"><span class="badges"></span><b>R1</b><span class="it">You Bring the Drive</span></a>
 <a class="itile" href="#r2" data-tile="r2" data-goto="recruiting"><span class="badges"></span><b>R2</b><span class="it">Three to Fifty-Five</span></a>
