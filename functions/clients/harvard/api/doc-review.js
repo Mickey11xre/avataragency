@@ -38,6 +38,7 @@
  * and tested without spending. Production with no key: 503.
  */
 import { ROSTER, REVEAL, SITE } from "../../../_lib/hig-staff.js";
+import { STAFF_CARD_LINES } from "../../../_lib/hig-staff-lines.js";
 
 const TYPES = { "application/pdf": "document", "image/jpeg": "image", "image/png": "image", "image/webp": "image", "text/plain": "text" };
 const MAX_B64 = 8 * 1024 * 1024;     // ≈ 6 MB file. The document is sent to two readers at once, so this stays modest.
@@ -50,7 +51,7 @@ const READERS_MS = 42000, JOB_MS = 58000;             // storyboard: 60 s job bu
 const API = "https://api.anthropic.com/v1/messages";
 
 const staffOf = (slot) => ROSTER.staff.find((s) => s.slot === slot);
-const publicStaff = () => ROSTER.staff.map((s) => ({ slot: s.slot, name: s.name, role: s.role, does: s.does, face: s.face }));
+const publicStaff = () => ROSTER.staff.map((s) => ({ slot: s.slot, name: s.name, role: s.role, does: STAFF_CARD_LINES[s.slot] || s.does, face: s.face }));
 const OFFICE = staffOf("office"), RESEARCH = staffOf("research"), PROPERTIES = staffOf("properties");
 
 function json(data, status = 200) {

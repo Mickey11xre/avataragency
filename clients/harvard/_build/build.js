@@ -19,7 +19,7 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 38;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
+const V = 39;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
 const RV = 3;                                                        // ?v= for the preview-only review layer (/clients/_review/, comment pins; never in --final)
 const OUT = path.resolve(__dirname, "..");
 
@@ -388,8 +388,11 @@ ${peek(0)}
 <section class="sec sec-dark feat" id="featured" aria-labelledby="t-feat">
   <div class="wrap">
     <div class="feat-head rv">
-      <div><p class="eyebrow gold">Featured development · Corona del Mar</p><h2 class="serif caps" id="t-feat">2201 Bayside</h2></div>
-      <p class="serif sold">${DEVELOPMENTS.b2201.sold}</p>
+      <a class="feat-tab" href="${u("/developments/#development-tabs")}">
+        <div><p class="eyebrow gold">Featured development · Corona del Mar</p><h2 class="serif caps" id="t-feat">2201 Bayside</h2></div>
+        <p class="serif sold">${DEVELOPMENTS.b2201.sold}</p>
+        <span class="feat-tab-go">View all developments ${icon("arrow")}</span>
+      </a>
       ${asSeen("as-seen-mob")}
     </div>
   </div>
@@ -577,7 +580,7 @@ function developmentsPage() {
     </div>
   </div>
   <div class="wrap">
-    <nav class="chips rv" aria-label="Projects"><p class="chips-label">${D.showcaseCue}</p>${projectNav.map(([h, l]) => `<a href="${h}">${l}${icon("arrow")}</a>`).join("")}</nav>
+    <nav class="chips rv" id="development-tabs" aria-label="Projects"><p class="chips-label">${D.showcaseCue}</p>${projectNav.map(([h, l]) => `<a href="${h}">${l}${icon("arrow")}</a>`).join("")}</nav>
   </div>
 </section>
 

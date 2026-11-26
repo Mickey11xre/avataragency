@@ -41,7 +41,6 @@ const HOME = {
   tiles: [
     { big: "1995", label: "Founded" },
     { big: "30", sup: "+", label: "Years in private equity & development" },
-    { big: "HBS", label: "Harvard Business School, MBA 1989" },
   ],
 };
 

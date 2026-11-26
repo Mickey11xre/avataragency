@@ -198,7 +198,7 @@ body.menu-open .hdr { background: var(--ink); }
 .inline-img { overflow: hidden; border-radius: 2px; aspect-ratio: 16 / 9; }
 .inline-img img { width: 100%; height: 100%; object-fit: cover; }
 /* tiles (Home about band) */
-.tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; margin-top: 52px; padding-top: 40px; border-top: 1px solid var(--line); }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; margin-top: 52px; padding-top: 40px; border-top: 1px solid var(--line); }
 .tile-big { font-size: clamp(40px, 3.8vw, 54px); line-height: 1; color: var(--navy); font-weight: 500; }
 .tile-big sup { font-size: .55em; vertical-align: .4em; }
 .tiles .eyebrow { margin: 12px 0 0; }
@@ -266,6 +266,15 @@ body.menu-open .hdr { background: var(--ink); }
 .feat-pin { overflow-x: clip; }   /* x only: the layers still drift and cast shadows above and below */
 .feat-head, .proj-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px 48px; flex-wrap: wrap; margin-bottom: clamp(36px, 4vw, 64px); }
 .feat-head h2, .proj-head h2 { font-size: clamp(36px, 4.6vw, 64px); line-height: 1; letter-spacing: .1em; }
+/* Homepage featured 2201: bronze tab (palette --gold) linking to the six development chips (Greg #18) */
+.feat-tab { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 48px; flex-wrap: wrap; flex: 1 1 16rem; min-width: 0; box-sizing: border-box; padding: 20px 24px; border-radius: 2px; background: var(--gold); color: var(--ink); text-decoration: none; }
+.feat-tab .eyebrow { color: var(--ink); margin-bottom: 12px; }
+.feat-tab h2, .feat-tab .sold { color: var(--ink); }
+.feat-tab-go { display: inline-flex; align-items: center; gap: 8px; flex: 1 1 100%; margin-top: 4px; font: 500 12px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 7px; width: max-content; }
+.feat-tab-go svg { width: 14px; height: 14px; }
+.feat-tab:hover { background: var(--gold-light); }
+.feat-tab:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
+#development-tabs { scroll-margin-top: calc(var(--hdr) + 12px); }
 .sold { font-size: clamp(20px, 1.8vw, 26px); font-style: italic; font-weight: 400; color: var(--slate); }
 /* "As seen on Netflix" (2201 on Home): the full wordmark, in the space above the staircase photo */
 .as-seen { display: grid; justify-items: center; align-content: center; gap: 10px; color: var(--on-dark); text-align: center; }
