@@ -24,6 +24,12 @@
  * Each comment records the site version it was made on (ver) and, once done, the version that fixed it (fixedIn).
  *
  * Bindings: REVIEWS (KV). Secrets: RESEND_API_KEY (the digest email; without it "send" still stamps the round).
+ *
+ * Display-side archive (does not mutate comments): optional key pins:<site>:clearedBefore holds an ISO timestamp.
+ * GET (the overlay) hides comments with at < cutoff. Owner may pass ?archive=1 or use format=text to see all.
+ * Rollback: delete pins:<site>:clearedBefore.
+ *
+ *        box     { page, title, text, ver? }     page-level comment (no pin); stamps a new round and emails Michael
  */
 import { findReviewer, SITES } from "../_lib/reviewers.js";
 
@@ -67,17 +73,24 @@ export async function onRequest(context) {
   const owner = me.role === "owner";
 
   const key = `pins:${site}`;
+  const cutoffKey = `pins:${site}:clearedBefore`;
   const load = async () => { const s = await env.REVIEWS.get(key); const d = s ? JSON.parse(s) : {}; return { comments: Array.isArray(d.comments) ? d.comments : [], rounds: Array.isArray(d.rounds) ? d.rounds : [], seen: d.seen && typeof d.seen === "object" ? d.seen : {} }; };
+  const loadCutoff = () => env.REVIEWS.get(cutoffKey);
+  const afterCutoff = (comments, cutoff) => (!cutoff ? comments : comments.filter((c) => c.at >= cutoff));
   const who = `${me.role}:${me.name}`;
   const save = (d) => env.REVIEWS.put(key, JSON.stringify(d));
 
   if (request.method === "GET") {
     const d = await load();
+    const cutoff = await loadCutoff();
     if (url.searchParams.get("format") === "text") {
       if (!owner) return json({ ok: false, error: "owner only" }, 403);
-      return text(digest(site, d.comments, d.rounds, url.origin, "all"));
+      const note = cutoff ? `Archive cutoff ${cutoff} is in effect (${d.comments.length - afterCutoff(d.comments, cutoff).length} comments hidden on the site). This export includes every comment.\n\n` : "";
+      return text(note + digest(site, d.comments, d.rounds, url.origin, "all"));
     }
-    return json({ ok: true, me, site: { id: site, ...SITES[site] }, comments: d.comments, rounds: d.rounds, lastSeen: d.seen[who] || null });
+    const showAll = owner && url.searchParams.get("archive") === "1";
+    const comments = showAll ? d.comments : afterCutoff(d.comments, cutoff);
+    return json({ ok: true, me, site: { id: site, ...SITES[site] }, comments, rounds: d.rounds, lastSeen: d.seen[who] || null, clearedBefore: cutoff || null, archived: cutoff && !showAll ? d.comments.length - comments.length : 0 });
   }
 
   if (request.method !== "POST") return json({ ok: false, error: "method" }, 405);
@@ -92,6 +105,37 @@ export async function onRequest(context) {
   const mine = (c) => c.by === me.name && c.role === me.role;
 
   switch (body.action) {
+    case "box": {
+      const t = clean(body.text, MAX_TEXT);
+      if (!t) return json({ ok: false, error: "empty" }, 400);
+      if (d.comments.length >= MAX_COMMENTS) return json({ ok: false, error: "limit" }, 429);
+      const n = d.comments.reduce((m, c) => Math.max(m, c.n || 0), 0) + 1;
+      const c = { id: "c" + Date.now().toString(36) + crypto.randomUUID().slice(0, 6), n, page: cleanPage(body.page), title: clean(body.title, 120), anchor: null, source: "box", text: t,
+        by: me.name, role: me.role, at: now, status: "open", replies: [], round: null, ver: cleanVer(body.ver) };
+      const liveRounds = new Set(d.comments.map((x) => x.round).filter(Boolean));
+      d.rounds = d.rounds.filter((r) => liveRounds.has(r.n));
+      const round = d.rounds.reduce((m, r) => Math.max(m, r.n), 0) + 1;
+      c.round = round; c.sentAt = now;
+      d.comments.push(c);
+      d.rounds.push({ n: round, at: now, by: me.name, count: 1 });
+      await save(d);
+      let emailed = false;
+      if (env.RESEND_API_KEY) {
+        const cutoff = await loadCutoff();
+        const openOlder = afterCutoff(d.comments, cutoff).filter((x) => x.status === "open" && x.round !== null && x.round !== round).length;
+        const subject = `Website review: 1 comment from ${me.name} (${SITES[site].name}, round ${round})`;
+        const r = await fetch("https://api.resend.com/emails", {
+          method: "POST",
+          headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ from: FROM, to: [NOTIFY], subject,
+            text: digest(site, [c], d.rounds, url.origin, round) + (openOlder ? `\n${openOlder} older comment${openOlder === 1 ? " is" : "s are"} still open.\n` : ""),
+            html: digestHtml(site, [c], url.origin, round, me.name, openOlder) }),
+        }).catch(() => null);
+        emailed = !!(r && r.ok);
+        if (!emailed) console.log("review-pins: box email failed", r && (await r.text().catch(() => "")));
+      }
+      return json({ ok: true, comment: c, round, emailed });
+    }
     case "add": {
       const t = clean(body.text, MAX_TEXT), anchor = cleanAnchor(body.anchor);
       if (!t) return json({ ok: false, error: "empty" }, 400);

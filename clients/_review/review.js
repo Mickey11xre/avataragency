@@ -111,6 +111,7 @@
       px: x / document.documentElement.clientWidth, py: y + scrollY, snippet: snippetOf(t) };
   }
   function resolvePos(a) {
+    if (!a) return null;
     var e = null;
     try { e = a.sel ? document.querySelector(a.sel) : null; } catch (err) {}
     if (e) {
@@ -125,7 +126,7 @@
   function renderPins() {
     var seen = {};
     comments.forEach(function (c) {
-      if (!onThisPage(c)) return;
+      if (!onThisPage(c) || !c.anchor) return;
       seen[c.id] = 1;
       var p = pinEls[c.id];
       if (!p) {
@@ -168,7 +169,7 @@
     closePop(); openId = id; renderPins();
     pop = el("div", "aa-rv aa-rv-pop");
     var owner = me.role === "owner", canEdit = owner || (mine(c) && c.round === null), done = c.status === "resolved", confirmed = c.status === "confirmed";
-    var pos0 = resolvePos(c.anchor), moved = pos0 && !pos0.ok && !!c.anchor.sel;
+    var pos0 = resolvePos(c.anchor), moved = !!(c.anchor && pos0 && !pos0.ok && c.anchor.sel);
     var stateBtns = owner
       ? (c.status === "open" ? '<button type="button" class="aa-rv-b" data-act="done">Mark done</button>' : '<button type="button" class="aa-rv-b" data-act="reopen">Reopen</button>')
       : (done ? '<button type="button" class="aa-rv-b ok" data-act="confirm">Confirm, looks good</button><button type="button" class="aa-rv-b" data-act="reopen">Reopen</button>'
@@ -176,7 +177,7 @@
     pop.innerHTML =
       '<div class="aa-rv-ph"><span class="aa-rv-n">' + c.n + '</span><span class="aa-rv-meta">' + esc(c.by) + ' · ' + when(c.at) +
       (c.round ? ' · sent round ' + c.round : ' · <em>not sent yet</em>') + (c.ver ? ' · on V ' + esc(c.ver) : "") + '</span><span class="aa-rv-st ' + c.status + '">' + (STATUS[c.status] || c.status) + (done && c.fixedIn ? " · V " + esc(c.fixedIn) : "") + '</span><button type="button" class="aa-rv-x" data-act="close" aria-label="Close">&times;</button></div>' +
-      (c.anchor.snippet ? '<div class="aa-rv-near">near “' + esc(c.anchor.snippet) + '”</div>' : "") +
+      (c.anchor && c.anchor.snippet ? '<div class="aa-rv-near">near “' + esc(c.anchor.snippet) + '”</div>' : (c.source === "box" ? '<div class="aa-rv-near">page comment</div>' : "")) +
       (moved ? '<div class="aa-rv-moved">This part of the page has changed since the comment was made, so the pin sits at its saved position.</div>' : "") +
       '<div class="aa-rv-text" data-text>' + esc(c.text) + '</div>' +
       '<div class="aa-rv-replies">' + c.replies.map(function (r) { return '<div class="aa-rv-reply' + (r.kind === "fix" ? " fix" : "") + '"><b>' + (r.kind === "fix" ? "What changed" + (r.ver ? " · V " + esc(r.ver) : "") : esc(r.by)) + '</b> <span>' + when(r.at) + '</span><div>' + esc(r.text) + '</div></div>'; }).join("") +
@@ -203,7 +204,8 @@
       if (act === "save") { var nt = pop.querySelector("[data-text] textarea").value.trim(); if (!nt) return; b.disabled = true; return api({ action: "edit", id: c.id, text: nt }).then(function (j) { replace(j.comment); openPin(c.id); toast("Saved"); }).catch(fail(b)); }
     });
     root.appendChild(pop);
-    var pos = resolvePos(c.anchor); if (pos && !isMobile()) placePop(pos);
+    if (c.anchor) { var pos = resolvePos(c.anchor); if (pos && !isMobile()) placePop(pos); }
+    else pop.classList.add("is-page-comment");
   }
   function compose(anchor) {
     closePop(); composing = { anchor: anchor };
@@ -282,6 +284,7 @@
     else location.href = site.base + c.page + "#aa-pin=" + c.id;
   }
   function goTo(c) {
+    if (!c.anchor) { setPanel(false); openPin(c.id); return; }
     var pos = resolvePos(c.anchor);
     if (pos) scrollTo({ top: Math.max(0, scrollY + pos.y - innerHeight / 2), behavior: "smooth" });
     setTimeout(function () { openPin(c.id); }, 450);
@@ -305,7 +308,7 @@
     if (act === "pin") return setPinMode(!pinMode);
     if (act === "list") return setPanel(!(panelOpen && panelMode === "all"), "all");
     if (act === "news") return setPanel(true, "new");
-    if (act === "hide") { hidden = true; bar.hidden = true; show.hidden = false; return; }
+    if (act === "hide") { hidden = true; bar.hidden = true; show.hidden = false; if (root) root.classList.add("is-bar-hidden"); return; }
     if (act === "send") {
       var n = unsentMine().length; if (!n) return;
       if (!confirm("Send " + n + " comment" + (n === 1 ? "" : "s") + " to Michael now?")) return;
@@ -315,22 +318,82 @@
       }).catch(fail(b));
     }
   }
-  var show;
+  var show, boxEl, boxOpen = false;
 
-  function renderAll() { renderPins(); renderBar(); if (panelOpen) renderPanel(); }
+  function pageTitle() { return document.title.replace(/\s+[|·–-]\s+.*$/, "").slice(0, 120); }
+  function setBoxOpen(on) {
+    boxOpen = !!on;
+    if (!boxEl) return;
+    var form = boxEl.querySelector("form");
+    var btn = boxEl.querySelector(".aa-rv-box-toggle");
+    var conf = boxEl.querySelector(".aa-rv-box-confirm");
+    form.hidden = !boxOpen;
+    btn.setAttribute("aria-expanded", boxOpen ? "true" : "false");
+    if (boxOpen) {
+      if (conf) { conf.hidden = true; conf.textContent = ""; }
+      var ta = form.querySelector("textarea");
+      ta.value = ta.value; // keep draft
+      setTimeout(function () { ta.focus(); }, 0);
+    }
+  }
+  function buildBox() {
+    boxEl = el("div", "aa-rv aa-rv-box");
+    boxEl.innerHTML =
+      '<button type="button" class="aa-rv-box-toggle" aria-expanded="false" aria-controls="aa-rv-box-form">Request a revision</button>' +
+      '<form id="aa-rv-box-form" hidden>' +
+      '<h2 class="aa-rv-box-title" id="aa-rv-box-heading">Request a revision</h2>' +
+      '<label class="aa-rv-sr" for="aa-rv-box-text">Your comment on this page</label>' +
+      '<textarea id="aa-rv-box-text" name="comment" rows="5" required maxlength="2000" placeholder="What should change on this page?"></textarea>' +
+      '<div class="aa-rv-box-acts">' +
+      '<button type="submit" class="aa-rv-box-send">Send</button>' +
+      '<button type="button" class="aa-rv-box-cancel" data-act="cancel">Cancel</button>' +
+      '</div>' +
+      '<p class="aa-rv-box-note">Sends this note to Michael and emails him.</p>' +
+      '<p class="aa-rv-box-confirm" hidden role="status"></p>' +
+      '</form>';
+    boxEl.querySelector(".aa-rv-box-toggle").addEventListener("click", function () { setBoxOpen(!boxOpen); });
+    boxEl.querySelector("[data-act=cancel]").addEventListener("click", function () { setBoxOpen(false); });
+    boxEl.querySelector("form").addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var ta = boxEl.querySelector("textarea");
+      var t = ta.value.trim();
+      if (!t) { ta.focus(); return; }
+      var send = boxEl.querySelector(".aa-rv-box-send");
+      send.disabled = true;
+      api({ action: "box", page: pagePath(), title: pageTitle(), text: t, ver: siteVer() })
+        .then(function (j) {
+          comments.push(j.comment);
+          computeNew();
+          renderAll();
+          ta.value = "";
+          var conf = boxEl.querySelector(".aa-rv-box-confirm");
+          conf.hidden = false;
+          conf.textContent = j.emailed
+            ? "Sent. Michael has been emailed your comment (#" + j.comment.n + ")."
+            : "Sent. Your comment (#" + j.comment.n + ") is in the review list; Michael will see it on his next visit.";
+          send.disabled = false;
+          toast(conf.textContent, 4000);
+        })
+        .catch(function (e) { send.disabled = false; toast("Could not send (" + e.message + "). Try again."); });
+    });
+    root.appendChild(boxEl);
+  }
+
+  function renderAll() { renderPins(); renderBar(); if (panelOpen) renderPanel(); if (root) root.classList.toggle("is-bar-hidden", hidden); }
 
   // ---- boot ----
   function boot(d) {
     me = d.me; site = d.site; comments = d.comments; rounds = d.rounds; lastSeen = d.lastSeen || null; computeNew();
-    root = el("div", "aa-rv aa-rv-root"); document.body.appendChild(root);
+    root = el("div", "aa-rv aa-rv-root"); if (SITE === "hig") root.classList.add("aa-rv-site-hig"); document.body.appendChild(root);
     layer = el("div", "aa-rv aa-rv-layer"); root.appendChild(layer);
     cap = el("div", "aa-rv aa-rv-cap"); cap.hidden = true; cap.addEventListener("click", capClick); root.appendChild(cap);
     panel = el("aside", "aa-rv aa-rv-panel"); panel.hidden = true; panel.addEventListener("click", panelClick); root.appendChild(panel);
     bar = el("div", "aa-rv aa-rv-bar"); bar.addEventListener("click", barClick); root.appendChild(bar);
     show = el("button", "aa-rv aa-rv-show"); show.type = "button"; show.textContent = "Review"; show.hidden = true;
-    show.addEventListener("click", function () { hidden = false; bar.hidden = false; show.hidden = true; }); root.appendChild(show);
+    show.addEventListener("click", function () { hidden = false; bar.hidden = false; show.hidden = true; if (root) root.classList.remove("is-bar-hidden"); }); root.appendChild(show);
+    buildBox();
     renderAll();
-    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") { if (pinMode) setPinMode(false); else if (pop) closePop(); else if (panelOpen) setPanel(false); } });
+    document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") { if (pinMode) setPinMode(false); else if (boxOpen) setBoxOpen(false); else if (pop) closePop(); else if (panelOpen) setPanel(false); } });
     raf = requestAnimationFrame(tick);
     var m = /aa-pin=([a-z0-9]+)/.exec(location.hash);
     if (m) { var c = byId(m[1]); if (c && onThisPage(c)) setTimeout(function () { goTo(c); }, 900); }
