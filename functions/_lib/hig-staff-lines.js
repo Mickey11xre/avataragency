@@ -4,5 +4,5 @@
 export const STAFF_CARD_LINES = {
   office: "Reviews uploaded business opportunities.",
   research: "Reviews uploaded documents.",
-  properties: "Evaluates materials against the firm's objectives.",
+  properties: "Evaluates materials against the firm’s objectives.",
 };

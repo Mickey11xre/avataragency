@@ -276,7 +276,8 @@ body.menu-open .hdr { background: var(--ink); }
 .sec-dark .feat-tab .sold,
 .feat-tab-go { color: var(--ink); }
 .feat-tab .eyebrow { margin-bottom: 12px; }
-.feat-tab-go { display: inline-flex; align-items: center; gap: 8px; flex: 0 1 auto; flex-basis: 100%; width: max-content; max-width: 100%; margin-top: 4px; font: 500 12px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; border-bottom: 1px solid var(--ink); padding-bottom: 7px; }
+.feat-tab-go { display: block; flex: 0 1 auto; flex-basis: 100%; width: 100%; margin-top: 4px; font: 500 12px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; border: 0; padding: 0; }
+.feat-tab-go > span { display: inline-flex; align-items: center; gap: 8px; border-bottom: 1px solid var(--ink); padding-bottom: 7px; }
 .feat-tab-go svg { width: 14px; height: 14px; }
 .feat-tab:hover { background: var(--gold-light); }
 .feat-tab:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
