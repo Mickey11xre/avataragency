@@ -268,9 +268,15 @@ body.menu-open .hdr { background: var(--ink); }
 .feat-head h2, .proj-head h2 { font-size: clamp(36px, 4.6vw, 64px); line-height: 1; letter-spacing: .1em; }
 /* Homepage featured 2201: bronze tab (palette --gold) linking to the six development chips (Greg #18) */
 .feat-tab { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px 48px; flex-wrap: wrap; flex: 1 1 16rem; min-width: 0; box-sizing: border-box; padding: 20px 24px; border-radius: 2px; background: var(--gold); color: var(--ink); text-decoration: none; }
-.feat-tab .eyebrow { color: var(--ink); margin-bottom: 12px; }
-.feat-tab h2, .feat-tab .sold { color: var(--ink); }
-.feat-tab-go { display: inline-flex; align-items: center; gap: 8px; flex: 1 1 100%; margin-top: 4px; font: 500 12px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--ink); border-bottom: 1px solid var(--ink); padding-bottom: 7px; width: max-content; }
+.sec-dark .feat-tab,
+.sec-dark .feat-tab h2,
+.sec-dark .feat-tab h2.serif,
+.sec-dark .feat-tab .eyebrow,
+.sec-dark .feat-tab .eyebrow.gold,
+.sec-dark .feat-tab .sold,
+.feat-tab-go { color: var(--ink); }
+.feat-tab .eyebrow { margin-bottom: 12px; }
+.feat-tab-go { display: inline-flex; align-items: center; gap: 8px; flex: 0 1 auto; flex-basis: 100%; width: max-content; max-width: 100%; margin-top: 4px; font: 500 12px/1 var(--sans); letter-spacing: .2em; text-transform: uppercase; border-bottom: 1px solid var(--ink); padding-bottom: 7px; }
 .feat-tab-go svg { width: 14px; height: 14px; }
 .feat-tab:hover { background: var(--gold-light); }
 .feat-tab:focus-visible { outline: 2px solid var(--gold-light); outline-offset: 3px; }
