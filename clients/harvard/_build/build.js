@@ -458,10 +458,9 @@ ${contactBlock(false)}`;
 function aboutPage() {
   const body = `<section class="hero hero-about" aria-labelledby="h1">
   <div class="wrap about-hero-in">
-    <!-- Portrait: OPTION_A of the 10-30 set (Nano Banana Pro job 809eff5d, from Greg's two headshots aged to his late 50s),
-         in the 2201 great room. For Greg's approval; OPTION_B/C are in the REVIEW folder. -->
+    <!-- Portrait: Cullen Option 1B (at the bar, white shirt), from clients/cullen/img/portrait-1w-v2-full.webp. -->
     <figure class="portrait rv-img">
-      <img src="${u("/assets/img/greg-portrait-r2-1200.webp")}" srcset="${u("/assets/img/greg-portrait-r2-400.webp")} 400w, ${u("/assets/img/greg-portrait-r2-600.webp")} 600w, ${u("/assets/img/greg-portrait-r2-800.webp")} 800w, ${u("/assets/img/greg-portrait-r2-1200.webp")} 1200w" sizes="(max-width: 900px) 340px, 29vw" width="1200" height="1600" alt="Greg Cullen, founder of Harvard Investment Group, in the great room of 2201 Bayside Drive" loading="eager" fetchpriority="high">
+      <img src="${u("/assets/img/greg-portrait-1b-1200.webp")}" srcset="${u("/assets/img/greg-portrait-1b-400.webp")} 400w, ${u("/assets/img/greg-portrait-1b-600.webp")} 600w, ${u("/assets/img/greg-portrait-1b-800.webp")} 800w, ${u("/assets/img/greg-portrait-1b-1200.webp")} 1200w" sizes="(max-width: 900px) 340px, 29vw" width="1200" height="1607" alt="Greg Cullen, founder of Harvard Investment Group" loading="eager" fetchpriority="high">
     </figure>
     <div class="about-hero-copy">
       <p class="eyebrow gold">Founder · Harvard Investment Group</p>
