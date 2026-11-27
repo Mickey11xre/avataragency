@@ -40,7 +40,8 @@
   /* ---- Top bar ---- */
   .topbar{border-bottom:1px solid var(--line);background:rgba(10,10,12,.82);backdrop-filter:blur(10px);position:sticky;top:0;z-index:10}
   .topbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:64px;flex-wrap:wrap;padding-top:8px;padding-bottom:8px}
-  .brand{font-weight:700;letter-spacing:.5px;font-size:18px}
+  .brand{font-weight:700;letter-spacing:.5px;font-size:18px;color:inherit;text-decoration:none}
+  a.brand:hover{opacity:.85}
   .brand b{color:var(--gold-2)}
   .pill{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:6px 12px}
 
@@ -176,7 +177,7 @@
 
 <div class="topbar">
   <div class="wrap">
-    <div class="brand">Avatar<b>Agency</b></div>
+    <a class="brand" href="https://avataragency.ai/" aria-label="AvatarAgency — home">Avatar<b>Agency</b></a>
     <div class="pill">Private Client Portal · Confidential</div>
   </div>
 </div>
