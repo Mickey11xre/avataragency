@@ -50,7 +50,10 @@
     // waiting for a scroll-reveal that iPhone Safari may not fire until they touch the screen.
     $$(".rv", el).forEach(function (r) { r.classList.add("in"); });
     setTimeout(function () { revealVisible(); }, 900); setTimeout(function () { revealVisible(); }, 1800);
-    if (id === "#top") scrollToEl(el, 0);
+    if (id === "#top") {                                          // always the real page top (0), not the sticky hero's box
+      if (lenis) lenis.scrollTo(0, { duration: 1.4, easing: function (t) { return 1 - Math.pow(1 - t, 4); } });
+      else window.scrollTo({ top: 0, behavior: RM ? "auto" : "smooth" });
+    }
     else if (label) scrollToEl(label, HDR() + 18 + (label.classList.contains("ch-label") && window.innerWidth <= 1180 ? 44 : 0));   // clear the chapter pill on phones/tablets
     else scrollToEl(el);
     history.replaceState(null, "", id);
