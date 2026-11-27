@@ -29,9 +29,23 @@
     0 0 32px rgba(10,10,10,.55);
 }
 
-/* Gold subhead is ~18% smaller than main's 1.04em italic (0.85em / 1.04em).
-   It stays on one line when the column is wide enough; otherwise it wraps. */
-.hero-long .hero-title em { font-size: 0.85em; }
+/* Gold subhead: one nowrap line, as large as the copy column allows.
+   100cqi / 15.2 is calibrated to this string as rendered on the page so the
+   glyphs stay inside the column; the existing 40px flex gap then keeps
+   32px+ clearance from the lede/CTA card. */
+.hero-long .hero-copy {
+  container-type: inline-size;
+  container-name: hero-copy;
+  min-width: 0;
+  width: 100%;
+}
+@media (min-width: 901px) {
+  .hero-long .hero-copy { flex: 1 1 auto; width: auto; }
+}
+.hero-long .hero-title em {
+  font-size: clamp(16px, calc(100cqi / 15.2), 64px);
+  white-space: nowrap;
+}
 
 /* Short phones: keep the lede and both CTAs fully above the service rail
    without changing the white heading size. */
