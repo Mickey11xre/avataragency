@@ -7,7 +7,8 @@
    Phone label: sits in the ring's lower edge, then is clamped to stay >=12px above the lede box. If there isn't room
    (portrait and viewport height < ~700px, or the clamp would collide with the heading), the label hides; the ring and
    video still play. Desktop (landscape) position is unchanged. The rAF clock pauses while the hero is off-screen
-   (IntersectionObserver) or the tab is hidden, and resumes when it returns. Reduced motion still bails out above. */
+   (scrolled past its in-flow box, or IntersectionObserver, or the tab is hidden) and resumes when it returns.
+   Reduced motion still bails out above. */
 (function () {
   var html = document.documentElement;
   if (html.classList.contains('rm')) return;                     // reduced motion: poster only, no video clock, no roll call
@@ -86,6 +87,7 @@
     em.style.color = u > 0.001 ? 'rgb(' + GOLD.map(function (g, i) { return Math.round(g + (CREAM[i] - g) * u); }).join(',') + ')' : '';
   }
   function render(t) {
+    place();                                                      // re-measure after intro/fonts so the label tracks the lede
     for (var i = 0; i < lines.length; i++) {
       var exit = port ? EXIT_PORT[i] : (i + 1 < ENTER.length ? ENTER[i + 1] - GAP : CLOSE);
       var enter = (port && i === 0) ? 0.50 : ENTER[i];             // phone: the first face is centered from frame 0
@@ -98,7 +100,21 @@
     if (content) rc.style.opacity = getComputedStyle(content).opacity;   // fades with the hero copy when the page scrolls
   }
   window.__rcRender = render;                                     // QA captures seek the video and call this directly
-  var raf = 0, inView = true;
+  var raf = 0, inView = true, ioSeen = true;
+  function flowInView() {                                         // sticky hero stays in the viewport box inside <main>;
+    var y = 0, el = hero;                                         // use its in-flow box so "off screen" means scrolled past
+    while (el) { y += el.offsetTop; el = el.offsetParent; }
+    var top = y, bottom = y + hero.offsetHeight;
+    var sy = window.pageYOffset, vh = window.innerHeight;
+    return sy < bottom - 1 && sy + vh > top + 1;
+  }
+  function visible() { return ioSeen && flowInView() && !document.hidden; }
+  function syncView() {
+    var next = visible();
+    if (next === inView) return;
+    inView = next;
+    if (inView) kick(); else stop();
+  }
   function ticking() { return inView && !document.hidden; }
   function loop() {
     raf = 0;
@@ -110,13 +126,16 @@
   }
   function kick() { if (ticking() && !raf) { place(); window.__rcTicking = true; raf = requestAnimationFrame(loop); } }
   function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } window.__rcTicking = false; }
-  document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else kick(); });
+  document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else { inView = visible(); if (inView) kick(); } });
+  window.addEventListener('scroll', syncView, { passive: true });
+  window.addEventListener('resize', syncView);
   if (typeof IntersectionObserver === 'function') {
     var io = new IntersectionObserver(function (ents) {
-      inView = !!(ents[0] && ents[0].isIntersecting);
-      if (inView) kick(); else stop();
+      ioSeen = !!(ents[0] && ents[0].isIntersecting);
+      syncView();
     });
     io.observe(hero);
   }
+  inView = visible();
   kick();
 })();
