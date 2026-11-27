@@ -105,7 +105,9 @@
       z = zs[i];
       if (!z) continue;
       hOverlap = lab.left < z.right + LEDE_GAP && lab.right > z.left - LEDE_GAP;
-      if (hOverlap) maxTopL = Math.min(maxTopL, z.top - LEDE_GAP - lab.height - heroL.top);
+      if (!hOverlap) continue;
+      if (z.bottom + LEDE_GAP <= lab.top) continue;              // header/nav sit above: they set the ceiling, not the floor
+      maxTopL = Math.min(maxTopL, z.top - LEDE_GAP - lab.height - heroL.top);
     }
     if (!(maxTopL >= ceilingL) || maxTopL === Infinity) { rc.classList.add('rc-hide'); return; }
     rc.style.top = Math.floor(maxTopL) + 'px';
