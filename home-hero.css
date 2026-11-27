@@ -1,0 +1,86 @@
+/* Homepage-only hero typography for the Nov 26 copy.
+   Loaded only from /index.html. Do not add these rules to home-next.css. */
+
+/* Contrast: gold #E4C97A and the off-white title can dip below 3:1 on pale
+   frames of the hero reel. A light shadow on the heading and a stronger
+   halo + soft local scrim on the gold line keep the worst frames readable. */
+.hero-long .hero-copy { position: relative; }
+.hero-long .hero-copy::before {
+  content: "";
+  position: absolute;
+  inset: -14px -22px -18px -28px;
+  background: radial-gradient(95% 85% at 22% 42%, rgba(10,10,10,.46), rgba(10,10,10,.16) 52%, transparent 74%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-long .hero-copy > * { position: relative; z-index: 1; }
+.hero-long .hero-title .line > span.hero-in {
+  text-shadow:
+    0 1px 2px rgba(0,0,0,.5),
+    0 2px 10px rgba(0,0,0,.42),
+    0 0 16px rgba(0,0,0,.35);
+}
+.hero-long .hero-title em.hero-in {
+  text-shadow:
+    0 1px 2px rgba(0,0,0,.82),
+    0 2px 8px rgba(0,0,0,.7),
+    0 0 18px rgba(0,0,0,.7),
+    0 0 32px rgba(10,10,10,.55);
+}
+
+/* Desktop / tablet: scale the title to the copy column so each heading
+   sentence stays on one line and the gold subhead stays on one line.
+   The lede column width eases from 300px to 360px so the title size
+   does not jump at 1100px. */
+@media (min-width: 901px) {
+  .hero-long .hero-copy {
+    flex: 1 1 auto;
+    min-width: 0;
+    container-type: inline-size;
+    container-name: hero-copy;
+  }
+  .hero-long .hero-title { font-size: clamp(42px, 8.7cqi, 76px); }
+  .hero-long .hero-title em {
+    font-size: min(0.72em, calc(100cqi / 17.5));
+    white-space: nowrap;
+  }
+  .hero-long .hero-content {
+    gap: clamp(28px, calc(28px + (100vw - 901px) * 0.06), 40px);
+  }
+  .hero-long .hero-side {
+    max-width: clamp(300px, calc(300px + (100vw - 901px) * 0.3), 360px);
+  }
+}
+
+/* Mobile: one line per heading sentence; gold may wrap to two lines.
+   40px is too wide for "Built around your brand." in the mobile column. */
+@media (max-width: 900px) {
+  .hero-long .hero-copy {
+    container-type: inline-size;
+    container-name: hero-copy;
+    min-width: 0;
+    width: 100%;
+  }
+  .hero-long .hero-title { font-size: clamp(26px, calc(100cqi / 10.8), 36px); }
+  .hero-long .hero-title .line > span.hero-in {
+    display: block;
+    white-space: nowrap;
+  }
+  .hero-long .hero-title em {
+    font-size: clamp(22px, 0.92em, 34px);
+    white-space: normal;
+  }
+}
+
+/* Short phones: keep the lede and both CTAs fully above the service rail. */
+@media (max-width: 900px) and (max-height: 740px) {
+  .hero-long .hero-content { gap: 10px; }
+  .hero-long .eyebrow { margin-bottom: 10px; }
+  .hero-long .hero-side .hero-lede { margin: 0 0 8px; padding: 10px 12px; font-size: 14.5px; }
+}
+@media (max-width: 900px) and (max-height: 680px) {
+  .hero-long .hero-title { font-size: clamp(24px, calc(100cqi / 11.2), 32px); }
+  .hero-long .hero-content { gap: 8px; }
+  .hero-long .hero-ctas { gap: 8px; }
+  .hero-long .btn { height: 46px; }
+}

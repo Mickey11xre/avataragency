@@ -572,28 +572,6 @@ a.logo-lockup:hover .l { color: var(--gold-light); }
 .js .rv.in { opacity: 1; transform: none; }
 .rm .rv { opacity: 1 !important; transform: none !important; }
 
-/* Homepage hero (hero-long): the Nov 26 heading and subhead are longer
-   than the original two short lines. At desktop and tablet, scale the
-   title to the copy column so each heading sentence stays on one line
-   and the gold subhead stays on two. Mobile (max-width: 900px) keeps
-   the existing title size. */
-@media (min-width: 901px) {
-  .hero-long .hero-copy {
-    flex: 1 1 auto;
-    min-width: 0;
-    container-type: inline-size;
-    container-name: hero-copy;
-  }
-  .hero-long .hero-title { font-size: clamp(42px, 8.7cqi, 76px); }
-  .hero-long .hero-title em { font-size: 0.9em; }
-  .hero-long .hero-sub-1,
-  .hero-long .hero-sub-2 { display: block; white-space: nowrap; }
-}
-@media (min-width: 901px) and (max-width: 1100px) {
-  .hero-long .hero-content { gap: 28px; }
-  .hero-long .hero-side { max-width: 300px; }
-}
-
 /* ═════════════ RESPONSIVE ═════════════ */
 @media (max-width: 1180px) {
   .hdr-nav { display: none; }
