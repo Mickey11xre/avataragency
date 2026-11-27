@@ -41,7 +41,6 @@ const HOME = {
   tiles: [
     { big: "1995", label: "Founded" },
     { big: "30", sup: "+", label: "Years in private equity & development" },
-    { big: "HBS", label: "Harvard Business School, MBA 1989" },
   ],
 };
 
@@ -316,7 +315,7 @@ const STAGE = {
     // agent in Harrison's place in the avatar area, with their own 20-second intro and a live conversation.
     team: { title: "Meet the AI team", sub: "The agents who work with Harrison", view: "Tap someone to bring them on stage and talk with them.",
       // stage v1.6 (Michael 11-19): the lead agent heads the team list, highlighted while on stage; tapping him brings him back
-      lead: { role: "Lead", line: "Answers your questions and leads the team", face: "/assets/img/staff-harrison.png" } },
+      lead: { role: "Lead", line: "Answers your questions and leads the team.", face: "/assets/img/staff-harrison.png" } },
     consent: "Share this file for a one-time review? It’s processed in memory and not stored.",
     ask: "Tell me what this is, the key facts, and what an investor should ask about it.",     // the question sent with a file when the visitor types nothing
   },

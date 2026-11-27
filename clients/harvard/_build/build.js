@@ -19,8 +19,8 @@ const FINAL = process.argv.includes("--final");
 const ROOT = FINAL ? "" : "/clients/harvard";                         // URL prefix for every internal link
 const BASE = FINAL ? "https://harvardinvestmentgroup.com" : "https://avataragency.ai/clients/harvard";
 const INDEXABLE = FINAL;
-const V = 38;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
-const RV = 2;                                                        // ?v= for the preview-only review layer (/clients/_review/, comment pins; never in --final)
+const V = 41;                                                       // ?v= for css/js (Cloudflare caches assets ~4 h)
+const RV = 3;                                                        // ?v= for the preview-only review layer (/clients/_review/, comment pins; never in --final)
 const OUT = path.resolve(__dirname, "..");
 
 const esc = (s) => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -388,8 +388,11 @@ ${peek(0)}
 <section class="sec sec-dark feat" id="featured" aria-labelledby="t-feat">
   <div class="wrap">
     <div class="feat-head rv">
-      <div><p class="eyebrow gold">Featured development · Corona del Mar</p><h2 class="serif caps" id="t-feat">2201 Bayside</h2></div>
-      <p class="serif sold">${DEVELOPMENTS.b2201.sold}</p>
+      <a class="feat-tab" href="${u("/developments/#development-tabs")}">
+        <div><p class="eyebrow gold">Featured development · Corona del Mar</p><h2 class="serif caps" id="t-feat">2201 Bayside</h2></div>
+        <p class="serif sold">${DEVELOPMENTS.b2201.sold}</p>
+        <span class="feat-tab-go"><span>View all developments ${icon("arrow")}</span></span>
+      </a>
       ${asSeen("as-seen-mob")}
     </div>
   </div>
@@ -455,10 +458,9 @@ ${contactBlock(false)}`;
 function aboutPage() {
   const body = `<section class="hero hero-about" aria-labelledby="h1">
   <div class="wrap about-hero-in">
-    <!-- Portrait: OPTION_A of the 10-30 set (Nano Banana Pro job 809eff5d, from Greg's two headshots aged to his late 50s),
-         in the 2201 great room. For Greg's approval; OPTION_B/C are in the REVIEW folder. -->
+    <!-- Portrait: Cullen Option 1B (at the bar, white shirt), from clients/cullen/img/portrait-1w-v2-full.webp. -->
     <figure class="portrait rv-img">
-      <img src="${u("/assets/img/greg-portrait-r2-1200.webp")}" srcset="${u("/assets/img/greg-portrait-r2-400.webp")} 400w, ${u("/assets/img/greg-portrait-r2-600.webp")} 600w, ${u("/assets/img/greg-portrait-r2-800.webp")} 800w, ${u("/assets/img/greg-portrait-r2-1200.webp")} 1200w" sizes="(max-width: 900px) 340px, 29vw" width="1200" height="1600" alt="Greg Cullen, founder of Harvard Investment Group, in the great room of 2201 Bayside Drive" loading="eager" fetchpriority="high">
+      <img src="${u("/assets/img/greg-portrait-1b-1200.webp")}" srcset="${u("/assets/img/greg-portrait-1b-400.webp")} 400w, ${u("/assets/img/greg-portrait-1b-600.webp")} 600w, ${u("/assets/img/greg-portrait-1b-800.webp")} 800w, ${u("/assets/img/greg-portrait-1b-1200.webp")} 1200w" sizes="(max-width: 900px) 340px, 29vw" width="1200" height="1607" alt="Greg Cullen, founder of Harvard Investment Group" loading="eager" fetchpriority="high">
     </figure>
     <div class="about-hero-copy">
       <p class="eyebrow gold">Founder · Harvard Investment Group</p>
@@ -577,7 +579,7 @@ function developmentsPage() {
     </div>
   </div>
   <div class="wrap">
-    <nav class="chips rv" aria-label="Projects"><p class="chips-label">${D.showcaseCue}</p>${projectNav.map(([h, l]) => `<a href="${h}">${l}${icon("arrow")}</a>`).join("")}</nav>
+    <nav class="chips" id="development-tabs" aria-label="Projects"><p class="chips-label">${D.showcaseCue}</p>${projectNav.map(([h, l]) => `<a href="${h}">${l}${icon("arrow")}</a>`).join("")}</nav>
   </div>
 </section>
 

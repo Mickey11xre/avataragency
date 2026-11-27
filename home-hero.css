@@ -1,0 +1,122 @@
+/* Homepage-only hero tweaks for the Nov 26 subhead.
+   Loaded only from /index.html. Do not add these rules to home-next.css.
+   The white heading uses main's markup and home-next.css size unchanged. */
+
+/* Metric-matched italic fallbacks so the gold nowrap line still fits when
+   Cormorant is loading or Google Fonts is blocked. Widths were measured in
+   Chrome against this exact string at letter-spacing: -.01em:
+   Georgia is ~29.6% wider (size-adjust 77%), Times New Roman / Times is
+   ~13% wider (size-adjust 88%). Ascent/descent match Cormorant Garamond
+   italic (OS/2 typo metrics 924 / -287 on a 1000 UPM). */
+@font-face {
+  font-family: "Hero Gold Fallback Georgia";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Georgia");
+  size-adjust: 77%;
+  ascent-override: 92.4%;
+  descent-override: 28.7%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Hero Gold Fallback Times";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Times New Roman"), local("Times"), local("Liberation Serif"), local("Nimbus Roman");
+  size-adjust: 88%;
+  ascent-override: 92.4%;
+  descent-override: 28.7%;
+  line-gap-override: 0%;
+}
+/* Intercept a forced or UA Times/Georgia italic on this page too, so a
+   !important font-family of Times New Roman still gets the width match.
+   Times New Roman src avoids local("Times New Roman") so the face is not
+   self-referential and size-adjust actually applies. */
+@font-face {
+  font-family: Georgia;
+  font-style: italic;
+  font-weight: 400;
+  src: local("Georgia");
+  size-adjust: 77%;
+  ascent-override: 92.4%;
+  descent-override: 28.7%;
+  line-gap-override: 0%;
+}
+@font-face {
+  font-family: "Times New Roman";
+  font-style: italic;
+  font-weight: 400;
+  src: local("Times"), local("Liberation Serif"), local("Nimbus Roman");
+  size-adjust: 88%;
+  ascent-override: 92.4%;
+  descent-override: 28.7%;
+  line-gap-override: 0%;
+}
+
+/* Contrast: gold #E4C97A and the off-white title can dip below 3:1 on pale
+   frames of the hero reel. A light shadow on the heading and a stronger
+   halo + soft local scrim on the gold line keep the worst frames readable.
+   The scrim box is oversized and the radial fades to 0 before every edge
+   so the left/top of the layer does not show as a hard step. */
+.hero-long .hero-copy { position: relative; }
+.hero-long .hero-copy::before {
+  content: "";
+  position: absolute;
+  inset: -72px -80px -64px -96px;
+  background: radial-gradient(58% 62% at 30% 48%, rgba(10,10,10,.46), rgba(10,10,10,.16) 42%, rgba(10,10,10,.05) 64%, transparent 82%);
+  pointer-events: none;
+  z-index: 0;
+}
+.hero-long .hero-copy > * { position: relative; z-index: 1; }
+.hero-long .hero-title .line > span.hero-in {
+  text-shadow:
+    0 1px 2px rgba(0,0,0,.5),
+    0 2px 10px rgba(0,0,0,.42),
+    0 0 16px rgba(0,0,0,.35);
+}
+.hero-long .hero-title em.hero-in {
+  text-shadow:
+    0 1px 2px rgba(0,0,0,.82),
+    0 2px 8px rgba(0,0,0,.7),
+    0 0 18px rgba(0,0,0,.7),
+    0 0 32px rgba(10,10,10,.55);
+}
+
+/* Gold subhead: one nowrap line, as large as the copy column allows.
+   100cqi / 16 leaves ~5% slack over the Cormorant calibration (15.2) so a
+   metric-matched Georgia/Times fallback still stays inside the column;
+   the existing 40px flex gap then keeps 32px+ clearance from the lede. */
+.hero-long .hero-copy {
+  container-type: inline-size;
+  container-name: hero-copy;
+  min-width: 0;
+  width: 100%;
+}
+@media (min-width: 901px) {
+  .hero-long .hero-copy { flex: 1 1 auto; width: auto; }
+}
+.hero-long .hero-title em {
+  font-family: "Cormorant Garamond", "Hero Gold Fallback Georgia", "Hero Gold Fallback Times", Georgia, "Times New Roman", Times, serif;
+  font-size: clamp(16px, calc(100cqi / 16), 64px);
+  white-space: nowrap;
+}
+
+/* Short phones: keep the lede and both CTAs fully above the service rail
+   without changing the white heading size. */
+@media (max-width: 900px) and (max-height: 740px) {
+  .hero-long .hero-content { gap: 10px; }
+  .hero-long .eyebrow { margin-bottom: 10px; }
+  .hero-long .hero-side .hero-lede { margin: 0 0 8px; padding: 10px 12px; font-size: 14.5px; }
+}
+@media (max-width: 900px) and (max-height: 680px) {
+  .hero-long .hero-content { gap: 8px; }
+  .hero-long .hero-ctas { gap: 8px; }
+  .hero-long .btn { height: 46px; }
+}
+@media (max-width: 900px) and (max-height: 600px) {
+  .hero-long .hero-content { gap: 6px; }
+  .hero-long .eyebrow { margin-bottom: 6px; }
+  .hero-long .hero-side .hero-lede { margin: 0 0 6px; padding: 8px 10px; font-size: 13.5px; }
+  .hero-long .hero-ctas { gap: 6px; }
+  .hero-long .btn { height: 42px; }
+}

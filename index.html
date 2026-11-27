@@ -22,7 +22,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://avataragency.ai/">
-<meta property="og:title" content="AvatarAgency — Your brand, everywhere. Without the film crew.">
+<meta property="og:title" content="AvatarAgency — Your brand, everywhere. AI agents for your marketing and workflow.">
 <meta property="og:description" content="Digital twins, talking AI agents, cinematic AI video and AI Referral Optimization — run for you by one creative strategist. Los Angeles, CA.">
 <meta property="og:image" content="https://avataragency.ai/assets/og-home-2026.jpg">
 <meta property="og:image:width" content="1200">
@@ -31,7 +31,7 @@
 <meta property="og:site_name" content="AvatarAgency">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@AvatarAgencyai">
-<meta name="twitter:title" content="AvatarAgency — Your brand, everywhere. Without the film crew.">
+<meta name="twitter:title" content="AvatarAgency — Your brand, everywhere. AI agents for your marketing and workflow.">
 <meta name="twitter:description" content="Digital twins, talking AI agents, cinematic AI video and AI Referral Optimization — run for you by one creative strategist. Los Angeles, CA.">
 <meta name="twitter:image" content="https://avataragency.ai/assets/og-home-2026.jpg">
 <meta name="twitter:image:alt" content="AvatarAgency: Your brand, everywhere. Without the film crew.">
@@ -41,8 +41,10 @@
 <link rel="preconnect" href="https://api.fontshare.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400;1,500&display=swap" rel="stylesheet">
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@300,400,500,600,700&display=swap" rel="stylesheet">
-<link rel="preload" as="image" href="/home-next/media/poster-hero.jpg?v=2" media="(min-aspect-ratio: 4/5)">
+<link rel="preload" as="image" href="/home-next/media/poster-hero-v12.jpg" media="(min-aspect-ratio: 4/5)">
 <link rel="stylesheet" href="/home-next/home-next.css?v=24">
+<link rel="stylesheet" href="/home-hero.css?v=4">
+<link rel="stylesheet" href="/home-hero-rollcall.css?v=2">
 <script>
   /* Runs before paint: flags JS, reduced motion, and whether the intro plays (once per session). */
   (function (d) {
@@ -190,6 +192,9 @@
 </head>
 <body>
 
+<!-- Scroll target for the logo: must not be the sticky hero, or the browser/Lenis think #top is already in view. -->
+<div id="top"></div>
+
 <!-- Icon sprite -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
   <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.5v13a.6.6 0 0 0 .9.5l10.4-6.5a.6.6 0 0 0 0-1L8.9 5a.6.6 0 0 0-.9.5z" fill="currentColor"/></symbol>
@@ -280,11 +285,11 @@
 
 <!-- ═════════════ 01 · HERO + MANIFESTO (curtain stack) ═════════════ -->
 <div class="stack">
-  <section class="hero" id="top" aria-labelledby="hero-title">
+  <section class="hero hero-long" aria-labelledby="hero-title">
     <div class="hero-media">
-      <video class="hero-video" muted loop playsinline autoplay preload="auto" poster="/home-next/media/poster-hero.jpg?v=2"
-             data-src-land="/home-next/media/hero-reel.mp4?v=4" data-src-port="/home-next/media/hero-reel-portrait.mp4?v=4"
-             data-poster-port="/home-next/media/poster-hero-portrait.jpg?v=2" aria-hidden="true"></video>
+      <video class="hero-video" muted loop playsinline autoplay preload="auto" poster="/home-next/media/poster-hero-v12.jpg"
+             data-src-land="/home-next/media/hero-loop-v12.mp4" data-src-port="/home-next/media/hero-loop-v12-portrait.mp4"
+             data-poster-port="/home-next/media/poster-hero-v12-portrait.jpg" aria-hidden="true"></video>
       <div class="hero-scrim"></div>
       <div class="grain"></div>
     </div>
@@ -301,7 +306,7 @@
         <p class="eyebrow gold hero-in" style="--d:0">Michael Rivera · Creative Strategist</p>
         <h1 class="hero-title" id="hero-title">
           <span class="line"><span class="hero-in" style="--d:1">Your brand, everywhere.</span></span>
-          <span class="line"><em class="hero-in" style="--d:2">Without the film crew.</em></span>
+          <span class="line"><em class="hero-in" style="--d:2">AI agents for your marketing and workflow.</em></span>
         </h1>
       </div>
       <div class="hero-side hero-in" style="--d:3">
@@ -927,6 +932,7 @@
 <script src="/home-next/vendor/ScrollTrigger.min.js"></script>
 <script src="/home-next/vendor/lenis.min.js"></script>
 <script src="/home-next/home-next.js?v=10"></script>
+<script src="/home-hero-rollcall.js?v=9"></script>
 <script src="/home-next/ava-panel.js?v=20"></script>
 </body>
 </html>
