@@ -13,7 +13,7 @@
    Mode (portrait vs landscape rules) follows the current viewport (width/height < 0.8), and is re-evaluated on resize,
    orientationchange, and matchMedia — not the video file chosen at load. After any clamp, every no-go zone is
    re-checked; if the label still overlaps or the gap is under 12px, it hides. Placement is recomputed on resize,
-   orientation change, role change, and fonts/metadata — not on every animation frame.
+   orientation change, role change, fonts/metadata, and when the label box itself resizes — not on every animation frame.
    The rAF clock pauses while the hero is off-screen (next section covers the sticky hero, or IntersectionObserver,
    or the tab is hidden) and resumes when it returns. Reduced motion still bails out above. */
 (function () {
@@ -107,7 +107,19 @@
     vid.src = next;
   }
 
+  var placeLock = false, placeRaf = 0, heightRetries = 0;
+  function schedulePlace() {                                      // after layout/fonts settle; not a per-frame loop
+    if (placeRaf) return;
+    placeRaf = requestAnimationFrame(function () {
+      placeRaf = requestAnimationFrame(function () { placeRaf = 0; place(); });
+    });
+  }
   function place() {
+    if (placeLock) return;
+    placeLock = true;
+    try { placeBody(); } finally { placeLock = false; }
+  }
+  function placeBody() {
     var w = window.innerWidth, h = window.innerHeight, heroW = hero.clientWidth, heroH = hero.clientHeight;
     port = viewportPort();                                        // follow the current orientation, not the file chosen at load
     var vw = port ? 720 : 1920, vh = port ? 1280 : 1080, s = Math.max(heroW / vw, heroH / vh), oy = (heroH - vh * s) / 2;
@@ -118,7 +130,8 @@
       if (!lede) return;
       var heroR = hero.getBoundingClientRect(), ledeR = lede.getBoundingClientRect(), rcR = rc.getBoundingClientRect();
       var rcH = rcR.height;
-      if (!rcH) return;
+      if (!rcH) { if (heightRetries < 8) { heightRetries++; schedulePlace(); } return; }
+      heightRetries = 0;
       if (heroH < SHORT_H || h < SHORT_H) { hideLabel(); return; } // portrait shorter than ~700px: hide, ring/video keep playing
       if (ledeR.top - rcR.bottom < LEDE_GAP) {
         var maxTop = ledeR.top - LEDE_GAP - rcH - heroR.top;
@@ -131,7 +144,8 @@
       return;
     }
     var heroL = hero.getBoundingClientRect(), lab = labelBox();
-    if (!lab.height) return;
+    if (!lab.height) { if (heightRetries < 8) { heightRetries++; schedulePlace(); } return; }
+    heightRetries = 0;
     var zs = [zoneRect(ctas), zoneRect(rail), zoneRect(hdr), zoneRect(lede)], i, z, hit = false, maxTopL = Infinity, ceilingL, hOverlap;
     for (i = 0; i < zs.length; i++) {
       z = zs[i];
@@ -170,10 +184,14 @@
     if (mq.addEventListener) mq.addEventListener('change', onLayout);
     else if (mq.addListener) mq.addListener(onLayout);
   }
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  if (document.fonts) {
+    if (document.fonts.ready) document.fonts.ready.then(place);
+    if (document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', place);
+  }
   if (typeof ResizeObserver === 'function') {
-    var ro = new ResizeObserver(place);
+    var ro = new ResizeObserver(function () { if (!placeLock) place(); });
     ro.observe(hero);
+    ro.observe(rc);                                               // font-size / port-class box changes, not every rAF
     if (lede) ro.observe(lede);
     if (ctas) ro.observe(ctas);
     if (rail) ro.observe(rail);
@@ -210,7 +228,6 @@
   }
   function render(t) {
     var ri = roleIndex(t);
-    if (ri !== lastRole) { lastRole = ri; place(); }              // re-measure only when the visible role (or empty slot) changes
     for (var i = 0; i < lines.length; i++) {
       var exit = port ? EXIT_PORT[i] : (i + 1 < ENTER.length ? ENTER[i + 1] - GAP : CLOSE);
       var enter = (port && i === 0) ? 0.50 : ENTER[i];             // phone: the first face is centered from frame 0
@@ -221,6 +238,7 @@
     ebRule.style.setProperty('--rule', qOut(Math.max(0, Math.min(r, 1))).toFixed(3));
     planet(t);
     if (content) rc.style.opacity = getComputedStyle(content).opacity;   // fades with the hero copy when the page scrolls
+    if (ri !== lastRole) { lastRole = ri; place(); schedulePlace(); }  // pose first, then re-measure the settled box
   }
   var raf = 0, inView = true, ioSeen = true;
   function flowInView() {                                         // sticky hero stays in the viewport box inside <main>,
