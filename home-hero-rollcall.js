@@ -13,7 +13,8 @@
    Mode (portrait vs landscape rules) follows the current viewport (width/height < 0.8), and is re-evaluated on resize,
    orientationchange, and matchMedia — not the video file chosen at load. After any clamp, every no-go zone is
    re-checked; if the label still overlaps or the gap is under 12px, it hides. Placement is recomputed on resize,
-   orientation change, role change, fonts/metadata, and when the label box itself resizes — not on every animation frame.
+   orientation change, role change, fonts/metadata, when the label box itself resizes, and when a no-go zone
+   moves (the hero copy eases into place over the first ~2s) — not on every animation frame once layout has settled.
    The rAF clock pauses while the hero is off-screen (next section covers the sticky hero, or IntersectionObserver,
    or the tab is hidden) and resumes when it returns. Reduced motion still bails out above. */
 (function () {
@@ -49,10 +50,18 @@
   var rail = document.querySelector('.hero-rail');
   var hdr = document.getElementById('hdr') || document.querySelector('.hdr');
 
-  var port = false, lastRole = -3, swapping = false;
+  var port = false, lastRole = -3, lastZones = '', swapping = false;
   function viewportPort() { return window.innerWidth / window.innerHeight < 0.8; }
   function overlaps(a, b, gap) {                                  // true if the boxes come within `gap` px (axis-aligned)
     return a.left < b.right + gap && a.right > b.left - gap && a.top < b.bottom + gap && a.bottom > b.top - gap;
+  }
+  function zoneKey() {                                            // snapshot of no-go positions; changes while the hero copy eases in
+    function k(el) {
+      if (!el) return '';
+      var r = el.getBoundingClientRect();
+      return Math.round(r.top) + ',' + Math.round(r.bottom) + ',' + Math.round(r.left) + ',' + Math.round(r.right);
+    }
+    return k(lede) + '|' + k(ctas) + '|' + k(rail) + '|' + k(hdr) + '|' + k(h1);
   }
   function labelBox() {                                           // .rc is full-width; use the text's real left/right
     var box = rc.getBoundingClientRect(), nodes = rc.querySelectorAll('.m'), l = Infinity, r = -Infinity, any = false, i, rec;
@@ -238,7 +247,10 @@
     ebRule.style.setProperty('--rule', qOut(Math.max(0, Math.min(r, 1))).toFixed(3));
     planet(t);
     if (content) rc.style.opacity = getComputedStyle(content).opacity;   // fades with the hero copy when the page scrolls
-    if (ri !== lastRole) { lastRole = ri; place(); schedulePlace(); }  // pose first, then re-measure the settled box
+    var zk = zoneKey();
+    if (ri !== lastRole || zk !== lastZones) {                    // re-place when the role or a no-go box moves; not otherwise
+      lastRole = ri; lastZones = zk; place();
+    }
   }
   var raf = 0, inView = true, ioSeen = true;
   function flowInView() {                                         // sticky hero stays in the viewport box inside <main>,
