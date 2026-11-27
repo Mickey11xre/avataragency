@@ -4,11 +4,14 @@
    can never drift from the picture. Times are seconds on the 25 fps loop; nothing shows after CLOSE.
    Also: while the gold planet sits behind the headline (PLANET), the gold italic subhead eases to cream and gets a denser
    halo, so it stays readable (measured 1.9-2.5:1 without, 3.1-3.7:1 with). Styles live in home-hero-rollcall.css.
-   Phone label: sits in the ring's lower edge, then is clamped to stay >=12px above the lede box. If there isn't room
-   (portrait and viewport height < ~700px, or the clamp would collide with the heading), the label hides; the ring and
-   video still play. Desktop (landscape) position is unchanged. The rAF clock pauses while the hero is off-screen
-   (scrolled past its in-flow box, or IntersectionObserver, or the tab is hidden) and resumes when it returns.
-   Reduced motion still bails out above. */
+   Phone (portrait) label: sits in the ring's lower edge, then is clamped to stay >=12px above the lede box. If there
+   isn't room (portrait and viewport height < ~700px, or the clamp would collide with the heading), the label hides;
+   the ring and video still play.
+   Landscape / desktop label: sits above the rail in video space, then is clamped each frame to stay >=12px from the
+   CTA group, service rail, header/nav, and lede (and not to cover the heading). If it can't fit, the label hides;
+   the ring and video still play. Tall desktops already clear the rail, so they stay at the natural position.
+   The rAF clock pauses while the hero is off-screen (next section covers the sticky hero, or IntersectionObserver,
+   or the tab is hidden) and resumes when it returns. Reduced motion still bails out above. */
 (function () {
   var html = document.documentElement;
   if (html.classList.contains('rm')) return;                     // reduced motion: poster only, no video clock, no roll call
@@ -25,7 +28,7 @@
   var EXIT_PORT = [2.05, 5.80, 9.68, 12.75];                     // phone: each role leaves before its face swings out of the tall frame
                                                                   // (swings start at 2.92, 6.68, 10.56 s; the last face leaves at ~13.6 s)
   var PLANET = [13.6, 24.0], RAMP = 0.9, GOLD = [228, 201, 122], CREAM = [245, 240, 232];
-  var LEDE_GAP = 12;                                              // min px between label bottom and the lede box top
+  var LEDE_GAP = 12;                                              // min px between the label and any no-go box
   var SHORT_H = 700;                                              // portrait shorter than this: hide the label (no room above the lede)
 
   var rc = document.createElement('div'); rc.className = 'rc'; rc.setAttribute('aria-hidden', 'true');
@@ -38,8 +41,29 @@
   var content = document.querySelector('.hero-content');
   var h1 = document.getElementById('hero-title'), em = h1 && h1.querySelector('em');
   var lede = document.querySelector('.hero-lede');
+  var ctas = document.querySelector('.hero-ctas');
+  var rail = document.querySelector('.hero-rail');
+  var hdr = document.getElementById('hdr') || document.querySelector('.hdr');
 
   var port = false;
+  function overlaps(a, b, gap) {                                  // true if the boxes come within `gap` px (axis-aligned)
+    return a.left < b.right + gap && a.right > b.left - gap && a.top < b.bottom + gap && a.bottom > b.top - gap;
+  }
+  function labelBox() {                                           // .rc is full-width; use the text's real left/right
+    var box = rc.getBoundingClientRect(), nodes = rc.querySelectorAll('.m'), l = Infinity, r = -Infinity, any = false, i, rec;
+    for (i = 0; i < nodes.length; i++) {
+      rec = nodes[i].getBoundingClientRect();
+      if (rec.width < 1 || rec.height < 1) continue;
+      any = true; l = Math.min(l, rec.left); r = Math.max(r, rec.right);
+    }
+    return { top: box.top, bottom: box.bottom, height: box.height, left: any ? l : box.left, right: any ? r : box.right };
+  }
+  function zoneRect(el) {
+    if (!el) return null;
+    var r = el.getBoundingClientRect();
+    if (r.width < 1 || r.height < 1) return null;
+    return r;
+  }
   function place() {
     var w = hero.clientWidth, h = hero.clientHeight;
     port = vid.videoWidth ? vid.videoHeight > vid.videoWidth : w / h < 0.8;       // follow the file actually playing
@@ -47,16 +71,44 @@
     rc.classList.toggle('rc-port', port);
     rc.classList.remove('rc-hide');
     rc.style.top = Math.round(oy + (port ? TOP_PORT : TOP_LAND) * s) + 'px';
-    if (!port || !lede) return;                                   // desktop / landscape: leave the rail-relative position alone
-    var heroR = hero.getBoundingClientRect(), ledeR = lede.getBoundingClientRect(), rcR = rc.getBoundingClientRect();
-    var rcH = rcR.height;
-    if (!rcH) return;
-    if (ledeR.top - rcR.bottom >= LEDE_GAP) return;              // already clear of the lede box
-    var maxTop = ledeR.top - LEDE_GAP - rcH - heroR.top;
-    var titleR = h1 ? h1.getBoundingClientRect() : null;
-    var ceiling = titleR ? (titleR.bottom - heroR.top + LEDE_GAP) : 0;
-    if (h < SHORT_H || maxTop < ceiling) { rc.classList.add('rc-hide'); return; }  // no room: hide label, ring/video keep playing
-    rc.style.top = Math.round(maxTop) + 'px';
+    if (port) {
+      if (!lede) return;
+      var heroR = hero.getBoundingClientRect(), ledeR = lede.getBoundingClientRect(), rcR = rc.getBoundingClientRect();
+      var rcH = rcR.height;
+      if (!rcH) return;
+      if (ledeR.top - rcR.bottom >= LEDE_GAP) return;              // already clear of the lede box
+      var maxTop = ledeR.top - LEDE_GAP - rcH - heroR.top;
+      var titleR = h1 ? h1.getBoundingClientRect() : null;
+      var ceiling = titleR ? (titleR.bottom - heroR.top + LEDE_GAP) : 0;
+      if (h < SHORT_H || maxTop < ceiling) { rc.classList.add('rc-hide'); return; }  // no room: hide label, ring/video keep playing
+      rc.style.top = Math.round(maxTop) + 'px';
+      return;
+    }
+    var heroL = hero.getBoundingClientRect(), lab = labelBox();
+    if (!lab.height) return;
+    var zs = [zoneRect(ctas), zoneRect(rail), zoneRect(hdr), zoneRect(lede)], i, z, hit = false, maxTopL = Infinity, ceilingL, hOverlap;
+    for (i = 0; i < zs.length; i++) {
+      z = zs[i];
+      if (z && overlaps(lab, z, LEDE_GAP)) hit = true;
+    }
+    if (!hit) return;                                             // already clear of CTAs, rail, header, and lede
+    ceilingL = LEDE_GAP;
+    if (hdr) {
+      z = zoneRect(hdr);
+      if (z) ceilingL = Math.max(ceilingL, z.bottom - heroL.top + LEDE_GAP);
+    }
+    if (h1) {
+      z = zoneRect(h1);
+      if (z) ceilingL = Math.max(ceilingL, z.bottom - heroL.top + LEDE_GAP);
+    }
+    for (i = 0; i < zs.length; i++) {
+      z = zs[i];
+      if (!z) continue;
+      hOverlap = lab.left < z.right + LEDE_GAP && lab.right > z.left - LEDE_GAP;
+      if (hOverlap) maxTopL = Math.min(maxTopL, z.top - LEDE_GAP - lab.height - heroL.top);
+    }
+    if (!(maxTopL >= ceilingL) || maxTopL === Infinity) { rc.classList.add('rc-hide'); return; }
+    rc.style.top = Math.floor(maxTopL) + 'px';
   }
   window.addEventListener('resize', place); vid.addEventListener('loadedmetadata', place); place();
   if (window.visualViewport) visualViewport.addEventListener('resize', place);
@@ -65,6 +117,8 @@
     var ro = new ResizeObserver(place);
     ro.observe(hero);
     if (lede) ro.observe(lede);
+    if (ctas) ro.observe(ctas);
+    if (rail) ro.observe(rail);
   }
 
   function qOut(x) { return 1 - Math.pow(1 - x, 4); }
@@ -117,14 +171,12 @@
   function ticking() { return inView && !document.hidden; }
   function loop() {
     raf = 0;
-    if (!ticking()) { window.__rcTicking = false; return; }        // do not schedule the next frame while paused
+    if (!ticking()) return;                                       // do not schedule the next frame while paused
     if (!window.__rcFrozen) render(vid.currentTime || 0);
-    window.__rcTicking = true;
-    window.__rcFrames = (window.__rcFrames || 0) + 1;              // QA: count only while the loop is actually running
     raf = requestAnimationFrame(loop);
   }
-  function kick() { if (ticking() && !raf) { place(); window.__rcTicking = true; raf = requestAnimationFrame(loop); } }
-  function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } window.__rcTicking = false; }
+  function kick() { if (ticking() && !raf) { place(); raf = requestAnimationFrame(loop); } }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } }
   document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else { inView = visible(); if (inView) kick(); } });
   window.addEventListener('scroll', syncView, { passive: true });
   window.addEventListener('resize', syncView);
