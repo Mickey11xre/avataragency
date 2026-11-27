@@ -7,9 +7,13 @@
    Phone (portrait) label: sits in the ring's lower edge, then is clamped to stay >=12px above the lede box. If there
    isn't room (portrait and viewport height < ~700px, or the clamp would collide with the heading), the label hides;
    the ring and video still play.
-   Landscape / desktop label: sits above the rail in video space, then is clamped each frame to stay >=12px from the
-   CTA group, service rail, header/nav, and lede (and not to cover the heading). If it can't fit, the label hides;
-   the ring and video still play. Tall desktops already clear the rail, so they stay at the natural position.
+   Landscape / desktop label: sits above the rail in video space, then is clamped to stay >=12px from the CTA group,
+   service rail, header/nav, and lede (and not to cover the heading). If it can't fit, the label hides; the ring and
+   video still play. Tall desktops already clear the rail, so they stay at the natural position.
+   Mode (portrait vs landscape rules) follows the current viewport (width/height < 0.8), and is re-evaluated on resize,
+   orientationchange, and matchMedia — not the video file chosen at load. After any clamp, every no-go zone is
+   re-checked; if the label still overlaps or the gap is under 12px, it hides. Placement is recomputed on resize,
+   orientation change, role change, and fonts/metadata — not on every animation frame.
    The rAF clock pauses while the hero is off-screen (next section covers the sticky hero, or IntersectionObserver,
    or the tab is hidden) and resumes when it returns. Reduced motion still bails out above. */
 (function () {
@@ -45,7 +49,8 @@
   var rail = document.querySelector('.hero-rail');
   var hdr = document.getElementById('hdr') || document.querySelector('.hdr');
 
-  var port = false;
+  var port = false, lastRole = -3, swapping = false;
+  function viewportPort() { return window.innerWidth / window.innerHeight < 0.8; }
   function overlaps(a, b, gap) {                                  // true if the boxes come within `gap` px (axis-aligned)
     return a.left < b.right + gap && a.right > b.left - gap && a.top < b.bottom + gap && a.bottom > b.top - gap;
   }
@@ -64,10 +69,48 @@
     if (r.width < 1 || r.height < 1) return null;
     return r;
   }
+  function clearOfZones() {                                       // after a clamp: hide unless every no-go is still >=12px away
+    var lab = labelBox(), zs, i;
+    if (!lab.height) return true;
+    zs = [zoneRect(ctas), zoneRect(rail), zoneRect(hdr), zoneRect(lede)];
+    for (i = 0; i < zs.length; i++) if (zs[i] && overlaps(lab, zs[i], LEDE_GAP)) return false;
+    return true;
+  }
+  function hideLabel() { rc.classList.add('rc-hide'); }
+
+  function fileOf(url) { return (url || '').split('?')[0].split('/').pop(); }
+  function syncVideo() {                                          // optional: swap land/port file to match orientation, keep the clock
+    var want = viewportPort(), next = vid.getAttribute(want ? 'data-src-port' : 'data-src-land'), poster, t, keep, cur, media, done;
+    if (!next || html.classList.contains('rm')) return;
+    cur = vid.currentSrc || vid.getAttribute('src') || '';
+    if (fileOf(cur) === fileOf(next)) return;
+    if (swapping) return;
+    swapping = true;
+    t = vid.currentTime || 0;
+    keep = !vid.paused;
+    poster = want ? vid.getAttribute('data-poster-port') : vid.getAttribute('poster');
+    if (want && poster) {
+      vid.setAttribute('poster', poster);
+      media = document.querySelector('.hero-media');
+      if (media) media.style.backgroundImage = 'url("' + poster + '")';
+    }
+    done = function () {
+      vid.removeEventListener('loadeddata', done);
+      vid.removeEventListener('canplay', done);
+      swapping = false;
+      try { if (isFinite(t) && vid.readyState >= 1) vid.currentTime = t; } catch (e) {}
+      if (keep) { var p = vid.play(); if (p && p.catch) p.catch(function () {}); }
+      place();
+    };
+    vid.addEventListener('loadeddata', done);
+    vid.addEventListener('canplay', done);
+    vid.src = next;
+  }
+
   function place() {
-    var w = hero.clientWidth, h = hero.clientHeight;
-    port = vid.videoWidth ? vid.videoHeight > vid.videoWidth : w / h < 0.8;       // follow the file actually playing
-    var vw = port ? 720 : 1920, vh = port ? 1280 : 1080, s = Math.max(w / vw, h / vh), oy = (h - vh * s) / 2;
+    var w = window.innerWidth, h = window.innerHeight, heroW = hero.clientWidth, heroH = hero.clientHeight;
+    port = viewportPort();                                        // follow the current orientation, not the file chosen at load
+    var vw = port ? 720 : 1920, vh = port ? 1280 : 1080, s = Math.max(heroW / vw, heroH / vh), oy = (heroH - vh * s) / 2;
     rc.classList.toggle('rc-port', port);
     rc.classList.remove('rc-hide');
     rc.style.top = Math.round(oy + (port ? TOP_PORT : TOP_LAND) * s) + 'px';
@@ -76,12 +119,15 @@
       var heroR = hero.getBoundingClientRect(), ledeR = lede.getBoundingClientRect(), rcR = rc.getBoundingClientRect();
       var rcH = rcR.height;
       if (!rcH) return;
-      if (ledeR.top - rcR.bottom >= LEDE_GAP) return;              // already clear of the lede box
-      var maxTop = ledeR.top - LEDE_GAP - rcH - heroR.top;
-      var titleR = h1 ? h1.getBoundingClientRect() : null;
-      var ceiling = titleR ? (titleR.bottom - heroR.top + LEDE_GAP) : 0;
-      if (h < SHORT_H || maxTop < ceiling) { rc.classList.add('rc-hide'); return; }  // no room: hide label, ring/video keep playing
-      rc.style.top = Math.round(maxTop) + 'px';
+      if (heroH < SHORT_H || h < SHORT_H) { hideLabel(); return; } // portrait shorter than ~700px: hide, ring/video keep playing
+      if (ledeR.top - rcR.bottom < LEDE_GAP) {
+        var maxTop = ledeR.top - LEDE_GAP - rcH - heroR.top;
+        var titleR = h1 ? h1.getBoundingClientRect() : null;
+        var ceiling = titleR ? (titleR.bottom - heroR.top + LEDE_GAP) : 0;
+        if (maxTop < ceiling) { hideLabel(); return; }
+        rc.style.top = Math.round(maxTop) + 'px';
+      }
+      if (!clearOfZones()) hideLabel();
       return;
     }
     var heroL = hero.getBoundingClientRect(), lab = labelBox();
@@ -91,29 +137,39 @@
       z = zs[i];
       if (z && overlaps(lab, z, LEDE_GAP)) hit = true;
     }
-    if (!hit) return;                                             // already clear of CTAs, rail, header, and lede
-    ceilingL = LEDE_GAP;
-    if (hdr) {
-      z = zoneRect(hdr);
-      if (z) ceilingL = Math.max(ceilingL, z.bottom - heroL.top + LEDE_GAP);
+    if (hit) {
+      ceilingL = LEDE_GAP;
+      if (hdr) {
+        z = zoneRect(hdr);
+        if (z) ceilingL = Math.max(ceilingL, z.bottom - heroL.top + LEDE_GAP);
+      }
+      if (h1) {
+        z = zoneRect(h1);
+        if (z) ceilingL = Math.max(ceilingL, z.bottom - heroL.top + LEDE_GAP);
+      }
+      for (i = 0; i < zs.length; i++) {
+        z = zs[i];
+        if (!z) continue;
+        hOverlap = lab.left < z.right + LEDE_GAP && lab.right > z.left - LEDE_GAP;
+        if (!hOverlap) continue;
+        if (z.bottom + LEDE_GAP <= lab.top) continue;              // header/nav sit above: they set the ceiling, not the floor
+        maxTopL = Math.min(maxTopL, z.top - LEDE_GAP - lab.height - heroL.top);
+      }
+      if (!(maxTopL >= ceilingL) || maxTopL === Infinity) { hideLabel(); return; }
+      rc.style.top = Math.floor(maxTopL) + 'px';
     }
-    if (h1) {
-      z = zoneRect(h1);
-      if (z) ceilingL = Math.max(ceilingL, z.bottom - heroL.top + LEDE_GAP);
-    }
-    for (i = 0; i < zs.length; i++) {
-      z = zs[i];
-      if (!z) continue;
-      hOverlap = lab.left < z.right + LEDE_GAP && lab.right > z.left - LEDE_GAP;
-      if (!hOverlap) continue;
-      if (z.bottom + LEDE_GAP <= lab.top) continue;              // header/nav sit above: they set the ceiling, not the floor
-      maxTopL = Math.min(maxTopL, z.top - LEDE_GAP - lab.height - heroL.top);
-    }
-    if (!(maxTopL >= ceilingL) || maxTopL === Infinity) { rc.classList.add('rc-hide'); return; }
-    rc.style.top = Math.floor(maxTopL) + 'px';
+    if (!clearOfZones()) hideLabel();                             // after any move, re-check lede, CTAs, rail, and header
   }
-  window.addEventListener('resize', place); vid.addEventListener('loadedmetadata', place); place();
-  if (window.visualViewport) visualViewport.addEventListener('resize', place);
+  function onLayout() { syncVideo(); place(); }
+  window.addEventListener('resize', onLayout);
+  window.addEventListener('orientationchange', onLayout);
+  vid.addEventListener('loadedmetadata', place);
+  if (window.visualViewport) visualViewport.addEventListener('resize', onLayout);
+  if (window.matchMedia) {
+    var mq = window.matchMedia('(max-aspect-ratio: 4/5)');
+    if (mq.addEventListener) mq.addEventListener('change', onLayout);
+    else if (mq.addListener) mq.addListener(onLayout);
+  }
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
   if (typeof ResizeObserver === 'function') {
     var ro = new ResizeObserver(place);
@@ -122,6 +178,7 @@
     if (ctas) ro.observe(ctas);
     if (rail) ro.observe(rail);
   }
+  onLayout();
 
   function qOut(x) { return 1 - Math.pow(1 - x, 4); }
   function cIn(x) { return x * x * x; }
@@ -142,8 +199,18 @@
     h1.classList.toggle('rc-planet', u > 0.02);
     em.style.color = u > 0.001 ? 'rgb(' + GOLD.map(function (g, i) { return Math.round(g + (CREAM[i] - g) * u); }).join(',') + ')' : '';
   }
+  function roleIndex(t) {
+    var i, enter, exit;
+    for (i = 0; i < ENTER.length; i++) {
+      exit = port ? EXIT_PORT[i] : (i + 1 < ENTER.length ? ENTER[i + 1] - GAP : CLOSE);
+      enter = (port && i === 0) ? 0.50 : ENTER[i];
+      if (t >= enter && t < exit) return i;
+    }
+    return -1;
+  }
   function render(t) {
-    place();                                                      // re-measure after intro/fonts so the label tracks the lede
+    var ri = roleIndex(t);
+    if (ri !== lastRole) { lastRole = ri; place(); }              // re-measure only when the visible role (or empty slot) changes
     for (var i = 0; i < lines.length; i++) {
       var exit = port ? EXIT_PORT[i] : (i + 1 < ENTER.length ? ENTER[i + 1] - GAP : CLOSE);
       var enter = (port && i === 0) ? 0.50 : ENTER[i];             // phone: the first face is centered from frame 0
@@ -155,7 +222,6 @@
     planet(t);
     if (content) rc.style.opacity = getComputedStyle(content).opacity;   // fades with the hero copy when the page scrolls
   }
-  window.__rcRender = render;                                     // QA captures seek the video and call this directly
   var raf = 0, inView = true, ioSeen = true;
   function flowInView() {                                         // sticky hero stays in the viewport box inside <main>,
     var next = hero.nextElementSibling;                           // so measure the next section: once it reaches the top, the hero is covered
@@ -174,7 +240,7 @@
   function loop() {
     raf = 0;
     if (!ticking()) return;                                       // do not schedule the next frame while paused
-    if (!window.__rcFrozen) render(vid.currentTime || 0);
+    render(vid.currentTime || 0);
     raf = requestAnimationFrame(loop);
   }
   function kick() { if (ticking() && !raf) { place(); raf = requestAnimationFrame(loop); } }
