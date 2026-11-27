@@ -96,7 +96,8 @@ async function logout(context) {
 
 async function me(context) {
   const s = await getClientSession(context.env, context.request, { deep: true });
-  if (!s) return json({ ok: false, error: "signed out" }, 401);
+  // 200, not 401: the sign-in page asks this on every load, and a 401 would log a console error for every signed-out visitor.
+  if (!s) return json({ ok: false, signed_out: true });
   const slugs = s.r === "admin" || (s.s || []).includes("*") ? [...GATED] : (s.s || []);
   const portals = slugs.map((slug) => ({ slug, name: PORTAL_NAMES[slug] || slug, href: `/clients/${slug}/` }));
   return json({ ok: true, email: s.e, name: s.n || "", role: s.r, slugs: s.s, must_change: !!s.mc, portals });
