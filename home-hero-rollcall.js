@@ -101,12 +101,11 @@
   }
   window.__rcRender = render;                                     // QA captures seek the video and call this directly
   var raf = 0, inView = true, ioSeen = true;
-  function flowInView() {                                         // sticky hero stays in the viewport box inside <main>;
-    var y = 0, el = hero;                                         // use its in-flow box so "off screen" means scrolled past
-    while (el) { y += el.offsetTop; el = el.offsetParent; }
-    var top = y, bottom = y + hero.offsetHeight;
-    var sy = window.pageYOffset, vh = window.innerHeight;
-    return sy < bottom - 1 && sy + vh > top + 1;
+  function flowInView() {                                         // sticky hero stays in the viewport box inside <main>,
+    var next = hero.nextElementSibling;                           // so measure the next section: once it reaches the top, the hero is covered
+    if (next) return next.getBoundingClientRect().top > 1;
+    var r = hero.getBoundingClientRect();
+    return r.bottom > 1 && r.top < window.innerHeight - 1;
   }
   function visible() { return ioSeen && flowInView() && !document.hidden; }
   function syncView() {
