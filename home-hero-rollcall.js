@@ -3,7 +3,11 @@
    each word sliding up inside a mask, blurred to sharp. Driven by the hero video's own clock (video.currentTime), so it
    can never drift from the picture. Times are seconds on the 25 fps loop; nothing shows after CLOSE.
    Also: while the gold planet sits behind the headline (PLANET), the gold italic subhead eases to cream and gets a denser
-   halo, so it stays readable (measured 1.9-2.5:1 without, 3.1-3.7:1 with). Styles live in home-hero-rollcall.css. */
+   halo, so it stays readable (measured 1.9-2.5:1 without, 3.1-3.7:1 with). Styles live in home-hero-rollcall.css.
+   Phone label: sits in the ring's lower edge, then is clamped to stay >=12px above the lede box. If there isn't room
+   (portrait and viewport height < ~700px, or the clamp would collide with the heading), the label hides; the ring and
+   video still play. Desktop (landscape) position is unchanged. The rAF clock pauses while the hero is off-screen
+   (IntersectionObserver) or the tab is hidden, and resumes when it returns. Reduced motion still bails out above. */
 (function () {
   var html = document.documentElement;
   if (html.classList.contains('rm')) return;                     // reduced motion: poster only, no video clock, no roll call
@@ -20,6 +24,8 @@
   var EXIT_PORT = [2.05, 5.80, 9.68, 12.75];                     // phone: each role leaves before its face swings out of the tall frame
                                                                   // (swings start at 2.92, 6.68, 10.56 s; the last face leaves at ~13.6 s)
   var PLANET = [13.6, 24.0], RAMP = 0.9, GOLD = [228, 201, 122], CREAM = [245, 240, 232];
+  var LEDE_GAP = 12;                                              // min px between label bottom and the lede box top
+  var SHORT_H = 700;                                              // portrait shorter than this: hide the label (no room above the lede)
 
   var rc = document.createElement('div'); rc.className = 'rc'; rc.setAttribute('aria-hidden', 'true');
   function words(text) { return text.split(' ').map(function (w) { return '<span class="m"><span class="w">' + w + '</span></span>'; }).join(' '); }
@@ -30,6 +36,7 @@
   var eb = [].slice.call(rc.querySelectorAll('.rc-eb .w')), ebRule = rc.querySelector('.rc-eyebrow');
   var content = document.querySelector('.hero-content');
   var h1 = document.getElementById('hero-title'), em = h1 && h1.querySelector('em');
+  var lede = document.querySelector('.hero-lede');
 
   var port = false;
   function place() {
@@ -37,9 +44,27 @@
     port = vid.videoWidth ? vid.videoHeight > vid.videoWidth : w / h < 0.8;       // follow the file actually playing
     var vw = port ? 720 : 1920, vh = port ? 1280 : 1080, s = Math.max(w / vw, h / vh), oy = (h - vh * s) / 2;
     rc.classList.toggle('rc-port', port);
+    rc.classList.remove('rc-hide');
     rc.style.top = Math.round(oy + (port ? TOP_PORT : TOP_LAND) * s) + 'px';
+    if (!port || !lede) return;                                   // desktop / landscape: leave the rail-relative position alone
+    var heroR = hero.getBoundingClientRect(), ledeR = lede.getBoundingClientRect(), rcR = rc.getBoundingClientRect();
+    var rcH = rcR.height;
+    if (!rcH) return;
+    if (ledeR.top - rcR.bottom >= LEDE_GAP) return;              // already clear of the lede box
+    var maxTop = ledeR.top - LEDE_GAP - rcH - heroR.top;
+    var titleR = h1 ? h1.getBoundingClientRect() : null;
+    var ceiling = titleR ? (titleR.bottom - heroR.top + LEDE_GAP) : 0;
+    if (h < SHORT_H || maxTop < ceiling) { rc.classList.add('rc-hide'); return; }  // no room: hide label, ring/video keep playing
+    rc.style.top = Math.round(maxTop) + 'px';
   }
   window.addEventListener('resize', place); vid.addEventListener('loadedmetadata', place); place();
+  if (window.visualViewport) visualViewport.addEventListener('resize', place);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+  if (typeof ResizeObserver === 'function') {
+    var ro = new ResizeObserver(place);
+    ro.observe(hero);
+    if (lede) ro.observe(lede);
+  }
 
   function qOut(x) { return 1 - Math.pow(1 - x, 4); }
   function cIn(x) { return x * x * x; }
@@ -73,5 +98,25 @@
     if (content) rc.style.opacity = getComputedStyle(content).opacity;   // fades with the hero copy when the page scrolls
   }
   window.__rcRender = render;                                     // QA captures seek the video and call this directly
-  (function tick() { if (!window.__rcFrozen) render(vid.currentTime || 0); requestAnimationFrame(tick); })();
+  var raf = 0, inView = true;
+  function ticking() { return inView && !document.hidden; }
+  function loop() {
+    raf = 0;
+    if (!ticking()) { window.__rcTicking = false; return; }        // do not schedule the next frame while paused
+    if (!window.__rcFrozen) render(vid.currentTime || 0);
+    window.__rcTicking = true;
+    window.__rcFrames = (window.__rcFrames || 0) + 1;              // QA: count only while the loop is actually running
+    raf = requestAnimationFrame(loop);
+  }
+  function kick() { if (ticking() && !raf) { place(); window.__rcTicking = true; raf = requestAnimationFrame(loop); } }
+  function stop() { if (raf) { cancelAnimationFrame(raf); raf = 0; } window.__rcTicking = false; }
+  document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else kick(); });
+  if (typeof IntersectionObserver === 'function') {
+    var io = new IntersectionObserver(function (ents) {
+      inView = !!(ents[0] && ents[0].isIntersecting);
+      if (inView) kick(); else stop();
+    });
+    io.observe(hero);
+  }
+  kick();
 })();
