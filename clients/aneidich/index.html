@@ -187,8 +187,14 @@
   .cta p{color:var(--muted);margin:10px auto 22px;max-width:520px;font-size:14.5px}
   .cta .btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
   a.btn{text-decoration:none}
-  footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;color:var(--muted-2);font-size:13px}
-  footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  footer{border-top:1px solid var(--line);padding:34px 0;margin-top:20px;color:var(--muted-2);font-size:13px;line-height:1.55}
+  footer .wrap{display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:10px 16px}
+  footer .legal{max-width:62ch}
+  @media(max-width:520px){
+    footer{padding:24px 0}
+    footer .wrap{flex-direction:column;gap:8px}
+    footer .legal{max-width:none}
+  }
 
   @media(max-width:900px){
     .idx-groups{grid-template-columns:minmax(0,1fr);gap:18px}
@@ -758,8 +764,8 @@
 
 <footer>
   <div class="wrap">
-    <div>&copy; 2026 AvatarAgency.ai &middot; Woodland Hills, California &middot; Prepared for Andre Neidich</div>
-    <div>Private client portal &mdash; please do not share this link.</div>
+    <div class="legal">Content on this page may contain AI-generated synthetic performers. Disclosed per NY law (eff. 6/9/26) &amp; FTC guidelines. © 2026 AvatarAgency.ai — All Rights Reserved · Los Angeles, California</div>
+    <div class="client">Prepared for Andre Neidich &middot; Private client portal &mdash; please do not share this link.</div>
   </div>
 </footer>
 
